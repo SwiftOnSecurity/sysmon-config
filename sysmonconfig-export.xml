@@ -22,6 +22,9 @@
 			<CommandLine condition="begin with">"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --type=</CommandLine> <!--Google:Chrome: massive command-line arguements-->
 			<CommandLine condition="begin with">"C:\Program Files\Google\Chrome\Application\chrome.exe" --type=</CommandLine> <!--Google:Chrome: massive command-line arguements-->
 			<CommandLine condition="begin with">"C:\Program Files (x86)\Google\Update\</CommandLine> <!--Google:Chrome: Updater-->
+			<!-- SECTION: Firefox -->
+			<CommandLine condition="begin with">"C:\Program Files\Mozilla Firefox\plugin-container.exe" --channel</CommandLine> <!-- Mozilla:Firefox massive command-line arguments-->
+			<CommandLine condition="begin with">"C:\Program Files (x86)\Mozilla Firefox\plugin-container.exe" --channel</CommandLine> <!-- Mozilla:Firefox massive command-line arguments-->
 			<!--SECTION: Dell-->
 			<Image condition="Image">C:\Program Files\Dell\SupportAssist\pcdrcui.exe</Image> <!--Dell:SupportAssist: routine actions-->
 			<Image condition="Image">C:\Program Files\Dell\SupportAssist\koala.exe</Image> <!--Dell:SupportAssist: routine actions-->
@@ -35,6 +38,9 @@
 			<!--SECTION: Drivers-->
 			<Image condition="begin with">C:\Program Files\NVIDIA Corporation\Display\</Image> <!--Nvidia:Driver: routine actions-->
 			<Image condition="begin with">C:\Program Files\Realtek\</Image>  <!--Realtek:Driver: routine actions-->
+			<!-- SECTION: McAfee -->
+			<!-- <Image condition="begin with">C:\Program Files (x86)\McAfee\Common Framework</Image> <!-- McAfee:Framework Stops all framework actions from reporting -->
+			<!-- <ParentImage condition="Image">C:\Program Files (x86)\McAfee\Common Framework\naPrdMgr.exe</ParentImage> <!-- McAfee:Scans Stops engine and scans from reporting--> 
 		</ProcessCreate>
 
 
