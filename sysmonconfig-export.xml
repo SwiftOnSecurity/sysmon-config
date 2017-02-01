@@ -15,6 +15,7 @@
 			<ParentCommandLine condition="begin with">C:\Windows\system32\svchost.exe -k DcomLaunch</ParentCommandLine>
 			<ParentCommandLine condition="begin with">%SystemRoot%\system32\csrss.exe ObjectDirectory=\Windows</ParentCommandLine> <!--Triggered when programs use the command shell, but without attribution so not worth time in my situation-->
 			<Image condition="begin with">C:\Program Files\Windows Defender</Image> <!--Microsoft:Windows:Defender in Win10-->
+			<Image condition="image">C:\Windows\System32\conhost.exe</Image>
 			<!--SECTION: Microsoft Office-->
 			<ParentImage condition="image">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeClickToRun.exe</ParentImage> <!--Microsoft:Office: Background process-->
 			<!--SECTION: Google-->
@@ -127,7 +128,7 @@
 		<FileCreate onmatch="include">
 			<TargetFilename condition="contains">\Start Menu</TargetFilename> <!--Microsoft:Windows: Startup links-->
 			<TargetFilename condition="contains">\Startup</TargetFilename> <!--Microsoft:Windows: Startup links-->
-			<TargetFilename condition="begin with">C:\Windows\Prefetch</TargetFilename> <!--Microsoft:Windows: Prefetch traces-->
+			<!-- <TargetFilename condition="begin with">C:\Windows\Prefetch</TargetFilename> --> <!--Microsoft:Windows: Prefetch traces-->
 			<TargetFilename condition="contains">\Content.Outlook\</TargetFilename> <!--Microsoft:Outlook: attachments-->
 			<TargetFilename condition="contains">\Downloads\</TargetFilename> <!--Downloaded files. Does not include "Run" files in IE-->
 			<TargetFilename condition="contains">\Temp\7z</TargetFilename> <!--7zip extractions-->
@@ -204,6 +205,7 @@
 		</RegistryEvent>
 		<RegistryEvent onmatch="exclude">
 		<!--COMMENT:	Remove low-information noise-->
+			<Image condition="image">C:\windows\explorer.exe</Image>
 			<Image condition="end with">Office\root\integration\integrator.exe</Image> <!--Microsoft:Office: C2R client-->
 			<TargetObject condition="end with">ShellBrowser</TargetObject> <!--Microsoft:InternetExplorer: Noise-->
 			<TargetObject condition="end with">\CurrentVersion\Run</TargetObject> <!--Microsoft:Windows: Remove noise from the "\Windows\CurrentVersion\Run" wildcard-->
