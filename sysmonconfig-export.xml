@@ -15,7 +15,8 @@
 			<ParentCommandLine condition="begin with">C:\Windows\system32\svchost.exe -k DcomLaunch</ParentCommandLine>
 			<ParentCommandLine condition="begin with">%SystemRoot%\system32\csrss.exe ObjectDirectory=\Windows</ParentCommandLine> <!--Triggered when programs use the command shell, but without attribution so not worth time in my situation-->
 			<Image condition="begin with">C:\Program Files\Windows Defender</Image> <!--Microsoft:Windows:Defender in Win10-->
-			<Image condition="image">C:\Windows\System32\conhost.exe</Image>
+			<Image condition="image">C:\Windows\System32\conhost.exe</Image> <!--Microsoft:Windows: Command line interface host process-->
+			<Image condition="image">C:\Windows\System32\wbem\WmiApSrv.exe</Image> <!--Microsoft:Windows: WMI performance adpater host process-->
 			<!--SECTION: Microsoft Office-->
 			<ParentImage condition="image">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeClickToRun.exe</ParentImage> <!--Microsoft:Office: Background process-->
 			<!--SECTION: Google-->
