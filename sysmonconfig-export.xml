@@ -41,8 +41,8 @@
 			<Image condition="begin with">C:\Program Files\NVIDIA Corporation\Display\</Image> <!--Nvidia:Driver: routine actions-->
 			<Image condition="begin with">C:\Program Files\Realtek\</Image>  <!--Realtek:Driver: routine actions-->
 			<!-- SECTION: McAfee -->
-			<!-- <Image condition="begin with">C:\Program Files (x86)\McAfee\Common Framework</Image> <!-- McAfee:Framework Stops all framework actions from reporting || Contributor @Darkbat91 -->
-			<!-- <ParentImage condition="Image">C:\Program Files (x86)\McAfee\Common Framework\naPrdMgr.exe</ParentImage> <!-- McAfee:Scans Stops engine and scans from reporting || Contributor @Darkbat91 -->
+			<!-- <Image condition="begin with">C:\Program Files (x86)\McAfee\Common Framework</Image> --> <!-- McAfee:Framework Stops all framework actions from reporting || Contributor @Darkbat91 -->
+			<!-- <ParentImage condition="Image">C:\Program Files (x86)\McAfee\Common Framework\naPrdMgr.exe</ParentImage> --> <!-- McAfee:Scans Stops engine and scans from reporting || Contributor @Darkbat91 -->
 		</ProcessCreate>
 
 
