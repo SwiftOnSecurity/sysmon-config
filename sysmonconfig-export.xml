@@ -34,6 +34,7 @@
 			<CommandLine condition="contains">AcroRd32.exe" /CR </CommandLine> <!--Adobe:AcrobatReader: Uninsteresting sandbox subprocess-->
 			<CommandLine condition="contains">AcroRd32.exe" --channel</CommandLine> <!--Adobe:AcrobatReader: Uninteresting sandbox subprocess-->
 			<Image condition="image">C:\Windows\SysWOW64\Macromed\Flash\FlashPlayerUpdateService.exe</Image> <!--Adobe:Flash: Properly hardened updater, not a risk-->
+				<!-- COMMENT: Still debating about consolidating Adobe common files entries -->
 			<Image condition="Image">C:\Program Files (x86)\Common Files\Adobe\AdobeGCClient\AdobeGCClient.exe</Image> <!--Adobe:Creative Cloud-->
 			<Image condition="image">C:\Program Files (x86)\Common Files\Adobe\OOBE\PDApp\P6\adobe_licutil.exe</Image> <!--Adobe:License utility-->
 			<Image condition="image">C:\Program Files (x86)\Common Files\Adobe\ARM\1.0\AdobeARM.exe</Image> <!--Adobe:Updater: Properly hardened updater, not a risk-->
