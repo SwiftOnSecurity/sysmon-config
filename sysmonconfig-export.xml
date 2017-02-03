@@ -2,8 +2,11 @@
 	<HashAlgorithms>md5,IMPHASH</HashAlgorithms>
 	<EventFiltering>
 	
-	
+	<!--SYSMON EVENT ID 1 : PROCESS CREATION -->
 		<ProcessCreate onmatch="exclude">
+		<!--COMMENT:	All process launched will be included in log, except for what mactches a rule below. It's best to be as specific as possible, to
+				avoid user-mode executables immitating other process names to avoid logging, or if malware drops files in an existing directory.
+				Ultimately, you must weigh CPU time checking many detailed rules, against the risk of malware exploiting the blindness created.-->
 			<!--SECTION: Microsoft Windows-->
 			<IntegrityLevel condition="is">AppContainer</IntegrityLevel> <!--Microsoft:Windows: Don't care about sandboxed processes-->
 			<Image condition="begin with">C:\Windows\SystemApps</Image> <!--Microsoft:Windows: Don't care about sandboxed processes-->
@@ -34,7 +37,7 @@
 			<CommandLine condition="contains">AcroRd32.exe" /CR </CommandLine> <!--Adobe:AcrobatReader: Uninsteresting sandbox subprocess-->
 			<CommandLine condition="contains">AcroRd32.exe" --channel</CommandLine> <!--Adobe:AcrobatReader: Uninteresting sandbox subprocess-->
 			<Image condition="image">C:\Windows\SysWOW64\Macromed\Flash\FlashPlayerUpdateService.exe</Image> <!--Adobe:Flash: Properly hardened updater, not a risk-->
-				<!-- COMMENT: Still debating about consolidating Adobe common files entries -->
+				<!-- COMMENT: Still debating about consolidating Adobe common files entries below -->
 			<Image condition="Image">C:\Program Files (x86)\Common Files\Adobe\AdobeGCClient\AdobeGCClient.exe</Image> <!--Adobe:Creative Cloud-->
 			<Image condition="image">C:\Program Files (x86)\Common Files\Adobe\OOBE\PDApp\P6\adobe_licutil.exe</Image> <!--Adobe:License utility-->
 			<Image condition="image">C:\Program Files (x86)\Common Files\Adobe\ARM\1.0\AdobeARM.exe</Image> <!--Adobe:Updater: Properly hardened updater, not a risk-->
@@ -47,7 +50,7 @@
 			<!-- <ParentImage condition="Image">C:\Program Files (x86)\McAfee\Common Framework\naPrdMgr.exe</ParentImage> --> <!-- McAfee:Scans Stops engine and scans from reporting || Contributor @Darkbat91 -->
 		</ProcessCreate>
 
-
+	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM -->
 		<FileCreateTime onmatch="include">
 			<Image condition="begin with">C:\Users</Image> <!--Look for timestomping in user area-->
 		</FileCreateTime>
@@ -55,7 +58,7 @@
 			<Image condition="image">OneDrive.exe</Image> <!--OneDrive constantly changes file times-->
 		</FileCreateTime>
 
-
+	<!--SYSMON EVENT ID 3 : NETWORK CONNECTION INITIATED -->
 		<NetworkConnect onmatch="include">
 		<!--COMMENT:	Takes a very conservative approach to network logging.-->
 			<!--Suspicious sources-->
@@ -83,24 +86,26 @@
 			<DestinationHostname condition="end with">microsoft.com.nsatc.net</DestinationHostname> <!--Microsoft:Update delivery-->
 		</NetworkConnect>
 
+	<!--SYSMON EVENT ID 4 : RESERVED FOR SYSMON STATUS MESSAGES, THIS LINE IS INCLUDED FOR DOCUMENTATION PURPOSES ONLY -->
 
+	<!--SYSMON EVENT ID 5 : PROCESS ENDED -->
 		<ProcessTerminate onmatch="include">
-		<!--COMMENT:	Useful data in building infection timelines-->
+		<!--COMMENT:	Useful data in building infection timelines.-->
 			<Image condition="begin with">C:\Users</Image> <!--Process terminations by user binaries-->
 		</ProcessTerminate>
 
-
+	<!--SYSMON EVENT ID 6 : DRIVER LOADED INTO KERNEL -->
 		<DriverLoad onmatch="exclude">
-		<!--COMMENT:	Because drivers with bugs can be used to escalate to kernel permissions,
-						be extremely selective about what you exclude from monitoring.-->
+		<!--COMMENT:	Because drivers with bugs can be used to escalate to kernel permissions, be extremely selective
+				about what you exclude from monitoring. Low event volume, little incentive to exclude.-->
 			<Signature condition="contains">microsoft</Signature> <!--Exclude signed Microsoft drivers-->
 			<Signature condition="contains">windows</Signature> <!--Exclude signed Microsoft drivers-->
 			<Signature condition="begin with">Intel </Signature> <!--Exclude signed Intel drivers-->
 		</DriverLoad>
 
-
+	<!--SYSMON EVENT ID 7 : DLL LOADED BY PROCESS -->
 		<ImageLoad onmatch="include">
-		<!--COMMENT:	Causes high system load, disabled by default, important examples included below -->
+		<!--COMMENT:	Can cause high system load, disabled by default, important examples included below. -->
 			<!-- <ImageLoaded condition="contains">system.automation</ImageLoaded> -->
 			<!-- <ImageLoaded condition="image">wshom.ocx</ImageLoaded> -->
 			<!-- <ImageLoaded condition="image">vbscript.dll</ImageLoaded> -->
@@ -112,8 +117,10 @@
 			<!-- <ImageLoaded condition="image">jp2iexp.dll</ImageLoaded> -->
 		</ImageLoad>
 
-
+	<!--SYSMON EVENT ID 8 : REMOTE THREAD CREATED -->
 		<CreateRemoteThread onmatch="exclude">
+		<!--COMMENT:	Monitor for processes injecting code into other processes. Often used by malware to cloak their actions.
+				Exclude mostly-safe sources and log anything else.-->
 			<SourceImage condition="image">C:\Windows\System32\wbem\WmiPrvSE.exe</SourceImage>
 			<SourceImage condition="image">C:\Windows\System32\svchost.exe</SourceImage>
 			<SourceImage condition="image">C:\Windows\System32\wininit.exe</SourceImage>
@@ -125,17 +132,21 @@
 			<TargetImage condition="end with">Google\Chrome\Application\chrome.exe</TargetImage>
 		</CreateRemoteThread>
 
-
+	<!--SYSMON EVENT ID 9 : RAW DISK ACCESS -->
 		<RawAccessRead onmatch="include">
-		<!--COMMENT:	Disabled. Reward/performance decision.-->
+		<!--COMMENT:	Monitor for raw sector-level access to the disk, often used to bypass access control lists or access locked files.
+				Disabled by default since including even one entry here activates this component. Reward/performance/rule maintenance decision.
+				Encourage you to experiment with this feature yourself.-->
 		</RawAccessRead>
 
-
+	<!--SYSMON EVENT ID 10 : INTER-PROCESS ACCESS -->
 		<ProcessAccess onmatch="include">
-		<!--COMMENT:	Disabled. Reward/performance decision.-->
+		<!--COMMENT:	Monitor for processes accessing other process' memory. This can be valuable, but can cause massive event glut.
+				Disabled by default since including even one entry here activates this component. Reward/performance decision.
+				Encourage you to experiment with this feature yourself.-->
 		</ProcessAccess>
 
-
+	<!--SYSMON EVENT ID 11 : FILE CREATED -->
 		<FileCreate onmatch="include">
 			<TargetFilename condition="contains">\Start Menu</TargetFilename> <!--Microsoft:Windows: Startup links-->
 			<TargetFilename condition="contains">\Startup</TargetFilename> <!--Microsoft:Windows: Startup links-->
@@ -165,7 +176,7 @@
 			<TargetFilename condition="end with">\Start Menu\Programs\Startup</TargetFilename> <!-- Microsoft:Windows: Cleanup noise of stub folder creation -->
 		</FileCreate>
 
-
+	<!--SYSMON EVENT ID 12 & 13 & 14 : REGISTRY MODIFICATION -->
 		<RegistryEvent onmatch="include">
 			<!--Windows shell hijack-->
 			<TargetObject condition="contains">Windows\CurrentVersion\Shell Extensions</TargetObject> <!--Microsoft:Windows: http://oalabs.openanalysis.net/2015/06/04/malware-persistence-hkey_current_user-shell-extension-handlers/ -->
@@ -225,8 +236,12 @@
 			<TargetObject condition="end with">\CurrentVersion\Shell Extensions\Cached</TargetObject> <!--Microsoft:Windows: Remove noise from the "\CurrentVersion\Shell Extensions\Cached" wildcard-->
 		</RegistryEvent>
 
-
+	<!--SYSMON EVENT ID 15 : ALTERNATE DATA STREAM CREATED -->
 		<FileCreateStreamHash onmatch="include">
+		<!--COMMENT:	Any files created with an NTFS Alternate Data Stream which match these rules will be hashed and logged.
+				https://blogs.technet.microsoft.com/askcore/2013/03/24/alternate-data-streams-in-ntfs/
+				ADS's are used by browsers and email clients to mark files as originating from the Internet or other foreign sources.
+				https://textslashplain.com/2016/04/04/downloads-and-the-mark-of-the-web/ -->
 			<TargetFilename condition="contains">Content.Outlook</TargetFilename> <!--Microsoft:Outlook: Attachments-->
 			<TargetFilename condition="contains">Downloads</TargetFilename> <!--Downloaded files. Does not include "Run" files in IE-->
 			<TargetFilename condition="contains">Temp\7z</TargetFilename> <!--7zip extractions-->
