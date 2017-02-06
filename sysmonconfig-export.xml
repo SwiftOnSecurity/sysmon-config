@@ -191,31 +191,31 @@
 			<TargetObject condition="contains">\Windows\System\Scripts</TargetObject> <!--Microsoft:Windows: Logon, Loggoff, Shutdown-->
 			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify\</TargetObject> <!--Microsoft:Windows: Autorun location-->
 			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Userinit\</TargetObject> <!--Microsoft:Windows: Autorun location-->
-			<TargetObject condition="end with">\ServiceDll</TargetObject> <!--Microsoft:Windows: Services [ https://blog.cylance.com/windows-registry-persistence-part-1-introduction-attack-phases-and-windows-services ] -->
-			<TargetObject condition="end with">\ImagePath</TargetObject> <!--Microsoft:Windows: https://github.com/crypsisgroup/Splunkmon/blob/master/sysmon.cfg -->
+			<TargetObject condition="end with">\ServiceDll</TargetObject> <!--Microsoft:Windows: Value that points to a service's DLL [ https://blog.cylance.com/windows-registry-persistence-part-1-introduction-attack-phases-and-windows-services ] -->
+			<TargetObject condition="end with">\ImagePath</TargetObject> <!--Microsoft:Windows: Value that point to a service's EXE [ https://github.com/crypsisgroup/Splunkmon/blob/master/sysmon.cfg ] -->
 			<!--AppPaths hijacking-->
 			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\</TargetObject> <!--Microsoft:Windows: Credit to @Hexacorn [ http://www.hexacorn.com/blog/2013/01/19/beyond-good-ol-run-key-part-3/ ] -->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\AppCertDlls\</TargetObject> <!--Microsoft:Windows: Credit to @Hexacorn [ http://www.hexacorn.com/blog/2013/01/19/beyond-good-ol-run-key-part-3/ ] -->
+			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Session Manager\AppCertDlls\</TargetObject> <!--Microsoft:Windows: Credit to @Hexacorn [ http://www.hexacorn.com/blog/2013/01/19/beyond-good-ol-run-key-part-3/ ] -->
 			<!--Terminal service boobytraps-->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp\InitialProgram</TargetObject>
+			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Terminal Server\WinStations\RDP-Tcp\InitialProgram</TargetObject>
 			<!--File association changes-->
 			<TargetObject condition="contains">\shell\install\command\</TargetObject> <!--Microsoft:Windows: Subkey under file associations and CLSID that map to launch command-->
 			<TargetObject condition="contains">\shell\open\command\</TargetObject> <!--Microsoft:Windows: Subkey under file associations and CLSID that map to launch command-->
 			<TargetObject condition="contains">\Explorer\FileExts\</TargetObject> <!--Microsoft:Windows: Changes to file extension mapping-->
 			<!--Group Policy interity-->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\GPExtensions\</TargetObject>
+			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\GPExtensions\</TargetObject> <!--Microsoft:Windows: Group Policy internally uses a plugin architecture that nothing should be modifying-->
 			<!--Winsock and Winsock2-->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\CurrentControlSet\Services\WinSock</TargetObject> <!--Microsoft:Windows: Wildcard, includes Winsock and Winsock2-->
+			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Services\WinSock</TargetObject> <!--Microsoft:Windows: Wildcard, includes Winsock and Winsock2-->
 			<!--Credential providers-->
 			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\Credential Provider</TargetObject> <!--Wildcard, includes Credental Providers and Credential Provider Filters-->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SecurityProviders</TargetObject>
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\</TargetObject>
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\CurrentControlSet\Control\NetworkProvider\Order\</TargetObject> <!-- https://www.malwarearchaeology.com/cheat-sheets -->
-			<!--AppInit-->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject>
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject>
+			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\SecurityProviders\SecurityProviders</TargetObject>
+			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa\</TargetObject>
+			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\NetworkProvider\Order\</TargetObject> <!-- https://www.malwarearchaeology.com/cheat-sheets -->
+			<!--DLLs that get injected into every process launch-->
+			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/windows/desktop/dd744762(v=vs.85).aspx ] -->
+			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/windows/desktop/dn280412(v=vs.85).aspx ] -->
 			<!--Printers-->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\CurrentControlSet\Control\Print\Monitors\</TargetObject>
+			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Print\Monitors\</TargetObject> <!--Microsoft:Windows: Printer>
 			<!--Office-->
 			<TargetObject condition="contains">\Microsoft\Office\Outlook\Addins\</TargetObject> <!--Microsoft:Office: Outlook add-ins-->
 			<!--IE-->
