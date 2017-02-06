@@ -64,11 +64,11 @@
 			<!--Suspicious sources-->
 			<Image condition="begin with">C:\Users</Image>
 			<Image condition="begin with">C:\ProgramData</Image>
-			<Image condition="end with">powershell.exe</Image> <!--Microsoft:Windows: PowerShell interface-->
-			<Image condition="end with">cmd.exe</Image> <!--Microsoft:Windows: Command prompt-->
-			<Image condition="end with">wmic.exe</Image> <!--Microsoft:WindowsManagementInstrumentation: Credit to @Neo23x0 [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
-			<Image condition="end with">cscript.exe</Image> <!--Microsoft:WindowsScriptingHost: Credit to @Neo23x0 [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
-			<Image condition="end with">wscript.exe</Image> <!--Microsoft:WindowsScriptingHost: Credit to @arekfurt for reminder -->
+			<Image condition="image">powershell.exe</Image> <!--Microsoft:Windows: PowerShell interface-->
+			<Image condition="image">cmd.exe</Image> <!--Microsoft:Windows: Command prompt-->
+			<Image condition="image">wmic.exe</Image> <!--Microsoft:WindowsManagementInstrumentation: Credit to @Neo23x0 [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
+			<Image condition="image">cscript.exe</Image> <!--Microsoft:WindowsScriptingHost: Credit to @Neo23x0 [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
+			<Image condition="image">wscript.exe</Image> <!--Microsoft:WindowsScriptingHost: Credit to @arekfurt for reminder -->
 			<!--Suspicious destinations-->
 			<DestinationHostname condition="is">api.ipify.org</DestinationHostname> <!--Malware uses to get external IP address-->
 			<DestinationHostname condition="is">whatismyipaddress.com</DestinationHostname> <!--Malware uses to get external IP address-->
