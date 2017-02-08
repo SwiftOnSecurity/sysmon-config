@@ -10,17 +10,22 @@
 			<!--SECTION: Microsoft Windows-->
 			<IntegrityLevel condition="is">AppContainer</IntegrityLevel> <!--Microsoft:Windows: Don't care about sandboxed processes-->
 			<Image condition="begin with">C:\Windows\SystemApps</Image> <!--Microsoft:Windows: Don't care about sandboxed processes-->
-			<ParentImage condition="image">C:\Windows\system32\SearchIndexer.exe</ParentImage> <!--Microsoft:Windows:Search: Launches many uninteresting sub-processes-->
 			<Image condition="image">C:\Windows\System32\audiodg.exe</Image> <!--Microsoft:Windows: Launched constantly-->
-			<ParentImage condition="image">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\mscorsvw.exe</ParentImage> <!--Microsoft:DotNet-->
-			<ParentImage condition="image">C:\Windows\Microsoft.NET\Framework\v4.0.30319\mscorsvw.exe</ParentImage> <!--Microsoft:DotNet-->
-			<CommandLine condition="begin with">C:\Windows\system32\DllHost.exe /Processid</CommandLine>
-			<ParentCommandLine condition="begin with">C:\Windows\system32\svchost.exe -k DcomLaunch</ParentCommandLine>
-			<ParentCommandLine condition="begin with">%SystemRoot%\system32\csrss.exe ObjectDirectory=\Windows</ParentCommandLine> <!--Triggered when programs use the command shell, but without attribution so not worth time in my situation-->
-			<Image condition="begin with">C:\Program Files\Windows Defender</Image> <!--Microsoft:Windows:Defender in Win10-->
 			<Image condition="image">C:\Windows\System32\conhost.exe</Image> <!--Microsoft:Windows: Command line interface host process-->
 			<Image condition="image">C:\Windows\System32\wbem\WmiApSrv.exe</Image> <!--Microsoft:Windows: WMI performance adpater host process-->
+			<ParentImage condition="image">C:\Windows\system32\SearchIndexer.exe</ParentImage> <!--Microsoft:Windows:Search: Launches many uninteresting sub-processes-->
+			<CommandLine condition="begin with">C:\Windows\system32\DllHost.exe /Processid</CommandLine> <!--Microsoft:Windows-->
+			<ParentCommandLine condition="begin with">C:\Windows\system32\svchost.exe -k DcomLaunch</ParentCommandLine> <!--Microsoft:Windows-->
+			<ParentCommandLine condition="begin with">%SystemRoot%\system32\csrss.exe ObjectDirectory=\Windows</ParentCommandLine> <!--Microsoft:Windows:CommandShell: Triggered when programs use the command shell, but without attribution-->
+			<Image condition="begin with">C:\Program Files\Windows Defender</Image> <!--Microsoft:Windows:Defender in Win10-->
+			<!--SECTION: Microsoft dotNet-->
+			<ParentImage condition="image">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\mscorsvw.exe</ParentImage> <!--Microsoft:DotNet-->
+			<Image condition="image">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\mscorsvw.exe</Image> <!--Microsoft:DotNet-->
+			<ParentImage condition="image">C:\Windows\Microsoft.NET\Framework\v4.0.30319\mscorsvw.exe</ParentImage> <!--Microsoft:DotNet-->
+			<Image condition="image">C:\Windows\Microsoft.NET\Framework\v4.0.30319\mscorsvw.exe</Image> <!--Microsoft:DotNet-->
 			<!--SECTION: Microsoft Office-->
+			<Image condition="image">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeC2RClient.exe</Image> <!--Microsoft:Office: Background process-->
+			<Image condition="image">C:\Program Files\Common Files\Microsoft Shared\OfficeSoftwareProtectionPlatform\OSPPSVC.EXE</Image> <!--Microsoft:Office: Background process-->
 			<ParentImage condition="image">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeClickToRun.exe</ParentImage> <!--Microsoft:Office: Background process-->
 			<ParentImage condition="image">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeC2RClient.exe</ParentImage> <!--Microsoft:Office: Background process-->
 			<!--SECTION: Google-->
@@ -64,11 +69,15 @@
 			<!--Suspicious sources-->
 			<Image condition="begin with">C:\Users</Image>
 			<Image condition="begin with">C:\ProgramData</Image>
+			<Image condition="begin with">C:\Windows\Temp</Image>
 			<Image condition="image">powershell.exe</Image> <!--Microsoft:Windows: PowerShell interface-->
 			<Image condition="image">cmd.exe</Image> <!--Microsoft:Windows: Command prompt-->
 			<Image condition="image">wmic.exe</Image> <!--Microsoft:WindowsManagementInstrumentation: Credit to @Neo23x0 [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
 			<Image condition="image">cscript.exe</Image> <!--Microsoft:WindowsScriptingHost: Credit to @Neo23x0 [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
 			<Image condition="image">wscript.exe</Image> <!--Microsoft:WindowsScriptingHost: Credit to @arekfurt for reminder -->
+			<Image condition="image">rundll32.exe</Image> <!--Microsoft:Windows: [ https://blog.cobaltstrike.com/2016/07/22/why-is-rundll32-exe-connecting-to-the-internet/ ] -->
+			<Image condition="image">notepad.exe</Image> <!--Microsoft:Windows: [ https://blog.cobaltstrike.com/2013/08/08/why-is-notepad-exe-connecting-to-the-internet/ ] -->
+			<Image condition="image">regsvr32.exe</Image> <!--Microsoft:Windows: [ https://subt0x10.blogspot.com/2016/04/bypass-application-whitelisting-script.html ] -->
 			<!--Suspicious destinations-->
 			<DestinationHostname condition="is">api.ipify.org</DestinationHostname> <!--Malware uses to get external IP address-->
 			<DestinationHostname condition="is">whatismyipaddress.com</DestinationHostname> <!--Malware uses to get external IP address-->
@@ -159,6 +168,7 @@
 			<TargetFilename condition="end with">.bat</TargetFilename> <!--Batch scripting-->
 			<TargetFilename condition="end with">.cmd</TargetFilename> <!--Batch scripting: Batch scripts can also use the .cmd extension | Credit: @mmazanec -->
 			<TargetFilename condition="end with">.ps1</TargetFilename> <!--PowerShell [ More information: http://www.hexacorn.com/blog/2014/08/27/beyond-good-ol-run-key-part-16/ ] -->
+			<TargetFilename condition="end with">.application</TargetFilename> <!--Microsoft:ClickOnce: [ https://blog.netspi.com/all-you-need-is-one-a-clickonce-love-story/ ] -->
 			<TargetFilename condition="begin with">C:\Users\Default</TargetFilename> <!--Microsoft:Windows: Changes to default user profile-->
 			<TargetFilename condition="begin with">C:\Windows\System32\GroupPolicy\Machine\Scripts</TargetFilename> <!--Group policy [ More information: http://www.hexacorn.com/blog/2017/01/07/beyond-good-ol-run-key-part-52/ ] -->
 			<TargetFilename condition="begin with">C:\Windows\System32\GroupPolicy\User\Scripts</TargetFilename> <!--Group policy [ More information: http://www.hexacorn.com/blog/2017/01/07/beyond-good-ol-run-key-part-52/ ] -->
@@ -195,6 +205,7 @@
 			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Userinit\</TargetObject> <!--Microsoft:Windows: Autorun location-->
 			<TargetObject condition="end with">\ServiceDll</TargetObject> <!--Microsoft:Windows: Value that points to a service's DLL [ https://blog.cylance.com/windows-registry-persistence-part-1-introduction-attack-phases-and-windows-services ] -->
 			<TargetObject condition="end with">\ImagePath</TargetObject> <!--Microsoft:Windows: Value that point to a service's EXE [ https://github.com/crypsisgroup/Splunkmon/blob/master/sysmon.cfg ] -->
+			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Safeboot</TargetObject> <!--Microsoft:Windows: Services approved to load in safe mode-->
 			<!--AppPaths hijacking-->
 			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\</TargetObject> <!--Microsoft:Windows: Credit to @Hexacorn [ http://www.hexacorn.com/blog/2013/01/19/beyond-good-ol-run-key-part-3/ ] -->
 			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Session Manager\AppCertDlls\</TargetObject> <!--Microsoft:Windows: Credit to @Hexacorn [ http://www.hexacorn.com/blog/2013/01/19/beyond-good-ol-run-key-part-3/ ] -->
@@ -212,7 +223,8 @@
 			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\Credential Provider</TargetObject> <!--Wildcard, includes Credental Providers and Credential Provider Filters-->
 			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\SecurityProviders\SecurityProviders</TargetObject>
 			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa\</TargetObject>
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\NetworkProvider\Order\</TargetObject> <!-- https://www.malwarearchaeology.com/cheat-sheets -->
+			<!--Networking-->
+			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\NetworkProvider\Order\</TargetObject> <!--Microsoft:Windows: Order of network providers that are checked to connect to destination [ https://www.malwarearchaeology.com/cheat-sheets ] -->
 			<!--DLLs that get injected into every process launch-->
 			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/windows/desktop/dd744762(v=vs.85).aspx ] -->
 			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/windows/desktop/dn280412(v=vs.85).aspx ] -->
@@ -223,6 +235,8 @@
 			<TargetObject condition="contains">\Internet Explorer\Extensions\</TargetObject> <!--Microsoft:InternetExplorer: Machine and user-->
 			<!--Magic registry keys-->
 			<TargetObject condition="contains">\{AB8902B4-09CA-4bb6-B78D-A8F59079A8D5}\</TargetObject> <!--Microsoft:Windows: Thumbnail cache autostart [ http://blog.trendmicro.com/trendlabs-security-intelligence/poweliks-levels-up-with-new-autostart-mechanism/ ] -->
+			<!--Infection artifacts-->
+			<TargetObject condition="end with">\UrlUpdateInfo</TargetObject> <!--Microsoft:ClickOnce: [ https://subt0x10.blogspot.com/2016/12/mimikatz-delivery-via-clickonce-with.html ] -->
 			<!--Commonly malicious indicators-->
 			<!-- NOT IMPLEMENTED IN SYSMON <Details condition="begin with">rundll32.exe</Details> --> <!-- Often used to kickstart viruses [ http://blog.trendmicro.com/trendlabs-security-intelligence/poweliks-levels-up-with-new-autostart-mechanism/ ] -->
 		</RegistryEvent>
@@ -235,9 +249,15 @@
 			<TargetObject condition="end with">Toolbar\WebBrowser\ITBar7Height</TargetObject> <!--Microsoft:IE: Extraneous activity-->
 			<TargetObject condition="end with">ShellBrowser</TargetObject> <!--Microsoft:InternetExplorer: Noise-->
 			<TargetObject condition="end with">\CurrentVersion\Run</TargetObject> <!--Microsoft:Windows: Remove noise from the "\Windows\CurrentVersion\Run" wildcard-->
+			<TargetObject condition="end with">\CurrentVersion\RunOnce</TargetObject> <!--Microsoft:Windows: Remove noise from the "\Windows\CurrentVersion\Run" wildcard-->
 			<TargetObject condition="end with">\CurrentVersion\App Paths</TargetObject> <!--Microsoft:Windows: Remove noise from the "\Windows\CurrentVersion\App Paths" wildcard-->
 			<TargetObject condition="end with">\CurrentVersion\Image File Execution Options</TargetObject> <!--Microsoft:Windows: Remove noise from the "\Windows\CurrentVersion\Image File Execution Options" wildcard-->
 			<TargetObject condition="end with">\CurrentVersion\Shell Extensions\Cached</TargetObject> <!--Microsoft:Windows: Remove noise from the "\CurrentVersion\Shell Extensions\Cached" wildcard-->
+			<TargetObject condition="end with">\CurrentVersion\Shell Extensions\Approved</TargetObject> <!--Microsoft:Windows: Remove noise from the "\CurrentVersion\Shell Extensions\Approved" wildcard-->
+			<TargetObject condition="end with">}\PreviousPolicyAreas</TargetObject> <!--Microsoft:Windows: Remove noise from \Winlogon\GPExtensions by svchost.exe-->
+			<TargetObject condition="end with">clr_optimization_v4.0.30319_32\Start</TargetObject> <!--Microsoft:dotNet-->
+			<TargetObject condition="contains">\Control\WMI\Autologger\</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "\Start" -->
+			<TargetObject condition="end with">\services\TrustedInstaller\Start</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "\Start" -->
 		</RegistryEvent>
 
 	<!--SYSMON EVENT ID 15 : ALTERNATE DATA STREAM CREATED -->
