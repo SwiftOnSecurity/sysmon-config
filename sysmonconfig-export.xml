@@ -1,6 +1,6 @@
 <!--
 	sysmon-config | A sysmon configuration for everyone
-	Public Version: 26
+	Public Version: 27
 	By @SwiftOnSecurity, with contributors credited in-line or on Git
 	https://github.com/SwiftOnSecurity/sysmon-config
 	
@@ -137,6 +137,9 @@
 			<!-- <ImageLoaded condition="image">scrrun.dll</ImageLoaded> -->
 			<!-- <ImageLoaded condition="contains">npjpi</ImageLoaded> -->
 			<!-- <ImageLoaded condition="image">jp2iexp.dll</ImageLoaded> -->
+			<!-- Mimikatz -->
+				<!--NOTES: [ https://securityriskadvisors.com/blog/post/detecting-in-memory-mimikatz/ ] -->
+			<!-- <ImageLoaded condition="image">wdigest.dll</ImageLoaded> -->
 		</ImageLoad>
 
 	<!--SYSMON EVENT ID 8 : REMOTE THREAD CREATED -->
@@ -171,7 +174,7 @@
 	<!--SYSMON EVENT ID 11 : FILE CREATED -->
 		<FileCreate onmatch="include">
 			<TargetFilename condition="contains">\Start Menu</TargetFilename> <!--Microsoft:Windows: Startup links and shortcut modification-->
-			<!-- <TargetFilename condition="begin with">C:\Windows\Prefetch</TargetFilename> --> <!--Microsoft:Windows: Prefetch traces-->
+			<!--Default-disable <TargetFilename condition="begin with">C:\Windows\Prefetch</TargetFilename> --> <!--Microsoft:Windows: Prefetch traces-->
 			<TargetFilename condition="contains">\Content.Outlook\</TargetFilename> <!--Microsoft:Outlook: attachments-->
 			<TargetFilename condition="contains">\Downloads\</TargetFilename> <!--Downloaded files. Does not include "Run" files in IE-->
 			<TargetFilename condition="contains">\Temp\7z</TargetFilename> <!--7zip extractions-->
@@ -191,6 +194,8 @@
 			<TargetFilename condition="begin with">C:\Windows\System32\WindowsPowerShell</TargetFilename> <!--Microsoft:Powershell: Look for modifications for persistence [ https://www.malwarearchaeology.com/cheat-sheets ] -->
 			<TargetFilename condition="begin with">C:\Windows\SysWOW64\WindowsPowerShell</TargetFilename> <!--Microsoft:Powershell: Look for modifications for persistence [ https://www.malwarearchaeology.com/cheat-sheets ] -->
 			<TargetFilename condition="end with">.cmdline</TargetFilename> <!--Microsoft:dotNet: Executed by cvtres.exe-->
+			<!--SECTION: Mimikatz-->
+			<!--Default-disable <TargetFileName condition="end with">.kirbi</TargetFileName> --> <!-- [ https://github.com/gentilkiwi/mimikatz/wiki/module-~-kerberos ] -->
 		</FileCreate>
 		<FileCreate onmatch="exclude">
 			<TargetFilename condition="end with">\Downloads</TargetFilename> <!-- Microsoft:Windows: Cleanup noise of stub folder creation -->
@@ -232,6 +237,7 @@
 			<TargetObject condition="end with">\ImagePath</TargetObject> <!--Microsoft:Windows: Value that point to a service's EXE [ https://github.com/crypsisgroup/Splunkmon/blob/master/sysmon.cfg ] -->
 			<TargetObject condition="end with">\Start</TargetObject> <!--Microsoft:Windows: Services start changes-->
 			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Safeboot</TargetObject> <!--Microsoft:Windows: Services approved to load in safe mode-->
+			<!--Default-disable <TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SvcHost</TargetObject> --> <!--Microsoft:Windows: Service groups-->
 			<!--AppPaths hijacking-->
 			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\</TargetObject> <!--Microsoft:Windows: Credit to @Hexacorn [ http://www.hexacorn.com/blog/2013/01/19/beyond-good-ol-run-key-part-3/ ] -->
 			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Session Manager\AppCertDlls\</TargetObject> <!--Microsoft:Windows: Credit to @Hexacorn [ http://www.hexacorn.com/blog/2013/01/19/beyond-good-ol-run-key-part-3/ ] -->
