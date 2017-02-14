@@ -1,6 +1,6 @@
 <!--
 	sysmon-config | A sysmon configuration for everyone
-	Public Version: 30
+	Public Version: 31
 	By @SwiftOnSecurity, with contributors credited in-line or on Git
 	https://github.com/SwiftOnSecurity/sysmon-config
 	
@@ -63,7 +63,7 @@
 			<Image condition="image">C:\Program Files (x86)\Common Files\Adobe\Adobe Desktop Common\HEX\Adobe CEF Helper.exe</Image>
 			<!--SECTION: Drivers-->
 			<Image condition="begin with">C:\Program Files\NVIDIA Corporation\Display\</Image> <!--Nvidia:Driver: routine actions-->
-			<Image condition="begin with">C:\Program Files\Realtek\</Image>  <!--Realtek:Driver: routine actions-->
+			<Image condition="begin with">C:\Program Files\Realtek\</Image> <!--Realtek:Driver: routine actions-->
 			<!-- SECTION: McAfee -->
 			<!-- <Image condition="begin with">C:\Program Files (x86)\McAfee\Common Framework</Image> --> <!-- McAfee:Framework Stops all framework actions from reporting || Contributor @Darkbat91 -->
 			<!-- <ParentImage condition="Image">C:\Program Files (x86)\McAfee\Common Framework\naPrdMgr.exe</ParentImage> --> <!-- McAfee:Scans Stops engine and scans from reporting || Contributor @Darkbat91 -->
@@ -145,7 +145,7 @@
 			<!-- <ImageLoaded condition="image">jp2iexp.dll</ImageLoaded> -->
 			<!-- Mimikatz -->
 				<!--NOTES: [ https://securityriskadvisors.com/blog/post/detecting-in-memory-mimikatz/ ] -->
-			<!-- <ImageLoaded condition="image">wdigest.dll</ImageLoaded> -->
+				<!-- <ImageLoaded condition="image">wdigest.dll</ImageLoaded> -->
 		</ImageLoad>
 
 	<!--SYSMON EVENT ID 8 : REMOTE THREAD CREATED -->
@@ -175,6 +175,8 @@
 		<!--COMMENT:	Monitor for processes accessing other process' memory. This can be valuable, but can cause massive event glut.
 				Disabled by default since including even one entry here activates this component. Reward/performance decision.
 				Encourage you to experiment with this feature yourself.-->
+		<!--COMMENT:	Although this feature can be used to detect threats like Mimikatz, it requires a large amount of event be logged and backend correlation rules.
+				At this time, directly detecting Mimikatz's password exfiltration will be out of scope. Instead, you should rely on other indicators and PowerShell logging.-->
 		</ProcessAccess>
 
 	<!--SYSMON EVENT ID 11 : FILE CREATED -->
@@ -184,14 +186,16 @@
 				<!--Default-disable <TargetFilename condition="begin with">C:\Windows\Prefetch</TargetFilename> --> <!--Microsoft:Windows: Prefetch traces-->
 			<TargetFilename condition="contains">\Content.Outlook\</TargetFilename> <!--Microsoft:Outlook: attachments--> <!--PRIVACY WARNING-->
 			<TargetFilename condition="contains">\Downloads\</TargetFilename> <!--Downloaded files. Does not include "Run" files in IE--> <!--PRIVACY WARNING-->
-			<TargetFilename condition="contains">\Temp\7z</TargetFilename> <!--7zip extractions-->
-			<TargetFilename condition="contains">\Temp\rar$</TargetFilename> <!--Winrar extractions-->
+				<!--Default-disable <TargetFilename condition="contains">\Temp\7z</TargetFilename> --> <!--7zip extractions-->
+				<!--Default-disable <TargetFilename condition="contains">\Temp\rar$</TargetFilename> --> <!--Winrar extractions-->
+			<TargetFilename condition="end with">.exe</TargetFilename> <!--Executable-->
 			<TargetFilename condition="end with">.vbs</TargetFilename> <!--VisualBasicScripting-->
 			<TargetFilename condition="end with">.hta</TargetFilename> <!--Scripting-->
 			<TargetFilename condition="end with">.bat</TargetFilename> <!--Batch scripting-->
 			<TargetFilename condition="end with">.cmd</TargetFilename> <!--Batch scripting: Batch scripts can also use the .cmd extension | Credit: @mmazanec -->
 			<TargetFilename condition="end with">.ps1</TargetFilename> <!--PowerShell [ More information: http://www.hexacorn.com/blog/2014/08/27/beyond-good-ol-run-key-part-16/ ] -->
 			<TargetFilename condition="end with">.application</TargetFilename> <!--Microsoft:ClickOnce: [ https://blog.netspi.com/all-you-need-is-one-a-clickonce-love-story/ ] -->
+			<TargetFilename condition="end with">.sys</TargetFilename> <!--System driver files-->
 			<TargetFilename condition="begin with">C:\Users\Default</TargetFilename> <!--Microsoft:Windows: Changes to default user profile-->
 			<TargetFilename condition="begin with">C:\Windows\System32\GroupPolicy\Machine\Scripts</TargetFilename> <!--Group policy [ More information: http://www.hexacorn.com/blog/2017/01/07/beyond-good-ol-run-key-part-52/ ] -->
 			<TargetFilename condition="begin with">C:\Windows\System32\GroupPolicy\User\Scripts</TargetFilename> <!--Group policy [ More information: http://www.hexacorn.com/blog/2017/01/07/beyond-good-ol-run-key-part-52/ ] -->
@@ -286,12 +290,9 @@
 			<TargetObject condition="end with">\FriendlyName</TargetObject> <!--Microsoft:Windows: New devices connected and remembered-->
 			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Winlogon</TargetObject> <!--Microsoft:Windows: Providers notified by WinLogon-->
 			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Safeboot</TargetObject> <!--Microsoft:Windows: Services approved to load in safe mode-->
-				<!--TESTING--> <TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT</TargetObject> <!--Microsoft:Windows: Event log system integrity and ACLs-->
-				<!--TESTING--> <TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender</TargetObject> <!--Microsoft:Defender: Detect changes to Defender administrative settings to monitor for disablement-->
-				<!--TESTING--> <TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\ConsentPromptBehaviorUser</TargetObject> <!--Microsoft:Windows:UAC: Detect malware changes to UAC prompt level -->
-
-			<!--Commonly malicious indicators-->
-			<!-- NOT IMPLEMENTED IN SYSMON <Details condition="begin with">rundll32.exe</Details> --> <!-- Often used to kickstart viruses [ http://blog.trendmicro.com/trendlabs-security-intelligence/poweliks-levels-up-with-new-autostart-mechanism/ ] -->
+			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT</TargetObject> <!--Microsoft:Windows: Event log system integrity and ACLs-->
+			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender</TargetObject> <!--Microsoft:Defender: Detect changes to Defender administrative settings to monitor for disablement-->
+			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\ConsentPromptBehaviorUser</TargetObject> <!--Microsoft:Windows:UAC: Detect malware changes to UAC prompt level -->
 		</RegistryEvent>
 		<RegistryEvent onmatch="exclude">
 		<!--COMMENT:	Remove low-information noise-->
