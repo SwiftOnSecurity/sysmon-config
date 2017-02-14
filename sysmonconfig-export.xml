@@ -68,6 +68,14 @@
 			<!-- SECTION: McAfee -->
 			<!-- <Image condition="begin with">C:\Program Files (x86)\McAfee\Common Framework</Image> --> <!-- McAfee:Framework Stops all framework actions from reporting || Contributor @Darkbat91 -->
 			<!-- <ParentImage condition="Image">C:\Program Files (x86)\McAfee\Common Framework\naPrdMgr.exe</ParentImage> --> <!-- McAfee:Scans Stops engine and scans from reporting || Contributor @Darkbat91 -->
+			<!-- SECTION: SPLUNK -->
+			<Image condition="image">splunk-admon.exe</Image>
+			<Image condition="image">splunk-MonitorNoHandle.exe</Image>
+			<Image condition="image">splunk-netmon.exe</Image>
+			<Image condition="image">splunk-regmon.exe</Image>
+			<Image condition="image">splunk-powershell.exe</Image>
+			<Image condition="image">splunk-winprintmon.exe</Image>
+			<Image condition="image">splunk-admon.exe</Image>
 		</ProcessCreate>
 
 	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM -->
