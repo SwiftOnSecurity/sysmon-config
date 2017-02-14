@@ -2,7 +2,7 @@
 
 This is a Microsoft Sysinternals Sysmon configuration file template with default high-quality event tracing.
 
-This should function as a great starting point for system monitoring in a self-contained packaged. The configuration and results should give you a good idea of what's possible for Sysmon.
+The file provided should function as a great starting point for system monitoring in a self-contained packaged. The configuration and results should give you a good idea of what's possible for Sysmon.
 
 Because virtually every line is commented and sections are marked with explanations, it should also function as a tutorial for Sysmon and a guide to critical monitoring areas in Windows systems. It demonstrates a lot of what I wish I knew when I began with Sysmon in 2014.
 
