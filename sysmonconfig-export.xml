@@ -16,7 +16,7 @@
 
 	<!--SYSMON EVENT ID 1 : PROCESS CREATION -->
 		<ProcessCreate onmatch="exclude">
-		<!--COMMENT:	All process launched will be included in log, except for what mactches a rule below. It's best to be as specific as possible, to
+		<!--COMMENT:	All process launched will be included in log, except for what matches a rule below. It's best to be as specific as possible, to
 				avoid user-mode executables immitating other process names to avoid logging, or if malware drops files in an existing directory.
 				Ultimately, you must weigh CPU time checking many detailed rules, against the risk of malware exploiting the blindness created.-->
 			<!--SECTION: Microsoft Windows-->
