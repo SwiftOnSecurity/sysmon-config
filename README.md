@@ -2,13 +2,15 @@
 
 This is a Microsoft Sysinternals Sysmon configuration file template with default high-quality event tracing.
 
-Should serve as a great starting point to tune Sysmon for your environment - implement it on test systems and add entries to screen out uninteresting events. Should give you an idea of what's possible for Sysmon. It demonstrates a lot of what I wish I knew when I began in 2014.
+This should function as a great starting point for system monitoring in a self-contained packaged. The configuration and results should give you a good idea of what's possible for Sysmon.
 
-Because virtually every line is commented and sections are marked with explanations, it should also function as a tutorial for Sysmon and a guide to critical monitoring areas in Windows systems.
+Because virtually every line is commented and sections are marked with explanations, it should also function as a tutorial for Sysmon and a guide to critical monitoring areas in Windows systems. It demonstrates a lot of what I wish I knew when I began with Sysmon in 2014.
 
-Pull requests are welcome, new additions will be credited in-line or on Git.
+Pull requests and issue tickets are welcome, and new additions will be credited in-line or on Git.
 
 Note: Exact syntax and filtering choices are deliberate to catch appropriate entries and to have as little performance impact as possible. Sysmon's filtering abilities are different than the built-in Windows auditing features, so often a different approach is taken than the normal static listing of every possible important area.
+
+You can contact @SwiftOnSecurity on Twitter for any urgent questions or issues.
 
 ## Use ##
 ### Install ###
