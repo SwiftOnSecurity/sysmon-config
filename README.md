@@ -2,7 +2,9 @@
 
 This is a Microsoft Sysinternals Sysmon configuration file template with default high-quality event tracing.
 
-The file provided should function as a great starting point for system monitoring in a self-contained packaged. The configuration and results should give you a good idea of what's possible for Sysmon.
+The file provided should function as a great starting point for system monitoring in a self-contained package. This configuration and results should give you a good idea of what's possible for Sysmon.
+
+**[sysmonconfig-export.xml](https://github.com/SwiftOnSecurity/sysmon-config/blob/master/sysmonconfig-export.xml)**
 
 Because virtually every line is commented and sections are marked with explanations, it should also function as a tutorial for Sysmon and a guide to critical monitoring areas in Windows systems. It demonstrates a lot of what I wish I knew when I began with Sysmon in 2014.
 
