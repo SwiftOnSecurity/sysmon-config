@@ -1,6 +1,6 @@
 <!--
 	sysmon-config | A sysmon configuration for everyone
-	Public Version: 28
+	Public Version: 30
 	By @SwiftOnSecurity, with contributors credited in-line or on Git
 	https://github.com/SwiftOnSecurity/sysmon-config
 	
@@ -21,7 +21,6 @@
 				Ultimately, you must weigh CPU time checking many detailed rules, against the risk of malware exploiting the blindness created.-->
 			<!--SECTION: Microsoft Windows-->
 			<IntegrityLevel condition="is">AppContainer</IntegrityLevel> <!--Microsoft:Windows: Don't care about sandboxed processes-->
-			<Image condition="begin with">C:\Windows\SystemApps</Image> <!--Microsoft:Windows: Don't care about sandboxed processes-->
 			<Image condition="image">C:\Windows\System32\audiodg.exe</Image> <!--Microsoft:Windows: Launched constantly-->
 			<Image condition="image">C:\Windows\System32\conhost.exe</Image> <!--Microsoft:Windows: Command line interface host process-->
 			<Image condition="image">C:\Windows\System32\wbem\WmiApSrv.exe</Image> <!--Microsoft:Windows: WMI performance adpater host process-->
@@ -68,6 +67,10 @@
 			<!-- SECTION: McAfee -->
 			<!-- <Image condition="begin with">C:\Program Files (x86)\McAfee\Common Framework</Image> --> <!-- McAfee:Framework Stops all framework actions from reporting || Contributor @Darkbat91 -->
 			<!-- <ParentImage condition="Image">C:\Program Files (x86)\McAfee\Common Framework\naPrdMgr.exe</ParentImage> --> <!-- McAfee:Scans Stops engine and scans from reporting || Contributor @Darkbat91 -->
+			<!--SECTION: Dropbox-->
+			<!-- <Image condition="image">C:\Program Files (x86)\Dropbox\Update\DropboxUpdate.exe</Image> --> <!--Dropbox:Updater: Lots of command-line arguments-->
+			<!--SECTION: Dell-->
+			<!-- <ParentImage condition="image">C:\Program Files (x86)\Dell\CommandUpdate\InvColPC.exe</ParentImage> --> <!--Dell:CommandUpdate: Detection process-->
 		</ProcessCreate>
 
 	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM -->
@@ -76,6 +79,7 @@
 		</FileCreateTime>
 		<FileCreateTime onmatch="exclude">
 			<Image condition="image">OneDrive.exe</Image> <!--OneDrive constantly changes file times-->
+			<Image condition="contains">setup</Image> <!--Ignore setups-->
 		</FileCreateTime>
 
 	<!--SYSMON EVENT ID 3 : NETWORK CONNECTION INITIATED -->
@@ -177,10 +181,11 @@
 		<FileCreate onmatch="include">
 			<TargetFilename condition="contains">\Start Menu</TargetFilename> <!--Microsoft:Windows: Startup links and shortcut modification-->
 			<TargetFilename condition="contains">\Startup</TargetFilename> <!--Microsoft:Office: Changes to user's autoloaded files under AppData-->
-			<!--Default-disable <TargetFilename condition="begin with">C:\Windows\Prefetch</TargetFilename> --> <!--Microsoft:Windows: Prefetch traces-->
+				<!--Default-disable <TargetFilename condition="begin with">C:\Windows\Prefetch</TargetFilename> --> <!--Microsoft:Windows: Prefetch traces-->
 			<TargetFilename condition="contains">\Content.Outlook\</TargetFilename> <!--Microsoft:Outlook: attachments--> <!--PRIVACY WARNING-->
 			<TargetFilename condition="contains">\Downloads\</TargetFilename> <!--Downloaded files. Does not include "Run" files in IE--> <!--PRIVACY WARNING-->
 			<TargetFilename condition="contains">\Temp\7z</TargetFilename> <!--7zip extractions-->
+			<TargetFilename condition="contains">\Temp\rar$</TargetFilename> <!--Winrar extractions-->
 			<TargetFilename condition="end with">.vbs</TargetFilename> <!--VisualBasicScripting-->
 			<TargetFilename condition="end with">.hta</TargetFilename> <!--Scripting-->
 			<TargetFilename condition="end with">.bat</TargetFilename> <!--Batch scripting-->
@@ -196,9 +201,11 @@
 			<TargetFilename condition="begin with">C:\Windows\SysWOW64\wbem</TargetFilename> <!--Microsoft:WMI: [ More information: http://2014.hackitoergosum.org/slides/day1_WMI_Shell_Andrei_Dumitrescu.pdf ] -->
 			<TargetFilename condition="begin with">C:\Windows\System32\WindowsPowerShell</TargetFilename> <!--Microsoft:Powershell: Look for modifications for persistence [ https://www.malwarearchaeology.com/cheat-sheets ] -->
 			<TargetFilename condition="begin with">C:\Windows\SysWOW64\WindowsPowerShell</TargetFilename> <!--Microsoft:Powershell: Look for modifications for persistence [ https://www.malwarearchaeology.com/cheat-sheets ] -->
+			<TargetFilename condition="begin with">C:\Windows\Tasks\</TargetFilename> <!--Microsoft:ScheduledTasks -->
+			<TargetFilename condition="begin with">C:\Windows\System32\Tasks</TargetFilename> <!--Microsoft:ScheduledTasks -->
 			<TargetFilename condition="end with">.cmdline</TargetFilename> <!--Microsoft:dotNet: Executed by cvtres.exe-->
 			<!--SECTION: Mimikatz-->
-			<!--Default-disable <TargetFileName condition="end with">.kirbi</TargetFileName> --> <!-- [ https://github.com/gentilkiwi/mimikatz/wiki/module-~-kerberos ] -->
+				<!--Default-disable <TargetFileName condition="end with">.kirbi</TargetFileName> --> <!-- [ https://github.com/gentilkiwi/mimikatz/wiki/module-~-kerberos ] -->
 		</FileCreate>
 		<FileCreate onmatch="exclude">
 			<TargetFilename condition="end with">\Downloads</TargetFilename> <!-- Microsoft:Windows: Cleanup noise of stub folder creation -->
@@ -211,52 +218,51 @@
 		</FileCreate>
 
 	<!--SYSMON EVENT ID 12 & 13 & 14 : REGISTRY MODIFICATION -->
-		<!--NOTE:	It may appear this section is missing important entries, but many of them match multiple areas, so look to see if something is already covered.-->
+		<!--NOTE:	It may appear this section is missing important entries, but many of them match multiple areas, so look carefully to see if something is already covered.-->
 		<!--NOTE:	"contains" conditions below are formatted to reduce CPU load, so they may appear written inconsistently, but this is on purpose from tuning.-->
 		<!--NOTE:	"contains" works by finding the first letter, then matching the second, etc, so the first letters should be as low-occurance as possible.-->
 		<!--NOTE:	Writing to GUID's is very common, and they contain 0-9 and A-F so slightly try to avoid those in the first few positions. [ https://en.wikipedia.org/wiki/Universally_unique_identifier ] -->
 		<!--NOTE:	Windows writes hundreds or thousands of registry keys a minute, so just because you're not changing stuff, doesn't mean these rules aren't being run.-->
 		<!--NOTE:	You don't have to spend a lot of time worrying about this, CPUs are fast, but it's something to consider. Every rule and condition type has a cost.-->
 		<RegistryEvent onmatch="include">
-			<!--Windows shell hijack-->
-			<TargetObject condition="contains">\CurrentVersion\Shell</TargetObject> <!--Microsoft:Windows: Shell Folders, ShellExecuteHooks, ShellIconOverloadIdentifers, ShellServiceObjects [ http://oalabs.openanalysis.net/2015/06/04/malware-persistence-hkey_current_user-shell-extension-handlers/ ] -->
-			<TargetObject condition="contains">\ContextMenuHandlers\</TargetObject> <!--Microsoft:Windows: [ http://oalabs.openanalysis.net/2015/06/04/malware-persistence-hkey_current_user-shell-extension-handlers/ ] -->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Classes\Folder\</TargetObject> <!--Microsoft:Windows:Explorer: [ https://stackoverflow.com/questions/1323663/windows-shell-context-menu-option ] -->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Classes\Directory\</TargetObject> <!--Microsoft:Windows:Explorer: [ https://stackoverflow.com/questions/1323663/windows-shell-context-menu-option ] -->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Classes\Drive\</TargetObject> <!--Microsoft:Windows:Explorer: [ https://stackoverflow.com/questions/1323663/windows-shell-context-menu-option ] -->
-			<!--Windows internals monitoring-->
-			<TargetObject condition="is">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\InProgress\(Default)</TargetObject> <!--Microsoft:Windows: See when WindowsInstaller is engaged-->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\</TargetObject> <!--Microsoft:Windows: Malware likes changing IFEO-->
-			<TargetObject condition="end with">\FriendlyName</TargetObject> <!--Microsoft:Windows: New devices connected and remembered-->
-			<!--TESTING--> <TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT</TargetObject> <!--Microsoft:Windows: Event log system integrity and ACLs-->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Winlogon</TargetObject> <!--Microsoft:Windows: Providers notified by WinLogon-->
 			<!--Autorun or Startups-->
+				<!--ADDITIONAL REFERENCE: [ http://www.ghacks.net/2016/06/04/windows-automatic-startup-locations/ ] -->
+				<!--ADDITIONAL REFERENCE: [ https://view.officeapps.live.com/op/view.aspx?src=https://arsenalrecon.com/downloads/resources/Registry_Keys_Related_to_Autorun.ods ] -->
+				<!--ADDITIONAL REFERENCE: [ http://www.silentrunners.org/launchpoints.html ] -->
+			<TargetObject condition="contains">\CurrentVersion\Run</TargetObject> <!--Microsoft:Windows: Run keys, incld RunOnce, RunOnceEx, RunServices, RunServicesOnce [Also covers terminal server] -->
 			<TargetObject condition="contains">\Group Policy\Scripts</TargetObject> <!--Microsoft:Windows: Group policy scripts -->
-			<TargetObject condition="contains">\CurrentVersion\Run</TargetObject> <!--Microsoft:Windows: Run keys, incld RunOnce, RunOnceEx, RunServicesOnce [Also covers terminal server] -->
 			<TargetObject condition="contains">\Windows\System\Scripts</TargetObject> <!--Microsoft:Windows: Logon, Loggoff, Shutdown-->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify\</TargetObject> <!--Microsoft:Windows: Autorun location-->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Userinit\</TargetObject> <!--Microsoft:Windows: Autorun location-->
 			<TargetObject condition="end with">\ServiceDll</TargetObject> <!--Microsoft:Windows: Value that points to a service's DLL [ https://blog.cylance.com/windows-registry-persistence-part-1-introduction-attack-phases-and-windows-services ] -->
 			<TargetObject condition="end with">\ImagePath</TargetObject> <!--Microsoft:Windows: Value that point to a service's EXE [ https://github.com/crypsisgroup/Splunkmon/blob/master/sysmon.cfg ] -->
-			<TargetObject condition="end with">\Start</TargetObject> <!--Microsoft:Windows: Services start changes-->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Safeboot</TargetObject> <!--Microsoft:Windows: Services approved to load in safe mode-->
-			<!--Default-disable <TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SvcHost</TargetObject> --> <!--Microsoft:Windows: Service groups-->
+			<TargetObject condition="end with">\Start</TargetObject> <!--Microsoft:Windows: Services start mode changes (Disabled, Automatically, Manual) -->
+			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify\</TargetObject> <!--Microsoft:Windows: Autorun location-->
+			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Userinit\</TargetObject> <!--Microsoft:Windows: Autorun location-->
+			<!--CLSID launch commands and file association changes-->
+			<TargetObject condition="contains">\shell\install\command\</TargetObject> <!--Microsoft:Windows: Subkey under file associations and CLSID that map to launch command-->
+			<TargetObject condition="contains">\shell\open\command\</TargetObject> <!--Microsoft:Windows: Subkey under file associations and CLSID that map to launch command-->
+			<TargetObject condition="contains">\shell\open\ddeexec\</TargetObject> <!--Microsoft:Windows: Subkey under file associations and CLSID that map to launch command-->
+			<TargetObject condition="contains">\Explorer\FileExts\</TargetObject> <!--Microsoft:Windows: Changes to file extension mapping-->
+			<!--Windows shell hijack-->
+			<TargetObject condition="contains">\ContextMenuHandlers\</TargetObject> <!--Microsoft:Windows: [ http://oalabs.openanalysis.net/2015/06/04/malware-persistence-hkey_current_user-shell-extension-handlers/ ] -->
+			<TargetObject condition="contains">\CurrentVersion\Shell</TargetObject> <!--Microsoft:Windows: Shell Folders, ShellExecuteHooks, ShellIconOverloadIdentifers, ShellServiceObjects, ShellServiceObjectDelayLoad [ http://oalabs.openanalysis.net/2015/06/04/malware-persistence-hkey_current_user-shell-extension-handlers/ ] -->
+			<TargetObject condition="contains">\Classes\Folder\</TargetObject> <!--Microsoft:Windows:Explorer: ContextMenuHandlers, DragDropHandlers, CopyHookHandlers, [ https://stackoverflow.com/questions/1323663/windows-shell-context-menu-option ] -->
+			<TargetObject condition="contains">\Classes\Directory\</TargetObject> <!--Microsoft:Windows:Explorer: [ https://stackoverflow.com/questions/1323663/windows-shell-context-menu-option ] -->
+			<TargetObject condition="contains">\Classes\Drive\</TargetObject> <!--Microsoft:Windows:Explorer: [ https://stackoverflow.com/questions/1323663/windows-shell-context-menu-option ] -->
+			<TargetObject condition="contains">\Classes\AllFilesystemObjects\</TargetObject> <!--Microsoft:Windows:Explorer: [ http://www.silentrunners.org/launchpoints.html ] -->
+			<TargetObject condition="contains">\Classes\*\</TargetObject> <!--Microsoft:Windows:Explorer: [ http://www.silentrunners.org/launchpoints.html ] -->
 			<!--AppPaths hijacking-->
 			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\</TargetObject> <!--Microsoft:Windows: Credit to @Hexacorn [ http://www.hexacorn.com/blog/2013/01/19/beyond-good-ol-run-key-part-3/ ] -->
 			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Session Manager\AppCertDlls\</TargetObject> <!--Microsoft:Windows: Credit to @Hexacorn [ http://www.hexacorn.com/blog/2013/01/19/beyond-good-ol-run-key-part-3/ ] -->
 			<!--Terminal service boobytraps-->
 			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Terminal Server\WinStations\RDP-Tcp\InitialProgram</TargetObject>
-			<!--File association changes-->
-			<TargetObject condition="contains">\shell\install\command\</TargetObject> <!--Microsoft:Windows: Subkey under file associations and CLSID that map to launch command-->
-			<TargetObject condition="contains">\shell\open\command\</TargetObject> <!--Microsoft:Windows: Subkey under file associations and CLSID that map to launch command-->
-			<TargetObject condition="contains">\Explorer\FileExts\</TargetObject> <!--Microsoft:Windows: Changes to file extension mapping-->
+
 			<!--Group Policy interity-->
 			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\GPExtensions\</TargetObject> <!--Microsoft:Windows: Group Policy internally uses a plugin architecture that nothing should be modifying-->
 			<!--Winsock and Winsock2-->
 			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Services\WinSock</TargetObject> <!--Microsoft:Windows: Wildcard, includes Winsock and Winsock2-->
 			<!--Credential providers-->
 			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\Credential Provider</TargetObject> <!--Wildcard, includes Credental Providers and Credential Provider Filters-->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\SecurityProviders\SecurityProviders</TargetObject>
+			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\SecurityProviders\SecurityProviders</TargetObject> <!--Microsoft:Windows: Changes to WDigest-UseLogonCredential for password scraping [ https://www.trustedsec.com/april-2015/dumping-wdigest-creds-with-meterpreter-mimikatzkiwi-in-windows-8-1/ ] -->
 			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa\</TargetObject>
 			<!--Networking-->
 			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\NetworkProvider\Order\</TargetObject> <!--Microsoft:Windows: Order of network providers that are checked to connect to destination [ https://www.malwarearchaeology.com/cheat-sheets ] -->
@@ -274,12 +280,22 @@
 			<!--Infection artifacts-->
 			<TargetObject condition="end with">\UrlUpdateInfo</TargetObject> <!--Microsoft:ClickOnce: [ https://subt0x10.blogspot.com/2016/12/mimikatz-delivery-via-clickonce-with.html ] -->
 			<TargetObject condition="end with">\InstallSource</TargetObject> <!--Microsoft:Windows: Source folder for certain program and componenent installations-->
+			<!--Windows internals monitoring-->
+			<TargetObject condition="is">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\InProgress\(Default)</TargetObject> <!--Microsoft:Windows: See when WindowsInstaller is engaged-->
+			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\</TargetObject> <!--Microsoft:Windows: Malware likes changing IFEO-->
+			<TargetObject condition="end with">\FriendlyName</TargetObject> <!--Microsoft:Windows: New devices connected and remembered-->
+			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Winlogon</TargetObject> <!--Microsoft:Windows: Providers notified by WinLogon-->
+			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Safeboot</TargetObject> <!--Microsoft:Windows: Services approved to load in safe mode-->
+				<!--TESTING--> <TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT</TargetObject> <!--Microsoft:Windows: Event log system integrity and ACLs-->
+				<!--TESTING--> <TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender</TargetObject> <!--Microsoft:Defender: Detect changes to Defender administrative settings to monitor for disablement-->
+				<!--TESTING--> <TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\ConsentPromptBehaviorUser</TargetObject> <!--Microsoft:Windows:UAC: Detect malware changes to UAC prompt level -->
+
 			<!--Commonly malicious indicators-->
 			<!-- NOT IMPLEMENTED IN SYSMON <Details condition="begin with">rundll32.exe</Details> --> <!-- Often used to kickstart viruses [ http://blog.trendmicro.com/trendlabs-security-intelligence/poweliks-levels-up-with-new-autostart-mechanism/ ] -->
 		</RegistryEvent>
 		<RegistryEvent onmatch="exclude">
 		<!--COMMENT:	Remove low-information noise-->
-			<Image condition="image">C:\windows\explorer.exe</Image>
+			<!--Disabled-default <Image condition="image">C:\windows\explorer.exe</Image> -->
 			<Image condition="end with">Office\root\integration\integrator.exe</Image> <!--Microsoft:Office: C2R client-->
 			<Image condition="image">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeClickToRun.exe</Image> <!--Microsoft:Office: C2R client-->
 			<TargetObject condition="end with">Toolbar\WebBrowser</TargetObject> <!--Microsoft:IE: Extraneous activity-->
@@ -301,8 +317,20 @@
 			<TargetObject condition="end with">\Lsa\OfflineJoin\CurrentValue</TargetObject> <!--Microsoft:Windows: Sensitive value during domain join -->
 			<TargetObject condition="end with">\Components\TrustedInstaller\Events</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Winlogon -->
 			<TargetObject condition="end with">\Components\TrustedInstaller</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Winlogon -->
+			<TargetObject condition="end with">\Components\Wlansvc</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Winlogon -->
+			<TargetObject condition="end with">\Components\Wlansvc\Events</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Winlogon -->
 			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\</TargetObject> <!--Microsoft:Windows: Remove noise monitoring installations -->
+			<TargetObject condition="end with">\Directory\shellex</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Classes -->
+			<TargetObject condition="end with">\Directory\shellex\DragDropHandlers</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Classes -->
+			<TargetObject condition="end with">\Drive\shellex</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Classes -->
+			<TargetObject condition="end with">\Drive\shellex\DragDropHandlers</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Classes -->
+			<!--FileExts noise filtering-->
 			<TargetObject condition="contains">\OpenWithProgids</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "FileExts"-->
+			<TargetObject condition="end with">\OpenWithList</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "FileExts"-->
+			<TargetObject condition="end with">\UserChoice</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "FileExts"-->
+			<TargetObject condition="end with">\OpenWithList\MRUList</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "FileExts"-->
+			<!--SECTION: 3rd party-->
+			<Image condition="is">C:\Program Files\WIDCOMM\Bluetooth Software\btwdins.exe</Image>
 		</RegistryEvent>
 
 	<!--SYSMON EVENT ID 15 : ALTERNATE DATA STREAM CREATED -->
