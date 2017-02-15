@@ -110,7 +110,7 @@
 			<DestinationHostname condition="is">icanhazip.com</DestinationHostname> <!--Malware uses to get external IP address-->
 			<DestinationHostname condition="is">ifconfig.me</DestinationHostname> <!--Malware uses to get external IP address-->
 			<DestinationHostname condition="is">ifconfig.co</DestinationHostname> <!--Malware uses to get external IP address-->
-			<DestinationHostname condition="is">ipadress.com</DestinationHostname> <!--Malware uses to get external IP address-->
+			<DestinationHostname condition="is">ipaddress.com</DestinationHostname> <!--Malware uses to get external IP address-->
 			<!--Dynamic DNS Providers-->
 			<DestinationHostname condition="end with">dlinkddns.com</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
 			<DestinationHostname condition="end with">no-ip.com</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
