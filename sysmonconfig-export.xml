@@ -1,12 +1,18 @@
 <!--
 	sysmon-config | A sysmon configuration for everyone
-	Public Version: 31
+	Public Version: 32
 	By @SwiftOnSecurity, with contributors credited in-line or on Git
 	https://github.com/SwiftOnSecurity/sysmon-config
-	
-	Required Sysmon version: 5.02
-	https://technet.microsoft.com/en-us/sysinternals/bb545021.aspx
 
+	Required Sysmon version: 5.02 or higher
+	https://technet.microsoft.com/en-us/sysinternals/bb545021.aspx
+	
+	NOTE: Do not let the imposing size and complexity of this configuration scare you off building your own or customizing it.
+			This configuration is based around known high-quality event tracing, and thus looks extremely complicated.
+			Sysmon configurations only have to be a few lines, but significant effort has been invested in front-loading as
+			much filtering as possible onto the client. This is to make analysis of intrusions possible by hand, and try to
+			surface anomalous activity as quickly as possible to any technician armed only with Event Viewer.
+			
 	NOTE: There is best-effort support for 32-bit systems, but it's not a test scenario and will require your own tuning.
 -->
 
@@ -217,6 +223,7 @@
 			<TargetFilename condition="begin with">C:\Windows\System32\wbem\Performance\</TargetFilename> <!-- Microsoft:Windows: Created in wbem by WMIADAP.exe -->
 			<TargetFilename condition="begin with">C:\Windows\System32\DriverStore\Temp\</TargetFilename> <!-- Microsoft:Windows: Temp files by DrvInst.exe-->
 			<TargetFilename condition="begin with">C:\$WINDOWS.~BT\Sources\SafeOS\SafeOS.Mount\</TargetFilename> <!-- Microsoft:Windows: Feature updates containing lots of .exe and .sys-->
+			<Image condition="begin with">C:\WINDOWS\winsxs\amd64_microsoft-windows</Image> <!-- Microsoft:Windows: Windows update-->
 			<Image condition="begin with">Firefox Setup </Image> <!-- Firefox:Installer -->
 		</FileCreate>
 
@@ -315,6 +322,7 @@
 			<TargetObject condition="end with">\services\TrustedInstaller\Start</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "\Start" -->
 			<TargetObject condition="end with">\services\tunnel\Start</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "\Start" -->
 			<TargetObject condition="end with">\services\BITS\Start</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "\Start" -->
+			<TargetObject condition="end with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Services\UsoSvc\Start</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "\Start" -->
 			<TargetObject condition="end with">\Lsa\OfflineJoin\CurrentValue</TargetObject> <!--Microsoft:Windows: Sensitive value during domain join -->
 			<TargetObject condition="end with">\Components\TrustedInstaller\Events</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Winlogon -->
 			<TargetObject condition="end with">\Components\TrustedInstaller</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Winlogon -->
@@ -325,12 +333,21 @@
 			<TargetObject condition="end with">\Directory\shellex\DragDropHandlers</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Classes -->
 			<TargetObject condition="end with">\Drive\shellex</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Classes -->
 			<TargetObject condition="end with">\Drive\shellex\DragDropHandlers</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Classes -->
+			<TargetObject condition="contains">_Classes\AppX</TargetObject> <!--Microsoft:Windows: Remove noise monitoring "Shell\open\command" --> <!--Win8+ -->
+			<TargetObject condition="end with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa\Audit</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise --> <!--Win8+ -->
+			<TargetObject condition="end with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa\Audit\AuditPolicy</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise --> <!--Win8+ -->
+			<TargetObject condition="end with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa\Audit\PerUserAuditing\System</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise --> <!--Win8+ -->
+			<TargetObject condition="end with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa\SspiCache</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise --> <!--Win8+ -->
+			<TargetObject condition="end with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa\Kerberos\Domains</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise --> <!--Win8+ -->
+			<TargetObject condition="end with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Audit</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise --> <!--Win8+ -->
 			<!--FileExts noise filtering-->
 			<TargetObject condition="contains">\OpenWithProgids</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "FileExts"-->
 			<TargetObject condition="end with">\OpenWithList</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "FileExts"-->
 			<TargetObject condition="end with">\UserChoice</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "FileExts"-->
+			<TargetObject condition="end with">\UserChoice\ProgId</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "FileExts"--> <!--Win8+ -->
+			<TargetObject condition="end with">\UserChoice\Hash</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "FileExts"--> <!--Win8+ -->
 			<TargetObject condition="end with">\OpenWithList\MRUList</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "FileExts"-->
-			<TargetObject condition="end with">} 0xFFFF</TargetObject> <!--Microsoft:Windows: Remove noise from explorer.exe from monitoring ShellCached binary keys-->
+			<TargetObject condition="end with">} 0xFFFF</TargetObject> <!--Microsoft:Windows: Remove noise from explorer.exe from monitoring ShellCached binary keys--> <!--Win8+ -->
 			<!--SECTION: 3rd party-->
 			<Image condition="is">C:\Program Files\WIDCOMM\Bluetooth Software\btwdins.exe</Image>
 		</RegistryEvent>
@@ -338,9 +355,9 @@
 	<!--SYSMON EVENT ID 15 : ALTERNATE DATA STREAM CREATED -->
 		<FileCreateStreamHash onmatch="include">
 		<!--COMMENT:	Any files created with an NTFS Alternate Data Stream which match these rules will be hashed and logged.
-				https://blogs.technet.microsoft.com/askcore/2013/03/24/alternate-data-streams-in-ntfs/
+				[ https://blogs.technet.microsoft.com/askcore/2013/03/24/alternate-data-streams-in-ntfs/ ]
 				ADS's are used by browsers and email clients to mark files as originating from the Internet or other foreign sources.
-				https://textslashplain.com/2016/04/04/downloads-and-the-mark-of-the-web/ -->
+				[ https://textslashplain.com/2016/04/04/downloads-and-the-mark-of-the-web/ ] -->
 			<TargetFilename condition="contains">Content.Outlook</TargetFilename> <!--Microsoft:Outlook: Attachments--> <!--PRIVACY WARNING-->
 			<TargetFilename condition="contains">Downloads</TargetFilename> <!--Downloaded files. Does not include "Run" files in IE-->
 			<TargetFilename condition="contains">Temp\7z</TargetFilename> <!--7zip extractions-->
