@@ -1,19 +1,21 @@
 <!--
-	sysmon-config | A sysmon configuration for everyone
-	Public Version: 32
-	By @SwiftOnSecurity, with contributors credited in-line or on Git
-	https://github.com/SwiftOnSecurity/sysmon-config
+  sysmon-config | A sysmon configuration focused on high-quality event tracing
+  Version: 32 | Date: 2017-02-14
+  By @SwiftOnSecurity, with contributors credited in-line or on Git
+  https://github.com/SwiftOnSecurity/sysmon-config
 
-	Required Sysmon version: 5.02 or higher
-	https://technet.microsoft.com/en-us/sysinternals/bb545021.aspx
-	
-	NOTE: Do not let the imposing size and complexity of this configuration scare you off building your own or customizing it.
-			This configuration is based around known high-quality event tracing, and thus looks extremely complicated.
-			Sysmon configurations only have to be a few lines, but significant effort has been invested in front-loading as
-			much filtering as possible onto the client. This is to make analysis of intrusions possible by hand, and try to
-			surface anomalous activity as quickly as possible to any technician armed only with Event Viewer.
-			
-	NOTE: There is best-effort support for 32-bit systems, but it's not a test scenario and will require your own tuning.
+  Required Sysmon version: 5.02 or higher
+  https://technet.microsoft.com/en-us/sysinternals/bb545021.aspx
+
+  NOTE: Although this is stable and inclusive, you should periodically check for new versions to ensure best coverage.
+
+  NOTE: Do not let the imposing size and complexity of this configuration scare you off building your own or customizing it.
+	This configuration is based around known high-quality event tracing, and thus looks extremely complicated.
+	Sysmon configurations only have to be a few lines, but significant effort has been invested in front-loading as
+	much filtering as possible onto the client. This is to make analysis of intrusions possible by hand, and try to
+	surface anomalous activity as quickly as possible to any technician armed only with Event Viewer.
+  
+  NOTE: There is best-effort support for 32-bit systems, but it's not a test scenario and will require your own tuning.
 -->
 
 <Sysmon schemaversion="3.20">
@@ -264,7 +266,6 @@
 			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Session Manager\AppCertDlls\</TargetObject> <!--Microsoft:Windows: Credit to @Hexacorn [ http://www.hexacorn.com/blog/2013/01/19/beyond-good-ol-run-key-part-3/ ] -->
 			<!--Terminal service boobytraps-->
 			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Terminal Server\WinStations\RDP-Tcp\InitialProgram</TargetObject>
-
 			<!--Group Policy interity-->
 			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\GPExtensions\</TargetObject> <!--Microsoft:Windows: Group Policy internally uses a plugin architecture that nothing should be modifying-->
 			<!--Winsock and Winsock2-->
