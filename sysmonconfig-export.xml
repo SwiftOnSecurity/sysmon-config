@@ -178,8 +178,7 @@
 		<!--COMMENT:	Monitor for processes accessing other process' memory. This can be valuable, but can cause massive event glut.
 				Disabled by default since including even one entry here activates this component. Reward/performance decision.
 				Encourage you to experiment with this feature yourself.-->
-		<!--COMMENT:	Although this feature can be used to detect threats like Mimikatz, it requires a large amount of event be logged and backend correlation rules.
-				At this time, directly detecting Mimikatz's password exfiltration will be out of scope. Instead, you should rely on other indicators and PowerShell logging.-->
+		<!--FUTURE WORK:	Include mimikatz-specific events.-->
 		</ProcessAccess>
 
 	<!--SYSMON EVENT ID 11 : FILE CREATED -->
