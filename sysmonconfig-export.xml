@@ -1,6 +1,6 @@
 <!--
   sysmon-config | A sysmon configuration focused on high-quality event tracing
-  Version: 34 | Date: 2017-02-16
+  Version: 35 | Date: 2017-02-17
   By @SwiftOnSecurity, with contributors credited in-line or on Git
   https://github.com/SwiftOnSecurity/sysmon-config
 
@@ -16,13 +16,19 @@
 	surface anomalous activity as quickly as possible to any technician armed only with Event Viewer.
   
   NOTE: There is best-effort support for 32-bit systems, but it's not a test scenario and will require your own tuning.
+
+  NOTE:	"Image" is a technical term for a compiled binary file like an EXE or DLL. Also, it can match just the filename, or entire path.
+		"ProcessGuid" is randomly generated, assigned, and tracked by Sysmon to assist in tracing individual process launches.
+		"LoginGuid" is randomly generated, assigned, and tracked by Sysmon to assist in tracing individual user sessions.
 -->
 
 <Sysmon schemaversion="3.20">
 	<HashAlgorithms>md5,IMPHASH</HashAlgorithms>
+
 	<EventFiltering>
 
 	<!--SYSMON EVENT ID 1 : PROCESS CREATION -->
+		<!--DATA: UtcTime, ProcessGuid, ProcessID, Image, CommandLine, CurrentDirectory, User, LogonGuid, LogonId, TerminalSessionId, IntegrityLevel, Hashes, ParentProcessGuid, ParentProcessId, ParentImage, ParentCommandLine-->
 		<ProcessCreate onmatch="exclude">
 		<!--COMMENT:	All process launched will be included in log, except for what matches a rule below. It's best to be as specific as possible, to
 				avoid user-mode executables immitating other process names to avoid logging, or if malware drops files in an existing directory.
@@ -79,6 +85,7 @@
 		</ProcessCreate>
 
 	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM -->
+		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime, PreviousCreationUtcTime-->
 		<FileCreateTime onmatch="include">
 			<Image condition="begin with">C:\Users</Image> <!--Look for timestomping in user area-->
 		</FileCreateTime>
@@ -88,6 +95,7 @@
 		</FileCreateTime>
 
 	<!--SYSMON EVENT ID 3 : NETWORK CONNECTION INITIATED -->
+		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, User, Protocol, Initiated, SourceIsIpv6, SourceIp, SourceHostname, SourcePort, SourcePortName, DestinationIsIpV6, DestinationIP, DestinationHostname, DestinationPort, DestinationPortName-->
 		<NetworkConnect onmatch="include">
 		<!--COMMENT:	Takes a very conservative approach to network logging, limit to extremely high-signal events.-->
 			<!--Suspicious sources-->
@@ -139,14 +147,17 @@
 		</NetworkConnect>
 
 	<!--SYSMON EVENT ID 4 : RESERVED FOR SYSMON STATUS MESSAGES, THIS LINE IS INCLUDED FOR DOCUMENTATION PURPOSES ONLY -->
+		<!--DATA: UtcTime, State, Version, SchemaVersion-->
 
 	<!--SYSMON EVENT ID 5 : PROCESS ENDED -->
+		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image-->
 		<ProcessTerminate onmatch="include">
 		<!--COMMENT:	Useful data in building infection timelines.-->
 			<Image condition="begin with">C:\Users</Image> <!--Process terminations by user binaries-->
 		</ProcessTerminate>
 
 	<!--SYSMON EVENT ID 6 : DRIVER LOADED INTO KERNEL -->
+		<!--DATA: UtcTime, ImageLoaded, Hashes, Signed, Signature, SignatureStatus-->
 		<DriverLoad onmatch="exclude">
 		<!--COMMENT:	Because drivers with bugs can be used to escalate to kernel permissions, be extremely selective
 				about what you exclude from monitoring. Low event volume, little incentive to exclude.-->
@@ -155,7 +166,8 @@
 			<Signature condition="begin with">Intel </Signature> <!--Exclude signed Intel drivers-->
 		</DriverLoad>
 
-	<!--SYSMON EVENT ID 7 : DLL LOADED BY PROCESS -->
+	<!--SYSMON EVENT ID 7 : DLL (IMAGE) LOADED BY PROCESS -->
+		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, ImageLoaded, Hashes, Signed, Signature, SignatureStatus-->
 		<ImageLoad onmatch="include">
 		<!--COMMENT:	Can cause high system load, disabled by default, important examples included below. -->
 			<!-- <ImageLoaded condition="contains">system.automation</ImageLoaded> -->
@@ -173,6 +185,7 @@
 		</ImageLoad>
 
 	<!--SYSMON EVENT ID 8 : REMOTE THREAD CREATED -->
+		<!--DATA: UtcTime, SourceProcessGuid, SourceProcessId, SourceImage, TargetProcessId, TargetImage, NewThreadId, StartAddress, StartModule, StartFunction-->
 		<CreateRemoteThread onmatch="exclude">
 		<!--COMMENT:	Monitor for processes injecting code into other processes. Often used by malware to cloak their actions.
 				Exclude mostly-safe sources and log anything else.-->
@@ -188,6 +201,7 @@
 		</CreateRemoteThread>
 
 	<!--SYSMON EVENT ID 9 : RAW DISK ACCESS -->
+		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, Device-->
 		<RawAccessRead onmatch="include">
 		<!--COMMENT:	Monitor for raw sector-level access to the disk, often used to bypass access control lists or access locked files.
 				Disabled by default since including even one entry here activates this component. Reward/performance/rule maintenance decision.
@@ -196,6 +210,7 @@
 		</RawAccessRead>
 
 	<!--SYSMON EVENT ID 10 : INTER-PROCESS ACCESS -->
+		<!--DATA: UtcTime, SourceProcessGuid, SourceProcessId, SourceThreadId, SourceImage, TargetProcessGuid, TargetProcessId, TargetImage, GrantedAccess, CallTrace-->
 		<ProcessAccess onmatch="include">
 		<!--COMMENT:	Monitor for processes accessing other process' memory. This can be valuable, but can cause massive event glut.
 				Disabled by default since including even one entry here activates this component. Reward/performance decision.
@@ -204,6 +219,7 @@
 		</ProcessAccess>
 
 	<!--SYSMON EVENT ID 11 : FILE CREATED -->
+		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime-->
 		<FileCreate onmatch="include">
 			<TargetFilename condition="contains">\Start Menu</TargetFilename> <!--Microsoft:Windows: Startup links and shortcut modification-->
 			<TargetFilename condition="contains">\Startup</TargetFilename> <!--Microsoft:Office: Changes to user's autoloaded files under AppData-->
@@ -255,6 +271,7 @@
 		<!--NOTE:	Writing to GUID's is very common, and they contain 0-9 and A-F so slightly try to avoid those in the first few positions. [ https://en.wikipedia.org/wiki/Universally_unique_identifier ] -->
 		<!--NOTE:	Windows writes hundreds or thousands of registry keys a minute, so just because you're not changing stuff, doesn't mean these rules aren't being run.-->
 		<!--NOTE:	You don't have to spend a lot of time worrying about this, CPUs are fast, but it's something to consider. Every rule and condition type has a cost.-->
+		<!--DATA: EventType, UtcTime, ProcessGuid, ProcessId, Image, TargetObject, Details, NewName-->
 		<RegistryEvent onmatch="include">
 			<!--Autorun or Startups-->
 				<!--ADDITIONAL REFERENCE: [ http://www.ghacks.net/2016/06/04/windows-automatic-startup-locations/ ] -->
@@ -373,6 +390,7 @@
 		</RegistryEvent>
 
 	<!--SYSMON EVENT ID 15 : ALTERNATE DATA STREAM CREATED -->
+		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime, Hash-->
 		<FileCreateStreamHash onmatch="include">
 		<!--COMMENT:	Any files created with an NTFS Alternate Data Stream which match these rules will be hashed and logged.
 				[ https://blogs.technet.microsoft.com/askcore/2013/03/24/alternate-data-streams-in-ntfs/ ]
@@ -386,5 +404,16 @@
 			<TargetFilename condition="end with">.bat</TargetFilename> <!--Batch scripting-->
 		</FileCreateStreamHash>
 
+	<!--SYSMON EVENT ID 16 : SYSMON CONFIGURATION CHANGE, THIS LINE IS INCLUDED FOR DOCUMENTATION PURPOSES ONLY [ SYSMON 6.00+ ] -->
+		<!--DATA: UtcTime, Configuration, ConfigurationFileHash-->
+
+	<!--SYSMON EVENT ID 17 : PIPE CREATED [ SYSMON 6.00+ ] -->
+		<!--DATA: UtcTime, ProcessGuid, ProcessId, PipeName, Image-->
+		<!--COMMENT: Currently intended for targetted malware monitoring only, not included in this configuration-->
+
+	<!--SYSMON EVENT ID 18 : PIPE CONNECTED [ SYSMON 6.00+ ] -->
+		<!--DATA: UtcTime, ProcessGuid, ProcessId, PipeName, Image-->
+		<!--COMMENT: Currently intended for targetted malware monitoring only, not included in this configuration-->
+		
 	</EventFiltering>
 </Sysmon>
