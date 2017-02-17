@@ -1,6 +1,6 @@
 <!--
   sysmon-config | A sysmon configuration focused on high-quality event tracing
-  Version: 33 | Date: 2017-02-15
+  Version: 34 | Date: 2017-02-16
   By @SwiftOnSecurity, with contributors credited in-line or on Git
   https://github.com/SwiftOnSecurity/sysmon-config
 
@@ -73,7 +73,7 @@
 			<Image condition="begin with">C:\Program Files\NVIDIA Corporation\Display\</Image> <!--Nvidia:Driver: routine actions-->
 			<Image condition="begin with">C:\Program Files\Realtek\</Image> <!--Realtek:Driver: routine actions-->
 			<!--SECTION: Dropbox-->
-			<!-- <Image condition="image">C:\Program Files (x86)\Dropbox\Update\DropboxUpdate.exe</Image> --> <!--Dropbox:Updater: Lots of command-line arguments-->
+			<Image condition="image">C:\Program Files (x86)\Dropbox\Update\DropboxUpdate.exe</Image> <!--Dropbox:Updater: Lots of command-line arguments-->
 			<!--SECTION: Dell-->
 			<!-- <ParentImage condition="image">C:\Program Files (x86)\Dell\CommandUpdate\InvColPC.exe</ParentImage> --> <!--Dell:CommandUpdate: Detection process-->
 		</ProcessCreate>
@@ -89,7 +89,7 @@
 
 	<!--SYSMON EVENT ID 3 : NETWORK CONNECTION INITIATED -->
 		<NetworkConnect onmatch="include">
-		<!--COMMENT:	Takes a very conservative approach to network logging.-->
+		<!--COMMENT:	Takes a very conservative approach to network logging, limit to extremely high-signal events.-->
 			<!--Suspicious sources-->
 			<Image condition="begin with">C:\Users</Image>
 			<Image condition="begin with">C:\ProgramData</Image>
@@ -102,6 +102,8 @@
 			<Image condition="image">rundll32.exe</Image> <!--Microsoft:Windows: [ https://blog.cobaltstrike.com/2016/07/22/why-is-rundll32-exe-connecting-to-the-internet/ ] -->
 			<Image condition="image">notepad.exe</Image> <!--Microsoft:Windows: [ https://blog.cobaltstrike.com/2013/08/08/why-is-notepad-exe-connecting-to-the-internet/ ] -->
 			<Image condition="image">regsvr32.exe</Image> <!--Microsoft:Windows: [ https://subt0x10.blogspot.com/2016/04/bypass-application-whitelisting-script.html ] -->
+			<!--Hack tools hosting-->
+			<DestinationHostname condition="end with">githubusercontent.com</DestinationHostname> <!--Github: Malicious tools often loaded from here, not used except by developers-->
 			<!--Suspicious destinations-->
 			<DestinationHostname condition="is">api.ipify.org</DestinationHostname> <!--Malware uses to get external IP address-->
 			<DestinationHostname condition="is">whatismyipaddress.com</DestinationHostname> <!--Malware uses to get external IP address-->
@@ -130,6 +132,7 @@
 		<NetworkConnect onmatch="exclude">
 			<Image condition="image">Spotify.exe</Image> <!--Spotify-->
 			<Image condition="image">OneDrive.exe</Image> <!--Microsoft:OneDrive-->
+			<Image condition="end with">AppData\Roaming\Dropbox\bin\Dropbox.exe</Image> <!--Dropbox-->
 			<DestinationHostname condition="end with">microsoft.com</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">microsoft.com.akadns.net</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">microsoft.com.nsatc.net</DestinationHostname> <!--Microsoft:Update delivery-->
@@ -189,6 +192,7 @@
 		<!--COMMENT:	Monitor for raw sector-level access to the disk, often used to bypass access control lists or access locked files.
 				Disabled by default since including even one entry here activates this component. Reward/performance/rule maintenance decision.
 				Encourage you to experiment with this feature yourself.-->
+		<!--COMMENT:	You will likely want to set this to a full capture on domain controllers, where no process should be doing raw reads.-->
 		</RawAccessRead>
 
 	<!--SYSMON EVENT ID 10 : INTER-PROCESS ACCESS -->
