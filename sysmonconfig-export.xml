@@ -127,6 +127,7 @@
 			<Image condition="image">certutil.exe</Image>
 			<Image condition="image">PsExec.exe</Image>
 			<Image condition="image">reg.exe</Image><!-- Remote Registry -->
+			<Image condition="image">mstsc.exe</Image><!-- Remote Desktop -->
 			<!--Hack tools hosting-->
 			<DestinationHostname condition="end with">githubusercontent.com</DestinationHostname> <!--Github: Malicious tools often loaded from here, not used except by developers-->
 			<DestinationHostname condition="end with">github.com</DestinationHostname> <!--Github: Malicious tools often loaded from here, not used except by developers-->
@@ -282,6 +283,7 @@
 			<TargetFilename condition="end with">.sldm</TargetFilename> <!--Office Macros-->
 			<TargetFilename condition="end with">.scf</TargetFilename> <!--Explorer Command File-->
 			<TargetFilename condition="end with">.appref-ms</TargetFilename> <!--ClickOnce Application-->
+			<TargetFilename condition="end with">.rdp</TargetFilename> <!--Remote Desktop file-->
 			<TargetFilename condition="begin with">C:\Users\Default</TargetFilename> <!--Microsoft:Windows: Changes to default user profile-->
 			<TargetFilename condition="begin with">C:\Windows\System32\GroupPolicy\Machine\Scripts</TargetFilename> <!--Group policy [ More information: http://www.hexacorn.com/blog/2017/01/07/beyond-good-ol-run-key-part-52/ ] -->
 			<TargetFilename condition="begin with">C:\Windows\System32\GroupPolicy\User\Scripts</TargetFilename> <!--Group policy [ More information: http://www.hexacorn.com/blog/2017/01/07/beyond-good-ol-run-key-part-52/ ] -->
