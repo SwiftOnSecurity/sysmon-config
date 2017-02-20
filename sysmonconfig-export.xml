@@ -1,8 +1,12 @@
 <!--
   sysmon-config | A sysmon configuration focused on high-quality event tracing
-  Version: 35 | Date: 2017-02-17
-  By @SwiftOnSecurity, with contributors credited in-line or on Git
+  Version: 36 | Date: 2017-02-20
+  Original By @SwiftOnSecurity, with contributors credited in-line or on Git
   https://github.com/SwiftOnSecurity/sysmon-config
+  Vector-sec Improvements:
+  https://github.com/vector-sec/sysmon-config
+  ion-storm Improvements:
+  https://github.com/ion-storm/sysmon-config
 
   Required Sysmon version: 5.02 or higher
   https://technet.microsoft.com/en-us/sysinternals/bb545021.aspx
