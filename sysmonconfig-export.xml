@@ -22,8 +22,8 @@
 		"LoginGuid" is randomly generated, assigned, and tracked by Sysmon to assist in tracing individual user sessions.
 -->
 
-<Sysmon schemaversion="3.20">
-	<HashAlgorithms>md5,IMPHASH</HashAlgorithms>
+<Sysmon schemaversion="3.3">
+	<HashAlgorithms>md5,sha256</HashAlgorithms>
 
 	<EventFiltering>
 
@@ -91,6 +91,9 @@
 		</FileCreateTime>
 		<FileCreateTime onmatch="exclude">
 			<Image condition="image">OneDrive.exe</Image> <!--OneDrive constantly changes file times-->
+			<Image condition="image">vivaldi.exe</Image> <!--Vivaldi constantly changes file times-->
+			<Image condition="image">chrome.exe</Image> <!--Chrome constantly changes file times-->
+			<Image condition="image">C:\WINDOWS\system32\backgroundTaskHost.exe</Image> <!--Chrome constantly changes file times-->
 			<Image condition="contains">setup</Image> <!--Ignore setups-->
 		</FileCreateTime>
 
@@ -110,8 +113,18 @@
 			<Image condition="image">rundll32.exe</Image> <!--Microsoft:Windows: [ https://blog.cobaltstrike.com/2016/07/22/why-is-rundll32-exe-connecting-to-the-internet/ ] -->
 			<Image condition="image">notepad.exe</Image> <!--Microsoft:Windows: [ https://blog.cobaltstrike.com/2013/08/08/why-is-notepad-exe-connecting-to-the-internet/ ] -->
 			<Image condition="image">regsvr32.exe</Image> <!--Microsoft:Windows: [ https://subt0x10.blogspot.com/2016/04/bypass-application-whitelisting-script.html ] -->
+			<Image condition="image">bitsadmin.exe</Image> <!--File Transfer program-->
+			<Image condition="image">mshta.exe</Image>
+			<Image condition="image">python.exe</Image>
+			<Image condition="image">psexecsvc.exe</Image>
+			<Image condition="image">java.exe</Image>
+			<Image condition="image">installutil.exe</Image>
+			<Image condition="image">msiexec.exe</Image> <!-- msiexec /i http://pathtomsi -->
+			<Image condition="image">certutil.exe</Image>
+			<Image condition="image">PsExec.exe</Image>
 			<!--Hack tools hosting-->
 			<DestinationHostname condition="end with">githubusercontent.com</DestinationHostname> <!--Github: Malicious tools often loaded from here, not used except by developers-->
+			<DestinationHostname condition="end with">github.com</DestinationHostname> <!--Github: Malicious tools often loaded from here, not used except by developers-->
 			<!--Suspicious destinations-->
 			<DestinationHostname condition="is">api.ipify.org</DestinationHostname> <!--Malware uses to get external IP address-->
 			<DestinationHostname condition="is">whatismyipaddress.com</DestinationHostname> <!--Malware uses to get external IP address-->
@@ -121,6 +134,12 @@
 			<DestinationHostname condition="is">ifconfig.me</DestinationHostname> <!--Malware uses to get external IP address-->
 			<DestinationHostname condition="is">ifconfig.co</DestinationHostname> <!--Malware uses to get external IP address-->
 			<DestinationHostname condition="is">ipaddress.com</DestinationHostname> <!--Malware uses to get external IP address-->
+			<DestinationHostname condition="is">ipinfo.io</DestinationHostname> <!--Malware uses to get external IP address-->
+			<DestinationHostname condition="end with">goo.gl</DestinationHostname>
+			<DestinationHostname condition="end with">git.io</DestinationHostname>
+			<DestinationHostname condition="end with">bit.ly</DestinationHostname>
+			<DestinationHostname condition="end with">t.co</DestinationHostname>
+			<DestinationHostname condition="end with">ow.ly</DestinationHostname>
 			<!--Dynamic DNS Providers-->
 			<DestinationHostname condition="end with">dlinkddns.com</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
 			<DestinationHostname condition="end with">no-ip.com</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
@@ -164,6 +183,12 @@
 			<Signature condition="contains">microsoft</Signature> <!--Exclude signed Microsoft drivers-->
 			<Signature condition="contains">windows</Signature> <!--Exclude signed Microsoft drivers-->
 			<Signature condition="begin with">Intel </Signature> <!--Exclude signed Intel drivers-->
+			<Signature condition="contains">Lenovo </Signature> <!--Exclude signed Lenovo drivers-->
+			<Signature condition="contains">Synaptic </Signature> <!--Exclude signed Synaptic drivers-->
+			<Signature condition="contains">Nvidia </Signature> <!--Exclude signed Nvidia drivers-->
+			<Signature condition="contains">Broadcom </Signature> <!--Exclude signed Broadcom drivers-->
+			<Signature condition="contains">AMD </Signature> <!--Exclude signed AMD drivers-->
+			<Signature condition="contains">VMware </Signature> <!--Exclude signed VMware drivers-->
 		</DriverLoad>
 
 	<!--SYSMON EVENT ID 7 : DLL (IMAGE) LOADED BY PROCESS -->
@@ -198,6 +223,7 @@
 			<SourceImage condition="image">C:\Windows\System32\audiodg.exe</SourceImage>
 			<StartModule condition="is">C:\windows\system32\kernel32.dll</StartModule>
 			<TargetImage condition="end with">Google\Chrome\Application\chrome.exe</TargetImage>
+			<SourceImage condition="contains">FireSvc.exe</SourceImage>
 		</CreateRemoteThread>
 
 	<!--SYSMON EVENT ID 9 : RAW DISK ACCESS -->
@@ -215,6 +241,11 @@
 		<!--COMMENT:	Monitor for processes accessing other process' memory. This can be valuable, but can cause massive event glut.
 				Disabled by default since including even one entry here activates this component. Reward/performance decision.
 				Encourage you to experiment with this feature yourself.-->
+			<SourceImage condition="image">winword.exe</SourceImage> <!-- Hancitor process hollowing -->
+			<SourceImage condition="image">excel.exe</SourceImage> <!-- Hancitor process hollowing -->
+			<SourceImage condition="image">mspub.exe</SourceImage> <!-- Hancitor process hollowing -->
+			<SourceImage condition="image">msbuild.exe</SourceImage> <!-- Hancitor process hollowing -->
+			<SourceImage condition="image">powerpnt.exe</SourceImage> <!-- Hancitor process hollowing -->
 		<!--FUTURE WORK:	Include mimikatz-specific events.-->
 		</ProcessAccess>
 
@@ -248,6 +279,7 @@
 			<TargetFilename condition="begin with">C:\Windows\Tasks\</TargetFilename> <!--Microsoft:ScheduledTasks -->
 			<TargetFilename condition="begin with">C:\Windows\System32\Tasks</TargetFilename> <!--Microsoft:ScheduledTasks -->
 			<TargetFilename condition="end with">.cmdline</TargetFilename> <!--Microsoft:dotNet: Executed by cvtres.exe-->
+			<TargetFilename condition="begin with">C:\Windows\System32\</TargetFilename> <!--Microsoft: Files dropped here -->
 			<!--SECTION: Mimikatz-->
 				<!--Default-disable <TargetFileName condition="end with">.kirbi</TargetFileName> --> <!-- [ https://github.com/gentilkiwi/mimikatz/wiki/module-~-kerberos ] -->
 		</FileCreate>
@@ -400,6 +432,7 @@
 			<TargetFilename condition="contains">Downloads</TargetFilename> <!--Downloaded files. Does not include "Run" files in IE-->
 			<TargetFilename condition="contains">Temp\7z</TargetFilename> <!--7zip extractions-->
 			<TargetFilename condition="end with">.vbs</TargetFilename> <!--VisualBasicScripting files-->
+			<TargetFilename condition="end with">.vbe</TargetFilename> <!--VisualBasicScripting files-->
 			<TargetFilename condition="end with">.hta</TargetFilename> <!--Scripting-->
 			<TargetFilename condition="end with">.bat</TargetFilename> <!--Batch scripting-->
 		</FileCreateStreamHash>
