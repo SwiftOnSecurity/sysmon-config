@@ -271,6 +271,16 @@
 			<TargetFilename condition="end with">.ps1</TargetFilename> <!--PowerShell [ More information: http://www.hexacorn.com/blog/2014/08/27/beyond-good-ol-run-key-part-16/ ] -->
 			<TargetFilename condition="end with">.application</TargetFilename> <!--Microsoft:ClickOnce: [ https://blog.netspi.com/all-you-need-is-one-a-clickonce-love-story/ ] -->
 			<TargetFilename condition="end with">.sys</TargetFilename> <!--System driver files-->
+			<TargetFilename condition="end with">.reg</TargetFilename> <!--Registry files-->
+			<TargetFilename condition="end with">.docm</TargetFilename> <!--Office Macros-->
+			<TargetFilename condition="end with">.xlsm</TargetFilename> <!--Office Macros-->
+			<TargetFilename condition="end with">.xlam</TargetFilename> <!--Office Macros-->
+			<TargetFilename condition="end with">.pptm</TargetFilename> <!--Office Macros-->
+			<TargetFilename condition="end with">.potm</TargetFilename> <!--Office Macros-->
+			<TargetFilename condition="end with">.pptm</TargetFilename> <!--Office Macros-->
+			<TargetFilename condition="end with">.sldm</TargetFilename> <!--Office Macros-->
+			<TargetFilename condition="end with">.scf</TargetFilename> <!--Explorer Command File-->
+			<TargetFilename condition="end with">.appref-ms</TargetFilename> <!--ClickOnce Application-->
 			<TargetFilename condition="begin with">C:\Users\Default</TargetFilename> <!--Microsoft:Windows: Changes to default user profile-->
 			<TargetFilename condition="begin with">C:\Windows\System32\GroupPolicy\Machine\Scripts</TargetFilename> <!--Group policy [ More information: http://www.hexacorn.com/blog/2017/01/07/beyond-good-ol-run-key-part-52/ ] -->
 			<TargetFilename condition="begin with">C:\Windows\System32\GroupPolicy\User\Scripts</TargetFilename> <!--Group policy [ More information: http://www.hexacorn.com/blog/2017/01/07/beyond-good-ol-run-key-part-52/ ] -->
@@ -435,10 +445,16 @@
 			<TargetFilename condition="contains">Content.Outlook</TargetFilename> <!--Microsoft:Outlook: Attachments--> <!--PRIVACY WARNING-->
 			<TargetFilename condition="contains">Downloads</TargetFilename> <!--Downloaded files. Does not include "Run" files in IE-->
 			<TargetFilename condition="contains">Temp\7z</TargetFilename> <!--7zip extractions-->
+			<TargetFilename condition="end with">.vb</TargetFilename> <!--VisualBasicScripting files-->
 			<TargetFilename condition="end with">.vbs</TargetFilename> <!--VisualBasicScripting files-->
 			<TargetFilename condition="end with">.vbe</TargetFilename> <!--VisualBasicScripting files-->
 			<TargetFilename condition="end with">.hta</TargetFilename> <!--Scripting-->
 			<TargetFilename condition="end with">.bat</TargetFilename> <!--Batch scripting-->
+			<TargetFilename condition="end with">.cmd</TargetFilename> <!--Batch scripting-->
+			<TargetFilename condition="end with">.ps1</TargetFilename> <!--Powershell-->
+			<TargetFilename condition="end with">.ps2</TargetFilename> <!--Powershell-->
+			<TargetFilename condition="end with">.lnk</TargetFilename> <!--Shortcut file-->
+			<TargetFilename condition="end with">.reg</TargetFilename> <!--Registry File-->
 		</FileCreateStreamHash>
 
 	<!--SYSMON EVENT ID 16 : SYSMON CONFIGURATION CHANGE, THIS LINE IS INCLUDED FOR DOCUMENTATION PURPOSES ONLY [ SYSMON 6.00+ ] -->
