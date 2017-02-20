@@ -126,6 +126,7 @@
 			<Image condition="image">msiexec.exe</Image> <!-- msiexec /i http://pathtomsi -->
 			<Image condition="image">certutil.exe</Image>
 			<Image condition="image">PsExec.exe</Image>
+			<Image condition="image">reg.exe</Image><!-- Remote Registry -->
 			<!--Hack tools hosting-->
 			<DestinationHostname condition="end with">githubusercontent.com</DestinationHostname> <!--Github: Malicious tools often loaded from here, not used except by developers-->
 			<DestinationHostname condition="end with">github.com</DestinationHostname> <!--Github: Malicious tools often loaded from here, not used except by developers-->
