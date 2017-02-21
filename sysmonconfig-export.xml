@@ -128,6 +128,13 @@
 			<Image condition="image">PsExec.exe</Image>
 			<Image condition="image">reg.exe</Image><!-- Remote Registry -->
 			<Image condition="image">mstsc.exe</Image><!-- Remote Desktop -->
+			<Image condition="image">telnet.exe</Image><!-- Telnet -->
+			<Image condition="image">ssh.exe</Image><!-- SSH -->
+			<Image condition="image">putty.exe</Image><!-- SSH -->
+			<Image condition="image">kitty.exe</Image><!-- SSH -->
+			<Image condition="image">kitty_portable.exe</Image><!-- SSH -->
+			<Image condition="image">psftp.exe</Image><!-- SFTP -->
+			<Image condition="image">tftp.exe</Image><!-- TFTP -->
 			<!--Hack tools hosting-->
 			<DestinationHostname condition="end with">githubusercontent.com</DestinationHostname> <!--Github: Malicious tools often loaded from here, not used except by developers-->
 			<DestinationHostname condition="end with">github.com</DestinationHostname> <!--Github: Malicious tools often loaded from here, not used except by developers-->
