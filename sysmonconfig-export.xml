@@ -306,6 +306,44 @@
 			<TargetFilename condition="begin with">C:\Windows\System32\Tasks</TargetFilename> <!--Microsoft:ScheduledTasks -->
 			<TargetFilename condition="end with">.cmdline</TargetFilename> <!--Microsoft:dotNet: Executed by cvtres.exe-->
 			<TargetFilename condition="begin with">C:\Windows\System32\</TargetFilename> <!--Microsoft: Files dropped here -->
+			<!--SECTION: Ransomware-->
+			<TargetFilename condition="contains">help_decrypt</TargetFilename>
+			<TargetFilename condition="contains">help_restore</TargetFilename>
+			<TargetFilename condition="contains">ReadDecryptFilesHere</TargetFilename>
+			<TargetFilename condition="contains">howto_recover_file</TargetFilename>
+			<TargetFilename condition="contains">recover_file_</TargetFilename>
+			<TargetFilename condition="contains">Recovery_file_</TargetFilename>
+			<TargetFilename condition="contains">how_to_decrypt</TargetFilename>
+			<TargetFilename condition="contains">encryptor_raas_readme_liesmich</TargetFilename>
+			<TargetFilename condition="contains">_how_recover_</TargetFilename>
+			<TargetFilename condition="contains">HOWTO_RESTORE_FILES_</TargetFilename>
+			<TargetFilename condition="contains">help_my_files</TargetFilename>
+			<TargetFilename condition="contains">how_recover</TargetFilename>
+			<TargetFilename condition="contains">HELP_TO_SAVE_FILES</TargetFilename>
+			<TargetFilename condition="contains">DECRYPT_INSTRUCTIONS</TargetFilename>
+			<TargetFilename condition="contains">YOUR_FILES.url</TargetFilename>
+			<TargetFilename condition="contains">Coin.Locker.txt</TargetFilename>
+			<TargetFilename condition="contains">_secret_code.txt</TargetFilename>
+			<TargetFilename condition="contains">Decrypt_readme.txt</TargetFilename>
+			<TargetFilename condition="contains">INSTUCCIONES_DESCRIFRADO</TargetFilename>
+			<TargetFilename condition="contains">FILESAREGONE.txt</TargetFilename>
+			<TargetFilename condition="contains">IAMREADYTOPAY.TXT</TargetFilename>
+			<TargetFilename condition="contains">HELLOTHERE.TXT</TargetFilename>
+			<TargetFilename condition="contains">READTHISNOW!!!.txt</TargetFilename>
+			<TargetFilename condition="contains">SECRETIDHERE.KEY</TargetFilename>
+			<TargetFilename condition="contains">IHAVEYOURSECRET.KEY</TargetFilename>
+			<TargetFilename condition="contains">SECRET.KEY</TargetFilename>
+			<TargetFilename condition="contains">HELPDECRYPT_YOUR_FILES.HTML</TargetFilename>
+			<TargetFilename condition="contains">RECOVERY_FILES.TXT</TargetFilename>
+			<TargetFilename condition="contains">RECOVERY_FILE.</TargetFilename>
+			<TargetFilename condition="contains">HowtoRestore_Files</TargetFilename>
+			<TargetFilename condition="contains">restorefiles</TargetFilename>
+			<TargetFilename condition="contains">howrecover+</TargetFilename>
+			<TargetFilename condition="contains">recoveryfile</TargetFilename>
+			<TargetFilename condition="contains">help_recover_instructions</TargetFilename>
+			<TargetFilename condition="contains">_Locky_recover</TargetFilename>
+			<TargetFilename condition="contains">_ReCoVeRy_</TargetFilename>
+			
 			<!--SECTION: Mimikatz-->
 				<!--Default-disable <TargetFileName condition="end with">.kirbi</TargetFileName> --> <!-- [ https://github.com/gentilkiwi/mimikatz/wiki/module-~-kerberos ] -->
 		</FileCreate>
