@@ -13,6 +13,10 @@ Pull requests and issue tickets are welcome, and new additions will be credited 
 Note: Exact syntax and filtering choices are deliberate to catch appropriate entries and to have as little performance impact as possible. Sysmon's filtering abilities are different than the built-in Windows auditing features, so often a different approach is taken than the normal static listing of every possible important area.
 
 ## Use ##
+
+### Auto-Install ###
+Install Sysmon.bat
+
 ### Install ###
 Run with administrator rights
 ~~~~
