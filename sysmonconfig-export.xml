@@ -480,6 +480,7 @@
 			<TargetObject condition="end with">\UserChoice\Hash</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "FileExts"--> <!--Win8+ -->
 			<TargetObject condition="end with">\OpenWithList\MRUList</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "FileExts"-->
 			<TargetObject condition="end with">} 0xFFFF</TargetObject> <!--Microsoft:Windows: Remove noise from explorer.exe from monitoring ShellCached binary keys--> <!--Win8+ -->
+			<TargetObject condition="end with">SOFTWARE\Microsoft\Internet Explorer\Toolbar\Locked</TargetObject><!--Microsoft:Windows Remove noise from Windows 10 Taskbar--> <!--Win10 -->
 			<!--SECTION: 3rd party-->
 			<Image condition="is">C:\Program Files\WIDCOMM\Bluetooth Software\btwdins.exe</Image>
 		</RegistryEvent>
