@@ -259,7 +259,9 @@
 			<SourceImage condition="image">mspub.exe</SourceImage> <!-- Hancitor process hollowing -->
 			<SourceImage condition="image">msbuild.exe</SourceImage> <!-- Hancitor process hollowing -->
 			<SourceImage condition="image">powerpnt.exe</SourceImage> <!-- Hancitor process hollowing -->
-		<!--FUTURE WORK:	Include mimikatz-specific events.-->
+		<!--Include mimikatz-specific events.-->
+			<SourceImage condition="contains">powershell.exe</SourceImage>
+ 			<TargetImage condition="contains">lsass.exe</TargetImage>
 		</ProcessAccess>
 
 	<!--SYSMON EVENT ID 11 : FILE CREATED -->
