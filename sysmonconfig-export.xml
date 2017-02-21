@@ -170,6 +170,17 @@
 			<DestinationHostname condition="end with">zapto.org</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
 			<DestinationHostname condition="end with">servehttp.com</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
 			<DestinationHostname condition="end with">sytes.net</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
+			<!--Tor2Web Providers-->
+			<DestinationHostname condition="end with">onion.to</DestinationHostname> <!--tor2web service -->
+			<DestinationHostname condition="end with">onion.cab</DestinationHostname> <!--tor2web service -->
+			<DestinationHostname condition="end with">onion.sh</DestinationHostname> <!--tor2web service -->
+			<DestinationHostname condition="end with">onion.nu</DestinationHostname> <!--tor2web service -->
+			<DestinationHostname condition="end with">onion.direct</DestinationHostname> <!--tor2web service -->
+			<DestinationHostname condition="end with">tor2web.org</DestinationHostname> <!--tor2web service -->
+			<DestinationHostname condition="end with">tor2web.fi</DestinationHostname> <!--tor2web service -->
+			<DestinationHostname condition="end with">tor2web.blutmagie.de</DestinationHostname> <!--tor2web service -->
+			<DestinationHostname condition="end with">tor-gateways.de</DestinationHostname> <!--tor2web service -->
+			<DestinationHostname condition="end with">hiddenservice.net</DestinationHostname> <!--tor2web service -->
 		</NetworkConnect>
 		<NetworkConnect onmatch="exclude">
 			<Image condition="image">Spotify.exe</Image> <!--Spotify-->
