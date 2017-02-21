@@ -27,7 +27,7 @@
 -->
 
 <Sysmon schemaversion="3.30">
-	<HashAlgorithms>sha256</HashAlgorithms>
+	<HashAlgorithms>md5,sha256</HashAlgorithms>
 	<EventFiltering>
 
 	<!--SYSMON EVENT ID 1 : PROCESS CREATION -->
