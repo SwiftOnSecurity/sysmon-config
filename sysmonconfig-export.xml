@@ -40,6 +40,7 @@
 			<!--SECTION: Microsoft Windows-->
 			<IntegrityLevel condition="is">AppContainer</IntegrityLevel> <!--Microsoft:Windows: Don't care about sandboxed processes-->
 			<Image condition="image">C:\Windows\System32\audiodg.exe</Image> <!--Microsoft:Windows: Launched constantly-->
+			<Image condition="image">C:\Windows\System32\taskhostw.exe</Image> <!--Microsoft:Windows: Launched constantly-->
 			<Image condition="image">C:\Windows\System32\conhost.exe</Image> <!--Microsoft:Windows: Command line interface host process-->
 			<Image condition="image">C:\Windows\System32\wbem\WmiApSrv.exe</Image> <!--Microsoft:Windows: WMI performance adpater host process-->
 			<ParentImage condition="image">C:\Windows\system32\SearchIndexer.exe</ParentImage> <!--Microsoft:Windows:Search: Launches many uninteresting sub-processes-->
