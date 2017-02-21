@@ -135,6 +135,7 @@
 			<Image condition="image">kitty_portable.exe</Image><!-- SSH -->
 			<Image condition="image">psftp.exe</Image><!-- SFTP -->
 			<Image condition="image">tftp.exe</Image><!-- TFTP -->
+			<Image condition="image">wmic.exe</Image><!-- wmic /node logging -->
 			<!--Hack tools hosting-->
 			<DestinationHostname condition="end with">githubusercontent.com</DestinationHostname> <!--Github: Malicious tools often loaded from here, not used except by developers-->
 			<DestinationHostname condition="end with">github.com</DestinationHostname> <!--Github: Malicious tools often loaded from here, not used except by developers-->
