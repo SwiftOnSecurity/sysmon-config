@@ -1,10 +1,10 @@
 <!--
   sysmon-config | A sysmon configuration focused on high-quality event tracing
-  Version: 35 | Date: 2017-02-17
+  Version: 40 | Date: 2017-02-21
   By @SwiftOnSecurity, with contributors credited in-line or on Git
   https://github.com/SwiftOnSecurity/sysmon-config
 
-  Required Sysmon version: 5.02 or higher
+  REQUIRED: Sysmon version 6.00 or higher (due to changes in registry syntax)
   https://technet.microsoft.com/en-us/sysinternals/bb545021.aspx
 
   NOTE: Although this is stable and inclusive, you should periodically check for new versions to ensure best coverage.
@@ -22,9 +22,8 @@
 		"LoginGuid" is randomly generated, assigned, and tracked by Sysmon to assist in tracing individual user sessions.
 -->
 
-<Sysmon schemaversion="3.20">
-	<HashAlgorithms>md5,IMPHASH</HashAlgorithms>
-
+<Sysmon schemaversion="3.30">
+	<HashAlgorithms>*</HashAlgorithms>
 	<EventFiltering>
 
 	<!--SYSMON EVENT ID 1 : PROCESS CREATION -->
@@ -35,51 +34,69 @@
 				Ultimately, you must weigh CPU time checking many detailed rules, against the risk of malware exploiting the blindness created.-->
 			<!--SECTION: Microsoft Windows-->
 			<IntegrityLevel condition="is">AppContainer</IntegrityLevel> <!--Microsoft:Windows: Don't care about sandboxed processes-->
-			<Image condition="image">C:\Windows\System32\audiodg.exe</Image> <!--Microsoft:Windows: Launched constantly-->
-			<Image condition="image">C:\Windows\System32\conhost.exe</Image> <!--Microsoft:Windows: Command line interface host process-->
-			<Image condition="image">C:\Windows\System32\wbem\WmiApSrv.exe</Image> <!--Microsoft:Windows: WMI performance adpater host process-->
-			<ParentImage condition="image">C:\Windows\system32\SearchIndexer.exe</ParentImage> <!--Microsoft:Windows:Search: Launches many uninteresting sub-processes-->
+			<Image condition="is">C:\Windows\System32\audiodg.exe</Image> <!--Microsoft:Windows: Launched constantly-->
+			<Image condition="is">C:\Windows\System32\conhost.exe</Image> <!--Microsoft:Windows: Command line interface host process-->
+			<Image condition="is">C:\Windows\System32\wbem\WmiApSrv.exe</Image> <!--Microsoft:Windows: WMI performance adpater host process-->
+			<ParentImage condition="is">C:\Windows\system32\SearchIndexer.exe</ParentImage> <!--Microsoft:Windows:Search: Launches many uninteresting sub-processes-->
 			<CommandLine condition="begin with">C:\Windows\system32\DllHost.exe /Processid</CommandLine> <!--Microsoft:Windows-->
 			<ParentCommandLine condition="begin with">C:\Windows\system32\svchost.exe -k DcomLaunch</ParentCommandLine> <!--Microsoft:Windows-->
-			<ParentCommandLine condition="begin with">%SystemRoot%\system32\csrss.exe ObjectDirectory=\Windows</ParentCommandLine> <!--Microsoft:Windows:CommandShell: Triggered when programs use the command shell, but without attribution-->
+			<ParentCommandLine condition="begin with">%%SystemRoot%%\system32\csrss.exe ObjectDirectory=\Windows</ParentCommandLine> <!--Microsoft:Windows:CommandShell: Triggered when programs use the command shell, but without attribution-->
 			<CommandLine condition="is">C:\windows\System32\svchost.exe -k WerSvcGroup</CommandLine> <!--Microsoft:WindowsErrorReporting-->
 			<Image condition="begin with">C:\Program Files\Windows Defender</Image> <!--Microsoft:Windows:Defender in Win10-->
+			<Image condition="end with">C:\Windows\System32\CompatTelRunner.exe</Image> <!--Microsoft:Windows:Customer Experience Improvement-->
 			<!--SECTION: Microsoft dotNet-->
-			<ParentImage condition="image">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\mscorsvw.exe</ParentImage> <!--Microsoft:DotNet-->
-			<Image condition="image">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\mscorsvw.exe</Image> <!--Microsoft:DotNet-->
-			<ParentImage condition="image">C:\Windows\Microsoft.NET\Framework\v4.0.30319\mscorsvw.exe</ParentImage> <!--Microsoft:DotNet-->
-			<Image condition="image">C:\Windows\Microsoft.NET\Framework\v4.0.30319\mscorsvw.exe</Image> <!--Microsoft:DotNet-->
+			<Image condition="is">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\mscorsvw.exe</Image> <!--Microsoft:DotNet-->
+			<ParentImage condition="is">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\mscorsvw.exe</ParentImage> <!--Microsoft:DotNet-->
+			<Image condition="is">C:\Windows\Microsoft.NET\Framework\v4.0.30319\mscorsvw.exe</Image> <!--Microsoft:DotNet-->
+			<ParentImage condition="is">C:\Windows\Microsoft.NET\Framework\v4.0.30319\mscorsvw.exe</ParentImage> <!--Microsoft:DotNet-->
 			<!--SECTION: Microsoft Office-->
-			<Image condition="image">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeC2RClient.exe</Image> <!--Microsoft:Office: Background process-->
-			<Image condition="image">C:\Program Files\Common Files\Microsoft Shared\OfficeSoftwareProtectionPlatform\OSPPSVC.EXE</Image> <!--Microsoft:Office: Background process-->
-			<ParentImage condition="image">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeClickToRun.exe</ParentImage> <!--Microsoft:Office: Background process-->
-			<ParentImage condition="image">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeC2RClient.exe</ParentImage> <!--Microsoft:Office: Background process-->
+			<Image condition="is">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeC2RClient.exe</Image> <!--Microsoft:Office: Background process-->
+			<ParentImage condition="is">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeC2RClient.exe</ParentImage> <!--Microsoft:Office: Background process-->
+			<ParentImage condition="end with">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeClickToRun.exe</ParentImage> <!--Microsoft:Office: Background process-->
+			<Image condition="is">C:\Program Files\Common Files\Microsoft Shared\OfficeSoftwareProtectionPlatform\OSPPSVC.EXE</Image> <!--Microsoft:Office: Background process-->
 			<!--SECTION: Google-->
 			<CommandLine condition="begin with">"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --type=</CommandLine> <!--Google:Chrome: massive command-line arguments-->
 			<CommandLine condition="begin with">"C:\Program Files\Google\Chrome\Application\chrome.exe" --type=</CommandLine> <!--Google:Chrome: massive command-line arguments-->
-			<CommandLine condition="begin with">"C:\Program Files (x86)\Google\Update\</CommandLine> <!--Google:Chrome: Updater-->
+			<ParentImage condition="begin with">C:\Program Files (x86)\Google\Update\</ParentImage> <!--Google:Chrome: Updater-->
 			<!-- SECTION: Firefox -->
 			<CommandLine condition="begin with">"C:\Program Files\Mozilla Firefox\plugin-container.exe" --channel</CommandLine> <!-- Mozilla:Firefox massive command-line arguments || Contributor @Darkbat91 -->
 			<CommandLine condition="begin with">"C:\Program Files (x86)\Mozilla Firefox\plugin-container.exe" --channel</CommandLine> <!-- Mozilla:Firefox massive command-line arguments || Contributor @Darkbat91 -->
-			<!--SECTION: Dell-->
-			<Image condition="Image">C:\Program Files\Dell\SupportAssist\pcdrcui.exe</Image> <!--Dell:SupportAssist: routine actions-->
-			<Image condition="Image">C:\Program Files\Dell\SupportAssist\koala.exe</Image> <!--Dell:SupportAssist: routine actions-->
 			<!--SECTION: Adobe-->
 			<CommandLine condition="contains">AcroRd32.exe" /CR </CommandLine> <!--Adobe:AcrobatReader: Uninsteresting sandbox subprocess-->
 			<CommandLine condition="contains">AcroRd32.exe" --channel=</CommandLine> <!--Adobe:AcrobatReader: Uninteresting sandbox subprocess-->
-			<Image condition="image">C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\AcroCEF\RdrCEF.exe</Image> <!--Adobe:AcrobatReader: Uninteresting sandbox subprocess-->
-			<Image condition="image">C:\Windows\SysWOW64\Macromed\Flash\FlashPlayerUpdateService.exe</Image> <!--Adobe:Flash: Properly hardened updater, not a risk-->
-				<!-- COMMENT: Still debating about consolidating Adobe common files entries below -->
-			<Image condition="Image">C:\Program Files (x86)\Common Files\Adobe\AdobeGCClient\AdobeGCClient.exe</Image> <!--Adobe:Creative Cloud-->
-			<Image condition="image">C:\Program Files (x86)\Common Files\Adobe\OOBE\PDApp\P6\adobe_licutil.exe</Image> <!--Adobe:License utility-->
-			<Image condition="image">C:\Program Files (x86)\Common Files\Adobe\ARM\1.0\AdobeARM.exe</Image> <!--Adobe:Updater: Properly hardened updater, not a risk-->
-			<Image condition="image">C:\Program Files (x86)\Common Files\Adobe\ARM\1.0\armsvc.exe</Image> <!--Adobe:Updater: Properly hardened updater, not a risk-->
-			<Image condition="image">C:\Program Files (x86)\Common Files\Adobe\Adobe Desktop Common\HEX\Adobe CEF Helper.exe</Image>
+			<Image condition="end with">C:\Program Files (x86)\Adobe\Acrobat DC\Acrobat\AcroCEF\AcroCEF.exe</Image>
+			<ParentImage condition="end with">C:\Program Files (x86)\Common Files\Adobe\AdobeGCClient\AGSService.exe</ParentImage>
+			<Image condition="end with">C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\AcroCEF\RdrCEF.exe</Image> <!--Adobe:AcrobatReader: Uninteresting sandbox subprocess-->
+			<Image condition="end with">C:\Program Files (x86)\Adobe\Acrobat DC\Acrobat\LogTransport2.exe</Image>
+			<!--SECTION: Adobe Flash-->
+			<Image condition="end with">C:\Windows\SysWOW64\Macromed\Flash\FlashPlayerUpdateService.exe</Image> <!--Adobe:Flash: Properly hardened updater, not a risk-->
+			<!--SECTION: Adobe self-update-->
+			<Image condition="end with">C:\Program Files (x86)\Common Files\Adobe\ARM\1.0\AdobeARM.exe</Image> <!--Adobe:Updater: Properly hardened updater, not a risk-->
+			<ParentImage condition="end with">C:\Program Files (x86)\Common Files\Adobe\ARM\1.0\AdobeARM.exe</ParentImage> <!--Adobe:Updater: Properly hardened updater, not a risk-->
+			<Image condition="end with">C:\Program Files (x86)\Common Files\Adobe\ARM\1.0\armsvc.exe</Image> <!--Adobe:Updater: Properly hardened updater, not a risk-->
+			<!--SECTION: Adobe supporting processes-->
+			<Image condition="end with">C:\Program Files (x86)\Adobe\Acrobat DC\Acrobat\AdobeCollabSync.exe</Image>
+			<Image condition="end with">C:\Program Files (x86)\Common Files\Adobe\Adobe Desktop Common\HEX\Adobe CEF Helper.exe</Image>
+			<Image condition="end with">C:\Program Files (x86)\Common Files\Adobe\AdobeGCClient\AdobeGCClient.exe</Image> <!--Adobe:Creative Cloud-->
+			<Image condition="end with">C:\Program Files (x86)\Common Files\Adobe\OOBE\PDApp\P6\adobe_licutil.exe</Image> <!--Adobe:License utility-->
+			<Image condition="end with">C:\Program Files (x86)\Common Files\Adobe\OOBE\PDApp\P7\adobe_licutil.exe</Image> <!--Adobe:License utility-->
+			<ParentImage condition="end with">C:\Program Files (x86)\Common Files\Adobe\OOBE\PDApp\P7\adobe_licutil.exe</ParentImage> <!--Adobe:License utility-->
+			<Image condition="end with">C:\Program Files (x86)\Common Files\Adobe\OOBE\PDApp\UWA\updaterstartuputility.exe</Image>
+			<ParentImage condition="is">C:\Program Files (x86)\Common Files\Adobe\OOBE\PDApp\UWA\updaterstartuputility.exe</ParentImage>
+			<!--SECTION: Adobe Creative Cloud-->
+			<ParentImage condition="end with">C:\Program Files (x86)\Adobe\Adobe Creative Cloud\CCXProcess\CCXProcess.exe</ParentImage>
+			<ParentImage condition="end with">C:\Program Files (x86)\Adobe\Adobe Creative Cloud\CoreSync\CoreSync.exe</ParentImage>
+			<ParentImage condition="end with">C:\Program Files (x86)\Adobe\Adobe Creative Cloud\ACC\Creative Cloud.exe</ParentImage>
+			<Image condition="end with">C:\Program Files (x86)\Adobe\Adobe Creative Cloud\ACC\Creative Cloud.exe</Image>
 			<!--SECTION: Drivers-->
 			<Image condition="begin with">C:\Program Files\NVIDIA Corporation\Display\</Image> <!--Nvidia:Driver: routine actions-->
 			<Image condition="begin with">C:\Program Files\Realtek\</Image> <!--Realtek:Driver: routine actions-->
+			<ParentImage condition="end with">C:\Program Files\Realtek\Audio\HDA\RtkAudioService64.exe</ParentImage> <!--Realtek:Driver: routine actions-->
+			<ParentImage condition="end with">C:\Program Files\DellTPad\HidMonitorSvc.exe</ParentImage>
+			<CommandLine condition="begin with">"C:\Program Files\DellTPad\ApMsgFwd.exe" -s{</CommandLine>
 			<!--SECTION: Dropbox-->
-			<Image condition="image">C:\Program Files (x86)\Dropbox\Update\DropboxUpdate.exe</Image> <!--Dropbox:Updater: Lots of command-line arguments-->
+			<Image condition="end with">C:\Program Files (x86)\Dropbox\Update\DropboxUpdate.exe</Image> <!--Dropbox:Updater: Lots of command-line arguments-->
+			<ParentImage condition="end with">C:\Program Files (x86)\Dropbox\Update\DropboxUpdate.exe</ParentImage>
 			<!--SECTION: Dell-->
 			<!-- <ParentImage condition="image">C:\Program Files (x86)\Dell\CommandUpdate\InvColPC.exe</ParentImage> --> <!--Dell:CommandUpdate: Detection process-->
 		</ProcessCreate>
@@ -98,6 +115,8 @@
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, User, Protocol, Initiated, SourceIsIpv6, SourceIp, SourceHostname, SourcePort, SourcePortName, DestinationIsIpV6, DestinationIP, DestinationHostname, DestinationPort, DestinationPortName-->
 		<NetworkConnect onmatch="include">
 		<!--COMMENT:	Takes a very conservative approach to network logging, limit to extremely high-signal events.-->
+		<!--TECHNICAL:	For the DestinationHostname, Sysmon uses the GetNameInfo API, which may not always have the information or may be a CDN. Using that field is best-effort only.-->
+			<!--NOTE: These exe's do not initiate their connections, cannot be included: BITSADMIN-->
 			<!--Suspicious sources-->
 			<Image condition="begin with">C:\Users</Image>
 			<Image condition="begin with">C:\ProgramData</Image>
@@ -105,37 +124,12 @@
 			<Image condition="image">powershell.exe</Image> <!--Microsoft:Windows: PowerShell interface-->
 			<Image condition="image">cmd.exe</Image> <!--Microsoft:Windows: Command prompt-->
 			<Image condition="image">wmic.exe</Image> <!--Microsoft:WindowsManagementInstrumentation: Credit to @Neo23x0 [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
-			<Image condition="image">cscript.exe</Image> <!--Microsoft:WindowsScriptingHost: Credit to @Neo23x0 [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
-			<Image condition="image">wscript.exe</Image> <!--Microsoft:WindowsScriptingHost: Credit to @arekfurt for reminder -->
+			<Image condition="image">cscript.exe</Image> <!--Microsoft:WindowsScriptingHost: | Credit: @Neo23x0 [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
+			<Image condition="image">wscript.exe</Image> <!--Microsoft:WindowsScriptingHost: | Credit: @arekfurt -->
 			<Image condition="image">rundll32.exe</Image> <!--Microsoft:Windows: [ https://blog.cobaltstrike.com/2016/07/22/why-is-rundll32-exe-connecting-to-the-internet/ ] -->
 			<Image condition="image">notepad.exe</Image> <!--Microsoft:Windows: [ https://blog.cobaltstrike.com/2013/08/08/why-is-notepad-exe-connecting-to-the-internet/ ] -->
 			<Image condition="image">regsvr32.exe</Image> <!--Microsoft:Windows: [ https://subt0x10.blogspot.com/2016/04/bypass-application-whitelisting-script.html ] -->
-			<!--Hack tools hosting-->
-			<DestinationHostname condition="end with">githubusercontent.com</DestinationHostname> <!--Github: Malicious tools often loaded from here, not used except by developers-->
-			<!--Suspicious destinations-->
-			<DestinationHostname condition="is">api.ipify.org</DestinationHostname> <!--Malware uses to get external IP address-->
-			<DestinationHostname condition="is">whatismyipaddress.com</DestinationHostname> <!--Malware uses to get external IP address-->
-			<DestinationHostname condition="is">edns.ip-api.com</DestinationHostname> <!--Malware uses to get external IP address-->
-			<DestinationHostname condition="is">checkip.dyndns.org</DestinationHostname> <!--Malware uses to get external IP address-->
-			<DestinationHostname condition="is">icanhazip.com</DestinationHostname> <!--Malware uses to get external IP address-->
-			<DestinationHostname condition="is">ifconfig.me</DestinationHostname> <!--Malware uses to get external IP address-->
-			<DestinationHostname condition="is">ifconfig.co</DestinationHostname> <!--Malware uses to get external IP address-->
-			<DestinationHostname condition="is">ipaddress.com</DestinationHostname> <!--Malware uses to get external IP address-->
-			<!--Dynamic DNS Providers-->
-			<DestinationHostname condition="end with">dlinkddns.com</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
-			<DestinationHostname condition="end with">no-ip.com</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
-			<DestinationHostname condition="end with">no-ip.org</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
-			<DestinationHostname condition="end with">no-ip.biz</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
-			<DestinationHostname condition="end with">no-ip.info</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
-			<DestinationHostname condition="end with">noip.com</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
-			<DestinationHostname condition="end with">afraid.org</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
-			<DestinationHostname condition="end with">duckdns.org</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
-			<DestinationHostname condition="end with">changeip.com</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
-			<DestinationHostname condition="end with">ddns.net</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
-			<DestinationHostname condition="end with">hopto.org</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
-			<DestinationHostname condition="end with">zapto.org</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
-			<DestinationHostname condition="end with">servehttp.com</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
-			<DestinationHostname condition="end with">sytes.net</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
+			<Image condition="image">msiexec.exe</Image> <!--Microsoft:Windows: Can install from http:// paths | Credit: @vector-sec -->
 		</NetworkConnect>
 		<NetworkConnect onmatch="exclude">
 			<Image condition="image">Spotify.exe</Image> <!--Spotify-->
@@ -148,6 +142,7 @@
 
 	<!--SYSMON EVENT ID 4 : RESERVED FOR SYSMON STATUS MESSAGES, THIS LINE IS INCLUDED FOR DOCUMENTATION PURPOSES ONLY -->
 		<!--DATA: UtcTime, State, Version, SchemaVersion-->
+		<!--Cannot be filtered.-->
 
 	<!--SYSMON EVENT ID 5 : PROCESS ENDED -->
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image-->
@@ -180,8 +175,8 @@
 			<!-- <ImageLoaded condition="contains">npjpi</ImageLoaded> -->
 			<!-- <ImageLoaded condition="image">jp2iexp.dll</ImageLoaded> -->
 			<!-- Mimikatz -->
-				<!--NOTES: [ https://securityriskadvisors.com/blog/post/detecting-in-memory-mimikatz/ ] -->
-				<!-- <ImageLoaded condition="image">wdigest.dll</ImageLoaded> -->
+			<!--NOTES: [ https://securityriskadvisors.com/blog/post/detecting-in-memory-mimikatz/ ] -->
+			<!-- <ImageLoaded condition="image">wdigest.dll</ImageLoaded> -->
 		</ImageLoad>
 
 	<!--SYSMON EVENT ID 8 : REMOTE THREAD CREATED -->
@@ -189,13 +184,13 @@
 		<CreateRemoteThread onmatch="exclude">
 		<!--COMMENT:	Monitor for processes injecting code into other processes. Often used by malware to cloak their actions.
 				Exclude mostly-safe sources and log anything else.-->
-			<SourceImage condition="image">C:\Windows\System32\wbem\WmiPrvSE.exe</SourceImage>
-			<SourceImage condition="image">C:\Windows\System32\svchost.exe</SourceImage>
-			<SourceImage condition="image">C:\Windows\System32\wininit.exe</SourceImage>
-			<SourceImage condition="image">C:\Windows\System32\csrss.exe</SourceImage>
-			<SourceImage condition="image">C:\Windows\System32\services.exe</SourceImage>
-			<SourceImage condition="image">C:\Windows\System32\winlogon.exe</SourceImage>
-			<SourceImage condition="image">C:\Windows\System32\audiodg.exe</SourceImage>
+			<SourceImage condition="is">C:\Windows\System32\wbem\WmiPrvSE.exe</SourceImage>
+			<SourceImage condition="is">C:\Windows\System32\svchost.exe</SourceImage>
+			<SourceImage condition="is">C:\Windows\System32\wininit.exe</SourceImage>
+			<SourceImage condition="is">C:\Windows\System32\csrss.exe</SourceImage>
+			<SourceImage condition="is">C:\Windows\System32\services.exe</SourceImage>
+			<SourceImage condition="is">C:\Windows\System32\winlogon.exe</SourceImage>
+			<SourceImage condition="is">C:\Windows\System32\audiodg.exe</SourceImage>
 			<StartModule condition="is">C:\windows\system32\kernel32.dll</StartModule>
 			<TargetImage condition="end with">Google\Chrome\Application\chrome.exe</TargetImage>
 		</CreateRemoteThread>
@@ -223,11 +218,8 @@
 		<FileCreate onmatch="include">
 			<TargetFilename condition="contains">\Start Menu</TargetFilename> <!--Microsoft:Windows: Startup links and shortcut modification-->
 			<TargetFilename condition="contains">\Startup</TargetFilename> <!--Microsoft:Office: Changes to user's autoloaded files under AppData-->
-				<!--Default-disable <TargetFilename condition="begin with">C:\Windows\Prefetch</TargetFilename> --> <!--Microsoft:Windows: Prefetch traces-->
 			<TargetFilename condition="contains">\Content.Outlook\</TargetFilename> <!--Microsoft:Outlook: attachments--> <!--PRIVACY WARNING-->
 			<TargetFilename condition="contains">\Downloads\</TargetFilename> <!--Downloaded files. Does not include "Run" files in IE--> <!--PRIVACY WARNING-->
-				<!--Default-disable <TargetFilename condition="contains">\Temp\7z</TargetFilename> --> <!--7zip extractions-->
-				<!--Default-disable <TargetFilename condition="contains">\Temp\rar$</TargetFilename> --> <!--Winrar extractions-->
 			<TargetFilename condition="end with">.exe</TargetFilename> <!--Executable-->
 			<TargetFilename condition="end with">.vbs</TargetFilename> <!--VisualBasicScripting-->
 			<TargetFilename condition="end with">.hta</TargetFilename> <!--Scripting-->
@@ -249,7 +241,7 @@
 			<TargetFilename condition="begin with">C:\Windows\System32\Tasks</TargetFilename> <!--Microsoft:ScheduledTasks -->
 			<TargetFilename condition="end with">.cmdline</TargetFilename> <!--Microsoft:dotNet: Executed by cvtres.exe-->
 			<!--SECTION: Mimikatz-->
-				<!--Default-disable <TargetFileName condition="end with">.kirbi</TargetFileName> --> <!-- [ https://github.com/gentilkiwi/mimikatz/wiki/module-~-kerberos ] -->
+			<!--Default-disable <TargetFileName condition="end with">.kirbi</TargetFileName> --> <!-- [ https://github.com/gentilkiwi/mimikatz/wiki/module-~-kerberos ] -->
 		</FileCreate>
 		<FileCreate onmatch="exclude">
 			<TargetFilename condition="end with">\Downloads</TargetFilename> <!-- Microsoft:Windows: Cleanup noise of stub folder creation -->
@@ -271,7 +263,11 @@
 		<!--NOTE:	Writing to GUID's is very common, and they contain 0-9 and A-F so slightly try to avoid those in the first few positions. [ https://en.wikipedia.org/wiki/Universally_unique_identifier ] -->
 		<!--NOTE:	Windows writes hundreds or thousands of registry keys a minute, so just because you're not changing stuff, doesn't mean these rules aren't being run.-->
 		<!--NOTE:	You don't have to spend a lot of time worrying about this, CPUs are fast, but it's something to consider. Every rule and condition type has a cost.-->
+
 		<!--DATA: EventType, UtcTime, ProcessGuid, ProcessId, Image, TargetObject, Details, NewName-->
+		<!--TECHNICAL:	Possible prefixes are HKLM, HKCU, HKCR, and HKEY_USERS-->
+		<!--CRITICAL:	Schema version 3.30 and higher use HKLM and HKCU and HKCR instead of HKLM\ and \REGISTRY\USER\-->
+		
 		<RegistryEvent onmatch="include">
 			<!--Autorun or Startups-->
 				<!--ADDITIONAL REFERENCE: [ http://www.ghacks.net/2016/06/04/windows-automatic-startup-locations/ ] -->
@@ -283,8 +279,8 @@
 			<TargetObject condition="end with">\ServiceDll</TargetObject> <!--Microsoft:Windows: Value that points to a service's DLL [ https://blog.cylance.com/windows-registry-persistence-part-1-introduction-attack-phases-and-windows-services ] -->
 			<TargetObject condition="end with">\ImagePath</TargetObject> <!--Microsoft:Windows: Value that point to a service's EXE [ https://github.com/crypsisgroup/Splunkmon/blob/master/sysmon.cfg ] -->
 			<TargetObject condition="end with">\Start</TargetObject> <!--Microsoft:Windows: Services start mode changes (Disabled, Automatically, Manual) -->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify\</TargetObject> <!--Microsoft:Windows: Autorun location-->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Userinit\</TargetObject> <!--Microsoft:Windows: Autorun location-->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify\</TargetObject> <!--Microsoft:Windows: Autorun location-->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Userinit\</TargetObject> <!--Microsoft:Windows: Autorun location-->
 			<!--CLSID launch commands and file association changes-->
 			<TargetObject condition="contains">\shell\install\command\</TargetObject> <!--Microsoft:Windows: Subkey under file associations and CLSID that map to launch command-->
 			<TargetObject condition="contains">\shell\open\command\</TargetObject> <!--Microsoft:Windows: Subkey under file associations and CLSID that map to launch command-->
@@ -299,23 +295,23 @@
 			<TargetObject condition="contains">\Classes\AllFilesystemObjects\</TargetObject> <!--Microsoft:Windows:Explorer: [ http://www.silentrunners.org/launchpoints.html ] -->
 			<TargetObject condition="contains">\Classes\*\</TargetObject> <!--Microsoft:Windows:Explorer: [ http://www.silentrunners.org/launchpoints.html ] -->
 			<!--AppPaths hijacking-->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\</TargetObject> <!--Microsoft:Windows: Credit to @Hexacorn [ http://www.hexacorn.com/blog/2013/01/19/beyond-good-ol-run-key-part-3/ ] -->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Session Manager\AppCertDlls\</TargetObject> <!--Microsoft:Windows: Credit to @Hexacorn [ http://www.hexacorn.com/blog/2013/01/19/beyond-good-ol-run-key-part-3/ ] -->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\</TargetObject> <!--Microsoft:Windows: Credit to @Hexacorn [ http://www.hexacorn.com/blog/2013/01/19/beyond-good-ol-run-key-part-3/ ] -->
+			<TargetObject condition="begin with">HKLM\SYSTEM\ControlSet001\Control\Session Manager\AppCertDlls\</TargetObject> <!--Microsoft:Windows: Credit to @Hexacorn [ http://www.hexacorn.com/blog/2013/01/19/beyond-good-ol-run-key-part-3/ ] -->
 			<!--Terminal service boobytraps-->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Terminal Server\WinStations\RDP-Tcp\InitialProgram</TargetObject>
+			<TargetObject condition="begin with">HKLM\SYSTEM\ControlSet001\Control\Terminal Server\WinStations\RDP-Tcp\InitialProgram</TargetObject>
 			<!--Group Policy interity-->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\GPExtensions\</TargetObject> <!--Microsoft:Windows: Group Policy internally uses a plugin architecture that nothing should be modifying-->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\GPExtensions\</TargetObject> <!--Microsoft:Windows: Group Policy internally uses a plugin architecture that nothing should be modifying-->
 			<!--Winsock and Winsock2-->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Services\WinSock\</TargetObject> <!--Microsoft:Windows: Wildcard, includes Winsock and Winsock2-->
+			<TargetObject condition="begin with">HKLM\SYSTEM\ControlSet001\Services\WinSock\</TargetObject> <!--Microsoft:Windows: Wildcard, includes Winsock and Winsock2-->
 			<!--Credential providers-->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\Credential Provider</TargetObject> <!--Wildcard, includes Credental Providers and Credential Provider Filters-->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\SecurityProviders\SecurityProviders</TargetObject> <!--Microsoft:Windows: Changes to WDigest-UseLogonCredential for password scraping [ https://www.trustedsec.com/april-2015/dumping-wdigest-creds-with-meterpreter-mimikatzkiwi-in-windows-8-1/ ] -->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa\</TargetObject>
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\Credential Provider</TargetObject> <!--Wildcard, includes Credental Providers and Credential Provider Filters-->
+			<TargetObject condition="begin with">HKLM\SYSTEM\ControlSet001\Control\SecurityProviders\SecurityProviders</TargetObject> <!--Microsoft:Windows: Changes to WDigest-UseLogonCredential for password scraping [ https://www.trustedsec.com/april-2015/dumping-wdigest-creds-with-meterpreter-mimikatzkiwi-in-windows-8-1/ ] -->
+			<TargetObject condition="begin with">HKLM\SYSTEM\ControlSet001\Control\Lsa\</TargetObject>
 			<!--Networking-->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\NetworkProvider\Order\</TargetObject> <!--Microsoft:Windows: Order of network providers that are checked to connect to destination [ https://www.malwarearchaeology.com/cheat-sheets ] -->
+			<TargetObject condition="begin with">HKLM\SYSTEM\ControlSet001\Control\NetworkProvider\Order\</TargetObject> <!--Microsoft:Windows: Order of network providers that are checked to connect to destination [ https://www.malwarearchaeology.com/cheat-sheets ] -->
 			<!--DLLs that get injected into every process launch-->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/windows/desktop/dd744762(v=vs.85).aspx ] -->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/windows/desktop/dn280412(v=vs.85).aspx ] -->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/windows/desktop/dd744762(v=vs.85).aspx ] -->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/windows/desktop/dn280412(v=vs.85).aspx ] -->
 			<!--Office-->
 			<TargetObject condition="contains">\Microsoft\Office\Outlook\Addins\</TargetObject> <!--Microsoft:Office: Outlook add-ins-->
 			<!--IE-->
@@ -328,20 +324,19 @@
 			<TargetObject condition="end with">\UrlUpdateInfo</TargetObject> <!--Microsoft:ClickOnce: [ https://subt0x10.blogspot.com/2016/12/mimikatz-delivery-via-clickonce-with.html ] -->
 			<TargetObject condition="end with">\InstallSource</TargetObject> <!--Microsoft:Windows: Source folder for certain program and componenent installations-->
 			<!--Windows internals monitoring-->
-			<TargetObject condition="is">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\InProgress\(Default)</TargetObject> <!--Microsoft:Windows: See when WindowsInstaller is engaged-->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\</TargetObject> <!--Microsoft:Windows: Malware likes changing IFEO-->
+			<TargetObject condition="is">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\InProgress\(Default)</TargetObject> <!--Microsoft:Windows: See when WindowsInstaller is engaged-->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\</TargetObject> <!--Microsoft:Windows: Malware likes changing IFEO-->
 			<TargetObject condition="end with">\FriendlyName</TargetObject> <!--Microsoft:Windows: New devices connected and remembered-->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Winlogon\</TargetObject> <!--Microsoft:Windows: Providers notified by WinLogon-->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Safeboot\</TargetObject> <!--Microsoft:Windows: Services approved to load in safe mode-->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\</TargetObject> <!--Microsoft:Windows: Event log system integrity and ACLs-->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\</TargetObject> <!--Microsoft:Defender: Detect changes to Defender administrative settings to monitor for disablement-->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\</TargetObject> <!--Microsoft:Windows:UAC: Detect malware changes to UAC prompt level -->
+			<TargetObject condition="begin with">HKLM\SYSTEM\ControlSet001\Control\Winlogon\</TargetObject> <!--Microsoft:Windows: Providers notified by WinLogon-->
+			<TargetObject condition="begin with">HKLM\SYSTEM\ControlSet001\Control\Safeboot\</TargetObject> <!--Microsoft:Windows: Services approved to load in safe mode-->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\</TargetObject> <!--Microsoft:Windows: Event log system integrity and ACLs-->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\</TargetObject> <!--Microsoft:Defender: Detect changes to Defender administrative settings to monitor for disablement-->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\</TargetObject> <!--Microsoft:Windows:UAC: Detect malware changes to UAC prompt level -->
 		</RegistryEvent>
 		<RegistryEvent onmatch="exclude">
 		<!--COMMENT:	Remove low-information noise-->
-			<!--Disabled-default <Image condition="image">C:\windows\explorer.exe</Image> -->
 			<Image condition="end with">Office\root\integration\integrator.exe</Image> <!--Microsoft:Office: C2R client-->
-			<Image condition="image">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeClickToRun.exe</Image> <!--Microsoft:Office: C2R client-->
+			<Image condition="is">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeClickToRun.exe</Image> <!--Microsoft:Office: C2R client-->
 			<TargetObject condition="end with">Toolbar\WebBrowser</TargetObject> <!--Microsoft:IE: Extraneous activity-->
 			<TargetObject condition="end with">Toolbar\WebBrowser\ITBar7Height</TargetObject> <!--Microsoft:IE: Extraneous activity-->
 			<TargetObject condition="end with">SOFTWARE\Microsoft\Internet Explorer\Toolbar\ShellBrowser\ITBar7Layout</TargetObject> <!--Microsoft:Windows:Explorer: Extraneous activity-->
@@ -356,27 +351,29 @@
 			<TargetObject condition="end with">clr_optimization_v4.0.30319_32\Start</TargetObject> <!--Microsoft:dotNet-->
 			<TargetObject condition="end with">clr_optimization_v4.0.30319_64\Start</TargetObject> <!--Microsoft:dotNet-->
 			<TargetObject condition="contains">\Control\WMI\Autologger\</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "\Start" -->
-			<TargetObject condition="end with">\services\TrustedInstaller\Start</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "\Start" -->
-			<TargetObject condition="end with">\services\tunnel\Start</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "\Start" -->
-			<TargetObject condition="end with">\services\BITS\Start</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "\Start" -->
-			<TargetObject condition="end with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Services\UsoSvc\Start</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "\Start" -->
+			<TargetObject condition="end with">HKLM\SYSTEM\ControlSet001\Services\UsoSvc\Start</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "\Start" -->
 			<TargetObject condition="end with">\Lsa\OfflineJoin\CurrentValue</TargetObject> <!--Microsoft:Windows: Sensitive value during domain join -->
 			<TargetObject condition="end with">\Components\TrustedInstaller\Events</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Winlogon -->
 			<TargetObject condition="end with">\Components\TrustedInstaller</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Winlogon -->
 			<TargetObject condition="end with">\Components\Wlansvc</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Winlogon -->
 			<TargetObject condition="end with">\Components\Wlansvc\Events</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Winlogon -->
-			<TargetObject condition="begin with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\</TargetObject> <!--Microsoft:Windows: Remove noise monitoring installations -->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\</TargetObject> <!--Microsoft:Windows: Remove noise monitoring installations -->
 			<TargetObject condition="end with">\Directory\shellex</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Classes -->
 			<TargetObject condition="end with">\Directory\shellex\DragDropHandlers</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Classes -->
 			<TargetObject condition="end with">\Drive\shellex</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Classes -->
 			<TargetObject condition="end with">\Drive\shellex\DragDropHandlers</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Classes -->
 			<TargetObject condition="contains">_Classes\AppX</TargetObject> <!--Microsoft:Windows: Remove noise monitoring "Shell\open\command" --> <!--Win8+ -->
-			<TargetObject condition="end with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa\Audit</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise --> <!--Win8+ -->
-			<TargetObject condition="end with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa\Audit\AuditPolicy</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise --> <!--Win8+ -->
-			<TargetObject condition="end with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa\Audit\PerUserAuditing\System</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise --> <!--Win8+ -->
-			<TargetObject condition="end with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa\SspiCache</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise --> <!--Win8+ -->
-			<TargetObject condition="end with">\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa\Kerberos\Domains</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise --> <!--Win8+ -->
-			<TargetObject condition="end with">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Audit</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise --> <!--Win8+ -->
+			<TargetObject condition="end with">HKLM\SYSTEM\ControlSet001\Control\Lsa\Audit</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise --> <!--Win8+ -->
+			<TargetObject condition="end with">HKLM\SYSTEM\ControlSet001\Control\Lsa\Audit\AuditPolicy</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise --> <!--Win8+ -->
+			<TargetObject condition="end with">HKLM\SYSTEM\ControlSet001\Control\Lsa\Audit\PerUserAuditing\System</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise --> <!--Win8+ -->
+			<TargetObject condition="end with">HKLM\SYSTEM\ControlSet001\Control\Lsa\SspiCache</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise --> <!--Win8+ -->
+			<TargetObject condition="end with">HKLM\SYSTEM\ControlSet001\Control\Lsa\Kerberos\Domains</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise --> <!--Win8+ -->
+			<TargetObject condition="end with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Audit</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise --> <!--Win8+ -->
+			<!--Sevices autostart noise-->
+			<TargetObject condition="end with">\services\TrustedInstaller\Start</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "\Start" -->
+			<TargetObject condition="end with">\services\tunnel\Start</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "\Start" -->
+			<TargetObject condition="end with">\services\BITS\Start</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "\Start" -->
+			<TargetObject condition="end with">\services\UsoSvc\Start</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "\Start" -->
 			<!--FileExts noise filtering-->
 			<TargetObject condition="contains">\OpenWithProgids</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "FileExts"-->
 			<TargetObject condition="end with">\OpenWithList</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "FileExts"-->
@@ -406,14 +403,15 @@
 
 	<!--SYSMON EVENT ID 16 : SYSMON CONFIGURATION CHANGE, THIS LINE IS INCLUDED FOR DOCUMENTATION PURPOSES ONLY [ SYSMON 6.00+ ] -->
 		<!--DATA: UtcTime, Configuration, ConfigurationFileHash-->
+		<!--Cannot be filtered.-->
 
 	<!--SYSMON EVENT ID 17 : PIPE CREATED [ SYSMON 6.00+ ] -->
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, PipeName, Image-->
-		<!--COMMENT: Currently intended for targetted malware monitoring only, not included in this configuration-->
+		<!--COMMENT: Currently intended for targetted malware monitoring only, not included in this configuration.-->
 
 	<!--SYSMON EVENT ID 18 : PIPE CONNECTED [ SYSMON 6.00+ ] -->
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, PipeName, Image-->
-		<!--COMMENT: Currently intended for targetted malware monitoring only, not included in this configuration-->
-		
+		<!--COMMENT: Currently intended for targetted malware monitoring only, not included in this configuration.-->
+
 	</EventFiltering>
 </Sysmon>
