@@ -136,6 +136,7 @@
 			<Image condition="image">psftp.exe</Image><!-- SFTP -->
 			<Image condition="image">tftp.exe</Image><!-- TFTP -->
 			<Image condition="image">wmic.exe</Image><!-- wmic /node logging -->
+			<Image condition="image">at.exe</Image><!-- Remote Task Scheduler logging -->
 			<!--Hack tools hosting-->
 			<DestinationHostname condition="end with">githubusercontent.com</DestinationHostname> <!--Github: Malicious tools often loaded from here, not used except by developers-->
 			<DestinationHostname condition="end with">github.com</DestinationHostname> <!--Github: Malicious tools often loaded from here, not used except by developers-->
@@ -174,6 +175,8 @@
 			<Image condition="image">Spotify.exe</Image> <!--Spotify-->
 			<Image condition="image">OneDrive.exe</Image> <!--Microsoft:OneDrive-->
 			<Image condition="end with">AppData\Roaming\Dropbox\bin\Dropbox.exe</Image> <!--Dropbox-->
+			<Image condition="end with">controls\cef\ConnectWise.exe</Image> <!--ConnectWise Client Noise-->
+			<Image condition="end with">ScreenConnect.WindowsClient.exe</Image> <!--ScreenConnect Client Noise-->
 			<DestinationHostname condition="end with">microsoft.com</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">microsoft.com.akadns.net</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">microsoft.com.nsatc.net</DestinationHostname> <!--Microsoft:Update delivery-->
