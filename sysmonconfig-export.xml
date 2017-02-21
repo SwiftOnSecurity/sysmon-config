@@ -343,7 +343,6 @@
 			<TargetFilename condition="contains">help_recover_instructions</TargetFilename>
 			<TargetFilename condition="contains">_Locky_recover</TargetFilename>
 			<TargetFilename condition="contains">_ReCoVeRy_</TargetFilename>
-			
 			<!--SECTION: Mimikatz-->
 				<!--Default-disable <TargetFileName condition="end with">.kirbi</TargetFileName> --> <!-- [ https://github.com/gentilkiwi/mimikatz/wiki/module-~-kerberos ] -->
 		</FileCreate>
