@@ -175,8 +175,8 @@
 			<Image condition="image">Spotify.exe</Image> <!--Spotify-->
 			<Image condition="image">OneDrive.exe</Image> <!--Microsoft:OneDrive-->
 			<Image condition="end with">AppData\Roaming\Dropbox\bin\Dropbox.exe</Image> <!--Dropbox-->
-			<Image condition="end with">controls\cef\ConnectWise.exe</Image> <!--ConnectWise Client Noise-->
-			<Image condition="end with">ScreenConnect.WindowsClient.exe</Image> <!--ScreenConnect Client Noise-->
+			<Image condition="end with">controls\cef\ConnectWise.exe</Image> <!--ConnectWise Noise-->
+			<Image condition="end with">ScreenConnect.WindowsClient.exe</Image> <!--ScreenConnect Noise-->
 			<DestinationHostname condition="end with">microsoft.com</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">microsoft.com.akadns.net</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">microsoft.com.nsatc.net</DestinationHostname> <!--Microsoft:Update delivery-->
