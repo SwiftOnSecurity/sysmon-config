@@ -1,6 +1,6 @@
 <!--
   sysmon-config | A sysmon configuration focused on high-quality event tracing
-  Version: 40 | Date: 2017-02-21
+  Version: 41 | Date: 2017-02-21
   By @SwiftOnSecurity, with contributors credited in-line or on Git
   https://github.com/SwiftOnSecurity/sysmon-config
 
@@ -23,7 +23,7 @@
 -->
 
 <Sysmon schemaversion="3.30">
-	<HashAlgorithms>*</HashAlgorithms>
+	<HashAlgorithms>md5,imphash</HashAlgorithms>
 	<EventFiltering>
 
 	<!--SYSMON EVENT ID 1 : PROCESS CREATION -->
@@ -266,7 +266,7 @@
 
 		<!--DATA: EventType, UtcTime, ProcessGuid, ProcessId, Image, TargetObject, Details, NewName-->
 		<!--TECHNICAL:	Possible prefixes are HKLM, HKCU, HKCR, and HKEY_USERS-->
-		<!--CRITICAL:	Schema version 3.30 and higher use HKLM and HKCU and HKCR instead of HKLM\ and \REGISTRY\USER\-->
+		<!--CRITICAL:	Schema version 3.30 and higher use HKLM and HKCU and HKCR and CurrentControlSet instead of REGISTRY\MACHINE\ and \REGISTRY\USER\ and ControlSet001-->
 		
 		<RegistryEvent onmatch="include">
 			<!--Autorun or Startups-->
@@ -296,19 +296,19 @@
 			<TargetObject condition="contains">\Classes\*\</TargetObject> <!--Microsoft:Windows:Explorer: [ http://www.silentrunners.org/launchpoints.html ] -->
 			<!--AppPaths hijacking-->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\</TargetObject> <!--Microsoft:Windows: Credit to @Hexacorn [ http://www.hexacorn.com/blog/2013/01/19/beyond-good-ol-run-key-part-3/ ] -->
-			<TargetObject condition="begin with">HKLM\SYSTEM\ControlSet001\Control\Session Manager\AppCertDlls\</TargetObject> <!--Microsoft:Windows: Credit to @Hexacorn [ http://www.hexacorn.com/blog/2013/01/19/beyond-good-ol-run-key-part-3/ ] -->
+			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\AppCertDlls\</TargetObject> <!--Microsoft:Windows: Credit to @Hexacorn [ http://www.hexacorn.com/blog/2013/01/19/beyond-good-ol-run-key-part-3/ ] -->
 			<!--Terminal service boobytraps-->
-			<TargetObject condition="begin with">HKLM\SYSTEM\ControlSet001\Control\Terminal Server\WinStations\RDP-Tcp\InitialProgram</TargetObject>
+			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp\InitialProgram</TargetObject>
 			<!--Group Policy interity-->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\GPExtensions\</TargetObject> <!--Microsoft:Windows: Group Policy internally uses a plugin architecture that nothing should be modifying-->
 			<!--Winsock and Winsock2-->
-			<TargetObject condition="begin with">HKLM\SYSTEM\ControlSet001\Services\WinSock\</TargetObject> <!--Microsoft:Windows: Wildcard, includes Winsock and Winsock2-->
+			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\WinSock\</TargetObject> <!--Microsoft:Windows: Wildcard, includes Winsock and Winsock2-->
 			<!--Credential providers-->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\Credential Provider</TargetObject> <!--Wildcard, includes Credental Providers and Credential Provider Filters-->
-			<TargetObject condition="begin with">HKLM\SYSTEM\ControlSet001\Control\SecurityProviders\SecurityProviders</TargetObject> <!--Microsoft:Windows: Changes to WDigest-UseLogonCredential for password scraping [ https://www.trustedsec.com/april-2015/dumping-wdigest-creds-with-meterpreter-mimikatzkiwi-in-windows-8-1/ ] -->
-			<TargetObject condition="begin with">HKLM\SYSTEM\ControlSet001\Control\Lsa\</TargetObject>
+			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SecurityProviders</TargetObject> <!--Microsoft:Windows: Changes to WDigest-UseLogonCredential for password scraping [ https://www.trustedsec.com/april-2015/dumping-wdigest-creds-with-meterpreter-mimikatzkiwi-in-windows-8-1/ ] -->
+			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\</TargetObject>
 			<!--Networking-->
-			<TargetObject condition="begin with">HKLM\SYSTEM\ControlSet001\Control\NetworkProvider\Order\</TargetObject> <!--Microsoft:Windows: Order of network providers that are checked to connect to destination [ https://www.malwarearchaeology.com/cheat-sheets ] -->
+			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\NetworkProvider\Order\</TargetObject> <!--Microsoft:Windows: Order of network providers that are checked to connect to destination [ https://www.malwarearchaeology.com/cheat-sheets ] -->
 			<!--DLLs that get injected into every process launch-->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/windows/desktop/dd744762(v=vs.85).aspx ] -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/windows/desktop/dn280412(v=vs.85).aspx ] -->
@@ -327,8 +327,8 @@
 			<TargetObject condition="is">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\InProgress\(Default)</TargetObject> <!--Microsoft:Windows: See when WindowsInstaller is engaged-->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\</TargetObject> <!--Microsoft:Windows: Malware likes changing IFEO-->
 			<TargetObject condition="end with">\FriendlyName</TargetObject> <!--Microsoft:Windows: New devices connected and remembered-->
-			<TargetObject condition="begin with">HKLM\SYSTEM\ControlSet001\Control\Winlogon\</TargetObject> <!--Microsoft:Windows: Providers notified by WinLogon-->
-			<TargetObject condition="begin with">HKLM\SYSTEM\ControlSet001\Control\Safeboot\</TargetObject> <!--Microsoft:Windows: Services approved to load in safe mode-->
+			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Winlogon\</TargetObject> <!--Microsoft:Windows: Providers notified by WinLogon-->
+			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Safeboot\</TargetObject> <!--Microsoft:Windows: Services approved to load in safe mode-->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\</TargetObject> <!--Microsoft:Windows: Event log system integrity and ACLs-->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\</TargetObject> <!--Microsoft:Defender: Detect changes to Defender administrative settings to monitor for disablement-->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\</TargetObject> <!--Microsoft:Windows:UAC: Detect malware changes to UAC prompt level -->
@@ -348,10 +348,9 @@
 			<TargetObject condition="end with">\CurrentVersion\Shell Extensions\Cached</TargetObject> <!--Microsoft:Windows: Remove noise from the "\CurrentVersion\Shell Extensions\Cached" wildcard-->
 			<TargetObject condition="end with">\CurrentVersion\Shell Extensions\Approved</TargetObject> <!--Microsoft:Windows: Remove noise from the "\CurrentVersion\Shell Extensions\Approved" wildcard-->
 			<TargetObject condition="end with">}\PreviousPolicyAreas</TargetObject> <!--Microsoft:Windows: Remove noise from \Winlogon\GPExtensions by svchost.exe-->
-			<TargetObject condition="end with">clr_optimization_v4.0.30319_32\Start</TargetObject> <!--Microsoft:dotNet-->
-			<TargetObject condition="end with">clr_optimization_v4.0.30319_64\Start</TargetObject> <!--Microsoft:dotNet-->
+
 			<TargetObject condition="contains">\Control\WMI\Autologger\</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "\Start" -->
-			<TargetObject condition="end with">HKLM\SYSTEM\ControlSet001\Services\UsoSvc\Start</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "\Start" -->
+			<TargetObject condition="end with">HKLM\SYSTEM\CurrentControlSet\Services\UsoSvc\Start</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "\Start" -->
 			<TargetObject condition="end with">\Lsa\OfflineJoin\CurrentValue</TargetObject> <!--Microsoft:Windows: Sensitive value during domain join -->
 			<TargetObject condition="end with">\Components\TrustedInstaller\Events</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Winlogon -->
 			<TargetObject condition="end with">\Components\TrustedInstaller</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Winlogon -->
@@ -363,17 +362,21 @@
 			<TargetObject condition="end with">\Drive\shellex</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Classes -->
 			<TargetObject condition="end with">\Drive\shellex\DragDropHandlers</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Classes -->
 			<TargetObject condition="contains">_Classes\AppX</TargetObject> <!--Microsoft:Windows: Remove noise monitoring "Shell\open\command" --> <!--Win8+ -->
-			<TargetObject condition="end with">HKLM\SYSTEM\ControlSet001\Control\Lsa\Audit</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise --> <!--Win8+ -->
-			<TargetObject condition="end with">HKLM\SYSTEM\ControlSet001\Control\Lsa\Audit\AuditPolicy</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise --> <!--Win8+ -->
-			<TargetObject condition="end with">HKLM\SYSTEM\ControlSet001\Control\Lsa\Audit\PerUserAuditing\System</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise --> <!--Win8+ -->
-			<TargetObject condition="end with">HKLM\SYSTEM\ControlSet001\Control\Lsa\SspiCache</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise --> <!--Win8+ -->
-			<TargetObject condition="end with">HKLM\SYSTEM\ControlSet001\Control\Lsa\Kerberos\Domains</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise --> <!--Win8+ -->
+			<TargetObject condition="end with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\Audit</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise --> <!--Win8+ -->
+			<TargetObject condition="end with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\Audit\AuditPolicy</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise --> <!--Win8+ -->
+			<TargetObject condition="end with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\Audit\PerUserAuditing\System</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise --> <!--Win8+ -->
+			<TargetObject condition="end with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\SspiCache</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise --> <!--Win8+ -->
+			<TargetObject condition="end with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\Kerberos\Domains</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise --> <!--Win8+ -->
 			<TargetObject condition="end with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Audit</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise --> <!--Win8+ -->
 			<!--Sevices autostart noise-->
 			<TargetObject condition="end with">\services\TrustedInstaller\Start</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "\Start" -->
 			<TargetObject condition="end with">\services\tunnel\Start</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "\Start" -->
 			<TargetObject condition="end with">\services\BITS\Start</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "\Start" -->
 			<TargetObject condition="end with">\services\UsoSvc\Start</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "\Start" -->
+			<TargetObject condition="end with">\services\clr_optimization_v2.0.50727_32\Start</TargetObject> <!--Microsoft:dotNet: Windows 7-->
+			<TargetObject condition="end with">\services\clr_optimization_v2.0.50727_64\Start</TargetObject> <!--Microsoft:dotNet: Windows 7-->
+			<TargetObject condition="end with">\services\clr_optimization_v4.0.30319_32\Start</TargetObject> <!--Microsoft:dotNet: Windows 10-->
+			<TargetObject condition="end with">\services\clr_optimization_v4.0.30319_64\Start</TargetObject> <!--Microsoft:dotNet: Windows 10-->
 			<!--FileExts noise filtering-->
 			<TargetObject condition="contains">\OpenWithProgids</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "FileExts"-->
 			<TargetObject condition="end with">\OpenWithList</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "FileExts"-->
