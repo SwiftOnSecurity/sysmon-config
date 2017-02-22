@@ -208,6 +208,7 @@
 			<Image condition="image">Spotify.exe</Image> <!--Spotify-->
 			<Image condition="image">OneDrive.exe</Image> <!--Microsoft:OneDrive-->
 			<Image condition="end with">AppData\Roaming\Dropbox\bin\Dropbox.exe</Image> <!--Dropbox-->
+			<Image condition="image">OneDriveStandaloneUpdater.exe</Image> <!--Microsoft:OneDrive-->
 			<Image condition="end with">controls\cef\ConnectWise.exe</Image> <!--ConnectWise Noise-->
 			<Image condition="end with">ScreenConnect.WindowsClient.exe</Image> <!--ScreenConnect Noise-->
 			<DestinationHostname condition="end with">microsoft.com</DestinationHostname> <!--Microsoft:Update delivery-->
