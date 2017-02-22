@@ -16,6 +16,7 @@
   Fork version:	2
   Fork author:	AwfulyPrideful
   Fork project:	NotAwful\Sysmon-Config
+  Fork license:	CC-A4.0
 
   REQUIRED: Sysmon version 6.00 or higher (due to changes in registry syntax)
 	https://technet.microsoft.com/en-us/sysinternals/bb545021.aspx
