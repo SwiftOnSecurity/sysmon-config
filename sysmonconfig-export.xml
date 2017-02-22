@@ -238,19 +238,19 @@
 				about what you exclude from monitoring. Low event volume, little incentive to exclude.-->
 			<Signature condition="contains">microsoft</Signature> <!--Exclude signed Microsoft drivers-->
 			<Signature condition="contains">windows</Signature> <!--Exclude signed Microsoft drivers-->
-			<Signature condition="begin with">Intel </Signature> <!--Exclude signed Intel drivers-->
-			<Signature condition="contains">Lenovo </Signature> <!--Exclude signed Lenovo drivers-->
-			<Signature condition="contains">Synaptic </Signature> <!--Exclude signed Synaptic drivers-->
-			<Signature condition="contains">Nvidia </Signature> <!--Exclude signed Nvidia drivers-->
-			<Signature condition="contains">Broadcom </Signature> <!--Exclude signed Broadcom drivers-->
-			<Signature condition="contains">AMD </Signature> <!--Exclude signed AMD drivers-->
-			<Signature condition="contains">VMware </Signature> <!--Exclude signed VMware drivers-->
-			<Signature condition="contains">Realtek </Signature> <!--Exclude signed Realtek drivers-->
-			<Signature condition="contains">Micro-Star </Signature> <!--Exclude signed MSI drivers-->
-			<Signature condition="contains">Logitech </Signature> <!--Exclude signed Logitech drivers-->
-			<Signature condition="contains">Asmedia </Signature> <!--Exclude signed Asmedia drivers-->
-			<Signature condition="contains">SteelSeries </Signature> <!--Exclude signed MSI drivers-->
-			<Signature condition="contains">Fortinet </Signature> <!--Exclude signed MSI drivers-->
+			<Signature condition="begin with">Intel</Signature> <!--Exclude signed Intel drivers-->
+			<Signature condition="contains">Lenovo</Signature> <!--Exclude signed Lenovo drivers-->
+			<Signature condition="contains">Synaptic</Signature> <!--Exclude signed Synaptic drivers-->
+			<Signature condition="contains">Nvidia</Signature> <!--Exclude signed Nvidia drivers-->
+			<Signature condition="contains">Broadcom</Signature> <!--Exclude signed Broadcom drivers-->
+			<Signature condition="contains">AMD</Signature> <!--Exclude signed AMD drivers-->
+			<Signature condition="contains">VMware</Signature> <!--Exclude signed VMware drivers-->
+			<Signature condition="contains">Realtek</Signature> <!--Exclude signed Realtek drivers-->
+			<Signature condition="contains">Micro-Star</Signature> <!--Exclude signed MSI drivers-->
+			<Signature condition="contains">Logitech</Signature> <!--Exclude signed Logitech drivers-->
+			<Signature condition="contains">Asmedia</Signature> <!--Exclude signed Asmedia drivers-->
+			<Signature condition="contains">SteelSeries</Signature> <!--Exclude signed MSI drivers-->
+			<Signature condition="contains">Fortinet</Signature> <!--Exclude signed MSI drivers-->
 		</DriverLoad>
 
 	<!--SYSMON EVENT ID 7 : DLL (IMAGE) LOADED BY PROCESS -->
