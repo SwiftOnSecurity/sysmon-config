@@ -1,8 +1,14 @@
 <!--
-  sysmon-config | A sysmon configuration focused on default high-quality event tracing and customization
-  Master version: 43 | Date: 2017-02-22
-  Master version by @SwiftOnSecurity, with contributors credited in-line or on Git. Note: This file is often forked.
-  Root project: https://github.com/SwiftOnSecurity/sysmon-config
+  sysmon-config | A sysmon configuration focused on default high-quality event tracing
+  Master version:	44 | Date: 2017-02-22
+  Master author:	@SwiftOnSecurity, with contributors credited in-line or on Git. Note: This file is often forked.
+  Master project:	https://github.com/SwiftOnSecurity/sysmon-config
+  Master license:	Creative Commons Attribution 4.0 | You may privatize and remix for commercial use, with attribution in the text
+  
+  Fork version:	<N/A>
+  Fork author:	<N/A>
+  Fork project:	<N/A>
+  Fork license:	<N/A>
 
   REQUIRED: Sysmon version 6.00 or higher (due to changes in registry syntax)
   https://technet.microsoft.com/en-us/sysinternals/bb545021.aspx
@@ -269,7 +275,6 @@
 		<!--NOTE:	It may appear this section is missing important entries, but many of them match multiple areas, so look carefully to see if something is already covered.-->
 		<!--NOTE:	"contains" conditions below are formatted to reduce CPU load, so they may appear written inconsistently, but this is on purpose from tuning.-->
 		<!--NOTE:	"contains" works by finding the first letter, then matching the second, etc, so the first letters should be as low-occurance as possible.-->
-		<!--NOTE:	Writing to GUID's is very common, and they contain 0-9 and A-F so slightly try to avoid those in the first few positions. [ https://en.wikipedia.org/wiki/Universally_unique_identifier ] -->
 		<!--NOTE:	Windows writes hundreds or thousands of registry keys a minute, so just because you're not changing stuff, doesn't mean these rules aren't being run.-->
 		<!--NOTE:	You don't have to spend a lot of time worrying about this, CPUs are fast, but it's something to consider. Every rule and condition type has a cost.-->
 
@@ -367,7 +372,7 @@
 			<TargetObject condition="end with">\Components\TrustedInstaller</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Winlogon -->
 			<TargetObject condition="end with">\Components\Wlansvc</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Winlogon -->
 			<TargetObject condition="end with">\Components\Wlansvc\Events</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Winlogon -->
-			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\</TargetObject> <!--Microsoft:Windows: Remove noise monitoring installations -->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\</TargetObject> <!--Microsoft:Windows: Remove noise monitoring installations run as system -->
 			<TargetObject condition="end with">\Directory\shellex</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Classes -->
 			<TargetObject condition="end with">\Directory\shellex\DragDropHandlers</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Classes -->
 			<TargetObject condition="end with">\Drive\shellex</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Classes -->
