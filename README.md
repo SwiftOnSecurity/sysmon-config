@@ -12,7 +12,7 @@ Pull requests and issue tickets are welcome, and new additions will be credited 
 
 Note: Exact syntax and filtering choices are deliberate to catch appropriate entries and to have as little performance impact as possible. Sysmon's filtering abilities are different than the built-in Windows auditing features, so often a different approach is taken than the normal static listing of every possible important area.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**[See active forks of this configuration](https://github.com/SwiftOnSecurity/sysmon-config/blob/master/sysmonconfig-export.xml)**
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**[See active forks of this configuration](https://github.com/SwiftOnSecurity/sysmon-config/network)**
 
 ## Use ##
 ### Install ###
