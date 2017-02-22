@@ -1,4 +1,4 @@
-# sysmon-config | A Sysmon configuration file for everybody #
+# sysmon-config | A Sysmon configuration file for everybody to fork #
 
 This is a Microsoft Sysinternals Sysmon configuration file template with default high-quality event tracing.
 
@@ -11,8 +11,6 @@ Because virtually every line is commented and sections are marked with explanati
 Pull requests and issue tickets are welcome, and new additions will be credited in-line or on Git.
 
 Note: Exact syntax and filtering choices are deliberate to catch appropriate entries and to have as little performance impact as possible. Sysmon's filtering abilities are different than the built-in Windows auditing features, so often a different approach is taken than the normal static listing of every possible important area.
-
-You can contact @SwiftOnSecurity on Twitter for any urgent questions or issues.
 
 ## Use ##
 ### Install ###
