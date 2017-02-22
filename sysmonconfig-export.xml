@@ -1,5 +1,6 @@
 <!--
   sysmon-config | A sysmon configuration focused on default high-quality event tracing and customization
+  Master version: 43 | Date: 2017-02-22
   Master version by @SwiftOnSecurity, with contributors credited in-line or on Git. Note: This file is often forked.
   Root project: https://github.com/SwiftOnSecurity/sysmon-config
 
