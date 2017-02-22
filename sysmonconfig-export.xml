@@ -3,8 +3,8 @@
   Master version:	44 | Date: 2017-02-22
   Master author:	@SwiftOnSecurity, with contributors credited in-line or on Git.
   Master project:	https://github.com/SwiftOnSecurity/sysmon-config
-  Master license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, or deploy for commercial use - with attribution in the text.
-			Any additions may by incorporated by the original author (SwiftOnSecurity) into the master version, with in-line or changelog attribution.
+  Master license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
+					Any additions may by incorporated by the original author (SwiftOnSecurity) into the master version, with in-line or changelog attribution.
 
   Fork version:	<N/A>
   Fork author:	<N/A>
@@ -20,12 +20,10 @@
 	much filtering as possible onto the client. This is to make analysis of intrusions possible by hand, and try to
 	surface anomalous activity as quickly as possible to any technician armed only with Event Viewer.
 
-  NOTE:	Sysmon is not hardened against a determined attacker with admin rights. This configuration offers an attacker, willing
+  NOTE:	Sysmon is not hardened against a determined attacker with admin rights. Also, this configuration offers an attacker, willing
 	to study it closely, several ways to evade some of the alerting. If you are in a high-threat environment and have significant 
 	security staff, you should consider a much broader log-all approach. However, in the vast majority of cases, an attacker
 	will bumble along through multiple behavioral traps which this configuration monitors, especially in the first minutes.
-
-  NOTE: There is best-effort support for 32-bit systems, but it's not a test scenario and will require your own tuning.
 
   NOTE:	"Image" is a technical term for a compiled binary file like an EXE or DLL. Also, it can match just the filename, or entire path.
 		"ProcessGuid" is randomly generated, assigned, and tracked by Sysmon to assist in tracing individual process launches.
