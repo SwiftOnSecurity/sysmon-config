@@ -209,6 +209,7 @@
 			<DestinationPort condition="is">3389</DestinationPort> <!--RDP Port-->
 			<DestinationPort condition="is">3540</DestinationPort> <!--Remote Assistance Port-->
 			<DestinationPort condition="is">22</DestinationPort>   <!--SSH Port-->
+			<DestinationPort condition="is">23</DestinationPort>   <!--Telnet Port-->
 			<DestinationPort condition="is">25</DestinationPort>   <!--SMTP Port-->
 			<DestinationPort condition="is">137</DestinationPort>  <!--SMB Port-->
 			<DestinationPort condition="is">138</DestinationPort>  <!--SMB Port-->
@@ -222,6 +223,8 @@
 			<DestinationPort condition="is">1293</DestinationPort> <!--IPSec Nat Traversal Port-->
 			<DestinationPort condition="is">4500</DestinationPort> <!--Tor Port-->
 			<DestinationPort condition="is">1080</DestinationPort> <!--Socks Port-->
+			<DestinationPort condition="is">8080</DestinationPort> <!--Socks Port-->
+			<DestinationPort condition="is">3128</DestinationPort> <!--Socks Port-->
 			<DestinationPort condition="is">9001</DestinationPort> <!--Tor Port-->
 			<DestinationPort condition="is">9030</DestinationPort> <!--Tor Port-->
 		</NetworkConnect>
