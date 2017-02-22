@@ -1,15 +1,22 @@
 <!--
+<<<<<<< HEAD
+  sysmon-config | A sysmon configuration focused on high-quality event tracing
+  Version: 43 | Date: 2017-02-21
+  By @SwiftOnSecurity, with contributors credited in-line or on Git
+  https://github.com/SwiftOnSecurity/sysmon-config
+=======
   sysmon-config | A sysmon configuration focused on default high-quality event tracing and easy customization by the community
   Master version:	44 | Date: 2017-02-22
   Master author:	@SwiftOnSecurity, with contributors credited in-line or on Git.
   Master project:	https://github.com/SwiftOnSecurity/sysmon-config
   Master license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, or deploy for commercial use - with attribution in the text.
 					Any additions may by incorporated by the original author (SwiftOnSecurity) into the master version, with in-line or changelog attribution.
+>>>>>>> refs/remotes/origin/master
 
-  Fork version:	<N/A>
-  Fork author:	<N/A>
-  Fork project:	<N/A>
-  Fork license:	<N/A>
+  Fork version:	2
+  Fork author:	AwfulyPrideful
+  Fork project:	NotAwful\Sysmon-Config
+  Fork license:	CC-A4.0
 
   REQUIRED: Sysmon version 6.00 or higher (due to changes in registry syntax)
 	https://technet.microsoft.com/en-us/sysinternals/bb545021.aspx
@@ -153,6 +160,8 @@
 			<Image condition="image">Spotify.exe</Image> <!--Spotify-->
 			<Image condition="image">OneDrive.exe</Image> <!--Microsoft:OneDrive-->
 			<Image condition="end with">AppData\Roaming\Dropbox\bin\Dropbox.exe</Image> <!--Dropbox-->
+			<Image condition="end with">AppData\Roaming\Dashlane\Dashlane.exe</Image> <!--Dashlane Password Manager | Credit: @awfulyprideful-->
+			<Image condition="end with">AppData\Roaming\Dashlane\DashlanePlugin.exe</Image> <!--Dashlane Password Manager | Credit: @awfulyprideful-->
 			<DestinationHostname condition="end with">microsoft.com</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">microsoft.com.akadns.net</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">microsoft.com.nsatc.net</DestinationHostname> <!--Microsoft:Update delivery-->
