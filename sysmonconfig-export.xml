@@ -493,6 +493,15 @@
 			 <TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run</TargetObject>
 			 <TargetObject condition="begin with">HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run</TargetObject>
 			 <TargetObject condition="begin with">HKCU\Software\Microsoft\Windows NT\CurrentVersion\Windows\load</TargetObject>
+			 <!--Group Policy Scripts-->
+			 <TargetObject condition="begin with">HKCU\Software\Policies\Microsoft\Windows\System\Scripts\Logon</TargetObject>
+			 <TargetObject condition="begin with">HKCU\Software\Policies\Microsoft\Windows\System\Scripts\Logoff</TargetObject>
+			 <TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows\System\Scripts\Startup</TargetObject>
+			 <TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows\System\Scripts\Shutdown</TargetObject>
+			 <TargetObject condition="begin with">HKCU\Software\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Logoff</TargetObject>
+			 <TargetObject condition="begin with">HKCU\Software\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Logon</TargetObject>
+			 <TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\State\Machine\Scripts\Shutdown</TargetObject>
+			 <TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\State\Machine\Scripts\Startup</TargetObject>
 		</RegistryEvent>
 		<RegistryEvent onmatch="exclude">
 		<!--COMMENT:	Remove low-information noise-->
