@@ -524,6 +524,13 @@
 			 <TargetObject condition="begin with">HKCU\Software\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Logon</TargetObject>
 			 <TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\State\Machine\Scripts\Shutdown</TargetObject>
 			 <TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\State\Machine\Scripts\Startup</TargetObject>
+			 <!--Detect Network History-->
+			 <TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Profiles</TargetObject>
+			 <TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces</TargetObject>
+			 <!--Detect User Activity-->
+			 <TargetObject condition="begin with">HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU</TargetObject>
+			 <TargetObject condition="begin with">HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\USB</TargetObject>
+			 <TargetObject condition="begin with">HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\USBSTOR</TargetObject>
 		</RegistryEvent>
 		<RegistryEvent onmatch="exclude">
 		<!--COMMENT:	Remove low-information noise-->
