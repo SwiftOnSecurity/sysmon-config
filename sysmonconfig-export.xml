@@ -1,26 +1,30 @@
 <!--
-  sysmon-config | A sysmon configuration focused on default high-quality event tracing
+  sysmon-config | A sysmon configuration focused on default high-quality event tracing and easy customization by the community
   Master version:	44 | Date: 2017-02-22
-  Master author:	@SwiftOnSecurity, with contributors credited in-line or on Git. Note: This file is often forked.
+  Master author:	@SwiftOnSecurity, with contributors credited in-line or on Git.
   Master project:	https://github.com/SwiftOnSecurity/sysmon-config
-  Master license:	Creative Commons Attribution 4.0 | You may privatize and remix for commercial use, with attribution in the text
-  
+  Master license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, or deploy for commercial use - with attribution in the text.
+					Any additions may by incorporated by the original author (SwiftOnSecurity) into the master version, with in-line or changelog attribution.
+
   Fork version:	<N/A>
   Fork author:	<N/A>
   Fork project:	<N/A>
   Fork license:	<N/A>
 
   REQUIRED: Sysmon version 6.00 or higher (due to changes in registry syntax)
-  https://technet.microsoft.com/en-us/sysinternals/bb545021.aspx
-
-  NOTE: Although this is stable and inclusive, you should periodically check for new versions to ensure best coverage.
+	https://technet.microsoft.com/en-us/sysinternals/bb545021.aspx
 
   NOTE: Do not let the imposing size and complexity of this configuration scare you off building your own or customizing it.
 	This configuration is based around known high-quality event tracing, and thus looks extremely complicated.
 	Sysmon configurations only have to be a few lines, but significant effort has been invested in front-loading as
 	much filtering as possible onto the client. This is to make analysis of intrusions possible by hand, and try to
 	surface anomalous activity as quickly as possible to any technician armed only with Event Viewer.
-  
+
+  NOTE:	Sysmon is not hardened against a determined attacker with admin rights. This configuration offers an attacker, willing
+	to study it closely, several ways to evade some of the alerting. If you are in a high-threat environment and have significant 
+	security staff, you should consider a much broader log-all approach. However, in the vast majority of cases, an attacker
+	will bumble along through multiple behavioral traps which this configuration monitors, especially in the first minutes.
+
   NOTE: There is best-effort support for 32-bit systems, but it's not a test scenario and will require your own tuning.
 
   NOTE:	"Image" is a technical term for a compiled binary file like an EXE or DLL. Also, it can match just the filename, or entire path.
