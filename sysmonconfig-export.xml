@@ -205,6 +205,23 @@
 			<DestinationHostname condition="end with">tor2web.blutmagie.de</DestinationHostname>
 			<DestinationHostname condition="end with">tor-gateways.de</DestinationHostname>
 			<DestinationHostname condition="end with">hiddenservice.net</DestinationHostname>
+			<!--Ports-->
+			<DestinationPort condition="is">3389</DestinationPort>
+			<DestinationPort condition="is">3540</DestinationPort>
+			<DestinationPort condition="is">22</DestinationPort>
+			<DestinationPort condition="is">25</DestinationPort>
+			<DestinationPort condition="is">137</DestinationPort>
+			<DestinationPort condition="is">138</DestinationPort>
+			<DestinationPort condition="is">139</DestinationPort>
+			<DestinationPort condition="is">445</DestinationPort>
+			<DestinationPort condition="is">5800</DestinationPort>
+			<DestinationPort condition="is">5900</DestinationPort>
+			<DestinationPort condition="is">1194</DestinationPort>
+			<DestinationPort condition="is">1701</DestinationPort>
+			<DestinationPort condition="is">1723</DestinationPort>
+			<DestinationPort condition="is">1293</DestinationPort>
+			<DestinationPort condition="is">4500</DestinationPort>
+			<DestinationPort condition="is">1080</DestinationPort>
 		</NetworkConnect>
 		<NetworkConnect onmatch="exclude">
 			<Image condition="image">Spotify.exe</Image> <!--Spotify-->
