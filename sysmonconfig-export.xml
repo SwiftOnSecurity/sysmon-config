@@ -461,6 +461,9 @@
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/windows/desktop/dn280412(v=vs.85).aspx ] -->
 			<!--Office-->
 			<TargetObject condition="contains">\Microsoft\Office\Outlook\Addins\</TargetObject> <!--Microsoft:Office: Outlook add-ins-->
+			<TargetObject condition="contains">\Microsoft\Office\Excel\Addins\</TargetObject> <!--Microsoft:Office: Excel add-ins-->
+			<TargetObject condition="contains">\Microsoft\Office\Word\Addins\</TargetObject> <!--Microsoft:Office: Word add-ins-->
+			<TargetObject condition="contains">\Microsoft\Office\Powerpoint\Addins\</TargetObject> <!--Microsoft:Office: Powerpoint add-ins-->
 			<!--IE-->
 			<TargetObject condition="contains">\Internet Explorer\Toolbar\</TargetObject> <!--Microsoft:InternetExplorer: Machine and user-->
 			<TargetObject condition="contains">\Internet Explorer\Extensions\</TargetObject> <!--Microsoft:InternetExplorer: Machine and user-->
@@ -479,6 +482,15 @@
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\</TargetObject> <!--Microsoft:Windows: Event log system integrity and ACLs-->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\</TargetObject> <!--Microsoft:Defender: Detect changes to Defender administrative settings to monitor for disablement-->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\</TargetObject> <!--Microsoft:Windows:UAC: Detect malware changes to UAC prompt level -->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Drivers32</TargetObject> <!--Detect Legacy Driver loading-->
+			 <!--Common Malware Persistence locations-->
+			 <TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\BootExecute</TargetObject>
+			 <TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce</TargetObject>
+			 <TargetObject condition="begin with">HKCU\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce</TargetObject>
+			 <TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\RunService</TargetObject>
+			 <TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run</TargetObject>
+			 <TargetObject condition="begin with">HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run</TargetObject>
+			 <TargetObject condition="begin with">HKCU\Software\Microsoft\Windows NT\CurrentVersion\Windows\load</TargetObject>
 		</RegistryEvent>
 		<RegistryEvent onmatch="exclude">
 		<!--COMMENT:	Remove low-information noise-->
