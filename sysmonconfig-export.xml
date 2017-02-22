@@ -1,6 +1,6 @@
 <!--
   sysmon-config | A sysmon configuration focused on high-quality event tracing
-  Version: 41 | Date: 2017-02-21
+  Version: 42 | Date: 2017-02-21
   By @SwiftOnSecurity, with contributors credited in-line or on Git
   https://github.com/SwiftOnSecurity/sysmon-config
   Vector-sec Improvements:
@@ -63,6 +63,7 @@
 			<!--SECTION: Google-->
 			<CommandLine condition="begin with">"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --type=</CommandLine> <!--Google:Chrome: massive command-line arguments-->
 			<CommandLine condition="begin with">"C:\Program Files\Google\Chrome\Application\chrome.exe" --type=</CommandLine> <!--Google:Chrome: massive command-line arguments-->
+			<Image condition="begin with">C:\Program Files (x86)\Google\Update\</ParentImage> <!--Google:Chrome: Updater-->
 			<ParentImage condition="begin with">C:\Program Files (x86)\Google\Update\</ParentImage> <!--Google:Chrome: Updater-->
 			<!-- SECTION: Firefox -->
 			<CommandLine condition="begin with">"C:\Program Files\Mozilla Firefox\plugin-container.exe" --channel</CommandLine> <!-- Mozilla:Firefox massive command-line arguments || Contributor @Darkbat91 -->
@@ -478,7 +479,8 @@
 			<Image condition="is">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeClickToRun.exe</Image> <!--Microsoft:Office: C2R client-->
 			<TargetObject condition="end with">Toolbar\WebBrowser</TargetObject> <!--Microsoft:IE: Extraneous activity-->
 			<TargetObject condition="end with">Toolbar\WebBrowser\ITBar7Height</TargetObject> <!--Microsoft:IE: Extraneous activity-->
-			<TargetObject condition="end with">SOFTWARE\Microsoft\Internet Explorer\Toolbar\ShellBrowser\ITBar7Layout</TargetObject> <!--Microsoft:Windows:Explorer: Extraneous activity-->
+			<TargetObject condition="end with">Toolbar\ShellBrowser\ITBar7Layout</TargetObject> <!--Microsoft:Windows:Explorer: Extraneous activity-->
+			<TargetObject condition="end with">Internet Explorer\Toolbar\Locked</TargetObject> <!--Microsoft:Windows:Explorer: Extraneous activity-->
 			<TargetObject condition="end with">ShellBrowser</TargetObject> <!--Microsoft:InternetExplorer: Noise-->
 			<TargetObject condition="end with">\CurrentVersion\Run</TargetObject> <!--Microsoft:Windows: Remove noise from the "\Windows\CurrentVersion\Run" wildcard-->
 			<TargetObject condition="end with">\CurrentVersion\RunOnce</TargetObject> <!--Microsoft:Windows: Remove noise from the "\Windows\CurrentVersion\Run" wildcard-->
