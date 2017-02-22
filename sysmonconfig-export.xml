@@ -106,6 +106,7 @@
 			<ParentImage condition="end with">C:\Program Files (x86)\Dropbox\Update\DropboxUpdate.exe</ParentImage>
 			<!--SECTION: Dell-->
 			<!-- <ParentImage condition="image">C:\Program Files (x86)\Dell\CommandUpdate\InvColPC.exe</ParentImage> --> <!--Dell:CommandUpdate: Detection process-->
+			<ParentImage condition="end with">root\Office16\msoia.exe</ParentImage><!--Office Telemetry-->
 		</ProcessCreate>
 
 	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM -->
@@ -242,6 +243,12 @@
 			<Signature condition="contains">Broadcom </Signature> <!--Exclude signed Broadcom drivers-->
 			<Signature condition="contains">AMD </Signature> <!--Exclude signed AMD drivers-->
 			<Signature condition="contains">VMware </Signature> <!--Exclude signed VMware drivers-->
+			<Signature condition="contains">Realtek </Signature> <!--Exclude signed Realtek drivers-->
+			<Signature condition="contains">Micro-Star </Signature> <!--Exclude signed MSI drivers-->
+			<Signature condition="contains">Logitech </Signature> <!--Exclude signed Logitech drivers-->
+			<Signature condition="contains">Asmedia </Signature> <!--Exclude signed Asmedia drivers-->
+			<Signature condition="contains">SteelSeries </Signature> <!--Exclude signed MSI drivers-->
+			<Signature condition="contains">Fortinet </Signature> <!--Exclude signed MSI drivers-->
 		</DriverLoad>
 
 	<!--SYSMON EVENT ID 7 : DLL (IMAGE) LOADED BY PROCESS -->
