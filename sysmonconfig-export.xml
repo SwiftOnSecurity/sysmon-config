@@ -63,7 +63,7 @@
 			<!--SECTION: Google-->
 			<CommandLine condition="begin with">"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --type=</CommandLine> <!--Google:Chrome: massive command-line arguments-->
 			<CommandLine condition="begin with">"C:\Program Files\Google\Chrome\Application\chrome.exe" --type=</CommandLine> <!--Google:Chrome: massive command-line arguments-->
-			<Image condition="begin with">C:\Program Files (x86)\Google\Update\</ParentImage> <!--Google:Chrome: Updater-->
+			<Image condition="begin with">C:\Program Files (x86)\Google\Update\</Image> <!--Google:Chrome: Updater-->
 			<ParentImage condition="begin with">C:\Program Files (x86)\Google\Update\</ParentImage> <!--Google:Chrome: Updater-->
 			<!-- SECTION: Firefox -->
 			<CommandLine condition="begin with">"C:\Program Files\Mozilla Firefox\plugin-container.exe" --channel</CommandLine> <!-- Mozilla:Firefox massive command-line arguments || Contributor @Darkbat91 -->
@@ -106,7 +106,7 @@
 			<ParentImage condition="end with">C:\Program Files (x86)\Dropbox\Update\DropboxUpdate.exe</ParentImage>
 			<!--SECTION: Dell-->
 			<!-- <ParentImage condition="image">C:\Program Files (x86)\Dell\CommandUpdate\InvColPC.exe</ParentImage> --> <!--Dell:CommandUpdate: Detection process-->
-			<ParentImage condition="end with">root\Office16\msoia.exe</ParentImage><!--Office Telemetry-->
+			<Image condition="end with">root\Office16\msoia.exe</Image><!--Office Telemetry-->
 		</ProcessCreate>
 
 	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM -->
