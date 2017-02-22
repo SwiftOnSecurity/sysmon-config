@@ -211,8 +211,8 @@
 			<Image condition="image">OneDrive.exe</Image> <!--Microsoft:OneDrive-->
 			<Image condition="end with">AppData\Roaming\Dropbox\bin\Dropbox.exe</Image> <!--Dropbox-->
 			<Image condition="image">OneDriveStandaloneUpdater.exe</Image> <!--Microsoft:OneDrive-->
-			<Image condition="end with">controls\cef\ConnectWise.exe</Image> <!--ConnectWise Noise-->
-			<Image condition="end with">ScreenConnect.WindowsClient.exe</Image> <!--ScreenConnect Noise-->
+			<Image condition="image">ConnectWise.exe</Image> <!--ConnectWise Noise-->
+			<Image condition="image">ScreenConnect.WindowsClient.exe</Image> <!--ScreenConnect Noise-->
 			<Image condition="end with">AppData\Roaming\Dashlane\Dashlane.exe</Image> <!--Dashlane Password Manager | Credit: @awfulyprideful-->
 			<Image condition="end with">AppData\Roaming\Dashlane\DashlanePlugin.exe</Image> <!--Dashlane Password Manager | Credit: @awfulyprideful-->
 			<DestinationHostname condition="end with">microsoft.com</DestinationHostname> <!--Microsoft:Update delivery-->
