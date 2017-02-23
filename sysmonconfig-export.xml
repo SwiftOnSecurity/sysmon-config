@@ -534,7 +534,7 @@
 			 <TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\State\Machine\Scripts\Startup</TargetObject>
 			 <!--Detect Network History-->
 			 <TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Profiles</TargetObject>
-			 <TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces</TargetObject>
+			 <TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\</TargetObject><!--Also detects DNS Change Trojans-->
 			 <!--Detect User Activity-->
 			 <TargetObject condition="begin with">HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU</TargetObject>
 			 <TargetObject condition="begin with">HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\USB</TargetObject>
