@@ -166,6 +166,7 @@
 			<Image condition="image">tftp.exe</Image><!-- TFTP -->
 			<Image condition="image">wmic.exe</Image><!-- wmic /node logging -->
 			<Image condition="image">at.exe</Image><!-- Remote Task Scheduler logging -->
+			<Image condition="image">C:\windows\system32\mmc.exe</Image><!-- Microsoft Management Console -->
 			<!--Hack tools hosting-->
 			<DestinationHostname condition="end with">githubusercontent.com</DestinationHostname> <!--Github: Malicious tools often loaded from here, not used except by developers-->
 			<DestinationHostname condition="end with">github.com</DestinationHostname> <!--Github: Malicious tools often loaded from here, not used except by developers-->
@@ -217,6 +218,7 @@
 			<DestinationPort condition="is">22</DestinationPort>   <!--SSH Port-->
 			<DestinationPort condition="is">23</DestinationPort>   <!--Telnet Port-->
 			<DestinationPort condition="is">25</DestinationPort>   <!--SMTP Port-->
+			<DestinationPort condition="is">135</DestinationPort>  <!--MMC Remote Management-->
 			<DestinationPort condition="is">137</DestinationPort>  <!--SMB Port-->
 			<DestinationPort condition="is">138</DestinationPort>  <!--SMB Port-->
 			<DestinationPort condition="is">139</DestinationPort>  <!--SMB Port-->
