@@ -360,7 +360,9 @@
 			<SourceImage condition="contains">powershell.exe</SourceImage>
  			<TargetImage condition="contains">lsass.exe</TargetImage>
 		</ProcessAccess>
-
+		<ProcessAccess onmatch="exclude">
+			<SourceImage condition="is">C:\Program Files (x86)\Webroot\WRSA.exe</SourceImage>
+		</ProcessAccess>
 	<!--SYSMON EVENT ID 11 : FILE CREATED -->
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime-->
 		<FileCreate onmatch="include">
