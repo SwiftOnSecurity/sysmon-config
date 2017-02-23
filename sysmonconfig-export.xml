@@ -13,10 +13,10 @@
 					Any additions may by incorporated by the original author (SwiftOnSecurity) into the master version, with in-line or changelog attribution.
 >>>>>>> refs/remotes/origin/master
 
-  Fork version:	2
-  Fork author:	AwfulyPrideful
+  Fork version:	3
+  Fork author:	NotAwful
   Fork project:	NotAwful\Sysmon-Config
-  Fork license:	CC-A4.0
+  Fork license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
 
   REQUIRED: Sysmon version 6.00 or higher (due to changes in registry syntax)
 	https://technet.microsoft.com/en-us/sysinternals/bb545021.aspx
