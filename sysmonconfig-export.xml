@@ -229,9 +229,6 @@
 			<DestinationPort condition="is">22</DestinationPort>   <!--SSH Port-->
 			<DestinationPort condition="is">23</DestinationPort>   <!--Telnet Port-->
 			<DestinationPort condition="is">25</DestinationPort>   <!--SMTP Port-->
-			<DestinationPort condition="is">135</DestinationPort>  <!--MMC Remote Management-->
-			<DestinationPort condition="is">137</DestinationPort>  <!--SMB Port-->
-			<DestinationPort condition="is">138</DestinationPort>  <!--SMB Port-->
 			<DestinationPort condition="is">139</DestinationPort>  <!--SMB Port-->
 			<DestinationPort condition="is">445</DestinationPort>  <!--SMB Port-->
 			<DestinationPort condition="is">5800</DestinationPort> <!--VNC Port-->
@@ -256,9 +253,19 @@
 			<Image condition="image">ScreenConnect.WindowsClient.exe</Image> <!--ScreenConnect Noise-->
 			<Image condition="end with">AppData\Roaming\Dashlane\Dashlane.exe</Image> <!--Dashlane Password Manager | Credit: @awfulyprideful-->
 			<Image condition="end with">AppData\Roaming\Dashlane\DashlanePlugin.exe</Image> <!--Dashlane Password Manager | Credit: @awfulyprideful-->
+			<Image condition="end with">Vivaldi\Application\vivaldi.exe</Image> <!--Vivaldi Browser Installed in User profile-->
 			<DestinationHostname condition="end with">microsoft.com</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">microsoft.com.akadns.net</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">microsoft.com.nsatc.net</DestinationHostname> <!--Microsoft:Update delivery-->
+			<SourcePortName condition="is">llmnr</SourcePortName> <!--Silence Link-Local Multicast Name Resolution-->
+			<DestinationPortName condition="is">llmnr</DestinationPortName> <!--Silence Link-Local Multicast Name Resolution-->
+			<DestinationPortName condition="is">ssdp</DestinationPortName> <!--Simple Service Discovery Protocol (SSDP-->
+			<SourcePortName condition="is">ssdp</SourcePortName> <!--Simple Service Discovery Protocol (SSDP-->
+			<DestinationPort condition="is">5353</DestinationPort> <!--Bonjour/Avahi Discovery-->
+			<DestinationPortName condition="is">netbios-ns</DestinationPortName> <!--Netbios DNS Resolution-->
+			<DestinationPortName condition="is">netbios-dgm</DestinationPortName> <!--Netbios Datagram Services-->
+			<DestinationHostname condition="end with">1e100.net</DestinationHostname> <!--Google Chrome Safe Search checks-->
+			<DestinationPort condition="is">5228</DestinationPort> <!--Google Chrome Safe Search checks-->
 		</NetworkConnect>
 
 	<!--SYSMON EVENT ID 4 : RESERVED FOR SYSMON STATUS MESSAGES, THIS LINE IS INCLUDED FOR DOCUMENTATION PURPOSES ONLY -->
