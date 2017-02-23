@@ -149,12 +149,15 @@
 			<Image condition="image">C:\Windows\system32\svchost.exe</Image> <!--BITS File Transfer program-->
 			<Image condition="image">mshta.exe</Image>
 			<Image condition="image">python.exe</Image>
-			<Image condition="image">psexecsvc.exe</Image>
+			<Image condition="contains">psexe</Image><!--Detect PSExec, PSexec services-->
+			<Image condition="contains">pskill</Image><!--Detect pskill-->
+			<Image condition="contains">psshutdown</Image><!--Detect PsShutdown-->
+			<Image condition="contains">psservice</Image><!--Detect PsService-->
+			<Image condition="contains">PsPasswd</Image><!--Detect PsPasswd-->
 			<Image condition="image">java.exe</Image>
 			<Image condition="image">installutil.exe</Image>
 			<Image condition="image">msiexec.exe</Image> <!-- msiexec /i http://pathtomsi -->
 			<Image condition="image">certutil.exe</Image>
-			<Image condition="image">PsExec.exe</Image>
 			<Image condition="image">reg.exe</Image><!-- Remote Registry -->
 			<Image condition="image">mstsc.exe</Image><!-- Remote Desktop -->
 			<Image condition="image">telnet.exe</Image><!-- Telnet -->
@@ -166,7 +169,15 @@
 			<Image condition="image">tftp.exe</Image><!-- TFTP -->
 			<Image condition="image">wmic.exe</Image><!-- wmic /node logging -->
 			<Image condition="image">at.exe</Image><!-- Remote Task Scheduler logging -->
+			<Image condition="image">net.exe</Image><!-- net use/net view-->
 			<Image condition="image">C:\windows\system32\mmc.exe</Image><!-- Microsoft Management Console -->
+			<Image condition="image">nbtstat.exe</Image><!-- Netbios stat-->
+			<Image condition="image">dsquery.exe</Image><!-- Query domain-->
+			<Image condition="image">driverquery.exe</Image><!-- Remote Driver querying-->
+			<Image condition="image">sc.exe</Image><!-- Service Control Manager-->
+			<Image condition="image">auditpol.exe</Image><!-- Auditpol-->
+			<Image condition="image">qwinsta.exe</Image><!-- Query Remote Sessions-->
+			<Image condition="image">rwinsta.exe</Image><!-- Reset Remote Sessions-->
 			<!--Hack tools hosting-->
 			<DestinationHostname condition="end with">githubusercontent.com</DestinationHostname> <!--Github: Malicious tools often loaded from here, not used except by developers-->
 			<DestinationHostname condition="end with">github.com</DestinationHostname> <!--Github: Malicious tools often loaded from here, not used except by developers-->
