@@ -52,7 +52,9 @@
 			<Image condition="is">C:\Windows\System32\wermgr.exe</Image> <!--Microsoft:Windows:Windows error reporting/telemetry-->
 			<Image condition="is">C:\Windows\SysWOW64\wermgr.exe</Image> <!--Microsoft:Windows:Windows error reporting/telemetry-->
 			<Image condition="is">C:\Windows\System32\MpSigStub.exe</Image> <!--Microsoft:Windows: Microsoft Malware Protection Signature Update Stub-->
-			<Image condition="begin with">C:\Windows\SoftwareDistribution\Download\Install\AM_Delta_Patch</Image> <!--Microsoft:Windows: Microsoft Malware Protection Delta Updates-->
+			<Image condition="begin with">C:\Windows\SoftwareDistribution\Download\Install\AM_Delta</Image> <!--Microsoft:Windows: Microsoft Malware Protection Delta Updates-->
+			<Image condition="begin with">C:\Windows\SoftwareDistribution\Download\Install\AM_Engine</Image> <!--Microsoft:Windows: Microsoft Malware Protection Delta Updates-->
+			<Image condition="begin with">C:\Windows\SoftwareDistribution\Download\Install\AM_Base</Image> <!--Microsoft:Windows: Microsoft Malware Protection Delta Updates-->
 			<Image condition="is">C:\Windows\System32\MusNotification.exe</Image><!--Microsoft:Windows: Update Popups-->
 			<Image condition="is">C:\Windows\System32\MusNotificationUx.exe</Image><!--Microsoft:Windows: Update Popups-->
 			<!--SECTION: Microsoft dotNet-->
@@ -366,6 +368,7 @@
 		</ProcessAccess>
 		<ProcessAccess onmatch="exclude">
 			<SourceImage condition="is">C:\Program Files (x86)\Webroot\WRSA.exe</SourceImage>
+			<SourceImage condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</SourceImage>
 		</ProcessAccess>
 	<!--SYSMON EVENT ID 11 : FILE CREATED -->
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime-->
