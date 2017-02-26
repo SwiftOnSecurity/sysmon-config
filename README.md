@@ -133,17 +133,17 @@ then
     remove_field("type");
 
     // Remove winlogbeats fields we don't need
-    remove_field("winlogbeat_event_data_ProcessId");
-    remove_field("winlogbeat_log_name");
-    remove_field("winlogbeat_opcode");
-    remove_field("winlogbeat_process_id");
-    remove_field("winlogbeat_record_number");
-    remove_field("winlogbeat_source_name");
-    remove_field("winlogbeat_tags");
-    remove_field("winlogbeat_type");
-    remove_field("winlogbeat_version");
-    remove_field("winlogbeat_event_data_SourceIsIpv6");
-    remove_field("winlogbeat_event_data_DestinationIsIpv6");
+    //remove_field("winlogbeat_event_data_ProcessId");
+    //remove_field("winlogbeat_log_name");
+    //remove_field("winlogbeat_opcode");
+    //remove_field("winlogbeat_process_id");
+    //remove_field("winlogbeat_record_number");
+    //remove_field("winlogbeat_source_name");
+    //remove_field("winlogbeat_tags");
+    //remove_field("winlogbeat_type");
+    //remove_field("winlogbeat_version");
+    //remove_field("winlogbeat_event_data_SourceIsIpv6");
+    //remove_field("winlogbeat_event_data_DestinationIsIpv6");
 end
 ~~~~
 
