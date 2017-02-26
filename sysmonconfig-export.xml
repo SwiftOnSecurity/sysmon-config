@@ -57,6 +57,19 @@
 			<Image condition="begin with">C:\Windows\SoftwareDistribution\Download\Install\AM_Base</Image> <!--Microsoft:Windows: Microsoft Malware Protection Delta Updates-->
 			<Image condition="is">C:\Windows\System32\MusNotification.exe</Image><!--Microsoft:Windows: Update Popups-->
 			<Image condition="is">C:\Windows\System32\MusNotificationUx.exe</Image><!--Microsoft:Windows: Update Popups-->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k wsappx</CommandLine><!--Microsoft:Windows 10-->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k appmodel</CommandLine><!--Microsoft:Windows 10-->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k UnistackSvcGroup</CommandLine><!--Microsoft:Windows 10-->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k defragsvc</CommandLine><!--Microsoft:Windows Defrag-->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k RPCSS</CommandLine><!--Microsoft:Windows Services-->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k utcsvc</CommandLine><!--Microsoft:Windows Services-->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k wbioSvcGroup</CommandLine><!--Microsoft:Windows Services-->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k DcomLaunch</CommandLine><!--Microsoft:Windows Services-->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k swprv</CommandLine><!--Microsoft:Software Shadow Copy Provider-->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k imgsvc</CommandLine><!--Microsoft:The Windows Image Acquisition Service-->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k NetworkServiceNetworkRestricted</CommandLine><!--Microsoft:Windows Network Services-->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k LocalSystemNetworkRestricted</CommandLine><!--Microsoft:Windows Network Services-->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k LocalServiceAndNoImpersonation</CommandLine><!--Microsoft:Windows Network Services-->
 			<!--SECTION: Microsoft dotNet-->
 			<Image condition="is">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\mscorsvw.exe</Image> <!--Microsoft:DotNet-->
 			<ParentImage condition="is">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\mscorsvw.exe</ParentImage> <!--Microsoft:DotNet-->
