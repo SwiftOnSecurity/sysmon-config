@@ -37,12 +37,13 @@ Run with administrator rights
 sysmon.exe -u
 ~~~~
 
-## Graylog Configuration ##
+### Graylog Configuration ###
 
-## Sysmon Pipeline Rules ##
+
+### Sysmon Pipeline Rules ###
 
 ## Stage -1 ##
-## sysmon cleanup (gl2_source_fix) ##
+# sysmon cleanup (gl2_source_fix) #
 ~~~~
 // This rule is cleaning up the message
 // -- It addresses an issue with older filebeat versions, which can have trouble with the 'source' field 
@@ -56,7 +57,7 @@ then
 end
 ~~~~
 
-## sysmon cleanup ##
+# sysmon cleanup #
 ~~~~
 // Sysmon Installation
 // -- Sysmon has to be installed on Windows, and be run with: sysmon –i –accepteula –h md5 –n -l 
@@ -146,7 +147,7 @@ then
 end
 ~~~~
 
-## Stage 0 ##
+# Stage 0 #
 ~~~~
 // Threat Intelligence enrichment
 // --- Needs installed Graylog Threat Intel plugin : https://github.com/Graylog2/graylog-plugin-threatintel
@@ -178,7 +179,7 @@ then
 end
 ~~~~
 
-## Stage 1 ##
+# Stage 1 #
 ~~~~
 rule "sysmon threatintel inflate"
 when
