@@ -266,6 +266,7 @@
 			<DestinationPort condition="is">3128</DestinationPort> <!--Socks Port-->
 			<DestinationPort condition="is">9001</DestinationPort> <!--Tor Port-->
 			<DestinationPort condition="is">9030</DestinationPort> <!--Tor Port-->
+			<DestinationPort condition="is">53</DestinationPort> <!--Log DNS for Graylog threat discovery-->
 		</NetworkConnect>
 		<NetworkConnect onmatch="exclude">
 			<Image condition="image">Spotify.exe</Image> <!--Spotify-->
