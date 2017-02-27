@@ -586,7 +586,14 @@
 			 <TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\State\Machine\Scripts\Startup</TargetObject>
 			 <!--Detect Network History-->
 			 <TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Profiles</TargetObject>
-			 <TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\</TargetObject><!--Also detects DNS Change Trojans-->
+			 <TargetObject condition="end with">Domain</TargetObject><!--Networking: Watch Domain Changes-->
+			 <TargetObject condition="end with">DefaultGateway</TargetObject><!--Networking: Detect changes-->
+			 <TargetObject condition="end with">DHCPDefaultGateway</TargetObject><!--Networking: Detect changes-->
+			 <TargetObject condition="end with">DhcpIPAddress</TargetObject><!--Networking: Detect changes-->
+			 <TargetObject condition="end with">DhcpNameserver</TargetObject><!--Networking: Detect changes-->
+			 <TargetObject condition="end with">Dhcpserver</TargetObject><!--Networking: Detect changes-->
+			 <TargetObject condition="end with">DhcpSubnetMask</TargetObject><!--Networking: Detect changes-->
+			 <TargetObject condition="end with">SubnetMask</TargetObject><!--Networking: Detect changes-->
 			 <!--Detect User Activity-->
 			 <TargetObject condition="begin with">HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU</TargetObject>
 			 <TargetObject condition="begin with">HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\USB</TargetObject>
