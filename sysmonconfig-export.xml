@@ -648,6 +648,8 @@
 			<Image condition="is">C:\Windows\SystemApps\Microsoft.Windows.Cortana_cw5n1h2txyewy\SearchUI.exe</Image><!--Microsoft:Windows Remove noise from Windows 10 Cortana--> <!--Win10 -->
 			<!--SECTION: 3rd party-->
 			<Image condition="is">C:\Program Files\WIDCOMM\Bluetooth Software\btwdins.exe</Image>
+			<TargetObject condition="contains">HKLM\System\CurrentControlSet\Services\DeviceAssociationService\Start</TargetObject><!--Device Association Service Noise-->
+			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Control\Class\{4d36e96c-e325-11ce-bfc1-08002be10318}\</TargetObject><!-- HD Audio Noise-->
 		</RegistryEvent>
 
 	<!--SYSMON EVENT ID 15 : ALTERNATE DATA STREAM CREATED -->
