@@ -133,7 +133,11 @@
 			<!--SECTION: Dell-->
 			<!-- <ParentImage condition="image">C:\Program Files (x86)\Dell\CommandUpdate\InvColPC.exe</ParentImage> --> <!--Dell:CommandUpdate: Detection process-->
 			<!--SECTION: Lenovo-->
-			<Image condition="is">C:\Windows\system32\LPlatSvc.exe</Image> <!--Lenovo Platform Services-->
+			<Image condition="is">C:\Program Files (x86)\Lenovo\System Update\ConfigService.exe</Image> <!--Lenovo: System Update-->
+			<ParentImage condition="is">C:\PROGRA~3\Lenovo\SYSTEM~1\SESSIO~1\REPOSI~1\fwdphb06\fwdphb06_version.exe</ParentImage><!--Lenovo: System Update-->
+			<ParentCommandLine condition="contains">C:\Program Files (x86)\Lenovo\System Update\tvsukernel.exe</ParentCommandLine><!--Lenovo: System Update-->
+			<Image condition="is">C:\Program Files (x86)\ThinkPad\Utilities\PWMDBSVC.exe</Image><!--Lenovo: Thinkpad Utilities-->
+			<Image condition="is">C:\Windows\system32\LPlatSvc.exe</Image> <!--Lenovo: Platform Services-->
 			<!--SECTION: Intel-->
 			<Image condition="is">C:\Program Files\Intel\Telemetry 2.0\lrio.exe</Image> <!--Intel Telemetry-->
 			<!--SECTION: Antivirus-->
