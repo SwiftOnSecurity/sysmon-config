@@ -42,6 +42,8 @@
 			<Image condition="is">C:\Windows\System32\audiodg.exe</Image> <!--Microsoft:Windows: Launched constantly-->
 			<Image condition="is">C:\Windows\System32\conhost.exe</Image> <!--Microsoft:Windows: Command line interface host process-->
 			<Image condition="is">C:\Windows\System32\wbem\WmiApSrv.exe</Image> <!--Microsoft:Windows: WMI performance adpater host process-->
+			<Image condition="is">C:\Windows\servicing\TrustedInstaller.exe</Image> <!--Microsoft:Windows: TrustedInstaller-->
+			<Image condition="is">C:\Windows\system32\sppsvc.exe</Image> <!--Microsoft:Windows: Software Protection Service-->
 			<ParentImage condition="is">C:\Windows\system32\SearchIndexer.exe</ParentImage> <!--Microsoft:Windows:Search: Launches many uninteresting sub-processes-->
 			<CommandLine condition="begin with">C:\Windows\system32\DllHost.exe /Processid</CommandLine> <!--Microsoft:Windows-->
 			<ParentCommandLine condition="begin with">C:\Windows\system32\svchost.exe -k DcomLaunch</ParentCommandLine> <!--Microsoft:Windows-->
@@ -145,6 +147,7 @@
 			<ParentImage condition="is">C:\Program Files\Lenovo\HOTKEY\micmute.exe</ParentImage><!--Lenovo: Hotkey Tools-->
 			<Image condition="is">C:\Program Files\Lenovo\InstantOn\InstantOnSrv.exe</Image> <!--Lenovo: Instant-On-->
 			<Image condition="is">C:\Program Files\Lenovo\Lenovo Mouse Suite\Service\PelService.exe</Image> <!--Lenovo: Mouse Suite-->
+			<Image condition="is">C:\Program Files\Lenovo\ImController\PluginHost\Lenovo.Modern.ImController.PluginHost.Device.exe</Image><!--Lenovo: Modern Apps Plugin Host-->
 			<!--SECTION: Intel-->
 			<Image condition="is">C:\Program Files\Intel\Telemetry 2.0\lrio.exe</Image> <!--Intel: Telemetry-->
 			<Image condition="is">C:\Program Files\Intel Driver Update Utility\SUR\SurSvc.exe</Image> <!--Intel: Driver Update-->
@@ -191,6 +194,7 @@
 			<ParentCommandLine condition="contains">C:\Program Files (x86)\VMware\Infrastructure\Virtual Infrastructure Client\Launcher\VpxClient.exe</ParentCommandLine> <!--VMware vSphere spawns subprocesses-->
 			<CommandLine condition="contains">C:\Program Files (x86)\VMware\Infrastructure\Virtual Infrastructure Client\Launcher\VpxClient.exe</CommandLine><!--VMware vSphere spawns subprocesses-->
 			<ParentImage condition="is">C:\Program Files (x86)\SyncedTool\bin\agent_service.exe</ParentImage><!--eFolder Synced Tool-->
+			<Image condition="is">C:\Program Files (x86)\Notepad++\notepad++.exe</Image><!-- Notepad++ -->
 		</ProcessCreate>
 
 	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM -->
