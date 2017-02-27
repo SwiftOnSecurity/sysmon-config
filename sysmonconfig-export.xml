@@ -164,24 +164,23 @@
 			<ParentCommandLine condition="contains">tasklist</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<ParentCommandLine condition="contains">wmic path win32_operatingsystem get</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<ParentCommandLine condition="contains">sc queryex type= service</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
-			<ParentCommandLine condition="contains">powershell.exe "(Get-Item 'C:\Program Files (x86)\StorageCraft\ImageManager\ImageManager.exe'</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
-			<ParentCommandLine condition="contains">powershell.exe "Add-PSSnapin Microsoft.SharePoint.PowerShell -ErrorAction SilentlyContinue;(Get-PSSnapin microsoft.sharepoint.powershell).Version.Major;"</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<ParentCommandLine condition="contains">C:\Program Files (x86)\StorageCraft\ImageManager\ImageManager.exe</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<ParentCommandLine condition="contains">Add-PSSnapin Microsoft.SharePoint.PowerShell</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<CommandLine condition="contains">find /i "Listening"</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<CommandLine condition="contains">netstat -an</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<CommandLine condition="contains">tasklist</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<CommandLine condition="contains">wmic path win32_operatingsystem get</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<CommandLine condition="contains">sc queryex type= service</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
-			<CommandLine condition="contains">powershell.exe "(Get-Item 'C:\Program Files\StorageCraft\ImageManager\ImageManager.exe'</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
-			<CommandLine condition="contains">powershell.exe "Add-PSSnapin Microsoft.SharePoint.PowerShell -ErrorAction SilentlyContinue;(Get-PSSnapin microsoft.sharepoint.powershell).Version.Major;"</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
-			<CommandLine condition="contains">powershell.exe "Add-PSSnapin Microsoft.SharePoint.PowerShell -ErrorAction SilentlyContinue;get-spfarm | select Products;"</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
-			<CommandLine condition="is">powershell.exe "Get-ItemProperty HKLM:\software\microsoft\windows\currentversion\uninstall\* | select-object displayname"</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
-			<CommandLine condition="contains">powershell.exe "(Get-WmiObject -Query 'SELECT LicensingType FROM Win32_TerminalServiceSetting').LicensingType"</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
-			<CommandLine condition="contains">powershell.exe "(Get-WmiObject -Namespace Root\CimV2\TerminalServices -Query 'SELECT LicensingType FROM Win32_TerminalServiceSetting').LicensingType"</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">C:\Program Files\StorageCraft\ImageManager\ImageManager.exe</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">Add-PSSnapin Microsoft.SharePoint.PowerShell</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">Get-ItemProperty HKLM:\software\microsoft\windows\currentversion\uninstall\* | select-object displayname</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">Get-WmiObject -Query 'SELECT LicensingType FROM Win32_TerminalServiceSetting').LicensingType</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">Get-WmiObject -Namespace Root\CimV2\TerminalServices</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
 			<CommandLine condition="contains">tasklist</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
-			<ParentCommandLine condition="is">"cmd.exe" /C "net view \\localhost | find " Print ""</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
-			<ParentCommandLine condition="is">"cmd.exe" /C "net view \\localhost | find " Disk ""</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
-			<CommandLine condition="is">C:\Windows\system32\net1 Share</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
-			<ParentCommandLine condition="is">"cmd.exe" /C "powershell.exe "Get-ItemProperty HKLM:\software\microsoft\windows\currentversion\uninstall\* | select-object displayname | format-table -autosize" | find /i "vss writer" | find /i "sql server""</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<ParentCommandLine condition="contains">net view \\localhost | find " Print</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<ParentCommandLine condition="contains">net view \\localhost | find " Disk</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">C:\Windows\system32\net1 Share</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<ParentCommandLine condition="contains">Get-ItemProperty HKLM:\software\microsoft\windows\currentversion\uninstall\* | select-object displayname | format-table -autosize" | find /i "vss writer" | find /i "sql server""</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<ParentImage condition="is">C:\Program Files (x86)\LabTech Client\LTClient.exe</ParentImage> <!--Labtech Client-->
 			<!--END: Labtech-->
 			<Image condition="end with">ScreenConnect.WindowsClient.exe</Image><!--Screenconnect Remote Desktop Client-->
@@ -338,6 +337,7 @@
 			<DestinationHostname condition="end with">microsoft.com.akadns.net</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">microsoft.com.nsatc.net</DestinationHostname> <!--Microsoft:Update delivery-->
 			<SourcePortName condition="is">llmnr</SourcePortName> <!--Silence Link-Local Multicast Name Resolution-->
+			<SourcePortName condition="is">ldap</SourcePortName> <!--Silence Link-Local Multicast Name Resolution-->
 			<DestinationPortName condition="is">llmnr</DestinationPortName> <!--Silence Link-Local Multicast Name Resolution-->
 			<DestinationPortName condition="is">ssdp</DestinationPortName> <!--Simple Service Discovery Protocol (SSDP-->
 			<SourcePortName condition="is">ssdp</SourcePortName> <!--Simple Service Discovery Protocol (SSDP-->
