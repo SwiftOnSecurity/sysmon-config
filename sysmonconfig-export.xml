@@ -132,10 +132,13 @@
 			<ParentImage condition="end with">C:\Program Files (x86)\Dropbox\Update\DropboxUpdate.exe</ParentImage>
 			<!--SECTION: Dell-->
 			<!-- <ParentImage condition="image">C:\Program Files (x86)\Dell\CommandUpdate\InvColPC.exe</ParentImage> --> <!--Dell:CommandUpdate: Detection process-->
+			<!--SECTION: Lenovo-->
+			<Image condition="is">C:\Windows\system32\LPlatSvc.exe</Image> <!--Lenovo Platform Services-->
 			<!--SECTION: Intel-->
 			<Image condition="is">C:\Program Files\Intel\Telemetry 2.0\lrio.exe</Image> <!--Intel Telemetry-->
 			<!--SECTION: Antivirus-->
 			<CommandLine condition="begin with">"C:\Windows\sysnative\rundll32.exe" "C:\Windows\system32\WRusr.dll",SynProc</CommandLine> <!--Webroot-->
+			<!--SECTION: Custom Apps-->
 			<!--SECTION: Labtech -->
 			<!--Since Labtech nests its processes, the following exclusions could be exploited, remove if you do not need-->
 			<!--TODO: Will define these more in the future-->
@@ -149,7 +152,7 @@
 			<ParentCommandLine condition="contains">tasklist</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<ParentCommandLine condition="contains">wmic path win32_operatingsystem get</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<ParentCommandLine condition="contains">sc queryex type= service</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
-			<ParentCommandLine condition="contains">powershell.exe "(Get-Item 'C:\Program Files\StorageCraft\ImageManager\ImageManager.exe'</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<ParentCommandLine condition="contains">powershell.exe "(Get-Item 'C:\Program Files (x86)\StorageCraft\ImageManager\ImageManager.exe'</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<ParentCommandLine condition="contains">powershell.exe "Add-PSSnapin Microsoft.SharePoint.PowerShell -ErrorAction SilentlyContinue;(Get-PSSnapin microsoft.sharepoint.powershell).Version.Major;"</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<CommandLine condition="contains">find /i "Listening"</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<CommandLine condition="contains">netstat -an</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
@@ -158,17 +161,25 @@
 			<CommandLine condition="contains">sc queryex type= service</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<CommandLine condition="contains">powershell.exe "(Get-Item 'C:\Program Files\StorageCraft\ImageManager\ImageManager.exe'</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<CommandLine condition="contains">powershell.exe "Add-PSSnapin Microsoft.SharePoint.PowerShell -ErrorAction SilentlyContinue;(Get-PSSnapin microsoft.sharepoint.powershell).Version.Major;"</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">powershell.exe "Add-PSSnapin Microsoft.SharePoint.PowerShell -ErrorAction SilentlyContinue;get-spfarm | select Products;"</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<CommandLine condition="is">powershell.exe "Get-ItemProperty HKLM:\software\microsoft\windows\currentversion\uninstall\* | select-object displayname"</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
-			<CommandLine condition="is">powershell.exe "(Get-WmiObject -Query 'SELECT LicensingType FROM Win32_TerminalServiceSetting').LicensingType"</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
-			<CommandLine condition="is">powershell.exe "(Get-WmiObject -Namespace Root\CimV2\TerminalServices -Query 'SELECT LicensingType FROM Win32_TerminalServiceSetting').LicensingType"</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">powershell.exe "(Get-WmiObject -Query 'SELECT LicensingType FROM Win32_TerminalServiceSetting').LicensingType"</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">powershell.exe "(Get-WmiObject -Namespace Root\CimV2\TerminalServices -Query 'SELECT LicensingType FROM Win32_TerminalServiceSetting').LicensingType"</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
 			<CommandLine condition="contains">tasklist</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
 			<ParentCommandLine condition="is">"cmd.exe" /C "net view \\localhost | find " Print ""</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<ParentCommandLine condition="is">"cmd.exe" /C "net view \\localhost | find " Disk ""</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<CommandLine condition="is">C:\Windows\system32\net1 Share</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
-			<!--SECTION: Custom Apps-->
+			<ParentCommandLine condition="is">"cmd.exe" /C "powershell.exe "Get-ItemProperty HKLM:\software\microsoft\windows\currentversion\uninstall\* | select-object displayname | format-table -autosize" | find /i "vss writer" | find /i "sql server""</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<ParentImage condition="is">C:\Program Files (x86)\LabTech Client\LTClient.exe</ParentImage> <!--Labtech Client-->
+			<!--END: Labtech-->
+			<Image condition="end with">ScreenConnect.WindowsClient.exe</Image><!--Screenconnect Remote Desktop Client-->
 			<Image condition="begin with">C:\Program Files (x86)\SmartGit</Image> <!--SmartGit-->
 			<Image condition="end with">Vivaldi\Application\vivaldi.exe</Image> <!--Vivaldi Browser-->
 			<Image condition="end with">controls\cef\ConnectWise.exe</Image> <!--Connectwise-->
+			<!-- VMware vSphere spawns child processes to svtres.exe and csc.exe, currently unable to exclude those child processes, csc and cvtres.exe are used by some malware-->
+			<ParentCommandLine condition="contains">C:\Program Files (x86)\VMware\Infrastructure\Virtual Infrastructure Client\Launcher\VpxClient.exe</ParentCommandLine> <!--VMware vSphere spawns subprocesses-->
+			<CommandLine condition="contains">C:\Program Files (x86)\VMware\Infrastructure\Virtual Infrastructure Client\Launcher\VpxClient.exe</CommandLine><!--VMware vSphere spawns subprocesses-->
+			<ParentImage condition="is">C:\Program Files (x86)\SyncedTool\bin\agent_service.exe</ParentImage><!--eFolder Synced Tool-->
 		</ProcessCreate>
 
 	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM -->
@@ -518,6 +529,17 @@
 			<TargetFilename condition="end with">.log</TargetFilename> <!-- Microsoft:Windows: Logs and Trace files -->
 			<Image condition="begin with">C:\WINDOWS\winsxs\amd64_microsoft-windows</Image> <!-- Microsoft:Windows: Windows update-->
 			<Image condition="begin with">Firefox Setup </Image> <!-- Firefox:Installer -->
+			<TargetFilename condition="is">C:\Windows\System32\config\systemprofile\AppData\Local\Microsoft\Windows\PowerShell\StartupProfileData-NonInteractive</TargetFilename> <!--Powershell spam!-->
+			<TargetFilename condition="is">C:\Windows\System32\config\netlogon.ftl</TargetFilename> <!-- Microsoft:Windows: Domain login cache-->
+			<Image condition="is">\\?\C:\Windows\system32\wbem\WMIADAP.EXE</Image><!-- Microsoft:Windows: WMI Performance updates-->
+			<Image condition="is">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeC2RClient.exe</Image><!-- Microsoft:Office Click2Run-->
+			<Image condition="is">C:\Program Files (x86)\MSI\Help Desk\MSI Update Agent.exe</Image><!-- MSI: Helpdesk Updater-->
+			<Image condition="is">C:\Windows\system32\CompatTelRunner.exe</Image><!-- Microsoft:Windows: Windows 10 app, creates tons of cache files-->
+			<Image condition="is">C:\Program Files\Microsoft SQL Server\110\LocalDB\Binn\sqlservr.exe</Image><!-- Microsoft:SQL Server: Creating tons of files-->
+			<Image condition="is">C:\Windows\system32\igfxCUIService.exe</Image><!--INTEL: Application creates a bat file in Windows System32, and drops other files-->
+			<Image condition="is">C:\Windows\System32\smss.exe</Image><!-- Microsoft:Windows: Session Manager SubSystem: Creates swapfile.sys,pagefile.sys,hiberfile.sys-->
+			<Image condition="is">C:\Program Files (x86)\MSI\Dragon Center\Dragon Center.exe</Image><!-- MSI: Dragon Center Updater-->
+			<Image condition="is">C:\Program Files (x86)\VMware\Infrastructure\Virtual Infrastructure Client\Launcher\VpxClient.exe</Image><!-- VMware:vSphere: Creates .cmdline apps in appdata\*\Temp-->
 		</FileCreate>
 
 	<!--SYSMON EVENT ID 12 & 13 & 14 : REGISTRY MODIFICATION -->
