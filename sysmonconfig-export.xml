@@ -57,6 +57,7 @@
 			<Image condition="begin with">C:\Windows\SoftwareDistribution\Download\Install\AM_Base</Image> <!--Microsoft:Windows: Microsoft Malware Protection Delta Updates-->
 			<Image condition="is">C:\Windows\System32\MusNotification.exe</Image><!--Microsoft:Windows: Update Popups-->
 			<Image condition="is">C:\Windows\System32\MusNotificationUx.exe</Image><!--Microsoft:Windows: Update Popups-->
+			<CommandLine condition="is">C:\Windows\system32\SearchIndexer.exe /Embedding</CommandLine><!--Microsoft:Windows: Search Indexer-->
 			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k wsappx</CommandLine><!--Microsoft:Windows 10-->
 			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k appmodel</CommandLine><!--Microsoft:Windows 10-->
 			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k UnistackSvcGroup</CommandLine><!--Microsoft:Windows 10-->
@@ -72,6 +73,7 @@
 			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k LocalServiceAndNoImpersonation</CommandLine><!--Microsoft:Windows Network Services-->
 			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k netsvcs</CommandLine><!--Microsoft:Windows Network Services-->
 			<ParentCommandLine condition="is">C:\Windows\System32\svchost.exe -k netsvcs</ParentCommandLine><!--Microsoft:Windows Network Services: Spawns Consent.exe-->
+			<ParentCommandLine condition="is">C:\Windows\system32\svchost.exe -k LocalSystemNetworkRestricted</ParentCommandLine><!--Microsoft:Windows Network Services-->
 			<Image condition="is">C:\Windows\System32\powercfg.exe</Image><!--Microsoft:Power Management-->
 			<!--SECTION: Microsoft dotNet-->
 			<Image condition="is">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\mscorsvw.exe</Image> <!--Microsoft:DotNet-->
@@ -127,6 +129,7 @@
 			<ParentImage condition="end with">C:\Program Files\Realtek\Audio\HDA\RtkAudioService64.exe</ParentImage> <!--Realtek:Driver: routine actions-->
 			<ParentImage condition="end with">C:\Program Files\DellTPad\HidMonitorSvc.exe</ParentImage>
 			<CommandLine condition="begin with">"C:\Program Files\DellTPad\ApMsgFwd.exe" -s{</CommandLine>
+			<ParentImage condition="is">C:\Program Files\Synaptics\SynTP\SynTPEnh.exe</ParentImage><!--Synaptics Touchpad -->
 			<!--SECTION: Dropbox-->
 			<Image condition="end with">C:\Program Files (x86)\Dropbox\Update\DropboxUpdate.exe</Image> <!--Dropbox:Updater: Lots of command-line arguments-->
 			<ParentImage condition="end with">C:\Program Files (x86)\Dropbox\Update\DropboxUpdate.exe</ParentImage>
@@ -138,8 +141,13 @@
 			<ParentCommandLine condition="contains">C:\Program Files (x86)\Lenovo\System Update\tvsukernel.exe</ParentCommandLine><!--Lenovo: System Update-->
 			<Image condition="is">C:\Program Files (x86)\ThinkPad\Utilities\PWMDBSVC.exe</Image><!--Lenovo: Thinkpad Utilities-->
 			<Image condition="is">C:\Windows\system32\LPlatSvc.exe</Image> <!--Lenovo: Platform Services-->
+			<ParentImage condition="is">C:\Program Files\Lenovo\HOTKEY\tphkload.exe</ParentImage><!--Lenovo: Hotkey Tools-->
+			<ParentImage condition="is">C:\Program Files\Lenovo\HOTKEY\micmute.exe</ParentImage><!--Lenovo: Hotkey Tools-->
+			<Image condition="is">C:\Program Files\Lenovo\InstantOn\InstantOnSrv.exe</Image> <!--Lenovo: Instant-On-->
+			<Image condition="is">C:\Program Files\Lenovo\Lenovo Mouse Suite\Service\PelService.exe</Image> <!--Lenovo: Mouse Suite-->
 			<!--SECTION: Intel-->
-			<Image condition="is">C:\Program Files\Intel\Telemetry 2.0\lrio.exe</Image> <!--Intel Telemetry-->
+			<Image condition="is">C:\Program Files\Intel\Telemetry 2.0\lrio.exe</Image> <!--Intel: Telemetry-->
+			<Image condition="is">C:\Program Files\Intel Driver Update Utility\SUR\SurSvc.exe</Image> <!--Intel: Driver Update-->
 			<!--SECTION: Antivirus-->
 			<CommandLine condition="begin with">"C:\Windows\sysnative\rundll32.exe" "C:\Windows\system32\WRusr.dll",SynProc</CommandLine> <!--Webroot-->
 			<!--SECTION: Custom Apps-->
