@@ -70,6 +70,8 @@
 			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k NetworkServiceNetworkRestricted</CommandLine><!--Microsoft:Windows Network Services-->
 			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k LocalSystemNetworkRestricted</CommandLine><!--Microsoft:Windows Network Services-->
 			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k LocalServiceAndNoImpersonation</CommandLine><!--Microsoft:Windows Network Services-->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k netsvcs</CommandLine><!--Microsoft:Windows Network Services-->
+			<ParentCommandLine condition="is">C:\Windows\System32\svchost.exe -k netsvcs</ParentCommandLine><!--Microsoft:Windows Network Services: Spawns Consent.exe-->
 			<Image condition="is">C:\Windows\System32\powercfg.exe</Image><!--Microsoft:Power Management-->
 			<!--SECTION: Microsoft dotNet-->
 			<Image condition="is">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\mscorsvw.exe</Image> <!--Microsoft:DotNet-->
