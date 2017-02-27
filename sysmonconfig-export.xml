@@ -134,9 +134,39 @@
 			<Image condition="is">C:\Program Files\Intel\Telemetry 2.0\lrio.exe</Image> <!--Intel Telemetry-->
 			<!--SECTION: Antivirus-->
 			<CommandLine condition="begin with">"C:\Windows\sysnative\rundll32.exe" "C:\Windows\system32\WRusr.dll",SynProc</CommandLine> <!--Webroot-->
+			<!--SECTION: Labtech -->
+			<!--Since Labtech nests its processes, the following exclusions could be exploited, remove if you do not need-->
+			<!--TODO: Will define these more in the future-->
+			<ParentCommandLine condition="is">C:\Windows\LTSvc\LTSVC.exe -sLTService</ParentCommandLine> <!--Labtech Agent-->
+			<ParentImage condition="is">C:\Windows\LTSvc\LTSVC.exe</ParentImage> <!--Labtech Agent-->
+			<CommandLine condition="contains">find /i "Listening"</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">netstat -an</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">tasklist</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<ParentCommandLine condition="contains">find /i "Listening"</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<ParentCommandLine condition="contains">netstat -an</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<ParentCommandLine condition="contains">tasklist</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<ParentCommandLine condition="contains">wmic path win32_operatingsystem get</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<ParentCommandLine condition="contains">sc queryex type= service</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<ParentCommandLine condition="contains">powershell.exe "(Get-Item 'C:\Program Files\StorageCraft\ImageManager\ImageManager.exe'</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<ParentCommandLine condition="contains">powershell.exe "Add-PSSnapin Microsoft.SharePoint.PowerShell -ErrorAction SilentlyContinue;(Get-PSSnapin microsoft.sharepoint.powershell).Version.Major;"</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">find /i "Listening"</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">netstat -an</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">tasklist</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">wmic path win32_operatingsystem get</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">sc queryex type= service</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">powershell.exe "(Get-Item 'C:\Program Files\StorageCraft\ImageManager\ImageManager.exe'</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">powershell.exe "Add-PSSnapin Microsoft.SharePoint.PowerShell -ErrorAction SilentlyContinue;(Get-PSSnapin microsoft.sharepoint.powershell).Version.Major;"</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="is">powershell.exe "Get-ItemProperty HKLM:\software\microsoft\windows\currentversion\uninstall\* | select-object displayname"</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="is">powershell.exe "(Get-WmiObject -Query 'SELECT LicensingType FROM Win32_TerminalServiceSetting').LicensingType"</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="is">powershell.exe "(Get-WmiObject -Namespace Root\CimV2\TerminalServices -Query 'SELECT LicensingType FROM Win32_TerminalServiceSetting').LicensingType"</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">tasklist</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<ParentCommandLine condition="is">"cmd.exe" /C "net view \\localhost | find " Print ""</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<ParentCommandLine condition="is">"cmd.exe" /C "net view \\localhost | find " Disk ""</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="is">C:\Windows\system32\net1 Share</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
 			<!--SECTION: Custom Apps-->
 			<Image condition="begin with">C:\Program Files (x86)\SmartGit</Image> <!--SmartGit-->
-			<Image condition="end with">Vivaldi\Application\vivaldi.exe</Image> <!--SmartGit-->
+			<Image condition="end with">Vivaldi\Application\vivaldi.exe</Image> <!--Vivaldi Browser-->
+			<Image condition="end with">controls\cef\ConnectWise.exe</Image> <!--Connectwise-->
 		</ProcessCreate>
 
 	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM -->
@@ -599,6 +629,10 @@
 			 <TargetObject condition="begin with">HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU</TargetObject>
 			 <TargetObject condition="begin with">HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\USB</TargetObject>
 			 <TargetObject condition="begin with">HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\USBSTOR</TargetObject>
+			  <!--Detect Threats from Webroot Antivirus-->
+			  <!--Active threats show like so: c:\users\JohnDoe\downloads\w10privacy\w10privacy.exe|W32.Backdoor.Gen|5880BC38 Reg Key Location: HKLM\SOFTWARE\WOW6432Node\WRData\Threats\Active-->
+			 <TargetObject condition="contains">HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\WRData\Threats\Active</TargetObject><!--Detect Active Threats-->
+			 <TargetObject condition="contains">HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\WRData\Threats\History</TargetObject><!--Detect Threat History & Auto-Removed Threats-->
 		</RegistryEvent>
 		<RegistryEvent onmatch="exclude">
 		<!--COMMENT:	Remove low-information noise-->
