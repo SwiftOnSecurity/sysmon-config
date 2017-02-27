@@ -667,12 +667,15 @@
 			 <TargetObject condition="end with">SubnetMask</TargetObject><!--Networking: Detect changes-->
 			 <!--Detect User Activity-->
 			 <TargetObject condition="begin with">HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU</TargetObject>
-			 <TargetObject condition="begin with">HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\USB</TargetObject>
-			 <TargetObject condition="begin with">HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\USBSTOR</TargetObject>
+			 <TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Enum\USB</TargetObject>
+			 <TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Enum\USBSTOR</TargetObject>
 			  <!--Detect Threats from Webroot Antivirus-->
 			  <!--Active threats show like so: c:\users\JohnDoe\downloads\w10privacy\w10privacy.exe|W32.Backdoor.Gen|5880BC38 Reg Key Location: HKLM\SOFTWARE\WOW6432Node\WRData\Threats\Active-->
-			 <TargetObject condition="contains">HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\WRData\Threats\Active</TargetObject><!--Detect Active Threats-->
-			 <TargetObject condition="contains">HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\WRData\Threats\History</TargetObject><!--Detect Threat History & Auto-Removed Threats-->
+			 <TargetObject condition="contains">HKLM\SOFTWARE\WOW6432Node\WRData\Threats\Active</TargetObject><!--Detect Active Threats-->
+			 <TargetObject condition="contains">HKLM\SOFTWARE\WOW6432Node\WRData\Threats\History</TargetObject><!--Detect Threat History & Auto-Removed Threats-->
+			 <!--Detect Changes to Proxy Server Setting-->
+			 <TargetObject condition="contains">HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ProxyServer</TargetObject>
+			 <TargetObject condition="contains">HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\AutoConfigURL</TargetObject>
 		</RegistryEvent>
 		<RegistryEvent onmatch="exclude">
 		<!--COMMENT:	Remove low-information noise-->
