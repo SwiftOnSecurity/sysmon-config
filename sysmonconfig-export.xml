@@ -291,8 +291,10 @@
 			<DestinationHostname condition="end with">1e100.net</DestinationHostname> <!--Google Chrome Safe Search checks-->
 			<DestinationPort condition="is">5228</DestinationPort> <!--Google Chrome Safe Search checks-->
 			<DestinationPort condition="is">5357</DestinationPort> <!--WSD API noise-->
+			<DestinationPort condition="is">3544</DestinationPort> <!--Teredo-->
 			<DestinationPort condition="is">3702</DestinationPort> <!--Windows: WS-Discovery noise-->
-			<SourcePort condition="is">5228</SourcePort> <!--Windows: WS-Discovery noise-->
+			<DestinationPort condition="is">3702</DestinationPort> <!--Windows: WS-Discovery noise-->
+			<SourcePort condition="is">50646</SourcePort> <!--Windows: WS-Discovery noise-->
 		</NetworkConnect>
 
 	<!--SYSMON EVENT ID 4 : RESERVED FOR SYSMON STATUS MESSAGES, THIS LINE IS INCLUDED FOR DOCUMENTATION PURPOSES ONLY -->
