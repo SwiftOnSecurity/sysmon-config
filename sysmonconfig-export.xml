@@ -271,8 +271,6 @@
 			<TargetFilename condition="begin with">C:\Windows\Tasks\</TargetFilename> <!--Microsoft:ScheduledTasks -->
 			<TargetFilename condition="begin with">C:\Windows\System32\Tasks</TargetFilename> <!--Microsoft:ScheduledTasks -->
 			<TargetFilename condition="end with">.cmdline</TargetFilename> <!--Microsoft:dotNet: Executed by cvtres.exe-->
-			<!--SECTION: Mimikatz-->
-			<!--Default-disable <TargetFileName condition="end with">.kirbi</TargetFileName> --> <!-- [ https://github.com/gentilkiwi/mimikatz/wiki/module-~-kerberos ] -->
 		</FileCreate>
 		<FileCreate onmatch="exclude">
 			<!--SECTION: Microsoft-->
