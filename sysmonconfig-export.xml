@@ -852,6 +852,7 @@
 			<Image condition="is">C:\Program Files (x86)\Common Files\VMware\SerialPortRedirection\Client\vmwsprrdpwks.exe</Image>
 			<Image condition="contains">Graylog-collector-sidecar.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\SmartGit\git\mingw32\libexec\git-core\git-remote-https.exe</Image>
+			<Image condition="is">C:\Program Files (x86)\SmartGit\git\mingw32\bin\git.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\SmartGit\git\mingw32\libexec\git-core\git.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\SmartGit\bin\smartgit.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\SmartGit\bin\smartgit.exe</Image>
