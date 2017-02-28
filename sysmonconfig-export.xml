@@ -89,6 +89,7 @@
 			<ParentImage condition="is">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeC2RClient.exe</ParentImage> <!--Microsoft:Office: Background process-->
 			<ParentImage condition="end with">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeClickToRun.exe</ParentImage> <!--Microsoft:Office: Background process-->
 			<Image condition="is">C:\Program Files\Common Files\Microsoft Shared\OfficeSoftwareProtectionPlatform\OSPPSVC.EXE</Image> <!--Microsoft:Office: Background process-->
+			<Image condition="is">C:\Program Files (x86)\Microsoft Office\Office16\MSOSYNC.EXE</Image> <!--Microsoft:Office: Background process-->
 			<!--SECTION: Google-->
 			<CommandLine condition="begin with">"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --type=</CommandLine> <!--Google:Chrome: massive command-line arguments-->
 			<CommandLine condition="begin with">"C:\Program Files\Google\Chrome\Application\chrome.exe" --type=</CommandLine> <!--Google:Chrome: massive command-line arguments-->
@@ -188,6 +189,7 @@
 			<!--END: Labtech-->
 			<Image condition="end with">ScreenConnect.WindowsClient.exe</Image><!--Screenconnect Remote Desktop Client-->
 			<Image condition="begin with">C:\Program Files (x86)\SmartGit</Image> <!--SmartGit-->
+			<ParentImage condition="is">C:\Program Files (x86)\SmartGit</ParentImage> <!--SmartGit-->
 			<Image condition="end with">Vivaldi\Application\vivaldi.exe</Image> <!--Vivaldi Browser-->
 			<Image condition="end with">controls\cef\ConnectWise.exe</Image> <!--Connectwise-->
 			<!-- VMware vSphere spawns child processes to svtres.exe and csc.exe, currently unable to exclude those child processes, csc and cvtres.exe are used by some malware-->
