@@ -772,12 +772,75 @@
 		<!--DATA: UtcTime, Configuration, ConfigurationFileHash-->
 		<!--Cannot be filtered.-->
 
-	<!--SYSMON EVENT ID 17 & 18 : PIPE CREATED / PIPE CONNECTED -->
-		<!--DATA: UtcTime, ProcessGuid, ProcessId, PipeName, Image-->
-		<PipeEvent onmatch="include">
-			<!--ADDITIONAL REFERENCE: [ https://www.cobaltstrike.com/help-smb-beacon ] -->
-			<!--ADDITIONAL REFERENCE: [ https://blog.cobaltstrike.com/2015/10/07/named-pipe-pivoting/ ] -->
+		<PipeEvent onmatch="exclude">
+		<!--COMMENT: Exclude known-good pipe users-->
+				<!--ADDITIONAL REFERENCE: [ https://www.cobaltstrike.com/help-smb-beacon ] -->
+				<!--ADDITIONAL REFERENCE: [ https://blog.cobaltstrike.com/2015/10/07/named-pipe-pivoting/ ] -->
+			<!--SECTION: Microsoft-->
+			<Image condition="begin with">C:\Windows\SystemApps\Microsoft.Windows</Image>
+			<Image condition="is">C:\Windows\system32\SearchProtocolHost.exe</Image>
+			<Image condition="is">C:\Windows\Microsoft.NET\Framework\v4.0.30319\ngen.exe</Image>
+			<Image condition="is">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\ngen.exe</Image>
+			<PipeName condition="contains">vmware-</PipeName>
+			<Image condition="is">System</Image>
+			<PipeName condition="contains">InitShutdown</PipeName>
+			<Image condition="is">C:\Windows\System32\wininit.exe</Image>
+			<Image condition="is">C:\Windows\System32\SearchIndexer.exe</Image>
+			<Image condition="is">C:\Windows\System32\services.exe</Image>
+			<PipeName condition="is">\ntsvcs</PipeName>
+			<PipeName condition="is">\scerpc</PipeName>
+			<Image condition="is">C:\Windows\SystemApps\ShellExperienceHost_cw5n1h2txyewy\ShellExperienceHost.exe</Image>
+			<Image condition="is">C:\Windows\System32\smss.exe</Image>
+			<Image condition="is">C:\Windows\System32\spoolsv.exe</Image>
+			<PipeName condition="is">\epmapper</PipeName>
+			<PipeName condition="is">\atsvc</PipeName>
+			<PipeName condition="is">\browser</PipeName>
+			<PipeName condition="is">\srvsvc</PipeName>
+			<PipeName condition="is">\Winsock2CatelogChangeListener</PipeName>
+			<PipeName condition="contains">ProtectedPrefix\LocalService\FTHPIPE</PipeName>
+			<PipeName condition="is">\W32TIME_ALT</PipeName>
+			<PipeName condition="is">\eventlog</PipeName>
+			<PipeName condition="is">\wkssvc</PipeName>
+			<PipeName condition="contains">\TDLN-</PipeName>
+			<PipeName condition="is">\WiFiNetworkManagerTask</PipeName>
+			<!--SECTION: Webroot-->
+			<PipeName condition="is">\WRSVCPipe</PipeName>
+			<PipeName condition="is">\WRSynUM2</PipeName>
+			<Image condition="is">C:\Program Files (x86)\Webroot\WRSA.exe</Image>
+			<!--SECTION: Google-->
+			<Image condition="is">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Image>
+			<Image condition="is">C:\Program Files (x86)\Google\Update\GoogleUpdate.exe</Image>
+			<PipeName condition="contains">mojo.</PipeName>
+			<PipeName condition="contains">crashpad_</PipeName>
+			<PipeName condition="contains">chrome.</PipeName>
+			<PipeName condition="contains">GoogleCrashServices</PipeName>
+			<!--SECTION: Other-->
+			<Image condition="end with">slack.exe</Image>
+			<!--SECTION: ConnectWise-->
+			<PipeName condition="contains">booma\</PipeName>
+			<!--SECTION: EnPass-->
+			<PipeName condition="contains">qtsingleapp-enpass-</PipeName>
+			<Image condition="contains">qtsingleapp-enpass-</Image>
+			<!--SECTION: Everything Search-->
+			<PipeName condition="contains">Everything Service</PipeName>
+			<PipeName condition="contains">anchor_gui_agent</PipeName>
+			<!--SECTION: Lenovo-->
+			<Image condition="is">C:\Program Files (x86)\Lenovo\System Update\SUService.exe</Image>
+			<Image condition="is">C:\Program Files\Common Files\VMware\DeviceRedirectionCommon\ftnlsv.exe</Image>
+			<Image condition="is">C:\Program Files\Lenovo\ImController\Service\Lenovo.Modern.ImController.exe</Image>
+			<Image condition="is">C:\Program Files\Lenovo\HOTKEY\shtctky.exe</Image>
+			<Image condition="is">C:\Windows\System32\LPlatSvc.exe</Image>
+			<!--SECTION: Labtech-->
+			<Image condition="is">C:\Windows\LTSvc\LTSVC.exe</Image>
+			<Image condition="is">C:\Program Files\OpenVPN\bin\openvpn-gui.exe</Image>
+			<Image condition="is">C:\Program Files\OpenVPN\bin\openvpn.exe</Image>
+			<Image condition="is">C:\Program Files\OpenVPN\bin\openvpnserv.exe</Image>
+			<Image condition="is">C:\Program Files\Synaptics\SynTP\SynTPEnh.exe</Image>
+			<Image condition="is">C:\Program Files\Synaptics\SynTP\SynTPEnhService.exe</Image>
+			<Image condition="is">C:\Program Files\Lenovo\HOTKEY\tphkload.exe</Image>
+			<Image condition="is">C:\Program Files (x86)\Common Files\VMware\SerialPortRedirection\Client\vmwsprrdpwks.exe</Image>
+			<Image condition="contains">Graylog-collector-sidecar.exe</Image>
+			<Image condition="contains">C:\Program Files (x86)\SmartGit\</Image>
 		</PipeEvent>
-
 	</EventFiltering>
 </Sysmon>
