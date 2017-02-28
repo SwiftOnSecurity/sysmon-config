@@ -681,7 +681,6 @@
 			 <TargetObject condition="contains">HKLM\SOFTWARE\WOW6432Node\WRData\Threats\Active</TargetObject><!--Detect Active Threats-->
 			 <TargetObject condition="contains">HKLM\SOFTWARE\WOW6432Node\WRData\Threats\History</TargetObject><!--Detect Threat History & Auto-Removed Threats-->
 			 <!--Detect Changes to Proxy Server Setting-->
-			 <TargetObject condition="contains">HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ProxyServer</TargetObject>
 			 <TargetObject condition="contains">HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\AutoConfigURL</TargetObject>
 		</RegistryEvent>
 		<RegistryEvent onmatch="exclude">
