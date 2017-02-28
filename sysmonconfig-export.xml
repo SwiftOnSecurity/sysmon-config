@@ -1,10 +1,10 @@
 <!--
   sysmon-config | A sysmon configuration focused on high-quality event tracing
-  Master version:	44 | Date: 2017-02-22
+  Master version:	46 | Date: 2017-02-28
   Master author:	@SwiftOnSecurity, with contributors credited in-line or on Git.
   Master project:	https://github.com/SwiftOnSecurity/sysmon-config
   Master license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
-  Fork version:	5
+  Fork version:	10
   Fork author:	ionstorm
   Fork project:	https://github.com/ion-storm/sysmon-config
   Fork license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
@@ -95,14 +95,14 @@
 			<Image condition="begin with">C:\Program Files (x86)\Google\Update\</Image> <!--Google:Chrome: Updater-->
 			<ParentImage condition="begin with">C:\Program Files (x86)\Google\Update\</ParentImage> <!--Google:Chrome: Updater-->
 			<!-- SECTION: Firefox -->
-			<CommandLine condition="begin with">"C:\Program Files\Mozilla Firefox\plugin-container.exe" --channel</CommandLine> <!-- Mozilla:Firefox massive command-line arguments || Contributor @Darkbat91 -->
-			<CommandLine condition="begin with">"C:\Program Files (x86)\Mozilla Firefox\plugin-container.exe" --channel</CommandLine> <!-- Mozilla:Firefox massive command-line arguments || Contributor @Darkbat91 -->
+			<CommandLine condition="begin with">"C:\Program Files\Mozilla Firefox\plugin-container.exe" --channel</CommandLine> <!-- Mozilla:Firefox: Large command-line arguments | Credit @Darkbat91 -->
+			<CommandLine condition="begin with">"C:\Program Files (x86)\Mozilla Firefox\plugin-container.exe" --channel</CommandLine> <!-- Mozilla:Firefox: Large command-line arguments | Credit @Darkbat91 -->
 			<!--SECTION: Adobe-->
 			<CommandLine condition="contains">AcroRd32.exe" /CR </CommandLine> <!--Adobe:AcrobatReader: Uninsteresting sandbox subprocess-->
 			<CommandLine condition="contains">AcroRd32.exe" --channel=</CommandLine> <!--Adobe:AcrobatReader: Uninteresting sandbox subprocess-->
-			<Image condition="end with">C:\Program Files (x86)\Adobe\Acrobat DC\Acrobat\AcroCEF\AcroCEF.exe</Image>
+			<Image condition="end with">C:\Program Files (x86)\Adobe\Acrobat DC\Acrobat\AcroCEF\AcroCEF.exe</Image> <!--Adobe:Acrobat: Sandbox subprocess, still evaluating security exposure -->
 			<ParentImage condition="end with">C:\Program Files (x86)\Common Files\Adobe\AdobeGCClient\AGSService.exe</ParentImage>
-			<Image condition="end with">C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\AcroCEF\RdrCEF.exe</Image> <!--Adobe:AcrobatReader: Uninteresting sandbox subprocess-->
+			<Image condition="end with">C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\AcroCEF\RdrCEF.exe</Image> <!--Adobe:AcrobatReader: Sandbox subprocess, still evaluating security exposure -->
 			<Image condition="end with">C:\Program Files (x86)\Adobe\Acrobat DC\Acrobat\LogTransport2.exe</Image>
 			<!--SECTION: Adobe Flash-->
 			<Image condition="end with">C:\Windows\SysWOW64\Macromed\Flash\FlashPlayerUpdateService.exe</Image> <!--Adobe:Flash: Properly hardened updater, not a risk-->
@@ -217,14 +217,14 @@
 		<!--TECHNICAL:	For the DestinationHostname, Sysmon uses the GetNameInfo API, which may not always have the information or may be a CDN. Using that field is best-effort only.-->
 			<!--NOTE: These exe's do not initiate their connections, cannot be included: BITSADMIN-->
 			<!--Suspicious sources-->
-			<Image condition="begin with">C:\Users</Image>
-			<Image condition="begin with">C:\ProgramData</Image>
-			<Image condition="begin with">C:\Windows\Temp</Image>
+			<Image condition="begin with">C:\Users</Image> <!--Tools downloaded by users can use other processes for networking, but this is a very valuable indicator.-->
+			<Image condition="begin with">C:\ProgramData</Image> <!--Normally, network communications should be sourced from "Program Files" not from ProgramData, something to look at-->
+			<Image condition="begin with">C:\Windows\Temp</Image> <!--Suspicious anything would communicate from the system-level temp directory-->
 			<Image condition="image">powershell.exe</Image> <!--Microsoft:Windows: PowerShell interface-->
 			<Image condition="image">cmd.exe</Image> <!--Microsoft:Windows: Command prompt-->
-			<Image condition="image">wmic.exe</Image> <!--Microsoft:WindowsManagementInstrumentation: Credit to @Neo23x0 [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
-			<Image condition="image">cscript.exe</Image> <!--Microsoft:WindowsScriptingHost: | Credit: @Neo23x0 [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
-			<Image condition="image">wscript.exe</Image> <!--Microsoft:WindowsScriptingHost: | Credit: @arekfurt -->
+			<Image condition="image">wmic.exe</Image> <!--Microsoft:WindowsManagementInstrumentation: Credit @Neo23x0 [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
+			<Image condition="image">cscript.exe</Image> <!--Microsoft:WindowsScriptingHost: | Credit @Neo23x0 [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
+			<Image condition="image">wscript.exe</Image> <!--Microsoft:WindowsScriptingHost: | Credit @arekfurt -->
 			<Image condition="image">rundll32.exe</Image> <!--Microsoft:Windows: [ https://blog.cobaltstrike.com/2016/07/22/why-is-rundll32-exe-connecting-to-the-internet/ ] -->
 			<Image condition="image">notepad.exe</Image> <!--Microsoft:Windows: [ https://blog.cobaltstrike.com/2013/08/08/why-is-notepad-exe-connecting-to-the-internet/ ] -->
 			<Image condition="image">regsvr32.exe</Image> <!--Microsoft:Windows: [ https://subt0x10.blogspot.com/2016/04/bypass-application-whitelisting-script.html ] -->
@@ -278,7 +278,6 @@
 			<DestinationHostname condition="end with">bit.ly</DestinationHostname>
 			<DestinationHostname condition="end with">t.co</DestinationHostname>
 			<DestinationHostname condition="end with">ow.ly</DestinationHostname>
-			<Image condition="image">msiexec.exe</Image> <!--Microsoft:Windows: Can install from http:// paths | Credit: @vector-sec -->
 			<!--Dynamic DNS Providers-->
 			<DestinationHostname condition="end with">dlinkddns.com</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
 			<DestinationHostname condition="end with">no-ip.com</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
@@ -537,6 +536,8 @@
 			<TargetFilename condition="end with">\Start Menu</TargetFilename> <!-- Microsoft:Windows: Cleanup noise of stub folder creation -->
 			<TargetFilename condition="end with">\Start Menu\Programs</TargetFilename> <!-- Microsoft:Windows: Cleanup noise of stub folder creation -->
 			<TargetFilename condition="end with">\Start Menu\Programs\Startup</TargetFilename> <!-- Microsoft:Windows: Cleanup noise of stub folder creation -->
+			<!--SECTION: Microsoft-->
+			<Image condition="is">C:\Windows\System32\smss.exe</Image><!-- Microsoft:Windows: Session Manager SubSystem: Creates swapfile.sys,pagefile.sys,hiberfile.sys-->
 			<TargetFilename condition="end with">WRITABLE.TST</TargetFilename> <!-- Microsoft:Windows: Created in wbem by svchost -->
 			<TargetFilename condition="begin with">C:\Windows\System32\wbem\Performance\</TargetFilename> <!-- Microsoft:Windows: Created in wbem by WMIADAP.exe -->
 			<TargetFilename condition="begin with">C:\Windows\System32\DriverStore\Temp\</TargetFilename> <!-- Microsoft:Windows: Temp files by DrvInst.exe-->
@@ -552,10 +553,13 @@
 			<Image condition="is">C:\Program Files (x86)\MSI\Help Desk\MSI Update Agent.exe</Image><!-- MSI: Helpdesk Updater-->
 			<Image condition="is">C:\Windows\system32\CompatTelRunner.exe</Image><!-- Microsoft:Windows: Windows 10 app, creates tons of cache files-->
 			<Image condition="is">C:\Program Files\Microsoft SQL Server\110\LocalDB\Binn\sqlservr.exe</Image><!-- Microsoft:SQL Server: Creating tons of files-->
-			<Image condition="is">C:\Windows\system32\igfxCUIService.exe</Image><!--INTEL: Application creates a bat file in Windows System32, and drops other files-->
 			<Image condition="is">C:\Windows\System32\smss.exe</Image><!-- Microsoft:Windows: Session Manager SubSystem: Creates swapfile.sys,pagefile.sys,hiberfile.sys-->
 			<Image condition="is">C:\Program Files (x86)\MSI\Dragon Center\Dragon Center.exe</Image><!-- MSI: Dragon Center Updater-->
 			<Image condition="is">C:\Program Files (x86)\VMware\Infrastructure\Virtual Infrastructure Client\Launcher\VpxClient.exe</Image><!-- VMware:vSphere: Creates .cmdline apps in appdata\*\Temp-->
+			<!--SECTION: Dell-->
+			<Image condition="is">C:\Program Files (x86)\Dell\CommandUpdate\InvColPC.exe</Image>
+			<!--SECTION: Intel-->
+			<Image condition="is">C:\Windows\system32\igfxCUIService.exe</Image> <!--Intel: Drops bat and other files in \Windows in normal operation-->
 		</FileCreate>
 
 	<!--SYSMON EVENT ID 12 & 13 & 14 : REGISTRY MODIFICATION -->
@@ -565,6 +569,7 @@
 		<!--NOTE:	Writing to GUID's is very common, and they contain 0-9 and A-F so slightly try to avoid those in the first few positions. [ https://en.wikipedia.org/wiki/Universally_unique_identifier ] -->
 		<!--NOTE:	Windows writes hundreds or thousands of registry keys a minute, so just because you're not changing stuff, doesn't mean these rules aren't being run.-->
 		<!--NOTE:	You don't have to spend a lot of time worrying about this, CPUs are fast, but it's something to consider. Every rule and condition type has a cost.-->
+
 		<!--DATA: EventType, UtcTime, ProcessGuid, ProcessId, Image, TargetObject, Details, NewName-->
 		<!--TECHNICAL:	Possible prefixes are HKLM, HKCU, HKCR, and HKEY_USERS-->
 		<!--CRITICAL:	Schema version 3.30 and higher use HKLM and HKCU and HKCR and CurrentControlSet instead of REGISTRY\MACHINE\ and \REGISTRY\USER\ and ControlSet001-->
@@ -577,16 +582,17 @@
 			<TargetObject condition="contains">\CurrentVersion\Run</TargetObject> <!--Microsoft:Windows: Run keys, incld RunOnce, RunOnceEx, RunServices, RunServicesOnce [Also covers terminal server] -->
 			<TargetObject condition="contains">\Group Policy\Scripts</TargetObject> <!--Microsoft:Windows: Group policy scripts -->
 			<TargetObject condition="contains">\Windows\System\Scripts</TargetObject> <!--Microsoft:Windows: Logon, Loggoff, Shutdown-->
-			<TargetObject condition="end with">\ServiceDll</TargetObject> <!--Microsoft:Windows: Value that points to a service's DLL [ https://blog.cylance.com/windows-registry-persistence-part-1-introduction-attack-phases-and-windows-services ] -->
-			<TargetObject condition="end with">\ImagePath</TargetObject> <!--Microsoft:Windows: Value that point to a service's EXE [ https://github.com/crypsisgroup/Splunkmon/blob/master/sysmon.cfg ] -->
+			<TargetObject condition="end with">\ServiceDll</TargetObject> <!--Microsoft:Windows: Points to a service's DLL [ https://blog.cylance.com/windows-registry-persistence-part-1-introduction-attack-phases-and-windows-services ] -->
+			<TargetObject condition="end with">\ImagePath</TargetObject> <!--Microsoft:Windows: Points to a service's EXE [ https://github.com/crypsisgroup/Splunkmon/blob/master/sysmon.cfg ] -->
 			<TargetObject condition="end with">\Start</TargetObject> <!--Microsoft:Windows: Services start mode changes (Disabled, Automatically, Manual) -->
-			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify\</TargetObject> <!--Microsoft:Windows: Autorun location-->
-			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Userinit\</TargetObject> <!--Microsoft:Windows: Autorun location-->
-			<TargetObject condition="contains">CurrentVersion\Image File Execution Options\</TargetObject><!--TaskMgr/Debugger Hijack location-->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify\</TargetObject> <!--Microsoft:Windows: Autorun location [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Userinit\</TargetObject> <!--Microsoft:Windows: Autorun location [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Drivers32</TargetObject> <!--Microsoft:Windows: Legacy driver loading | Credit @ion-storm -->
+			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\BootExecute</TargetObject> <!--Microsoft:Windows: Autorun | Credit @ion-storm | [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
 			<!--CLSID launch commands and file association changes-->
-			<TargetObject condition="contains">\shell\install\command\</TargetObject> <!--Microsoft:Windows: Subkey under file associations and CLSID that map to launch command-->
-			<TargetObject condition="contains">\shell\open\command\</TargetObject> <!--Microsoft:Windows: Subkey under file associations and CLSID that map to launch command-->
-			<TargetObject condition="contains">\shell\open\ddeexec\</TargetObject> <!--Microsoft:Windows: Subkey under file associations and CLSID that map to launch command-->
+			<TargetObject condition="contains">\shell\install\command\</TargetObject> <!--Microsoft:Windows: Sensitive subkey under file associations and CLSID that map to launch command-->
+			<TargetObject condition="contains">\shell\open\command\</TargetObject> <!--Microsoft:Windows: Sensitive subkey under file associations and CLSID that map to launch command-->
+			<TargetObject condition="contains">\shell\open\ddeexec\</TargetObject> <!--Microsoft:Windows: Sensitive subkey under file associations and CLSID that map to launch command-->
 			<TargetObject condition="contains">\Explorer\FileExts\</TargetObject> <!--Microsoft:Windows: Changes to file extension mapping-->
 			<!--Windows shell hijack-->
 			<TargetObject condition="contains">\ContextMenuHandlers\</TargetObject> <!--Microsoft:Windows: [ http://oalabs.openanalysis.net/2015/06/04/malware-persistence-hkey_current_user-shell-extension-handlers/ ] -->
@@ -605,12 +611,14 @@
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\GPExtensions\</TargetObject> <!--Microsoft:Windows: Group Policy internally uses a plugin architecture that nothing should be modifying-->
 			<!--Winsock and Winsock2-->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\WinSock\</TargetObject> <!--Microsoft:Windows: Wildcard, includes Winsock and Winsock2-->
+			<TargetObject condition="end with">\ProxyServer</TargetObject> <!--Microsoft:Windows: System and user proxy server-->
 			<!--Credential providers-->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\Credential Provider</TargetObject> <!--Wildcard, includes Credental Providers and Credential Provider Filters-->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SecurityProviders</TargetObject> <!--Microsoft:Windows: Changes to WDigest-UseLogonCredential for password scraping [ https://www.trustedsec.com/april-2015/dumping-wdigest-creds-with-meterpreter-mimikatzkiwi-in-windows-8-1/ ] -->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\</TargetObject>
 			<!--Networking-->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\NetworkProvider\Order\</TargetObject> <!--Microsoft:Windows: Order of network providers that are checked to connect to destination [ https://www.malwarearchaeology.com/cheat-sheets ] -->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Profiles</TargetObject> <!--Microsoft:Windows: | Credit @ion-storm -->
 			<!--DLLs that get injected into every process launch-->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/windows/desktop/dd744762(v=vs.85).aspx ] -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/windows/desktop/dn280412(v=vs.85).aspx ] -->
@@ -639,7 +647,6 @@
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\</TargetObject> <!--Microsoft:Windows:UAC: Detect malware changes to UAC prompt level -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Drivers32</TargetObject> <!--Detect Legacy Driver loading-->
 			 <!--Common Malware Persistence locations-->
-			 <TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\BootExecute</TargetObject>
 			 <TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce</TargetObject>
 			 <TargetObject condition="begin with">HKCU\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce</TargetObject>
 			 <TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\RunService</TargetObject>
@@ -679,8 +686,11 @@
 		</RegistryEvent>
 		<RegistryEvent onmatch="exclude">
 		<!--COMMENT:	Remove low-information noise-->
+			<!--SECTION: Microsoft binaries-->
 			<Image condition="end with">Office\root\integration\integrator.exe</Image> <!--Microsoft:Office: C2R client-->
 			<Image condition="is">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeClickToRun.exe</Image> <!--Microsoft:Office: C2R client-->
+			<Image condition="is">C:\Windows\SystemApps\Microsoft.Windows.Cortana_cw5n1h2txyewy\SearchUI.exe</Image>
+			<!--Misc-->
 			<TargetObject condition="end with">Toolbar\WebBrowser</TargetObject> <!--Microsoft:IE: Extraneous activity-->
 			<TargetObject condition="end with">Toolbar\WebBrowser\ITBar7Height</TargetObject> <!--Microsoft:IE: Extraneous activity-->
 			<TargetObject condition="end with">Toolbar\ShellBrowser\ITBar7Layout</TargetObject> <!--Microsoft:Windows:Explorer: Extraneous activity-->
@@ -700,7 +710,7 @@
 			<TargetObject condition="end with">\Components\TrustedInstaller</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Winlogon -->
 			<TargetObject condition="end with">\Components\Wlansvc</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Winlogon -->
 			<TargetObject condition="end with">\Components\Wlansvc\Events</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Winlogon -->
-			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\</TargetObject> <!--Microsoft:Windows: Remove noise monitoring installations -->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\</TargetObject> <!--Microsoft:Windows: Remove noise monitoring installations run as system -->
 			<TargetObject condition="end with">\Directory\shellex</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Classes -->
 			<TargetObject condition="end with">\Directory\shellex\DragDropHandlers</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Classes -->
 			<TargetObject condition="end with">\Drive\shellex</TargetObject> <!--Microsoft:Windows: Remove noise monitoring Classes -->
@@ -752,24 +762,23 @@
 			<TargetFilename condition="end with">.vbe</TargetFilename> <!--VisualBasicScripting files-->
 			<TargetFilename condition="end with">.hta</TargetFilename> <!--Scripting-->
 			<TargetFilename condition="end with">.bat</TargetFilename> <!--Batch scripting-->
-			<TargetFilename condition="end with">.cmd</TargetFilename> <!--Batch scripting-->
 			<TargetFilename condition="end with">.ps1</TargetFilename> <!--Powershell-->
 			<TargetFilename condition="end with">.ps2</TargetFilename> <!--Powershell-->
 			<TargetFilename condition="end with">.lnk</TargetFilename> <!--Shortcut file-->
 			<TargetFilename condition="end with">.reg</TargetFilename> <!--Registry File-->
+			<TargetFilename condition="end with">.cmd</TargetFilename> <!--Batch scripting | Credit @ion-storm -->
 		</FileCreateStreamHash>
 
-	<!--SYSMON EVENT ID 16 : SYSMON CONFIGURATION CHANGE, THIS LINE IS INCLUDED FOR DOCUMENTATION PURPOSES ONLY [ SYSMON 6.00+ ] -->
+	<!--SYSMON EVENT ID 16 : SYSMON CONFIGURATION CHANGE, THIS LINE IS INCLUDED FOR DOCUMENTATION PURPOSES ONLY -->
 		<!--DATA: UtcTime, Configuration, ConfigurationFileHash-->
 		<!--Cannot be filtered.-->
 
-	<!--SYSMON EVENT ID 17 : PIPE CREATED [ SYSMON 6.00+ ] -->
+	<!--SYSMON EVENT ID 17 & 18 : PIPE CREATED / PIPE CONNECTED -->
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, PipeName, Image-->
-		<!--COMMENT: Currently intended for targetted malware monitoring only, not included in this configuration.-->
-
-	<!--SYSMON EVENT ID 18 : PIPE CONNECTED [ SYSMON 6.00+ ] -->
-		<!--DATA: UtcTime, ProcessGuid, ProcessId, PipeName, Image-->
-		<!--COMMENT: Currently intended for targetted malware monitoring only, not included in this configuration.-->
+		<PipeEvent onmatch="include">
+			<!--ADDITIONAL REFERENCE: [ https://www.cobaltstrike.com/help-smb-beacon ] -->
+			<!--ADDITIONAL REFERENCE: [ https://blog.cobaltstrike.com/2015/10/07/named-pipe-pivoting/ ] -->
+		</PipeEvent>
 
 	</EventFiltering>
 </Sysmon>
