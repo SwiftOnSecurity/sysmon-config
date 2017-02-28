@@ -781,9 +781,10 @@
 			<Image condition="is">C:\Windows\system32\SearchProtocolHost.exe</Image>
 			<Image condition="is">C:\Windows\Microsoft.NET\Framework\v4.0.30319\ngen.exe</Image>
 			<Image condition="is">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\ngen.exe</Image>
+			<Image condition="is">C:\Windows\System32\LxRun.exe</Image> <!--Bash On Windows -->
 			<PipeName condition="contains">vmware-</PipeName>
-			<Image condition="is">System</Image>
-			<PipeName condition="contains">InitShutdown</PipeName>
+			<Image condition="is">\System</Image>
+			<PipeName condition="is">\InitShutdown</PipeName>
 			<Image condition="is">C:\Windows\System32\wininit.exe</Image>
 			<Image condition="is">C:\Windows\System32\SearchIndexer.exe</Image>
 			<Image condition="is">C:\Windows\System32\services.exe</Image>
@@ -810,6 +811,7 @@
 			<!--SECTION: Google-->
 			<Image condition="is">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Google\Update\GoogleUpdate.exe</Image>
+			<Image condition="contains">AppData\Local\Google\Chrome\User Data\SwReporter\</Image>
 			<PipeName condition="contains">mojo.</PipeName>
 			<PipeName condition="contains">crashpad_</PipeName>
 			<PipeName condition="contains">chrome.</PipeName>
@@ -840,7 +842,10 @@
 			<Image condition="is">C:\Program Files\Lenovo\HOTKEY\tphkload.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Common Files\VMware\SerialPortRedirection\Client\vmwsprrdpwks.exe</Image>
 			<Image condition="contains">Graylog-collector-sidecar.exe</Image>
-			<Image condition="contains">C:\Program Files (x86)\SmartGit\</Image>
+			<Image condition="is">C:\Program Files (x86)\SmartGit\git\mingw32\libexec\git-core\git-remote-https.exe</Image>
+			<Image condition="is">C:\Program Files (x86)\SmartGit\git\mingw32\libexec\git-core\git.exe</Image>
+			<Image condition="is">C:\Program Files (x86)\SmartGit\bin\smartgit.exe</Image>
+			<Image condition="is">C:\Program Files (x86)\SmartGit\bin\smartgit.exe</Image>
 		</PipeEvent>
 	</EventFiltering>
 </Sysmon>
