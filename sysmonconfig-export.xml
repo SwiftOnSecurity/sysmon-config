@@ -357,6 +357,7 @@
 			<DestinationPort condition="is">3702</DestinationPort> <!--Windows: WS-Discovery noise-->
 			<DestinationPort condition="is">3702</DestinationPort> <!--Windows: WS-Discovery noise-->
 			<SourcePort condition="is">50646</SourcePort> <!--Windows: WS-Discovery noise-->
+			<Image condition="image">C:\Program Files (x86)\SmartGit\jre\bin\java.exe</Image>
 		</NetworkConnect>
 
 	<!--SYSMON EVENT ID 4 : RESERVED FOR SYSMON STATUS MESSAGES, THIS LINE IS INCLUDED FOR DOCUMENTATION PURPOSES ONLY -->
