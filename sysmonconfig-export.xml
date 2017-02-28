@@ -311,7 +311,7 @@
 			<DestinationPort condition="is">23</DestinationPort>   <!--Telnet Port-->
 			<DestinationPort condition="is">25</DestinationPort>   <!--SMTP Port-->
 			<DestinationPort condition="is">139</DestinationPort>  <!--SMB Port-->
-			<DestinationPort condition="is">445</DestinationPort>  <!--SMB Port-->
+			<!--<DestinationPort condition="is">445</DestinationPort> SMB Port: Removed because of noise-->
 			<DestinationPort condition="is">5800</DestinationPort> <!--VNC Port-->
 			<DestinationPort condition="is">5900</DestinationPort> <!--VNC Port-->
 			<DestinationPort condition="is">1194</DestinationPort> <!--OpenVPN Port-->
@@ -339,6 +339,9 @@
 			<DestinationHostname condition="end with">microsoft.com</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">microsoft.com.akadns.net</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">microsoft.com.nsatc.net</DestinationHostname> <!--Microsoft:Update delivery-->
+			<DestinationHostname condition="end with">.search.msn.com</DestinationHostname> <!--Bing & Cortana Searches-->
+			<DestinationHostname condition="end with">.wns.windows.com</DestinationHostname> <!-- Windows communication -->
+			<DestinationHostname condition="end with">akamaitechnologies.com</DestinationHostname> <!-- CDN for Microsoft, Apple, Valve, & More -->
 			<SourcePortName condition="is">llmnr</SourcePortName> <!--Silence Link-Local Multicast Name Resolution-->
 			<SourcePortName condition="is">ldap</SourcePortName> <!--Silence Link-Local Multicast Name Resolution-->
 			<DestinationPortName condition="is">llmnr</DestinationPortName> <!--Silence Link-Local Multicast Name Resolution-->
