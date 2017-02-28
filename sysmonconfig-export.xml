@@ -458,7 +458,6 @@
 	<!--SYSMON EVENT ID 11 : FILE CREATED -->
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime-->
 		<FileCreate onmatch="include">
-			<TargetFilename condition="begin with">C:\Windows\System32\config\systemprofile\AppData\Roaming\Microsoft\SystemCertificates\Request\Certificates\</TargetFilename> <!--Microsoft:Windows: taskhostw re-creates certificate store constantly-->
 			<TargetFilename condition="contains">\Start Menu</TargetFilename> <!--Microsoft:Windows: Startup links and shortcut modification-->
 			<TargetFilename condition="contains">\Startup</TargetFilename> <!--Microsoft:Office: Changes to user's autoloaded files under AppData-->
 			<TargetFilename condition="contains">\Content.Outlook\</TargetFilename> <!--Microsoft:Outlook: attachments--> <!--PRIVACY WARNING-->
@@ -536,6 +535,7 @@
 			<!--Default-disable <TargetFileName condition="end with">.kirbi</TargetFileName> --> <!-- [ https://github.com/gentilkiwi/mimikatz/wiki/module-~-kerberos ] -->
 		</FileCreate>
 		<FileCreate onmatch="exclude">
+			<TargetFilename condition="begin with">C:\Windows\System32\config\systemprofile\AppData\Roaming\Microsoft\SystemCertificates\Request\Certificates\</TargetFilename> <!--Microsoft:Windows: taskhostw re-creates certificate store constantly-->
 			<TargetFilename condition="end with">\Downloads</TargetFilename> <!-- Microsoft:Windows: Cleanup noise of stub folder creation -->
 			<TargetFilename condition="end with">\Start Menu</TargetFilename> <!-- Microsoft:Windows: Cleanup noise of stub folder creation -->
 			<TargetFilename condition="end with">\Start Menu\Programs</TargetFilename> <!-- Microsoft:Windows: Cleanup noise of stub folder creation -->
