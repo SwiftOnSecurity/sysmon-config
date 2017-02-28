@@ -449,7 +449,7 @@
 			<SourceImage condition="image">powerpnt.exe</SourceImage> <!-- Hancitor process hollowing -->
 		<!--Include mimikatz-specific events.-->
 			<SourceImage condition="contains">powershell.exe</SourceImage>
- 			<TargetImage condition="contains">lsass.exe</TargetImage>
+ 		<!--<TargetImage condition="contains">lsass.exe</TargetImage>--> <!--Disabled: To cut down noise-->
 		</ProcessAccess>
 		<ProcessAccess onmatch="exclude">
 			<SourceImage condition="is">C:\Program Files (x86)\Webroot\WRSA.exe</SourceImage>
@@ -458,6 +458,7 @@
 	<!--SYSMON EVENT ID 11 : FILE CREATED -->
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime-->
 		<FileCreate onmatch="include">
+			<TargetFilename condition="begin with">C:\Windows\System32\config\systemprofile\AppData\Roaming\Microsoft\SystemCertificates\Request\Certificates\</TargetFilename> <!--Microsoft:Windows: taskhostw re-creates certificate store constantly-->
 			<TargetFilename condition="contains">\Start Menu</TargetFilename> <!--Microsoft:Windows: Startup links and shortcut modification-->
 			<TargetFilename condition="contains">\Startup</TargetFilename> <!--Microsoft:Office: Changes to user's autoloaded files under AppData-->
 			<TargetFilename condition="contains">\Content.Outlook\</TargetFilename> <!--Microsoft:Outlook: attachments--> <!--PRIVACY WARNING-->
@@ -541,6 +542,7 @@
 			<TargetFilename condition="end with">\Start Menu\Programs\Startup</TargetFilename> <!-- Microsoft:Windows: Cleanup noise of stub folder creation -->
 			<!--SECTION: Microsoft-->
 			<Image condition="is">C:\Windows\System32\smss.exe</Image><!-- Microsoft:Windows: Session Manager SubSystem: Creates swapfile.sys,pagefile.sys,hiberfile.sys-->
+			<Image condition="is">\Windows\System32\config\systemprofile\AppData\Roaming\Microsoft\SystemCertificates\Request\Certificates</Image>
 			<TargetFilename condition="end with">WRITABLE.TST</TargetFilename> <!-- Microsoft:Windows: Created in wbem by svchost -->
 			<TargetFilename condition="begin with">C:\Windows\System32\wbem\Performance\</TargetFilename> <!-- Microsoft:Windows: Created in wbem by WMIADAP.exe -->
 			<TargetFilename condition="begin with">C:\Windows\System32\DriverStore\Temp\</TargetFilename> <!-- Microsoft:Windows: Temp files by DrvInst.exe-->
@@ -677,7 +679,7 @@
 			 <TargetObject condition="end with">SubnetMask</TargetObject><!--Networking: Detect changes-->
 			 <!--Detect User Activity-->
 			 <TargetObject condition="begin with">HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU</TargetObject>
-			 <TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Enum\USB</TargetObject>
+			 <!--<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Enum\USB</TargetObject> Disabled: Tons of Noise -->
 			 <TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Enum\USBSTOR</TargetObject>
 			  <!--Detect Threats from Webroot Antivirus-->
 			  <!--Active threats show like so: c:\users\JohnDoe\downloads\w10privacy\w10privacy.exe|W32.Backdoor.Gen|5880BC38 Reg Key Location: HKLM\SOFTWARE\WOW6432Node\WRData\Threats\Active-->
@@ -747,6 +749,7 @@
 			<Image condition="is">C:\Program Files\WIDCOMM\Bluetooth Software\btwdins.exe</Image>
 			<TargetObject condition="contains">HKLM\System\CurrentControlSet\Services\DeviceAssociationService\Start</TargetObject><!--Device Association Service Noise-->
 			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Control\Class\{4d36e96c-e325-11ce-bfc1-08002be10318}\</TargetObject><!-- HD Audio Noise-->
+			<Image condition="is">C:\Program Files (x86)\Common Files\VMware\USB\vmware-usbarbitrator64.exe</Image> <!--VMWare: Horizon View Client Noise-->
 		</RegistryEvent>
 
 	<!--SYSMON EVENT ID 15 : ALTERNATE DATA STREAM CREATED -->
