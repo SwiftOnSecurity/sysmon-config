@@ -641,6 +641,8 @@
 			<!--Windows shell hijack-->
 			<TargetObject condition="contains">\ContextMenuHandlers\</TargetObject> <!--Microsoft:Windows: [ http://oalabs.openanalysis.net/2015/06/04/malware-persistence-hkey_current_user-shell-extension-handlers/ ] -->
 			<TargetObject condition="contains">\CurrentVersion\Shell</TargetObject> <!--Microsoft:Windows: Shell Folders, ShellExecuteHooks, ShellIconOverloadIdentifers, ShellServiceObjects, ShellServiceObjectDelayLoad [ http://oalabs.openanalysis.net/2015/06/04/malware-persistence-hkey_current_user-shell-extension-handlers/ ] -->
+			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\explorer\ShellExecuteHooks</TargetObject> <!--Microsoft:Windows: ShellExecuteHooks -->
+			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\explorer\ShellServiceObjectDelayLoad</TargetObject> <!--Microsoft:Windows: ShellExecuteHooks -->
 			<TargetObject condition="contains">\Classes\Folder\</TargetObject> <!--Microsoft:Windows:Explorer: ContextMenuHandlers, DragDropHandlers, CopyHookHandlers, [ https://stackoverflow.com/questions/1323663/windows-shell-context-menu-option ] -->
 			<TargetObject condition="contains">\Classes\Directory\</TargetObject> <!--Microsoft:Windows:Explorer: [ https://stackoverflow.com/questions/1323663/windows-shell-context-menu-option ] -->
 			<TargetObject condition="contains">\Classes\Drive\</TargetObject> <!--Microsoft:Windows:Explorer: [ https://stackoverflow.com/questions/1323663/windows-shell-context-menu-option ] -->
@@ -756,6 +758,14 @@
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree</TargetObject><!--Identify Rogue Scheduled Task ID's -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Logon</TargetObject><!--Identify Rogue Scheduled Task ID's added to Logon -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Boot</TargetObject><!--Identify Rogue Scheduled Task ID's added to Boot -->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\ShellServiceObjectDelayLoad</TargetObject>
+			<TargetObject condition="contains">\comfile\shell\open\command</TargetObject> <!-- Detect: Open Command Hijacks -->
+			<TargetObject condition="contains">\htafile\shell\open\command</TargetObject> <!-- Detect: Open Command Hijacks -->
+			<TargetObject condition="contains">\batfile\shell\open\command</TargetObject> <!-- Detect: Open Command Hijacks -->
+			<TargetObject condition="contains">\piffile\shell\open\command</TargetObject> <!-- Detect: Open Command Hijacks -->
+			<TargetObject condition="contains">\exefile\shell\open\command</TargetObject> <!-- Detect: Open Command Hijacks -->
+			<TargetObject condition="contains">\piffile\shell\open\command</TargetObject> <!-- Detect: Open Command Hijacks -->
+			<TargetObject condition="contains">\regfile\shell\open\command</TargetObject> <!-- Detect: Open Command Hijacks -->
 		</RegistryEvent>
 		<RegistryEvent onmatch="exclude">
 		<!--COMMENT:	Remove low-information noise-->
