@@ -1,4 +1,4 @@
-# sysmon-config | A Sysmon configuration file for everybody #
+﻿# Sysmon Threat Intelligence Configuration #
 
 This is a Microsoft Sysinternals Sysmon configuration file template with default high-quality event tracing.
 
