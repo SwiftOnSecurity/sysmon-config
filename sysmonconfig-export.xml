@@ -766,6 +766,8 @@
 			<TargetObject condition="contains">\exefile\shell\open\command</TargetObject> <!-- Detect: Open Command Hijacks -->
 			<TargetObject condition="contains">\piffile\shell\open\command</TargetObject> <!-- Detect: Open Command Hijacks -->
 			<TargetObject condition="contains">\regfile\shell\open\command</TargetObject> <!-- Detect: Open Command Hijacks -->
+			<TargetObject condition="contains">\InprocServer32</TargetObject> <!--Detect: COMObject Hijacking: https://blog.gdatasoftware.com/2014/10/23941-com-object-hijacking-the-discreet-way-of-persistence -->
+			<TargetObject condition="contains">\InprocServer32</TargetObject> <!--Detect: COMObject Hijacking: https://blog.gdatasoftware.com/2014/10/23941-com-object-hijacking-the-discreet-way-of-persistence -->
 		</RegistryEvent>
 		<RegistryEvent onmatch="exclude">
 		<!--COMMENT:	Remove low-information noise-->
