@@ -47,6 +47,7 @@
 			<ParentImage condition="is">C:\Windows\system32\SearchIndexer.exe</ParentImage> <!--Microsoft:Windows:Search: Launches many uninteresting sub-processes-->
 			<CommandLine condition="begin with">C:\Windows\system32\DllHost.exe /Processid</CommandLine> <!--Microsoft:Windows-->
 			<ParentCommandLine condition="begin with">C:\Windows\system32\svchost.exe -k DcomLaunch</ParentCommandLine> <!--Microsoft:Windows-->
+			<Image condition="is">C:\Windows\Microsoft.Net\Framework64\v3.0\WPF\PresentationFontCache.exe</Image> <!--Microsoft:Windows: Font Cache Service-->
 			<ParentCommandLine condition="begin with">%%SystemRoot%%\system32\csrss.exe ObjectDirectory=\Windows</ParentCommandLine> <!--Microsoft:Windows:CommandShell: Triggered when programs use the command shell, but without attribution-->
 			<CommandLine condition="is">C:\windows\System32\svchost.exe -k WerSvcGroup</CommandLine> <!--Microsoft:WindowsErrorReporting-->
 			<Image condition="begin with">C:\Program Files\Windows Defender</Image> <!--Microsoft:Windows:Defender in Win10-->
@@ -71,8 +72,10 @@
 			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k swprv</CommandLine><!--Microsoft:Software Shadow Copy Provider-->
 			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k imgsvc</CommandLine><!--Microsoft:The Windows Image Acquisition Service-->
 			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k NetworkServiceNetworkRestricted</CommandLine><!--Microsoft:Windows Network Services-->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k LocalServiceNetworkRestricted</CommandLine><!--Microsoft:Windows Network Services-->
 			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k LocalSystemNetworkRestricted</CommandLine><!--Microsoft:Windows Network Services-->
 			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k LocalServiceAndNoImpersonation</CommandLine><!--Microsoft:Windows Network Services-->
+			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k NetworkService</CommandLine><!--Microsoft:Windows Network Services-->
 			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k netsvcs</CommandLine><!--Microsoft:Windows Network Services-->
 			<ParentCommandLine condition="is">C:\Windows\System32\svchost.exe -k netsvcs</ParentCommandLine><!--Microsoft:Windows Network Services: Spawns Consent.exe-->
 			<ParentCommandLine condition="is">C:\Windows\system32\svchost.exe -k LocalSystemNetworkRestricted</ParentCommandLine><!--Microsoft:Windows Network Services-->
@@ -129,6 +132,7 @@
 			<!--SECTION: Drivers-->
 			<Image condition="begin with">C:\Program Files\NVIDIA Corporation\</Image> <!--Nvidia:Driver: routine actions-->
 			<Image condition="end with">\NVIDIA\NvBackend\ApplicationOntology\OAWrapper.exe</Image> <!--Nvidia:Driver: routine actions-->
+			<ParentImage condition="is">C:\Program Files\NVIDIA Corporation\NvStreamSrv\nvstreamuseragent.exe</ParentImage> <!--Nvidia:Driver: routine actions-->
 			<Image condition="begin with">C:\Program Files\Realtek\</Image> <!--Realtek:Driver: routine actions-->
 			<ParentImage condition="end with">C:\Program Files\Realtek\Audio\HDA\RtkAudioService64.exe</ParentImage> <!--Realtek:Driver: routine actions-->
 			<ParentImage condition="end with">C:\Program Files\DellTPad\HidMonitorSvc.exe</ParentImage>
@@ -142,19 +146,39 @@
 			<!--SECTION: Lenovo-->
 			<Image condition="is">C:\Program Files (x86)\Lenovo\System Update\ConfigService.exe</Image> <!--Lenovo: System Update-->
 			<ParentImage condition="is">C:\PROGRA~3\Lenovo\SYSTEM~1\SESSIO~1\REPOSI~1\fwdphb06\fwdphb06_version.exe</ParentImage><!--Lenovo: System Update-->
-			<ParentCommandLine condition="contains">C:\Program Files (x86)\Lenovo\System Update\tvsukernel.exe</ParentCommandLine><!--Lenovo: System Update-->
 			<Image condition="is">C:\Program Files (x86)\ThinkPad\Utilities\PWMDBSVC.exe</Image><!--Lenovo: Thinkpad Utilities-->
 			<Image condition="is">C:\Windows\system32\LPlatSvc.exe</Image> <!--Lenovo: Platform Services-->
 			<ParentImage condition="is">C:\Program Files\Lenovo\HOTKEY\tphkload.exe</ParentImage><!--Lenovo: Hotkey Tools-->
 			<ParentImage condition="is">C:\Program Files\Lenovo\HOTKEY\micmute.exe</ParentImage><!--Lenovo: Hotkey Tools-->
 			<Image condition="is">C:\Program Files\Lenovo\InstantOn\InstantOnSrv.exe</Image> <!--Lenovo: Instant-On-->
 			<Image condition="is">C:\Program Files\Lenovo\Lenovo Mouse Suite\Service\PelService.exe</Image> <!--Lenovo: Mouse Suite-->
-			<Image condition="is">C:\Program Files\Lenovo\ImController\PluginHost\Lenovo.Modern.ImController.PluginHost.Device.exe</Image><!--Lenovo: Modern Apps Plugin Host-->
+			<Image condition="is">C:\Program Files\Lenovo\ImController\PluginHost\Lenovo.Modern.ImController.PluginHost.Device.exe</Image> <!--Lenovo: Modern Apps Plugin Host-->
+			<ParentCommandLine condition="contains">C:\Program Files (x86)\Lenovo\System Update\tvsukernel.exe</ParentCommandLine> <!--Lenovo: System Update-->
+			<ParentImage condition="contains">C:\Program Files (x86)\Lenovo\System Update\UACSdk.exe</ParentImage> <!--Lenovo: System Update-->
+			<ParentImage condition="contains">C:\Program Files (x86)\Lenovo\System Update\SUService.exe</ParentImage> <!--Lenovo: System Update-->
+			<ParentImage condition="contains">C:\Program Files\Lenovo\Lenovo Ultraslim Plus Wireless Keyboard &amp; Mouse\Pelico.exe</ParentImage> <!--Lenovo: Mouse & Keyboard Tools-->
+			<ParentImage condition="contains">C:\Program Files\Lenovo\Lenovo Ultraslim Plus Wireless Keyboard &amp; Mouse\LeDaemon.exe</ParentImage> <!--Lenovo: Mouse & Keyboard Tools-->
+			<ParentImage condition="contains">C:\Program Files\Lenovo\Lenovo Mouse Suite\ICO.exe</ParentImage> <!--Lenovo: Mouse & Keyboard Tools-->
+			<!--SECTION: MSI: Micro-Star International Computers-->
+			<ParentImage condition="is">C:\Program Files (x86)\SCM\SCM.exe</ParentImage><!--MSI: Hotkey & Power Management-->
+			<Image condition="is">C:\Program Files (x86)\SCM\SCM_Notice.exe</Image><!--MSI: Hotkey & Power Management-->
+			<Image condition="is">C:\Program Files (x86)\MSI\Help Desk\MSI Update Agent.exe</Image><!-- MSI: Helpdesk Updater-->
+			<ParentImage condition="is">C:\Program Files (x86)\MSI\Help Desk\MSI Update Agent.exe</ParentImage><!-- MSI: Helpdesk Updater-->
+			<Image condition="is">C:\Program Files (x86)\MSI\Dragon Center\Dragon Center.exe</Image><!-- MSI: Dragon Center Updater-->
+			<ParentImage condition="is">C:\Program Files (x86)\MSI\Dragon Center\Dragon Center.exe</ParentImage><!-- MSI: Dragon Center Updater-->
 			<!--SECTION: Intel-->
 			<Image condition="is">C:\Program Files\Intel\Telemetry 2.0\lrio.exe</Image> <!--Intel: Telemetry-->
 			<Image condition="is">C:\Program Files\Intel Driver Update Utility\SUR\SurSvc.exe</Image> <!--Intel: Driver Update-->
+			<Image condition="is">C:\Windows\System32\DriverStore\FileRepository\ki120591.inf_amd64_7a2f7b04e15632c2\igfxCUIService.exe</Image><!--Intel: Graphics Driver-->
+			<Image condition="is">C:\Windows\System32\DriverStore\FileRepository\ki120591.inf_amd64_7a2f7b04e15632c2\igfxEM.exe</Image><!--Intel: Graphics Driver-->
 			<!--SECTION: Antivirus-->
 			<CommandLine condition="begin with">"C:\Windows\sysnative\rundll32.exe" "C:\Windows\system32\WRusr.dll",SynProc</CommandLine> <!--Webroot-->
+			<CommandLine condition="contains">C:\Program Files (x86)\Webroot\WRSA.exe" -ul</CommandLine> <!--Webroot-->
+			<ParentCommandLine condition="is">"C:\Program Files (x86)\Webroot\WRSA.exe" -service</ParentCommandLine> <!--Webroot-->
+			<Image condition="is">C:\Program Files (x86)\Webroot\WRSA.exe</Image><!--Webroot-->
+			<!--SECTION: Synaptics Touchpad-->
+			<Image condition="is">C:\Program Files\Synaptics\SynTP\SynTPEnh.exe</Image>
+			<Image condition="is">C:\Program Files\Synaptics\SynTP\SynTPEnhService.exe</Image>
 			<!--SECTION: Custom Apps-->
 			<!--SECTION: Labtech -->
 			<!--Since Labtech nests its processes, the following exclusions could be exploited, remove if you do not need-->
@@ -198,6 +222,8 @@
 			<CommandLine condition="contains">C:\Program Files (x86)\VMware\Infrastructure\Virtual Infrastructure Client\Launcher\VpxClient.exe</CommandLine><!--VMware vSphere spawns subprocesses-->
 			<ParentImage condition="is">C:\Program Files (x86)\SyncedTool\bin\agent_service.exe</ParentImage><!--eFolder Synced Tool-->
 			<Image condition="is">C:\Program Files (x86)\Notepad++\notepad++.exe</Image><!-- Notepad++ -->
+			<Image condition="is">C:\Program Files\OpenVPN\bin\openvpn-gui.exe</Image>
+			<ParentImage condition="is">C:\Program Files (x86)\Enpass\Enpass.exe</ParentImage><!--Enpass Password Manager-->
 		</ProcessCreate>
 
 	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM -->
@@ -559,10 +585,10 @@
 			<TargetFilename condition="is">C:\Windows\System32\config\netlogon.ftl</TargetFilename> <!-- Microsoft:Windows: Domain login cache-->
 			<Image condition="is">\\?\C:\Windows\system32\wbem\WMIADAP.EXE</Image><!-- Microsoft:Windows: WMI Performance updates-->
 			<Image condition="is">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeC2RClient.exe</Image><!-- Microsoft:Office Click2Run-->
-			<Image condition="is">C:\Program Files (x86)\MSI\Help Desk\MSI Update Agent.exe</Image><!-- MSI: Helpdesk Updater-->
 			<Image condition="is">C:\Windows\system32\CompatTelRunner.exe</Image><!-- Microsoft:Windows: Windows 10 app, creates tons of cache files-->
 			<Image condition="is">C:\Program Files\Microsoft SQL Server\110\LocalDB\Binn\sqlservr.exe</Image><!-- Microsoft:SQL Server: Creating tons of files-->
 			<Image condition="is">C:\Windows\System32\smss.exe</Image><!-- Microsoft:Windows: Session Manager SubSystem: Creates swapfile.sys,pagefile.sys,hiberfile.sys-->
+			<Image condition="is">C:\Program Files (x86)\MSI\Help Desk\MSI Update Agent.exe</Image><!-- MSI: Helpdesk Updater-->
 			<Image condition="is">C:\Program Files (x86)\MSI\Dragon Center\Dragon Center.exe</Image><!-- MSI: Dragon Center Updater-->
 			<Image condition="is">C:\Program Files (x86)\VMware\Infrastructure\Virtual Infrastructure Client\Launcher\VpxClient.exe</Image><!-- VMware:vSphere: Creates .cmdline apps in appdata\*\Temp-->
 			<!--SECTION: Dell-->
