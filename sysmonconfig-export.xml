@@ -590,13 +590,20 @@
 			<TargetObject condition="contains">\CurrentVersion\Run</TargetObject> <!--Microsoft:Windows: Run keys, incld RunOnce, RunOnceEx, RunServices, RunServicesOnce [Also covers terminal server] -->
 			<TargetObject condition="contains">\Group Policy\Scripts</TargetObject> <!--Microsoft:Windows: Group policy scripts -->
 			<TargetObject condition="contains">\Windows\System\Scripts</TargetObject> <!--Microsoft:Windows: Logon, Loggoff, Shutdown-->
+			<TargetObject condition="contains">\Microsoft\System\Scripts</TargetObject> <!--Microsoft:Windows: Legacy Logon, Loggoff, Shutdown Scripts-->
 			<TargetObject condition="end with">\ServiceDll</TargetObject> <!--Microsoft:Windows: Points to a service's DLL [ https://blog.cylance.com/windows-registry-persistence-part-1-introduction-attack-phases-and-windows-services ] -->
 			<TargetObject condition="end with">\ImagePath</TargetObject> <!--Microsoft:Windows: Points to a service's EXE [ https://github.com/crypsisgroup/Splunkmon/blob/master/sysmon.cfg ] -->
 			<TargetObject condition="end with">\Start</TargetObject> <!--Microsoft:Windows: Services start mode changes (Disabled, Automatically, Manual) -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify\</TargetObject> <!--Microsoft:Windows: Autorun location [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Userinit\</TargetObject> <!--Microsoft:Windows: Autorun location [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\VmApplet</TargetObject> <!--Microsoft:Windows: Legacy Autorun Location -->
+			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Control\Session Manager\Execute</TargetObject> <!--Microsoft:Windows: Legacy Autorun Location-->
+			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Control\Session Manager\SetupExecute</TargetObject> <!--Microsoft:Windows: Legacy Autorun Location-->
+			<TargetObject condition="begin with">HKLM\Software\Microsoft\WindowsNT\CurrentVersion\Winlogon</TargetObject> <!--Microsoft:Windows: Legacy Autorun Location-->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\AppSetup</TargetObject> <!--Microsoft:Windows: Legacy Autorun Location-->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Drivers32</TargetObject> <!--Microsoft:Windows: Legacy driver loading | Credit @ion-storm -->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\BootExecute</TargetObject> <!--Microsoft:Windows: Autorun | Credit @ion-storm | [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
+			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\BootVerificationProgram\ImagePath</TargetObject><!--Microsoft:Windows: Legacy Autorun may exist in server 2003-2008-->
 			<!--CLSID launch commands and file association changes-->
 			<TargetObject condition="contains">\shell\install\command\</TargetObject> <!--Microsoft:Windows: Sensitive subkey under file associations and CLSID that map to launch command-->
 			<TargetObject condition="contains">\shell\open\command\</TargetObject> <!--Microsoft:Windows: Sensitive subkey under file associations and CLSID that map to launch command-->
@@ -654,42 +661,69 @@
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\</TargetObject> <!--Microsoft:Defender: Detect changes to Defender administrative settings to monitor for disablement-->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\</TargetObject> <!--Microsoft:Windows:UAC: Detect malware changes to UAC prompt level -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Drivers32</TargetObject> <!--Detect Legacy Driver loading-->
-			 <!--Common Malware Persistence locations-->
-			 <TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce</TargetObject>
-			 <TargetObject condition="begin with">HKCU\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce</TargetObject>
-			 <TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\RunService</TargetObject>
-			 <TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run</TargetObject>
-			 <TargetObject condition="begin with">HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run</TargetObject>
-			 <TargetObject condition="begin with">HKCU\Software\Microsoft\Windows NT\CurrentVersion\Windows\load</TargetObject>
-			 <!--Group Policy Scripts-->
-			 <TargetObject condition="begin with">HKCU\Software\Policies\Microsoft\Windows\System\Scripts\Logon</TargetObject>
-			 <TargetObject condition="begin with">HKCU\Software\Policies\Microsoft\Windows\System\Scripts\Logoff</TargetObject>
-			 <TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows\System\Scripts\Startup</TargetObject>
-			 <TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows\System\Scripts\Shutdown</TargetObject>
-			 <TargetObject condition="begin with">HKCU\Software\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Logoff</TargetObject>
-			 <TargetObject condition="begin with">HKCU\Software\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Logon</TargetObject>
-			 <TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\State\Machine\Scripts\Shutdown</TargetObject>
-			 <TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\State\Machine\Scripts\Startup</TargetObject>
-			 <!--Detect Network History-->
-			 <TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Profiles</TargetObject>
-			 <TargetObject condition="end with">Domain</TargetObject><!--Networking: Watch Domain Changes-->
-			 <TargetObject condition="end with">DefaultGateway</TargetObject><!--Networking: Detect changes-->
-			 <TargetObject condition="end with">DHCPDefaultGateway</TargetObject><!--Networking: Detect changes-->
-			 <TargetObject condition="end with">DhcpIPAddress</TargetObject><!--Networking: Detect changes-->
-			 <TargetObject condition="end with">DhcpNameserver</TargetObject><!--Networking: Detect changes-->
-			 <TargetObject condition="end with">Dhcpserver</TargetObject><!--Networking: Detect changes-->
-			 <TargetObject condition="end with">DhcpSubnetMask</TargetObject><!--Networking: Detect changes-->
-			 <TargetObject condition="end with">SubnetMask</TargetObject><!--Networking: Detect changes-->
-			 <!--Detect User Activity-->
-			 <TargetObject condition="begin with">HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU</TargetObject>
-			 <!--<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Enum\USB</TargetObject> Disabled: Tons of Noise -->
-			 <TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Enum\USBSTOR</TargetObject>
-			  <!--Detect Threats from Webroot Antivirus-->
-			  <!--Active threats show like so: c:\users\JohnDoe\downloads\w10privacy\w10privacy.exe|W32.Backdoor.Gen|5880BC38 Reg Key Location: HKLM\SOFTWARE\WOW6432Node\WRData\Threats\Active-->
-			 <TargetObject condition="contains">HKLM\SOFTWARE\WOW6432Node\WRData\Threats\Active</TargetObject><!--Detect Active Threats-->
-			 <TargetObject condition="contains">HKLM\SOFTWARE\WOW6432Node\WRData\Threats\History</TargetObject><!--Detect Threat History & Auto-Removed Threats-->
-			 <!--Detect Changes to Proxy Server Setting-->
-			 <TargetObject condition="contains">HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\AutoConfigURL</TargetObject>
+			<!--Common Malware Persistence locations-->
+			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce</TargetObject>
+			<TargetObject condition="begin with">HKCU\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce</TargetObject>
+			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\RunService</TargetObject>
+			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run</TargetObject>
+			<TargetObject condition="begin with">HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run</TargetObject>
+			<TargetObject condition="begin with">HKCU\Software\Microsoft\Windows NT\CurrentVersion\Windows\load</TargetObject>
+			<!--Group Policy Scripts-->
+			<TargetObject condition="begin with">HKCU\Software\Policies\Microsoft\Windows\System\Scripts\Logon</TargetObject>
+			<TargetObject condition="begin with">HKCU\Software\Policies\Microsoft\Windows\System\Scripts\Logoff</TargetObject>
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows\System\Scripts\Startup</TargetObject>
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows\System\Scripts\Shutdown</TargetObject>
+			<TargetObject condition="begin with">HKCU\Software\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Logoff</TargetObject>
+			<TargetObject condition="begin with">HKCU\Software\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Logon</TargetObject>
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\State\Machine\Scripts\Shutdown</TargetObject>
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\State\Machine\Scripts\Startup</TargetObject>
+			<!--Detect Network History-->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Profiles</TargetObject>
+			<TargetObject condition="end with">Domain</TargetObject><!--Networking: Watch Domain Changes-->
+			<TargetObject condition="end with">DefaultGateway</TargetObject><!--Networking: Detect changes-->
+			<TargetObject condition="end with">DHCPDefaultGateway</TargetObject><!--Networking: Detect changes-->
+			<TargetObject condition="end with">DhcpIPAddress</TargetObject><!--Networking: Detect changes-->
+			<TargetObject condition="end with">DhcpNameserver</TargetObject><!--Networking: Detect changes-->
+			<TargetObject condition="end with">Dhcpserver</TargetObject><!--Networking: Detect changes-->
+			<TargetObject condition="end with">DhcpSubnetMask</TargetObject><!--Networking: Detect changes-->
+			<TargetObject condition="end with">SubnetMask</TargetObject><!--Networking: Detect changes-->
+			<TargetObject condition="end with">PersistentRoutes</TargetObject><!--Networking: Detect persistent routes-->
+			<!--Detect User Activity-->
+			<TargetObject condition="begin with">HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU</TargetObject>
+			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Enum\USBSTOR</TargetObject>
+			<!--Detect Threats from Webroot Antivirus-->
+			<!--Active threats show like so: c:\users\JohnDoe\downloads\w10privacy\w10privacy.exe|W32.Backdoor.Gen|5880BC38 Reg Key Location: HKLM\SOFTWARE\WOW6432Node\WRData\Threats\Active-->
+			<TargetObject condition="contains">HKLM\SOFTWARE\WOW6432Node\WRData\Threats\Active</TargetObject><!--Detect Active Threats-->
+			<TargetObject condition="contains">HKLM\SOFTWARE\WOW6432Node\WRData\Threats\History</TargetObject><!--Detect Threat History & Auto-Removed Threats-->
+			<!--Detect Changes to Proxy Server Setting-->
+			<TargetObject condition="contains">HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\AutoConfigURL</TargetObject>
+			<!--Detect Browser Hijackers-->
+			<TargetObject condition="begin with">HKCU\Software\Microsoft\Internet Explorer\DOMStorage\</TargetObject>
+			<TargetObject condition="begin with">HKCU\Software\Microsoft\Internet Explorer\LowRegistry\DOMStorage\</TargetObject>
+			<TargetObject condition="begin with">HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\Children\001\Internet Explorer\EdpDomStorage</TargetObject>
+			<!--Detect Unauthorized Firewall Changes-->
+			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\AuthorizedApplications\List</TargetObject> <!--Check for apps added to Firewall Auth List-->
+			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\EnableLUA</TargetObject> <!--Detect: UAC Tampering-->
+			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\LocalAccountTokenFilterPolicy</TargetObject> <!--Detect: UAC Tampering-->
+			<!--Detect Malware & Unauthorized Changes to Outlook, Excel, Powerpoint, and Access Security to enable execution of scripts/Macros -->
+			<TargetObject condition="contains">\Security\Level</TargetObject>
+			<TargetObject condition="contains">\Security\Level1Remove</TargetObject>
+			<!--Detect if Microsoft Security Center is Disabled or Enabled-->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Security Center\AllAlertsDisabled</TargetObject>
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Security Center\AntiVirusDisableNotify</TargetObject>
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Security Center\DisableMonitoring</TargetObject>
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Security Center\FirewallDisableNotify</TargetObject>
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Security Center\FirewallOverride</TargetObject>
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Security Center\UacDisableNotify</TargetObject>
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Security Center\UpdatesDisableNotify</TargetObject>
+			<!--Detect if Windows Defender is Disabled-->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet\SpyNetReporting</TargetObject>
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\DisableAntiSpyware</TargetObject>
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection\DisableBehaviorMonitoring</TargetObject>
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection\DisableOnAccessProtection</TargetObject>
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection\DisableScanOnRealtimeEnable</TargetObject>
+			<!-- Other Stuff -->	
+			<TargetObject condition="begin with">HKCU\Software\Classes\mscfile\shell\open\command</TargetObject> <!-- Fileless Bypass of UAC: http://resources.infosecinstitute.com/new-born-macro-malware-dropping-rootkits-using-fileless-infection-vector -->
 		</RegistryEvent>
 		<RegistryEvent onmatch="exclude">
 		<!--COMMENT:	Remove low-information noise-->
