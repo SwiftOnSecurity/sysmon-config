@@ -88,6 +88,7 @@
 			<CommandLine condition="begin with">C:\Windows\Microsoft.NET\Framework\v4.0.30319\ngen.exe</CommandLine> <!--Microsoft:DotNet-->
 			<ParentImage condition="is">C:\Windows\Microsoft.NET\Framework\v4.0.30319\ngentask.exe</ParentImage> <!--Microsoft:DotNet-->
 			<ParentImage condition="is">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\ngentask.exe</ParentImage> <!--Microsoft:DotNet-->
+			<ParentCommandLine condition="contains">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\ngentask.exe</ParentCommandLine>
 			<!--SECTION: Microsoft Office-->
 			<Image condition="is">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeC2RClient.exe</Image> <!--Microsoft:Office: Background process-->
 			<ParentImage condition="is">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeC2RClient.exe</ParentImage> <!--Microsoft:Office: Background process-->
@@ -153,6 +154,7 @@
 			<Image condition="is">C:\Program Files\Lenovo\InstantOn\InstantOnSrv.exe</Image> <!--Lenovo: Instant-On-->
 			<Image condition="is">C:\Program Files\Lenovo\Lenovo Mouse Suite\Service\PelService.exe</Image> <!--Lenovo: Mouse Suite-->
 			<Image condition="is">C:\Program Files\Lenovo\ImController\PluginHost\Lenovo.Modern.ImController.PluginHost.Device.exe</Image> <!--Lenovo: Modern Apps Plugin Host-->
+			<ParentCommandLine condition="contains">C:\Program Files\Lenovo\iMController\PluginHost\Lenovo.Modern.ImController.PluginHost.Device.exe</ParentCommandLine> <!--Lenovo: Modern Apps Plugin Host-->
 			<ParentCommandLine condition="contains">C:\Program Files (x86)\Lenovo\System Update\tvsukernel.exe</ParentCommandLine> <!--Lenovo: System Update-->
 			<ParentImage condition="contains">C:\Program Files (x86)\Lenovo\System Update\UACSdk.exe</ParentImage> <!--Lenovo: System Update-->
 			<ParentImage condition="contains">C:\Program Files (x86)\Lenovo\System Update\SUService.exe</ParentImage> <!--Lenovo: System Update-->
@@ -751,6 +753,9 @@
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection\DisableScanOnRealtimeEnable</TargetObject>
 			<!-- Other Stuff -->	
 			<TargetObject condition="begin with">HKCU\Software\Classes\mscfile\shell\open\command</TargetObject> <!-- Fileless Bypass of UAC: http://resources.infosecinstitute.com/new-born-macro-malware-dropping-rootkits-using-fileless-infection-vector -->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree</TargetObject><!--Identify Rogue Scheduled Task ID's -->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Logon</TargetObject><!--Identify Rogue Scheduled Task ID's added to Logon -->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Boot</TargetObject><!--Identify Rogue Scheduled Task ID's added to Boot -->
 		</RegistryEvent>
 		<RegistryEvent onmatch="exclude">
 		<!--COMMENT:	Remove low-information noise-->
