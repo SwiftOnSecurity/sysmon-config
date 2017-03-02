@@ -10,7 +10,7 @@ Because virtually every line is commented and sections are marked with explanati
 
 Pull requests and issue tickets are welcome, and new additions will be credited in-line or on Git.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**[See active forks of this configuration](https://github.com/SwiftOnSecurity/sysmon-config/network)**
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**[See forks of this configuration](https://github.com/SwiftOnSecurity/sysmon-config/network)**
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**[See @ion-storm Threat Intelligence SIEM fork](https://github.com/ion-storm/sysmon-config)**
 
