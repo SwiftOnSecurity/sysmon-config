@@ -259,7 +259,7 @@
 			<Image condition="image">rundll32.exe</Image> <!--Microsoft:Windows: [ https://blog.cobaltstrike.com/2016/07/22/why-is-rundll32-exe-connecting-to-the-internet/ ] -->
 			<Image condition="image">notepad.exe</Image> <!--Microsoft:Windows: [ https://blog.cobaltstrike.com/2013/08/08/why-is-notepad-exe-connecting-to-the-internet/ ] -->
 			<Image condition="image">regsvr32.exe</Image> <!--Microsoft:Windows: [ https://subt0x10.blogspot.com/2016/04/bypass-application-whitelisting-script.html ] -->
-			<Image condition="image">C:\Windows\system32\svchost.exe</Image> <!--BITS File Transfer program-->
+			<Image condition="image">C:\Windows\system32\svchost.exe</Image> <!--Windows Services hidden by Svchost.exe, BITS File Transfer program-->
 			<Image condition="image">mshta.exe</Image>
 			<Image condition="image">python.exe</Image>
 			<Image condition="contains">psexe</Image><!--Detect PSExec, PSexec services-->
@@ -573,7 +573,9 @@
 			<TargetFilename condition="end with">\Start Menu\Programs</TargetFilename> <!-- Microsoft:Windows: Cleanup noise of stub folder creation -->
 			<TargetFilename condition="end with">\Start Menu\Programs\Startup</TargetFilename> <!-- Microsoft:Windows: Cleanup noise of stub folder creation -->
 			<!--SECTION: Microsoft-->
-			<Image condition="is">C:\Windows\System32\smss.exe</Image><!-- Microsoft:Windows: Session Manager SubSystem: Creates swapfile.sys,pagefile.sys,hiberfile.sys-->
+			<Image condition="contains">C:\Windows\System32\svchost.exe</Image> <!-- Microsoft:Windows: Svchost creating thousands of files, creating new profiles on TS's -->
+			<Image condition="contains">C:\Windows\System32\smss.exe</Image> <!-- Microsoft:Windows: Session Manager SubSystem: Creates swapfile.sys,pagefile.sys,hiberfile.sys-->
+			<TargetFilename condition="contains">\Microsoft\Windows\INetCache\IE</TargetFilename> <!-- Microsoft:Windows: Creates thousands of files including new profiles -->
 			<Image condition="is">\Windows\System32\config\systemprofile\AppData\Roaming\Microsoft\SystemCertificates\Request\Certificates</Image>
 			<TargetFilename condition="end with">WRITABLE.TST</TargetFilename> <!-- Microsoft:Windows: Created in wbem by svchost -->
 			<TargetFilename condition="begin with">C:\Windows\System32\wbem\Performance\</TargetFilename> <!-- Microsoft:Windows: Created in wbem by WMIADAP.exe -->
@@ -777,6 +779,8 @@
 			<Image condition="is">C:\Windows\SystemApps\Microsoft.Windows.Cortana_cw5n1h2txyewy\SearchUI.exe</Image>
 			<Image condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</Image>
 			<!--Misc-->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\MICROSOFT\WINDOWS NT\CURRENTVERSION\Schedule\TaskCache\Tree\Optimize Start Menu Cache Files-</TargetObject>
+			<TargetObject condition="begin with">HKLM\SOFTWARE\MICROSOFT\WINDOWS NT\CURRENTVERSION\Schedule\TaskCache\Tree\User_Feed_Synchronization-</TargetObject>
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Publishers\</TargetObject> <!--SvcHost Noise-->
 			<TargetObject condition="end with">Toolbar\WebBrowser</TargetObject> <!--Microsoft:IE: Extraneous activity-->
 			<TargetObject condition="end with">Toolbar\WebBrowser\ITBar7Height</TargetObject> <!--Microsoft:IE: Extraneous activity-->
@@ -833,6 +837,7 @@
 			<TargetObject condition="contains">HKLM\System\CurrentControlSet\Services\DeviceAssociationService\Start</TargetObject><!--Device Association Service Noise-->
 			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Control\Class\{4d36e96c-e325-11ce-bfc1-08002be10318}\</TargetObject><!-- HD Audio Noise-->
 			<Image condition="is">C:\Program Files (x86)\Common Files\VMware\USB\vmware-usbarbitrator64.exe</Image> <!--VMWare: Horizon View Client Noise-->
+			<Image condition="is">C:\Program Files (x86)\PGP Corporation\PGP Desktop\PGPtray.exe</Image> <!--PGP: Noise-->
 		</RegistryEvent>
 
 	<!--SYSMON EVENT ID 15 : ALTERNATE DATA STREAM CREATED -->
@@ -896,6 +901,7 @@
 			<!--SECTION: Webroot-->
 			<PipeName condition="is">\WRSVCPipe</PipeName>
 			<PipeName condition="is">\WRSynUM2</PipeName>
+			<PipeName condition="is">\wrUrl</PipeName><!--Webroot Webfiltering Pipe-->
 			<Image condition="is">C:\Program Files (x86)\Webroot\WRSA.exe</Image>
 			<!--SECTION: Google-->
 			<Image condition="is">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Image>
