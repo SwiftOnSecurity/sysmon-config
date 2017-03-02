@@ -40,12 +40,12 @@ sysmon.exe -u
 ### Prerequisites ###
 Highly recommend using [Notepad++](https://notepad-plus-plus.org/) to edit this configuration. It understands UNIX newline format and does XML syntax highlighting, which makes this very understandable. I do not recommend using Notepad.
 
-## Customization ##
+### Customization ###
 You will need to install and observe the results of the configuration in your own environment before deploying it widely. For example, you will need to exclude actions of your antivirus, which will otherwise likely fill up your logs with useless information.
 
 The configuration is highly commented and designed to be self-explanatory to assist you in this customization to your environment.
 
-## Design notes ##
+### Design notes ###
 This configuration expects software to be installed system-wide and NOT in the C:\Users folder. 
 
 If your users install Chrome themselves, you should deploy the [Chrome MSI](https://enterprise.google.com/chrome/chrome-browser/), which will automatically change the shortcuts to the machine-level installation. Your users will not even notice anything different.
