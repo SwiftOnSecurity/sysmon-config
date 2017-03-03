@@ -162,23 +162,23 @@ then
 
     // look up the requested DNS captured by sysmon
     // this will be the most fired rule
-    let sysmon_dns_lookup_intel = threat_intel_lookup_domain(to_string($message.query_domain), "sysmon_dns_lookup");
+    let sysmon_dns_lookup_intel = threat_intel_lookup_domain(to_string($message.sysmon_dns_lookup), "sysmon_dns_lookup");
     set_fields(sysmon_dns_lookup_intel);
 
     // look up the ip from the DNS answer
     // if we do not monitor the dns, then this might be nice to have
-    let sysmon_lookup_ip_answer_intel = threat_intel_lookup_ip(to_string($message.query_answer), "sysmon_dns_lookup_ip");
+    let sysmon_lookup_ip_answer_intel = threat_intel_lookup_ip(to_string($message.sysmon_dns_lookup_ip), "sysmon_dns_lookup_ip");
     set_fields(sysmon_lookup_ip_answer_intel);
 
     // look up the requesting IP 
     // this is useful if dealing with non internal IPs 
     // so you know if your IP is seen as a problem
-    let sysmon_src_ip_answer_intel = threat_intel_lookup_ip(to_string($message.query_answer), "sysmon_src_ip");
+    let sysmon_src_ip_answer_intel = threat_intel_lookup_ip(to_string($message.sysmon_src_ip), "sysmon_src_ip");
     set_fields(sysmon_src_ip_answer_intel);
 
     // WHOIS lookup. This is disabled by default. Enable and carefully watch latency and performance.
-    //let sysmon_dns_lookup_ip_whois = whois_lookup_ip(to_string($message.query_answer), "sysmon_dns_lookup_ip");
-    //set_fields(sysmon_dns_lookup_ip_whois);
+    let sysmon_dns_lookup_ip_whois = whois_lookup_ip(to_string($message.sysmon_dns_lookup_ip), "sysmon_dns_lookup_ip");
+    set_fields(sysmon_dns_lookup_ip_whois);
 end
 ~~~~
 
