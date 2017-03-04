@@ -179,6 +179,14 @@ then
     // WHOIS lookup. This is disabled by default. Enable and carefully watch latency and performance.
     let sysmon_dns_lookup_ip_whois = whois_lookup_ip(to_string($message.sysmon_dns_lookup_ip), "sysmon_dns_lookup_ip");
     set_fields(sysmon_dns_lookup_ip_whois);
+    
+    //AlienVault OTX
+    let intel = otx_lookup_ip(to_string($message.sysmon_src_ip));
+    let intel = otx_lookup_domain(to_string($message.sysmon_dns_lookup_ip));
+    set_field("otx_threat_indicated", intel.otx_threat_indicated);
+    set_field("otx_threat_ids", intel.otx_threat_ids);
+    set_field("otx_threat_names", intel.otx_threat_names);
+
 end
 ~~~~
 
@@ -187,7 +195,7 @@ end
 rule "sysmon threatintel inflate"
 when
     // run only if one of the fields is true
-    to_bool($message.sysmon_dns_lookup_ip_threat_indicated) OR to_bool($message.sysmon_dns_lookup_threat_indicated) OR to_bool($message.sysmon_src_ip_threat_indicated)
+    to_bool($message.sysmon_dns_lookup_ip_threat_indicated) OR to_bool($message.sysmon_dns_lookup_threat_indicated) OR to_bool($message.sysmon_src_ip_threat_indicated) OR to_bool($message.otx_threat_indicated)
 then
 
     // This is to make Graylog searches easy
