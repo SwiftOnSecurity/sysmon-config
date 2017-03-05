@@ -439,9 +439,9 @@
 	<!--SYSMON EVENT ID 7 : DLL (IMAGE) LOADED BY PROCESS-->
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, ImageLoaded, Hashes, Signed, Signature, SignatureStatus-->
 		<ImageLoad onmatch="include">
-		<Signed condition="is">false</Signed> <!-- Lets Only show Unsigned DLL's loaded-->
-		<SignatureStatus condition="is">Invalid</SignatureStatus> <!--Lets Show DLL's where their Signature's are Invalid-->
-		<SignatureStatus condition="is">Unavailable</SignatureStatus> <!--Lets Show DLL's where their Signature's are Invalid-->
+			<Signed condition="is">false</Signed> <!-- Lets Only show Unsigned DLL's loaded-->
+			<SignatureStatus condition="is">Invalid</SignatureStatus> <!--Lets Show DLL's where their Signature's are Invalid-->
+			<SignatureStatus condition="is">Unavailable</SignatureStatus> <!--Lets Show DLL's where their Signature's are Invalid-->
 		<!--COMMENT:	Can cause high system load, disabled by default, important examples included below.-->
 			<!-- <ImageLoaded condition="contains">system.automation</ImageLoaded> -->
 			<!-- <ImageLoaded condition="image">wshom.ocx</ImageLoaded> -->
@@ -477,11 +477,12 @@
 			<Signature condition="contains">Fortinet</Signature> -->
 		</ImageLoad>
 		<ImageLoad onmatch="exclude">
-		<Image condition="is">C:\Windows\System32\mmc.exe</Image>
-		<Image condition="begin with">C:\Program Files (x86)\SmartGit</Image> <!--SmartGit-->
-		<Image condition="is">C:\Windows\System32\backgroundTaskHost.exe</Image> <!-- Windows Store apps unsigned -->
-		<Image condition="is">C:\Program Files (x86)\VMware\Infrastructure\Virtual Infrastructure Client\Launcher\VpxClient.exe</Image>
-		<Image condition="begin with">C:\Program Files</Image> <!-- NOTICE: Not good for security but good on cutting down the noise, we do log dropped dll's -->
+			<Image condition="is">C:\Windows\System32\mmc.exe</Image>
+			<ImageLoaded condition="contains">C:\Program Files (x86)\SmartGit</ImageLoaded> <!--SmartGit-->
+			<ImageLoaded condition="contains">syntevo\SmartGit</ImageLoaded> <!--SmartGit-->
+			<Image condition="is">C:\Windows\System32\backgroundTaskHost.exe</Image> <!-- Windows Store apps unsigned -->
+			<Image condition="is">C:\Program Files (x86)\VMware\Infrastructure\Virtual Infrastructure Client\Launcher\VpxClient.exe</Image>
+			<Image condition="begin with">C:\Program Files</Image> <!-- NOTICE: Not good for security but good on cutting down the noise, we do log dropped dll's -->
 		</ImageLoad>
 	<!--SYSMON EVENT ID 8 : REMOTE THREAD CREATED-->
 		<!--DATA: UtcTime, SourceProcessGuid, SourceProcessId, SourceImage, TargetProcessId, TargetImage, NewThreadId, StartAddress, StartModule, StartFunction-->
