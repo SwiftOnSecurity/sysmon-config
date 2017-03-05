@@ -491,13 +491,16 @@
 			<SourceImage condition="image">mspub.exe</SourceImage> <!-- Hancitor process hollowing -->
 			<SourceImage condition="image">msbuild.exe</SourceImage> <!-- Hancitor process hollowing -->
 			<SourceImage condition="image">powerpnt.exe</SourceImage> <!-- Hancitor process hollowing -->
-		<!--Include mimikatz-specific events.-->
 			<SourceImage condition="contains">powershell.exe</SourceImage>
- 		<!--<TargetImage condition="contains">lsass.exe</TargetImage>--> <!--Disabled: To cut down noise-->
+			<CallTrace condition="contains">VBE7.dll</CallTrace> <!-- ShellCode Spawned from Office Macros Credit: @JohnLaTwC -->
+			<CallTrace condition="contains">VBE6.dll</CallTrace> <!-- ShellCode Spawned from Office Macros Credit: @JohnLaTwC -->
+ 			<!--Include mimikatz-specific events.-->
+		<!--<TargetImage condition="contains">lsass.exe</TargetImage>--> <!--Disabled: To cut down noise-->
 		</ProcessAccess>
 		<ProcessAccess onmatch="exclude">
 			<SourceImage condition="is">C:\Program Files (x86)\Webroot\WRSA.exe</SourceImage>
 			<SourceImage condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</SourceImage>
+			<CallTrace condition="excludes">UNKNOWN</CallTrace> <!-- ShellCode Spawned from Office Macros: Credit: @JohnLaTwC -->
 		</ProcessAccess>
 
 	<!--SYSMON EVENT ID 11 : FILE CREATED -->
