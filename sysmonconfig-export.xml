@@ -439,6 +439,8 @@
 	<!--SYSMON EVENT ID 7 : DLL (IMAGE) LOADED BY PROCESS-->
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, ImageLoaded, Hashes, Signed, Signature, SignatureStatus-->
 		<ImageLoad onmatch="include">
+		<Signed condition="is">false</Signed> <!-- Lets Only show Unsigned DLL's loaded-->
+		<SignatureStatus condition="is">Invalid</SignatureStatus> <!--Lets Show DLL's where their Signature's are Invalid-->
 		<!--COMMENT:	Can cause high system load, disabled by default, important examples included below.-->
 			<!-- <ImageLoaded condition="contains">system.automation</ImageLoaded> -->
 			<!-- <ImageLoaded condition="image">wshom.ocx</ImageLoaded> -->
@@ -452,6 +454,27 @@
 			<!-- Mimikatz -->
 			<!--NOTES: [ https://securityriskadvisors.com/blog/post/detecting-in-memory-mimikatz/ ] -->
 			<!-- <ImageLoaded condition="image">wdigest.dll</ImageLoaded> -->
+			<!-- Microsoft & Common Computer Vendor Exclusions -->
+			<!-- Here are the exclude rules, were using include now :)
+			<Signature condition="contains">Microsoft</Signature>
+			<Signature condition="contains">Windows</Signature>
+			<Signature condition="contains">Dell</Signature>
+			<Signature condition="contains">Lenovo</Signature>
+			<Signature condition="contains">HP</Signature>
+			<Signature condition="contains">Micro-Star</Signature>
+			<Signature condition="contains">MSI</Signature>
+			<Signature condition="contains">Intel</Signature>
+			<Signature condition="contains">AMD</Signature>
+			<Signature condition="contains">Advanced Micro Devices</Signature>
+			<Signature condition="contains">Broadcom</Signature>
+			<Signature condition="contains">Realtek</Signature>
+			<Signature condition="contains">VMware</Signature>
+			<Signature condition="contains">Synaptic</Signature>
+			<Signature condition="contains">Logitech</Signature>
+			<Signature condition="contains">Steelseries</Signature>
+			<Signature condition="contains">Cisco</Signature>
+			<Signature condition="contains">Fortinet</Signature> -->
+			
 		</ImageLoad>
 
 	<!--SYSMON EVENT ID 8 : REMOTE THREAD CREATED-->
