@@ -441,6 +441,7 @@
 		<ImageLoad onmatch="include">
 		<Signed condition="is">false</Signed> <!-- Lets Only show Unsigned DLL's loaded-->
 		<SignatureStatus condition="is">Invalid</SignatureStatus> <!--Lets Show DLL's where their Signature's are Invalid-->
+		<SignatureStatus condition="is">Unavailable</SignatureStatus> <!--Lets Show DLL's where their Signature's are Invalid-->
 		<!--COMMENT:	Can cause high system load, disabled by default, important examples included below.-->
 			<!-- <ImageLoaded condition="contains">system.automation</ImageLoaded> -->
 			<!-- <ImageLoaded condition="image">wshom.ocx</ImageLoaded> -->
