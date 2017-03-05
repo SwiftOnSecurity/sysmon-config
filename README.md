@@ -119,6 +119,10 @@ then
     rename_field("winlogbeat_event_data_DestinationIp_geolocation", "sysmon_dns_lookup_ip_geolocation");
     rename_field("winlogbeat_event_data_PipeName", "sysmon_pipe_name");
     rename_field("winlogbeat_event_data_ProcessId", "sysmon_pipe_pid");
+    rename_field("winlogbeat_process_id", "sysmon_img_pid");
+    rename_field("winlogbeat_event_data_ImageLoaded", "sysmon_imgloaded");
+    rename_field("winlogbeat_event_data_SignatureStatus", "sysmon_signatureStatus");
+    rename_field("winlogbeat_event_data_Signed", "sysmon_signed");
 
     // Remove clutter.
     let fix = regex("^\\{(\\S+)\\}$", to_string($message.winlogbeat_event_data_ProcessGuid));
