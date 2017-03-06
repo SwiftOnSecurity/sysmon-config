@@ -863,6 +863,9 @@
 			<!--Misc-->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\MICROSOFT\WINDOWS NT\CURRENTVERSION\Schedule\TaskCache\Tree\Optimize Start Menu Cache Files-</TargetObject>
 			<TargetObject condition="begin with">HKLM\SOFTWARE\MICROSOFT\WINDOWS NT\CURRENTVERSION\Schedule\TaskCache\Tree\User_Feed_Synchronization-</TargetObject>
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\UpdateOrchestrator</TargetObject>
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\WindowsUpdate</TargetObject>
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\SoftwareProtectionPlatform</TargetObject>
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Publishers\</TargetObject> <!--SvcHost Noise-->
 			<TargetObject condition="end with">Toolbar\WebBrowser</TargetObject> <!--Microsoft:IE: Extraneous activity-->
 			<TargetObject condition="end with">Toolbar\WebBrowser\ITBar7Height</TargetObject> <!--Microsoft:IE: Extraneous activity-->
