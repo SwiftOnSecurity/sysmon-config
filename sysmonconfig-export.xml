@@ -533,6 +533,8 @@
 		<ProcessAccess onmatch="exclude">
 			<SourceImage condition="is">C:\Program Files (x86)\Webroot\WRSA.exe</SourceImage>
 			<SourceImage condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</SourceImage>
+			<TargetImage condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</TargetImage>
+			<TargetImage condition="is">C:\Windows\Sysmon.exe</TargetImage>
 			<CallTrace condition="excludes">UNKNOWN</CallTrace> <!-- ShellCode Spawned from Office Macros: Credit: @JohnLaTwC -->
 		</ProcessAccess>
 
