@@ -483,6 +483,11 @@
 			<Image condition="is">C:\Windows\System32\backgroundTaskHost.exe</Image> <!-- Windows Store apps unsigned -->
 			<Image condition="is">C:\Program Files (x86)\VMware\Infrastructure\Virtual Infrastructure Client\Launcher\VpxClient.exe</Image>
 			<Image condition="begin with">C:\Program Files</Image> <!-- NOTICE: Not good for security but good on cutting down the noise, we do log dropped dll's -->
+			<ImageLoaded condition="contains">C:\Program Files\WindowsApps\Microsoft.Windows.Photos_17.214.10010.0_x64__8wekyb3d8bbwe\</ImageLoaded> <!-- Unsigned dll for Photos app in w10 -->
+			<ImageLoaded condition="is">C:\Windows\assembly\NativeImages_v4.0.30319_64\EventViewer\8f6ad0cc031c686d71ed83adf76119fe\EventViewer.ni.dll</ImageLoaded> <!-- Event Viewer -->
+			<ImageLoaded condition="is">C:\Windows\assembly\NativeImages_v4.0.30319_64\MIGUIControls\a3e102751d6a27e8a54df2e57a4ae2d0\MIGUIControls.ni.dll</ImageLoaded> <!-- Event Viewer -->
+			<ImageLoaded condition="is">C:\Windows\assembly\NativeImages_v4.0.30319_64\System.Web\04d8bd77c408266f65f7bb3f90ff7e1c\System.Web.ni.dll</ImageLoaded> <!-- Event Viewer -->
+			<ImageLoaded condition="contains">C:\Program Files\WindowsApps\</ImageLoaded> <!-- Windows Store Apps: Apparently most dll's here are unsigned and causes noise -->
 		</ImageLoad>
 	<!--SYSMON EVENT ID 8 : REMOTE THREAD CREATED-->
 		<!--DATA: UtcTime, SourceProcessGuid, SourceProcessId, SourceImage, TargetProcessId, TargetImage, NewThreadId, StartAddress, StartModule, StartFunction-->
