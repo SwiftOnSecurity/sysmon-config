@@ -228,7 +228,7 @@
 			<!--END: Labtech-->
 			<Image condition="end with">ScreenConnect.WindowsClient.exe</Image><!--Screenconnect Remote Desktop Client-->
 			<Image condition="begin with">C:\Program Files (x86)\SmartGit</Image> <!--SmartGit-->
-			<ParentImage condition="is">C:\Program Files (x86)\SmartGit</ParentImage> <!--SmartGit-->
+			<ParentImage condition="begin with">C:\Program Files (x86)\SmartGit</ParentImage> <!--SmartGit-->
 			<Image condition="end with">Vivaldi\Application\vivaldi.exe</Image> <!--Vivaldi Browser-->
 			<Image condition="end with">controls\cef\ConnectWise.exe</Image> <!--Connectwise-->
 			<!-- VMware vSphere spawns child processes to svtres.exe and csc.exe, currently unable to exclude those child processes, csc and cvtres.exe are used by some malware-->
