@@ -856,6 +856,7 @@
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection\DisableOnAccessProtection</TargetObject>
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection\DisableScanOnRealtimeEnable</TargetObject>
 			<!-- Detect Root Certificate Store Hijacking and Unauthorized changes -->
+			<!-- Lots of noise from multiple locations, need a better monitor
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\SystemCertificates</TargetObject>
 			<TargetObject condition="begin with">HKCU\Software\Policies\Microsoft\SystemCertificates</TargetObject>
 			<TargetObject condition="begin with">HKLM\Software\Microsoft\Cryptography\Services\ServiceName\SystemCertificates</TargetObject>
@@ -864,6 +865,7 @@
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\SystemCertificates</TargetObject>
 			<TargetObject condition="begin with">HKCU\SOFTWARE\Microsoft\SystemCertificates</TargetObject>
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\CertSvc</TargetObject>
+			-->
 			<!-- Other Stuff -->	
 			<TargetObject condition="begin with">HKCU\Software\Classes\mscfile\shell\open\command</TargetObject> <!-- Fileless Bypass of UAC: http://resources.infosecinstitute.com/new-born-macro-malware-dropping-rootkits-using-fileless-infection-vector -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree</TargetObject><!--Identify Rogue Scheduled Task ID's -->
