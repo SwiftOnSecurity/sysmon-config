@@ -490,6 +490,7 @@
 			<!-- Custom App Exclusions -->
 			<ImageLoaded condition="is">C:\Program Files (x86)\AutoSizer\AutoSizer.dll</ImageLoaded> <!-- I use autosizer to re-arrange my windows -->
 			<ImageLoaded condition="contains">C:\Program Files (x86)\Notepad++</ImageLoaded> <!--Notepad++ Plugins Are unsigned-->
+			<Image condition="is">C:\Program Files (x86)\SyncedTool\bin\autoupdate.exe</Image> <!-- eFolder SyncedTool -->
 		</ImageLoad>
 	<!--SYSMON EVENT ID 8 : REMOTE THREAD CREATED-->
 		<!--DATA: UtcTime, SourceProcessGuid, SourceProcessId, SourceImage, TargetProcessId, TargetImage, NewThreadId, StartAddress, StartModule, StartFunction-->
@@ -885,7 +886,9 @@
 			<TargetObject condition="end with">\FriendlyName</TargetObject> <!--Microsoft:Windows: New devices connected and remembered-->
 			<TargetObject condition="is">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\InProgress\(Default)</TargetObject> <!--Microsoft:Windows: See when WindowsInstaller is engaged-->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e96b-e325-11ce-bfc1-08002be10318}</TargetObject> <!-- Detect Keyloggers & new Keyboards -->
-			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}</TargetObject> <!-- Detect New USB Network Devices: Poison Tap -->
+			<!-- NOTICE: Detect New USB Network Devices: Poison Tap - Creates lots of noise, disabled for now
+			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}</TargetObject>
+			-->
 		</RegistryEvent>
 		<RegistryEvent onmatch="exclude">
 		<!--COMMENT:	Remove low-information noise-->
