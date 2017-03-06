@@ -626,6 +626,22 @@
 			<TargetFilename condition="contains">help_recover_instructions</TargetFilename>
 			<TargetFilename condition="contains">_Locky_recover</TargetFilename>
 			<TargetFilename condition="contains">_ReCoVeRy_</TargetFilename>
+			<!--SECTION: Certificates -->
+			<TargetFilename condition="contains">.pem</TargetFilename>
+			<TargetFilename condition="contains">.crt</TargetFilename>
+			<TargetFilename condition="contains">.ca-bundle</TargetFilename>
+			<TargetFilename condition="contains">.cer</TargetFilename>
+			<TargetFilename condition="contains">.csr</TargetFilename>
+			<TargetFilename condition="contains">.der</TargetFilename>
+			<TargetFilename condition="contains">.p7b</TargetFilename>
+			<TargetFilename condition="contains">.p7r</TargetFilename>
+			<TargetFilename condition="contains">.p7s</TargetFilename>
+			<TargetFilename condition="contains">.pfx</TargetFilename>
+			<TargetFilename condition="contains">.sto</TargetFilename>
+			<TargetFilename condition="contains">.p12</TargetFilename>
+			<TargetFilename condition="contains">.crl</TargetFilename>
+			<TargetFilename condition="contains">.sst</TargetFilename>
+			<TargetFilename condition="contains">.key</TargetFilename>
 			<!--SECTION: Mimikatz-->
 			<!--Default-disable <TargetFileName condition="end with">.kirbi</TargetFileName> --> <!-- [ https://github.com/gentilkiwi/mimikatz/wiki/module-~-kerberos ] -->
 		</FileCreate>
@@ -839,6 +855,15 @@
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection\DisableBehaviorMonitoring</TargetObject>
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection\DisableOnAccessProtection</TargetObject>
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection\DisableScanOnRealtimeEnable</TargetObject>
+			<!-- Detect Root Certificate Store Hijacking and Unauthorized changes -->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\SystemCertificates</TargetObject>
+			<TargetObject condition="begin with">HKCU\Software\Policies\Microsoft\SystemCertificates</TargetObject>
+			<TargetObject condition="begin with">HKLM\Software\Microsoft\Cryptography\Services\ServiceName\SystemCertificates</TargetObject>
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\EnterpriseCertificates</TargetObject>
+			<TargetObject condition="begin with">HKCU\SOFTWARE\Microsoft\EnterpriseCertificates</TargetObject>
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\SystemCertificates</TargetObject>
+			<TargetObject condition="begin with">HKCU\SOFTWARE\Microsoft\SystemCertificates</TargetObject>
+			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\CertSvc</TargetObject>
 			<!-- Other Stuff -->	
 			<TargetObject condition="begin with">HKCU\Software\Classes\mscfile\shell\open\command</TargetObject> <!-- Fileless Bypass of UAC: http://resources.infosecinstitute.com/new-born-macro-malware-dropping-rootkits-using-fileless-infection-vector -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree</TargetObject><!--Identify Rogue Scheduled Task ID's -->
@@ -978,6 +1003,22 @@
 			<TargetFilename condition="end with">.rdp</TargetFilename> <!--Remote Desktop file-->
 			<TargetFilename condition="end with">.vbs</TargetFilename> <!--VisualBasicScripting-->
 			<TargetFilename condition="end with">.js</TargetFilename> <!--Java-->
+			<!--SECTION: Certificates -->
+			<TargetFilename condition="contains">.pem</TargetFilename>
+			<TargetFilename condition="contains">.crt</TargetFilename>
+			<TargetFilename condition="contains">.ca-bundle</TargetFilename>
+			<TargetFilename condition="contains">.cer</TargetFilename>
+			<TargetFilename condition="contains">.csr</TargetFilename>
+			<TargetFilename condition="contains">.der</TargetFilename>
+			<TargetFilename condition="contains">.p7b</TargetFilename>
+			<TargetFilename condition="contains">.p7r</TargetFilename>
+			<TargetFilename condition="contains">.p7s</TargetFilename>
+			<TargetFilename condition="contains">.pfx</TargetFilename>
+			<TargetFilename condition="contains">.sto</TargetFilename>
+			<TargetFilename condition="contains">.p12</TargetFilename>
+			<TargetFilename condition="contains">.crl</TargetFilename>
+			<TargetFilename condition="contains">.sst</TargetFilename>
+			<TargetFilename condition="contains">.key</TargetFilename>
 		</FileCreateStreamHash>
 
 	<!--SYSMON EVENT ID 16 : SYSMON CONFIGURATION CHANGE, THIS LINE IS INCLUDED FOR DOCUMENTATION PURPOSES ONLY-->
