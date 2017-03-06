@@ -964,6 +964,15 @@
 			<Image condition="is">C:\Program Files (x86)\PGP Corporation\PGP Desktop\PGPtray.exe</Image> <!--PGP: Noise-->
 			<!--SECTION: 3rd party-->
 			<Image condition="is">C:\Program Files\WIDCOMM\Bluetooth Software\btwdins.exe</Image> <!--Constantly writes to HKLM-->
+			<!-- Search Protocol Host & Sysmon spam the SystemCertificates keystores, adding exclusions below -->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\SystemCertificates\Disallowed</TargetObject>
+			<TargetObject condition="begin with">HKCU\Software\Policies\Microsoft\SystemCertificates\Disallowed</TargetObject>
+			<TargetObject condition="begin with">HKLM\Software\Microsoft\Cryptography\Services\ServiceName\SystemCertificates\Disallowed</TargetObject>
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\EnterpriseCertificates\Disallowed</TargetObject>
+			<TargetObject condition="begin with">HKCU\SOFTWARE\Microsoft\EnterpriseCertificates\Disallowed</TargetObject>
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\SystemCertificates\Disallowed</TargetObject>
+			<TargetObject condition="begin with">HKCU\SOFTWARE\Microsoft\SystemCertificates\Disallowed</TargetObject>
+			<Image condition="is">C:\Windows\SysWOW64\SearchProtocolHost.exe</Image>
 		</RegistryEvent>
 
 	<!--SYSMON EVENT ID 15 : ALTERNATE DATA STREAM CREATED-->
