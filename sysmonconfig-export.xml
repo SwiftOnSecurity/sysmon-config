@@ -527,7 +527,8 @@
 			<CallTrace condition="contains">VBE7.dll</CallTrace> <!-- ShellCode Spawned from Office Macros Credit: @JohnLaTwC -->
 			<CallTrace condition="contains">VBE6.dll</CallTrace> <!-- ShellCode Spawned from Office Macros Credit: @JohnLaTwC -->
  			<!--Include mimikatz-specific events.-->
-		<!--<TargetImage condition="contains">lsass.exe</TargetImage>--> <!--Disabled: To cut down noise-->
+			<TargetImage condition="contains">C:\Windows\System32\lsass.exe</TargetImage> <!--Mimikatz @Antonlovesdnb -->
+			<TargetImage condition="contains">C:\Windows\System32\winlogon.exe</TargetImage> <!--Mimikatz @Antonlovesdnb -->
 		</ProcessAccess>
 		<ProcessAccess onmatch="exclude">
 			<SourceImage condition="is">C:\Program Files (x86)\Webroot\WRSA.exe</SourceImage>
@@ -948,6 +949,8 @@
 			<TargetFilename condition="end with">.cmdline</TargetFilename> <!--Microsoft:dotNet: Executed by cvtres.exe-->
 			<TargetFilename condition="end with">.docm</TargetFilename> <!--Microsoft:Office:Word: Macro-->
 			<TargetFilename condition="end with">.exe</TargetFilename> <!--Executable-->
+			<TargetFilename condition="end with">.dll</TargetFilename> <!--Executable-->
+			<TargetFilename condition="end with">.sys</TargetFilename> <!--Executable-->
 			<TargetFilename condition="end with">.hta</TargetFilename> <!--Scripting-->
 			<TargetFilename condition="end with">.pptm</TargetFilename> <!--Microsoft:Office:Word: Macro-->
 			<TargetFilename condition="end with">.ps1</TargetFilename> <!--PowerShell [ More information: http://www.hexacorn.com/blog/2014/08/27/beyond-good-ol-run-key-part-16/ ] -->
