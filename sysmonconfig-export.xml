@@ -370,6 +370,7 @@
 			<DestinationPort condition="is">53</DestinationPort> <!--Log DNS for Graylog threat discovery-->
 		</NetworkConnect>
 		<NetworkConnect onmatch="exclude">
+			<DestinationIsIpv6 condition="is">true </DestinationIsIpv6> <!-- IPv6 Exclusion: Re-Enable if you use ipv6 -->
 			<Image condition="image">OneDrive.exe</Image> <!--Microsoft:OneDrive-->
 			<Image condition="image">Spotify.exe</Image> <!--Spotify-->
 			<Image condition="end with">AppData\Roaming\Dropbox\bin\Dropbox.exe</Image> <!--Dropbox-->
@@ -400,7 +401,8 @@
 			<DestinationPort condition="is">3702</DestinationPort> <!--Windows: WS-Discovery noise-->
 			<DestinationPort condition="is">3702</DestinationPort> <!--Windows: WS-Discovery noise-->
 			<SourcePort condition="is">50646</SourcePort> <!--Windows: WS-Discovery noise-->
-			<Image condition="image">C:\Program Files (x86)\SmartGit\jre\bin\java.exe</Image>
+			<Image condition="is">C:\Program Files (x86)\SmartGit\jre\bin\java.exe</Image>
+			<Image condition="is">C:\Program Files (x86)\SyncedTool\bin\autoupdate.exe</Image>
 		</NetworkConnect>
 
 	<!--SYSMON EVENT ID 4 : RESERVED FOR SYSMON STATUS MESSAGES, THIS LINE IS INCLUDED FOR DOCUMENTATION PURPOSES ONLY-->
@@ -485,6 +487,9 @@
 			<Image condition="begin with">C:\Program Files</Image> <!-- NOTICE: Not good for security but good on cutting down the noise, we do log dropped dll's -->
 			<ImageLoaded condition="contains">C:\Windows\assembly\NativeImages</ImageLoaded> <!-- Event Viewer -->
 			<ImageLoaded condition="contains">C:\Program Files\WindowsApps</ImageLoaded> <!-- Windows Store Apps: Apparently most dll's here are unsigned and causes noise -->
+			<!-- Custom App Exclusions -->
+			<ImageLoaded condition="is">C:\Program Files (x86)\AutoSizer\AutoSizer.dll</ImageLoaded> <!-- I use autosizer to re-arrange my windows -->
+			<ImageLoaded condition="contains">C:\Program Files (x86)\Notepad++</ImageLoaded> <!--Notepad++ Plugins Are unsigned-->
 		</ImageLoad>
 	<!--SYSMON EVENT ID 8 : REMOTE THREAD CREATED-->
 		<!--DATA: UtcTime, SourceProcessGuid, SourceProcessId, SourceImage, TargetProcessId, TargetImage, NewThreadId, StartAddress, StartModule, StartFunction-->
@@ -865,6 +870,7 @@
 			<Image condition="is">C:\Program Files (x86)\Microsoft Office\Office15\lync.exe</Image> <!-- Lync Adding registry values to network adapter.. facepalm -->
 			<Image condition="is">C:\Windows\SystemApps\Microsoft.Windows.Cortana_cw5n1h2txyewy\SearchUI.exe</Image>
 			<Image condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</Image>
+			<TargetObject condition="contains">Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\ExtensionsStore\</TargetObject> <!-- Edge Extensions Creating Reg entries on launch -->
 			<!--Misc-->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\MICROSOFT\WINDOWS NT\CURRENTVERSION\Schedule\TaskCache\Tree\Optimize Start Menu Cache Files-</TargetObject>
 			<TargetObject condition="begin with">HKLM\SOFTWARE\MICROSOFT\WINDOWS NT\CURRENTVERSION\Schedule\TaskCache\Tree\User_Feed_Synchronization-</TargetObject>
@@ -1012,6 +1018,7 @@
 			<PipeName condition="is">\wkssvc</PipeName>
 			<PipeName condition="contains">\TDLN-</PipeName>
 			<PipeName condition="is">\WiFiNetworkManagerTask</PipeName>
+			<PipeName condition="is">\MsFteWds</PipeName>
 			<!--SECTION: Webroot-->
 			<PipeName condition="is">\WRSVCPipe</PipeName>
 			<PipeName condition="is">\WRSynUM2</PipeName>
@@ -1049,6 +1056,7 @@
 			<Image condition="is">C:\Program Files\Synaptics\SynTP\SynTPEnh.exe</Image>
 			<Image condition="is">C:\Program Files\Synaptics\SynTP\SynTPEnhService.exe</Image>
 			<Image condition="is">C:\Program Files\Lenovo\HOTKEY\tphkload.exe</Image>
+			<Image condition="contains">C:\Program Files\Lenovo\</Image>
 			<Image condition="is">C:\Program Files (x86)\Common Files\VMware\SerialPortRedirection\Client\vmwsprrdpwks.exe</Image>
 			<Image condition="contains">Graylog-collector-sidecar.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\SmartGit\git\mingw32\libexec\git-core\git-remote-https.exe</Image>
@@ -1056,6 +1064,8 @@
 			<Image condition="is">C:\Program Files (x86)\SmartGit\git\mingw32\libexec\git-core\git.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\SmartGit\bin\smartgit.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\SmartGit\bin\smartgit.exe</Image>
+			<PipeName condition="contains">Anonymous Pipe</PipeName> <!-- NOTICE: Comment this out if you dont use Labtech, labtech nests processes and causes excessive noise -->
+			
 		</PipeEvent>
 
 	</EventFiltering>
