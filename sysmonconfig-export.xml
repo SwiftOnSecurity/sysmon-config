@@ -444,6 +444,9 @@
 			<Signed condition="is">false</Signed> <!-- Lets Only show Unsigned DLL's loaded-->
 			<SignatureStatus condition="is">Invalid</SignatureStatus> <!--Lets Show DLL's where their Signature's are Invalid-->
 			<SignatureStatus condition="is">Unavailable</SignatureStatus> <!--Lets Show DLL's where their Signature's are Invalid-->
+			<ImageLoaded condition="contains">C:\windows\system32\fxsst.dll </ImageLoaded> <!-- CIA Vault7 Leak: Fax DLL Injection -->
+			<ImageLoaded condition="contains">C:\Windows\System32\wbem\oci.dll</ImageLoaded> <!-- CIA Vault7 Leak: Distributed Transaction Coordinator DLL Injection -->
+		<ImageLoaded condition="contains">psapi.dll</ImageLoaded> <!-- CIA Vault7 Leak: RainMaker - Vulnerable VLC DLL's-->
 		<!--COMMENT:	Can cause high system load, disabled by default, important examples included below.-->
 			<!-- <ImageLoaded condition="contains">system.automation</ImageLoaded> -->
 			<!-- <ImageLoaded condition="image">wshom.ocx</ImageLoaded> -->
@@ -643,6 +646,13 @@
 			<TargetFilename condition="contains">.crl</TargetFilename>
 			<TargetFilename condition="contains">.sst</TargetFilename>
 			<TargetFilename condition="contains">.key</TargetFilename>
+			<!--SECTION: CIA Vault7 Leak -->
+			<TargetFilename condition="contains">.mht</TargetFilename> <!-- Vault7 CIA Leak: Possible malformed file will escape IE sandbox -->
+			<TargetFilename condition="contains">.cpl</TargetFilename> <!-- Vault7 CIA Leak: Control Panel Persistence -->
+			<TargetFilename condition="contains">.scr</TargetFilename> <!-- Vault7 CIA Leak: Screensaver Persistence -->
+			<TargetFilename condition="contains">.manifest</TargetFilename>
+			<TargetFilename condition="contains">.inf</TargetFilename> <!-- Vault7 CIA Leak: Sandworm: Uses INF File to bypass UAC on windows 7 -->
+			<TargetFilename condition="contains">HammerDrillStatus.dll</TargetFilename> <!-- Vault7 CIA Leak: HammerDrill DLL -->
 			<!--SECTION: Mimikatz-->
 			<!--Default-disable <TargetFileName condition="end with">.kirbi</TargetFileName> --> <!-- [ https://github.com/gentilkiwi/mimikatz/wiki/module-~-kerberos ] -->
 		</FileCreate>
@@ -1033,6 +1043,12 @@
 			<TargetFilename condition="contains">.crl</TargetFilename>
 			<TargetFilename condition="contains">.sst</TargetFilename>
 			<TargetFilename condition="contains">.key</TargetFilename>
+			<!--SECTION: CIA Vault7 Leak -->
+			<TargetFilename condition="contains">.mht</TargetFilename> <!-- Possible malformed file will escape IE sandbox -->
+			<TargetFilename condition="contains">.manifest</TargetFilename>
+			<TargetFilename condition="contains">.cpl</TargetFilename> <!-- Vault7 CIA Leak: Control Panel Persistence -->
+			<TargetFilename condition="contains">.scr</TargetFilename> <!-- Vault7 CIA Leak: Screensaver Persistence -->
+			<TargetFilename condition="contains">.inf</TargetFilename> <!-- Vault7 CIA Leak: Sandworm: Uses INF File to bypass UAC on windows 7 -->
 		</FileCreateStreamHash>
 
 	<!--SYSMON EVENT ID 16 : SYSMON CONFIGURATION CHANGE, THIS LINE IS INCLUDED FOR DOCUMENTATION PURPOSES ONLY-->
