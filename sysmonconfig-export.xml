@@ -446,7 +446,6 @@
 			<SignatureStatus condition="is">Unavailable</SignatureStatus> <!--Lets Show DLL's where their Signature's are Invalid-->
 			<ImageLoaded condition="contains">C:\windows\system32\fxsst.dll </ImageLoaded> <!-- CIA Vault7 Leak: Fax DLL Injection -->
 			<ImageLoaded condition="contains">C:\Windows\System32\wbem\oci.dll</ImageLoaded> <!-- CIA Vault7 Leak: Distributed Transaction Coordinator DLL Injection -->
-		<ImageLoaded condition="contains">psapi.dll</ImageLoaded> <!-- CIA Vault7 Leak: RainMaker - Vulnerable VLC DLL's-->
 		<!--COMMENT:	Can cause high system load, disabled by default, important examples included below.-->
 			<!-- <ImageLoaded condition="contains">system.automation</ImageLoaded> -->
 			<!-- <ImageLoaded condition="image">wshom.ocx</ImageLoaded> -->
