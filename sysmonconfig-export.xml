@@ -1006,6 +1006,7 @@
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\SystemCertificates\Disallowed</TargetObject>
 			<TargetObject condition="begin with">HKCU\SOFTWARE\Microsoft\SystemCertificates\Disallowed</TargetObject>
 			<Image condition="is">C:\Windows\SysWOW64\SearchProtocolHost.exe</Image>
+			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Control\Print\Monitors\Standard TCP/IP Port\Ports</TargetObject> <!-- Spooler Noise -->
 		</RegistryEvent>
 
 	<!--SYSMON EVENT ID 15 : ALTERNATE DATA STREAM CREATED-->
