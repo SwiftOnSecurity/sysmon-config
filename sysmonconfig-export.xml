@@ -1124,6 +1124,7 @@
 			<Image condition="is">C:\Program Files\Lenovo\ImController\Service\Lenovo.Modern.ImController.exe</Image>
 			<Image condition="is">C:\Program Files\Lenovo\HOTKEY\shtctky.exe</Image>
 			<Image condition="is">C:\Windows\System32\LPlatSvc.exe</Image>
+			<Image condition="is">C:\Program Files (x86)\Lenovo\System Update\TvsuCommandLauncher.exe</Image>
 			<!--SECTION: Labtech-->
 			<Image condition="is">C:\Windows\LTSvc\LTSVC.exe</Image>
 			<Image condition="is">C:\Program Files\OpenVPN\bin\openvpn-gui.exe</Image>
@@ -1141,7 +1142,15 @@
 			<Image condition="is">C:\Program Files (x86)\SmartGit\bin\smartgit.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\SmartGit\bin\smartgit.exe</Image>
 			<PipeName condition="contains">Anonymous Pipe</PipeName> <!-- NOTICE: Comment this out if you dont use Labtech, labtech nests processes and causes excessive noise -->
-			
+			<Image condition="is">C:\Program Files (x86)\Fortinet\FortiClient\FortiESNAC.exe</Image>
+			<Image condition="is">C:\Program Files (x86)\Fortinet\FortiClient\update_task.exe</Image>
+			<Image condition="is">C:\Program Files (x86)\Fortinet\FortiClient\FortiTray.exe</Image>
+			<Image condition="is">C:\Program Files (x86)\Fortinet\FortiClient\FCDBLog.exe</Image>
+			<Image condition="is">C:\Program Files (x86)\Enpass\Enpass.exe</Image>
+			<Image condition="is">C:\Program Files (x86)\VMware\VMware Horizon View Client\vmware-view.exe</Image>
+			<Image condition="is">C:\Program Files (x86)\VMware\ScannerRedirection\ftscanmgrhv.exe</Image>
+			<Image condition="is">C:\Program Files (x86)\VMware\Infrastructure\Virtual Infrastructure Client\Launcher\VpxClient.exe</Image>
+			<Image condition="is">C:\Program Files (x86)\Common Files\VMware\VMware Remote Console Plug-in 5.5\Internet Explorer\vmware-vmrc.exe</Image>
 		</PipeEvent>
 
 	</EventFiltering>
