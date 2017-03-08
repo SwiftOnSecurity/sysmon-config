@@ -243,6 +243,7 @@
 			<ParentImage condition="is">C:\Program Files (x86)\Enpass\Enpass.exe</ParentImage><!--Enpass Password Manager-->
 			<ParentImage condition="image">C:\Program Files (x86)\Dell\CommandUpdate\InvColPC.exe</ParentImage> <!--Dell:CommandUpdate: Detection process-->
 			<ParentCommandLine condition="contains">C:\Program Files (x86)\Fortinet\FortiClient\scheduler.exe</ParentCommandLine> <!--FortiClient Noise -->
+			<ParentCommandLine condition="contains">C:\Program Files (x86)\Fortinet\FortiClient\FCHelper64.exe</ParentCommandLine> <!--FortiClient Noise -->
 		</ProcessCreate>
 
 	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM-->
