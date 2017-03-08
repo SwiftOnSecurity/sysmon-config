@@ -54,6 +54,8 @@
 			<ParentImage condition="is">C:\Windows\system32\SearchIndexer.exe</ParentImage> <!--Microsoft:Windows:Search: Launches many uninteresting sub-processes-->
 			<CommandLine condition="begin with">C:\Windows\system32\DllHost.exe /Processid</CommandLine> <!--Microsoft:Windows-->
 			<ParentCommandLine condition="begin with">C:\Windows\system32\svchost.exe -k DcomLaunch</ParentCommandLine> <!--Microsoft:Windows-->
+			<ParentCommandLine condition="contains">\SystemRoot\System32\smss.exe 00000100 0000007c</ParentCommandLine> <!--Microsoft:Windows 10 Noise-->
+			<CommandLine condition="contains">\SystemRoot\System32\smss.exe 00000100 0000007c</CommandLine> <!--Microsoft:Windows 10 Noise-->
 			<Image condition="is">C:\Windows\Microsoft.Net\Framework64\v3.0\WPF\PresentationFontCache.exe</Image> <!--Microsoft:Windows: Font Cache Service-->
 			<ParentCommandLine condition="begin with">%%SystemRoot%%\system32\csrss.exe ObjectDirectory=\Windows</ParentCommandLine> <!--Microsoft:Windows:CommandShell: Triggered when programs use the command shell, but without attribution-->
 			<ParentImage condition="is">C:\Windows\system32\SearchIndexer.exe</ParentImage> <!--Microsoft:Windows:Search: Launches many uninteresting sub-processes-->
@@ -85,6 +87,7 @@
 			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k LocalServiceAndNoImpersonation</CommandLine><!--Microsoft:Windows Network Services-->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k NetworkService</CommandLine><!--Microsoft:Windows Network Services-->
 			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k netsvcs</CommandLine><!--Microsoft:Windows Network Services-->
+			<ParentCommandLine condition="is">C:\WINDOWS\System32\svchost.exe -k wsappx</ParentCommandLine> <!-- Windows 10 AppX Deployment Noise -->
 			<ParentCommandLine condition="is">C:\Windows\System32\svchost.exe -k netsvcs</ParentCommandLine><!--Microsoft:Windows Network Services: Spawns Consent.exe-->
 			<ParentCommandLine condition="is">C:\Windows\system32\svchost.exe -k LocalSystemNetworkRestricted</ParentCommandLine><!--Microsoft:Windows Network Services-->
 			<Image condition="is">C:\Windows\System32\powercfg.exe</Image><!--Microsoft:Power Management-->
@@ -239,6 +242,7 @@
 			<Image condition="is">C:\Program Files\OpenVPN\bin\openvpn-gui.exe</Image>
 			<ParentImage condition="is">C:\Program Files (x86)\Enpass\Enpass.exe</ParentImage><!--Enpass Password Manager-->
 			<ParentImage condition="image">C:\Program Files (x86)\Dell\CommandUpdate\InvColPC.exe</ParentImage> <!--Dell:CommandUpdate: Detection process-->
+			<ParentCommandLine condition="contains">C:\Program Files (x86)\Fortinet\FortiClient\scheduler.exe</ParentCommandLine> <!--FortiClient Noise -->
 		</ProcessCreate>
 
 	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM-->
@@ -544,6 +548,7 @@
 			<TargetImage condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</TargetImage>
 			<TargetImage condition="is">C:\Windows\Sysmon.exe</TargetImage>
 			<CallTrace condition="excludes">UNKNOWN</CallTrace> <!-- ShellCode Spawned from Office Macros: Credit: @JohnLaTwC -->
+			<SourceImage condition="contains">C:\Program Files (x86)\ScreenConnect Client</SourceImage> <!-- ScreenConnect Querying lsass/winlogon SPAM -->
 		</ProcessAccess>
 
 	<!--SYSMON EVENT ID 11 : FILE CREATED -->
