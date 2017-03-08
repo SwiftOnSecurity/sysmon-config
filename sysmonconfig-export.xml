@@ -697,6 +697,19 @@
 			<Image condition="is">C:\Program Files (x86)\Dell\CommandUpdate\InvColPC.exe</Image>
 			<!--SECTION: Intel-->
 			<Image condition="is">C:\Windows\system32\igfxCUIService.exe</Image> <!--Intel: Drops bat and other files in \Windows in normal operation-->
+			<!--SECTION: Chrome Noise-->
+			<TargetFilename condition="end with">Google\Chrome\User Data\Safe Browsing\UrlUws.store_new</TargetFilename>
+			<TargetFilename condition="end with">Google\Chrome\User Data\Safe Browsing\UrlMalBin.store_new</TargetFilename>
+			<TargetFilename condition="end with">Google\Chrome\User Data\Safe Browsing\UrlMalware.store_new</TargetFilename>
+			<TargetFilename condition="end with">Google\Chrome\User Data\Safe Browsing\UrlSoceng.store_new</TargetFilename>
+			<TargetFilename condition="end with">Google\Chrome\User Data\Safe Browsing\ChromeExtMalware.store_new</TargetFilename>
+			<TargetFilename condition="end with">Google\Chrome\User Data\Safe Browsing\ChromeFilenameClientIncident.store_new</TargetFilename>
+			<TargetFilename condition="end with">Google\Chrome\User Data\Safe Browsing\ChromeUrlClientIncident.store_new</TargetFilename>
+			<TargetFilename condition="end with">Google\Chrome\User Data\Safe Browsing\IpMalware.store_new</TargetFilename>
+			<TargetFilename condition="end with">Google\Chrome\User Data\Safe Browsing\UrlSubresourceFilter.store_new</TargetFilename>
+			<TargetFilename condition="end with">Google\Chrome\User Data\Safe Browsing\UrlCsdWhitelist.store_new</TargetFilename>
+			<TargetFilename condition="end with">Google\Chrome\User Data\Safe Browsing\UrlCsdDownloadWhitelist.store_new</TargetFilename>
+			<TargetFilename condition="end with">Google\Chrome\User Data\Safe Browsing\CertCsdDownloadWhitelist.store_new</TargetFilename>
 		</FileCreate>
 
 	<!--SYSMON EVENT ID 12 & 13 & 14 : REGISTRY MODIFICATION-->
