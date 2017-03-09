@@ -87,6 +87,7 @@
 			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k LocalServiceAndNoImpersonation</CommandLine><!--Microsoft:Windows Network Services-->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k NetworkService</CommandLine><!--Microsoft:Windows Network Services-->
 			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k netsvcs</CommandLine><!--Microsoft:Windows Network Services-->
+			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k GPSvcGroup</CommandLine><!--Microsoft:Windows Network Services-->
 			<ParentCommandLine condition="is">C:\WINDOWS\System32\svchost.exe -k wsappx</ParentCommandLine> <!-- Windows 10 AppX Deployment Noise -->
 			<ParentCommandLine condition="is">C:\Windows\System32\svchost.exe -k netsvcs</ParentCommandLine><!--Microsoft:Windows Network Services: Spawns Consent.exe-->
 			<ParentCommandLine condition="is">C:\Windows\system32\svchost.exe -k LocalSystemNetworkRestricted</ParentCommandLine><!--Microsoft:Windows Network Services-->
@@ -176,6 +177,10 @@
 			<ParentImage condition="contains">C:\Program Files\Lenovo\Lenovo Ultraslim Plus Wireless Keyboard &amp; Mouse\Pelico.exe</ParentImage> <!--Lenovo: Mouse & Keyboard Tools-->
 			<ParentImage condition="contains">C:\Program Files\Lenovo\Lenovo Ultraslim Plus Wireless Keyboard &amp; Mouse\LeDaemon.exe</ParentImage> <!--Lenovo: Mouse & Keyboard Tools-->
 			<ParentImage condition="contains">C:\Program Files\Lenovo\Lenovo Mouse Suite\ICO.exe</ParentImage> <!--Lenovo: Mouse & Keyboard Tools-->
+			<ParentImage condition="contains">C:\Program Files\Lenovo\Lenovo Mouse Suite\Service\PelElvDm.exe</ParentImage>
+			<ParentImage condition="contains">C:\Program Files (x86)\Lenovo\System Update\tvsuShim.exe</ParentImage>
+			<ParentImage condition="contains">C:\Program Files (x86)\Lenovo\System Update\tvsu.exe</ParentImage>
+			<Image condition="contains">C:\Program Files (x86)\Lenovo\System Update\TvsuCommandLauncher.exe</Image>
 			<!--SECTION: MSI: Micro-Star International Computers-->
 			<ParentImage condition="is">C:\Program Files (x86)\SCM\SCM.exe</ParentImage><!--MSI: Hotkey & Power Management-->
 			<Image condition="is">C:\Program Files (x86)\SCM\SCM_Notice.exe</Image><!--MSI: Hotkey & Power Management-->
@@ -240,10 +245,13 @@
 			<ParentImage condition="is">C:\Program Files (x86)\SyncedTool\bin\agent_service.exe</ParentImage><!--eFolder Synced Tool-->
 			<Image condition="is">C:\Program Files (x86)\Notepad++\notepad++.exe</Image><!-- Notepad++ -->
 			<Image condition="is">C:\Program Files\OpenVPN\bin\openvpn-gui.exe</Image>
-			<ParentImage condition="is">C:\Program Files (x86)\Enpass\Enpass.exe</ParentImage><!--Enpass Password Manager-->
+			<ParentImage condition="is">C:\Program Files (x86)\Enpass\Enpass.exe</ParentImage> <!--Enpass Password Manager-->
+			<Image condition="contains">C:\Program Files (x86)\Enpass\Enpass.exe</Image> <!--Enpass Password Manager-->
 			<ParentImage condition="image">C:\Program Files (x86)\Dell\CommandUpdate\InvColPC.exe</ParentImage> <!--Dell:CommandUpdate: Detection process-->
-			<ParentCommandLine condition="contains">C:\Program Files (x86)\Fortinet\FortiClient\scheduler.exe</ParentCommandLine> <!--FortiClient Noise -->
-			<ParentCommandLine condition="contains">C:\Program Files (x86)\Fortinet\FortiClient\FCHelper64.exe</ParentCommandLine> <!--FortiClient Noise -->
+			<ParentImage condition="contains">C:\Program Files (x86)\Fortinet\FortiClient\scheduler.exe</ParentImage> <!--FortiClient Noise -->
+			<ParentImage condition="contains">C:\Program Files (x86)\Fortinet\FortiClient\FCHelper64.exe</ParentImage> <!--FortiClient Noise -->
+			<Image condition="is">C:\Program Files (x86)\Fortinet\FortiClient\update_task.exe</Image> <!-- Forticlient Updater -->
+			<Image condition="contains">C:\Program Files (x86)\SyncedTool\bin\agent_gui.exe</Image>
 		</ProcessCreate>
 
 	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM-->
