@@ -110,6 +110,11 @@
 			<ParentImage condition="end with">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeClickToRun.exe</ParentImage> <!--Microsoft:Office: Background process-->
 			<Image condition="is">C:\Program Files\Common Files\Microsoft Shared\OfficeSoftwareProtectionPlatform\OSPPSVC.EXE</Image> <!--Microsoft:Office: Background process-->
 			<Image condition="is">C:\Program Files (x86)\Microsoft Office\Office16\MSOSYNC.EXE</Image> <!--Microsoft:Office: Background process-->
+			<!--SECTION: Microsoft Exchange-->
+			<ParentImage condition="is">C:\Program Files\Microsoft\Exchange Server\V15\Bin\Microsoft.Exchange.Diagnostics.Service.exe</ParentImage>
+			<ParentImage condition="is">C:\Program Files\Microsoft\Exchange Server\V15\Bin\MSExchangeHMWorker.exe</ParentImage>
+			<!--SECTION: Microsoft Misc-->
+			<Image condition="is">C:\Windows\System32\ddpcli.exe</Image> <!--Scheduled dedupe jobs on server 2012-->
 			<!--SECTION: Google-->
 			<CommandLine condition="begin with">"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --type=</CommandLine> <!--Google:Chrome: massive command-line arguments-->
 			<CommandLine condition="begin with">"C:\Program Files\Google\Chrome\Application\chrome.exe" --type=</CommandLine> <!--Google:Chrome: massive command-line arguments-->
