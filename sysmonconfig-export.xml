@@ -466,6 +466,14 @@
 			<SignatureStatus condition="is">Unavailable</SignatureStatus> <!--Lets Show DLL's where their Signature's are Invalid-->
 			<ImageLoaded condition="contains">C:\windows\system32\fxsst.dll </ImageLoaded> <!-- CIA Vault7 Leak: Fax DLL Injection -->
 			<ImageLoaded condition="contains">C:\Windows\System32\wbem\oci.dll</ImageLoaded> <!-- CIA Vault7 Leak: Distributed Transaction Coordinator DLL Injection -->
+			<!-- Mimikatz Detection -->
+			<ImageLoaded condition="is">C:\Windows\System32\WinSCard.dll</ImageLoaded> <!--MimiKatz Detection Credit: @Cyb3rWard0g: https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html -->
+			<ImageLoaded condition="is">C:\Windows\System32\cryptdll.dll</ImageLoaded> <!--MimiKatz Detection Credit: @Cyb3rWard0g: https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html -->
+			<ImageLoaded condition="is">C:\Windows\System32\hid.dll</ImageLoaded> <!--MimiKatz Detection Credit: @Cyb3rWard0g: https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html -->
+			<ImageLoaded condition="is">C:\Windows\System32\samlib.dll</ImageLoaded> <!--MimiKatz Detection Credit: @Cyb3rWard0g: https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html -->
+			<ImageLoaded condition="is">C:\Windows\System32\vaultcli.dll</ImageLoaded> <!--MimiKatz Detection Credit: @Cyb3rWard0g: https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html -->
+			<ImageLoaded condition="is">WMINet_Utils.dll</ImageLoaded> <!--MimiKatz Detection Credit: @Cyb3rWard0g: https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html -->
+			<!-- END: Mimikatz Detection -->
 		<!--COMMENT:	Can cause high system load, disabled by default, important examples included below.-->
 			<!-- <ImageLoaded condition="contains">system.automation</ImageLoaded> -->
 			<!-- <ImageLoaded condition="image">wshom.ocx</ImageLoaded> -->
@@ -825,6 +833,7 @@
 			<TargetObject condition="contains">\Internet Explorer\Toolbar\</TargetObject> <!--Microsoft:InternetExplorer: Machine and user-->
 			<TargetObject condition="contains">\Internet Explorer\Extensions\</TargetObject> <!--Microsoft:InternetExplorer: Machine and user-->
 			<TargetObject condition="contains">\Browser Helper Objects\</TargetObject> <!--Microsoft:InternetExplorer: Machine and user [ https://msdn.microsoft.com/en-us/library/bb250436(v=vs.85).aspx ] -->
+			<TargetObject condition="contains">\ProxyBypass</TargetObject> <!-- Detects Malware Bypassing Proxy Settings Credit: @SwiftOnSecurity -->
 			<!--Magic registry keys-->
 			<TargetObject condition="contains">{AB8902B4-09CA-4bb6-B78D-A8F59079A8D5}\</TargetObject> <!--Microsoft:Windows: Thumbnail cache autostart [ http://blog.trendmicro.com/trendlabs-security-intelligence/poweliks-levels-up-with-new-autostart-mechanism/ ] -->
 			<!--Infection artifacts-->
