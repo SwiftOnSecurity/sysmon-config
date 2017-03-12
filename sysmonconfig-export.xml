@@ -388,6 +388,8 @@
 			<DestinationPort condition="is">53</DestinationPort> <!--Log DNS for Graylog threat discovery-->
 		</NetworkConnect>
 		<NetworkConnect onmatch="exclude">
+			<!--SECTION: Microsoft -->
+			<Image condition="is">C:\Windows\System32\dns.exe</Image> <!-- Exclude Microsoft DNS Server DNS requests -->
 			<DestinationIsIpv6 condition="is">true </DestinationIsIpv6> <!-- IPv6 Exclusion: Re-Enable if you use ipv6 -->
 			<Image condition="image">OneDrive.exe</Image> <!--Microsoft:OneDrive-->
 			<Image condition="image">Spotify.exe</Image> <!--Spotify-->
