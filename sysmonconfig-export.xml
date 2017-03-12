@@ -238,6 +238,9 @@
 			<CommandLine condition="contains">C:\Windows\system32\net1 Share</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
 			<ParentCommandLine condition="contains">Get-ItemProperty HKLM:\software\microsoft\windows\currentversion\uninstall\* | select-object displayname | format-table -autosize" | find /i "vss writer" | find /i "sql server""</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<ParentImage condition="is">C:\Program Files (x86)\LabTech Client\LTClient.exe</ParentImage> <!--Labtech Client-->
+			<ParentCommandLine condition="contains">C:\Windows\LTSvc\LTSvcMon.exe -sLTService</ParentCommandLine>
+			<ParentImage condition="is">C:\Windows\LTSvc\LTSvcMon.exe</ParentImage>
+			<Image condition="is">C:\Windows\LTSvc\LTTray.exe</Image>
 			<!--END: Labtech-->
 			<Image condition="end with">ScreenConnect.WindowsClient.exe</Image><!--Screenconnect Remote Desktop Client-->
 			<Image condition="begin with">C:\Program Files (x86)\SmartGit</Image> <!--SmartGit-->
