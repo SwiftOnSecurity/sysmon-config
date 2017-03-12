@@ -29,7 +29,7 @@
 -->
 
 <Sysmon schemaversion="3.30">
-	<HashAlgorithms>md5,sha256</HashAlgorithms>
+	<HashAlgorithms>sha256,imphash</HashAlgorithms>
 	<EventFiltering>
 
 	<!--SYSMON EVENT ID 1 : PROCESS CREATION-->
@@ -512,6 +512,7 @@
 			<Signature condition="contains">Fortinet</Signature> -->
 		</ImageLoad>
 		<ImageLoad onmatch="exclude">
+			<Image condition="is">C:\Windows\System32\backgroundTaskHost.exe</Image>
 			<Image condition="is">C:\Windows\System32\mmc.exe</Image>
 			<ImageLoaded condition="contains">C:\Program Files (x86)\SmartGit</ImageLoaded> <!--SmartGit-->
 			<ImageLoaded condition="contains">syntevo\SmartGit</ImageLoaded> <!--SmartGit-->
@@ -553,30 +554,43 @@
 
 	<!--SYSMON EVENT ID 10 : INTER-PROCESS ACCESS-->
 		<!--DATA: UtcTime, SourceProcessGuid, SourceProcessId, SourceThreadId, SourceImage, TargetProcessGuid, TargetProcessId, TargetImage, GrantedAccess, CallTrace-->
-		<ProcessAccess onmatch="include">
+		<!--<ProcessAccess onmatch="include"> -->
 		<!--COMMENT:	Monitor for processes accessing other process' memory. This can be valuable, but can cause massive event glut.
 				Disabled by default since including even one entry here activates this component. Reward/performance decision.
-				Encourage you to experiment with this feature yourself.-->
-			<SourceImage condition="image">winword.exe</SourceImage> <!-- Hancitor process hollowing -->
-			<SourceImage condition="image">excel.exe</SourceImage> <!-- Hancitor process hollowing -->
-			<SourceImage condition="image">mspub.exe</SourceImage> <!-- Hancitor process hollowing -->
-			<SourceImage condition="image">msbuild.exe</SourceImage> <!-- Hancitor process hollowing -->
-			<SourceImage condition="image">powerpnt.exe</SourceImage> <!-- Hancitor process hollowing -->
-			<SourceImage condition="contains">powershell.exe</SourceImage>
-			<CallTrace condition="contains">VBE7.dll</CallTrace> <!-- ShellCode Spawned from Office Macros Credit: @JohnLaTwC -->
-			<CallTrace condition="contains">VBE6.dll</CallTrace> <!-- ShellCode Spawned from Office Macros Credit: @JohnLaTwC -->
+				Encourage you to experiment with this feature yourself.
+				Uses 4mbs+ IO -->
+			<!-- Hancitor process hollowing -->
+			<!-- <SourceImage condition="image">winword.exe</SourceImage> -->
+			<!-- <SourceImage condition="image">excel.exe</SourceImage> -->
+			<!-- <SourceImage condition="image">mspub.exe</SourceImage> -->
+			<!-- <SourceImage condition="image">msbuild.exe</SourceImage> -->
+			<!-- <SourceImage condition="image">powerpnt.exe</SourceImage> -->
+			<!-- <SourceImage condition="contains">powershell.exe</SourceImage> -->
+			<!-- ShellCode Spawned from Office Macros Credit: @JohnLaTwC -->
+			<!-- <CallTrace condition="contains">VBE7.dll</CallTrace> -->
+			<!-- <CallTrace condition="contains">VBE6.dll</CallTrace> -->
  			<!--Include mimikatz-specific events.-->
-			<TargetImage condition="contains">C:\Windows\System32\lsass.exe</TargetImage> <!--Mimikatz @Antonlovesdnb -->
-			<TargetImage condition="contains">C:\Windows\System32\winlogon.exe</TargetImage> <!--Mimikatz @Antonlovesdnb -->
-		</ProcessAccess>
-		<ProcessAccess onmatch="exclude">
-			<SourceImage condition="is">C:\Program Files (x86)\Webroot\WRSA.exe</SourceImage>
-			<SourceImage condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</SourceImage>
-			<TargetImage condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</TargetImage>
-			<TargetImage condition="is">C:\Windows\Sysmon.exe</TargetImage>
-			<CallTrace condition="excludes">UNKNOWN</CallTrace> <!-- ShellCode Spawned from Office Macros: Credit: @JohnLaTwC -->
-			<SourceImage condition="contains">C:\Program Files (x86)\ScreenConnect Client</SourceImage> <!-- ScreenConnect Querying lsass/winlogon SPAM -->
-		</ProcessAccess>
+			<!-- <TargetImage condition="contains">C:\Windows\System32\lsass.exe</TargetImage> -->
+			<!-- <TargetImage condition="contains">C:\Windows\System32\winlogon.exe</TargetImage> -->
+			<!--MimiKatz Detection Credit: @Cyb3rWard0g: https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html -->
+			<!-- <CallTrace condition="contains">WinSCard.dll</CallTrace>  -->
+			<!-- <CallTrace condition="contains">cryptdll.dll</CallTrace> -->
+			<!-- <CallTrace condition="contains">hid.dll</CallTrace> -->
+			<!-- <CallTrace condition="contains">samlib.dll</CallTrace> -->
+			<!-- <CallTrace condition="contains">vaultcli.dll</CallTrace> -->
+			<!-- <CallTrace condition="contains">WMINet_Utils.dll</CallTrace> -->
+			<!-- END: Mimikatz Detection -->		
+		<!--</ProcessAccess> -->
+		<!--<ProcessAccess onmatch="exclude"> -->
+			<!-- <SourceImage condition="is">C:\Program Files (x86)\Webroot\WRSA.exe</SourceImage> -->
+			<!-- <SourceImage condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</SourceImage> -->
+			<!-- <TargetImage condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</TargetImage> -->
+			<!-- <TargetImage condition="is">C:\Windows\Sysmon.exe</TargetImage> -->
+			<!-- ShellCode Spawned from Office Macros: Credit: @JohnLaTwC -->
+			<!-- <CallTrace condition="excludes">UNKNOWN</CallTrace> -->
+			<!-- ScreenConnect Querying lsass/winlogon SPAM -->
+			<!-- <SourceImage condition="contains">C:\Program Files (x86)\ScreenConnect Client</SourceImage> -->
+		<!--</ProcessAccess> -->
 
 	<!--SYSMON EVENT ID 11 : FILE CREATED -->
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime-->
