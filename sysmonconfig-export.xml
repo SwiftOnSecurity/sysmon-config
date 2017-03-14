@@ -1,7 +1,7 @@
 <!--
   sysmon-config | A sysmon configuration focused on default high-quality event tracing and easy customization by the community
-  Master version:	50 | Date: 2017-03-02
-  Master author:	@SwiftOnSecurity, with contributors also credited in-line or on Git.
+  Master version:	51 | Date: 2017-03-14
+  Master author:	@SwiftOnSecurity, other contributors also credited in-line or on Git.
   Master project:	https://github.com/SwiftOnSecurity/sysmon-config
   Master license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
 
@@ -186,18 +186,18 @@
 			<Image condition="image">sc.exe</Image> <!--Microsoft:Windows: Remotely change Windows service settings from command line | Credit @ion-storm -->
 			<Image condition="image">wmic.exe</Image> <!--Microsoft:WindowsManagementInstrumentation: Credit @Cyb3rOps [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
 			<Image condition="image">wscript.exe</Image> <!--Microsoft:WindowsScriptingHost: | Credit @arekfurt -->
-			<Image condition="image">powershell.exe</Image> <!--Microsoft:WindowsPowerShell: | Credit @Cyb3rOps -->
+			<Image condition="image">tor.exe</Image> <!--Tor [ https://www.hybrid-analysis.com/sample/800bf028a23440134fc834efc5c1e02cc70f05b2e800bbc285d7c92a4b126b1c?environmentId=100 ] -->
 			<!--Ports: Suspicious-->
 			<DestinationPort condition="is">22</DestinationPort> <!--SSH protocol-->
 			<DestinationPort condition="is">23</DestinationPort> <!--Telnet protocol-->
-			<DestinationPort condition="is">25</DestinationPort> <!--SMTP email-->
+			<DestinationPort condition="is">25</DestinationPort> <!--SMTP mail protocol-->
 			<DestinationPort condition="is">3389</DestinationPort> <!--Microsoft:Windows:RDP-->
 			<DestinationPort condition="is">5800</DestinationPort> <!--VNC protocol-->
 			<DestinationPort condition="is">5900</DestinationPort> <!--VNC protocol-->
 			<!--Ports: Proxy-->
 			<DestinationPort condition="is">1080</DestinationPort> <!--Socks proxy port | Credit @ion-storm-->
-			<DestinationPort condition="is">8080</DestinationPort> <!--Socks proxy port | Credit @ion-storm-->
 			<DestinationPort condition="is">3128</DestinationPort> <!--Socks proyx port | Credit @ion-storm-->
+			<DestinationPort condition="is">8080</DestinationPort> <!--Socks proxy port | Credit @ion-storm-->
 			<!--Ports: Tor-->
 			<DestinationPort condition="is">1723</DestinationPort> <!--Tor protocol | Credit @ion-storm-->
 			<DestinationPort condition="is">4500</DestinationPort> <!--Tor protocol | Credit @ion-storm-->
@@ -270,10 +270,7 @@
 	<!--SYSMON EVENT ID 10 : INTER-PROCESS ACCESS-->
 		<!--DATA: UtcTime, SourceProcessGuid, SourceProcessId, SourceThreadId, SourceImage, TargetProcessGuid, TargetProcessId, TargetImage, GrantedAccess, CallTrace-->
 		<ProcessAccess onmatch="include">
-		<!--COMMENT:	Monitor for processes accessing other process' memory. This can be valuable, but can cause massive event glut.
-				Disabled by default since including even one entry here activates this component. Reward/performance decision.
-				Encourage you to experiment with this feature yourself.-->
-		<!--FUTURE WORK:	Include mimikatz-specific events.-->
+		<!--COMMENT:	Monitor for processes accessing other process' memory. This can be valuable, but can cause a huge number of events.-->
 		</ProcessAccess>
 
 	<!--SYSMON EVENT ID 11 : FILE CREATED-->
@@ -333,7 +330,6 @@
 		<!--NOTE:	"contains" works by finding the first letter, then matching the second, etc, so the first letters should be as low-occurance as possible.-->
 		<!--NOTE:	Windows writes hundreds or thousands of registry keys a minute, so just because you're not changing stuff, doesn't mean these rules aren't being run.-->
 		<!--NOTE:	You don't have to spend a lot of time worrying about this, CPUs are fast, but it's something to consider. Every rule and condition type has a cost.-->
-
 		<!--DATA: EventType, UtcTime, ProcessGuid, ProcessId, Image, TargetObject, Details, NewName-->
 		<!--TECHNICAL:	Possible prefixes are HKLM, HKCR, and HKEY_USERS-->
 		<!--CRITICAL:	Schema version 3.30 and higher use HKLM and HKEY_USERS and HKCR and CurrentControlSet instead of REGISTRY\MACHINE\ and \REGISTRY\USER\ and ControlSet001-->
@@ -417,6 +413,7 @@
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Security Center\UpdatesDisableNotify</TargetObject>
 			<!--Windows Defender tampering | Credit @ion-storm -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\DisableAntiSpyware</TargetObject>
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\DisableAntiVirus</TargetObject>
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection\DisableBehaviorMonitoring</TargetObject>
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection\DisableOnAccessProtection</TargetObject>
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection\DisableScanOnRealtimeEnable</TargetObject>
