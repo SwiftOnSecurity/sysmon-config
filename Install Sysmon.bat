@@ -13,7 +13,7 @@ if "%hour:~1,1%"=="" set hour=0%hour%
 if "%minute:~1,1%"=="" set minute=0%minute%
 set tasktime=%hour%:%minute%
 mkdir C:\ProgramData\sysmon
-cd C:\ProgramData\sysmon\
+pushd "C:\ProgramData\sysmon\"
 echo [+] Downloading Sysmon...
 @powershell (new-object System.Net.WebClient).DownloadFile('https://live.sysinternals.com/Sysmon64.exe','C:\ProgramData\sysmon\sysmon64.exe')"
 echo [+] Downloading Sysmon config...
