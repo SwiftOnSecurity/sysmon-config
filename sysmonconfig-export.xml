@@ -393,6 +393,7 @@
 		<NetworkConnect onmatch="exclude">
 			<!--SECTION: Microsoft -->
 			<Image condition="is">C:\Windows\System32\dns.exe</Image> <!-- Exclude Microsoft DNS Server DNS requests -->
+			<Image condition="is">C:\Program Files\Microsoft\Exchange Server\V15\Bin\MSExchangeHMWorker.exe</Image> <!-- Exclude Microsoft Exchange connecting to locahost -->
 			<DestinationIsIpv6 condition="is">true </DestinationIsIpv6> <!-- IPv6 Exclusion: Re-Enable if you use ipv6 -->
 			<Image condition="image">OneDrive.exe</Image> <!--Microsoft:OneDrive-->
 			<Image condition="image">Spotify.exe</Image> <!--Spotify-->
@@ -1036,18 +1037,22 @@
 			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Control\Class\{4d36e96c-e325-11ce-bfc1-08002be10318}\</TargetObject><!-- HD Audio Noise-->
 			<Image condition="is">C:\Program Files (x86)\Common Files\VMware\USB\vmware-usbarbitrator64.exe</Image> <!--VMWare: Horizon View Client Noise-->
 			<Image condition="is">C:\Program Files (x86)\PGP Corporation\PGP Desktop\PGPtray.exe</Image> <!--PGP: Noise-->
-			<!--SECTION: 3rd party-->
+			<!--SECTION: Labtech-->
+			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Services\LTSvcMon\Start</TargetObject>
+			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Services\LTService\Start</TargetObject>
+			<!--SECTION: ShadowProtect-->
+			<TargetObject condition="begin with">HKCR\Wow6432Node\CLSID\{F2C2787D-95AB-40D4-942D-298F5F757874}\InprocServer32</TargetObject>
 			<Image condition="is">C:\Program Files\WIDCOMM\Bluetooth Software\btwdins.exe</Image> <!--Constantly writes to HKLM-->
 			<!-- Search Protocol Host & Sysmon spam the SystemCertificates keystores, adding exclusions below -->
-			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\SystemCertificates\Disallowed</TargetObject>
-			<TargetObject condition="begin with">HKCU\Software\Policies\Microsoft\SystemCertificates\Disallowed</TargetObject>
-			<TargetObject condition="begin with">HKLM\Software\Microsoft\Cryptography\Services\ServiceName\SystemCertificates\Disallowed</TargetObject>
-			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\EnterpriseCertificates\Disallowed</TargetObject>
-			<TargetObject condition="begin with">HKCU\SOFTWARE\Microsoft\EnterpriseCertificates\Disallowed</TargetObject>
-			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\SystemCertificates\Disallowed</TargetObject>
-			<TargetObject condition="begin with">HKCU\SOFTWARE\Microsoft\SystemCertificates\Disallowed</TargetObject>
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\SystemCertificates\</TargetObject>
+			<TargetObject condition="begin with">HKCU\Software\Policies\Microsoft\SystemCertificates\</TargetObject>
+			<TargetObject condition="begin with">HKLM\Software\Microsoft\Cryptography\Services\ServiceName\SystemCertificates\</TargetObject>
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\EnterpriseCertificates\</TargetObject>
+			<TargetObject condition="begin with">HKCU\SOFTWARE\Microsoft\EnterpriseCertificates\</TargetObject>
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\SystemCertificates\</TargetObject>
 			<Image condition="is">C:\Windows\SysWOW64\SearchProtocolHost.exe</Image>
 			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Control\Print\Monitors\Standard TCP/IP Port\Ports</TargetObject> <!-- Spooler Noise -->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\system\legalnotice</TargetObject> <!-- Group Policy spam -->
 		</RegistryEvent>
 
 	<!--SYSMON EVENT ID 15 : ALTERNATE DATA STREAM CREATED-->
@@ -1122,6 +1127,40 @@
 				<!--ADDITIONAL REFERENCE: [ https://www.cobaltstrike.com/help-smb-beacon ] -->
 				<!--ADDITIONAL REFERENCE: [ https://blog.cobaltstrike.com/2015/10/07/named-pipe-pivoting/ ] -->
 			<!--SECTION: Microsoft-->
+			<PipeName condition="is">\lsass</PipeName>
+			<PipeName condition="is">\SQLLocal\RTCLOCAL</PipeName>
+			<!--SECTION: Microsoft IIS -->
+			<PipeName condition="begin with">\M.E.C.Core.WinRMDataCommunicator.NamedPipe.</PipeName>
+			<Image condition="is">c:\windows\system32\inetsrv\w3wp.exe</Image>
+			<Image condition="is">C:\Windows\syswow64\snmp.exe</Image>
+			<Image condition="is">C:\Program Files\Common Files\Microsoft Shared\Web Server Extensions\15\BIN\OWSTIMER.EXE</Image>
+			<!--SECTION: Microsoft Exchange Server -->
+			<Image condition="is">C:\Program Files\Microsoft\Exchange Server\V15\Bin\Search\Ceres\ParserServer\ParserServer.exe</Image>
+			<Image condition="is">C:\Program Files\Microsoft\Exchange Server\V15\bin\Microsoft.Exchange.RpcClientAccess.Service.exe</Image>
+			<Image condition="is">C:\Program Files\Microsoft\Exchange Server\V15\bin\Microsoft.Exchange.Store.Service.exe</Image>
+			<Image condition="is">C:\Program Files\Microsoft\Exchange Server\V15\bin\Microsoft.Exchange.Store.Worker.exe</Image>
+			<Image condition="is">C:\Program Files\Microsoft\Exchange Server\V15\Bin\Search\Ceres\Runtime\1.0\ResourceProfile\contentengine\NodeRunner.exe</Image>
+			<!--SECTION: Microsoft DNS Server -->
+			<Image condition="is">C:\Windows\system32\dns.exe</Image>
+			<!--SECTION: Microsoft SQL Server -->
+			<Image condition="is">C:\Program Files\Microsoft SQL Server\90\Shared\sqlwriter.exe</Image>
+			<!--SECTION: Microsoft Skype For Business Server -->
+			<Image condition="is">C:\Program Files\Skype for Business Server 2015\Server\Core\RtcHost.exee</Image>
+			<Image condition="is">C:\Program Files\Skype for Business Server 2015\OCSMCU\AV Conferencing\AVMCUSvc.exe</Image>
+			<Image condition="is">C:\Program Files\Skype for Business Server 2015\Server\Health Agent\HealthAgent.exe</Image>
+			<Image condition="is">C:\Program Files\Skype for Business Server 2015\Server\Core\LysSvc.exe</Image>
+			<Image condition="is">C:\Program Files\Skype for Business Server 2015\File Transfer Agent\FileTransferAgent.exe</Image>
+			<Image condition="is">C:\Program Files\Skype for Business Server 2015\Web Conferencing\DataMCUSvc.exe</Image>
+			<Image condition="is">C:\Program Files\Skype for Business Server 2015\Application Host\OcsAppServerHost.exe</Image>
+			<Image condition="is">C:\Program Files\Skype for Business Server 2015\Server\Core\ABServer.exe</Image>
+			<Image condition="is">C:\Program Files\Skype for Business Server 2015\Master Replicator Agent\MasterReplicatorAgent.exe</Image>
+			<Image condition="is">C:\Program Files\Skype for Business Server 2015\OCSMCU\IM Conferencing\IMMCUSvc.exe</Image>
+			<Image condition="is">C:\Program Files\Common Files\Skype for Business Server 2015\ClsAgent\ClsAgent.exe</Image>
+			<Image condition="is">C:\Program Files\Skype for Business Server 2015\Server\Core\ReplicationApp.exe</Image>
+			<Image condition="is">C:\Program Files\Skype for Business Server 2015\OCSMCU\Application Sharing\ASMCUSvc.exe</Image>
+			<Image condition="is">C:\Program Files\Skype for Business Server 2015\Server\Replica Replicator Agent\ReplicaReplicatorAgent.exe</Image>
+			<!--SECTION: Microsoft DFS Replication -->
+			<Image condition="is">C:\Windows\system32\DFSRs.exee</Image>
 			<Image condition="begin with">C:\Windows\SystemApps\Microsoft.Windows</Image>
 			<Image condition="is">C:\Windows\system32\SearchProtocolHost.exe</Image>
 			<Image condition="is">C:\Windows\Microsoft.NET\Framework\v4.0.30319\ngen.exe</Image>
@@ -1182,6 +1221,8 @@
 			<Image condition="is">C:\Program Files (x86)\Lenovo\System Update\TvsuCommandLauncher.exe</Image>
 			<!--SECTION: Labtech-->
 			<Image condition="is">C:\Windows\LTSvc\LTSVC.exe</Image>
+			<Image condition="contains">ScreenConnect.WindowsClient.exe</Image>
+			<Image condition="contains">ScreenConnect.ClientService.exe</Image>
 			<Image condition="is">C:\Program Files\OpenVPN\bin\openvpn-gui.exe</Image>
 			<Image condition="is">C:\Program Files\OpenVPN\bin\openvpn.exe</Image>
 			<Image condition="is">C:\Program Files\OpenVPN\bin\openvpnserv.exe</Image>
