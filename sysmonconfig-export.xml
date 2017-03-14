@@ -297,6 +297,7 @@
 			<Image condition="image">C:\Windows\system32\svchost.exe</Image> <!--Windows Services hidden by Svchost.exe, BITS File Transfer program-->
 			<Image condition="image">mshta.exe</Image>
 			<Image condition="image">python.exe</Image>
+			<Image condition="image">powershell.exe</Image> <!--Microsoft:WindowsPowerShell: | Credit @Cyb3rOps -->
 			<Image condition="contains">psexe</Image><!--Detect PSExec, PSexec services-->
 			<Image condition="contains">pskill</Image><!--Detect pskill-->
 			<Image condition="contains">psshutdown</Image><!--Detect PsShutdown-->
