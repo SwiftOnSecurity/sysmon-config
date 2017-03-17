@@ -235,6 +235,8 @@
 			<CommandLine condition="contains">Get-WmiObject -Query 'SELECT LicensingType FROM Win32_TerminalServiceSetting').LicensingType</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
 			<CommandLine condition="contains">Get-WmiObject -Namespace Root\CimV2\TerminalServices</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
 			<CommandLine condition="contains">tasklist</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<ParentCommandLine condition="contains">vssadmin list writers</ParentCommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">vssadmin list writers</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
 			<ParentCommandLine condition="contains">net view \\localhost | find " Print</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<ParentCommandLine condition="contains">net view \\localhost | find " Disk</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<CommandLine condition="contains">C:\Windows\system32\net1 Share</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
