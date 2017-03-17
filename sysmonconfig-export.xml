@@ -434,6 +434,7 @@
 			<SourcePort condition="is">50646</SourcePort> <!--Windows: WS-Discovery noise-->
 			<Image condition="is">C:\Program Files (x86)\SmartGit\jre\bin\java.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\SyncedTool\bin\autoupdate.exe</Image>
+			<Image condition="is">C:\Anchor Server\penv\Scripts\python.exe</Image> <!-- eFolder Anchor Server -->
 		</NetworkConnect>
 
 	<!--SYSMON EVENT ID 4 : RESERVED FOR SYSMON STATUS MESSAGES, THIS LINE IS INCLUDED FOR DOCUMENTATION PURPOSES ONLY-->
