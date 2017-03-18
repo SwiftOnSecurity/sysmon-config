@@ -540,6 +540,7 @@
 			<ImageLoaded condition="is">C:\Program Files (x86)\AutoSizer\AutoSizer.dll</ImageLoaded> <!-- I use autosizer to re-arrange my windows -->
 			<ImageLoaded condition="contains">C:\Program Files (x86)\Notepad++</ImageLoaded> <!--Notepad++ Plugins Are unsigned-->
 			<Image condition="is">C:\Program Files (x86)\SyncedTool\bin\autoupdate.exe</Image> <!-- eFolder SyncedTool -->
+			<Image condition="is">C:\PostgreSQL9.1\bin\postgres.exe</Image> <!-- eFolder Server loading unsigned dll's -->
 		</ImageLoad>
 	<!--SYSMON EVENT ID 8 : REMOTE THREAD CREATED-->
 		<!--DATA: UtcTime, SourceProcessGuid, SourceProcessId, SourceImage, TargetProcessId, TargetImage, NewThreadId, StartAddress, StartModule, StartFunction-->
