@@ -407,6 +407,7 @@
 			<!--SECTION: Microsoft -->
 			<Image condition="is">C:\Windows\System32\dns.exe</Image> <!-- Exclude Microsoft DNS Server DNS requests -->
 			<Image condition="is">C:\Program Files\Microsoft\Exchange Server\V15\Bin\MSExchangeHMWorker.exe</Image> <!-- Exclude Microsoft Exchange connecting to locahost -->
+			<Image condition="is">C:\Program Files\Microsoft\Exchange Server\V15\Bin\MSExchangeFrontendTransport.exe</Image> <!--Exchange Transport-->
 			<DestinationIsIpv6 condition="is">true </DestinationIsIpv6> <!-- IPv6 Exclusion: Re-Enable if you use ipv6 -->
 			<Image condition="image">OneDrive.exe</Image> <!--Microsoft:OneDrive-->
 			<Image condition="image">Spotify.exe</Image> <!--Spotify-->
