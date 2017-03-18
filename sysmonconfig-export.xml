@@ -739,6 +739,8 @@
 			<TargetFilename condition="begin with">C:\Windows\System32\DriverStore\Temp\</TargetFilename> <!-- Microsoft:Windows: Temp files by DrvInst.exe-->
 			<TargetFilename condition="begin with">C:\Windows\System32\wbem\Performance\</TargetFilename> <!-- Microsoft:Windows: Created in wbem by WMIADAP.exe-->
 			<TargetFilename condition="end with">WRITABLE.TST</TargetFilename> <!-- Microsoft:Windows: Created in wbem by svchost-->
+			<TargetFilename condition="end with">.SPL</TargetFilename> <!-- Ignore Spooled Print Jobs -->
+			<TargetFilename condition="end with">.SHD</TargetFilename> <!-- Ignore Spooled Print Jobs -->
 			<!--SECTION: Microsoft:Windows:Updates-->
 			<TargetFilename condition="begin with">C:\$WINDOWS.~BT\Sources\SafeOS\SafeOS.Mount\</TargetFilename> <!-- Microsoft:Windows: Feature updates containing lots of .exe and .sys-->
 			<TargetFilename condition="end with">.etl</TargetFilename> <!-- Microsoft:Windows: Logs and Trace files -->
