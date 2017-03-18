@@ -426,6 +426,8 @@
 			<SourcePortName condition="is">llmnr</SourcePortName> <!--Silence Link-Local Multicast Name Resolution-->
 			<SourcePortName condition="is">ldap</SourcePortName> <!--Silence LDAP-->
 			<DestinationPortName condition="is">ldap</DestinationPortName> <!--Silence LDAP-->
+			<SourcePortName condition="is">ntp</SourcePortName> <!--Silence NTP-->
+			<DestinationPortName condition="is">ntp</DestinationPortName> <!--Silence NTP-->
 			<DestinationPortName condition="is">llmnr</DestinationPortName> <!--Silence Link-Local Multicast Name Resolution-->
 			<DestinationPortName condition="is">ssdp</DestinationPortName> <!--Simple Service Discovery Protocol (SSDP-->
 			<SourcePortName condition="is">ssdp</SourcePortName> <!--Simple Service Discovery Protocol (SSDP-->
