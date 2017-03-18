@@ -1058,10 +1058,10 @@
 			<Image condition="is">C:\Program Files (x86)\Common Files\VMware\USB\vmware-usbarbitrator64.exe</Image> <!--VMWare: Horizon View Client Noise-->
 			<Image condition="is">C:\Program Files (x86)\PGP Corporation\PGP Desktop\PGPtray.exe</Image> <!--PGP: Noise-->
 			<!--SECTION: Labtech-->
-			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Services\LTSvcMon\Start</TargetObject>
-			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Services\LTService\Start</TargetObject>
+			<TargetObject condition="end with">\LTSvcMon\Start</TargetObject>
+			<TargetObject condition="end with">\LTService\Start</TargetObject>
 			<!--SECTION: ShadowProtect-->
-			<TargetObject condition="begin with">HKCR\Wow6432Node\CLSID\{F2C2787D-95AB-40D4-942D-298F5F757874}\InprocServer32</TargetObject>
+			<TargetObject condition="contains">{F2C2787D-95AB-40D4-942D-298F5F757874}</TargetObject>
 			<Image condition="is">C:\Program Files\WIDCOMM\Bluetooth Software\btwdins.exe</Image> <!--Constantly writes to HKLM-->
 			<!-- Search Protocol Host & Sysmon spam the SystemCertificates keystores, adding exclusions below -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\SystemCertificates\</TargetObject>
