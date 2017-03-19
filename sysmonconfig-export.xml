@@ -59,6 +59,7 @@
 			<Image condition="is">C:\Windows\Microsoft.Net\Framework64\v3.0\WPF\PresentationFontCache.exe</Image> <!--Microsoft:Windows: Font Cache Service-->
 			<ParentCommandLine condition="begin with">%%SystemRoot%%\system32\csrss.exe ObjectDirectory=\Windows</ParentCommandLine> <!--Microsoft:Windows:CommandShell: Triggered when programs use the command shell, but without attribution-->
 			<ParentImage condition="is">C:\Windows\system32\SearchIndexer.exe</ParentImage> <!--Microsoft:Windows:Search: Launches many uninteresting sub-processes-->
+			<Image condition="is">C:\Windows\system32\vssvc.exe</Image><!-- Microsoft Windows: Volume Shadow Copy Service -->
 			<!--SECTION: Microsoft:Windows:Defender-->
 			<Image condition="begin with">C:\Program Files\Windows Defender</Image> <!--Microsoft:Windows:Defender in Win10-->
 			<Image condition="end with">C:\Windows\System32\CompatTelRunner.exe</Image> <!--Microsoft:Windows:Customer Experience Improvement-->
@@ -236,7 +237,7 @@
 			<CommandLine condition="contains">Get-WmiObject -Namespace Root\CimV2\TerminalServices</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
 			<CommandLine condition="contains">tasklist</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
 			<ParentCommandLine condition="contains">vssadmin list writers</ParentCommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
-			<CommandLine condition="contains">vssadmin list writers</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">vssadmin  list writers</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
 			<ParentCommandLine condition="contains">net view \\localhost | find " Print</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<ParentCommandLine condition="contains">net view \\localhost | find " Disk</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<CommandLine condition="contains">C:\Windows\system32\net1 Share</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
@@ -265,7 +266,7 @@
 			<Image condition="is">C:\Program Files (x86)\Fortinet\FortiClient\update_task.exe</Image> <!-- Forticlient Updater -->
 			<Image condition="contains">C:\Program Files (x86)\SyncedTool\bin\agent_gui.exe</Image>
 			<CommandLine condition="contains">sysmonconfig-export.xml</CommandLine> <!-- Ignore my Auto Updater -->
-			<ParentCommandLine condition="contains">C:\Windows\SYSTEM32\cmd.exe /c "C:\ProgramData\sysmon\Auto_Update.bat"</ParentCommandLine> <!-- Ignore my Auto Updater -->
+			<ParentCommandLine condition="contains">Auto_Update.bat</ParentCommandLine> <!-- Ignore my Auto Updater -->
 			<ParentCommandLine condition="contains">Install_Sidecar_w_Sysmon.bat</ParentCommandLine> <!-- Ignore my Installer -->
 			<CommandLine condition="contains">Sysmon actions</CommandLine> <!-- Ignore my Installer -->
 			<Image condition="is">C:\Anchor Server\penv\Scripts\python.exe</Image> <!-- eFolder Anchor Server -->
