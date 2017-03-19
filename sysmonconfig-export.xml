@@ -222,7 +222,8 @@
 			<ParentCommandLine condition="contains">wmic path win32_operatingsystem get</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<ParentCommandLine condition="contains">sc queryex type= service</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<ParentCommandLine condition="contains">C:\Program Files (x86)\StorageCraft\ImageManager\ImageManager.exe</ParentCommandLine> <!--ShadowProtect noise -->
-			<ParentImage condition="contains">C:\Program Files (x86)\StorageCraft\ShadowProtect\ShadowSnap\raw_agent_svc.exe</ParentImage> <!--ShadowProtect noise -->
+			<ParentCommandLine condition="contains">raw_agent_svc.exe</ParentCommandLine> <!--ShadowProtect noise -->
+			<ParentImage condition="contains">raw_agent_svc.exe</ParentImage> <!--ShadowProtect noise -->
 			<CommandLine condition="contains">IscsidscInterface.exe</CommandLine> <!--ShadowProtect noise -->
 			<ParentCommandLine condition="contains">Add-PSSnapin Microsoft.SharePoint.PowerShell</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<CommandLine condition="contains">find /i "Listening"</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
@@ -311,7 +312,6 @@
 			<Image condition="image">regsvr32.exe</Image> <!--Microsoft:Windows: [ https://subt0x10.blogspot.com/2016/04/bypass-application-whitelisting-script.html ] -->
 			<Image condition="image">C:\Windows\system32\svchost.exe</Image> <!--Windows Services hidden by Svchost.exe, BITS File Transfer program-->
 			<Image condition="image">mshta.exe</Image>
-			<Image condition="image">python.exe</Image>
 			<Image condition="image">powershell.exe</Image> <!--Microsoft:WindowsPowerShell: | Credit @Cyb3rOps -->
 			<Image condition="contains">psexe</Image><!--Detect PSExec, PSexec services-->
 			<Image condition="contains">pskill</Image><!--Detect pskill-->
@@ -447,7 +447,7 @@
 			<SourcePort condition="is">50646</SourcePort> <!--Windows: WS-Discovery noise-->
 			<Image condition="is">C:\Program Files (x86)\SmartGit\jre\bin\java.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\SyncedTool\bin\autoupdate.exe</Image>
-			<Image condition="contains">C:\Anchor Server\penv\Scripts\python.exe</Image> <!-- eFolder Anchor Server -->
+			<Image condition="end with">penv\Scripts\python.exe</Image> <!-- eFolder Anchor Server -->
 			<DestinationHostname condition="begin with">efolder01</DestinationHostname> <!-- eFolder Noise -->
 			<DestinationPort condition="is">2080</DestinationPort><!--eFolder Noise -->
 		</NetworkConnect>
