@@ -1272,6 +1272,7 @@
 			<Image condition="is">C:\Program Files (x86)\VMware\ScannerRedirection\ftscanmgrhv.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\VMware\Infrastructure\Virtual Infrastructure Client\Launcher\VpxClient.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Common Files\VMware\VMware Remote Console Plug-in 5.5\Internet Explorer\vmware-vmrc.exe</Image>
+			<PipeName condition="contains">SQLAnywhereLRM</PipeName> <!-- Quickbooks -->
 		</PipeEvent>
 
 	</EventFiltering>
