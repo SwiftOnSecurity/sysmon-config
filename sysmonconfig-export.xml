@@ -473,6 +473,7 @@
 			<Image condition="is">C:\Program Files\Microsoft\Exchange Server\V15\Bin\MSExchangeSubmission.exe</Image>
 			<Image condition="is">C:\Program Files\Microsoft\Exchange Server\V15\Bin\MSExchangeFrontendTransport.exe</Image>
 			<Image condition="is">C:\Program Files\Microsoft\Exchange Server\V15\Bin\MSExchangeDelivery.exe</Image>
+			<Image condition="is">C:\Windows\SysWOW64\SearchProtocolHost.exe</Image>
 			<DestinationIsIpv6 condition="is">true </DestinationIsIpv6> <!-- IPv6 Exclusion: Re-Enable if you use ipv6 -->
 			<Image condition="image">OneDrive.exe</Image> <!--Microsoft:OneDrive-->
 			<Image condition="image">Spotify.exe</Image> <!--Spotify-->
