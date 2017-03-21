@@ -267,12 +267,6 @@
 			<ParentImage condition="contains">C:\Program Files (x86)\Fortinet\FortiClient\FCHelper64.exe</ParentImage> <!--FortiClient Noise -->
 			<Image condition="is">C:\Program Files (x86)\Fortinet\FortiClient\update_task.exe</Image> <!-- Forticlient Updater -->
 			<Image condition="contains">C:\Program Files (x86)\SyncedTool\bin\agent_gui.exe</Image>
-			<CommandLine condition="contains">sysmonconfig-export.xml</CommandLine> <!-- Ignore my Auto Updater -->
-			<ParentCommandLine condition="contains">Auto_Update.bat</ParentCommandLine> <!-- Ignore my Auto Updater -->
-			<CommandLine condition="begin with">Sysmon64</CommandLine> <!-- Ignore self -->
-			<CommandLine condition="begin with">Sysmon</CommandLine> <!-- Ignore self -->
-			<ParentCommandLine condition="contains">Install_Sidecar_w_Sysmon.bat</ParentCommandLine> <!-- Ignore my Installer -->
-			<CommandLine condition="contains">Sysmon actions</CommandLine> <!-- Ignore my Installer -->
 			<Image condition="is">C:\Anchor Server\penv\Scripts\python.exe</Image> <!-- eFolder Anchor Server -->
 			<ParentImage condition="is">C:\Anchor Server\redis\redis-server.exe</ParentImage> <!-- eFolder Anchor Server -->
 			<Image condition="is">C:\Anchor Server\redis\redis-server.exe</Image> <!-- eFolder Anchor Server -->
