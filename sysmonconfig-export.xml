@@ -391,6 +391,8 @@
 			<DestinationHostname condition="end with">tor-gateways.de</DestinationHostname>
 			<DestinationHostname condition="end with">hiddenservice.net</DestinationHostname>
 			<!--Ports-->
+			<DestinationPort condition="is">80</DestinationPort> <!--RDP Port-->
+			<DestinationPort condition="is">443</DestinationPort> <!--RDP Port-->
 			<DestinationPort condition="is">3389</DestinationPort> <!--RDP Port-->
 			<DestinationPort condition="is">3540</DestinationPort> <!--Remote Assistance Port-->
 			<DestinationPort condition="is">22</DestinationPort>   <!--SSH Port-->
