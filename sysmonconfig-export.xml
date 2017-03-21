@@ -513,6 +513,8 @@
 			<DestinationHostname condition="begin with">efolder01</DestinationHostname> <!-- eFolder Noise -->
 			<DestinationPort condition="is">2080</DestinationPort><!--eFolder Noise -->
 			<Image condition="end with">g2mcomm.exe</Image> <!-- gotomeeting noise -->
+			<Image condition="is">C:\Program Files (x86)\LabTech Client\LTClient.exe</Image>
+			<Image condition="is">C:\Windows\LTSvc\LTSVC.exe</Image>
 		</NetworkConnect>
 
 	<!--SYSMON EVENT ID 4 : RESERVED FOR SYSMON STATUS MESSAGES, THIS LINE IS INCLUDED FOR DOCUMENTATION PURPOSES ONLY-->
