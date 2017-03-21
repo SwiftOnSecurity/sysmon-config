@@ -306,7 +306,7 @@
 			<Image condition="begin with">C:\Perflogs\</Image>
 			<Image condition="contains">config\systemprofile\</Image>
 			<Image condition="contains">\Windows\Fonts\</Image>
-			<Image condition="contains">\Windows\IME\<Image>
+			<Image condition="contains">\Windows\IME\</Image>
 			<Image condition="contains">\Windows\addins\</Image>
 			<!--Suspicious Windows tools-->
 			<Image condition="image">at.exe</Image> <!--Microsoft:Windows: Remote task scheduling | Credit @ion-storm -->
@@ -410,7 +410,57 @@
 			<DestinationPort condition="is">3128</DestinationPort> <!--Socks Port-->
 			<DestinationPort condition="is">9001</DestinationPort> <!--Tor Port-->
 			<DestinationPort condition="is">9030</DestinationPort> <!--Tor Port-->
-			<DestinationPort condition="is">53</DestinationPort> <!--Log DNS for Graylog threat discovery-->
+			<DestinationPort condition="is">4443</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">2448</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">8143</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">1777</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">1443</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">243</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">65535</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">13506</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">3360</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">200</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">198</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">49180</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">13507</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">3360</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">6625</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">4444</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">4438</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">1904</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">13505</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">13504</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">12102</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">9631</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">5445</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">2443</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">777</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">13394</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">13145</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">12103</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">5552</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">3939</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">3675</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">666</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">473</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">5649</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">4455</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">4433</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">1817</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">100</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">65520</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">1960</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">1515</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">743</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">700</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">14154</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">14103</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">14102</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">12322</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">10101</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">7210</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">4040</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort condition="is">9943</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
 		</NetworkConnect>
 		<NetworkConnect onmatch="exclude">
 			<!--SECTION: Microsoft -->
@@ -511,6 +561,7 @@
 			<ImageLoaded condition="is">C:\Windows\System32\samlib.dll</ImageLoaded> <!--MimiKatz Detection Credit: @Cyb3rWard0g: https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html -->
 			<ImageLoaded condition="is">C:\Windows\System32\vaultcli.dll</ImageLoaded> <!--MimiKatz Detection Credit: @Cyb3rWard0g: https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html -->
 			<ImageLoaded condition="is">WMINet_Utils.dll</ImageLoaded> <!--MimiKatz Detection Credit: @Cyb3rWard0g: https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html -->
+			<ImageLoaded condition="contains">\Temp\</ImageLoaded>
 			<!-- END: Mimikatz Detection -->
 		<!--COMMENT:	Can cause high system load, disabled by default, important examples included below.-->
 			<!-- <ImageLoaded condition="contains">system.automation</ImageLoaded> -->
