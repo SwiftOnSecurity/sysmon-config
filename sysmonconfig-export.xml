@@ -980,8 +980,10 @@
 			<TargetObject condition="contains">\batfile\shell\open\command</TargetObject> <!-- Detect: Open Command Hijacks -->
 			<TargetObject condition="contains">\piffile\shell\open\command</TargetObject> <!-- Detect: Open Command Hijacks -->
 			<TargetObject condition="contains">\exefile\shell\open\command</TargetObject> <!-- Detect: Open Command Hijacks -->
+			<TargetObject condition="contains">Classes\exefile\shell\runas\command\isolatedCommand</TargetObject> <!-- Detect: UAC Bypass via sdclt: https://enigma0x3.net/2017/03/17/fileless-uac-bypass-using-sdclt-exe/ -->
 			<TargetObject condition="contains">\piffile\shell\open\command</TargetObject> <!-- Detect: Open Command Hijacks -->
 			<TargetObject condition="contains">\regfile\shell\open\command</TargetObject> <!-- Detect: Open Command Hijacks -->
+			<TargetObject condition="contains">\mscfile\shell\open\command</TargetObject> <!-- Detect: Event Viewer UAC Bypass: https://enigma0x3.net/2016/08/15/fileless-uac-bypass-using-eventvwr-exe-and-registry-hijacking/ -->
 			<TargetObject condition="contains">\InprocServer32</TargetObject> <!--Detect: COMObject Hijacking: https://blog.gdatasoftware.com/2014/10/23941-com-object-hijacking-the-discreet-way-of-persistence -->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Safeboot\</TargetObject> <!--Microsoft:Windows: Services approved to load in safe mode-->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Winlogon\</TargetObject> <!--Microsoft:Windows: Providers notified by WinLogon-->
