@@ -223,8 +223,9 @@
 			<ParentCommandLine condition="contains">sc queryex type= service</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<ParentCommandLine condition="contains">C:\Program Files (x86)\StorageCraft\ImageManager\ImageManager.exe</ParentCommandLine> <!--ShadowProtect noise -->
 			<ParentCommandLine condition="contains">raw_agent_svc.exe</ParentCommandLine> <!--ShadowProtect noise -->
-			<ParentImage condition="contains">raw_agent_svc.exe</ParentImage> <!--ShadowProtect noise -->
+			<ParentImage condition="end with">raw_agent_svc.exe</ParentImage> <!--ShadowProtect noise -->
 			<CommandLine condition="contains">IscsidscInterface.exe</CommandLine> <!--ShadowProtect noise -->
+			<ParentCommandLine condition="contains">IscsidscInterface.exe</ParentCommandLine> <!--ShadowProtect noise -->
 			<ParentCommandLine condition="contains">Add-PSSnapin Microsoft.SharePoint.PowerShell</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<CommandLine condition="contains">find /i "Listening"</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<CommandLine condition="contains">netstat -an</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
@@ -276,6 +277,7 @@
 			<ParentImage condition="is">C:\Anchor Server\redis\redis-server.exe</ParentImage> <!-- eFolder Anchor Server -->
 			<Image condition="is">C:\Anchor Server\redis\redis-server.exe</Image> <!-- eFolder Anchor Server -->
 			<ParentImage condition="is">C:\PostgreSQL9.1\bin\postgres.exe</ParentImage> <!-- eFolder Anchor Server -->
+			<Image condition="is">C:\PostgreSQL9.1\bin\postgres.exe</Image> <!-- eFolder Anchor Server -->
 		</ProcessCreate>
 
 	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM-->
