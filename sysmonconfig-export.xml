@@ -515,6 +515,7 @@
 			<Image condition="end with">g2mcomm.exe</Image> <!-- gotomeeting noise -->
 			<Image condition="is">C:\Program Files (x86)\LabTech Client\LTClient.exe</Image>
 			<Image condition="is">C:\Windows\LTSvc\LTSVC.exe</Image>
+			<Image condition="is">C:\Program Files (x86)\Webroot\WRSA.exe</Image>
 		</NetworkConnect>
 
 	<!--SYSMON EVENT ID 4 : RESERVED FOR SYSMON STATUS MESSAGES, THIS LINE IS INCLUDED FOR DOCUMENTATION PURPOSES ONLY-->
