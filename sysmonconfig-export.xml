@@ -303,6 +303,11 @@
 			<Image condition="begin with">C:\Users</Image> <!--Tools downloaded by users can use other processes for networking, but this is a very valuable indicator.-->
 			<Image condition="begin with">C:\ProgramData</Image> <!--Normally, network communications should be sourced from "Program Files" not from ProgramData, something to look at-->
 			<Image condition="begin with">C:\Windows\Temp</Image> <!--Suspicious anything would communicate from the system-level temp directory-->
+			<Image condition="begin with">C:\Perflogs\</Image>
+			<Image condition="contains">config\systemprofile\</Image>
+			<Image condition="contains">\Windows\Fonts\</Image>
+			<Image condition="contains">\Windows\IME\<Image>
+			<Image condition="contains">\Windows\addins\</Image>
 			<!--Suspicious Windows tools-->
 			<Image condition="image">at.exe</Image> <!--Microsoft:Windows: Remote task scheduling | Credit @ion-storm -->
 			<Image condition="image">certutil.exe</Image> <!--Microsoft:Windows: Certificate tool can contact outbound | Credit @ion-storm and @FVT [ https://twitter.com/FVT/status/834433734602530817 ] -->
