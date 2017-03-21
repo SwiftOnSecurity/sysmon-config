@@ -332,7 +332,6 @@
 			<Image condition="image">tftp.exe</Image><!-- TFTP -->
 			<Image condition="image">wmic.exe</Image><!-- wmic /node logging -->
 			<Image condition="image">net.exe</Image><!-- net use/net view-->
-			<Image condition="image">C:\windows\system32\mmc.exe</Image><!-- Microsoft Management Console -->
 			<Image condition="image">nbtstat.exe</Image><!-- Netbios stat-->
 			<Image condition="image">dsquery.exe</Image><!-- Query domain-->
 			<Image condition="image">driverquery.exe</Image><!-- Remote Driver querying-->
