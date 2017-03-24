@@ -114,6 +114,7 @@
 			<!--SECTION: Microsoft Exchange-->
 			<ParentImage condition="is">C:\Program Files\Microsoft\Exchange Server\V15\Bin\Microsoft.Exchange.Diagnostics.Service.exe</ParentImage>
 			<ParentImage condition="is">C:\Program Files\Microsoft\Exchange Server\V15\Bin\MSExchangeHMWorker.exe</ParentImage>
+			<CommandLine condition="contains">C:\Program Files\Microsoft\Exchange Server\V14\Scripts\CheckDatabaseRedundancy.ps1</CommandLine>
 			<!--SECTION: Microsoft Misc-->
 			<Image condition="is">C:\Windows\System32\ddpcli.exe</Image> <!--Scheduled dedupe jobs on server 2012-->
 			<!--SECTION: Google-->
