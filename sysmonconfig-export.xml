@@ -89,6 +89,7 @@
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k NetworkService</CommandLine><!--Microsoft:Windows Network Services-->
 			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k netsvcs</CommandLine><!--Microsoft:Windows Network Services-->
 			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k GPSvcGroup</CommandLine><!--Microsoft:Windows Network Services-->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k tapisrv</CommandLine><!--Microsoft:Windows Network Services-->
 			<ParentCommandLine condition="is">C:\WINDOWS\System32\svchost.exe -k wsappx</ParentCommandLine> <!-- Windows 10 AppX Deployment Noise -->
 			<ParentCommandLine condition="is">C:\Windows\System32\svchost.exe -k netsvcs</ParentCommandLine><!--Microsoft:Windows Network Services: Spawns Consent.exe-->
 			<ParentCommandLine condition="is">C:\Windows\system32\svchost.exe -k LocalSystemNetworkRestricted</ParentCommandLine><!--Microsoft:Windows Network Services-->
@@ -220,6 +221,7 @@
 			<ParentCommandLine condition="contains">find /i "Listening"</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<ParentCommandLine condition="contains">netstat -an</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<ParentCommandLine condition="contains">tasklist</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<ParentCommandLine condition="contains">interface tcp show global</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<ParentCommandLine condition="contains">wmic path win32_operatingsystem get</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<ParentCommandLine condition="contains">sc queryex type= service</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<ParentCommandLine condition="contains">C:\Program Files (x86)\StorageCraft\ImageManager\ImageManager.exe</ParentCommandLine> <!--ShadowProtect noise -->
@@ -519,6 +521,7 @@
 			<Image condition="is">C:\Windows\LTSvc\LTSVC.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Webroot\WRSA.exe</Image>
 			<Image condition="begin with">C:\Program Files (x86)\SmartGit\</Image>
+			<Image condition="end with">DSPro\Programs\pr001Celery98.exe</Image>
 		</NetworkConnect>
 
 	<!--SYSMON EVENT ID 4 : RESERVED FOR SYSMON STATUS MESSAGES, THIS LINE IS INCLUDED FOR DOCUMENTATION PURPOSES ONLY-->
