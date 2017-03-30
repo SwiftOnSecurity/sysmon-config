@@ -186,7 +186,19 @@
 			<Image condition="image">sc.exe</Image> <!--Microsoft:Windows: Remotely change Windows service settings from command line | Credit @ion-storm -->
 			<Image condition="image">wmic.exe</Image> <!--Microsoft:WindowsManagementInstrumentation: Credit @Cyb3rOps [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
 			<Image condition="image">wscript.exe</Image> <!--Microsoft:WindowsScriptingHost: | Credit @arekfurt -->
-			<Image condition="image">tor.exe</Image> <!--Tor [ https://www.hybrid-analysis.com/sample/800bf028a23440134fc834efc5c1e02cc70f05b2e800bbc285d7c92a4b126b1c?environmentId=100 ] -->
+			<!--Relevant 3rd Party Tools: Remote Access-->
+			<Image condition="image">psexec.exe</Image> <!--Sysinternals:PsExec client side | Credit @Cyb3rOps -->
+			<Image condition="image">psexesvc.exe</Image> <!--Sysinternals:PsExec server side | Credit @Cyb3rOps -->
+			<Image condition="image">vnc.exe</Image> <!-- VNC client | Credit @Cyb3rOps -->
+			<Image condition="image">vncviewer.exe</Image> <!-- VNC client | Credit @Cyb3rOps -->
+			<Image condition="image">vncservice.exe</Image> <!-- VNC server | Credit @Cyb3rOps -->
+			<Image condition="image">winexesvc.exe</Image> <!-- Winexe service executable | Credit @Cyb3rOps -->
+			<Image condition="image">\AA_v</Image> <!-- Ammy Admin service executable (e.g. AA_v3.0.exe AA_v3.5.exe ) | Credit @Cyb3rOps -->
+			<!-- Often exploited services --> 
+			<Image condition="image">omniinet.exe</Image> <!-- HP Data Protector https://www.cvedetails.com/vulnerability-list/vendor_id-10/product_id-20499/HP-Data-Protector.html | Credit @Cyb3rOps -->
+			<Image condition="image">hpsmhd.exe</Image> <!-- HP System Management Homepage https://www.cvedetails.com/vulnerability-list/vendor_id-10/product_id-7244/HP-System-Management-Homepage.html | Credit @Cyb3rOps -->
+			<!--Malware related-->
+      <Image condition="image">tor.exe</Image> <!--Tor [ https://www.hybrid-analysis.com/sample/800bf028a23440134fc834efc5c1e02cc70f05b2e800bbc285d7c92a4b126b1c?environmentId=100 ] -->
 			<!--Ports: Suspicious-->
 			<DestinationPort condition="is">22</DestinationPort> <!--SSH protocol-->
 			<DestinationPort condition="is">23</DestinationPort> <!--Telnet protocol-->
