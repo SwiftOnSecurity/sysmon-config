@@ -1235,7 +1235,7 @@
 				<!--ADDITIONAL REFERENCE: [ https://www.cobaltstrike.com/help-smb-beacon ] -->
 				<!--ADDITIONAL REFERENCE: [ https://blog.cobaltstrike.com/2015/10/07/named-pipe-pivoting/ ] -->
 			<!--SECTION: Microsoft-->
-			<PipeName condition="is">\lsass</PipeName>
+			<PipeName condition="contains">lsass</PipeName>
 			<PipeName condition="is">\SQLLocal\RTCLOCAL</PipeName>
 			<!--SECTION: Microsoft IIS -->
 			<PipeName condition="begin with">\M.E.C.Core.WinRMDataCommunicator.NamedPipe.</PipeName>
@@ -1359,7 +1359,10 @@
 			<PipeName condition="contains">pgsignal</PipeName> <!-- Postgres SQL -->
 			<PipeName condition="contains">MICROSOFT##WID\tsql\query</PipeName> <!-- Microsoft SQL writer-->
 			<PipeName condition="contains">TSVCPIPE-</PipeName> <!-- Terminal Services Pipe-->
-
+			<PipeName condition="contains">BB4BB19A178C25D1</PipeName>
+			<PipeName condition="contains">SQLAnywhereLRM</PipeName>
+			<PipeName condition="contains">SQLLocal</PipeName>
+			<PipeName condition="contains">DropboxPipe_</PipeName>
 		</PipeEvent>
 
 	</EventFiltering>
