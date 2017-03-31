@@ -1267,6 +1267,7 @@
 			<Image condition="is">C:\Program Files\Skype for Business Server 2015\Server\Core\ReplicationApp.exe</Image>
 			<Image condition="is">C:\Program Files\Skype for Business Server 2015\OCSMCU\Application Sharing\ASMCUSvc.exe</Image>
 			<Image condition="is">C:\Program Files\Skype for Business Server 2015\Server\Replica Replicator Agent\ReplicaReplicatorAgent.exe</Image>
+			<Image condition="is">C:\Program Files\Skype for Business Server 2015\Server\Core\RtcHost.exe</Image>
 			<!--SECTION: Microsoft DFS Replication -->
 			<Image condition="is">C:\Windows\system32\DFSRs.exee</Image>
 			<Image condition="begin with">C:\Windows\SystemApps\Microsoft.Windows</Image>
@@ -1357,12 +1358,22 @@
 			<Image condition="is">C:\Program Files (x86)\Common Files\VMware\VMware Remote Console Plug-in 5.5\Internet Explorer\vmware-vmrc.exe</Image>
 			<PipeName condition="contains">SQLAnywhereLRM</PipeName> <!-- Quickbooks -->
 			<PipeName condition="contains">pgsignal</PipeName> <!-- Postgres SQL -->
+			<Image condition="is">postgres.exe</Image>
 			<PipeName condition="contains">MICROSOFT##WID\tsql\query</PipeName> <!-- Microsoft SQL writer-->
 			<PipeName condition="contains">TSVCPIPE-</PipeName> <!-- Terminal Services Pipe-->
 			<PipeName condition="contains">BB4BB19A178C25D1</PipeName>
 			<PipeName condition="contains">SQLAnywhereLRM</PipeName>
 			<PipeName condition="contains">SQLLocal</PipeName>
 			<PipeName condition="contains">DropboxPipe_</PipeName>
+			<Image condition="is">c:\windows\system32\inetsrv\w3wp.exe</Image>
+			<Image condition="is">C:\Program Files (x86)\Common Files\SafeNet Sentinel\Sentinel RMS License Manager\WinNT\mfcesd.exe</Image>
+			<Image condition="is">C:\Pfx Engagement\WM\PFXEngagement.exe</Image>
+			<Image condition="is">C:\Pfx Engagement\WM\PfxEngagement.exe</Image>
+			<Image condition="is">C:\Pfx Engagement\WM\Pfx.KnowledgeCoach.SharedServices.exe</Image>
+			<Image condition="is">C:\Program Files (x86)\Micro Focus\COBOL Server 2012\bin\mfds.exe</Image>
+			<Image condition="is">ScreenConnect.WindowsClient.exe</Image>
+			<Image condition="is">ScreenConnect.ClientService.exe</Image>
+			<Image condition="is">QBW32.EXE</Image>
 		</PipeEvent>
 
 	</EventFiltering>
