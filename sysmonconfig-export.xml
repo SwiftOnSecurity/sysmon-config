@@ -251,6 +251,8 @@
 			<ParentCommandLine condition="contains">C:\Windows\LTSvc\LTSvcMon.exe -sLTService</ParentCommandLine>
 			<ParentImage condition="is">C:\Windows\LTSvc\LTSvcMon.exe</ParentImage>
 			<Image condition="is">C:\Windows\LTSvc\LTTray.exe</Image>
+			<ParentCommandLine condition="contains">Get-ItemProperty HKLM:\software\microsoft\windows\currentversion\uninstall</ParentCommandLine>
+			<CommandLine condition="contains">interface tcp show global</CommandLine>
 			<!--END: Labtech-->
 			<Image condition="end with">ScreenConnect.WindowsClient.exe</Image><!--Screenconnect Remote Desktop Client-->
 			<Image condition="begin with">C:\Program Files (x86)\SmartGit</Image> <!--SmartGit-->
@@ -1057,6 +1059,11 @@
 			<TargetObject condition="end with">\FriendlyName</TargetObject> <!--Microsoft:Windows: New devices connected and remembered-->
 			<TargetObject condition="is">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\InProgress\(Default)</TargetObject> <!--Microsoft:Windows: See when WindowsInstaller is engaged-->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e96b-e325-11ce-bfc1-08002be10318}</TargetObject> <!-- Detect Keyloggers & new Keyboards -->
+			<TargetObject condition="contains">SOFTWARE\Classes\Wow6432Node\CLSID\{955C0D7D-042E-4034-9D54-EBD52477A6DB}\</TargetObject> <!--Too much noise -->
+			<TargetObject condition="contains">SOFTWARE\Classes\Wow6432Node\CLSID\{BEACC58F-E643-4e97-B19E-95F6EE3500FA}\</TargetObject> <!--Too much noise -->
+			<TargetObject condition="contains">SOFTWARE\Classes\Wow6432Node\CLSID\{07598BD3-ABBE-4bee-959F-7B90253EADFF}\</TargetObject> <!--Too much noise -->
+			<TargetObject condition="contains">SOFTWARE\Classes\Wow6432Node\CLSID\{31240348-66EE-4F14-A42A-39F373A834C7}\</TargetObject> <!--Too much noise -->
+			<TargetObject condition="contains">SOFTWARE\Classes\Wow6432Node\CLSID\{8C8EC235-0786-4DAD-A957-1A6CD76C28F5}\</TargetObject> <!--Too much noise -->
 			<!-- NOTICE: Detect New USB Network Devices: Poison Tap - Creates lots of noise, disabled for now
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}</TargetObject>
 			-->
