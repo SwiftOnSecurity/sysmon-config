@@ -9,7 +9,7 @@
   Fork author:	<N/A>
   Fork project:	<N/A>
   Fork license:	<N/A>
-
+ 
   REQUIRED: Sysmon version 6.00 or higher (due to changes in registry syntax)
 	https://technet.microsoft.com/en-us/sysinternals/bb545021.aspx
 
