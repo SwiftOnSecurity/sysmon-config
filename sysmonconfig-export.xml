@@ -999,8 +999,8 @@
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Enum\USBSTOR</TargetObject>
 			<!--Detect Threats from Webroot Antivirus-->
 			<!--Active threats show like so: c:\users\JohnDoe\downloads\w10privacy\w10privacy.exe|W32.Backdoor.Gen|5880BC38 Reg Key Location: HKLM\SOFTWARE\WOW6432Node\WRData\Threats\Active-->
-			<TargetObject condition="contains">HKLM\SOFTWARE\WOW6432Node\WRData\Threats\Active</TargetObject><!--Detect Active Threats-->
-			<TargetObject condition="contains">HKLM\SOFTWARE\WOW6432Node\WRData\Threats\History</TargetObject><!--Detect Threat History & Auto-Removed Threats-->
+			<TargetObject condition="contains">\WRData\Threats\Active</TargetObject><!--Detect Active Threats-->
+			<TargetObject condition="contains">\WRData\Threats\History</TargetObject><!--Detect Threat History & Auto-Removed Threats-->
 			<!--Detect Changes to Proxy Server Setting-->
 			<TargetObject condition="contains">HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\AutoConfigURL</TargetObject>
 			<!--Detect Browser Hijackers-->
