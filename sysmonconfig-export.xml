@@ -442,7 +442,7 @@
 			<!--Persistence Methods-->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom</TargetObject> <!-- Custom SHIM:FireEye FIN7 report - https://www.fireeye.com/blog/threat-research/2017/05/fin7-shim-databases-persistence.html -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB</TargetObject> <!-- Custom SHIM:FireEye FIN7 report - https://www.fireeye.com/blog/threat-research/2017/05/fin7-shim-databases-persistence.html -->
-			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\services\DNS\Parameters\</TargetObject> <!--Microsoft:Windows:DNS: ServerLevelPluginDll Issue https://medium.com/@esnesenon/feature-not-bug-dnsadmin-to-dc-compromise-in-one-line-a0f779b8dc83 ->
+			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\services\DNS\Parameters\</TargetObject> <!--Microsoft:Windows:DNS: ServerLevelPluginDll Issue https://medium.com/@esnesenon/feature-not-bug-dnsadmin-to-dc-compromise-in-one-line-a0f779b8dc83 -->
 		</RegistryEvent>
 		<RegistryEvent onmatch="exclude">
 		<!--COMMENT:	Remove low-information noise-->
