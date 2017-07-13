@@ -208,7 +208,7 @@
 			<DestinationPort condition="is">5900</DestinationPort> <!--VNC protocol-->
 			<!--Ports: Proxy-->
 			<DestinationPort condition="is">1080</DestinationPort> <!--Socks proxy port | Credit @ion-storm-->
-			<DestinationPort condition="is">3128</DestinationPort> <!--Socks proyx port | Credit @ion-storm-->
+			<DestinationPort condition="is">3128</DestinationPort> <!--Socks proxy port | Credit @ion-storm-->
 			<DestinationPort condition="is">8080</DestinationPort> <!--Socks proxy port | Credit @ion-storm-->
 			<!--Ports: Tor-->
 			<DestinationPort condition="is">1723</DestinationPort> <!--Tor protocol | Credit @ion-storm-->
