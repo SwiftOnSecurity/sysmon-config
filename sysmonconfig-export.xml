@@ -1,6 +1,6 @@
 <!--
   sysmon-config | A sysmon configuration focused on default high-quality event tracing and easy customization by the community
-  Master version:	51 | Date: 2017-03-14
+  Master version:	52 | Date: 2017-07-13
   Master author:	@SwiftOnSecurity, other contributors also credited in-line or on Git.
   Master project:	https://github.com/SwiftOnSecurity/sysmon-config
   Master license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
@@ -12,6 +12,7 @@
  
   REQUIRED: Sysmon version 6.00 or higher (due to changes in registry syntax)
 	https://technet.microsoft.com/en-us/sysinternals/bb545021.aspx
+	Note that 6.03 has important fixes for filtering
 
   NOTE: Do not let the imposing size and complexity of this configuration scare you off building your own or customizing it.
 	This configuration is based around known high-quality event tracing, and thus looks extremely complicated.
