@@ -282,8 +282,14 @@
 
 	<!--SYSMON EVENT ID 10 : INTER-PROCESS ACCESS-->
 		<!--DATA: UtcTime, SourceProcessGuid, SourceProcessId, SourceThreadId, SourceImage, TargetProcessGuid, TargetProcessId, TargetImage, GrantedAccess, CallTrace-->
+		<ProcessAccess onmatch="exclude">
+		<!--COMMENT:	Log the hash dump operation from lsass. Tested by mimikatz and wce.-->
+			<GrantedAccess condition="is">0x1400</GrantedAccess>
+			<GrantedAccess condition="is">0x1000</GrantedAccess>
+		</ProcessAccess>
 		<ProcessAccess onmatch="include">
 		<!--COMMENT:	Monitor for processes accessing other process' memory. This can be valuable, but can cause a huge number of events.-->
+			<TargetImage condition="is">C:\Windows\system32\lsass.exe</TargetImage>
 		</ProcessAccess>
 
 	<!--SYSMON EVENT ID 11 : FILE CREATED-->
