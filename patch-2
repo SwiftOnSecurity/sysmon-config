@@ -147,6 +147,12 @@
 			<ParentImage condition="end with">C:\Program Files (x86)\Dropbox\Update\DropboxUpdate.exe</ParentImage>
 			<!--SECTION: Dell-->
 			<ParentImage condition="image">C:\Program Files (x86)\Dell\CommandUpdate\InvColPC.exe</ParentImage> <!--Dell:CommandUpdate: Detection process-->
+			<!--SECTION: Splunk:UniversalForwarder-->
+			<Image condition="begin with">C:\Program Files\SplunkUniversalForwarder\bin\</Image> <!--Splunk:UniversalForwarder child processes-->
+			<ParentImage condition="is">C:\Program Files\SplunkUniversalForwarder\bin\splunkd.exe </ParentImage> <!--Splunk:UniversalForwarder:Daemon-->
+			<!--SECTION: Splunk-->
+			<Image condition="begin with">C:\Program Files\Splunk\bin\</Image> <!--Splunk child processes-->
+			<ParentImage condition="is">C:\Program Files\Splunk\bin\splunkd.exe</ParentImage> <!--Splunk:Daemon-->
 		</ProcessCreate>
 
 	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM-->
