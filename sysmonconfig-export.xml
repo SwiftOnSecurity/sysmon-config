@@ -49,7 +49,7 @@
 			<Image condition="is">C:\Windows\System32\audiodg.exe</Image> <!--Microsoft:Windows: Launched constantly-->
 			<Image condition="is">C:\Windows\System32\conhost.exe</Image> <!--Microsoft:Windows: Command line interface host process-->
 			<Image condition="is">C:\Windows\System32\powercfg.exe</Image> <!--Microsoft:Power configuration management-->
-			<Image condition="is">C:\Windows\System32\wbem\WmiApSrv.exe</Image> <!--Microsoft:Windows: WMI performance adpater host process-->
+			<Image condition="is">C:\Windows\System32\wbem\WmiApSrv.exe</Image> <!--Microsoft:Windows: WMI performance adapter host process-->
 			<Image condition="is">C:\Windows\System32\wermgr.exe</Image> <!--Microsoft:Windows:Windows error reporting/telemetry-->
 			<Image condition="is">C:\Windows\SysWOW64\wermgr.exe</Image> <!--Microsoft:Windows:Windows error reporting/telemetry-->
 			<Image condition="is">C:\Windows\system32\sppsvc.exe</Image> <!--Microsoft:Windows: Software Protection Service-->
@@ -64,7 +64,7 @@
 			<Image condition="begin with">C:\Windows\SoftwareDistribution\Download\Install\AM_Engine</Image> <!--Microsoft:Defender: Engine updates-->
 			<!--SECTION: Microsoft:Windows:svchost-->
 			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k appmodel</CommandLine> <!--Microsoft:Windows 10-->
-			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k dcomLaunch</CommandLine> <!--Microsoft:Windows dervices-->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k dcomLaunch</CommandLine> <!--Microsoft:Windows services-->
 			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k defragsvc</CommandLine> <!--Microsoft:Windows defrag-->
 			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k imgsvc</CommandLine> <!--Microsoft:The Windows Image Acquisition Service-->
 			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k localServiceAndNoImpersonation</CommandLine> <!--Microsoft:Windows: Network services-->
@@ -340,7 +340,7 @@
 	<!--SYSMON EVENT ID 12 & 13 & 14 : REGISTRY MODIFICATION-->
 		<!--NOTE:	It may appear this section is missing important entries, but many of them match multiple areas, so look carefully to see if something is already covered.-->
 		<!--NOTE:	"contains" conditions below are formatted to reduce CPU load, so they may appear written inconsistently, but this is on purpose from tuning.-->
-		<!--NOTE:	"contains" works by finding the first letter, then matching the second, etc, so the first letters should be as low-occurance as possible.-->
+		<!--NOTE:	"contains" works by finding the first letter, then matching the second, etc, so the first letters should be as low-occurence as possible.-->
 		<!--NOTE:	Windows writes hundreds or thousands of registry keys a minute, so just because you're not changing stuff, doesn't mean these rules aren't being run.-->
 		<!--NOTE:	You don't have to spend a lot of time worrying about this, CPUs are fast, but it's something to consider. Every rule and condition type has a cost.-->
 		<!--DATA: EventType, UtcTime, ProcessGuid, ProcessId, Image, TargetObject, Details, NewName-->
