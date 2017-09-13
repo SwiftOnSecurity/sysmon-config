@@ -26,9 +26,11 @@
   NOTE:	"Image" is a technical term for a compiled binary file like an EXE or DLL. Also, it can match just the filename, or entire path.
 		"ProcessGuid" is randomly generated, assigned, and tracked by Sysmon to assist in tracing individual process launches.
 		"LoginGuid" is randomly generated, assigned, and tracked by Sysmon to assist in tracing individual user sessions.
+
+  FILTER REFERENCE: is,is not,contains,excludes,begin with,end with,less than,more than,image
 -->
 
-<Sysmon schemaversion="3.30">
+<Sysmon schemaversion="3.4">
 	<HashAlgorithms>sha256,imphash</HashAlgorithms>
 	<EventFiltering>
 
@@ -1378,6 +1380,11 @@
 			<Image condition="is">ScreenConnect.ClientService.exe</Image>
 			<Image condition="is">QBW32.EXE</Image>
 		</PipeEvent>
-
+	<!--SYSMON EVENT ID 19 / 20 / 21: WMI Filter / WMI Consumer / WMI Binding -->
+		<!--WMI Filter: UtcTime, EventType, Operation, User, EventNameSpace, Name, Query-->
+		<!--WMI Consumer: UtcTime, EventType, Operation, User, EventNameSpace, Name, Query, Type, Destination-->
+		<!--WMI Binding: UtcTime, EventType, Operation, User, Consumer, Filter-->
+		<WmiEvent onmatch="exclude">
+		</WmiEvent>
 	</EventFiltering>
 </Sysmon>
