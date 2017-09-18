@@ -546,6 +546,7 @@
 		<!--COMMENT:	Because drivers with bugs can be used to escalate to kernel permissions, be extremely selective
 				about what you exclude from monitoring. Low event volume, little incentive to exclude.-->
 			<Signature condition="contains">microsoft</Signature> <!--Exclude signed Microsoft drivers-->
+			<Signature condition="is">Microsoft Windows</Signature> <!--Exclude signed Microsoft drivers-->
 			<Signature condition="contains">windows</Signature> <!--Exclude signed Microsoft drivers-->
 			<Signature condition="begin with">Intel</Signature> <!--Exclude signed Intel drivers-->
 			<Signature condition="contains">Lenovo</Signature> <!--Exclude signed Lenovo drivers-->
@@ -559,7 +560,16 @@
 			<Signature condition="contains">Logitech</Signature> <!--Exclude signed Logitech drivers-->
 			<Signature condition="contains">Asmedia</Signature> <!--Exclude signed Asmedia drivers-->
 			<Signature condition="contains">SteelSeries</Signature> <!--Exclude signed MSI drivers-->
-			<Signature condition="contains">Fortinet</Signature> <!--Exclude signed MSI drivers-->
+			<Signature condition="contains">Fortinet</Signature> <!--Exclude signed Fortinet drivers-->
+			<Signature condition="contains">Webroot</Signature> <!--Exclude signed Webroot drivers-->
+			<Signature condition="is">NoVirusThanks Company Srl</Signature> <!--Exclude signed drivers-->
+			<Signature condition="contains">Invincea</Signature> <!--Exclude signed drivers-->
+			<Signature condition="contains">ShoreTel</Signature> <!--Exclude signed drivers-->
+			<Signature condition="contains">Synology</Signature> <!--Exclude signed drivers-->
+			<Signature condition="contains">Citrix</Signature> <!--Exclude signed drivers-->
+			<Signature condition="contains">SonicWall</Signature> <!--Exclude signed drivers-->
+			<Signature condition="contains">Sophos</Signature> <!--Exclude signed drivers-->
+			<Signature condition="contains">OpenVPN</Signature> <!--Exclude signed drivers-->
 		</DriverLoad>
 
 	<!--SYSMON EVENT ID 7 : DLL (IMAGE) LOADED BY PROCESS-->
@@ -614,7 +624,23 @@
 			<Signature condition="contains">Fortinet</Signature> -->
 		</ImageLoad>
 		<ImageLoad onmatch="exclude">
-			<Image condition="is">C:\Windows\System32\backgroundTaskHost.exe</Image>
+			<Signature condition="contains">microsoft</Signature> <!--Exclude signed Microsoft libraries-->
+			<Signature condition="is">Microsoft Windows</Signature> <!--Exclude signed Microsoft libraries-->
+			<Signature condition="contains">windows</Signature> <!--Exclude signed Microsoft libraries-->
+			<Signature condition="begin with">Intel</Signature> <!--Exclude signed Intel libraries-->
+			<Signature condition="contains">Lenovo</Signature> <!--Exclude signed Lenovo libraries-->
+			<Signature condition="contains">Synaptic</Signature> <!--Exclude signed Synaptic libraries-->
+			<Signature condition="contains">Nvidia</Signature> <!--Exclude signed Nvidia libraries-->
+			<Signature condition="contains">Broadcom</Signature> <!--Exclude signed Broadcom libraries-->
+			<Signature condition="contains">AMD</Signature> <!--Exclude signed AMD libraries-->
+			<Signature condition="contains">VMware</Signature> <!--Exclude signed VMware libraries-->
+			<Signature condition="contains">Realtek</Signature> <!--Exclude signed Realtek libraries-->
+			<Signature condition="contains">Micro-Star</Signature> <!--Exclude signed MSI libraries-->
+			<Signature condition="contains">Logitech</Signature> <!--Exclude signed Logitech libraries-->
+			<Signature condition="contains">Asmedia</Signature> <!--Exclude signed Asmedia libraries-->
+			<Signature condition="contains">SteelSeries</Signature> <!--Exclude signed MSI libraries-->
+			<Signature condition="contains">Fortinet</Signature> <!--Exclude signed MSI libraries-->			<Image condition="is">C:\Windows\System32\backgroundTaskHost.exe</Image>
+			<Signature condition="contains">Webroot</Signature> <!--Exclude signed MSI libraries-->			<Image condition="is">C:\Windows\System32\backgroundTaskHost.exe</Image>
 			<Image condition="is">C:\Windows\System32\mmc.exe</Image>
 			<ImageLoaded condition="contains">C:\Program Files (x86)\SmartGit</ImageLoaded> <!--SmartGit-->
 			<ImageLoaded condition="contains">syntevo\SmartGit</ImageLoaded> <!--SmartGit-->
