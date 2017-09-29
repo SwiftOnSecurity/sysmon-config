@@ -4,33 +4,28 @@
   Master author:	@SwiftOnSecurity, other contributors also credited in-line or on Git.
   Master project:	https://github.com/SwiftOnSecurity/sysmon-config
   Master license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
-
   Fork version:	<N/A>
   Fork author:	<N/A>
   Fork project:	<N/A>
-  Fork license:	<N/A>
- 
+  Fork license:	<N/A> 
   REQUIRED: Sysmon version 6.00 or higher (due to changes in registry syntax)
 	https://technet.microsoft.com/en-us/sysinternals/bb545021.aspx
 	Note that 6.03 has important fixes for filtering
-
   NOTE: Do not let the imposing size and complexity of this configuration scare you off building your own or customizing it.
 	This configuration is based around known high-quality event tracing, and thus looks extremely complicated.
 	Sysmon configurations only have to be a few lines, but significant effort has been invested in front-loading as
 	much filtering as possible onto the client. This is to make analysis of intrusions possible by hand, and try to
 	surface anomalous activity as quickly as possible to any technician armed only with Event Viewer.
-
   NOTE:	Sysmon is not hardened against a determined attacker with admin rights. Also, this configuration offers an attacker, willing
 	to study it closely, several ways to evade some of the alerting. If you are in a high-threat environment and have significant 
 	security staff, you should consider a much broader log-all approach. However, in the vast majority of cases, an attacker
 	will bumble along through multiple behavioral traps which this configuration monitors, especially in the first minutes.
-
   NOTE:	"Image" is a technical term for a compiled binary file like an EXE or DLL. Also, it can match just the filename, or entire path.
 		"ProcessGuid" is randomly generated, assigned, and tracked by Sysmon to assist in tracing individual process launches.
 		"LoginGuid" is randomly generated, assigned, and tracked by Sysmon to assist in tracing individual user sessions.
 -->
 
-<Sysmon schemaversion="3.30">
+<Sysmon schemaversion="6.0">
 	<HashAlgorithms>md5,sha256</HashAlgorithms>
 	<EventFiltering>
 
@@ -102,7 +97,6 @@
 			<ParentImage condition="end with">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeClickToRun.exe</ParentImage> <!--Microsoft:Office: Background process-->
 			<ParentImage condition="is">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeC2RClient.exe</ParentImage> <!--Microsoft:Office: Background process-->
 			<!--SECTION: Google-->
-			<CommandLine condition="begin with">"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --type=</CommandLine> <!--Google:Chrome: massive command-line arguments-->
 			<CommandLine condition="begin with">"C:\Program Files\Google\Chrome\Application\chrome.exe" --type=</CommandLine> <!--Google:Chrome: massive command-line arguments-->
 			<Image condition="begin with">C:\Program Files (x86)\Google\Update\</Image> <!--Google:Chrome: Updater-->
 			<ParentImage condition="begin with">C:\Program Files (x86)\Google\Update\</ParentImage> <!--Google:Chrome: Updater-->
@@ -153,6 +147,8 @@
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime, PreviousCreationUtcTime-->
 		<FileCreateTime onmatch="include">
 			<Image condition="begin with">C:\Users</Image> <!--Look for timestomping in user area-->
+			<Image condition="begin with">C:\Windows</Image>
+			<Image condition="begin with">C:\ProgramData</Image> 
 		</FileCreateTime>
 		<FileCreateTime onmatch="exclude">
 			<Image condition="image">OneDrive.exe</Image> <!--OneDrive constantly changes file times-->
@@ -173,6 +169,7 @@
 			<Image condition="image">at.exe</Image> <!--Microsoft:Windows: Remote task scheduling | Credit @ion-storm -->
 			<Image condition="image">certutil.exe</Image> <!--Microsoft:Windows: Certificate tool can contact outbound | Credit @ion-storm and @FVT [ https://twitter.com/FVT/status/834433734602530817 ] -->
 			<Image condition="image">cmd.exe</Image> <!--Microsoft:Windows: Command prompt-->
+			<Image condition="image">wscript.exe</Image>
 			<Image condition="image">cscript.exe</Image> <!--Microsoft:WindowsScriptingHost: | Credit @Cyb3rOps [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
 			<Image condition="image">java.exe</Image> <!--Java: Monitor usage of vulnerable application | Credit @ion-storm -->
 			<Image condition="image">mshta.exe</Image> <!--Microsoft:Windows: HTML application executes scripts without IE protections | Credit @ion-storm [ https://en.wikipedia.org/wiki/HTML_Application ] -->
@@ -200,16 +197,34 @@
 			<Image condition="image">hpsmhd.exe</Image> <!-- HP System Management Homepage https://www.cvedetails.com/vulnerability-list/vendor_id-10/product_id-7244/HP-System-Management-Homepage.html | Credit @Cyb3rOps -->
 			<!--Malware related-->
 			<Image condition="image">tor.exe</Image> <!--Tor [ https://www.hybrid-analysis.com/sample/800bf028a23440134fc834efc5c1e02cc70f05b2e800bbc285d7c92a4b126b1c?environmentId=100 ] -->
+			<Image condition="image">explorer.exe</Image> 
+			<Image condition="contains">dllhost.exe</Image>
+			<Image condition="contains">PsExe</Image>
+			<Image condition="contains">winexe</Image>
+			<Image condition="contains">RTS2App</Image>
+            <Image condition="contains">RTS3App</Image>
+			<Image condition="contains">wmic</Image>
+			<Image condition="contains">regedit</Image>
+			<Image condition="contains">java</Image>
+			<Image condition="contains">flash</Image>
+			<Image condition="contains">iexplorer</Image>
+			<Image condition="contains">firefox</Image>
+			<Image condition="contains">chrome</Image>
 			<!--Ports: Suspicious-->
 			<DestinationPort condition="is">22</DestinationPort> <!--SSH protocol-->
 			<DestinationPort condition="is">23</DestinationPort> <!--Telnet protocol-->
 			<DestinationPort condition="is">25</DestinationPort> <!--SMTP mail protocol-->
+			<DestinationPort condition="is">80</DestinationPort> 
+			<DestinationPort condition="is">443</DestinationPort> 
+			<DestinationPort condition="is">445</DestinationPort> 
+			<DestinationPort condition="is">21</DestinationPort> 
 			<DestinationPort condition="is">3389</DestinationPort> <!--Microsoft:Windows:RDP-->
 			<DestinationPort condition="is">5800</DestinationPort> <!--VNC protocol-->
 			<DestinationPort condition="is">5900</DestinationPort> <!--VNC protocol-->
 			<!--Ports: Proxy-->
 			<DestinationPort condition="is">1080</DestinationPort> <!--Socks proxy port | Credit @ion-storm-->
-			<DestinationPort condition="is">3128</DestinationPort> <!--Socks proxy port | Credit @ion-storm-->
+			<DestinationPort condition="is">8081</DestinationPort>
+			<DestinationPort condition="is">3128</DestinationPort> <!--Socks proyx port | Credit @ion-storm-->
 			<DestinationPort condition="is">8080</DestinationPort> <!--Socks proxy port | Credit @ion-storm-->
 			<!--Ports: Tor-->
 			<DestinationPort condition="is">1723</DestinationPort> <!--Tor protocol | Credit @ion-storm-->
@@ -218,8 +233,12 @@
 			<DestinationPort condition="is">9030</DestinationPort> <!--Tor protocol [ http://www.computerworlduk.com/tutorial/security/tor-enterprise-2016-blocking-malware-darknet-use-rogue-nodes-3633907/ ] -->
 		</NetworkConnect>
 		<NetworkConnect onmatch="exclude">
-			<Image condition="image">OneDrive.exe</Image> <!--Microsoft:OneDrive-->
-			<Image condition="image">Spotify.exe</Image> <!--Spotify-->
+			<Image condition="contains">OneDrive</Image> <!--Microsoft:OneDrive-->
+			<Image condition="contains">Spotify</Image> <!---->
+			<Image condition="contains">itunes</Image> <!---->
+			<Image condition="contains">pandora</Image> <!---->
+			<Image condition="contains">fortisslvpn</Image> <!---->
+			<Image condition="contains">dcagentservice</Image> <!---->
 			<Image condition="end with">AppData\Roaming\Dropbox\bin\Dropbox.exe</Image> <!--Dropbox-->
 			<!--SECTION: Microsoft-->
 			<Image condition="image">OneDriveStandaloneUpdater.exe</Image> <!--Microsoft:OneDrive-->
@@ -247,6 +266,7 @@
 			<Signature condition="contains">microsoft</Signature> <!--Exclude signed Microsoft drivers-->
 			<Signature condition="contains">windows</Signature> <!--Exclude signed Microsoft drivers-->
 			<Signature condition="begin with">Intel </Signature> <!--Exclude signed Intel drivers-->
+			<Signature condition="begin with">Symantec Corporation</Signature>
 		</DriverLoad>
 
 	<!--SYSMON EVENT ID 7 : DLL (IMAGE) LOADED BY PROCESS-->
@@ -254,7 +274,10 @@
 		<ImageLoad onmatch="include">
 		<!--COMMENT:	Can cause high system load, disabled by default, important examples included below.-->
 		</ImageLoad>
-
+		<ImageLoad onmatch="exclude">
+			<Signature condition="contains">microsoft</Signature> 
+			<Signature condition="contains">windows</Signature>
+		</ImageLoad>
 	<!--SYSMON EVENT ID 8 : REMOTE THREAD CREATED-->
 		<!--DATA: UtcTime, SourceProcessGuid, SourceProcessId, SourceImage, TargetProcessId, TargetImage, NewThreadId, StartAddress, StartModule, StartFunction-->
 		<CreateRemoteThread onmatch="exclude">
@@ -268,7 +291,7 @@
 			<SourceImage condition="is">C:\Windows\System32\winlogon.exe</SourceImage>
 			<SourceImage condition="is">C:\Windows\System32\audiodg.exe</SourceImage>
 			<StartModule condition="is">C:\windows\system32\kernel32.dll</StartModule>
-			<TargetImage condition="end with">Google\Chrome\Application\chrome.exe</TargetImage>
+			<StartModule condition="contains">LogonUI.exe</StartModule>
 		</CreateRemoteThread>
 
 	<!--SYSMON EVENT ID 9 : RAW DISK ACCESS-->
@@ -303,7 +326,19 @@
 			<TargetFilename condition="end with">.hta</TargetFilename> <!--Scripting-->
 			<TargetFilename condition="end with">.pptm</TargetFilename> <!--Microsoft:Office:Word: Macro-->
 			<TargetFilename condition="end with">.ps1</TargetFilename> <!--PowerShell [ More information: http://www.hexacorn.com/blog/2014/08/27/beyond-good-ol-run-key-part-16/ ] -->
-			<TargetFilename condition="end with">.sys</TargetFilename> <!--System driver files-->
+			<TargetFilename condition="end with">.ps2</TargetFilename> <!--System driver files-->
+			<TargetFilename condition="end with">.doc</TargetFilename>
+			<TargetFilename condition="end with">.xls</TargetFilename>
+			<TargetFilename condition="end with">.js</TargetFilename>
+			<TargetFilename condition="end with">.jse</TargetFilename>
+			<TargetFilename condition="end with">.crt</TargetFilename>
+			<TargetFilename condition="end with">.swf</TargetFilename>
+			<TargetFilename condition="end with">.lnk</TargetFilename>
+			<TargetFilename condition="end with">.dll</TargetFilename>
+			<TargetFilename condition="end with">.jse</TargetFilename>
+			<TargetFilename condition="end with">.vbe</TargetFilename>
+			<TargetFilename condition="end with">.vb</TargetFilename>
+			<TargetFilename condition="end with">.sys</TargetFilename>
 			<TargetFilename condition="end with">.vbs</TargetFilename> <!--VisualBasicScripting-->
 			<TargetFilename condition="end with">.xlsm</TargetFilename> <!--Microsoft:Office:Word: Macro-->
 			<TargetFilename condition="begin with">C:\Users\Default</TargetFilename> <!--Microsoft:Windows: Changes to default user profile-->
@@ -317,6 +352,7 @@
 			<TargetFilename condition="begin with">C:\Windows\System32\WindowsPowerShell</TargetFilename> <!--Microsoft:Powershell: Look for modifications for persistence [ https://www.malwarearchaeology.com/cheat-sheets ] -->
 			<TargetFilename condition="begin with">C:\Windows\SysWOW64\WindowsPowerShell</TargetFilename> <!--Microsoft:Powershell: Look for modifications for persistence [ https://www.malwarearchaeology.com/cheat-sheets ] -->
 			<TargetFilename condition="begin with">C:\Windows\Tasks\</TargetFilename> <!--Microsoft:ScheduledTasks-->
+			<TargetFilename condition="contains">C:\Windows\</TargetFilename> <!--Microsoft:Windows-->
 		</FileCreate>
 		<FileCreate onmatch="exclude">
 			<!--SECTION: Microsoft:Office:Click2Run-->
@@ -325,6 +361,7 @@
 			<Image condition="is">C:\Windows\System32\smss.exe</Image> <!-- Microsoft:Windows: Session Manager SubSystem: Creates swapfile.sys,pagefile.sys,hiberfile.sys-->
 			<Image condition="is">C:\Windows\system32\CompatTelRunner.exe</Image> <!-- Microsoft:Windows: Windows 10 app, creates tons of cache files-->
 			<Image condition="is">\\?\C:\Windows\system32\wbem\WMIADAP.EXE</Image> <!-- Microsoft:Windows: WMI Performance updates-->
+			<TargetFilename condition="begin with">C:\Program Files (x86)\Symantec\Symantec Endpoint Protection\</TargetFilename> <!-- Microsoft:Windows: Temp files by DrvInst.exe-->
 			<TargetFilename condition="begin with">C:\Windows\System32\DriverStore\Temp\</TargetFilename> <!-- Microsoft:Windows: Temp files by DrvInst.exe-->
 			<TargetFilename condition="begin with">C:\Windows\System32\wbem\Performance\</TargetFilename> <!-- Microsoft:Windows: Created in wbem by WMIADAP.exe-->
 			<TargetFilename condition="end with">WRITABLE.TST</TargetFilename> <!-- Microsoft:Windows: Created in wbem by svchost-->
@@ -517,16 +554,31 @@
 			<TargetFilename condition="contains">Content.Outlook</TargetFilename> <!--Microsoft:Outlook: Attachments--> <!--PRIVACY WARNING-->
 			<TargetFilename condition="contains">Downloads</TargetFilename> <!--Downloaded files. Does not include "Run" files in IE-->
 			<TargetFilename condition="contains">Temp\7z</TargetFilename> <!--7zip extractions-->
+			<TargetFilename condition="end with">.application</TargetFilename> <!--Microsoft:ClickOnce: [ https://blog.netspi.com/all-you-need-is-one-a-clickonce-love-story/ ] -->
+			<TargetFilename condition="end with">.appref-ms</TargetFilename> <!--Microsoft:ClickOnce application | Credit @ion-storm -->
 			<TargetFilename condition="end with">.bat</TargetFilename> <!--Batch scripting-->
-			<TargetFilename condition="end with">.cmd</TargetFilename> <!--Batch scripting | Credit @ion-storm -->
+			<TargetFilename condition="end with">.cmd</TargetFilename> <!--Batch scripting: Batch scripts can also use the .cmd extension | Credit: @mmazanec -->
+			<TargetFilename condition="end with">.cmdline</TargetFilename> <!--Microsoft:dotNet: Executed by cvtres.exe-->
+			<TargetFilename condition="end with">.docm</TargetFilename> <!--Microsoft:Office:Word: Macro-->
+			<TargetFilename condition="end with">.exe</TargetFilename> <!--Executable-->
 			<TargetFilename condition="end with">.hta</TargetFilename> <!--Scripting-->
-			<TargetFilename condition="end with">.lnk</TargetFilename> <!--Shortcut file | Credit @ion-storm -->
-			<TargetFilename condition="end with">.ps1</TargetFilename> <!--Powershell-->
-			<TargetFilename condition="end with">.ps2</TargetFilename> <!--Powershell-->
-			<TargetFilename condition="end with">.reg</TargetFilename> <!--Registry File-->
-			<TargetFilename condition="end with">.vb</TargetFilename> <!--VisualBasicScripting files-->
-			<TargetFilename condition="end with">.vbe</TargetFilename> <!--VisualBasicScripting files-->
-			<TargetFilename condition="end with">.vbs</TargetFilename> <!--VisualBasicScripting files-->
+			<TargetFilename condition="end with">.pptm</TargetFilename> <!--Microsoft:Office:Word: Macro-->
+			<TargetFilename condition="end with">.ps1</TargetFilename> <!--PowerShell [ More information: http://www.hexacorn.com/blog/2014/08/27/beyond-good-ol-run-key-part-16/ ] -->
+			<TargetFilename condition="end with">.ps2</TargetFilename> <!--System driver files-->
+			<TargetFilename condition="end with">.doc</TargetFilename>
+			<TargetFilename condition="end with">.xls</TargetFilename>
+			<TargetFilename condition="end with">.js</TargetFilename>
+			<TargetFilename condition="end with">.jse</TargetFilename>
+			<TargetFilename condition="end with">.crt</TargetFilename>
+			<TargetFilename condition="end with">.swf</TargetFilename>
+			<TargetFilename condition="end with">.lnk</TargetFilename>
+			<TargetFilename condition="end with">.dll</TargetFilename>
+			<TargetFilename condition="end with">.jse</TargetFilename>
+			<TargetFilename condition="end with">.vbe</TargetFilename>
+			<TargetFilename condition="end with">.vb</TargetFilename>
+			<TargetFilename condition="end with">.sys</TargetFilename>
+			<TargetFilename condition="end with">.vbs</TargetFilename> <!--VisualBasicScripting-->
+			<TargetFilename condition="end with">.xlsm</TargetFilename> <!--Microsoft:Office:Word: Macro-->
 		</FileCreateStreamHash>
 
 	<!--SYSMON EVENT ID 16 : SYSMON CONFIGURATION CHANGE, THIS LINE IS INCLUDED FOR DOCUMENTATION PURPOSES ONLY-->
@@ -535,10 +587,6 @@
 
 	<!--SYSMON EVENT ID 17 & 18 : PIPE CREATED / PIPE CONNECTED-->
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, PipeName, Image-->
-		<PipeEvent onmatch="include">
-			<!--ADDITIONAL REFERENCE: [ https://www.cobaltstrike.com/help-smb-beacon ] -->
-			<!--ADDITIONAL REFERENCE: [ https://blog.cobaltstrike.com/2015/10/07/named-pipe-pivoting/ ] -->
-		</PipeEvent>
 
 	</EventFiltering>
 </Sysmon>
