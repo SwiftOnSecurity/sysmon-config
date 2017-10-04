@@ -444,7 +444,7 @@
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Cryptography\OID\</TargetObject> <!-- Important trust registry values to monitor -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\WOW6432Node\Microsoft\Cryptography\OID\</TargetObject> <!-- Important trust registry values to monitor -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Cryptography\Providers\Trust\</TargetObject> <!-- Important trust registry values to monitor -->
-			<TargetObject condition="begin with">HKLM\SOFTWARE\WOW6432Node\Microsoft\Cryptography\Providers\Trust</TargetObject> <!-- Important trust registry values to monitor -->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\WOW6432Node\Microsoft\Cryptography\Providers\Trust\</TargetObject> <!-- Important trust registry values to monitor -->
 		</RegistryEvent>
 		<RegistryEvent onmatch="exclude">
 		<!--COMMENT:	Remove low-information noise-->
