@@ -147,12 +147,6 @@
 			<ParentImage condition="end with">C:\Program Files (x86)\Dropbox\Update\DropboxUpdate.exe</ParentImage>
 			<!--SECTION: Dell-->
 			<ParentImage condition="image">C:\Program Files (x86)\Dell\CommandUpdate\InvColPC.exe</ParentImage> <!--Dell:CommandUpdate: Detection process-->
-			<!--SECTION: Splunk:UniversalForwarder-->
-			<Image condition="begin with">C:\Program Files\SplunkUniversalForwarder\bin\</Image> <!--Splunk:UniversalForwarder child processes-->
-			<ParentImage condition="is">C:\Program Files\SplunkUniversalForwarder\bin\splunkd.exe </ParentImage> <!--Splunk:UniversalForwarder:Daemon-->
-			<!--SECTION: Splunk-->
-			<Image condition="begin with">C:\Program Files\Splunk\bin\</Image> <!--Splunk child processes-->
-			<ParentImage condition="is">C:\Program Files\Splunk\bin\splunkd.exe</ParentImage> <!--Splunk:Daemon-->
 		</ProcessCreate>
 
 	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM-->
@@ -312,8 +306,6 @@
 			<TargetFilename condition="end with">.sys</TargetFilename> <!--System driver files-->
 			<TargetFilename condition="end with">.vbs</TargetFilename> <!--VisualBasicScripting-->
 			<TargetFilename condition="end with">.xlsm</TargetFilename> <!--Microsoft:Office:Word: Macro-->
-			<TargetFilename condition="end with">.*proj</TargetFilename><!--Microsoft:MSBuild:Script More information: https://twitter.com/subTee/status/885919612969394177-->
-			<TargetFilename condition="end with">.sln</TargetFilename><!--Microsoft:MSBuild:Script More information: https://twitter.com/subTee/status/885919612969394177-->			
 			<TargetFilename condition="begin with">C:\Users\Default</TargetFilename> <!--Microsoft:Windows: Changes to default user profile-->
 			<TargetFilename condition="begin with">C:\Windows\System32\Drivers</TargetFilename> <!--Microsoft: Drivers dropped here-->
 			<TargetFilename condition="begin with">C:\Windows\SysWOW64\Drivers</TargetFilename> <!--Microsoft: Drivers dropped here-->
