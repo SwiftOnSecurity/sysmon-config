@@ -158,6 +158,8 @@
 			<Image condition="is">C:\Program Files (x86)\McAfee\VirusScan Enterprise\x64\Scan64.Exe</Image> <!--McAfee On Demand Scan Engine-->
 			<ParentImage condition="is">C:\Program Files (x86)\McAfee\VirusScan Enterprise\VsTskMgr.exe</ParentImage> <!--McAfee:Task Manager-->
 			<ParentImage condition="is">C:\Program Files\McAfee\Agent\x86\macompatsvc.exe</ParentImage> <!--McAfee:Agent-->
+			<!--SECTION: Cherwell-->
+			<ParentImage condition="is">C:\Windows\SysWOW64\wex4962\EMInvCli.exe</ParentImage> <!--Cherwell:Asset Management Agent-->
 		</ProcessCreate>
 
 	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM-->
