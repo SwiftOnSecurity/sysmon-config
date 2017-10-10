@@ -153,6 +153,11 @@
 			<!--SECTION: Splunk-->
 			<Image condition="begin with">C:\Program Files\Splunk\bin\</Image> <!--Splunk child processes-->
 			<ParentImage condition="is">C:\Program Files\Splunk\bin\splunkd.exe</ParentImage> <!--Splunk:Daemon-->
+			<!--SECTION: McAfee-->
+			<Image condition="is">C:\Program Files (x86)\Common Files\McAfee\DATReputation\mcdatrep.exe</Image> <!--McAfee DAT reputation-->
+			<Image condition="is">C:\Program Files (x86)\McAfee\VirusScan Enterprise\x64\Scan64.Exe</Image> <!--McAfee On Demand Scan Engine-->
+			<ParentImage condition="is">C:\Program Files (x86)\McAfee\VirusScan Enterprise\VsTskMgr.exe</ParentImage> <!--McAfee:Task Manager-->
+			<ParentImage condition="is">C:\Program Files\McAfee\Agent\x86\macompatsvc.exe</ParentImage> <!--McAfee:Agent-->
 		</ProcessCreate>
 
 	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM-->
