@@ -293,6 +293,7 @@
 			<TargetFilename condition="contains">\Startup</TargetFilename> <!--Microsoft:Office: Changes to user's autoloaded files under AppData-->
 			<TargetFilename condition="contains">\Content.Outlook\</TargetFilename> <!--Microsoft:Outlook: attachments--> <!--PRIVACY WARNING-->
 			<TargetFilename condition="contains">\Downloads\</TargetFilename> <!--Downloaded files. Does not include "Run" files in IE--> <!--PRIVACY WARNING-->
+			<TargetFilename condition="contains">\Roaming\</TargetFilename> <!--Roaming Profile Folder-->
 			<TargetFilename condition="end with">.application</TargetFilename> <!--Microsoft:ClickOnce: [ https://blog.netspi.com/all-you-need-is-one-a-clickonce-love-story/ ] -->
 			<TargetFilename condition="end with">.appref-ms</TargetFilename> <!--Microsoft:ClickOnce application | Credit @ion-storm -->
 			<TargetFilename condition="end with">.bat</TargetFilename> <!--Batch scripting-->
@@ -306,7 +307,14 @@
 			<TargetFilename condition="end with">.sys</TargetFilename> <!--System driver files-->
 			<TargetFilename condition="end with">.vbs</TargetFilename> <!--VisualBasicScripting-->
 			<TargetFilename condition="end with">.xlsm</TargetFilename> <!--Microsoft:Office:Word: Macro-->
+			<TargetFilename condition="end with">.js</TargetFilename> <!--JavaScript files-->
+			<TargetFilename condition="end with">.jse</TargetFilename> <!--EncodedJavaScript files-->
+			<TargetFilename condition="end with">.sfx</TargetFilename> <!--Self-ExtractedArchives-->
+			<TargetFilename condition="end with">.scr</TargetFilename> <!--ExecutableScript-->
+			<TargetFilename condition="end with">.wsf</TargetFilename> <!--WindowsScript file-->
+			<TargetFilename condition="end with">.jar</TargetFilename> <!--JavaArchive file-->
 			<TargetFilename condition="begin with">C:\Users\Default</TargetFilename> <!--Microsoft:Windows: Changes to default user profile-->
+			<TargetFilename condition="begin with">C:\Users\Public\</TargetFilename> <!--Microsoft:Windows: Default Profiles-->
 			<TargetFilename condition="begin with">C:\Windows\System32\Drivers</TargetFilename> <!--Microsoft: Drivers dropped here-->
 			<TargetFilename condition="begin with">C:\Windows\SysWOW64\Drivers</TargetFilename> <!--Microsoft: Drivers dropped here-->
 			<TargetFilename condition="begin with">C:\Windows\System32\GroupPolicy\Machine\Scripts</TargetFilename> <!--Group policy [ More information: http://www.hexacorn.com/blog/2017/01/07/beyond-good-ol-run-key-part-52/ ] -->
@@ -317,6 +325,7 @@
 			<TargetFilename condition="begin with">C:\Windows\System32\WindowsPowerShell</TargetFilename> <!--Microsoft:Powershell: Look for modifications for persistence [ https://www.malwarearchaeology.com/cheat-sheets ] -->
 			<TargetFilename condition="begin with">C:\Windows\SysWOW64\WindowsPowerShell</TargetFilename> <!--Microsoft:Powershell: Look for modifications for persistence [ https://www.malwarearchaeology.com/cheat-sheets ] -->
 			<TargetFilename condition="begin with">C:\Windows\Tasks\</TargetFilename> <!--Microsoft:ScheduledTasks-->
+			<TargetFilename condition="begin with">C:\Windows\Temp\</TargetFilename>  <!--Microsoft:Temp Folder-->
 		</FileCreate>
 		<FileCreate onmatch="exclude">
 			<!--SECTION: Microsoft:Office:Click2Run-->
@@ -527,6 +536,12 @@
 			<TargetFilename condition="end with">.vb</TargetFilename> <!--VisualBasicScripting files-->
 			<TargetFilename condition="end with">.vbe</TargetFilename> <!--VisualBasicScripting files-->
 			<TargetFilename condition="end with">.vbs</TargetFilename> <!--VisualBasicScripting files-->
+			<TargetFilename condition="end with">.js</TargetFilename> <!--JavaScript files-->
+			<TargetFilename condition="end with">.jse</TargetFilename> <!--EncodedJavaScript files-->
+			<TargetFilename condition="end with">.sfx</TargetFilename> <!--Self-ExtractedArchives-->
+			<TargetFilename condition="end with">.scr</TargetFilename> <!--ExecutableScript-->
+			<TargetFilename condition="end with">.wsf</TargetFilename> <!--WindowsScript file-->
+			<TargetFilename condition="end with">.jar</TargetFilename> <!--JavaArchive file-->
 		</FileCreateStreamHash>
 
 	<!--SYSMON EVENT ID 16 : SYSMON CONFIGURATION CHANGE, THIS LINE IS INCLUDED FOR DOCUMENTATION PURPOSES ONLY-->
