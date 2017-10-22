@@ -17,5 +17,7 @@ sysmon.exe -u
 ~~~~
 
 ### Event Log Location ###
-All sysmon events are written to C:\Windows\System32\winevt\Logs\Microsoft-Windows-Sysmon%4Operational.evtx
+All sysmon events are written to
+~~~~
+C:\Windows\System32\winevt\Logs\Microsoft-Windows-Sysmon%4Operational.evtx
 ~~~~
