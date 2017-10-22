@@ -20,6 +20,10 @@ echo [+] Downloading Sysmon config...
 @powershell (new-object System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/threathunting/sysmon-config/master/sysmonconfig-export.xml','C:\ProgramData\sysmon\sysmonconfig-export.xml')"
 @powershell (new-object System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/threathunting/sysmon-config/master/Auto_update.bat','C:\ProgramData\sysmon\Auto_Update.bat')"
 sysmon64.exe -accepteula -i sysmonconfig-export.xml
+attrib +s +h +r c:\ProgramData\sysmon
+cacls c:\ProgramData\Sysmon /e /p everyone:n
+cacls c:\ProgramData\Sysmon /p system:f
+cacls c:\ProgramData\Sysmon /p Administrators:f
 sc failure Sysmon actions= restart/10000/restart/10000// reset= 120
 echo [+] Sysmon Successfully Installed!
 echo [+] Creating Auto Update Task set to Hourly..
