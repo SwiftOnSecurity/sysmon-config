@@ -160,7 +160,7 @@
 		</FileCreateTime>
 
 	<!--SYSMON EVENT ID 3 : NETWORK CONNECTION INITIATED-->
-		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, User, Protocol, Initiated, SourceIsIpv6, SourceIp, SourceHostname, SourcePort, SourcePortName, DestinationIsIpV6, DestinationIp, DestinationHostname, DestinationPort, DestinationPortName-->
+		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, User, Protocol, Initiated, SourceIsIpv6, SourceIp, SourceHostname, SourcePort, SourcePortName, DestinationIsIpV6, DestinationIP, DestinationHostname, DestinationPort, DestinationPortName-->
 		<NetworkConnect onmatch="include">
 		<!--COMMENT:	Takes a very conservative approach to network logging, limit to extremely high-signal events.-->
 		<!--TECHNICAL:	For the DestinationHostname, Sysmon uses the GetNameInfo API, which may not always have the information or may be a CDN. Using that field is best-effort only.-->
@@ -282,22 +282,9 @@
 
 	<!--SYSMON EVENT ID 10 : INTER-PROCESS ACCESS-->
 		<!--DATA: UtcTime, SourceProcessGuid, SourceProcessId, SourceThreadId, SourceImage, TargetProcessGuid, TargetProcessId, TargetImage, GrantedAccess, CallTrace-->
-<!-- 		<ProcessAccess onmatch="include">
-		COMMENT:	Monitor for processes accessing other process' memory. This can be valuable, but can cause a huge number of events.
-		</ProcessAccess> -->
 		<ProcessAccess onmatch="include">
-			<TargetImage condition="is">C:\Windows\system32\lsass.exe</TargetImage>
+		<!--COMMENT:	Monitor for processes accessing other process' memory. This can be valuable, but can cause a huge number of events.-->
 		</ProcessAccess>
-
-		<ProcessAccess onmatch="exclude">
-		<!--COMMENT:	this will catch the dump hash operation from lsass. tested by mimikatz,wce-->
-			<GrantedAccess condition="is">0x1400</GrantedAccess>
-			<GrantedAccess condition="is">0x1000</GrantedAccess>
-			<SourceImage condition="is">C:\Windows\System32\wbem\WmiPrvSE.exe</SourceImage>
-			
-		</ProcessAccess>
-
-
 
 	<!--SYSMON EVENT ID 11 : FILE CREATED-->
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime-->
