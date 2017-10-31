@@ -172,7 +172,7 @@
 			<Image condition="begin with">C:\Perflogs\</Image>
  			<Image condition="contains">config\systemprofile\</Image>
  			<Image condition="contains">\Windows\Fonts\</Image>
- 			<Image condition="contains">\Windows\IME\<Image>
+ 			<Image condition="contains">\Windows\IME\</Image>
  			<Image condition="contains">\Windows\addins\</Image>
 			<!--Suspicious Windows tools-->
 			<Image condition="image">at.exe</Image> <!--Microsoft:Windows: Remote task scheduling | Credit @ion-storm -->
