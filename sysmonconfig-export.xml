@@ -577,7 +577,7 @@
 			<Signed condition="is">false</Signed> <!-- Lets Only show Unsigned DLL's loaded-->
 			<SignatureStatus condition="is">Invalid</SignatureStatus> <!--Lets Show DLL's where their Signature's are Invalid-->
 			<SignatureStatus condition="is">Unavailable</SignatureStatus> <!--Lets Show DLL's where their Signature's are Invalid-->
-			<ImageLoaded condition="contains">C:\windows\system32\fxsst.dll </ImageLoaded> <!-- CIA Vault7 Leak: Fax DLL Injection -->
+			<ImageLoaded condition="contains">C:\windows\system32\fxsst.dll</ImageLoaded> <!-- CIA Vault7 Leak: Fax DLL Injection -->
 			<ImageLoaded condition="contains">C:\Windows\System32\wbem\oci.dll</ImageLoaded> <!-- CIA Vault7 Leak: Distributed Transaction Coordinator DLL Injection -->
 			<!-- Mimikatz Detection -->
 			<!-- <ImageLoaded condition="is">C:\Windows\System32\WinSCard.dll</ImageLoaded> --> <!--MimiKatz Detection Credit: @Cyb3rWard0g: https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html -->
@@ -623,6 +623,8 @@
 			<Signature condition="contains">Fortinet</Signature> -->
 		</ImageLoad>
 		<ImageLoad onmatch="exclude">
+			<SignatureStatus condition="is">Valid</SignatureStatus>
+			<ImageLoaded condition="is">C:\Windows\System32\samlib.dll</ImageLoaded> <!-- Spam -->
 			<Signature condition="contains">microsoft</Signature> <!--Exclude signed Microsoft libraries-->
 			<Signature condition="is">Microsoft Windows</Signature> <!--Exclude signed Microsoft libraries-->
 			<Signature condition="contains">windows</Signature> <!--Exclude signed Microsoft libraries-->
@@ -747,6 +749,7 @@
 			<TargetFilename condition="end with">.cmdline</TargetFilename> <!--Microsoft:dotNet: Executed by cvtres.exe-->
 			<TargetFilename condition="end with">.docm</TargetFilename> <!--Microsoft:Office:Word: Macro-->
 			<TargetFilename condition="end with">.exe</TargetFilename> <!--Executable-->
+			<TargetFilename condition="end with">.msc</TargetFilename> <!--Executable-->
 			<TargetFilename condition="end with">.hta</TargetFilename> <!--Scripting-->
 			<TargetFilename condition="end with">.ws</TargetFilename> <!--Scripting-->
 			<TargetFilename condition="end with">.wsf</TargetFilename> <!--Scripting-->
@@ -775,6 +778,8 @@
 			<TargetFilename condition="end with">.vb</TargetFilename> <!--VisualBasicScripting-->
 			<TargetFilename condition="end with">.vbsript</TargetFilename> <!--VisualBasicScripting-->
 			<TargetFilename condition="end with">.vbe</TargetFilename> <!--VisualBasicScripting-->
+			<TargetFilename condition="end with">.js</TargetFilename> <!--Java Scripting-->
+			<TargetFilename condition="end with">.jse</TargetFilename> <!--Java Scripting-->
 			<TargetFilename condition="end with">.*proj</TargetFilename><!--Microsoft:MSBuild:Script More information: https://twitter.com/subTee/status/885919612969394177-->
 			<TargetFilename condition="end with">.sln</TargetFilename><!--Microsoft:MSBuild:Script More information: https://twitter.com/subTee/status/885919612969394177-->
 			<TargetFilename condition="begin with">C:\Users\Default</TargetFilename> <!--Microsoft:Windows: Changes to default user profile-->
@@ -808,6 +813,7 @@
 			<TargetFilename condition="end with">.JSE</TargetFilename>
 			<TargetFilename condition="end with">.gadget</TargetFilename>
 			<TargetFilename condition="end with">.cpl</TargetFilename>
+			<TargetFilename condition="end with">.inf</TargetFilename>
 			<!--SECTION: Ransomware-->
 			<TargetFilename condition="contains">help_decrypt</TargetFilename>
 			<TargetFilename condition="contains">help_restore</TargetFilename>
