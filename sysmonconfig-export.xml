@@ -281,7 +281,6 @@
 			<ParentImage condition="is">C:\PostgreSQL9.1\bin\postgres.exe</ParentImage> <!-- eFolder Anchor Server -->
 			<Image condition="is">C:\PostgreSQL9.1\bin\postgres.exe</Image> <!-- eFolder Anchor Server -->
 		</ProcessCreate>
-
 	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM-->
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime, PreviousCreationUtcTime-->
 		<FileCreateTime onmatch="include">
@@ -581,12 +580,12 @@
 			<ImageLoaded condition="contains">C:\windows\system32\fxsst.dll </ImageLoaded> <!-- CIA Vault7 Leak: Fax DLL Injection -->
 			<ImageLoaded condition="contains">C:\Windows\System32\wbem\oci.dll</ImageLoaded> <!-- CIA Vault7 Leak: Distributed Transaction Coordinator DLL Injection -->
 			<!-- Mimikatz Detection -->
-			<ImageLoaded condition="is">C:\Windows\System32\WinSCard.dll</ImageLoaded> <!--MimiKatz Detection Credit: @Cyb3rWard0g: https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html -->
-			<ImageLoaded condition="is">C:\Windows\System32\cryptdll.dll</ImageLoaded> <!--MimiKatz Detection Credit: @Cyb3rWard0g: https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html -->
-			<ImageLoaded condition="is">C:\Windows\System32\hid.dll</ImageLoaded> <!--MimiKatz Detection Credit: @Cyb3rWard0g: https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html -->
-			<ImageLoaded condition="is">C:\Windows\System32\samlib.dll</ImageLoaded> <!--MimiKatz Detection Credit: @Cyb3rWard0g: https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html -->
-			<ImageLoaded condition="is">C:\Windows\System32\vaultcli.dll</ImageLoaded> <!--MimiKatz Detection Credit: @Cyb3rWard0g: https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html -->
-			<ImageLoaded condition="is">WMINet_Utils.dll</ImageLoaded> <!--MimiKatz Detection Credit: @Cyb3rWard0g: https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html -->
+			<!-- <ImageLoaded condition="is">C:\Windows\System32\WinSCard.dll</ImageLoaded> --> <!--MimiKatz Detection Credit: @Cyb3rWard0g: https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html -->
+			<!-- <ImageLoaded condition="is">C:\Windows\System32\cryptdll.dll</ImageLoaded> --> <!--MimiKatz Detection Credit: @Cyb3rWard0g: https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html -->
+			<!-- <ImageLoaded condition="is">C:\Windows\System32\hid.dll</ImageLoaded> --> <!--MimiKatz Detection Credit: @Cyb3rWard0g: https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html -->
+			<!-- <ImageLoaded condition="is">C:\Windows\System32\samlib.dll</ImageLoaded> --> <!--MimiKatz Detection Credit: @Cyb3rWard0g: https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html -->
+			<!-- <ImageLoaded condition="is">C:\Windows\System32\vaultcli.dll</ImageLoaded> --> <!--MimiKatz Detection Credit: @Cyb3rWard0g: https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html -->
+			<!-- <ImageLoaded condition="is">WMINet_Utils.dll</ImageLoaded> --> <!--MimiKatz Detection Credit: @Cyb3rWard0g: https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html -->
 			<ImageLoaded condition="contains">\Temp\</ImageLoaded>
 			<!-- END: Mimikatz Detection -->
 		<!--COMMENT:	Can cause high system load, disabled by default, important examples included below.-->
@@ -639,11 +638,19 @@
 			<Signature condition="contains">Logitech</Signature> <!--Exclude signed Logitech libraries-->
 			<Signature condition="contains">Asmedia</Signature> <!--Exclude signed Asmedia libraries-->
 			<Signature condition="contains">SteelSeries</Signature> <!--Exclude signed MSI libraries-->
-			<Signature condition="contains">Fortinet</Signature> <!--Exclude signed MSI libraries-->			<Image condition="is">C:\Windows\System32\backgroundTaskHost.exe</Image>
-			<Signature condition="contains">Webroot</Signature> <!--Exclude signed MSI libraries-->			<Image condition="is">C:\Windows\System32\backgroundTaskHost.exe</Image>
+			<Signature condition="contains">Fortinet</Signature> <!--Exclude signed MSI libraries-->
+			<Image condition="is">C:\Windows\System32\backgroundTaskHost.exe</Image>
+			<Signature condition="contains">Webroot</Signature> <!--Exclude signed MSI libraries-->
+			<Image condition="is">C:\Windows\System32\backgroundTaskHost.exe</Image>
 			<Image condition="is">C:\Windows\System32\mmc.exe</Image>
+			<Image condition="is">C:\Windows\System32\SearchFilterHost.exe</Image>
+			<Image condition="is">C:\Windows\System32\SearchProtocolHost.exe</Image>
+			<ImageLoaded condition="end with">samlib.dll</ImageLoaded>
 			<ImageLoaded condition="contains">C:\Program Files (x86)\SmartGit</ImageLoaded> <!--SmartGit-->
 			<ImageLoaded condition="contains">syntevo\SmartGit</ImageLoaded> <!--SmartGit-->
+			<ImageLoaded condition="contains">Labtech Client</ImageLoaded>
+			<ImageLoaded condition="contains">CrystalDecisions</ImageLoaded>
+			<ImageLoaded condition="contains">ShoreWare</ImageLoaded>
 			<Image condition="is">C:\Windows\System32\backgroundTaskHost.exe</Image> <!-- Windows Store apps unsigned -->
 			<Image condition="is">C:\Program Files (x86)\VMware\Infrastructure\Virtual Infrastructure Client\Launcher\VpxClient.exe</Image>
 			<Image condition="begin with">C:\Program Files</Image> <!-- NOTICE: Not good for security but good on cutting down the noise, we do log dropped dll's -->
@@ -729,17 +736,29 @@
 			<TargetFilename condition="contains">\Content.Outlook\</TargetFilename> <!--Microsoft:Outlook: attachments--> <!--PRIVACY WARNING-->
 			<TargetFilename condition="contains">\Downloads\</TargetFilename> <!--Downloaded files. Does not include "Run" files in IE--> <!--PRIVACY WARNING-->
 			<TargetFilename condition="end with">.dll</TargetFilename> <!-- Lets detect DLL's being dropped in locations and to detect DLL Search Order Hijacking -->
+			<TargetFilename condition="end with">.ocx</TargetFilename>
 			<TargetFilename condition="end with">.sys</TargetFilename> <!-- Lets detect Drivers's being dropped in locations -->
 			<TargetFilename condition="end with">.application</TargetFilename> <!--Microsoft:ClickOnce: [ https://blog.netspi.com/all-you-need-is-one-a-clickonce-love-story/ ] -->
 			<TargetFilename condition="end with">.appref-ms</TargetFilename> <!--Microsoft:ClickOnce application | Credit @ion-storm -->
 			<TargetFilename condition="end with">.bat</TargetFilename> <!--Batch scripting-->
 			<TargetFilename condition="end with">.cmd</TargetFilename> <!--Batch scripting: Batch scripts can also use the .cmd extension | Credit: @mmazanec -->
+			<TargetFilename condition="end with">.com</TargetFilename> <!--Batch scripting: Batch scripts can also use the .com extension -->
+			<TargetFilename condition="end with">.btm</TargetFilename> <!--Batch scripting: Batch scripts can also use the .btm extension -->
 			<TargetFilename condition="end with">.cmdline</TargetFilename> <!--Microsoft:dotNet: Executed by cvtres.exe-->
 			<TargetFilename condition="end with">.docm</TargetFilename> <!--Microsoft:Office:Word: Macro-->
 			<TargetFilename condition="end with">.exe</TargetFilename> <!--Executable-->
 			<TargetFilename condition="end with">.hta</TargetFilename> <!--Scripting-->
+			<TargetFilename condition="end with">.ws</TargetFilename> <!--Scripting-->
+			<TargetFilename condition="end with">.wsf</TargetFilename> <!--Scripting-->
+			<TargetFilename condition="end with">.wsh</TargetFilename> <!--Scripting-->
 			<TargetFilename condition="end with">.pptm</TargetFilename> <!--Microsoft:Office:Word: Macro-->
 			<TargetFilename condition="end with">.ps1</TargetFilename> <!--PowerShell [ More information: http://www.hexacorn.com/blog/2014/08/27/beyond-good-ol-run-key-part-16/ ] -->
+			<TargetFilename condition="end with">.ps1xml</TargetFilename> <!--PowerShell's other file extensions: -->
+			<TargetFilename condition="end with">.psc1</TargetFilename> <!--PowerShell's other file extensions: -->
+			<TargetFilename condition="end with">.psd1</TargetFilename> <!--PowerShell's other file extensions: -->
+			<TargetFilename condition="end with">.psm1</TargetFilename> <!--PowerShell's other file extensions: -->
+			<TargetFilename condition="end with">.pssc</TargetFilename> <!--PowerShell's other file extensions: -->
+			<TargetFilename condition="end with">.cdxml</TargetFilename> <!--PowerShell's other file extensions: -->
 			<TargetFilename condition="end with">.sys</TargetFilename> <!--System driver files-->
 			<TargetFilename condition="end with">.reg</TargetFilename> <!--Registry files-->
 			<TargetFilename condition="end with">.docm</TargetFilename> <!--Office Macros-->
@@ -753,6 +772,9 @@
 			<TargetFilename condition="end with">.appref-ms</TargetFilename> <!--ClickOnce Application-->
 			<TargetFilename condition="end with">.rdp</TargetFilename> <!--Remote Desktop file-->
 			<TargetFilename condition="end with">.vbs</TargetFilename> <!--VisualBasicScripting-->
+			<TargetFilename condition="end with">.vb</TargetFilename> <!--VisualBasicScripting-->
+			<TargetFilename condition="end with">.vbsript</TargetFilename> <!--VisualBasicScripting-->
+			<TargetFilename condition="end with">.vbe</TargetFilename> <!--VisualBasicScripting-->
 			<TargetFilename condition="end with">.*proj</TargetFilename><!--Microsoft:MSBuild:Script More information: https://twitter.com/subTee/status/885919612969394177-->
 			<TargetFilename condition="end with">.sln</TargetFilename><!--Microsoft:MSBuild:Script More information: https://twitter.com/subTee/status/885919612969394177-->
 			<TargetFilename condition="begin with">C:\Users\Default</TargetFilename> <!--Microsoft:Windows: Changes to default user profile-->
@@ -769,6 +791,23 @@
 			<TargetFilename condition="begin with">C:\Windows\System32\Tasks</TargetFilename> <!--Microsoft:ScheduledTasks -->
 			<TargetFilename condition="end with">.cmdline</TargetFilename> <!--Microsoft:dotNet: Executed by cvtres.exe-->
 			<TargetFilename condition="begin with">C:\Windows\System32\</TargetFilename> <!--Microsoft: Files dropped here -->
+			<!--SECTION: Other suspicious file types to monitor-->
+			<TargetFilename condition="end with">.ICL</TargetFilename>
+			<TargetFilename condition="end with">.FON</TargetFilename>
+			<TargetFilename condition="end with">.FOT</TargetFilename>
+			<TargetFilename condition="end with">.ico</TargetFilename>
+			<TargetFilename condition="end with">.lnk</TargetFilename>
+			<TargetFilename condition="end with">.eml</TargetFilename>
+			<TargetFilename condition="end with">.msg</TargetFilename>
+			<TargetFilename condition="end with">.msg</TargetFilename>
+			<TargetFilename condition="end with">.SCT</TargetFilename>
+			<TargetFilename condition="end with">.SCR</TargetFilename>
+			<TargetFilename condition="end with">.SHB</TargetFilename>
+			<TargetFilename condition="end with">.SHS</TargetFilename>
+			<TargetFilename condition="end with">.PAF</TargetFilename>
+			<TargetFilename condition="end with">.JSE</TargetFilename>
+			<TargetFilename condition="end with">.gadget</TargetFilename>
+			<TargetFilename condition="end with">.cpl</TargetFilename>
 			<!--SECTION: Ransomware-->
 			<TargetFilename condition="contains">help_decrypt</TargetFilename>
 			<TargetFilename condition="contains">help_restore</TargetFilename>
@@ -1058,6 +1097,8 @@
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection\DisableBehaviorMonitoring</TargetObject>
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection\DisableOnAccessProtection</TargetObject>
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection\DisableScanOnRealtimeEnable</TargetObject>
+			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters\DisablePasswordChange</TargetObject> <!-- Detect disabling of machine password change -->
+			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters\RefusePasswordChange</TargetObject> <!-- Causes the domain controller to refuse password change requests only from workstations or member servers -->
 			<!-- Detect Root Certificate Store Hijacking and Unauthorized changes -->
 			<!-- Lots of noise from multiple locations, need a better monitor
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\SystemCertificates</TargetObject>
@@ -1095,6 +1136,7 @@
 			<TargetObject condition="contains">SOFTWARE\Classes\Wow6432Node\CLSID\{07598BD3-ABBE-4bee-959F-7B90253EADFF}\</TargetObject> <!--Too much noise -->
 			<TargetObject condition="contains">SOFTWARE\Classes\Wow6432Node\CLSID\{31240348-66EE-4F14-A42A-39F373A834C7}\</TargetObject> <!--Too much noise -->
 			<TargetObject condition="contains">SOFTWARE\Classes\Wow6432Node\CLSID\{8C8EC235-0786-4DAD-A957-1A6CD76C28F5}\</TargetObject> <!--Too much noise -->
+			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\DNS\Parameters\ServerLevelPluginDll</TargetObject> <!-- Detect: Dns Server dll injection -->
 			<!-- NOTICE: Detect New USB Network Devices: Poison Tap - Creates lots of noise, disabled for now
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}</TargetObject>
 			-->
@@ -1349,16 +1391,29 @@
 			<!--SECTION: EnPass-->
 			<PipeName condition="contains">qtsingleapp-enpass-</PipeName>
 			<Image condition="contains">qtsingleapp-enpass-</Image>
+			<!--SECTION: RoyalTS-->
+			<PipeName condition="contains">eo.ipc.</PipeName>
+			<!--SECTION: Windows Firewall Control-->
+			<Image condition="is">C:\Program Files\Windows Firewall Control\wfc.exe</Image>
 			<!--SECTION: Everything Search-->
 			<PipeName condition="contains">Everything Service</PipeName>
 			<PipeName condition="contains">anchor_gui_agent</PipeName>
+			<!--SECTION: Adobe-->
+			<Image condition="is">C:\Program Files (x86)\Common Files\Adobe\ARM\1.0\AdobeARM.exe</Image>
 			<!--SECTION: Lenovo-->
 			<Image condition="is">C:\Program Files (x86)\Lenovo\System Update\SUService.exe</Image>
 			<Image condition="is">C:\Program Files\Common Files\VMware\DeviceRedirectionCommon\ftnlsv.exe</Image>
 			<Image condition="is">C:\Program Files\Lenovo\ImController\Service\Lenovo.Modern.ImController.exe</Image>
 			<Image condition="is">C:\Program Files\Lenovo\HOTKEY\shtctky.exe</Image>
+			<Image condition="is">C:\PROGRA~1\Lenovo\HOTKEY\SHTCTKY.EXE</Image>
 			<Image condition="is">C:\Windows\System32\LPlatSvc.exe</Image>
+			<Image condition="is">C:\PROGRA~1\Lenovo\HOTKEY\TPOSD.EXE</Image>
+			<Image condition="is">C:\Program Files (x86)\Lenovo\iMController\PluginHost\Lenovo.Modern.ImController.PluginHost.Device.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Lenovo\System Update\TvsuCommandLauncher.exe</Image>
+			<!--SECTION: Fortinet-->
+			<Image condition="is">C:\Program Files (x86)\Fortinet\FortiClient\FortiSSLVPNdaemon.exe</Image>
+			<!--SECTION: Sophos VPN Client-->
+			<Image condition="is">c:\program files (x86)\sophos\sophos ssl vpn client\bin\openvpnserv.exe</Image>
 			<!--SECTION: Labtech-->
 			<Image condition="is">C:\Windows\LTSvc\LTSVC.exe</Image>
 			<Image condition="contains">ScreenConnect.WindowsClient.exe</Image>
