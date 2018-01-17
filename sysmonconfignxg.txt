@@ -1,6 +1,6 @@
 <!--
   sysmon-config | A Sysmon configuration focused on default high-quality event tracing and easy customization by the community
-  Master version:	60 | Date: 2018-01-17
+  Master version:	60 | Date: 2018-01-25
   Master author:	@SwiftOnSecurity, other contributors also credited in-line or on Git
   Master project:	https://github.com/SwiftOnSecurity/sysmon-config
   Master license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
@@ -244,6 +244,50 @@
 			<Image condition="is">C:\Program Files\Dell\SupportAssist\pcdrcui.exe</Image> <!--Dell:SupportAssist: routine actions-->
 			<Image condition="is">C:\Program Files\Dell\SupportAssist\koala.exe</Image> <!--Dell:SupportAssist: routine actions-->
 			<ParentCommandLine condition="end with">"-outc=C:\ProgramData\Dell\CommandUpdate\inventory.xml" "-logc=C:\ProgramData\Dell\CommandUpdate\scanerrs.xml" "-lang=en" "-enc=UTF-16" </ParentCommandLine>
+
+			<!--SECTION:SENSITIVE: Company-->
+			<!--SECTION: Webroot-->
+			<ParentImage condition="end with">C:\Program Files (x86)\Webroot\WRSA.exe</ParentImage> <!--Webroot:WRSA: Constantly launches WRusr.dll with rundll32.exe-->
+			<CommandLine condition="begin with">"C:\Windows\sysnative\rundll32.exe" "C:\Windows\system32\WRusr.dll",SynProc</CommandLine> <!--Webroot-->
+			<CommandLine condition="contains">C:\Program Files (x86)\Webroot\WRSA.exe" -ul</CommandLine> <!--Webroot-->
+			<ParentCommandLine condition="is">"C:\Program Files (x86)\Webroot\WRSA.exe" -service</ParentCommandLine> <!--Webroot-->
+			<ParentCommandLine condition="contains">\\dalshare</ParentCommandLine>
+			<ParentCommandLine condition="contains">\\mil-ussfs-01</ParentCommandLine>
+			<ParentCommandLine condition="contains">\\mil-san01-cifs1.neopost.na\DeptShare\IT\PublicResources</ParentCommandLine>
+			<!--SECTION: DesktopCentral-->
+			<CommandLine condition="end with">DCAgent.reg"</CommandLine>
+			<Image condition="is">C:\Program Files (x86)\DesktopCentral_Agent\bin\7za.exe</Image> <!--ManageEngine:DesktopCentral-->
+			<Image condition="is">C:\Program Files (x86)\DesktopCentral_Agent\bin\dcagentupgrader.exe</Image> <!--ManageEngine:DesktopCentral-->
+			<Image condition="is">C:\Program Files (x86)\DesktopCentral_Agent\bin\dcappcontrol.exe</Image> <!--ManageEngine:DesktopCentral-->
+			<Image condition="is">C:\Program Files (x86)\DesktopCentral_Agent\bin\dcswmeter.exe</Image> <!--ManageEngine:DesktopCentral-->
+			<Image condition="is">C:\Program Files (x86)\DesktopCentral_Agent\bin\dcuninstallsw.exe</Image> <!--ManageEngine:DesktopCentral-->
+			<Image condition="is">C:\Program Files (x86)\DesktopCentral_Agent\bin\dcusb64.exe</Image> <!--ManageEngine:DesktopCentral-->
+			<Image condition="is">C:\Program Files (x86)\DesktopCentral_Agent\bin\dcusbsummary.exe</Image> <!--ManageEngine:DesktopCentral-->
+			<Image condition="is">C:\Program Files (x86)\DesktopCentral_Agent\bin\metroapps.exe</Image> <!--ManageEngine:DesktopCentral-->
+			<ParentImage condition="end with">C:\Program Files (x86)\DesktopCentral_Agent\bin\dcagentservice.exe</ParentImage> <!--ManageEngine:DesktopCentral-->
+			<ParentImage condition="end with">C:\Program Files (x86)\DesktopCentral_Agent\bin\dcpatchscan.exe</ParentImage> <!--ManageEngine:DesktopCentral-->
+			<ParentImage condition="end with">C:\Program Files (x86)\DesktopCentral_Agent\bin\dcusbsummary.exe</ParentImage> <!--ManageEngine:DesktopCentral-->
+			<CurrentDirectory>C:\Program Files (x86)\DesktopCentral_Agent\Scripts\</CurrentDirectory>
+			<!--SECTION: WinMagic-->
+			<ParentImage condition="end with">C:\Program Files\WinMagic\SecureDoc-NT\SDService.exe</ParentImage>
+			<!--SECTION: Development tools-->
+			<ParentImage condition="contains">AppData\Local\GitHub\PortableGit</ParentImage>
+			<!--SECTION: Neopost-->
+			<Image condition="is">C:\Program Files (x86)\AIMS\Services\NeopostIO.exe</Image>
+			<ParentImage condition="is">C:\Program Files (x86)\AIMS\Services\NeopostIO.exe</ParentImage>
+			<Image condition="is">C:\Program Files\GMC\GMC License Manager\InspireICM.exe</Image>
+			<!--SECTION: Scripting-->
+			<ParentCommandLine condition="is">C:\Windows\system32\cmd.exe /c C:\Windows\system32\net.exe use | find "P:"</ParentCommandLine>
+			<ParentCommandLine condition="is">C:\Windows\system32\cmd.exe /c REG QUERY "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" /v AppData</ParentCommandLine>
+			<ParentCommandLine condition="is">C:\Windows\system32\cmd.exe /c REG.EXE QUERY "HKLM\Software\Microsoft\Windows\CurrentVersion\Authentication\LogonUI" /V "LastLoggedOnUser" 2>NUL | FIND "REG_SZ"</ParentCommandLine>
+			<ParentCommandLine condition="is">C:\Windows\system32\cmd.exe /c REG.EXE QUERY "HKLM\Software\Wow6432Node\WRData\Status" /V "ExpirationDate" 2>NUL | FIND "REG_DWORD"</ParentCommandLine>
+			<ParentCommandLine condition="is">C:\Windows\system32\cmd.exe /c REG.EXE QUERY "HKLM\Software\Wow6432Node\WRData\Status" /V "IsExpired" 2>NUL | FIND "REG_DWORD"</ParentCommandLine>
+			<ParentCommandLine condition="is">C:\Windows\system32\cmd.exe /c REG.EXE QUERY "HKLM\Software\Wow6432Node\WRData\Status" /V "UpdateTime" 2>NUL | FIND "REG_DWORD"</ParentCommandLine>
+			<ParentCommandLine condition="is">C:\Windows\system32\cmd.exe /c REG.EXE QUERY "HKLM\Software\Wow6432Node\WRData\Status" /V "Version" 2>NUL | FIND "REG_SZ"</ParentCommandLine>
+			<CommandLine condition="is">wevtutil.exe sl Microsoft-Windows-Sysmon/Operational /ca:O:BAG:SYD:(A;;0xf0005;;;SY)(A;;0x5;;;BA)(A;;0x1;;;S-1-5-32-573)(A;;0x1;;;NS)</CommandLine>
+			<CommandLine condition="begin with">C:\Windows\system32\cmd.exe /c schtasks /query /fo csv </CommandLine>
+			<ParentCommandLine condition="begin with">C:\Windows\system32\cmd.exe /c schtasks /query /fo csv </ParentCommandLine>
+			<CommandLine condition="end with">\sysmonconfignxg.txt</CommandLine>
 		</ProcessCreate>
 
 	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM [FileCreateTime]-->
@@ -263,6 +307,10 @@
 			<Image condition="end with">redist.exe</Image> <!--Ignore setups-->
 			<Image condition="is">msiexec.exe</Image> <!--Ignore setups-->
 			<Image condition="is">TrustedInstaller.exe</Image> <!--Ignore setups-->
+			<!--SECTION:SENSITIVE: Company-->
+			<TargetFilename condition="begin with">C:\ProgramData\PDCr</TargetFilename>
+			<TargetFilename condition="begin with">C:\ProgramData\PC-Doctor for Windows</TargetFilename>
+
 		</FileCreateTime>
 
 	<!--SYSMON EVENT ID 3 : NETWORK CONNECTION INITIATED [NetworkConnect]-->
@@ -351,6 +399,14 @@
 			<DestinationHostname condition="end with">microsoft.com</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">microsoft.com.akadns.net</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">microsoft.com.nsatc.net</DestinationHostname> <!--Microsoft:Update delivery-->
+			<!--SECTION:SENSITIVE: Company-->
+			<DestinationHostname condition="is">silica.neopostusa.com</DestinationHostname> <!--WSUS server-->
+			<Image condition="contains">GitHub</Image>
+			<Image condition="is">FB6LauncherViewer.exe</Image>
+			<DestinationHostname condition="end with">expertcity.com</DestinationHostname>
+			<DestinationIp condition="is">10.77.103.34</DestinationIp> <!--Oracle-->
+			<DestinationIp condition="is">10.77.118.102</DestinationIp> <!--Oracle-->
+			<DestinationIp condition="is">184.168.56.194</DestinationIp> <!--Sales tool launcher server-->
 		</NetworkConnect>
 
 	<!--SYSMON EVENT ID 4 : RESERVED FOR SYSMON STATUS MESSAGES-->
@@ -367,6 +423,8 @@
 		</ProcessTerminate>
 
 		<ProcessTerminate onmatch="exclude">
+			<!--SECTION:SENSITIVE: Company-->
+			<Image condition="contains">GitHub</Image>
 		</ProcessTerminate>
 
 	<!--SYSMON EVENT ID 6 : DRIVER LOADED INTO KERNEL [DriverLoad]-->
@@ -501,6 +559,15 @@
 			<!--SECTION: Adobe-->
 			<TargetFilename condition="is">C:\Windows\System32\Tasks\Adobe Acrobat Update Task</TargetFilename>
 			<TargetFilename condition="is">C:\Windows\System32\Tasks\Adobe Flash Player Updater</TargetFilename>
+			
+			<!--SECTION: Company-->
+			<TargetFilename condition="begin with">C:\Windows\system32\Tasks\NeopostUSA</TargetFilename>
+			<TargetFilename condition="begin with">C:\Windows\system32\Tasks\NeoUSA</TargetFilename>
+			<TargetFilename condition="begin with">C:\Windows\system32\Tasks\Sync Script</TargetFilename>
+			<TargetFilename condition="begin with">C:\Windows\System32\Tasks\4AM reboot</TargetFilename>
+			<TargetFilename condition="contains"> (002).</TargetFilename> <!--Duplicated Outlook attachment file events-->
+			<TargetFilename condition="contains"> (003).</TargetFilename> <!--Duplicated Outlook attachment file events-->
+			<TargetFilename condition="begin with">C:\Program Files (x86)\DesktopCentral_Agent\</TargetFilename>
 		</FileCreate>
 
 	<!--SYSMON EVENT ID 12 & 13 & 14 : REGISTRY MODIFICATION [RegistryEvent]-->
@@ -635,6 +702,10 @@
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Tracing\RASAPI32</TargetObject> <!--Microsoft:Windows: Malware sometimes disables tracing to obfuscate tracks-->
 			<!--Microsoft Office-->
 			<TargetObject condition="contains">Office Test\</TargetObject> <!-- [ http://www.hexacorn.com/blog/2014/04/16/beyond-good-ol-run-key-part-10/ ] | Credit @Hexacorn -->
+			<!--SENSITIVE: Company-->
+			<!--Active threats show like so: c:\users\JohnDoe\downloads\w10privacy\w10privacy.exe|W32.Backdoor.Gen|5880BC38 Reg Key Location: HKLM\SOFTWARE\WOW6432Node\WRData\Threats\Active-->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\WOW6432Node\WRData\Threats\Active</TargetObject> <!--Webroot: Detect Active Threats-->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\WOW6432Node\WRData\Threats\History</TargetObject> <!--Webroot: Threat History & Auto-Removed Threats-->
 		</RegistryEvent>
 
 		<RegistryEvent onmatch="exclude">
@@ -732,6 +803,9 @@
 			<Image condition="is">C:\Program Files (x86)\DesktopCentral_Agent\bin\dcappcontrol.exe</Image>
 			<TargetObject condition="begin with">HKCR\VLC.</TargetObject> <!--VLC update noise-->
 			<TargetObject condition="begin with">HKCR\iTunes.</TargetObject> <!--Apple: iTunes update noise-->
+			<!--SECTION: Sensitive company-->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Channels\Microsoft-Windows-Sysmon/Operational</TargetObject>
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\LSASS.exe</TargetObject>
 		</RegistryEvent>
 
 	<!--SYSMON EVENT ID 15 : ALTERNATE DATA STREAM CREATED [FileCreateStreamHash]-->
@@ -761,6 +835,8 @@
 		</FileCreateStreamHash>
 
 		<FileCreateStreamHash onmatch="exclude">
+			<!--SECTION: Sensitive company-->
+			<TargetFilename condition="begin with">C:\Windows\CSC\v2.0.6\namespace\mil-san01-cifs1.neopost.na\DeptShare\IT\PublicResources</TargetFilename>
 		</FileCreateStreamHash>
 
 	<!--SYSMON EVENT ID 16 : SYSMON CONFIGURATION CHANGE-->
