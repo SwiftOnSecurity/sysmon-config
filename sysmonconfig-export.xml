@@ -1,6 +1,6 @@
 <!--
   sysmon-config | A Sysmon configuration focused on default high-quality event tracing and easy customization by the community
-  Master version:	60 | Date: 2018-01-17
+  Master version:	61 | Date: 2018-01-17
   Master author:	@SwiftOnSecurity, other contributors also credited in-line or on Git
   Master project:	https://github.com/SwiftOnSecurity/sysmon-config
   Master license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
@@ -38,11 +38,12 @@
 	- If you only specify exclude for a filtering subsection, everything in that subsection is logged by default.
 	- Some Sysmon monitoring abilities are not meant for general-purpose use due to their large performance impact, such as ProcessAccess.
 	- Duplicate or overlapping "Include" rules do not result in duplicate events being logged.
-	- Sysmon does not support wildcards (*) in rules; All characters enclosed by XML tags are always interpreted literally.
+	- All characters enclosed by XML tags are always interpreted literally. Sysmon does not support wildcards (*), alternate characters, or RegEx.
 	- In registry events, the value name is appended to the full key path with a "\" delimiter. Default key values are named "\(Default)"
 	- "Image" is a technical term for a compiled binary file like an EXE or DLL. Also, it can match just the filename, or entire path.
 	- "ProcessGuid" is randomly generated, assigned, and tracked by Sysmon to assist in tracing individual process launches. Cleared on service restart.
 	- "LoginGuid" is randomly generated, assigned, and tracked by Sysmon to assist in tracing individual user sessions. Cleared on service restart.
+	- Sysmon does not track which rule caused an event to be logged.
 
   TECHNICAL: Filter conditions available for use are: is, is not, contains, excludes, begin with, end with, less than, more than, image
 	- The "image" filter is usable with any field. Same as "is" but can either match the entire string, or only the text after the last "\" in the string. Credit: @mattifestation
@@ -593,11 +594,12 @@
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject> <!--Microsoft:Windows:  Feature disabled by default [ https://attack.mitre.org/wiki/Technique/T1103 ] -->
 			<!--Office-->
 			<TargetObject condition="contains">\Microsoft\Office\Outlook\Addins\</TargetObject> <!--Microsoft:Office: Outlook add-ins, access to sensitive data and often cause issues-->
+			<TargetObject condition="contains">Office Test\</TargetObject> <!-- Microsoft:Office: Persistence method [ http://www.hexacorn.com/blog/2014/04/16/beyond-good-ol-run-key-part-10/ ] | Credit @Hexacorn -->
+			<TargetObject condition="contains">Security\Trusted Documents\TrustRecords</TargetObject> <!--Microsoft:Office: Monitor when "Enable editing" or "Enable macros" is used | Credit @OutflankNL | [ https://outflank.nl/blog/2018/01/16/hunting-for-evil-detect-macros-being-executed/ ] -->
 			<!--IE-->
-			<TargetObject condition="contains">\Internet Explorer\Toolbar\</TargetObject> <!--Microsoft:InternetExplorer: Machine and user [ Example: https://www.exterminate-it.com/malpedia/remove-mywebsearch ] -->
-			<TargetObject condition="contains">\Internet Explorer\Extensions\</TargetObject> <!--Microsoft:InternetExplorer: Machine and user [ Example: https://www.exterminate-it.com/malpedia/remove-mywebsearch ] -->
+			<TargetObject condition="contains">Internet Explorer\Toolbar\</TargetObject> <!--Microsoft:InternetExplorer: Machine and user [ Example: https://www.exterminate-it.com/malpedia/remove-mywebsearch ] -->
+			<TargetObject condition="contains">Internet Explorer\Extensions\</TargetObject> <!--Microsoft:InternetExplorer: Machine and user [ Example: https://www.exterminate-it.com/malpedia/remove-mywebsearch ] -->
 			<TargetObject condition="contains">\Browser Helper Objects\</TargetObject> <!--Microsoft:InternetExplorer: Machine and user [ https://msdn.microsoft.com/en-us/library/bb250436(v=vs.85).aspx ] -->
-			<TargetObject condition="begin with">Software\Microsoft\Windows\CurrentVersion\Internet Settings\Proxy</TargetObject>  <!--Microsoft:InternetExplorer: Wildcard for ProxyEnable, ProxyServer, ProxyOverride - Threats sometimes change proxy server -->
 			<TargetObject condition="end with">\DisableSecuritySettingsCheck</TargetObject>
 			<TargetObject condition="end with">\3\1206</TargetObject> <!--Microsoft:InternetExplorer: Malware sometimes assures scripting is on in Internet Zone [ https://support.microsoft.com/en-us/help/182569/internet-explorer-security-zones-registry-entries-for-advanced-users ] -->
 			<TargetObject condition="end with">\3\2500</TargetObject> <!--Microsoft:InternetExplorer: Malware sometimes disables Protected Mode in Internet Zone [ https://blog.avast.com/2013/08/12/your-documents-are-corrupted-from-image-to-an-information-stealing-trojan/ ] -->
@@ -633,8 +635,6 @@
 			<TargetObject condition="end with">\FriendlyName</TargetObject> <!--Microsoft:Windows: New devices connected and remembered-->
 			<TargetObject condition="is">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\InProgress\(Default)</TargetObject> <!--Microsoft:Windows: See when WindowsInstaller is engaged, useful for timeline matching with other events-->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Tracing\RASAPI32</TargetObject> <!--Microsoft:Windows: Malware sometimes disables tracing to obfuscate tracks-->
-			<!--Microsoft Office-->
-			<TargetObject condition="contains">Office Test\</TargetObject> <!-- [ http://www.hexacorn.com/blog/2014/04/16/beyond-good-ol-run-key-part-10/ ] | Credit @Hexacorn -->
 		</RegistryEvent>
 
 		<RegistryEvent onmatch="exclude">
