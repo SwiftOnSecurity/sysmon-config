@@ -473,7 +473,7 @@
 			<!--Exploitable file names-->
 			<TargetFilename condition="end with">.xls</TargetFilename> <!--Legacy Office files are often used for attacks-->
 			<TargetFilename condition="end with">.ppt</TargetFilename> <!--Legacy Office files are often used for attacks-->
-			<TargetFilename condition="end with">.rft</TargetFilename> <!--RTF files often 0day malware vectors when opened by Office-->
+			<TargetFilename condition="end with">.rtf</TargetFilename> <!--RTF files often 0day malware vectors when opened by Office-->
 		</FileCreate>
 
 		<FileCreate onmatch="exclude">
