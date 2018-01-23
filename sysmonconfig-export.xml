@@ -14,7 +14,7 @@
 	https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon
 	Note that 6.03 and 7.01 have critical fixes for filtering, it's recommended you stay updated.
 
-  NOTE: To collect Sysmon logs centrally for free, see https://aka.ms/WEF. You will need to run this command to allow log access to the Network Service:
+  NOTE: To collect Sysmon logs centrally for free, see https://aka.ms/WEF. Will need to run command to allow log access to the Network Service:
 	wevtutil.exe sl Microsoft-Windows-Sysmon/Operational /ca:O:BAG:SYD:(A;;0xf0005;;;SY)(A;;0x5;;;BA)(A;;0x1;;;S-1-5-32-573)(A;;0x1;;;NS)
 
   NOTE: Do not let the size and complexity of this configuration discourage you from customizing this or building your own.
@@ -33,20 +33,20 @@
 	this configuration monitors, especially in the first minutes.
 
   TECHNICAL:
-	- Run sysmon.exe -? for a briefing on Sysmon configuration.
-	- Sysmon does not support nested/multi-conditional rules. There are only blanket INCLUDE and EXCLUDE. "Exclude" rules override "Include" rules.
-	- If you only specify exclude for a filtering subsection, everything in that subsection is logged by default.
-	- Some Sysmon monitoring abilities are not meant for general-purpose use due to their large performance impact, such as ProcessAccess.
-	- Duplicate or overlapping "Include" rules do not result in duplicate events being logged.
-	- All characters enclosed by XML tags are always interpreted literally. Sysmon does not support wildcards (*), alternate characters, or RegEx.
-	- In registry events, the value name is appended to the full key path with a "\" delimiter. Default key values are named "\(Default)"
-	- "Image" is a technical term for a compiled binary file like an EXE or DLL. Also, it can match just the filename, or entire path.
-	- "ProcessGuid" is randomly generated, assigned, and tracked by Sysmon to assist in tracing individual process launches. Cleared on service restart.
-	- "LoginGuid" is randomly generated, assigned, and tracked by Sysmon to assist in tracing individual user sessions. Cleared on service restart.
-	- Sysmon does not track which rule caused an event to be logged.
+  - Run sysmon.exe -? for a briefing on Sysmon configuration.
+  - Sysmon does not support nested/multi-conditional rules. There are only blanket INCLUDE and EXCLUDE. "Exclude" rules override "Include" rules.
+  - If you only specify exclude for a filtering subsection, everything in that subsection is logged by default.
+  - Some Sysmon monitoring abilities are not meant for general-purpose use due to their large performance impact, such as ProcessAccess.
+  - Duplicate or overlapping "Include" rules do not result in duplicate events being logged.
+  - All characters enclosed by XML tags are always interpreted literally. Sysmon does not support wildcards (*), alternate characters, or RegEx.
+  - In registry events, the value name is appended to the full key path with a "\" delimiter. Default key values are named "\(Default)"
+  - "Image" is a technical term for a compiled binary file like an EXE or DLL. Also, it can match just the filename, or entire path.
+  - "ProcessGuid" is randomly generated, assigned, and tracked by Sysmon to assist in tracing individual process launches. Cleared on service restart.
+  - "LoginGuid" is randomly generated, assigned, and tracked by Sysmon to assist in tracing individual user sessions. Cleared on service restart.
+  - Sysmon does not track which rule caused an event to be logged.
 
   TECHNICAL: Filter conditions available for use are: is, is not, contains, excludes, begin with, end with, less than, more than, image
-	- The "image" filter is usable with any field. Same as "is" but can either match the entire string, or only the text after the last "\" in the string. Credit: @mattifestation
+  - The "image" filter is usable with any field. Same as "is" but can either match the entire string, or only the text after the last "\" in the string. Credit: @mattifestation
 
   PERFORMANCE: By using "end with" you can save performance by starting a string match at the end of a line, which usually triggers earlier.
 -->
