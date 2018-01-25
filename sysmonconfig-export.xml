@@ -801,16 +801,15 @@
 
 		<!--DATA: UtcTime, SourceProcessGuid, SourceProcessId, SourceImage, TargetProcessId, TargetImage, NewThreadId, StartAddress, StartModule, StartFunction-->
 		<CreateRemoteThread onmatch="exclude">
-		<!--COMMENT:	Monitor for processes injecting code into other processes. Often used by malware to cloak their actions.
-				Exclude mostly-safe sources and log anything else.-->
-			<SourceImage condition="is">C:\Windows\System32\wbem\WmiPrvSE.exe</SourceImage>
-			<SourceImage condition="is">C:\Windows\System32\svchost.exe</SourceImage>
-			<SourceImage condition="is">C:\Windows\System32\wininit.exe</SourceImage>
-			<SourceImage condition="is">C:\Windows\System32\csrss.exe</SourceImage>
-			<SourceImage condition="is">C:\Windows\System32\services.exe</SourceImage>
-			<SourceImage condition="is">C:\Windows\System32\winlogon.exe</SourceImage>
-			<SourceImage condition="is">C:\Windows\System32\audiodg.exe</SourceImage>
-			<StartModule condition="is">C:\windows\system32\kernel32.dll</StartModule>
+			<!--COMMENT: Exclude mostly-safe sources and log anything else.-->
+			<SourceImage condition="is">C:\Windows\system32\wbem\WmiPrvSE.exe</SourceImage>
+			<SourceImage condition="is">C:\Windows\system32\svchost.exe</SourceImage>
+			<SourceImage condition="is">C:\Windows\system32\wininit.exe</SourceImage>
+			<SourceImage condition="is">C:\Windows\system32\csrss.exe</SourceImage>
+			<SourceImage condition="is">C:\Windows\system32\services.exe</SourceImage>
+			<SourceImage condition="is">C:\Windows\system32\winlogon.exe</SourceImage>
+			<SourceImage condition="is">C:\Windows\system32\audiodg.exe</SourceImage>
+			<StartModule condition="is">C:\Windows\system32\kernel32.dll</StartModule>
 			<TargetImage condition="end with">Google\Chrome\Application\chrome.exe</TargetImage>
 			<SourceImage condition="contains">FireSvc.exe</SourceImage>
 			<SourceImage condition="is">C:\Program Files (x86)\Webroot\WRSA.exe</SourceImage>
@@ -823,6 +822,10 @@
 			Disabled by default since including even one entry here activates this component. Reward/performance/rule maintenance decision.
 			Encourage you to experiment with this feature yourself. [ https://attack.mitre.org/wiki/Technique/T1067 ] -->
 		<!--COMMENT:	You will likely want to set this to a full capture on domain controllers, where no process should be doing raw reads.-->
+
+		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, Device-->
+		<RawAccessRead onmatch="include">
+		</RawAccessRead>
 
 	<!--SYSMON EVENT ID 10 : INTER-PROCESS ACCESS [ProcessAccess]-->
 		<!--EVENT 10: "Process accessed"-->
@@ -1335,7 +1338,7 @@
 		</RegistryEvent>
 
 		<RegistryEvent onmatch="exclude">
-		<!--COMMENT:	Remove low-information noise-->
+		<!--COMMENT:	Remove low-information noise. Often these hide a procress recreating an empty key and do not hide the values created subsequently.-->
 			<!--SECTION: Microsoft binaries-->
 			<Image condition="end with">Office\root\integration\integrator.exe</Image> <!--Microsoft:Office: C2R client-->
 			<Image condition="image">C:\WINDOWS\system32\backgroundTaskHost.exe</Image> <!--Microsoft:Windows: Changes association registry keys-->
@@ -1354,8 +1357,10 @@
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Publishers\</TargetObject> <!--SvcHost Noise-->
 			<TargetObject condition="end with">Toolbar\WebBrowser</TargetObject> <!--Microsoft:IE: Extraneous activity-->
 			<TargetObject condition="end with">Toolbar\WebBrowser\ITBar7Height</TargetObject> <!--Microsoft:IE: Extraneous activity-->
+			<TargetObject condition="end with">Toolbar\WebBrowser\ITBar7Layout</TargetObject> <!--Microsoft:IE: Extraneous activity-->
 			<TargetObject condition="end with">Toolbar\ShellBrowser\ITBar7Layout</TargetObject> <!--Microsoft:Windows:Explorer: Extraneous activity-->
 			<TargetObject condition="end with">Internet Explorer\Toolbar\Locked</TargetObject> <!--Microsoft:Windows:Explorer: Extraneous activity-->
+			<TargetObject condition="end with">Toolbar\WebBrowser\{47833539-D0C5-4125-9FA8-0819E2EAAC93}</TargetObject> <!--Microsoft:Windows:Explorer: Extraneous activity-->
 			<TargetObject condition="end with">ShellBrowser</TargetObject> <!--Microsoft:InternetExplorer: Noise-->
 			<TargetObject condition="end with">\CurrentVersion\Run</TargetObject> <!--Microsoft:Windows: Remove noise from the "\Windows\CurrentVersion\Run" wildcard-->
 			<TargetObject condition="end with">\CurrentVersion\RunOnce</TargetObject> <!--Microsoft:Windows: Remove noise from the "\Windows\CurrentVersion\Run" wildcard-->
@@ -1403,9 +1408,32 @@
 			<TargetObject condition="end with">\UserChoice\ProgId</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "FileExts"--> <!--Win8+-->
 			<TargetObject condition="end with">\UserChoice\Hash</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "FileExts"--> <!--Win8+-->
 			<TargetObject condition="end with">\OpenWithList\MRUList</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "FileExts"-->
+			<TargetObject condition="end with">} 0xFFFF</TargetObject> <!--Microsoft:Windows: Remove noise generated by explorer.exe on monitored ShellCached binary keys--> <!--Win8+-->
+			<!--Group Policy noise-->
+			<TargetObject condition="end with">HKLM\System\CurrentControlSet\Control\Lsa\Audit\SpecialGroups</TargetObject> <!--Microsoft:Windows: Routinely set through Group Policy, not especially important to log-->
+			<TargetObject condition="end with">SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\Scripts</TargetObject> <!--Microsoft:Windows:Group Policy: Noise below the actual key while building-->
+			<TargetObject condition="end with">SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Startup</TargetObject> <!--Microsoft:Windows:Group Policy: Noise below the actual key while building-->
+			<TargetObject condition="end with">SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Startup\0</TargetObject> <!--Microsoft:Windows:Group Policy: Noise below the actual key while building-->
+			<TargetObject condition="end with">SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Startup\0\PSScriptOrder</TargetObject> <!--Microsoft:Windows:Group Policy: Noise below the actual key while building-->
+			<TargetObject condition="end with">SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Startup\0\SOM-ID</TargetObject> <!--Microsoft:Windows:Group Policy: Noise below the actual key while building-->
+			<TargetObject condition="end with">SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Startup\0\GPO-ID</TargetObject> <!--Microsoft:Windows:Group Policy: Noise below the actual key while building-->
+			<TargetObject condition="end with">SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Startup\0\0\IsPowershell</TargetObject> <!--Microsoft:Windows:Group Policy: Noise below the actual key while building-->
+			<TargetObject condition="end with">SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Startup\0\0\ExecTime</TargetObject> <!--Microsoft:Windows:Group Policy: Noise below the actual key while building-->
+			<TargetObject condition="end with">SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Shutdown</TargetObject> <!--Microsoft:Windows:Group Policy: Noise below the actual key while building-->
+			<TargetObject condition="end with">SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Shutdown\0</TargetObject> <!--Microsoft:Windows:Group Policy: Noise below the actual key while building-->
+			<TargetObject condition="end with">SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Shutdown\0\PSScriptOrder</TargetObject> <!--Microsoft:Windows:Group Policy: Noise below the actual key while building-->
+			<TargetObject condition="end with">SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Shutdown\0\SOM-ID</TargetObject> <!--Microsoft:Windows:Group Policy: Noise below the actual key while building-->
+			<TargetObject condition="end with">SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Shutdown\0\GPO-ID</TargetObject> <!--Microsoft:Windows:Group Policy: Noise below the actual key while building-->
+			<TargetObject condition="end with">SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Shutdown\0\0\IsPowershell</TargetObject> <!--Microsoft:Windows:Group Policy: Noise below the actual key while building-->
+			<TargetObject condition="end with">SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Shutdown\0\0\ExecTime</TargetObject> <!--Microsoft:Windows:Group Policy: Noise below the actual key while building-->
+			<TargetObject condition="contains">\safer\codeidentifiers\0\HASHES\{</TargetObject> <!--Microsoft:Windows: Software Restriction Policies. Can be used to disable security tools, but very noisy to monitor if you use it--> <!--OPTIONAL FILTER-->
+			<!--Autoruns noise-->
+			<!--<Details condition="is">c:\program files (x86)\microsoft office\office16\lync.exe</Details> Microsoft:Office: SkypeForBusiness autorun--> 
+			<!--<Details condition="is">"C:\Program Files (x86)\Cisco\Cisco AnyConnect Secure Mobility Client\vpnui.exe" -minimized</Details> Cisco: AnyConnect autorun-->
+			<!--<Details condition="contains">ScanToPCActivationApp.exe" -deviceID "</Details> HP: Printer-->
+			<!--SECTION: 3rd party-->
 			<TargetObject condition="end with">} 0xFFFF</TargetObject> <!--Microsoft:Windows: Remove noise from explorer.exe from monitoring ShellCached binary keys--> <!--Win8+ -->
 			<Image condition="is">C:\Windows\SystemApps\Microsoft.Windows.Cortana_cw5n1h2txyewy\SearchUI.exe</Image><!--Microsoft:Windows Remove noise from Windows 10 Cortana--> <!--Win10 -->
-			<!--SECTION: 3rd party-->
 			<Image condition="is">C:\Program Files\WIDCOMM\Bluetooth Software\btwdins.exe</Image>
 			<TargetObject condition="contains">HKLM\System\CurrentControlSet\Services\DeviceAssociationService\Start</TargetObject><!--Device Association Service Noise-->
 			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Control\Class\{4d36e96c-e325-11ce-bfc1-08002be10318}\</TargetObject><!-- HD Audio Noise-->
@@ -1427,6 +1455,8 @@
 			<Image condition="is">C:\Windows\SysWOW64\SearchProtocolHost.exe</Image>
 			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Control\Print\Monitors\Standard TCP/IP Port\Ports</TargetObject> <!-- Spooler Noise -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\system\legalnotice</TargetObject> <!-- Group Policy spam -->
+			<TargetObject condition="begin with">HKCR\VLC.</TargetObject> <!--VLC update noise-->
+			<TargetObject condition="begin with">HKCR\iTunes.</TargetObject> <!--Apple: iTunes update noise-->
 		</RegistryEvent>
 
 	<!--SYSMON EVENT ID 15 : ALTERNATE DATA STREAM CREATED [FileCreateStreamHash]-->
@@ -1445,6 +1475,7 @@
 			<TargetFilename condition="contains">Content.Outlook</TargetFilename> <!--Microsoft:Outlook: Attachments--> <!--PRIVACY WARNING-->
 			<TargetFilename condition="contains">Downloads</TargetFilename> <!--Downloaded files. Does not include "Run" files in IE-->
 			<TargetFilename condition="contains">Temp\7z</TargetFilename> <!--7zip extractions-->
+			<TargetFilename condition="contains">Startup</TargetFilename> <!--ADS startup | Example: [ https://www.hybrid-analysis.com/sample/a314f6106633fba4b70f9d6ddbee452e8f8f44a72117749c21243dc93c7ed3ac?environmentId=100 ] -->
 			<TargetFilename condition="end with">.vb</TargetFilename> <!--VisualBasicScripting files-->
 			<TargetFilename condition="end with">.application</TargetFilename> <!--Microsoft:ClickOnce: [ https://blog.netspi.com/all-you-need-is-one-a-clickonce-love-story/ ] -->
 			<TargetFilename condition="end with">.appref-ms</TargetFilename> <!--Microsoft:ClickOnce application | Credit @ion-storm -->
