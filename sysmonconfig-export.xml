@@ -30,8 +30,8 @@
   FILTER REFERENCE: is,is not,contains,excludes,begin with,end with,less than,more than,image
 -->
 
-<Sysmon schemaversion="3.4">
-	<HashAlgorithms>sha256,imphash</HashAlgorithms>
+<Sysmon schemaversion="4.0">
+	<HashAlgorithms>SHA256,IMPHASH</HashAlgorithms>
 	<EventFiltering>
 
 	<!--SYSMON EVENT ID 1 : PROCESS CREATION-->
@@ -285,6 +285,7 @@
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime, PreviousCreationUtcTime-->
 		<FileCreateTime onmatch="include">
 			<Image condition="begin with">C:\Users</Image> <!--Look for timestomping in user area-->
+			<Image condition="begin with">C:\ProgramData</Image> <!--Look for timestomping in user area-->
 		</FileCreateTime>
 		<FileCreateTime onmatch="exclude">
 			<Image condition="image">OneDrive.exe</Image> <!--OneDrive constantly changes file times-->
@@ -537,6 +538,9 @@
 		<ProcessTerminate onmatch="include">
 		<!--COMMENT:	Useful data in building infection timelines.-->
 			<Image condition="begin with">C:\Users</Image> <!--Process terminations by user binaries-->
+			<Image condition="begin with">C:\ProgramData</Image> <!--Process terminations by user binaries-->
+			<Image condition="begin with">C:\Windows\Temp</Image> <!--Process terminations by user binaries-->
+			<Image condition="end with">Sysmon.exe</Image> <!--Detect killing Sysmon, Credit: @vector_sec-->
 		</ProcessTerminate>
 
 	<!--SYSMON EVENT ID 6 : DRIVER LOADED INTO KERNEL-->
@@ -624,7 +628,8 @@
 		</ImageLoad>
 		<ImageLoad onmatch="exclude">
 			<SignatureStatus condition="is">Valid</SignatureStatus>
-			<ImageLoaded condition="is">C:\Windows\System32\samlib.dll</ImageLoaded> <!-- Spam -->
+			<ImageLoaded condition="end with">System32\samlib.dll</ImageLoaded> <!-- Spam -->
+			<ImageLoaded condition="end with">System32\cryptdll.dlll</ImageLoaded> <!-- Spam -->
 			<Signature condition="contains">microsoft</Signature> <!--Exclude signed Microsoft libraries-->
 			<Signature condition="is">Microsoft Windows</Signature> <!--Exclude signed Microsoft libraries-->
 			<Signature condition="contains">windows</Signature> <!--Exclude signed Microsoft libraries-->
@@ -929,6 +934,7 @@
 			<TargetFilename condition="end with">Google\Chrome\User Data\Safe Browsing\UrlCsdWhitelist.store_new</TargetFilename>
 			<TargetFilename condition="end with">Google\Chrome\User Data\Safe Browsing\UrlCsdDownloadWhitelist.store_new</TargetFilename>
 			<TargetFilename condition="end with">Google\Chrome\User Data\Safe Browsing\CertCsdDownloadWhitelist.store_new</TargetFilename>
+			<TargetFilename condition="end with">.default\prefs-1.js</TargetFilename> <!--Exclude: Firefox prefs update spam-->
 		</FileCreate>
 
 	<!--SYSMON EVENT ID 12 & 13 & 14 : REGISTRY MODIFICATION-->
@@ -948,6 +954,8 @@
 				<!--ADDITIONAL REFERENCE: [ http://www.ghacks.net/2016/06/04/windows-automatic-startup-locations/ ] -->
 				<!--ADDITIONAL REFERENCE: [ https://view.officeapps.live.com/op/view.aspx?src=https://arsenalrecon.com/downloads/resources/Registry_Keys_Related_to_Autorun.ods ] -->
 				<!--ADDITIONAL REFERENCE: [ http://www.silentrunners.org/launchpoints.html ] -->
+			<TargetObject condition="contains">SysmonDrv</TargetObject> <!--Add additional logging to self to see modifications -->
+			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\SysmonDrv\Parameters\Rules</TargetObject> <!--Add additional logging to self to see modifications -->
 			<TargetObject condition="contains">\CurrentVersion\Run</TargetObject> <!--Microsoft:Windows: Run keys, incld RunOnce, RunOnceEx, RunServices, RunServicesOnce [Also covers terminal server] -->
 			<TargetObject condition="contains">\Group Policy\Scripts</TargetObject> <!--Microsoft:Windows: Group policy scripts-->
 			<TargetObject condition="contains">\Windows\System\Scripts</TargetObject> <!--Microsoft:Windows: Logon, Loggoff, Shutdown-->
@@ -1244,11 +1252,14 @@
 
 	<!--SYSMON EVENT ID 15 : ALTERNATE DATA STREAM CREATED-->
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime, Hash-->
-		<FileCreateStreamHash onmatch="include">
 		<!--COMMENT:	Any files created with an NTFS Alternate Data Stream which match these rules will be hashed and logged.
 				[ https://blogs.technet.microsoft.com/askcore/2013/03/24/alternate-data-streams-in-ntfs/ ]
 				ADS's are used by browsers and email clients to mark files as originating from the Internet or other foreign sources.
 				[ https://textslashplain.com/2016/04/04/downloads-and-the-mark-of-the-web/ ] -->
+		<FileCreateStreamHash onmatch="exclude">
+			<TargetFilename condition="end with">.default\prefs-1.js</TargetFilename> <!--Exclude: Firefox prefs update spam-->
+		</FileCreateStreamHash>
+		<FileCreateStreamHash onmatch="include">
 			<TargetFilename condition="contains">Content.Outlook</TargetFilename> <!--Microsoft:Outlook: Attachments--> <!--PRIVACY WARNING-->
 			<TargetFilename condition="contains">Downloads</TargetFilename> <!--Downloaded files. Does not include "Run" files in IE-->
 			<TargetFilename condition="contains">Temp\7z</TargetFilename> <!--7zip extractions-->
@@ -1405,7 +1416,7 @@
 			<PipeName condition="contains">Everything Service</PipeName>
 			<PipeName condition="contains">anchor_gui_agent</PipeName>
 			<!--SECTION: Adobe-->
-			<Image condition="is">C:\Program Files (x86)\Common Files\Adobe\ARM\1.0\AdobeARM.exe</Image>
+			<Image condition="end with">Adobe\ARM\1.0\AdobeARM.exe</Image>
 			<!--SECTION: Lenovo-->
 			<Image condition="is">C:\Program Files (x86)\Lenovo\System Update\SUService.exe</Image>
 			<Image condition="is">C:\Program Files\Common Files\VMware\DeviceRedirectionCommon\ftnlsv.exe</Image>
@@ -1424,6 +1435,9 @@
 			<Image condition="is">C:\Windows\LTSvc\LTSVC.exe</Image>
 			<Image condition="contains">ScreenConnect.WindowsClient.exe</Image>
 			<Image condition="contains">ScreenConnect.ClientService.exe</Image>
+			<!--SECTION: N-Able -->
+			<Image condition="end with">N-able Technologies\Windows Agent\bin\agent.exe</Image>
+			<Image condition="end with">N-able Technologies\AVDefender\EPIntegrationService.exe</Image>
 			<Image condition="is">C:\Program Files\OpenVPN\bin\openvpn-gui.exe</Image>
 			<Image condition="is">C:\Program Files\OpenVPN\bin\openvpn.exe</Image>
 			<Image condition="is">C:\Program Files\OpenVPN\bin\openvpnserv.exe</Image>
