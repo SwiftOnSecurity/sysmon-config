@@ -191,6 +191,7 @@
 			<Image condition="is">C:\Program Files\Microsoft Office\Office15\MSOSYNC.EXE</Image> <!--Microsoft:Office: Background process for SharePoint/Office365 connectivity-->
 			<Image condition="is">C:\Program Files (x86)\Microsoft Office\Office15\MSOSYNC.EXE</Image> <!--Microsoft:Office: Background process-->
 			<Image condition="is">C:\Program Files (x86)\Microsoft Office\root\Office16\officebackgroundtaskhandler.exe</Image>
+			<Image condition="is">C:\Windows\splwow64.exe</Image> <!--Microsoft:Office: Print Driver Host spam -->
 			<!--SECTION: Microsoft:Windows: Media player-->
 			<Image condition="is">C:\Program Files\Windows Media Player\wmpnscfg.exe</Image> <!--Microsoft:Windows: Windows Media Player Network Sharing Service Configuration Application-->
 			<!--SECTION: Microsoft Exchange-->
@@ -349,6 +350,7 @@
 			<Image condition="is">C:\Windows\LTSvc\LTTray.exe</Image>
 			<ParentCommandLine condition="contains">Get-ItemProperty HKLM:\software\microsoft\windows\currentversion\uninstall</ParentCommandLine>
 			<CommandLine condition="contains">interface tcp show global</CommandLine>
+			<Image condition="is">nslookup.exe</Image><!--Labtech NStest.bat lookups-->
 			<!--END: Labtech-->
 			<Image condition="end with">ScreenConnect.WindowsClient.exe</Image><!--Screenconnect Remote Desktop Client-->
 			<Image condition="begin with">C:\Program Files (x86)\SmartGit</Image> <!--SmartGit-->
@@ -803,6 +805,7 @@
 		<CreateRemoteThread onmatch="exclude">
 			<!--COMMENT: Exclude mostly-safe sources and log anything else.-->
 			<SourceImage condition="is">C:\Windows\system32\wbem\WmiPrvSE.exe</SourceImage>
+			<SourceImage condition="is">C:\Windows\SysWOW64\wbem\WmiPrvSE.exe</SourceImage>			
 			<SourceImage condition="is">C:\Windows\system32\svchost.exe</SourceImage>
 			<SourceImage condition="is">C:\Windows\system32\wininit.exe</SourceImage>
 			<SourceImage condition="is">C:\Windows\system32\csrss.exe</SourceImage>
@@ -813,6 +816,7 @@
 			<TargetImage condition="end with">Google\Chrome\Application\chrome.exe</TargetImage>
 			<SourceImage condition="contains">FireSvc.exe</SourceImage>
 			<SourceImage condition="is">C:\Program Files (x86)\Webroot\WRSA.exe</SourceImage>
+			<TargetImage condition="end with">controls\cef\ConnectWise.exe</TargetImage>
 		</CreateRemoteThread>
 
 	<!--SYSMON EVENT ID 9 : RAW DISK ACCESS [RawAccessRead]-->
@@ -1087,6 +1091,8 @@
 			<!--SECTION: Adobe-->
 			<TargetFilename condition="is">C:\Windows\System32\Tasks\Adobe Acrobat Update Task</TargetFilename>
 			<TargetFilename condition="is">C:\Windows\System32\Tasks\Adobe Flash Player Updater</TargetFilename>
+			<!--SECTION: Connectwise-->
+			<Image condition="is">C:\Program Files (x86)\ConnectWise\PSA.net\ConnectWise.exe</Image>
 		</FileCreate>
 
 	<!--SYSMON EVENT ID 12 & 13 & 14 : REGISTRY MODIFICATION [RegistryEvent]-->
@@ -1328,6 +1334,7 @@
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\DNS\Parameters\ServerLevelPluginDll</TargetObject> <!-- Detect: Dns Server dll injection -->
 			<!--Windows application compatibility shims-->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom</TargetObject> <!--Microsoft:Windows: AppCompat [ https://www.fireeye.com/blog/threat-research/2017/05/fin7-shim-databases-persistence.html ] -->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB</TargetObject> <!--Microsoft:Windows: AppCompat [ https://www.fireeye.com/blog/threat-research/2017/05/fin7-shim-databases-persistence.html ] -->
 			<TargetObject condition="is">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\InProgress\(Default)</TargetObject> <!--Microsoft:Windows: See when WindowsInstaller is engaged, useful for timeline matching with other events-->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Tracing\RASAPI32</TargetObject> <!--Microsoft:Windows: Malware sometimes disables tracing to obfuscate tracks-->
 			<!--Microsoft Office-->
@@ -1360,7 +1367,9 @@
 			<TargetObject condition="end with">Toolbar\WebBrowser\ITBar7Layout</TargetObject> <!--Microsoft:IE: Extraneous activity-->
 			<TargetObject condition="end with">Toolbar\ShellBrowser\ITBar7Layout</TargetObject> <!--Microsoft:Windows:Explorer: Extraneous activity-->
 			<TargetObject condition="end with">Internet Explorer\Toolbar\Locked</TargetObject> <!--Microsoft:Windows:Explorer: Extraneous activity-->
-			<TargetObject condition="end with">Toolbar\WebBrowser\{47833539-D0C5-4125-9FA8-0819E2EAAC93}</TargetObject> <!--Microsoft:Windows:Explorer: Extraneous activity-->
+			<TargetObject condition="end with">Toolbar\WebBrowser\{47833539-D0C5-4125-9FA8-0819E2EAAC93}</TargetObject> <!--Adobe PDF Browser Toolbar-->
+			<TargetObject condition="end with">Toolbar\WebBrowser\{724D43A0-0D85-11D4-9908-00400523E39A}</TargetObject> <!--RoboForms Browser toolbar-->
+			<TargetObject condition="end with">Toolbar\WebBrowser\ITBar7Layout</TargetObject> <!--Misc IE Activity-->
 			<TargetObject condition="end with">ShellBrowser</TargetObject> <!--Microsoft:InternetExplorer: Noise-->
 			<TargetObject condition="end with">\CurrentVersion\Run</TargetObject> <!--Microsoft:Windows: Remove noise from the "\Windows\CurrentVersion\Run" wildcard-->
 			<TargetObject condition="end with">\CurrentVersion\RunOnce</TargetObject> <!--Microsoft:Windows: Remove noise from the "\Windows\CurrentVersion\Run" wildcard-->
@@ -1457,6 +1466,8 @@
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\system\legalnotice</TargetObject> <!-- Group Policy spam -->
 			<TargetObject condition="begin with">HKCR\VLC.</TargetObject> <!--VLC update noise-->
 			<TargetObject condition="begin with">HKCR\iTunes.</TargetObject> <!--Apple: iTunes update noise-->
+			<!--SECTION: Nitro Pro Spam-->
+			<TargetObject condition="contains">\Software\NITRO\PRO</TargetObject>
 		</RegistryEvent>
 
 	<!--SYSMON EVENT ID 15 : ALTERNATE DATA STREAM CREATED [FileCreateStreamHash]-->
