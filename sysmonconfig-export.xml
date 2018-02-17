@@ -779,6 +779,12 @@
 			<Image condition="is">C:\Windows\System32\mmc.exe</Image>
 			<Image condition="is">C:\Windows\System32\SearchFilterHost.exe</Image>
 			<Image condition="is">C:\Windows\System32\SearchProtocolHost.exe</Image>
+			<ImageLoaded condition="is">C:\Windows\System32\winspool.drv</ImageLoaded>
+			<ImageLoaded condition="is">C:\Windows\System32\wshqos.</ImageLoaded>
+			<ImageLoaded condition="is">C:\Windows\System32\wow64.dll</ImageLoaded>
+			<ImageLoaded condition="is">C:\Windows\System32\clusapi.dll</ImageLoaded>
+			<ImageLoaded condition="is">C:\Windows\System32\cryptdll.dll</ImageLoaded>
+			<ImageLoaded condition="is">C:\Windows\System32\wow64win.dll</ImageLoaded>
 			<ImageLoaded condition="end with">samlib.dll</ImageLoaded>
 			<ImageLoaded condition="contains">C:\Program Files (x86)\SmartGit</ImageLoaded> <!--SmartGit-->
 			<ImageLoaded condition="contains">syntevo\SmartGit</ImageLoaded> <!--SmartGit-->
