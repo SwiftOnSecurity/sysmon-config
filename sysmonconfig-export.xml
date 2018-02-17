@@ -1005,6 +1005,11 @@
 			<TargetFilename condition="is">C:\Windows\System32\Tasks\Adobe Flash Player Updater</TargetFilename>
 			<!--SECTION: Connectwise-->
 			<Image condition="is">C:\Program Files (x86)\ConnectWise\PSA.net\ConnectWise.exe</Image>
+			<!--SECTION: Datto-->
+			<Image condition="is">C:\Program Files\Datto\Datto Windows Agent\DattoBackupAgent.exe</Image>
+			<!--SECTION: Toshiba Print Drivers-->
+			<TargetFilename condition="begin with">C:\Windows\System32\config\systemprofile\TOSHIBA\</TargetFilename>
+
 		</FileCreate>
 
 	<!--SYSMON EVENT ID 12 & 13 & 14 : REGISTRY MODIFICATION [RegistryEvent]-->
