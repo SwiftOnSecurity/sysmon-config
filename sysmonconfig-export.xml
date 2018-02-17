@@ -779,6 +779,7 @@
 			<Image condition="is">C:\Windows\System32\mmc.exe</Image>
 			<Image condition="is">C:\Windows\System32\SearchFilterHost.exe</Image>
 			<Image condition="is">C:\Windows\System32\SearchProtocolHost.exe</Image>
+			<Image condition="is">C:\Windows\sysmon64.exe</Image>
 			<ImageLoaded condition="is">C:\Windows\System32\winspool.drv</ImageLoaded>
 			<ImageLoaded condition="is">C:\Windows\System32\wshqos.</ImageLoaded>
 			<ImageLoaded condition="is">C:\Windows\System32\wow64.dll</ImageLoaded>
