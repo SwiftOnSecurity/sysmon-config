@@ -704,105 +704,10 @@
 		<!--COMMENT:	[ https://attack.mitre.org/wiki/Technique/T1073 ] [ https://attack.mitre.org/wiki/Technique/T1038 ] [ https://attack.mitre.org/wiki/Technique/T1034 ] -->
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, ImageLoaded, Hashes, Signed, Signature, SignatureStatus-->
-		<ImageLoad onmatch="include">
-			<Signed condition="is">false</Signed> <!-- Lets Only show Unsigned DLL's loaded-->
-			<SignatureStatus condition="is">Invalid</SignatureStatus> <!--Lets Show DLL's where their Signature's are Invalid-->
-			<SignatureStatus condition="is">Unavailable</SignatureStatus> <!--Lets Show DLL's where their Signature's are Invalid-->
-			<ImageLoaded condition="contains">C:\windows\system32\fxsst.dll</ImageLoaded> <!-- CIA Vault7 Leak: Fax DLL Injection -->
-			<ImageLoaded condition="contains">C:\Windows\System32\wbem\oci.dll</ImageLoaded> <!-- CIA Vault7 Leak: Distributed Transaction Coordinator DLL Injection -->
-			<!-- Mimikatz Detection -->
-			<!-- <ImageLoaded condition="is">C:\Windows\System32\WinSCard.dll</ImageLoaded> --> <!--MimiKatz Detection Credit: @Cyb3rWard0g: https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html -->
-			<!-- <ImageLoaded condition="is">C:\Windows\System32\cryptdll.dll</ImageLoaded> --> <!--MimiKatz Detection Credit: @Cyb3rWard0g: https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html -->
-			<!-- <ImageLoaded condition="is">C:\Windows\System32\hid.dll</ImageLoaded> --> <!--MimiKatz Detection Credit: @Cyb3rWard0g: https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html -->
-			<!-- <ImageLoaded condition="is">C:\Windows\System32\samlib.dll</ImageLoaded> --> <!--MimiKatz Detection Credit: @Cyb3rWard0g: https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html -->
-			<!-- <ImageLoaded condition="is">C:\Windows\System32\vaultcli.dll</ImageLoaded> --> <!--MimiKatz Detection Credit: @Cyb3rWard0g: https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html -->
-			<!-- <ImageLoaded condition="is">WMINet_Utils.dll</ImageLoaded> --> <!--MimiKatz Detection Credit: @Cyb3rWard0g: https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html -->
-			<ImageLoaded condition="contains">\Temp\</ImageLoaded>
-			<!-- END: Mimikatz Detection -->
-		<!--COMMENT:	Can cause high system load, disabled by default, important examples included below.-->
-			<!-- <ImageLoaded condition="contains">system.automation</ImageLoaded> -->
-			<!-- <ImageLoaded condition="image">wshom.ocx</ImageLoaded> -->
-			<!-- <ImageLoaded condition="image">vbscript.dll</ImageLoaded> -->
-			<!-- <ImageLoaded condition="image">javascript.dll</ImageLoaded> -->
-			<!-- <ImageLoaded condition="contains">msxml4</ImageLoaded> -->
-			<!-- <ImageLoaded condition="image">hal.dll</ImageLoaded> -->
-			<!-- <ImageLoaded condition="image">scrrun.dll</ImageLoaded> -->
-			<!-- <ImageLoaded condition="contains">npjpi</ImageLoaded> -->
-			<!-- <ImageLoaded condition="image">jp2iexp.dll</ImageLoaded> -->
-			<!-- Mimikatz -->
-			<!--NOTES: [ https://securityriskadvisors.com/blog/post/detecting-in-memory-mimikatz/ ] -->
-			<!-- <ImageLoaded condition="image">wdigest.dll</ImageLoaded> -->
-			<!-- Microsoft & Common Computer Vendor Exclusions -->
-			<!-- Here are the exclude rules, were using include now :)
-			<Signature condition="contains">Microsoft</Signature>
-			<Signature condition="contains">Windows</Signature>
-			<Signature condition="contains">Dell</Signature>
-			<Signature condition="contains">Lenovo</Signature>
-			<Signature condition="contains">HP</Signature>
-			<Signature condition="contains">Micro-Star</Signature>
-			<Signature condition="contains">MSI</Signature>
-			<Signature condition="contains">Intel</Signature>
-			<Signature condition="contains">AMD</Signature>
-			<Signature condition="contains">Advanced Micro Devices</Signature>
-			<Signature condition="contains">Broadcom</Signature>
-			<Signature condition="contains">Realtek</Signature>
-			<Signature condition="contains">VMware</Signature>
-			<Signature condition="contains">Synaptic</Signature>
-			<Signature condition="contains">Logitech</Signature>
-			<Signature condition="contains">Steelseries</Signature>
-			<Signature condition="contains">Cisco</Signature>
-			<Signature condition="contains">Fortinet</Signature> -->
+		<!--<ImageLoad onmatch="include">
 		</ImageLoad>
 		<ImageLoad onmatch="exclude">
-			<SignatureStatus condition="is">Valid</SignatureStatus>
-			<ImageLoaded condition="end with">System32\samlib.dll</ImageLoaded> <!-- Spam -->
-			<ImageLoaded condition="end with">System32\cryptdll.dlll</ImageLoaded> <!-- Spam -->
-			<Signature condition="contains">microsoft</Signature> <!--Exclude signed Microsoft libraries-->
-			<Signature condition="is">Microsoft Windows</Signature> <!--Exclude signed Microsoft libraries-->
-			<Signature condition="contains">windows</Signature> <!--Exclude signed Microsoft libraries-->
-			<Signature condition="begin with">Intel</Signature> <!--Exclude signed Intel libraries-->
-			<Signature condition="contains">Lenovo</Signature> <!--Exclude signed Lenovo libraries-->
-			<Signature condition="contains">Synaptic</Signature> <!--Exclude signed Synaptic libraries-->
-			<Signature condition="contains">Nvidia</Signature> <!--Exclude signed Nvidia libraries-->
-			<Signature condition="contains">Broadcom</Signature> <!--Exclude signed Broadcom libraries-->
-			<Signature condition="contains">AMD</Signature> <!--Exclude signed AMD libraries-->
-			<Signature condition="contains">VMware</Signature> <!--Exclude signed VMware libraries-->
-			<Signature condition="contains">Realtek</Signature> <!--Exclude signed Realtek libraries-->
-			<Signature condition="contains">Micro-Star</Signature> <!--Exclude signed MSI libraries-->
-			<Signature condition="contains">Logitech</Signature> <!--Exclude signed Logitech libraries-->
-			<Signature condition="contains">Asmedia</Signature> <!--Exclude signed Asmedia libraries-->
-			<Signature condition="contains">SteelSeries</Signature> <!--Exclude signed MSI libraries-->
-			<Signature condition="contains">Fortinet</Signature> <!--Exclude signed MSI libraries-->
-			<Image condition="is">C:\Windows\System32\backgroundTaskHost.exe</Image>
-			<Signature condition="contains">Webroot</Signature> <!--Exclude signed MSI libraries-->
-			<Image condition="is">C:\Windows\System32\backgroundTaskHost.exe</Image>
-			<Image condition="is">C:\Windows\System32\mmc.exe</Image>
-			<Image condition="is">C:\Windows\System32\SearchFilterHost.exe</Image>
-			<Image condition="is">C:\Windows\System32\SearchProtocolHost.exe</Image>
-			<Image condition="is">C:\Windows\sysmon64.exe</Image>
-			<ImageLoaded condition="is">C:\Windows\System32\winspool.drv</ImageLoaded>
-			<ImageLoaded condition="is">C:\Windows\System32\wshqos.</ImageLoaded>
-			<ImageLoaded condition="is">C:\Windows\System32\wow64.dll</ImageLoaded>
-			<ImageLoaded condition="is">C:\Windows\System32\clusapi.dll</ImageLoaded>
-			<ImageLoaded condition="is">C:\Windows\System32\cryptdll.dll</ImageLoaded>
-			<ImageLoaded condition="is">C:\Windows\System32\wow64win.dll</ImageLoaded>
-			<ImageLoaded condition="end with">samlib.dll</ImageLoaded>
-			<ImageLoaded condition="contains">C:\Program Files (x86)\SmartGit</ImageLoaded> <!--SmartGit-->
-			<ImageLoaded condition="contains">syntevo\SmartGit</ImageLoaded> <!--SmartGit-->
-			<ImageLoaded condition="contains">Labtech Client</ImageLoaded>
-			<ImageLoaded condition="contains">CrystalDecisions</ImageLoaded>
-			<ImageLoaded condition="contains">ShoreWare</ImageLoaded>
-			<Image condition="is">C:\Windows\System32\backgroundTaskHost.exe</Image> <!-- Windows Store apps unsigned -->
-			<Image condition="is">C:\Program Files (x86)\VMware\Infrastructure\Virtual Infrastructure Client\Launcher\VpxClient.exe</Image>
-			<Image condition="begin with">C:\Program Files</Image> <!-- NOTICE: Not good for security but good on cutting down the noise, we do log dropped dll's -->
-			<ImageLoaded condition="contains">C:\Windows\assembly\NativeImages</ImageLoaded> <!-- Event Viewer -->
-			<ImageLoaded condition="contains">C:\Program Files\WindowsApps</ImageLoaded> <!-- Windows Store Apps: Apparently most dll's here are unsigned and causes noise -->
-			<!-- Custom App Exclusions -->
-			<ImageLoaded condition="is">C:\Program Files (x86)\AutoSizer\AutoSizer.dll</ImageLoaded> <!-- I use autosizer to re-arrange my windows -->
-			<ImageLoaded condition="contains">C:\Program Files (x86)\Notepad++</ImageLoaded> <!--Notepad++ Plugins Are unsigned-->
-			<Image condition="is">C:\Program Files (x86)\SyncedTool\bin\autoupdate.exe</Image> <!-- eFolder SyncedTool -->
-			<Image condition="is">C:\PostgreSQL9.1\bin\postgres.exe</Image> <!-- eFolder Server loading unsigned dll's -->
-		</ImageLoad>
+		</ImageLoad>-->
 
 	<!--SYSMON EVENT ID 8 : REMOTE THREAD CREATED [CreateRemoteThread]-->
 		<!--COMMENT:	Monitor for processes injecting code into other processes. Often used by malware to cloak their actions. Also when Firefox loads Flash.
