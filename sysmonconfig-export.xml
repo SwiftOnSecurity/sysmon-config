@@ -1469,6 +1469,7 @@
 			<!--SECTION: Microsoft-->
 			<PipeName condition="contains">lsass</PipeName>
 			<PipeName condition="is">\SQLLocal\RTCLOCAL</PipeName>
+			<PipeName condition="is">\spoolss</PipeName>
 			<!--SECTION: Microsoft IIS -->
 			<PipeName condition="begin with">\M.E.C.Core.WinRMDataCommunicator.NamedPipe.</PipeName>
 			<Image condition="is">c:\windows\system32\inetsrv\w3wp.exe</Image>
