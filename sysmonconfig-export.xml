@@ -1009,7 +1009,7 @@
 			<Image condition="is">C:\Program Files\Datto\Datto Windows Agent\DattoBackupAgent.exe</Image>
 			<!--SECTION: Toshiba Print Drivers-->
 			<TargetFilename condition="begin with">C:\Windows\System32\config\systemprofile\TOSHIBA\</TargetFilename>
-
+			<TargetFilename condition="contains">TOSHIBA\eSTUDIOX\UNIDRV</TargetFilename>
 		</FileCreate>
 
 	<!--SYSMON EVENT ID 12 & 13 & 14 : REGISTRY MODIFICATION [RegistryEvent]-->
