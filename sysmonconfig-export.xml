@@ -312,9 +312,15 @@
 			<!--TODO: Will define these more in the future-->
 			<ParentCommandLine condition="is">C:\Windows\LTSvc\LTSVC.exe -sLTService</ParentCommandLine> <!--Labtech Agent-->
 			<ParentImage condition="is">C:\Windows\LTSvc\LTSVC.exe</ParentImage> <!--Labtech Agent-->
+			<CurrentDirectory condition="is">C:\Windows\LTSvc\</CurrentDirectory><!--Labtech Agent: Noise from nested processes in labtech-->
 			<CommandLine condition="contains">find /i "Listening"</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
 			<CommandLine condition="contains">netstat -an</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
 			<CommandLine condition="contains">tasklist</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">nslookup</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">nbtstat.exe</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">dsquery</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">sc query</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">sc query</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
 			<ParentCommandLine condition="contains">find /i "Listening"</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<ParentCommandLine condition="contains">netstat -an</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<ParentCommandLine condition="contains">tasklist</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
@@ -375,6 +381,7 @@
 			<Image condition="is">C:\Anchor Server\redis\redis-server.exe</Image> <!-- eFolder Anchor Server -->
 			<ParentImage condition="is">C:\PostgreSQL9.1\bin\postgres.exe</ParentImage> <!-- eFolder Anchor Server -->
 			<Image condition="is">C:\PostgreSQL9.1\bin\postgres.exe</Image> <!-- eFolder Anchor Server -->
+			<Image condition="is">C:\ProgramData\sysmon\sysmon64.exe</Image> <!-- Exclude Sysmon Process events -->
 		</ProcessCreate>
 
 	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM [FileCreateTime]-->
