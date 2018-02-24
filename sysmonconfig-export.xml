@@ -756,6 +756,13 @@
 			<ImageLoaded condition="is">C:\Windows\System32\cryptdll.dll</ImageLoaded>
 			<ImageLoaded condition="is">C:\Windows\System32\wow64win.dll</ImageLoaded>
 			<ImageLoaded condition="is">C:\Windows\System32\wow64.dll</ImageLoaded>
+			<ImageLoaded condition="is">C:\Windows\System32\pcwum.dll</ImageLoaded>
+			<ImageLoaded condition="is">C:\Windows\System32\kernel32.dll</ImageLoaded>
+			<ImageLoaded condition="is">C:\Windows\System32\user32.dll</ImageLoaded>
+			<ImageLoaded condition="is">C:\Windows\System32\cryptdll.dll</ImageLoaded>
+			<ImageLoaded condition="is">C:\Windows\System32\dns.exe</ImageLoaded>
+			<ImageLoaded condition="is">C:\Windows\System32\zvprtmon5.dll</ImageLoaded>
+			<ImageLoaded condition="is">C:\Windows\System32\termsrv.dll</ImageLoaded>
 			<ImageLoaded condition="begin with">C:\Windows\System32\spool\</ImageLoaded>
 			<ImageLoaded condition="end with">samlib.dll</ImageLoaded>
 			<ImageLoaded condition="contains">C:\Program Files (x86)\SmartGit</ImageLoaded> <!--SmartGit-->
