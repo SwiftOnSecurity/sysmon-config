@@ -740,6 +740,8 @@
 			<Signature condition="contains">Asmedia</Signature> <!--Exclude signed Asmedia libraries-->
 			<Signature condition="contains">SteelSeries</Signature> <!--Exclude signed MSI libraries-->
 			<Signature condition="contains">Fortinet</Signature> <!--Exclude signed MSI libraries-->
+			<Company condition="contains">Microsoft</Company>
+			<Product condition="contains">Microsoft</Product>
 			<Image condition="is">C:\Windows\System32\backgroundTaskHost.exe</Image>
 			<Signature condition="contains">Webroot</Signature> <!--Exclude signed MSI libraries-->
 			<Image condition="is">C:\Windows\System32\backgroundTaskHost.exe</Image>
