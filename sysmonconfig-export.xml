@@ -747,6 +747,7 @@
 			<Image condition="is">C:\Windows\System32\SearchFilterHost.exe</Image>
 			<Image condition="is">C:\Windows\System32\SearchProtocolHost.exe</Image>
 			<Image condition="is">C:\Windows\sysmon64.exe</Image>
+			<Image condition="is">C:\Windows\System32\inetsrv\w3wp.exe</Image>
 			<ImageLoaded condition="is">C:\Windows\sysmon64.exe</ImageLoaded>
 			<ImageLoaded condition="is">C:\Windows\System32\conhost.exe</ImageLoaded>
 			<ImageLoaded condition="is">C:\Windows\System32\winspool.drv</ImageLoaded>
