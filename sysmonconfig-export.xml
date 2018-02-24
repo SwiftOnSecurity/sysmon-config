@@ -776,6 +776,7 @@
 			<Image condition="is">C:\PostgreSQL9.1\bin\postgres.exe</Image> <!-- eFolder Server loading unsigned dll's -->
 			<Image condition="is">C:\Windows\System32\VSSVC.</Image>
 			<Image condition="is">C:\Windows\System32\conhost.exe</Image>
+			<Image condition="is">C:\Windows\System32\svchost.exe</Image>
 			<Image condition="is">C:\Windows\System32\NETSTAT.EXE</Image>
 			<Image condition="is">C:\Windows\System32\inetsrv\w3wp.exe</Image>
 			<Image condition="is">C:\Windows\System32\tasklist.exe</Image>
