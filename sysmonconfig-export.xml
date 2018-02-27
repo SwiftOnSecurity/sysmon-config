@@ -1627,6 +1627,7 @@
 			<!--SECTION: Microsoft DNS Server -->
 			<Image condition="is">C:\Windows\system32\dns.exe</Image>
 			<!--SECTION: Microsoft SQL Server -->
+			<PipeName condition="is">\sql\query</PipeName>
 			<Image condition="is">C:\Program Files\Microsoft SQL Server\90\Shared\sqlwriter.exe</Image>
 			<!--SECTION: Microsoft Skype For Business Server -->
 			<Image condition="is">C:\Program Files\Skype for Business Server 2015\Server\Core\RtcHost.exee</Image>
