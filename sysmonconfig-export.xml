@@ -622,6 +622,8 @@
 			<SourcePortName condition="is">llmnr</SourcePortName> <!--Silence Link-Local Multicast Name Resolution-->
 			<SourcePortName condition="is">ldap</SourcePortName> <!--Silence LDAP-->
 			<DestinationPortName condition="is">ldap</DestinationPortName> <!--Silence LDAP-->
+			<DestinationPortName condition="is">epmap</DestinationPortName> <!--Silence LDAP-->
+			<SourcePortName condition="is">epmap</SourcePortName> <!--Silence LDAP-->
 			<SourcePortName condition="is">ntp</SourcePortName> <!--Silence NTP-->
 			<DestinationPortName condition="is">ntp</DestinationPortName> <!--Silence NTP-->
 			<DestinationPortName condition="is">llmnr</DestinationPortName> <!--Silence Link-Local Multicast Name Resolution-->
