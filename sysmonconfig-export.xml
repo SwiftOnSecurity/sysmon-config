@@ -1241,23 +1241,23 @@
 			<TargetObject condition="begin with">HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Drivers32</TargetObject> <!--Detect Legacy Driver loading-->
 			<!--Common Malware Persistence locations-->
 			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce</TargetObject>
-			<TargetObject condition="begin with">HKCU\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce</TargetObject>
+			<TargetObject condition="contains">\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce</TargetObject>
 			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\RunService</TargetObject>
 			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run</TargetObject>
-			<TargetObject condition="begin with">HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run</TargetObject>
-			<TargetObject condition="begin with">HKCU\Software\Microsoft\Windows NT\CurrentVersion\Windows\load</TargetObject>
+			<TargetObject condition="contains">\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run</TargetObject>
+			<TargetObject condition="contains">\Software\Microsoft\Windows NT\CurrentVersion\Windows\load</TargetObject>
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Classes\ CLSID\{73E709EA-5D93-4B2E-BBB0-99B7938DA9E4}\LocalServer32</TargetObject>
 			<TargetObject condition="contains">CurrentVersion\Windows\Load</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/jj874148.aspx ] -->
 			<TargetObject condition="contains">CurrentVersion\Windows\Run</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/jj874148.aspx ] -->
 			<TargetObject condition="contains">CurrentVersion\Winlogon\Shell</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/ms838576(v=winembedded.5).aspx ] -->
 			<TargetObject condition="contains">CurrentVersion\Winlogon\System</TargetObject> <!--Microsoft:Windows [ https://www.exterminate-it.com/malpedia/regvals/zlob-dns-changer/118 ] -->
 			<!--Group Policy Scripts-->
-			<TargetObject condition="begin with">HKCU\Software\Policies\Microsoft\Windows\System\Scripts\Logon</TargetObject>
-			<TargetObject condition="begin with">HKCU\Software\Policies\Microsoft\Windows\System\Scripts\Logoff</TargetObject>
+			<TargetObject condition="contains">\Software\Policies\Microsoft\Windows\System\Scripts\Logon</TargetObject>
+			<TargetObject condition="contains">\Software\Policies\Microsoft\Windows\System\Scripts\Logoff</TargetObject>
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows\System\Scripts\Startup</TargetObject>
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows\System\Scripts\Shutdown</TargetObject>
-			<TargetObject condition="begin with">HKCU\Software\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Logoff</TargetObject>
-			<TargetObject condition="begin with">HKCU\Software\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Logon</TargetObject>
+			<TargetObject condition="contains">\Software\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Logoff</TargetObject>
+			<TargetObject condition="contains">\Software\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Logon</TargetObject>
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\State\Machine\Scripts\Shutdown</TargetObject>
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\State\Machine\Scripts\Startup</TargetObject>
 			<!--Detect Network History-->
@@ -1272,20 +1272,20 @@
 			<TargetObject condition="end with">SubnetMask</TargetObject><!--Networking: Detect changes-->
 			<TargetObject condition="end with">PersistentRoutes</TargetObject><!--Networking: Detect persistent routes-->
 			<!--Detect User Activity-->
-			<TargetObject condition="begin with">HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU</TargetObject>
+			<TargetObject condition="contains">\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU</TargetObject>
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Enum\USBSTOR</TargetObject>
 			<!--RDP History Tracking-->
-			<TargetObject condition="begin with">HKCU\Software\Microsoft\Terminal Server Client</TargetObject>
+			<TargetObject condition="contains">\Software\Microsoft\Terminal Server Client</TargetObject>
 			<!--Detect Threats from Webroot Antivirus-->
 			<!--Active threats show like so: c:\users\JohnDoe\downloads\w10privacy\w10privacy.exe|W32.Backdoor.Gen|5880BC38 Reg Key Location: HKLM\SOFTWARE\WOW6432Node\WRData\Threats\Active-->
 			<TargetObject condition="contains">\WRData\Threats\Active</TargetObject><!--Detect Active Threats-->
 			<TargetObject condition="contains">\WRData\Threats\History</TargetObject><!--Detect Threat History & Auto-Removed Threats-->
 			<!--Detect Changes to Proxy Server Setting-->
-			<TargetObject condition="contains">HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\AutoConfigURL</TargetObject>
+			<TargetObject condition="contains">\Software\Microsoft\Windows\CurrentVersion\Internet Settings\AutoConfigURL</TargetObject>
 			<!--Detect Browser Hijackers-->
-			<TargetObject condition="begin with">HKCU\Software\Microsoft\Internet Explorer\DOMStorage\</TargetObject>
-			<TargetObject condition="begin with">HKCU\Software\Microsoft\Internet Explorer\LowRegistry\DOMStorage\</TargetObject>
-			<TargetObject condition="begin with">HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\Children\001\Internet Explorer\EdpDomStorage</TargetObject>
+			<TargetObject condition="contains">\Software\Microsoft\Internet Explorer\DOMStorage\</TargetObject>
+			<TargetObject condition="contains">\Software\Microsoft\Internet Explorer\LowRegistry\DOMStorage\</TargetObject>
+			<TargetObject condition="contains">\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\Children\001\Internet Explorer\EdpDomStorage</TargetObject>
 			<!--Detect Unauthorized Firewall Changes-->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\AuthorizedApplications\List</TargetObject> <!--Check for apps added to Firewall Auth List-->
 			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\EnableLUA</TargetObject> <!--Detect: UAC Tampering-->
@@ -1313,16 +1313,16 @@
 			<!-- Detect Root Certificate Store Hijacking and Unauthorized changes -->
 			<!-- Lots of noise from multiple locations, need a better monitor
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\SystemCertificates</TargetObject>
-			<TargetObject condition="begin with">HKCU\Software\Policies\Microsoft\SystemCertificates</TargetObject>
+			<TargetObject condition="contains">\Software\Policies\Microsoft\SystemCertificates</TargetObject>
 			<TargetObject condition="begin with">HKLM\Software\Microsoft\Cryptography\Services\ServiceName\SystemCertificates</TargetObject>
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\EnterpriseCertificates</TargetObject>
-			<TargetObject condition="begin with">HKCU\SOFTWARE\Microsoft\EnterpriseCertificates</TargetObject>
+			<TargetObject condition="contains">\SOFTWARE\Microsoft\EnterpriseCertificates</TargetObject>
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\SystemCertificates</TargetObject>
-			<TargetObject condition="begin with">HKCU\SOFTWARE\Microsoft\SystemCertificates</TargetObject>
+			<TargetObject condition="contains">\SOFTWARE\Microsoft\SystemCertificates</TargetObject>
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\CertSvc</TargetObject>
 			-->
 			<!-- Other Stuff -->	
-			<TargetObject condition="begin with">HKCU\Software\Classes\mscfile\shell\open\command</TargetObject> <!-- Fileless Bypass of UAC: http://resources.infosecinstitute.com/new-born-macro-malware-dropping-rootkits-using-fileless-infection-vector -->
+			<TargetObject condition="contains">\Software\Classes\mscfile\shell\open\command</TargetObject> <!-- Fileless Bypass of UAC: http://resources.infosecinstitute.com/new-born-macro-malware-dropping-rootkits-using-fileless-infection-vector -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree</TargetObject><!--Identify Rogue Scheduled Task ID's -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Logon</TargetObject><!--Identify Rogue Scheduled Task ID's added to Logon -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Boot</TargetObject><!--Identify Rogue Scheduled Task ID's added to Boot -->
@@ -1515,10 +1515,10 @@
 			<Image condition="is">C:\Program Files\WIDCOMM\Bluetooth Software\btwdins.exe</Image> <!--Constantly writes to HKLM-->
 			<!-- Search Protocol Host & Sysmon spam the SystemCertificates keystores, adding exclusions below -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\SystemCertificates\</TargetObject>
-			<TargetObject condition="begin with">HKCU\Software\Policies\Microsoft\SystemCertificates\</TargetObject>
+			<TargetObject condition="contains">\Software\Policies\Microsoft\SystemCertificates\</TargetObject>
 			<TargetObject condition="begin with">HKLM\Software\Microsoft\Cryptography\Services\ServiceName\SystemCertificates\</TargetObject>
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\EnterpriseCertificates\</TargetObject>
-			<TargetObject condition="begin with">HKCU\SOFTWARE\Microsoft\EnterpriseCertificates\</TargetObject>
+			<TargetObject condition="contains">\SOFTWARE\Microsoft\EnterpriseCertificates\</TargetObject>
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\SystemCertificates\</TargetObject>
 			<Image condition="is">C:\Windows\SysWOW64\SearchProtocolHost.exe</Image>
 			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Control\Print\Monitors\Standard TCP/IP Port\Ports</TargetObject> <!-- Spooler Noise -->
