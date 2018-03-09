@@ -1274,6 +1274,8 @@
 			<!--Detect User Activity-->
 			<TargetObject condition="begin with">HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU</TargetObject>
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Enum\USBSTOR</TargetObject>
+			<!--RDP History Tracking-->
+			<TargetObject condition="begin with">HKCU\Software\Microsoft\Terminal Server Client</TargetObject>
 			<!--Detect Threats from Webroot Antivirus-->
 			<!--Active threats show like so: c:\users\JohnDoe\downloads\w10privacy\w10privacy.exe|W32.Backdoor.Gen|5880BC38 Reg Key Location: HKLM\SOFTWARE\WOW6432Node\WRData\Threats\Active-->
 			<TargetObject condition="contains">\WRData\Threats\Active</TargetObject><!--Detect Active Threats-->
