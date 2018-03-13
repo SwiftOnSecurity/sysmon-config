@@ -173,7 +173,6 @@
 			<Image condition="is">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\mscorsvw.exe</Image> <!--Microsoft:DotNet-->
 			<Image condition="is">C:\Windows\Microsoft.NET\Framework\v4.0.30319\mscorsvw.exe</Image> <!--Microsoft:DotNet-->
 			<Image condition="is">C:\Windows\Microsoft.Net\Framework64\v3.0\WPF\PresentationFontCache.exe</Image> <!--Microsoft:Windows: Font cache service-->
-			<Image condition="is">C:\Windows\Microsoft.Net\Framework64\v3.0\WPF\PresentationFontCache.exe</Image> <!--Microsoft:Windows: Font cache service-->
 			<ParentCommandLine condition="contains">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\ngentask.exe</ParentCommandLine>
 			<ParentImage condition="is">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\mscorsvw.exe</ParentImage> <!--Microsoft:DotNet-->
 			<ParentImage condition="is">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\ngentask.exe</ParentImage> <!--Microsoft:DotNet-->
@@ -319,7 +318,6 @@
 			<CommandLine condition="contains">nslookup</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
 			<CommandLine condition="contains">nbtstat.exe</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
 			<CommandLine condition="contains">dsquery</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
-			<CommandLine condition="contains">sc query</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
 			<CommandLine condition="contains">sc query</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
 			<ParentCommandLine condition="contains">find /i "Listening"</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
 			<ParentCommandLine condition="contains">netstat -an</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
@@ -638,7 +636,6 @@
 			<DestinationPort condition="is">5228</DestinationPort> <!--Google Chrome Safe Search checks-->
 			<DestinationPort condition="is">5357</DestinationPort> <!--WSD API noise-->
 			<DestinationPort condition="is">3544</DestinationPort> <!--Teredo-->
-			<DestinationPort condition="is">3702</DestinationPort> <!--Windows: WS-Discovery noise-->
 			<DestinationPort condition="is">3702</DestinationPort> <!--Windows: WS-Discovery noise-->
 			<SourcePort condition="is">50646</SourcePort> <!--Windows: WS-Discovery noise-->
 			<Image condition="is">C:\Program Files (x86)\SmartGit\jre\bin\java.exe</Image>
@@ -967,7 +964,6 @@
 			<TargetFilename condition="end with">.ico</TargetFilename>
 			<TargetFilename condition="end with">.lnk</TargetFilename>
 			<TargetFilename condition="end with">.eml</TargetFilename>
-			<TargetFilename condition="end with">.msg</TargetFilename>
 			<TargetFilename condition="end with">.msg</TargetFilename>
 			<TargetFilename condition="end with">.SCT</TargetFilename>
 			<TargetFilename condition="end with">.SCR</TargetFilename>
@@ -1744,7 +1740,6 @@
 			<Image condition="is">C:\Program Files (x86)\SmartGit\git\mingw32\bin\git.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\SmartGit\git\mingw32\libexec\git-core\git.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\SmartGit\bin\smartgit.exe</Image>
-			<Image condition="is">C:\Program Files (x86)\SmartGit\bin\smartgit.exe</Image>
 			<PipeName condition="contains">Anonymous Pipe</PipeName> <!-- NOTICE: Comment this out if you dont use Labtech, labtech nests processes and causes excessive noise -->
 			<Image condition="is">C:\Program Files (x86)\Fortinet\FortiClient\FortiESNAC.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Fortinet\FortiClient\update_task.exe</Image>
@@ -1767,7 +1762,6 @@
 			<Image condition="is">c:\windows\system32\inetsrv\w3wp.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Common Files\SafeNet Sentinel\Sentinel RMS License Manager\WinNT\mfcesd.exe</Image>
 			<Image condition="is">C:\Pfx Engagement\WM\PFXEngagement.exe</Image>
-			<Image condition="is">C:\Pfx Engagement\WM\PfxEngagement.exe</Image>
 			<Image condition="is">C:\Pfx Engagement\WM\Pfx.KnowledgeCoach.SharedServices.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Micro Focus\COBOL Server 2012\bin\mfds.exe</Image>
 			<Image condition="is">ScreenConnect.WindowsClient.exe</Image>
