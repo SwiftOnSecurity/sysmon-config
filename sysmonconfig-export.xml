@@ -1180,11 +1180,6 @@
 			<TargetObject condition="contains">\Classes\AllFilesystemObjects\</TargetObject> <!--Microsoft:Windows:Explorer: [ http://www.silentrunners.org/launchpoints.html ] -->
 			<TargetObject condition="contains">\Classes\Directory\</TargetObject> <!--Microsoft:Windows:Explorer: [ https://stackoverflow.com/questions/1323663/windows-shell-context-menu-option ] -->
 			<TargetObject condition="contains">\Classes\Drive\</TargetObject> <!--Microsoft:Windows:Explorer: [ https://stackoverflow.com/questions/1323663/windows-shell-context-menu-option ] -->
-			<TargetObject condition="contains">\Classes\Folder\</TargetObject> <!--Microsoft:Windows:Explorer: ContextMenuHandlers, DragDropHandlers, CopyHookHandlers, [ https://stackoverflow.com/questions/1323663/windows-shell-context-menu-option ] -->
-			<TargetObject condition="contains">\ContextMenuHandlers\</TargetObject> <!--Microsoft:Windows: [ http://oalabs.openanalysis.net/2015/06/04/malware-persistence-hkey_current_user-shell-extension-handlers/ ] -->
-			<TargetObject condition="contains">\CurrentVersion\Shell</TargetObject> <!--Microsoft:Windows: Shell Folders, ShellExecuteHooks, ShellIconOverloadIdentifers, ShellServiceObjects, ShellServiceObjectDelayLoad [ http://oalabs.openanalysis.net/2015/06/04/malware-persistence-hkey_current_user-shell-extension-handlers/ ] -->
-			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\explorer\ShellExecuteHooks</TargetObject> <!--Microsoft:Windows: ShellExecuteHooks-->
-			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\explorer\ShellServiceObjectDelayLoad</TargetObject> <!--Microsoft:Windows: ShellExecuteHooks-->
 			<TargetObject condition="end with">\ShowSuperHidden</TargetObject> <!--Microsoft:Windows:Explorer: Some types of malware try to hide their hidden system files from the user, good signal event [ Example: https://www.symantec.com/security_response/writeup.jsp?docid=2007-061811-4341-99&tabid=2 ] -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\explorer\ShellIconOverlayIdentifiers</TargetObject> <!--Microsoft:Windows: ShellExecuteHooks-->
 			<!--AppPaths hijacking-->
@@ -1227,7 +1222,7 @@
 			<TargetObject condition="contains">{AB8902B4-09CA-4bb6-B78D-A8F59079A8D5}\</TargetObject> <!--Microsoft:Windows: Thumbnail cache autostart [ http://blog.trendmicro.com/trendlabs-security-intelligence/poweliks-levels-up-with-new-autostart-mechanism/ ] -->
 			<!--Infection artifacts-->
 			<TargetObject condition="end with">\UrlUpdateInfo</TargetObject> <!--Microsoft:ClickOnce: [ https://subt0x10.blogspot.com/2016/12/mimikatz-delivery-via-clickonce-with.html ] -->
-			<TargetObject condition="end with">\InstallSource</TargetObject> <!--Microsoft:Windows: Source folder for certain program and componenent installations-->
+			<TargetObject condition="end with">\InstallSource</TargetObject> <!--Microsoft:Windows: Source folder for certain program and component installations-->
 			<!--Windows internals integrity monitoring-->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\</TargetObject> <!--Microsoft:Windows: Malware likes changing IFEO-->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\</TargetObject> <!--Microsoft:Windows:UAC: Detect malware changes to UAC prompt level-->
@@ -1338,11 +1333,6 @@
 			<TargetObject condition="end with">\FriendlyName</TargetObject> <!--Microsoft:Windows: New devices connected and remembered-->
 			<TargetObject condition="is">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\InProgress\(Default)</TargetObject> <!--Microsoft:Windows: See when WindowsInstaller is engaged-->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e96b-e325-11ce-bfc1-08002be10318}</TargetObject> <!-- Detect Keyloggers & new Keyboards -->
-			<TargetObject condition="contains">SOFTWARE\Classes\Wow6432Node\CLSID\{955C0D7D-042E-4034-9D54-EBD52477A6DB}\</TargetObject> <!--Too much noise -->
-			<TargetObject condition="contains">SOFTWARE\Classes\Wow6432Node\CLSID\{BEACC58F-E643-4e97-B19E-95F6EE3500FA}\</TargetObject> <!--Too much noise -->
-			<TargetObject condition="contains">SOFTWARE\Classes\Wow6432Node\CLSID\{07598BD3-ABBE-4bee-959F-7B90253EADFF}\</TargetObject> <!--Too much noise -->
-			<TargetObject condition="contains">SOFTWARE\Classes\Wow6432Node\CLSID\{31240348-66EE-4F14-A42A-39F373A834C7}\</TargetObject> <!--Too much noise -->
-			<TargetObject condition="contains">SOFTWARE\Classes\Wow6432Node\CLSID\{8C8EC235-0786-4DAD-A957-1A6CD76C28F5}\</TargetObject> <!--Too much noise -->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\DNS\Parameters\ServerLevelPluginDll</TargetObject> <!-- Detect: Dns Server dll injection -->
 			<!--Windows application compatibility shims-->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom</TargetObject> <!--Microsoft:Windows: AppCompat [ https://www.fireeye.com/blog/threat-research/2017/05/fin7-shim-databases-persistence.html ] -->
@@ -1473,6 +1463,11 @@
 			<TargetObject condition="end with">Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.erf</TargetObject>
 			<TargetObject condition="end with">Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.aac</TargetObject>
 			<TargetObject condition="end with">Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.orf</TargetObject>
+			<TargetObject condition="contains">SOFTWARE\Classes\Wow6432Node\CLSID\{955C0D7D-042E-4034-9D54-EBD52477A6DB}\</TargetObject> <!--Too much noise -->
+			<TargetObject condition="contains">SOFTWARE\Classes\Wow6432Node\CLSID\{BEACC58F-E643-4e97-B19E-95F6EE3500FA}\</TargetObject> <!--Too much noise -->
+			<TargetObject condition="contains">SOFTWARE\Classes\Wow6432Node\CLSID\{07598BD3-ABBE-4bee-959F-7B90253EADFF}\</TargetObject> <!--Too much noise -->
+			<TargetObject condition="contains">SOFTWARE\Classes\Wow6432Node\CLSID\{31240348-66EE-4F14-A42A-39F373A834C7}\</TargetObject> <!--Too much noise -->
+			<TargetObject condition="contains">SOFTWARE\Classes\Wow6432Node\CLSID\{8C8EC235-0786-4DAD-A957-1A6CD76C28F5}\</TargetObject> <!--Too much noise -->
 			<!--Group Policy noise-->
 			<TargetObject condition="end with">HKLM\System\CurrentControlSet\Control\Lsa\Audit\SpecialGroups</TargetObject> <!--Microsoft:Windows: Routinely set through Group Policy, not especially important to log-->
 			<TargetObject condition="end with">SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\Scripts</TargetObject> <!--Microsoft:Windows:Group Policy: Noise below the actual key while building-->
