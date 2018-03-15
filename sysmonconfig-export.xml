@@ -1629,11 +1629,7 @@
 			<Image condition="is">C:\Windows\syswow64\snmp.exe</Image>
 			<Image condition="is">C:\Program Files\Common Files\Microsoft Shared\Web Server Extensions\15\BIN\OWSTIMER.EXE</Image>
 			<!--SECTION: Microsoft Exchange Server -->
-			<Image condition="is">C:\Program Files\Microsoft\Exchange Server\V15\Bin\Search\Ceres\ParserServer\ParserServer.exe</Image>
-			<Image condition="is">C:\Program Files\Microsoft\Exchange Server\V15\bin\Microsoft.Exchange.RpcClientAccess.Service.exe</Image>
-			<Image condition="is">C:\Program Files\Microsoft\Exchange Server\V15\bin\Microsoft.Exchange.Store.Service.exe</Image>
-			<Image condition="is">C:\Program Files\Microsoft\Exchange Server\V15\bin\Microsoft.Exchange.Store.Worker.exe</Image>
-			<Image condition="is">C:\Program Files\Microsoft\Exchange Server\V15\Bin\Search\Ceres\Runtime\1.0\ResourceProfile\contentengine\NodeRunner.exe</Image>
+			<Image condition="contains">Exchange Server</Image>
 			<!--SECTION: Microsoft DNS Server -->
 			<Image condition="is">C:\Windows\system32\dns.exe</Image>
 			<!--SECTION: Microsoft SQL Server -->
@@ -1775,6 +1771,11 @@
 			<Image condition="is">ScreenConnect.WindowsClient.exe</Image>
 			<Image condition="is">ScreenConnect.ClientService.exe</Image>
 			<Image condition="is">QBW32.EXE</Image>
+			<Image condition="end with">EXCEL.EXE</Image>
+			<Image condition="end with">ADCUpdate.exe</Image>
+			<Image condition="end with">Hydrous.Host.exe</Image>
+			<Image condition="end with">TNSLSNR.exe</Image>
+			<Image condition="contains">ShoreWare Server</Image>
 		</PipeEvent>
 
 	<!--SYSMON EVENT ID 19 & 20 & 21 : WMI EVENT MONITORING [WmiEvent]-->
