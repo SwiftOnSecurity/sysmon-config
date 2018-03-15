@@ -912,6 +912,7 @@
 			<SourceImage condition="begin with">C:\ProgramData\WebEx\webex\</SourceImage>
 			<SourceImage condition="end with">Dropbox\Update\DropboxUpdate.exe</SourceImage>
 			<SourceImage condition="end with">LTSvc\LTSVC.exe</SourceImage>
+			<SourceImage condition="end with">\Trusteer\Rapport\bin\RapportMgmtService.exe</SourceImage>
 		</ProcessAccess>
 
 	<!--SYSMON EVENT ID 11 : FILE CREATED [FileCreate]-->
