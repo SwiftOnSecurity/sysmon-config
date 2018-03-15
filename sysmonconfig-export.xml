@@ -845,14 +845,6 @@
 		<!--COMMENT:	Monitor for processes accessing other process' memory.-->
 		<!--DATA: UtcTime, SourceProcessGuid, SourceProcessId, SourceThreadId, SourceImage, TargetProcessGuid, TargetProcessId, TargetImage, GrantedAccess, CallTrace-->
 		<ProcessAccess onmatch="include">
-			<TargetImage condition="end with">:\Windows\System32\lsass.exe</TargetImage>
-			<TargetImage condition="end with">:\Windows\System32\winlogon.exe</TargetImage>
-			<SourceImage condition="contains">Microsoft Office</SourceImage>
-			<SourceImage condition="contains">powershell.exe</SourceImage>
-			<TargetImage condition="contains">verclsid.exe</TargetImage>
-			<CallTrace condition="contains">UNKNOWN</CallTrace>
-			<CallTrace condition="contains">VBE</CallTrace>
-			<CallTrace condition="contains">CorperfmontExt.dll</CallTrace>
 		<!--COMMENT:	Monitor for processes accessing other process' memory. This can be valuable, but can cause massive event glut.
 				Disabled by default since including even one entry here activates this component. Reward/performance decision.
 				Encourage you to experiment with this feature yourself.
