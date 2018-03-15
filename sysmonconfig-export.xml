@@ -843,45 +843,21 @@
 		<!--EVENT 10: "Process accessed"-->
 		<!--COMMENT:	Can cause high system load, disabled by default.-->
 		<!--COMMENT:	Monitor for processes accessing other process' memory.-->
-
 		<!--DATA: UtcTime, SourceProcessGuid, SourceProcessId, SourceThreadId, SourceImage, TargetProcessGuid, TargetProcessId, TargetImage, GrantedAccess, CallTrace-->
-		<!--<ProcessAccess onmatch="include"> -->
+		<ProcessAccess onmatch="include">
 		<!--COMMENT:	Monitor for processes accessing other process' memory. This can be valuable, but can cause massive event glut.
 				Disabled by default since including even one entry here activates this component. Reward/performance decision.
 				Encourage you to experiment with this feature yourself.
 				Uses 4mbs+ IO -->
-			<!-- Hancitor process hollowing -->
-			<!-- <SourceImage condition="image">winword.exe</SourceImage> -->
-			<!-- <SourceImage condition="image">excel.exe</SourceImage> -->
-			<!-- <SourceImage condition="image">mspub.exe</SourceImage> -->
-			<!-- <SourceImage condition="image">msbuild.exe</SourceImage> -->
-			<!-- <SourceImage condition="image">powerpnt.exe</SourceImage> -->
-			<!-- <SourceImage condition="contains">powershell.exe</SourceImage> -->
-			<!-- ShellCode Spawned from Office Macros Credit: @JohnLaTwC -->
-			<!-- <CallTrace condition="contains">VBE7.dll</CallTrace> -->
-			<!-- <CallTrace condition="contains">VBE6.dll</CallTrace> -->
- 			<!--Include mimikatz-specific events.-->
-			<!-- <TargetImage condition="contains">C:\Windows\System32\lsass.exe</TargetImage> -->
-			<!-- <TargetImage condition="contains">C:\Windows\System32\winlogon.exe</TargetImage> -->
-			<!--MimiKatz Detection Credit: @Cyb3rWard0g: https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html -->
-			<!-- <CallTrace condition="contains">WinSCard.dll</CallTrace>  -->
-			<!-- <CallTrace condition="contains">cryptdll.dll</CallTrace> -->
-			<!-- <CallTrace condition="contains">hid.dll</CallTrace> -->
-			<!-- <CallTrace condition="contains">samlib.dll</CallTrace> -->
-			<!-- <CallTrace condition="contains">vaultcli.dll</CallTrace> -->
-			<!-- <CallTrace condition="contains">WMINet_Utils.dll</CallTrace> -->
-			<!-- END: Mimikatz Detection -->		
-		<!--</ProcessAccess> -->
-		<!--<ProcessAccess onmatch="exclude"> -->
-			<!-- <SourceImage condition="is">C:\Program Files (x86)\Webroot\WRSA.exe</SourceImage> -->
-			<!-- <SourceImage condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</SourceImage> -->
-			<!-- <TargetImage condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</TargetImage> -->
-			<!-- <TargetImage condition="is">C:\Windows\Sysmon.exe</TargetImage> -->
-			<!-- ShellCode Spawned from Office Macros: Credit: @JohnLaTwC -->
-			<!-- <CallTrace condition="excludes">UNKNOWN</CallTrace> -->
+		</ProcessAccess>
+		<ProcessAccess onmatch="exclude">
+			<SourceImage condition="is">C:\Program Files (x86)\Webroot\WRSA.exe</SourceImage>
+			<SourceImage condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</SourceImage>
+			<TargetImage condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</TargetImage>
+			<TargetImage condition="is">C:\Windows\Sysmon.exe</TargetImage>
 			<!-- ScreenConnect Querying lsass/winlogon SPAM -->
-			<!-- <SourceImage condition="contains">C:\Program Files (x86)\ScreenConnect Client</SourceImage> -->
-		<!--</ProcessAccess> -->
+			<SourceImage condition="contains">C:\Program Files (x86)\ScreenConnect Client</SourceImage>
+		</ProcessAccess>
 
 	<!--SYSMON EVENT ID 11 : FILE CREATED [FileCreate]-->
 		<!--EVENT 11: "File created"-->
