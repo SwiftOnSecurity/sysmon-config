@@ -876,6 +876,9 @@
 			<GrantedAccess condition="is">0x101001</GrantedAccess>
 			
 			<!-- These binaries appear to access lsass legitimately -->
+			<SourceImage condition="is">C:\Windows\sysWOW64\wbem\wmiprvse.exe</SourceImage>
+			<SourceImage condition="is">C:\Windows\system32\msiexec.exe</SourceImage>
+			<SourceImage condition="is">C:\Windows\system32\svchost.exe</SourceImage>
 			<SourceImage condition="contains">taskmgr</SourceImage>
 			<SourceImage condition="end with">:\Windows\System32\wbem\wmiprvse.exe</SourceImage>
 			<SourceImage condition="end with">\EMET_Service.exe</SourceImage>
@@ -903,14 +906,8 @@
 			<!-- In testing a common false-positive is memory space that DLLS would be expected to mapped to. -->
 			<CallTrace condition="contains">UNKNOWN(00007F</CallTrace>
 			<SourceImage condition="contains">ShadowProtect</SourceImage>
-			<SourceImage condition="contains">ShadowProtect</SourceImage>
-			<SourceImage condition="is">C:\Windows\sysWOW64\wbem\wmiprvse.exe</SourceImage>
-			<SourceImage condition="is">C:\Windows\system32\msiexec.exe</SourceImage>
-			<SourceImage condition="is">C:\Windows\system32\svchost.exe</SourceImage>
-			
 			<SourceImage condition="is">C:\Hlthpnt\bin\IM.exe</SourceImage>
-			
-			
+			<SourceImage condition="is">C:\Program Files (x86)\Common Files\Adobe\ARM\1.0\AdobeARMHelper.exe</SourceImage>
 		</ProcessAccess>
 
 	<!--SYSMON EVENT ID 11 : FILE CREATED [FileCreate]-->
