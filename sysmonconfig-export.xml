@@ -845,12 +845,52 @@
 		<!--COMMENT:	Monitor for processes accessing other process' memory.-->
 		<!--DATA: UtcTime, SourceProcessGuid, SourceProcessId, SourceThreadId, SourceImage, TargetProcessGuid, TargetProcessId, TargetImage, GrantedAccess, CallTrace-->
 		<ProcessAccess onmatch="include">
+			<TargetImage condition="end with">:\Windows\System32\lsass.exe</TargetImage>
+			<TargetImage condition="end with">:\Windows\System32\winlogon.exe</TargetImage>
+			<SourceImage condition="contains">Microsoft Office</SourceImage>
+			<SourceImage condition="contains">powershell.exe</SourceImage>
+			<TargetImage condition="contains">verclsid.exe</TargetImage>
+			<CallTrace condition="contains">UNKNOWN</CallTrace>
+			<CallTrace condition="contains">VBE</CallTrace>
+			<CallTrace condition="contains">CorperfmontExt.dll</CallTrace>
 		<!--COMMENT:	Monitor for processes accessing other process' memory. This can be valuable, but can cause massive event glut.
 				Disabled by default since including even one entry here activates this component. Reward/performance decision.
 				Encourage you to experiment with this feature yourself.
 				Uses 4mbs+ IO -->
 		</ProcessAccess>
 		<ProcessAccess onmatch="exclude">
+			<!-- Filter out common access masks
+			A reference is available here for the mask: https://msdn.microsoft.com/en-us/library/windows/desktop/ms684880%28v=vs.85%29.aspx
+			Ideally an access mask with any of the following is useful:
+			PROCESS_VM_WRITE (0x0020)
+			PROCESS_VM_READ (0x0010)
+			PROCESS_VM_OPERATION (0x0008)
+          
+			0x1410 (potential memory read) is common activity. E.g. by taskmgr.exe. We only want to capture this against lsass.exe and winlogon.exe, but this logic is in the subscription.
+			-->
+			<GrantedAccess condition="is">0x40</GrantedAccess>
+			<GrantedAccess condition="is">0x101000</GrantedAccess>
+			<GrantedAccess condition="is">0x1000</GrantedAccess>
+			<GrantedAccess condition="is">0x1400</GrantedAccess>
+			<GrantedAccess condition="is">0x100000</GrantedAccess>
+			<GrantedAccess condition="is">0x3200</GrantedAccess>
+			<GrantedAccess condition="is">0x101400</GrantedAccess>
+			<GrantedAccess condition="is">0x101001</GrantedAccess>
+			
+			<!-- These binaries appear to access lsass legitimately -->
+			<SourceImage condition="contains">taskmgr</SourceImage>
+			<SourceImage condition="end with">:\Windows\System32\wbem\wmiprvse.exe</SourceImage>
+			<SourceImage condition="end with">\EMET_Service.exe</SourceImage>
+			<SourceImage condition="end with">\EMET_GUI.exe</SourceImage>
+			<SourceImage condition="end with">\procexp64.exe</SourceImage>
+			<SourceImage condition="contains">processhacker</SourceImage>
+			<SourceImage condition="end with">\Bin\FMS.exe</SourceImage> <!-- Exchange Process -->
+			<SourceImage condition="contains">\Exchange Server\</SourceImage>
+			<SourceImage condition="contains">SQL</SourceImage>
+			<SourceImage condition="end with">:\Windows\System32\smss.exe</SourceImage>
+			<SourceImage condition="end with">:\Windows\system32\csrss.exe</SourceImage>
+			<SourceImage condition="end with">:\Windows\system32\wininit.exe</SourceImage>
+			<SourceImage condition="end with">\Google\Update\GoogleUpdate.exe</SourceImage>
 			<SourceImage condition="is">C:\Program Files (x86)\Webroot\WRSA.exe</SourceImage>
 			<SourceImage condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</SourceImage>
 			<TargetImage condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</TargetImage>
@@ -858,7 +898,12 @@
 			<TargetImage condition="is">C:\Windows\Sysmon64.exe</TargetImage>
 			<SourceImage condition="is">C:\Windows\Sysmon64.exe</SourceImage>
 			<!-- ScreenConnect Querying lsass/winlogon SPAM -->
-			<SourceImage condition="contains">C:\Program Files (x86)\ScreenConnect Client</SourceImage>
+			<SourceImage condition="contains">ScreenConnect</SourceImage>
+			<!-- These binaries get or access processes running .NET -->
+			<SourceImage condition="end with">:\Windows\system32\sppsvc.exe</SourceImage>
+			<SourceImage condition="end with">:\Windows\system32\sdiagnhost.exe</SourceImage>
+			<!-- In testing a common false-positive is memory space that DLLS would be expected to mapped to. -->
+			<CallTrace condition="contains">UNKNOWN(00007F</CallTrace>
 		</ProcessAccess>
 
 	<!--SYSMON EVENT ID 11 : FILE CREATED [FileCreate]-->
