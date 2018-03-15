@@ -908,6 +908,9 @@
 			<SourceImage condition="contains">ShadowProtect</SourceImage>
 			<SourceImage condition="is">C:\Hlthpnt\bin\IM.exe</SourceImage>
 			<SourceImage condition="is">C:\Program Files (x86)\Common Files\Adobe\ARM\1.0\AdobeARMHelper.exe</SourceImage>
+			<SourceImage condition="is">C:\Program Files (x86)\Common Files\Adobe\AdobeGCClient\AGSService.exe</SourceImage>
+			<SourceImage condition="begin with">C:\ProgramData\WebEx\webex\</SourceImage>
+			<SourceImage condition="end with">Dropbox\Update\DropboxUpdate.exe</SourceImage>
 		</ProcessAccess>
 
 	<!--SYSMON EVENT ID 11 : FILE CREATED [FileCreate]-->
