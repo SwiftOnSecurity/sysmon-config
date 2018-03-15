@@ -855,6 +855,8 @@
 			<SourceImage condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</SourceImage>
 			<TargetImage condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</TargetImage>
 			<TargetImage condition="is">C:\Windows\Sysmon.exe</TargetImage>
+			<TargetImage condition="is">C:\Windows\Sysmon64.exe</TargetImage>
+			<SourceImage condition="is">C:\Windows\Sysmon64.exe</SourceImage>
 			<!-- ScreenConnect Querying lsass/winlogon SPAM -->
 			<SourceImage condition="contains">C:\Program Files (x86)\ScreenConnect Client</SourceImage>
 		</ProcessAccess>
