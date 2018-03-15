@@ -879,6 +879,7 @@
 			<SourceImage condition="is">C:\Windows\sysWOW64\wbem\wmiprvse.exe</SourceImage>
 			<SourceImage condition="is">C:\Windows\system32\msiexec.exe</SourceImage>
 			<SourceImage condition="is">C:\Windows\system32\svchost.exe</SourceImage>
+			<SourceImage condition="is">C:\Windows\system32\spoolsv.exe</SourceImage>
 			<SourceImage condition="contains">taskmgr</SourceImage>
 			<SourceImage condition="end with">wbem\wmiprvse.exe</SourceImage>
 			<SourceImage condition="end with">\EMET_Service.exe</SourceImage>
