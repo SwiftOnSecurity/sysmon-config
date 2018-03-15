@@ -890,6 +890,7 @@
 			<SourceImage condition="end with">:\Windows\system32\wininit.exe</SourceImage>
 			<SourceImage condition="end with">\Google\Update\GoogleUpdate.exe</SourceImage>
 			<SourceImage condition="is">C:\Program Files (x86)\Webroot\WRSA.exe</SourceImage>
+			<SourceImage condition="is">C:\Program Files\Webroot\WRSA.exe</SourceImage>
 			<SourceImage condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</SourceImage>
 			<TargetImage condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</TargetImage>
 			<TargetImage condition="is">C:\Windows\Sysmon.exe</TargetImage>
@@ -902,6 +903,14 @@
 			<!-- In testing a common false-positive is memory space that DLLS would be expected to mapped to. -->
 			<CallTrace condition="contains">UNKNOWN(00007F</CallTrace>
 			<SourceImage condition="contains">ShadowProtect</SourceImage>
+			<SourceImage condition="contains">ShadowProtect</SourceImage>
+			<SourceImage condition="is">C:\Windows\sysWOW64\wbem\wmiprvse.exe</SourceImage>
+			<SourceImage condition="is">C:\Windows\system32\msiexec.exe</SourceImage>
+			<SourceImage condition="is">C:\Windows\system32\svchost.exe</SourceImage>
+			
+			<SourceImage condition="is">C:\Hlthpnt\bin\IM.exe</SourceImage>
+			
+			
 		</ProcessAccess>
 
 	<!--SYSMON EVENT ID 11 : FILE CREATED [FileCreate]-->
