@@ -1172,7 +1172,10 @@
 			<TargetObject condition="end with">\ServiceDll</TargetObject> <!--Microsoft:Windows: Points to a service's DLL [ https://blog.cylance.com/windows-registry-persistence-part-1-introduction-attack-phases-and-windows-services ] -->
 			<TargetObject condition="end with">\ImagePath</TargetObject> <!--Microsoft:Windows: Points to a service's EXE [ https://github.com/crypsisgroup/Splunkmon/blob/master/sysmon.cfg ] -->
 			<TargetObject condition="end with">\Start</TargetObject> <!--Microsoft:Windows: Services start mode changes (Disabled, Automatically, Manual)-->
+			<TargetObject condition="begin with">HKLM\SYSTEM\Setup\CmdLine</TargetObject>
+			<TargetObject condition="contains">Session Manager\KnownDlls</TargetObject>
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Print\Monitors</TargetObject> <!-- Print Monitor DLL's loaded at startup can be malicious, lets monitor those -->
+			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Print\Providers</TargetObject> <!-- Print Provider DLL's loaded at startup can be malicious, lets monitor those -->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\Security Packages</TargetObject> <!-- Windows Security Support Provider (SSP) DLLs are loaded into the Local Security Authority (LSA) process at system start. Once loaded into the LSA, SSP DLLs have access to encrypted and plaintext passwords that are stored in Windows, such as any logged-on user's Domain password or smart card PINs. -->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\OSConfig\Security Packages</TargetObject> <!-- Windows Security Support Provider (SSP) DLLs are loaded into the Local Security Authority (LSA) process at system start. Once loaded into the LSA, SSP DLLs have access to encrypted and plaintext passwords that are stored in Windows, such as any logged-on user's Domain password or smart card PINs. -->
 			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Control\Lsa\Notification Packages</TargetObject> <!-- Windows Security Support Provider (SSP) DLLs are loaded into the Local Security Authority (LSA) process at system start. Once loaded into the LSA, SSP DLLs have access to encrypted and plaintext passwords that are stored in Windows, such as any logged-on user's Domain password or smart card PINs. -->
@@ -1196,6 +1199,19 @@
 			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows NT\CurrentVersion\AeDebug</TargetObject> <!-- Windows Debugger Hijack Autorun -->
 			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\Shell</TargetObject> <!--Microsoft:Windows: [ https://technet.microsoft.com/en-us/library/ee851671.aspx ] -->
 			<TargetObject condition="contains">UserInitMprLogonScript</TargetObject> <!--Microsoft:Windows: Legacy logon script environment variable [ http://www.hexacorn.com/blog/2014/11/14/beyond-good-ol-run-key-part-18/ ] -->
+			<TargetObject condition="end with">\CurrentVersion\Font Drivers</TargetObject>
+			<TargetObject condition="contains">Active Setup\Installed Components</TargetObject>
+			<TargetObject condition="contains">Windows CE Services\AutoStartOnConnect</TargetObject>
+			<TargetObject condition="contains">Windows CE Services\AutoStartOnDisconnect</TargetObject>
+			<TargetObject condition="contains">CurrentVersion\Windows\IconServiceLib</TargetObject>
+			<TargetObject condition="contains">Winlogon\AlternateShells\AvailableShells</TargetObject>
+			<TargetObject condition="contains">Terminal Server\Wds\rdpwd\StartupPrograms</TargetObject>
+			<TargetObject condition="contains">SafeBoot\AlternateShell</TargetObject>
+			<TargetObject condition="contains">Terminal Server\WinStations\RDP-Tcp\InitialProgram</TargetObject>
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Taskman</TargetObject>
+			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Shutdown</TargetObject>
+			<TargetObject condition="contains">Policies\System\Shell</TargetObject>
+			<TargetObject condition="contains">Desktop\Scrnsave.exe</TargetObject>
 			<!--CLSID launch commands and file association changes-->
 			<TargetObject condition="contains">\Explorer\FileExts\</TargetObject> <!--Microsoft:Windows: Changes to file extension mapping-->
 			<TargetObject condition="contains">\shell\install\command\</TargetObject> <!--Microsoft:Windows: Sensitive subkey under file associations and CLSID that map to launch command-->
@@ -1204,6 +1220,17 @@
 			<!--Windows COM-->
 			<TargetObject condition="end with">\InprocServer32\(Default)</TargetObject> <!--Microsoft:Windows:COM Object Hijacking [ https://blog.gdatasoftware.com/2014/10/23941-com-object-hijacking-the-discreet-way-of-persistence ] | Credit @ion-storm -->
 			<!--Windows shell hijack-->
+			<TargetObject condition="contains">\PropertySheetHandlers</TargetObject>
+			<TargetObject condition="contains">\CopyHookHandlers</TargetObject>
+			<TargetObject condition="contains">\ColumnHandlers</TargetObject>
+			<TargetObject condition="contains">\ExtShellFolderViews</TargetObject>
+			<TargetObject condition="contains">\ShellServiceObjects</TargetObject>
+			<TargetObject condition="contains">\ShellServiceObjectDelayLoad</TargetObject>
+			<TargetObject condition="contains">\SOFTWARE\Classes\Protocols\Filter</TargetObject>
+			<TargetObject condition="contains">\SOFTWARE\Classes\Protocols\Handler</TargetObject>
+			<TargetObject condition="contains">\Software\Microsoft\Ctf\LangBarAddin</TargetObject>
+			<TargetObject condition="contains">\SOFTWARE\Microsoft\Internet Explorer\Desktop\Components</TargetObject>
+			<TargetObject condition="contains">\SharedTaskScheduler</TargetObject>
 			<TargetObject condition="contains">\ContextMenuHandlers\</TargetObject> <!--Microsoft:Windows: [ http://oalabs.openanalysis.net/2015/06/04/malware-persistence-hkey_current_user-shell-extension-handlers/ ] -->
 			<TargetObject condition="contains">\CurrentVersion\Shell</TargetObject> <!--Microsoft:Windows: Shell Folders, ShellExecuteHooks, ShellIconOverloadIdentifers, ShellServiceObjects, ShellServiceObjectDelayLoad [ http://oalabs.openanalysis.net/2015/06/04/malware-persistence-hkey_current_user-shell-extension-handlers/ ] -->
 			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\explorer\ShellExecuteHooks</TargetObject> <!--Microsoft:Windows: ShellExecuteHooks -->
@@ -1218,6 +1245,7 @@
 			<!--AppPaths hijacking-->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\</TargetObject> <!--Microsoft:Windows: Credit to @Hexacorn [ http://www.hexacorn.com/blog/2013/01/19/beyond-good-ol-run-key-part-3/ ] -->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\AppCertDlls\</TargetObject> <!--Microsoft:Windows: Credit to @Hexacorn [ http://www.hexacorn.com/blog/2013/01/19/beyond-good-ol-run-key-part-3/ ] -->
+			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Control\Session Manager\S0InitialCommand</TargetObject> <!--Microsoft:Windows: Credit to @Hexacorn [ http://www.hexacorn.com/blog/2013/01/19/beyond-good-ol-run-key-part-3/ ] -->
 			<!--Terminal service boobytraps-->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp\InitialProgram</TargetObject>
 			<!--Group Policy interity-->
@@ -1230,11 +1258,16 @@
 			<TargetObject condition="end with">\3\1206</TargetObject> <!--Microsoft:InternetExplorer: Malware sometimes assures scripting is on in Internet Zone [ https://support.microsoft.com/en-us/help/182569/internet-explorer-security-zones-registry-entries-for-advanced-users ] -->
 			<TargetObject condition="end with">\3\2500</TargetObject> <!--Microsoft:InternetExplorer: Malware sometimes disables Protected Mode in Internet Zone [ https://blog.avast.com/2013/08/12/your-documents-are-corrupted-from-image-to-an-information-stealing-trojan/ ] -->
 			<TargetObject condition="end with">\3\1809</TargetObject> <!--Microsoft:InternetExplorer: Malware sometimes disables Pop-up Blocker in Internet Zone [ https://support.microsoft.com/en-us/help/182569/internet-explorer-security-zones-registry-entries-for-advanced-users ] -->
+			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Services\WinSock2\Parameters\NameSpace_Catalog5\Catalog_Entries64</TargetObject>
+			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Services\WinSock2\Parameters\Protocol_Catalog9\Catalog_Entries</TargetObject>
+			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Services\WinSock2\Parameters\Protocol_Catalog9\Catalog_Entries64</TargetObject>
 			<!--Credential providers-->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\Credential Provider</TargetObject> <!--Wildcard, includes Credental Providers and Credential Provider Filters-->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\</TargetObject>
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SecurityProviders</TargetObject> <!--Microsoft:Windows: Changes to WDigest-UseLogonCredential for password scraping [ https://www.trustedsec.com/april-2015/dumping-wdigest-creds-with-meterpreter-mimikatzkiwi-in-windows-8-1/ ] -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Netsh</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1128 ] -->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\Credential Provider Filters</TargetObject>
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\PLAP Providers</TargetObject>
 			<!--Networking-->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\NetworkProvider\Order\</TargetObject> <!--Microsoft:Windows: Order of network providers that are checked to connect to destination [ https://www.malwarearchaeology.com/cheat-sheets ] -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Profiles</TargetObject> <!--Microsoft:Windows: | Credit @ion-storm -->
@@ -1243,10 +1276,13 @@
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/windows/desktop/dd744762(v=vs.85).aspx ] -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/windows/desktop/dn280412(v=vs.85).aspx ] -->
 			<!--Office-->
-			<TargetObject condition="contains">\Microsoft\Office\Outlook\Addins\</TargetObject> <!--Microsoft:Office: Outlook add-ins-->
-			<TargetObject condition="contains">\Microsoft\Office\Excel\Addins\</TargetObject> <!--Microsoft:Office: Excel add-ins-->
-			<TargetObject condition="contains">\Microsoft\Office\Word\Addins\</TargetObject> <!--Microsoft:Office: Word add-ins-->
-			<TargetObject condition="contains">\Microsoft\Office\Powerpoint\Addins\</TargetObject> <!--Microsoft:Office: Powerpoint add-ins-->
+			<!--Microsoft Office-->
+			<TargetObject condition="contains">Office Test\</TargetObject> <!-- [ http://www.hexacorn.com/blog/2014/04/16/beyond-good-ol-run-key-part-10/ ] | Credit @Hexacorn -->
+			<TargetObject condition="contains">\Outlook\Addins\</TargetObject> <!--Microsoft:Office: Outlook add-ins-->
+			<TargetObject condition="contains">\Excel\Addins\</TargetObject> <!--Microsoft:Office: Excel add-ins-->
+			<TargetObject condition="contains">\Word\Addins\</TargetObject> <!--Microsoft:Office: Word add-ins-->
+			<TargetObject condition="contains">\Access\Addins\</TargetObject> <!--Microsoft:Office: Word add-ins-->
+			<TargetObject condition="contains">\Powerpoint\Addins\</TargetObject> <!--Microsoft:Office: Powerpoint add-ins-->
 			<!--IE-->
 			<TargetObject condition="contains">\Internet Explorer\Toolbar\</TargetObject> <!--Microsoft:InternetExplorer: Machine and user-->
 			<TargetObject condition="contains">\Internet Explorer\Extensions\</TargetObject> <!--Microsoft:InternetExplorer: Machine and user-->
@@ -1372,8 +1408,6 @@
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB</TargetObject> <!--Microsoft:Windows: AppCompat [ https://www.fireeye.com/blog/threat-research/2017/05/fin7-shim-databases-persistence.html ] -->
 			<TargetObject condition="is">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\InProgress\(Default)</TargetObject> <!--Microsoft:Windows: See when WindowsInstaller is engaged, useful for timeline matching with other events-->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Tracing\RASAPI32</TargetObject> <!--Microsoft:Windows: Malware sometimes disables tracing to obfuscate tracks-->
-			<!--Microsoft Office-->
-			<TargetObject condition="contains">Office Test\</TargetObject> <!-- [ http://www.hexacorn.com/blog/2014/04/16/beyond-good-ol-run-key-part-10/ ] | Credit @Hexacorn -->
 			<!-- NOTICE: Detect New USB Network Devices: Poison Tap - Creates lots of noise, disabled for now
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}</TargetObject>
 			-->
