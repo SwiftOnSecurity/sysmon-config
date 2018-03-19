@@ -1343,9 +1343,9 @@
 			<!--Detect Changes to Proxy Server Setting-->
 			<TargetObject condition="contains">\Software\Microsoft\Windows\CurrentVersion\Internet Settings\AutoConfigURL</TargetObject>
 			<!--Detect Browser Hijackers-->
-			<TargetObject condition="contains">\Software\Microsoft\Internet Explorer\DOMStorage\</TargetObject>
-			<TargetObject condition="contains">\Software\Microsoft\Internet Explorer\LowRegistry\DOMStorage\</TargetObject>
-			<TargetObject condition="contains">\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\Children\001\Internet Explorer\EdpDomStorage</TargetObject>
+			<!--<TargetObject condition="contains">\Software\Microsoft\Internet Explorer\DOMStorage\</TargetObject>-->
+			<!--<TargetObject condition="contains">\Software\Microsoft\Internet Explorer\LowRegistry\DOMStorage\</TargetObject>-->
+			<!--<TargetObject condition="contains">\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\Children\001\Internet Explorer\EdpDomStorage</TargetObject>-->
 			<!--Detect Unauthorized Firewall Changes-->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\AuthorizedApplications\List</TargetObject> <!--Check for apps added to Firewall Auth List-->
 			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\EnableLUA</TargetObject> <!--Detect: UAC Tampering-->
