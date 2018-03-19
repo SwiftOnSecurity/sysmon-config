@@ -469,49 +469,50 @@
 			<!--Tor-->
 			<Image condition="image">tor.exe</Image><!-- Tor-->
 			<!--Hack tools hosting-->
-			<DestinationHostname condition="end with">githubusercontent.com</DestinationHostname> <!--Github: Malicious tools often loaded from here, not used except by developers-->
-			<DestinationHostname condition="end with">github.com</DestinationHostname> <!--Github: Malicious tools often loaded from here, not used except by developers-->
+			<DestinationHostname condition="contains">githubusercontent.com</DestinationHostname> <!--Github: Malicious tools often loaded from here, not used except by developers-->
+			<DestinationHostname condition="contains">github.com</DestinationHostname> <!--Github: Malicious tools often loaded from here, not used except by developers-->
 			<!--Suspicious destinations-->
-			<DestinationHostname condition="is">api.ipify.org</DestinationHostname> <!--Malware uses to get external IP address-->
-			<DestinationHostname condition="is">whatismyipaddress.com</DestinationHostname> <!--Malware uses to get external IP address-->
-			<DestinationHostname condition="is">edns.ip-api.com</DestinationHostname> <!--Malware uses to get external IP address-->
-			<DestinationHostname condition="is">checkip.dyndns.org</DestinationHostname> <!--Malware uses to get external IP address-->
-			<DestinationHostname condition="is">icanhazip.com</DestinationHostname> <!--Malware uses to get external IP address-->
-			<DestinationHostname condition="is">ifconfig.me</DestinationHostname> <!--Malware uses to get external IP address-->
-			<DestinationHostname condition="is">ifconfig.co</DestinationHostname> <!--Malware uses to get external IP address-->
-			<DestinationHostname condition="is">ipaddress.com</DestinationHostname> <!--Malware uses to get external IP address-->
-			<DestinationHostname condition="is">ipinfo.io</DestinationHostname> <!--Malware uses to get external IP address-->
-			<DestinationHostname condition="end with">goo.gl</DestinationHostname>
-			<DestinationHostname condition="end with">git.io</DestinationHostname>
-			<DestinationHostname condition="end with">bit.ly</DestinationHostname>
-			<DestinationHostname condition="end with">t.co</DestinationHostname>
-			<DestinationHostname condition="end with">ow.ly</DestinationHostname>
+			<DestinationHostname condition="contains">api.ipify.org</DestinationHostname> <!--Malware uses to get external IP address-->
+			<DestinationHostname condition="contains">whatismyipaddress.com</DestinationHostname> <!--Malware uses to get external IP address-->
+			<DestinationHostname condition="contains">edns.ip-api.com</DestinationHostname> <!--Malware uses to get external IP address-->
+			<DestinationHostname condition="contains">checkip.dyndns.org</DestinationHostname> <!--Malware uses to get external IP address-->
+			<DestinationHostname condition="contains">icanhazip.com</DestinationHostname> <!--Malware uses to get external IP address-->
+			<DestinationHostname condition="contains">ifconfig.me</DestinationHostname> <!--Malware uses to get external IP address-->
+			<DestinationHostname condition="contains">ifconfig.co</DestinationHostname> <!--Malware uses to get external IP address-->
+			<DestinationHostname condition="contains">ipaddress.com</DestinationHostname> <!--Malware uses to get external IP address-->
+			<DestinationHostname condition="contains">ipinfo.io</DestinationHostname> <!--Malware uses to get external IP address-->
+			<DestinationHostname condition="contains">goo.gl</DestinationHostname>
+			<DestinationHostname condition="contains">git.io</DestinationHostname>
+			<DestinationHostname condition="contains">bit.ly</DestinationHostname>
+			<DestinationHostname condition="contains">t.co</DestinationHostname>
+			<DestinationHostname condition="contains">ow.ly</DestinationHostname>
+			<DestinationHostname condition="contains">ip-api.com</DestinationHostname> <!--Ransomware using ip-api for geolocation tracking-->
 			<!--Dynamic DNS Providers-->
-			<DestinationHostname condition="end with">dlinkddns.com</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
-			<DestinationHostname condition="end with">no-ip.com</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
-			<DestinationHostname condition="end with">no-ip.org</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
-			<DestinationHostname condition="end with">no-ip.biz</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
-			<DestinationHostname condition="end with">no-ip.info</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
-			<DestinationHostname condition="end with">noip.com</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
-			<DestinationHostname condition="end with">afraid.org</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
-			<DestinationHostname condition="end with">duckdns.org</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
-			<DestinationHostname condition="end with">changeip.com</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
-			<DestinationHostname condition="end with">ddns.net</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
-			<DestinationHostname condition="end with">hopto.org</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
-			<DestinationHostname condition="end with">zapto.org</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
-			<DestinationHostname condition="end with">servehttp.com</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
-			<DestinationHostname condition="end with">sytes.net</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
+			<DestinationHostname condition="contains">dlinkddns.com</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
+			<DestinationHostname condition="contains">no-ip.com</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
+			<DestinationHostname condition="contains">no-ip.org</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
+			<DestinationHostname condition="contains">no-ip.biz</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
+			<DestinationHostname condition="contains">no-ip.info</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
+			<DestinationHostname condition="contains">noip.com</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
+			<DestinationHostname condition="contains">afraid.org</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
+			<DestinationHostname condition="contains">duckdns.org</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
+			<DestinationHostname condition="contains">changeip.com</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
+			<DestinationHostname condition="contains">ddns.net</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
+			<DestinationHostname condition="contains">hopto.org</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
+			<DestinationHostname condition="contains">zapto.org</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
+			<DestinationHostname condition="contains">servehttp.com</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
+			<DestinationHostname condition="contains">sytes.net</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
 			<!--Tor2Web Providers-->
-			<DestinationHostname condition="end with">onion.to</DestinationHostname>
-			<DestinationHostname condition="end with">onion.cab</DestinationHostname>
-			<DestinationHostname condition="end with">onion.sh</DestinationHostname>
-			<DestinationHostname condition="end with">onion.nu</DestinationHostname>
-			<DestinationHostname condition="end with">onion.direct</DestinationHostname>
-			<DestinationHostname condition="end with">tor2web.org</DestinationHostname>
-			<DestinationHostname condition="end with">tor2web.fi</DestinationHostname>
-			<DestinationHostname condition="end with">tor2web.blutmagie.de</DestinationHostname>
-			<DestinationHostname condition="end with">tor-gateways.de</DestinationHostname>
-			<DestinationHostname condition="end with">hiddenservice.net</DestinationHostname>
+			<DestinationHostname condition="contains">onion.to</DestinationHostname>
+			<DestinationHostname condition="contains">onion.cab</DestinationHostname>
+			<DestinationHostname condition="contains">onion.sh</DestinationHostname>
+			<DestinationHostname condition="contains">onion.nu</DestinationHostname>
+			<DestinationHostname condition="contains">onion.direct</DestinationHostname>
+			<DestinationHostname condition="contains">tor2web.org</DestinationHostname>
+			<DestinationHostname condition="contains">tor2web.fi</DestinationHostname>
+			<DestinationHostname condition="contains">tor2web.blutmagie.de</DestinationHostname>
+			<DestinationHostname condition="contains">tor-gateways.de</DestinationHostname>
+			<DestinationHostname condition="contains">hiddenservice.net</DestinationHostname>
 			<!--Ports-->
 			<DestinationPort condition="is">80</DestinationPort> <!--RDP Port-->
 			<DestinationPort condition="is">443</DestinationPort> <!--RDP Port-->
@@ -1414,7 +1415,7 @@
 		</RegistryEvent>
 
 		<RegistryEvent onmatch="exclude">
-		<!--COMMENT:	Remove low-information noise. Often these hide a procress recreating an empty key and do not hide the values created subsequently.-->
+		<!--COMMENT:	Remove low-information noise. Often these hide a process recreating an empty key and do not hide the values created subsequently.-->
 			<!--SECTION: Microsoft binaries-->
 			<Image condition="end with">Office\root\integration\integrator.exe</Image> <!--Microsoft:Office: C2R client-->
 			<Image condition="image">C:\WINDOWS\system32\backgroundTaskHost.exe</Image> <!--Microsoft:Windows: Changes association registry keys-->
