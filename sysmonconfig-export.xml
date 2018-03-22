@@ -363,6 +363,8 @@
 			<Image condition="end with">AppData\Roaming\Dropbox\bin\Dropbox.exe</Image> <!--Dropbox-->
 			<Image condition="image">g2ax_comm_expert.exe</Image> <!--GoToMeeting-->
 			<Image condition="image">g2mcomm.exe</Image> <!--GoToMeeting-->
+			<Image condition="end with">AppData\Roaming\Resilio Sync\Resilio Sync.exe</Image> <!--Resilio Sync-->
+
 			<!--SECTION: Microsoft-->
 			<Image condition="image">OneDrive.exe</Image> <!--Microsoft:OneDrive-->
 			<Image condition="image">OneDriveStandaloneUpdater.exe</Image> <!--Microsoft:OneDrive-->
