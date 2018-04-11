@@ -1215,6 +1215,7 @@
 			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Shutdown</TargetObject>
 			<TargetObject condition="contains">Policies\System\Shell</TargetObject>
 			<TargetObject condition="contains">Desktop\Scrnsave.exe</TargetObject>
+			<TargetObject condition="contains">SOFTWARE\Microsoft\Windows NT\CurrentVersion\SilentProcessExit</TargetObject> <!--Persistence using GlobalFlags in Image File Execution Options: [ https://oddvar.moe/2018/04/10/persistence-using-globalflags-in-image-file-execution-options-hidden-from-autoruns-exe/ ] -->
 			<!--CLSID launch commands and file association changes-->
 			<TargetObject condition="contains">\Explorer\FileExts\</TargetObject> <!--Microsoft:Windows: Changes to file extension mapping-->
 			<TargetObject condition="contains">\shell\install\command\</TargetObject> <!--Microsoft:Windows: Sensitive subkey under file associations and CLSID that map to launch command-->
