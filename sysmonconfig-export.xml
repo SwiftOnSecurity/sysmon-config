@@ -389,6 +389,7 @@
 		<FileCreateTime onmatch="include">
 			<Image condition="begin with">C:\Users</Image> <!--Look for timestomping in user area-->
 			<Image condition="begin with">C:\ProgramData</Image> <!--Look for timestomping in user area-->
+			<Image condition="contains">\Temp\</Image> <!--Mitre T1099--><!--Look for timestomping in temp folders-->
 		</FileCreateTime>
 
 		<FileCreateTime onmatch="exclude">
@@ -450,6 +451,8 @@
 			<Image condition="image">reg.exe</Image><!-- Remote Registry -->
 			<Image condition="image">mstsc.exe</Image><!-- Remote Desktop -->
 			<Image condition="image">telnet.exe</Image><!-- Telnet -->
+			<Image condition="image">SyncAppvPublishingServer.exe</Image><!--Mitre T1218-->
+			<Image condition="image">Mavinject.exe</Image><!--Mitre T1218-->
 			<Image condition="image">ssh.exe</Image><!-- SSH -->
 			<Image condition="image">putty.exe</Image><!-- SSH -->
 			<Image condition="image">kitty.exe</Image><!-- SSH -->
@@ -1385,7 +1388,11 @@
 			<TargetObject condition="contains">\SOFTWARE\Microsoft\SystemCertificates</TargetObject>
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\CertSvc</TargetObject>
 			-->
-			<!-- Other Stuff -->	
+			<!-- Other Stuff -->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Cryptography\OID</TargetObject> <!--Mitre T1198-->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\WOW6432Node\Microsoft\Cryptography\OID</TargetObject><!--Mitre T1198-->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Cryptography\Providers\Trust</TargetObject><!--Mitre T1198-->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\WOW6432Node\Microsoft\Cryptography\Providers\Trust</TargetObject><!--Mitre T1198-->
 			<TargetObject condition="contains">\Software\Classes\mscfile\shell\open\command</TargetObject> <!-- Fileless Bypass of UAC: http://resources.infosecinstitute.com/new-born-macro-malware-dropping-rootkits-using-fileless-infection-vector -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree</TargetObject><!--Identify Rogue Scheduled Task ID's -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Logon</TargetObject><!--Identify Rogue Scheduled Task ID's added to Logon -->
