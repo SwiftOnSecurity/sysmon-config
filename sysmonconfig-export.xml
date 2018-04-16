@@ -1849,7 +1849,7 @@
 		<!--EVENT 21: "WmiEventConsumerToFilter activity detected"-->
 
 		<!--DATA: EventType, UtcTime, Operation, User, Name, Type, Destination, Consumer, Filter-->
-		<WmiEvent onmatch="include">
+		<WmiEvent onmatch="exclude">
 		</WmiEvent>
 
 	<!--SYSMON EVENT ID 255 : ERROR-->
