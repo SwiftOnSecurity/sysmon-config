@@ -978,6 +978,7 @@
 			<TargetFilename condition="end with">.xls</TargetFilename> <!--Legacy Office files are often used for attacks-->
 			<TargetFilename condition="end with">.ppt</TargetFilename> <!--Legacy Office files are often used for attacks-->
 			<TargetFilename condition="end with">.rft</TargetFilename> <!--RTF files often 0day malware vectors when opened by Office-->
+			<TargetFilename condition="end with">.SettingContent-ms</TargetFilename> <!--More info: https://posts.specterops.io/the-tale-of-settingcontent-ms-files-f1ea253e4d39-->
 			<TargetFilename condition="begin with">C:\Users\Default</TargetFilename> <!--Microsoft:Windows: Changes to default user profile-->
 			<TargetFilename condition="contains">\Desktop</TargetFilename> <!--Microsoft:Windows: Changes to default user profile-->
 			<TargetFilename condition="contains">\Documents</TargetFilename> <!--Microsoft:Windows: Changes to default user profile-->
@@ -1049,6 +1050,14 @@
 			<TargetFilename condition="contains">help_recover_instructions</TargetFilename>
 			<TargetFilename condition="contains">_Locky_recover</TargetFilename>
 			<TargetFilename condition="contains">_ReCoVeRy_</TargetFilename>
+			<!--SamSam Ransomware File drops -->
+			<TargetFilename condition="contains">www.exe</TargetFilename>
+			<TargetFilename condition="contains">ps.exe</TargetFilename>
+			<TargetFilename condition="contains">nt.exe</TargetFilename>
+			<TargetFilename condition="contains">doliohdyjkajd.dll</TargetFilename>
+			<TargetFilename condition="contains">run2.exe</TargetFilename>
+			<TargetFilename condition="contains">ping2.exe</TargetFilename>
+			<!--END: SamSam Ransomware File drops -->
 			<!--SECTION: Certificates -->
 			<TargetFilename condition="contains">.pem</TargetFilename>
 			<TargetFilename condition="contains">.crt</TargetFilename>
