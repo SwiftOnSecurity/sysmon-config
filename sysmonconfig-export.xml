@@ -880,9 +880,12 @@
 			
 			<!-- These binaries appear to access lsass legitimately -->
 			<SourceImage condition="is">C:\Windows\sysWOW64\wbem\wmiprvse.exe</SourceImage>
+			<SourceImage condition="begin with">C:\ProgramData\Microsoft\Windows Defender\platform\</SourceImage>
 			<SourceImage condition="is">C:\Windows\system32\msiexec.exe</SourceImage>
 			<SourceImage condition="is">C:\Windows\system32\svchost.exe</SourceImage>
 			<SourceImage condition="is">C:\Windows\system32\spoolsv.exe</SourceImage>
+			<SourceImage condition="is">C:\Program Files (x86)\N-able Technologies\Windows Agent\bin\agent.exe</SourceImage>
+			<SourceImage condition="is">C:\Program Files\N-able Technologies\AVDefender\EPUpdateService.exe</SourceImage>
 			<SourceImage condition="contains">taskmgr</SourceImage>
 			<SourceImage condition="end with">wbem\wmiprvse.exe</SourceImage>
 			<SourceImage condition="end with">\EMET_Service.exe</SourceImage>
