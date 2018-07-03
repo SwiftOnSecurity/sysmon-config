@@ -920,6 +920,9 @@
 			<SourceImage condition="end with">Dropbox\Update\DropboxUpdate.exe</SourceImage>
 			<SourceImage condition="end with">LTSvc\LTSVC.exe</SourceImage>
 			<SourceImage condition="end with">\Trusteer\Rapport\bin\RapportMgmtService.exe</SourceImage>
+			<SourceImage condition="end with">Adobe\AdobeGCClient\AGMService.exe</SourceImage>
+			<SourceImage condition="end with">NT-ware Shared\MomAdmSvc\MomAdmSvc.exe</SourceImage>
+			<SourceImage condition="end with">\Autodesk\Autodesk Desktop App\AdAppMgrSvc.exe</SourceImage>
 		</ProcessAccess>
 
 	<!--SYSMON EVENT ID 11 : FILE CREATED [FileCreate]-->
@@ -1155,6 +1158,10 @@
 			<!--SECTION: Toshiba Print Drivers-->
 			<TargetFilename condition="begin with">C:\Windows\System32\config\systemprofile\TOSHIBA\</TargetFilename>
 			<TargetFilename condition="contains">TOSHIBA\eSTUDIOX\UNIDRV</TargetFilename>
+			<TargetFilename condition="end with">N-able Technologies\AVDefender\ThreatScanner\Antivirus-NewTemp\bdcore.dll</TargetFilename>
+			<TargetFilename condition="end with">N-able Technologies\AVDefender\ThreatScanner\Antivirus-NewTemp\scanclient.dll</TargetFilename>
+			<TargetFilename condition="begin with">C:\Program Files (x86)\N-able Technologies\Windows Software Probe\Repository\nagent</TargetFilename>
+			<TargetFilename condition="begin with">C:\Program Files (x86)\N-able Technologies\Windows Agent\Temp\</TargetFilename>
 		</FileCreate>
 
 	<!--SYSMON EVENT ID 12 & 13 & 14 : REGISTRY MODIFICATION [RegistryEvent]-->
