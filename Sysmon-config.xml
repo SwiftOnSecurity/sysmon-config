@@ -51,7 +51,7 @@
   PERFORMANCE: By using "end with" you can save performance by starting a string match at the end of a line, which usually triggers earlier.
 -->
 
-<Sysmon schemaversion="4.1">
+<Sysmon schemaversion="4.10">
 	<!--SYSMON META CONFIG-->
 	<HashAlgorithms>md5,sha256</HashAlgorithms> <!-- Both MD5 and SHA256 are the industry-standard algorithms for identifying files -->
 	<CheckRevocation/> <!-- Check loaded drivers, log if their code-signing certificate has been revoked, in case malware stole one to sign a kernel driver -->
@@ -71,100 +71,524 @@
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessID, Image, FileVersion, Description, Product, Company, CommandLine, CurrentDirectory, User, LogonGuid, LogonId, TerminalSessionId, IntegrityLevel, Hashes, ParentProcessGuid, ParentProcessId, ParentImage, ParentCommandLine-->
 		<ProcessCreate onmatch="include">
-			<Image name="MitreRef='T0000','Technique='Command Line'" condition="end with">\cmd.exe</Image>
-			<Image name="MitreRef='T0000','Technique='Command Line'" condition="end with">\cmd.com</Image>
-			<Image name="MitreRef='T0000','Technique='Command Line'" condition="end with">.com</Image>
-			<Image name="MitreRef='T0000','Technique='Command Line'" condition="end with">\powershell.exe</Image>
-			<Image condition="end with">\control.exe</Image>
-			<Image condition="end with">\acrord32.exe</Image>
-			<Image condition="end with">\installutil.exe</Image>
-			<Image condition="end with">\reg.exe</Image>
-			<Image condition="end with">\net.exe</Image>
-			<Image condition="end with">\net1.exe</Image>
-			<Image condition="end with">\ipconfig.exe</Image>
 			<!--Mitre ATT&CK Rules-->
 			<!--Accessibility Features-->
-			<ParentImage name="MitreRef='T1015','Technique=''" condition="end with">sethc.exe</ParentImage>
-			<ParentImage name="MitreRef='T1015','Technique=''" condition="end with">utilman.exe</ParentImage>
-			<ParentImage name="MitreRef='T1015','Technique=''" condition="end with">osk.exe</ParentImage>
-			<ParentImage name="MitreRef='T1015','Technique=''" condition="end with">Magnify.exe</ParentImage>
-			<ParentImage name="MitreRef='T1015','Technique=''" condition="end with">DisplaySwitch.exe</ParentImage>
-			<ParentImage name="MitreRef='T1015','Technique=''" condition="end with">Narrator.exe</ParentImage>
-			<ParentImage name="MitreRef='T1015','Technique=''" condition="end with">AtBroker.exe</ParentImage>
-	  		<!--Native Windows tools - Living off the land-->
-			<Image name="MitreRef='T1016','Technique=''" condition="end with">whoami.exe</Image>
-			<Image name="MitreRef='T1057','Technique=''" condition="end with">ipconfig.exe</Image> <!--Microsoft:Windows: shows ip configuration -->
-			<Image name="MitreRef='T1033','Technique=''" condition="end with">tasklist.exe</Image> <!--Microsoft:Windows: shows current running processes-->
-			<Image name="MitreRef='T1016','Technique=''" condition="end with">sysinfo.exe</Image> <!--Microsoft:Windows: shows systeminformation -->
-			<Image name="MitreRef='T1016','Technique=''" condition="end with">netstat.exe</Image> <!--Microsoft:Windows: shows protocol statistics and current TCP/IP network connections -->
-			<Image name="MitreRef='','Technique=''" condition="end with">qprocess.exe</Image> <!--Microsoft:Windows: shows information about processes -->
-			<Image name="MitreRef='','Technique=''" condition="end with">nslookup.exe</Image> <!--Microsoft:Windows: shows DNS configuration and enables quering -->
+			<ParentImage name="MitreRef='T1015','Technique='Persistence Privilege Escalation'" condition="end with">sethc.exe</ParentImage>
+			<ParentImage name="MitreRef='T1015','Technique='Persistence Privilege Escalation'" condition="end with">utilman.exe</ParentImage>
+			<ParentImage name="MitreRef='T1015','Technique='Persistence Privilege Escalation'" condition="end with">osk.exe</ParentImage>
+			<ParentImage name="MitreRef='T1015','Technique='Persistence Privilege Escalation'" condition="end with">Magnify.exe</ParentImage>
+			<ParentImage name="MitreRef='T1015','Technique='Persistence Privilege Escalation'" condition="end with">DisplaySwitch.exe</ParentImage>
+			<ParentImage name="MitreRef='T1015','Technique='Persistence Privilege Escalation'" condition="end with">Narrator.exe</ParentImage>
+			<ParentImage name="MitreRef='T1015','Technique='Persistence Privilege Escalation'" condition="end with">AtBroker.exe</ParentImage>
+	  		<!--                                                                                                                                            -->
+			<!--Native Windows tools - Living off the land-->
+			<Image name="MitreRef='T1049','Technique='Discover'" condition="end with">whoami.exe</Image>
+			<Image name="MitreRef='T1057','Technique='Discover'" condition="end with">ipconfig.exe</Image> <!--Microsoft:Windows: shows ip configuration -->
+			<Image name="MitreRef='T1033','Technique='Discover'" condition="end with">tasklist.exe</Image> <!--Microsoft:Windows: shows current running processes-->
+			<Image name="MitreRef='T1016','Technique='Discover'" condition="end with">sysinfo.exe</Image> <!--Microsoft:Windows: shows systeminformation -->
+			<Image name="MitreRef='T1049','Technique='Discover'" condition="end with">netstat.exe</Image> <!--Microsoft:Windows: shows protocol statistics and current TCP/IP network connections -->
+			<Image name="MitreRef='ToDo','Technique='Discover'" condition="end with">qprocess.exe</Image> <!--Microsoft:Windows: shows information about processes -->
+			<Image name="MitreRef='T1049','Technique=''" condition="end with">nslookup.exe</Image> <!--Microsoft:Windows: shows DNS configuration and enables quering -->
 			<Image name="MitreRef='T1201','Technique=''" condition="end with">net.exe</Image> <!--Microsoft:Windows: "net use"/"net view" used by attackers to surveil and connect with file shares from command line | Credit @ion-storm -->
-			<Image name="MitreRef='','Technique=''" condition="end with">quser.exe</Image> <!--Microsoft:Windows: shows logged-on users -->
-			<Image name="MitreRef='','Technique=''" condition="end with">query.exe</Image> <!--Microsoft:Windows: shows information about processes -->
-			<Image name="MitreRef='','Technique=''" condition="end with">tracert.exe</Image> <!--Microsoft:Windows: shows routing information -->
-			<Image name="MitreRef='','Technique=''" condition="end with">tree.com</Image> <!--Microsoft:Windows: shows recursive directory listing -->
-			<Image name="MitreRef='','Technique=''" condition="end with">route.exe</Image> <!--Microsoft:Windows: manipulates network routing tables -->
-			<Image name="MitreRef='','Technique=''" condition="end with">runas.exe</Image> <!--Microsoft:Windows: run a process as another user -->
+			<Image name="MitreRef='T1201','Technique=''" condition="end with">net1.exe</Image> <!--Microsoft:Windows: "net use"/"net view" used by attackers to surveil and connect with file shares from command line | Credit @ion-storm -->
+			<Image name="MitreRef='T1049','Technique='System Network Connections Discovery'" condition="end with">quser.exe</Image> <!--Microsoft:Windows: shows logged-on users -->
+			<Image name="MitreRef='ToDo','Technique=''" condition="end with">query.exe</Image> <!--Microsoft:Windows: shows information about processes -->
+			<Image name="MitreRef='ToDo','Technique=''" condition="end with">tracert.exe</Image> <!--Microsoft:Windows: shows routing information -->
+			<Image name="MitreRef='ToDo','Technique=''" condition="end with">tree.com</Image> <!--Microsoft:Windows: shows recursive directory listing -->
+			<Image name="MitreRef='T1016','Technique=''" condition="end with">route.exe</Image> <!--Microsoft:Windows: manipulates network routing tables -->
+			<Image name="MitreRef='ToDo','Technique=''" condition="end with">runas.exe</Image> <!--Microsoft:Windows: run a process as another user -->
 			<Image name="MitreRef='T1214','Technique=''" condition="end with">reg.exe</Image> <!--Microsoft:Windows: reads and modifies the Windows register -->
-			<Image name="MitreRef='','Technique=''" condition="end with">taskkill.exe</Image> <!--Microsoft:Windows: stops processes -->
+			<Image name="MitreRef='ToDo','Technique=''" condition="end with">taskkill.exe</Image> <!--Microsoft:Windows: stops processes -->
 			<Image name="MitreRef='T1016','Technique=''" condition="end with">netsh.exe</Image> <!--Microsoft:Windows: manipulate the firewall -->
-			<Image name="MitreRef='','Technique=''" condition="end with">klist.exe</Image> <!--Microsoft:Windows: show cached kerberos tickets -->
+			<Image name="MitreRef='ToDo','Technique=''" condition="end with">klist.exe</Image> <!--Microsoft:Windows: show cached kerberos tickets -->
 			<Image name="MitreRef='T1070','Technique='" condition="end with">wevtutil.exe</Image> <!--Microsoft:Windows: read and modify the Windows Eventlog -->
 			<Image name="MitreRef='T1053','Technique=''" condition="end with">taskeng.exe</Image> <!--Microsoft:Windows: taskscheduler -->
 			<Image name="MitreRef='T1117','Technique=''" condition="end with">regsvr32.exe</Image> <!--Microsoft:Windows: [ https://subt0x10.blogspot.com/2016/04/bypass-application-whitelisting-script.html ] -->
-			<ParentImage name="MitreRef='','Technique=''" condition="end with">wmiprvse.exe</ParentImage>
-			<Image name="MitreRef='','Technique=''" condition="end with">hh.exe</Image> <!--Microsoft:Windows: HTML Helper-->
+			<ParentImage name="MitreRef='T1028','Technique='Remote WMIC/Execution, Lateral Movement'" condition="end with">wmiprvse.exe</ParentImage>
+			<ParentImage name="MitreRefS='S0029','Command execution - Execution, Lateral Movement'" condition="end with">psexesvc.exe</ParentImage>
+			<Description name="MitreRefS='S0029','Command execution - Execution, Lateral Movement'" condition="contains">Execute processes remotely</Description>
+			<ParentImage name="MitreRefS='S0029','Command execution - Execution, Lateral Movement'" condition="end with">psexec.exe</ParentImage>
+			<Description name="MitreRefS='S0029','Command execution - Execution, Lateral Movement'" condition="contains">Execute processes remotely</Description>
+			<ParentImage name="MitreRefS='S0029','Command execution - Execution, Lateral Movement'" condition="end with">pskill.exe</ParentImage>
+			<Image name="MitreRef='ToDo','Technique=''" condition="end with">hh.exe</Image> <!--Microsoft:Windows: HTML Helper-->
 			<Image name="MitreRef='T1059','Technique=''" condition="end with">cmd.exe</Image> <!--Microsoft:Windows: Command prompt-->
+			<ParentImage name="MitreRef='T1059','Technique=''" condition="end with">cmd.exe</ParentImage> <!--Microsoft:Windows: Command prompt-->
 			<Image name="MitreRef='T1086','Technique=''" condition="end with">powershell.exe</Image> <!--Microsoft:Windows: PowerShell interface-->
+			<Description name="MitreRef='T1086','Technique=''" condition="end with">powershell.exe</Description> <!--Microsoft:Windows: PowerShell interface-->
+			<ParentImage name="MitreRef='T1086','Technique=''" condition="end with">powershell.exe</ParentImage> <!--Microsoft:Windows: PowerShell interface-->
 			<Image name="MitreRef='T1202','Technique=''" condition="end with">bash.exe</Image> <!--Microsoft:Windows: bash on Windows, Linux subsystem-->
-			<Image name="MitreRef='','Technique='" condition="end with">odbcconf.exe</Image> <!--Microsoft:Windows: allows for driver loads -->
+			<ParentImage name="MitreRef='T1202','Technique=''" condition="end with">bash.exe</ParentImage> <!--Microsoft:Windows: bash on Windows, Linux subsystem-->
+			<Image name="MitreRef='ToDo','Technique='" condition="end with">odbcconf.exe</Image> <!--Microsoft:Windows: allows for driver loads -->
 			<Image name="MitreRef='T1202','Technique=''" condition="end with">pcalua.exe</Image> <!--Microsoft:Windows: Program Compatibility Assistant)-->
 			<Image name="MitreRef='T1158','Technique=''" condition="end with">attrib.exe</Image>
-			<Image name="MitreRef='','Technique=''" condition="end with">cmdkey.exe</Image> <!--Microsoft:Windows: creates, lists, and deletes stored user names and passwords or credentials.-->
+			<Image name="MitreRef='ToDo','Technique=''" condition="end with">cmdkey.exe</Image> <!--Microsoft:Windows: creates, lists, and deletes stored user names and passwords or credentials.-->
+	  		<!--                                                                                                                                            -->
 			<!--appc shim-->
 			<Image name="MitreRef='T1138','Technique=''" condition="end with">sdbinst.exe</Image>
+	  		<!--                                                                                                                                            -->
 			<!--BitsAdmin-->
-			<Image name="MitreRef='T1197','Technique=''" condition="end with">bitsadmin.exe</Image>
+			<Image name="MitreRef='T1197','Technique='Bitsadmin File Transfers'" condition="end with">bitsadmin.exe</Image>
+	  		<!--                                                                                                                                            -->
 			<!--UAC Bypass-->
-			<ParentImage name="MitreRef='T1088',Technique=''" condition="end with">eventvwr.exe</ParentImage>
-			<ParentImage name="MitreRef='T1088',Technique=''" condition="end with">fodhelper.exe</ParentImage>
+			<ParentImage name="MitreRef='T1088',Technique='UAC Bypass'" condition="end with">eventvwr.exe</ParentImage>
+			<ParentImage name="MitreRef='T1088',Technique='UAC Bypass'" condition="end with">fodhelper.exe</ParentImage>
+	  		<!--                                                                                                                                            -->
 			<!--InstallUtil Abuse-->
 			<Image name="MitreRef='T1118',Technique=''" condition="end with">InstallUtil.exe</Image>
 			<CommandLine name="MitreRef='T1118','Technique=''" condition="contains">/logfile= /LogToConsole=false /U</CommandLine>
+	  		<!--                                                                                                                                            -->
 			<!--Mavinject -->
 	        <Image name="MitreRef='T1218','Technique=''" condition="end with">Mavinject.exe</Image>
 			<Image name="MitreRef='T1191','Technique=''" condition="end with">CMSTP.exe</Image>
+	  		<!--                                                                                                                                            -->
 			<!--MSBuild-->
 			<Image name="MitreRef='T1191','Technique=''" condition="end with">MSBuild.exe</Image>
 	        <Image name="MitreRef='T1121','Technique=''" condition="end with">regsvcs.exe</Image>
 			<Image name="MitreRef='T1121','Technique=''" condition="end with">regasm.exe</Image>
 			<Image name="MitreRef='T1218','Technique=''" condition="end with">SyncAppvPublishingServer.exe</Image>
+	  		<!--                                                                                                                                            -->
 			<!--Control Panel-->
 			<Image name="MitreRef='T1218','Technique=''" condition="end with">control.exe</Image>
 	        <CommandLine name="MitreRef='T1196','Technique=''" condition="contains">control.exe /name</CommandLine>
 			<CommandLine name="MitreRef='T1196','Technique=''" condition="contains">rundll32.exe shell32.dll,Control_RunDLL</CommandLine>
+	  		<!--                                                                                                                                            -->
+			<!--Custom Mitre-->
 			<Image name="MitreRef='T1028','Technique='Windows Remote Management'" condition="end with">wsmprovhost.exe</Image>
+			<ParentImage name="MitreRef='T1028','Technique='Windows Remote Management'" condition="end with">wsmprovhost.exe</ParentImage>
 			<Image name="MitreRef='T1028','Technique='Windows Remote Management'" condition="end with">winrm.cmd</Image>
+			<CommandLine name="MitreRef='T1105','Technique='Command and Control/Lateral Movement'" condition="contains">certutil.exe -decode</CommandLine>
+			<CommandLine name="MitreRef='T1105','Technique='Command and Control/Lateral Movement'" condition="contains">certutil -decode</CommandLine>
+			<Image name="MitreRef='T1170','Technique='Defense Evasion/Execution'" condition="end with">mshta.exe</Image>
+			<Image name="MitreRef='T1070','Technique='Defense Evasion'" condition="end with">wevutil.exe</Image>
+			<CommandLine name="MitreRef='T1070','Technique='Defense Evasion'" condition="contains">wevutil cl</CommandLine>
+			<Image name="MitreRef='T1053','Technique='Execution/Persistence/Privledge Escalation'" condition="end with">schtasks.exe</Image>
+			<ParentImage name="MitreRef='T1053','Technique='Execution/Persistence/Privledge Escalation'" condition="end with">schtasks.exe</ParentImage>
+			<Image name="MitreRef='T1053','Technique='Execution/Persistence/Privledge Escalation'" condition="end with">at.exe</Image>
+			<ParentImage name="MitreRef='T1053','Technique='Execution/Persistence/Privledge Escalation'" condition="end with">at.exe</ParentImage>
+			<Image name="MitreRef='T1202','Technique='Indirect Command Execution'" condition="end with">forfiles.exe</Image>
+			<ParentImage name="MitreRef='T1202','Technique='Indirect Command Execution'" condition="end with">forfiles.exe</ParentImage>
+			<Image name="MitreRef='T1202','Technique='Indirect Command Execution'" condition="end with">pcalua.exe</Image>
+			<ParentImage name="MitreRef='T1202','Technique='Indirect Command Execution'" condition="end with">pcalua.exe</ParentImage>
+			<Image name="MitreRef='T1202','Technique='Indirect Command Execution'" condition="end with">bash.exe</Image>
+			<ParentImage name="MitreRef='T1202','Technique='Indirect Command Execution'" condition="end with">bash.exe</ParentImage>
+			<Image name="MitreRef='T1202','Technique='Indirect Command Execution'" condition="end with">bash.exe</Image>
+			<CommandLine name="MitreRef='ToDo','Technique='Powershell Injection Persistence Bypass - Execution, Lateral Movement'" condition="contains">System.Management.Automation</CommandLine>
+	  		<!--                                                                                                                                            -->
 			<!--Detect Spawned Adobe Parent Processes-->
-			<ParentImage name="MitreRef='T0000','Technique=''" condition="end with">acrobat.exe</ParentImage>
-			<ParentImage name="MitreRef='T0000','Technique=''" condition="end with">acrord32.exe</ParentImage>
+			<ParentImage name="MitreRef='ToDo','Technique='Process Spawned from Acrobat'" condition="end with">acrobat.exe</ParentImage>
+			<ParentImage name="MitreRef='ToDo','Technique='Process Spawned from Adobe Reader'" condition="end with">acrord32.exe</ParentImage>
+	  		<!--                                                                                                                                            -->
 			<!--Detect Spawned Browser Parent Processes-->
-			<ParentImage name="MitreRef='T0000','Technique=''" condition="end with">chrome.exe</ParentImage>
-			<ParentImage name="MitreRef='T0000','Technique=''" condition="end with">firefox.exe</ParentImage>
-			<ParentImage name="MitreRef='T0000','Technique=''" condition="end with">iexplore.exe</ParentImage>
-			<ParentImage name="MitreRef='T0000','Technique=''" condition="end with">MicrosoftEdgeCP.exe</ParentImage>
-			<ParentImage name="MitreRef='T0000','Technique=''" condition="end with">MicrosoftEdge.exe</ParentImage>
-			<ParentImage name="MitreRef='T0000','Technique=''" condition="end with">vivaldi.exe</ParentImage>
-			<ParentImage name="MitreRef='T0000','Technique=''" condition="end with">waterfox.exe</ParentImage>
+			<ParentImage name="MitreRef='ToDo','Technique='Process Spawned Process from Chrome'" condition="end with">chrome.exe</ParentImage>
+			<ParentImage name="MitreRef='ToDo','Technique='Process Spawned from Firefox'" condition="end with">firefox.exe</ParentImage>
+			<ParentImage name="MitreRef='ToDo','Technique='Process Spawned from Internet Explorer'" condition="end with">iexplore.exe</ParentImage>
+			<ParentImage name="MitreRef='ToDo','Technique='Process Spawned from Edge Browser'" condition="end with">MicrosoftEdgeCP.exe</ParentImage>
+			<ParentImage name="MitreRef='ToDo','Technique='Process Spawned from Edge Browser'" condition="end with">MicrosoftEdge.exe</ParentImage>
+			<ParentImage name="MitreRef='ToDo','Technique='Process Spawned from Vivaldi Browser'" condition="end with">vivaldi.exe</ParentImage>
+			<ParentImage name="MitreRef='ToDo','Technique='Process Spawned from Waterfox Browser'" condition="end with">waterfox.exe</ParentImage>
+	  		<!--                                                                                                                                            -->
 			<!--Detect Spawned Java Parent Processes-->
-			<ParentImage name="MitreRef='T0000','Technique=''" condition="end with">java.exe</ParentImage>
-			<ParentImage name="MitreRef='T0000','Technique=''" condition="end with">javaw.exe</ParentImage>
-			<!--Detect Spawned Office Parent Processes-->
+			<ParentImage name="MitreRef='ToDo','Technique=''" condition="end with">java.exe</ParentImage>
+			<ParentImage name="MitreRef='ToDo','Technique=''" condition="end with">javaw.exe</ParentImage>
+	  		<!--                                                                                                                                            -->
+			<!--Detect Spawned Office Parent Processes & Abuse-->
+			<ParentImage name="MitreRef='ToDo','Technique=''" condition="end with">word.exe</ParentImage>
+			<ParentImage name="MitreRef='ToDo','Technique=''" condition="end with">excel.exe</ParentImage>
+			<ParentImage name="MitreRef='ToDo','Technique=''" condition="end with">POWERPNT.exe</ParentImage>
+			<ParentImage name="MitreRef='ToDo','Technique=''" condition="end with">outlook.exe</ParentImage>
+			<ParentImage name="MitreRef='ToDo','Technique=''" condition="end with">visio.exe</ParentImage>
+			<ParentImage name="MitreRef='ToDo','Technique=''" condition="end with">msaccess.exe</ParentImage>
+			<ParentImage name="MitreRef='ToDo','Technique=''" condition="end with">lync.exe</ParentImage>
+			<ParentImage name="MitreRef='ToDo','Technique=''" condition="end with">skype.exe</ParentImage>
+	  		<!--                                                                                                                                            -->
 			<!--Detect Output Redirection-->
-			<CommandLine name="MitreRef='T0000','Technique=''" condition="contains">2></CommandLine>
-			<CommandLine name="MitreRef='T0000','Technique=''" condition="contains">></CommandLine>
-			<CommandLine name="MitreRef='T0000','Technique=''" condition="contains">>></CommandLine>
+			<CommandLine name="Note='Output Redirection'" condition="contains">2></CommandLine>
+			<CommandLine name="Note='Output Redirection'" condition="contains">&lt;</CommandLine>
+			<CommandLine name="Note='Output Redirection'" condition="contains">></CommandLine>
+	  		<!--                                                                                                                                            -->
+			<!--Detect Multiple Commands-->
+			<CommandLine name="Note='Multiple Commands'" condition="contains">&amp;</CommandLine>
+			<CommandLine name="Note='Multiple Commands'" condition="contains">;</CommandLine>
+			<CommandLine name="Note='Command Pipe'" condition="contains">|</CommandLine>
+			<CommandLine name="Note='interactive command to slow output'" condition="contains">more</CommandLine>
+			<CommandLine name="Note='Commands run from \\tsclient share ie: samsam ransomware'" condition="contains">\\tsclient</CommandLine>
+			<CommandLine name="Note='DotDot Dirs'" condition="contains">..</CommandLine>
+	  		<!--                                                                                                                                            -->
+			<!--Hack Command Line Events-->
+			<CommandLine name="Note='legacy hack command sometimes run by meterpreter or cobalt strike'" condition="contains">COMSPEC</CommandLine>
+			<CommandLine name="Note='Powershell Invoke-Expression'" condition="contains">iex</CommandLine>
+			<CommandLine name="Note='Powershell Invoke-Expression'" condition="contains">Invoke-Expression</CommandLine>
+			<CommandLine name="Note='Powershell Invoke-WebRequest'" condition="contains">iwr</CommandLine>
+			<CommandLine name="Note='Powershell Invoke-WebRequest'" condition="contains">Invoke-WebRequest</CommandLine>
+			<CommandLine name="Note='Powershell Download'" condition="contains">DownloadFile</CommandLine>
+			<CommandLine name="Note='Powershell Download'" condition="contains">DownloadString</CommandLine>
+			<CommandLine name="Note='Powershell Download'" condition="contains">Net.WebClient</CommandLine>
+			<CommandLine name="Note='Powershell Download'" condition="contains">System.Net.WebRequest</CommandLine>
+			<CommandLine name="Note='Powershell Download'" condition="contains">System.Net.SecurityProtocolType</CommandLine>
+			<CommandLine name="Note='invoke-shellcode'" condition="contains">Shellcode</CommandLine>
+			<CommandLine name="Note='Detect Base64 encoding'" condition="contains">FromBase64String</CommandLine>
+			<CommandLine name="Note='Detect Secure Strings'" condition="contains">convertto-securestring</CommandLine>
+			<CommandLine name="Note='Detect some more obfuscation'" condition="contains">VerbosePreference.ToString</CommandLine>
+	  		<!--                                                                                                                                            -->
+			<!--Ofuscated Command Line arguments-->
+			<CommandLine name="Note='Detect Invoke-Obfuscation'" condition="contains">runtime.interopservices.marshal</CommandLine>
+			<CommandLine name="Note='Detect some more obfuscation'" condition="contains">VerbosePreference.ToString</CommandLine>
+			<CommandLine name="Note='Obfuscation'" condition="contains">-windowstyle h</CommandLine>
+			<CommandLine name="Note='Obfuscation'" condition="contains">-windowstyl h</CommandLine>
+			<CommandLine name="Note='Obfuscation'" condition="contains">-windowsty h</CommandLine>
+			<CommandLine name="Note='Obfuscation'" condition="contains">-windowst h</CommandLine>
+			<CommandLine name="Note='Obfuscation'" condition="contains">-windows h</CommandLine>
+			<CommandLine name="Note='Obfuscation'" condition="contains">-window h</CommandLine>
+			<CommandLine name="Note='Obfuscation'" condition="contains">-windo h</CommandLine>
+			<CommandLine name="Note='Obfuscation'" condition="contains">-wind h</CommandLine>
+			<CommandLine name="Note='Obfuscation'" condition="contains">-win h</CommandLine>
+			<CommandLine name="Note='Obfuscation'" condition="contains">-wi h</CommandLine>
+			<CommandLine name="Note='Obfuscation'" condition="contains">-w h</CommandLine>
+			<CommandLine name="Note='Obfuscation'" condition="contains">-wi h</CommandLine>
+			<CommandLine name="Note='Obfuscation'" condition="contains">-win hi</CommandLine>
+			<CommandLine name="Note='Obfuscation'" condition="contains">-win hid</CommandLine>
+			<CommandLine name="Note='Obfuscation'" condition="contains">-win hidd</CommandLine>
+			<CommandLine name="Note='Obfuscation'" condition="contains">-win hidde</CommandLine>
+			<CommandLine name="Note='Obfuscation'" condition="contains">-win hidden</CommandLine>
+			<CommandLine name="Note='Obfuscation'" condition="contains">-Nop</CommandLine>
+			<CommandLine name="Note='Obfuscation'" condition="contains">-Noni</CommandLine>
+			<CommandLine name="Note='Obfuscation'" condition="contains">-ec</CommandLine>
+			<CommandLine name="Note='Obfuscation'" condition="contains">-en</CommandLine>
+			<CommandLine name="Note='Obfuscation'" condition="contains">^c^o^m^S^p^E^c^</CommandLine>
+			<CommandLine name="Note='Obfuscation'" condition="contains">C^om^S^pEc</CommandLine>
+
+			<!--                                                                                                                                            -->
+			<!--Suspicious Command Line Locations-->
+			<Image name="MitreRef='ToDo','Technique='Command Line'" condition="end with">.com</Image>
+			<Image name="MitreRef='ToDo','Technique='Command Line'" condition="end with">powershell.exe</Image>
+			<Image name="Info='Executables Launched In Temp'" condition="contains">\temp\</Image>
+			<Image name="Info='Executables Launched In User Dirs'" condition="begin with">C:\users</Image>
+			<ParentImage condition="end with">explorer.exe</ParentImage>
+			<Image condition="end with">control.exe</Image>
+			<Image condition="end with">acrord32.exe</Image>
+			<Image condition="end with">installutil.exe</Image>
+			<Image name="Info='Registry modification/queries'" condition="end with">reg.exe</Image>
+			<Image name="Info='ipconfig discovery'" condition="end with">ipconfig.exe</Image>
+			<Image name="Info='Executables Launched In Appdata'" condition="contains">\appdata\</Image>
+			<Image condition="contains">\programdata\</Image>
+			<Image condition="contains">\Users</Image> <!--Tools downloaded by users can use other processes for networking, but this is a very valuable indicator.-->
+			<Image condition="contains">\ProgramData</Image>
+			<Image condition="contains">\Windows\</Image>
+			<Image condition="contains">\Perflogs\</Image>
+			<Image condition="contains">\config\systemprofile\</Image>
+			<!--Include Everything last to allow rules to apply and to allow previous exclude ruleset to function-->
+			<Image condition="contains">\</Image>
+		</ProcessCreate>
+		<ProcessCreate onmatch="exclude">
+			<!--SECTION: Microsoft Windows-->
+			<IntegrityLevel condition="is">AppContainer</IntegrityLevel> <!--Microsoft:Windows: Don't care about sandboxed processes-->
+			<CommandLine condition="begin with">C:\Windows\system32\DllHost.exe /Processid</CommandLine> <!--Microsoft:Windows-->
+			<CommandLine condition="is">C:\Windows\system32\SearchIndexer.exe /Embedding</CommandLine> <!--Microsoft:Windows: Search Indexer-->
+			<Image condition="end with">C:\Windows\System32\CompatTelRunner.exe</Image> <!--Microsoft:Windows:Customer Experience Improvement-->
+			<Image condition="is">C:\Windows\System32\MusNotification.exe</Image> <!--Microsoft:Windows: Update popups-->
+			<Image condition="is">C:\Windows\System32\MusNotificationUx.exe</Image> <!--Microsoft:Windows: Update popups-->
+			<Image condition="is">C:\Windows\System32\audiodg.exe</Image> <!--Microsoft:Windows: Launched constantly-->
+			<Image condition="is">C:\Windows\System32\conhost.exe</Image> <!--Microsoft:Windows: Command line interface host process-->
+			<Image condition="is">C:\Windows\System32\powercfg.exe</Image> <!--Microsoft:Power configuration management-->
+			<Image condition="is">C:\Windows\System32\wbem\WmiApSrv.exe</Image> <!--Microsoft:Windows: WMI performance adpater host process-->
+			<Image condition="is">C:\Windows\servicing\TrustedInstaller.exe</Image> <!--Microsoft:Windows: TrustedInstaller-->
+			<Image condition="is">C:\Windows\system32\sppsvc.exe</Image> <!--Microsoft:Windows: Software Protection Service-->
+			<ParentImage condition="is">C:\Windows\system32\SearchIndexer.exe</ParentImage> <!--Microsoft:Windows:Search: Launches many uninteresting sub-processes-->
+			<CommandLine condition="begin with">C:\Windows\system32\DllHost.exe /Processid</CommandLine> <!--Microsoft:Windows-->
+			<ParentCommandLine condition="begin with">C:\Windows\system32\svchost.exe -k DcomLaunch</ParentCommandLine> <!--Microsoft:Windows-->
+			<ParentCommandLine condition="contains">\SystemRoot\System32\smss.exe 00000100 0000007c</ParentCommandLine> <!--Microsoft:Windows 10 Noise-->
+			<CommandLine condition="contains">\SystemRoot\System32\smss.exe 00000100 0000007c</CommandLine> <!--Microsoft:Windows 10 Noise-->
+			<Image condition="is">C:\Windows\Microsoft.Net\Framework64\v3.0\WPF\PresentationFontCache.exe</Image> <!--Microsoft:Windows: Font Cache Service-->
+			<ParentCommandLine condition="begin with">%%SystemRoot%%\system32\csrss.exe ObjectDirectory=\Windows</ParentCommandLine> <!--Microsoft:Windows:CommandShell: Triggered when programs use the command shell, but without attribution-->
+			<ParentImage condition="is">C:\Windows\system32\SearchIndexer.exe</ParentImage> <!--Microsoft:Windows:Search: Launches many uninteresting sub-processes-->
+			<Image condition="is">C:\Windows\system32\vssvc.exe</Image><!-- Microsoft Windows: Volume Shadow Copy Service -->
+			<CommandLine condition="contains">net use</CommandLine> <!-- Silence domain login scripts -->
+			<!--SECTION: Microsoft:Windows:Defender-->
+			<Image condition="begin with">C:\Program Files\Windows Defender</Image> <!--Microsoft:Windows:Defender in Win10-->
+			<Image condition="end with">C:\Windows\System32\CompatTelRunner.exe</Image> <!--Microsoft:Windows:Customer Experience Improvement-->
+			<Image condition="is">C:\Windows\System32\wermgr.exe</Image> <!--Microsoft:Windows:Windows error reporting/telemetry-->
+			<Image condition="is">C:\Windows\SysWOW64\wermgr.exe</Image> <!--Microsoft:Windows:Windows error reporting/telemetry-->
+			<Image condition="is">C:\Windows\System32\MpSigStub.exe</Image> <!--Microsoft:Windows: Microsoft Malware Protection Signature Update Stub-->
+			<Image condition="begin with">C:\Windows\SoftwareDistribution\Download\Install\AM_Delta</Image> <!--Microsoft:Windows: Microsoft Malware Protection Delta Updates-->
+			<Image condition="begin with">C:\Windows\SoftwareDistribution\Download\Install\AM_Engine</Image> <!--Microsoft:Windows: Microsoft Malware Protection Delta Updates-->
+			<Image condition="begin with">C:\Windows\SoftwareDistribution\Download\Install\AM_Base</Image> <!--Microsoft:Windows: Microsoft Malware Protection Delta Updates-->
+			<Image condition="is">C:\Windows\System32\MusNotification.exe</Image><!--Microsoft:Windows: Update Popups-->
+			<Image condition="is">C:\Windows\System32\MusNotificationUx.exe</Image><!--Microsoft:Windows: Update Popups-->
+			<CommandLine condition="is">C:\Windows\system32\SearchIndexer.exe /Embedding</CommandLine><!--Microsoft:Windows: Search Indexer-->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k wsappx</CommandLine><!--Microsoft:Windows 10-->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k appmodel</CommandLine><!--Microsoft:Windows 10-->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k UnistackSvcGroup</CommandLine><!--Microsoft:Windows 10-->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k defragsvc</CommandLine><!--Microsoft:Windows Defrag-->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k RPCSS</CommandLine><!--Microsoft:Windows Services-->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k utcsvc</CommandLine><!--Microsoft:Windows Services-->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k wbioSvcGroup</CommandLine><!--Microsoft:Windows Services-->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k DcomLaunch</CommandLine><!--Microsoft:Windows Services-->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k swprv</CommandLine><!--Microsoft:Software Shadow Copy Provider-->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k imgsvc</CommandLine><!--Microsoft:The Windows Image Acquisition Service-->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k NetworkServiceNetworkRestricted</CommandLine><!--Microsoft:Windows Network Services-->
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k localServiceNetworkRestricted -s WFDSConMgrSvc</CommandLine>
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k localServiceNetworkRestricted</CommandLine> <!--Microsoft:Windows: Network services-->
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k localServiceAndNoImpersonation -s SensrSvc</CommandLine>
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k localServiceNoNetwork</CommandLine>
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted -p -s WPDBusEnum</CommandLine>
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted -p -s fhsvc</CommandLine>
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted -s DeviceAssociationService</CommandLine>
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted -s NcbService</CommandLine>
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted -s SensorService</CommandLine>
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted -s TabletInputService</CommandLine>
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted -s UmRdpService</CommandLine>
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted -s WPDBusEnum</CommandLine>
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted -s WdiSystemHost</CommandLine>
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted</CommandLine> <!--Microsoft:Windows: Network services-->
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k netsvcs -p -s NcaSvc</CommandLine>
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k netsvcs -s BDESVC</CommandLine> <!--Microsoft:Windows:Network: BitLocker Drive Encryption-->
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k netsvcs -s BITS</CommandLine> <!--Microsoft:Windows:Network: Background Intelligent File Transfer (BITS) -->
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k netsvcs -s CertPropSvc</CommandLine>
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k netsvcs -s DsmSvc</CommandLine>
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k netsvcs -s ProfSvc</CommandLine> <!--Microsoft:Windows: Network services-->
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k netsvcs -s SENS</CommandLine> <!--Microsoft:Windows: Network services-->
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k netsvcs -s SessionEnv</CommandLine> <!--Microsoft:Windows: Network services-->
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k netsvcs -s Themes</CommandLine> <!--Microsoft:Windows: Network services-->
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k netsvcs -s Winmgmt</CommandLine> <!--Microsoft:Windows: Windows Management Instrumentation (WMI) -->
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k netsvcs -s gpsvc</CommandLine> <!--Microsoft:Windows:Network: Group Policy -->
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k netsvcs</CommandLine> <!--Microsoft:Windows: Network services-->
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k networkService -p -s DoSvc</CommandLine>
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k networkService -s Dnscache</CommandLine> <!--Microsoft:Windows:Network: DNS caching, other uses -->
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k networkService -s LanmanWorkstation</CommandLine> <!--Microsoft:Windows:Network: "Workstation" service, used for SMB file-sharing connections and RDP-->
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k networkService -s NlaSvc</CommandLine> <!--Microsoft:Windows:Network: Network Location Awareness-->
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k networkService -s TermService</CommandLine> <!--Microsoft:Windows:Network: Terminal Services (RDP)-->
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k networkService</CommandLine> <!--Microsoft:Windows: Network services-->
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k networkServiceNetworkRestricted</CommandLine> <!--Microsoft:Windows: Network services-->
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k rPCSS</CommandLine> <!--Microsoft:Windows Services-->
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k secsvcs</CommandLine>
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k swprv</CommandLine> <!--Microsoft:Software Shadow Copy Provider-->
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k unistackSvcGroup</CommandLine> <!--Microsoft:Windows 10-->
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k utcsvc</CommandLine> <!--Microsoft:Windows Services-->
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k wbioSvcGroup</CommandLine> <!--Microsoft:Windows Services-->
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k werSvcGroup</CommandLine> <!--Microsoft:Windows: ErrorReporting-->
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k wsappx -s ClipSVC</CommandLine>
+			<CommandLine condition="end with">C:\Windows\system32\svchost.exe -k wsappx</CommandLine> <!--Microsoft:Windows 10-->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k LocalSystemNetworkRestricted</CommandLine><!--Microsoft:Windows Network Services-->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k LocalServiceAndNoImpersonation</CommandLine><!--Microsoft:Windows Network Services-->
+			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k NetworkService</CommandLine><!--Microsoft:Windows Network Services-->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k netsvcs</CommandLine><!--Microsoft:Windows Network Services-->
+			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k GPSvcGroup</CommandLine><!--Microsoft:Windows Network Services-->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k tapisrv</CommandLine><!--Microsoft:Windows Network Services-->
+			<ParentCommandLine condition="is">C:\WINDOWS\System32\svchost.exe -k wsappx</ParentCommandLine> <!-- Windows 10 AppX Deployment Noise -->
+			<ParentCommandLine condition="is">C:\Windows\System32\svchost.exe -k netsvcs</ParentCommandLine><!--Microsoft:Windows Network Services: Spawns Consent.exe-->
+			<ParentCommandLine condition="is">C:\Windows\system32\svchost.exe -k LocalSystemNetworkRestricted</ParentCommandLine><!--Microsoft:Windows Network Services-->
+			<Image condition="is">C:\Windows\System32\powercfg.exe</Image><!--Microsoft:Power Management-->
+			<!--SECTION: Microsoft dotNet-->
+			<Image condition="is">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\mscorsvw.exe</Image> <!--Microsoft:DotNet-->
+			<Image condition="is">C:\Windows\Microsoft.NET\Framework\v4.0.30319\mscorsvw.exe</Image> <!--Microsoft:DotNet-->
+			<Image condition="is">C:\Windows\Microsoft.Net\Framework64\v3.0\WPF\PresentationFontCache.exe</Image> <!--Microsoft:Windows: Font cache service-->
+			<ParentCommandLine condition="contains">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\ngentask.exe</ParentCommandLine>
+			<ParentImage condition="is">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\mscorsvw.exe</ParentImage> <!--Microsoft:DotNet-->
+			<ParentImage condition="is">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\ngentask.exe</ParentImage> <!--Microsoft:DotNet-->
+			<ParentImage condition="is">C:\Windows\Microsoft.NET\Framework\v4.0.30319\mscorsvw.exe</ParentImage> <!--Microsoft:DotNet-->
+			<CommandLine condition="begin with">C:\Windows\Microsoft.NET\Framework\v4.0.30319\ngen.exe</CommandLine> <!--Microsoft:DotNet-->
+			<ParentImage condition="is">C:\Windows\Microsoft.NET\Framework\v4.0.30319\ngentask.exe</ParentImage> <!--Microsoft:DotNet-->
+			<ParentImage condition="is">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\ngentask.exe</ParentImage> <!--Microsoft:DotNet-->
+			<ParentCommandLine condition="contains">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\ngentask.exe</ParentCommandLine>
+			<!--SECTION: Microsoft Office-->
+			<Image condition="is">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeC2RClient.exe</Image> <!--Microsoft:Office: Background process-->
+			<ParentImage condition="end with">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeClickToRun.exe</ParentImage> <!--Microsoft:Office: Background process-->
+			<Image condition="is">C:\Program Files\Common Files\Microsoft Shared\OfficeSoftwareProtectionPlatform\OSPPSVC.EXE</Image> <!--Microsoft:Office: Background process-->
+			<Image condition="is">C:\Program Files\Microsoft Office\Office16\MSOSYNC.EXE</Image> <!--Microsoft:Office: Background process for SharePoint/Office365 connectivity-->
+			<Image condition="is">C:\Program Files (x86)\Microsoft Office\Office16\MSOSYNC.EXE</Image> <!--Microsoft:Office: Background process-->
+			<Image condition="is">C:\Program Files\Microsoft Office\Office15\MSOSYNC.EXE</Image> <!--Microsoft:Office: Background process for SharePoint/Office365 connectivity-->
+			<Image condition="is">C:\Program Files (x86)\Microsoft Office\Office15\MSOSYNC.EXE</Image> <!--Microsoft:Office: Background process-->
+			<Image condition="is">C:\Program Files (x86)\Microsoft Office\root\Office16\officebackgroundtaskhandler.exe</Image>
+			<Image condition="is">C:\Windows\splwow64.exe</Image> <!--Microsoft:Office: Print Driver Host spam -->
+			<!--SECTION: Microsoft:Windows: Media player-->
+			<Image condition="is">C:\Program Files\Windows Media Player\wmpnscfg.exe</Image> <!--Microsoft:Windows: Windows Media Player Network Sharing Service Configuration Application-->
+			<!--SECTION: Microsoft Exchange-->
+			<ParentImage condition="is">C:\Program Files\Microsoft\Exchange Server\V15\Bin\Microsoft.Exchange.Diagnostics.Service.exe</ParentImage>
+			<ParentImage condition="is">C:\Program Files\Microsoft\Exchange Server\V15\Bin\MSExchangeHMWorker.exe</ParentImage>
+			<CommandLine condition="contains">C:\Program Files\Microsoft\Exchange Server\V14\Scripts\CheckDatabaseRedundancy.ps1</CommandLine>
+			<!--SECTION: Microsoft Misc-->
+			<Image condition="is">C:\Windows\System32\ddpcli.exe</Image> <!--Scheduled dedupe jobs on server 2012-->
+			<!--SECTION: Google-->
+			<CommandLine condition="begin with">"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --type=</CommandLine> <!--Google:Chrome: massive command-line arguments-->
+			<CommandLine condition="begin with">"C:\Program Files\Google\Chrome\Application\chrome.exe" --type=</CommandLine> <!--Google:Chrome: massive command-line arguments-->
+			<Image condition="begin with">C:\Program Files (x86)\Google\Update\</Image> <!--Google:Chrome: Updater-->
+			<ParentImage condition="begin with">C:\Program Files (x86)\Google\Update\</ParentImage> <!--Google:Chrome: Updater-->
+			<!--SECTION: Firefox-->
+			<CommandLine condition="begin with">"C:\Program Files\Mozilla Firefox\plugin-container.exe" --channel</CommandLine> <!-- Mozilla:Firefox: Large command-line arguments | Credit @Darkbat91 -->
+			<CommandLine condition="begin with">"C:\Program Files (x86)\Mozilla Firefox\plugin-container.exe" --channel</CommandLine> <!-- Mozilla:Firefox: Large command-line arguments | Credit @Darkbat91 -->
+			<!--SECTION: Adobe-->
+			<CommandLine condition="contains">AcroRd32.exe" /CR </CommandLine> <!--Adobe:AcrobatReader: Uninsteresting sandbox subprocess-->
+			<CommandLine condition="contains">AcroRd32.exe" --channel=</CommandLine> <!--Adobe:AcrobatReader: Uninteresting sandbox subprocess-->
+			<Image condition="end with">C:\Program Files (x86)\Adobe\Acrobat DC\Acrobat\AcroCEF\AcroCEF.exe</Image> <!--Adobe:Acrobat: Sandbox subprocess, still evaluating security exposure-->
+			<ParentImage condition="end with">C:\Program Files (x86)\Common Files\Adobe\AdobeGCClient\AGSService.exe</ParentImage>
+			<Image condition="end with">C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\AcroCEF\RdrCEF.exe</Image> <!--Adobe:AcrobatReader: Sandbox subprocess, still evaluating security exposure-->
+			<Image condition="end with">C:\Program Files (x86)\Adobe\Acrobat DC\Acrobat\LogTransport2.exe</Image>
+			<!--SECTION: Adobe:Acrobat DC-->
+			<Image condition="end with">C:\Program Files (x86)\Adobe\Acrobat DC\Acrobat\AcroCEF\AcroCEF.exe</Image> <!--Adobe:Acrobat: Sandbox subprocess, still evaluating security exposure-->
+			<Image condition="end with">C:\Program Files (x86)\Adobe\Acrobat DC\Acrobat\LogTransport2.exe</Image> <!--Adobe: Telemetry [ https://forums.adobe.com/thread/1006701 ] -->
+			<!--SECTION: Adobe:Acrobat 2015-->
+			<Image condition="end with">C:\Program Files (x86)\Adobe\Acrobat 2015\Acrobat\AcroCEF\AcroCEF.exe</Image> <!--Adobe:Acrobat: Sandbox subprocess, still evaluating security exposure-->
+			<Image condition="end with">C:\Program Files (x86)\Adobe\Acrobat 2015\Acrobat\LogTransport2.exe</Image> <!--Adobe: Telemetry [ https://forums.adobe.com/thread/1006701 ] -->
+			<!--SECTION: Adobe:Acrobat Reader DC-->
+			<Image condition="end with">C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\AcroCEF\RdrCEF.exe</Image> <!--Adobe:AcrobatReader: Sandbox subprocess, still evaluating security exposure-->
+			<Image condition="end with">C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\LogTransport2.exe</Image> <!--Adobe: Telemetry [ https://forums.adobe.com/thread/1006701 ] -->
+			<!--SECTION: Adobe:Flash-->
+			<Image condition="end with">C:\Windows\SysWOW64\Macromed\Flash\FlashPlayerUpdateService.exe</Image> <!--Adobe:Flash: Properly hardened updater, not a risk-->
+			<!--SECTION: Adobe:Updater-->
+			<Image condition="end with">C:\Program Files (x86)\Common Files\Adobe\ARM\1.0\AdobeARM.exe</Image> <!--Adobe:Updater: Properly hardened updater, not a risk-->
+			<ParentImage condition="end with">C:\Program Files (x86)\Common Files\Adobe\ARM\1.0\AdobeARM.exe</ParentImage> <!--Adobe:Updater: Properly hardened updater, not a risk-->
+			<Image condition="end with">C:\Program Files (x86)\Common Files\Adobe\ARM\1.0\armsvc.exe</Image> <!--Adobe:Updater: Properly hardened updater, not a risk-->
+			<!--SECTION: Adobe:Supporting processes-->
+			<Image condition="end with">C:\Program Files (x86)\Adobe\Acrobat DC\Acrobat\AdobeCollabSync.exe</Image>
+			<Image condition="end with">C:\Program Files (x86)\Common Files\Adobe\Adobe Desktop Common\HEX\Adobe CEF Helper.exe</Image>
+			<Image condition="end with">C:\Program Files (x86)\Common Files\Adobe\AdobeGCClient\AdobeGCClient.exe</Image> <!--Adobe:Creative Cloud-->
+			<Image condition="end with">C:\Program Files (x86)\Common Files\Adobe\OOBE\PDApp\P6\adobe_licutil.exe</Image> <!--Adobe:License utility-->
+			<Image condition="end with">C:\Program Files (x86)\Common Files\Adobe\OOBE\PDApp\P7\adobe_licutil.exe</Image> <!--Adobe:License utility-->
+			<ParentImage condition="end with">C:\Program Files (x86)\Common Files\Adobe\OOBE\PDApp\P7\adobe_licutil.exe</ParentImage> <!--Adobe:License utility-->
+			<Image condition="end with">C:\Program Files (x86)\Common Files\Adobe\OOBE\PDApp\UWA\updaterstartuputility.exe</Image>
+			<ParentImage condition="is">C:\Program Files (x86)\Common Files\Adobe\OOBE\PDApp\UWA\updaterstartuputility.exe</ParentImage>
+			<!--SECTION: Adobe:Creative Cloud-->
+			<!--SECTION: Cisco-->
+			<ParentImage condition="end with">C:\Program Files (x86)\Cisco\Cisco AnyConnect Secure Mobility Client\vpnagent.exe</ParentImage> <!--Cisco: Calls netsh to change settings on connect-->
+			<Image condition="end with">C:\Program Files (x86)\Adobe\Adobe Creative Cloud\ACC\Creative Cloud.exe</Image>
+			<ParentImage condition="end with">C:\Program Files (x86)\Adobe\Adobe Creative Cloud\ACC\Creative Cloud.exe</ParentImage>
+			<ParentImage condition="end with">C:\Program Files (x86)\Adobe\Adobe Creative Cloud\CCXProcess\CCXProcess.exe</ParentImage>
+			<ParentImage condition="end with">C:\Program Files (x86)\Adobe\Adobe Creative Cloud\CoreSync\CoreSync.exe</ParentImage>
+			<!--SECTION: Drivers-->
+			<CommandLine condition="begin with">"C:\Program Files\DellTPad\ApMsgFwd.exe" -s{</CommandLine>
+			<Image condition="begin with">C:\Program Files\NVIDIA Corporation\</Image> <!--Nvidia:Driver: routine actions-->
+			<Image condition="end with">\NVIDIA\NvBackend\ApplicationOntology\OAWrapper.exe</Image> <!--Nvidia:Driver: routine actions-->
+			<ParentImage condition="is">C:\Program Files\NVIDIA Corporation\NvStreamSrv\nvstreamuseragent.exe</ParentImage> <!--Nvidia:Driver: routine actions-->
+			<Image condition="begin with">C:\Program Files\Realtek\</Image> <!--Realtek:Driver: routine actions-->
+			<ParentImage condition="end with">C:\Program Files\DellTPad\HidMonitorSvc.exe</ParentImage>
+			<CommandLine condition="begin with">"C:\Program Files\DellTPad\ApMsgFwd.exe" -s{</CommandLine>
+			<ParentImage condition="is">C:\Program Files\Synaptics\SynTP\SynTPEnh.exe</ParentImage><!--Synaptics Touchpad -->
+			<ParentImage condition="end with">C:\Program Files\Realtek\Audio\HDA\RtkAudioService64.exe</ParentImage> <!--Realtek:Driver: routine actions-->
+			<!--SECTION: Dropbox-->
+			<Image condition="end with">C:\Program Files (x86)\Dropbox\Update\DropboxUpdate.exe</Image> <!--Dropbox:Updater: Lots of command-line arguments-->
+			<ParentImage condition="end with">C:\Program Files (x86)\Dropbox\Update\DropboxUpdate.exe</ParentImage>
+			<!--SECTION: Dell-->
+			<ParentImage condition="is">C:\Program Files (x86)\Dell\CommandUpdate\InvColPC.exe</ParentImage> <!--Dell:CommandUpdate: Detection process-->
+			<Image condition="is">C:\Program Files\Dell\SupportAssist\pcdrcui.exe</Image> <!--Dell:SupportAssist: routine actions-->
+			<Image condition="is">C:\Program Files\Dell\SupportAssist\koala.exe</Image> <!--Dell:SupportAssist: routine actions-->
+			<ParentCommandLine condition="end with">"-outc=C:\ProgramData\Dell\CommandUpdate\inventory.xml" "-logc=C:\ProgramData\Dell\CommandUpdate\scanerrs.xml" "-lang=en" "-enc=UTF-16" </ParentCommandLine>			
+			<!-- <ParentImage condition="image">C:\Program Files (x86)\Dell\CommandUpdate\InvColPC.exe</ParentImage> --> <!--Dell:CommandUpdate: Detection process-->
+			<!--SECTION: Lenovo-->
+			<Image condition="is">C:\Program Files (x86)\Lenovo\System Update\ConfigService.exe</Image> <!--Lenovo: System Update-->
+			<ParentImage condition="is">C:\PROGRA~3\Lenovo\SYSTEM~1\SESSIO~1\REPOSI~1\fwdphb06\fwdphb06_version.exe</ParentImage><!--Lenovo: System Update-->
+			<Image condition="is">C:\Program Files (x86)\ThinkPad\Utilities\PWMDBSVC.exe</Image><!--Lenovo: Thinkpad Utilities-->
+			<Image condition="is">C:\Windows\system32\LPlatSvc.exe</Image> <!--Lenovo: Platform Services-->
+			<ParentImage condition="is">C:\Program Files\Lenovo\HOTKEY\tphkload.exe</ParentImage><!--Lenovo: Hotkey Tools-->
+			<ParentImage condition="is">C:\Program Files\Lenovo\HOTKEY\micmute.exe</ParentImage><!--Lenovo: Hotkey Tools-->
+			<Image condition="is">C:\Program Files\Lenovo\InstantOn\InstantOnSrv.exe</Image> <!--Lenovo: Instant-On-->
+			<Image condition="is">C:\Program Files\Lenovo\Lenovo Mouse Suite\Service\PelService.exe</Image> <!--Lenovo: Mouse Suite-->
+			<Image condition="is">C:\Program Files\Lenovo\ImController\PluginHost\Lenovo.Modern.ImController.PluginHost.Device.exe</Image> <!--Lenovo: Modern Apps Plugin Host-->
+			<ParentCommandLine condition="contains">C:\Program Files\Lenovo\iMController\PluginHost\Lenovo.Modern.ImController.PluginHost.Device.exe</ParentCommandLine> <!--Lenovo: Modern Apps Plugin Host-->
+			<ParentCommandLine condition="contains">C:\Program Files (x86)\Lenovo\System Update\tvsukernel.exe</ParentCommandLine> <!--Lenovo: System Update-->
+			<ParentImage condition="contains">C:\Program Files (x86)\Lenovo\System Update\UACSdk.exe</ParentImage> <!--Lenovo: System Update-->
+			<ParentImage condition="contains">C:\Program Files (x86)\Lenovo\System Update\SUService.exe</ParentImage> <!--Lenovo: System Update-->
+			<ParentImage condition="contains">C:\Program Files\Lenovo\Lenovo Ultraslim Plus Wireless Keyboard &amp; Mouse\Pelico.exe</ParentImage> <!--Lenovo: Mouse & Keyboard Tools-->
+			<ParentImage condition="contains">C:\Program Files\Lenovo\Lenovo Ultraslim Plus Wireless Keyboard &amp; Mouse\LeDaemon.exe</ParentImage> <!--Lenovo: Mouse & Keyboard Tools-->
+			<ParentImage condition="contains">C:\Program Files\Lenovo\Lenovo Mouse Suite\ICO.exe</ParentImage> <!--Lenovo: Mouse & Keyboard Tools-->
+			<ParentImage condition="contains">C:\Program Files\Lenovo\Lenovo Mouse Suite\Service\PelElvDm.exe</ParentImage>
+			<ParentImage condition="contains">C:\Program Files (x86)\Lenovo\System Update\tvsuShim.exe</ParentImage>
+			<ParentImage condition="contains">C:\Program Files (x86)\Lenovo\System Update\tvsu.exe</ParentImage>
+			<Image condition="contains">C:\Program Files (x86)\Lenovo\System Update\TvsuCommandLauncher.exe</Image>
+			<!--SECTION: MSI: Micro-Star International Computers-->
+			<ParentImage condition="is">C:\Program Files (x86)\SCM\SCM.exe</ParentImage><!--MSI: Hotkey & Power Management-->
+			<Image condition="is">C:\Program Files (x86)\SCM\SCM_Notice.exe</Image><!--MSI: Hotkey & Power Management-->
+			<Image condition="is">C:\Program Files (x86)\MSI\Help Desk\MSI Update Agent.exe</Image><!-- MSI: Helpdesk Updater-->
+			<ParentImage condition="is">C:\Program Files (x86)\MSI\Help Desk\MSI Update Agent.exe</ParentImage><!-- MSI: Helpdesk Updater-->
+			<Image condition="is">C:\Program Files (x86)\MSI\Dragon Center\Dragon Center.exe</Image><!-- MSI: Dragon Center Updater-->
+			<ParentImage condition="is">C:\Program Files (x86)\MSI\Dragon Center\Dragon Center.exe</ParentImage><!-- MSI: Dragon Center Updater-->
+			<!--SECTION: Intel-->
+			<Image condition="is">C:\Program Files\Intel\Telemetry 2.0\lrio.exe</Image> <!--Intel: Telemetry-->
+			<Image condition="is">C:\Program Files\Intel Driver Update Utility\SUR\SurSvc.exe</Image> <!--Intel: Driver Update-->
+			<Image condition="is">C:\Windows\System32\DriverStore\FileRepository\ki120591.inf_amd64_7a2f7b04e15632c2\igfxCUIService.exe</Image><!--Intel: Graphics Driver-->
+			<Image condition="is">C:\Windows\System32\DriverStore\FileRepository\ki120591.inf_amd64_7a2f7b04e15632c2\igfxEM.exe</Image><!--Intel: Graphics Driver-->
+			<!--SECTION: Antivirus-->
+			<CommandLine condition="begin with">"C:\Windows\sysnative\rundll32.exe" "C:\Windows\system32\WRusr.dll",SynProc</CommandLine> <!--Webroot-->
+			<CommandLine condition="contains">C:\Program Files (x86)\Webroot\WRSA.exe" -ul</CommandLine> <!--Webroot-->
+			<ParentCommandLine condition="is">"C:\Program Files (x86)\Webroot\WRSA.exe" -service</ParentCommandLine> <!--Webroot-->
+			<Image condition="is">C:\Program Files (x86)\Webroot\WRSA.exe</Image><!--Webroot-->
+			<!--SECTION: Synaptics Touchpad-->
+			<Image condition="is">C:\Program Files\Synaptics\SynTP\SynTPEnh.exe</Image>
+			<Image condition="is">C:\Program Files\Synaptics\SynTP\SynTPEnhService.exe</Image>
+			<!--SECTION: Custom Apps-->
+			<!--SECTION: Labtech -->
+			<!--Since Labtech nests its processes, the following exclusions could be exploited, remove if you do not need-->
+			<!--TODO: Will define these more in the future-->
+			<ParentCommandLine condition="is">C:\Windows\LTSvc\LTSVC.exe -sLTService</ParentCommandLine> <!--Labtech Agent-->
+			<ParentImage condition="is">C:\Windows\LTSvc\LTSVC.exe</ParentImage> <!--Labtech Agent-->
+			<CurrentDirectory condition="is">C:\Windows\LTSvc\</CurrentDirectory><!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">find /i "Listening"</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">netstat -an</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">tasklist</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">nslookup</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">nbtstat.exe</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">dsquery</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">sc query</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<ParentCommandLine condition="contains">find /i "Listening"</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<ParentCommandLine condition="contains">netstat -an</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<ParentCommandLine condition="contains">tasklist</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<ParentCommandLine condition="contains">interface tcp show global</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<ParentCommandLine condition="contains">wmic path win32_operatingsystem get</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<ParentCommandLine condition="contains">sc queryex type= service</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<ParentCommandLine condition="contains">C:\Program Files (x86)\StorageCraft\ImageManager\ImageManager.exe</ParentCommandLine> <!--ShadowProtect noise -->
+			<ParentCommandLine condition="contains">raw_agent_svc.exe</ParentCommandLine> <!--ShadowProtect noise -->
+			<ParentImage condition="end with">raw_agent_svc.exe</ParentImage> <!--ShadowProtect noise -->
+			<CommandLine condition="contains">IscsidscInterface.exe</CommandLine> <!--ShadowProtect noise -->
+			<ParentCommandLine condition="contains">IscsidscInterface.exe</ParentCommandLine> <!--ShadowProtect noise -->
+			<ParentCommandLine condition="contains">Add-PSSnapin Microsoft.SharePoint.PowerShell</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">find /i "Listening"</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">netstat -an</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">tasklist</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">wmic path win32_operatingsystem get</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">sc queryex type= service</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">C:\Program Files\StorageCraft\ImageManager\ImageManager.exe</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">Add-PSSnapin Microsoft.SharePoint.PowerShell</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">Get-ItemProperty HKLM:\software\microsoft\windows\currentversion\uninstall\* | select-object displayname</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">Get-WmiObject -Query 'SELECT LicensingType FROM Win32_TerminalServiceSetting').LicensingType</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">Get-WmiObject -Namespace Root\CimV2\TerminalServices</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">tasklist</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<ParentCommandLine condition="contains">vssadmin list writers</ParentCommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">vssadmin  list writers</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<ParentCommandLine condition="contains">net view \\localhost | find " Print</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<ParentCommandLine condition="contains">net view \\localhost | find " Disk</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<CommandLine condition="contains">C:\Windows\system32\net1 Share</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
+			<ParentCommandLine condition="contains">Get-ItemProperty HKLM:\software\microsoft\windows\currentversion\uninstall\* | select-object displayname | format-table -autosize" | find /i "vss writer" | find /i "sql server""</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
+			<ParentImage condition="is">C:\Program Files (x86)\LabTech Client\LTClient.exe</ParentImage> <!--Labtech Client-->
+			<ParentCommandLine condition="contains">C:\Windows\LTSvc\LTSvcMon.exe -sLTService</ParentCommandLine>
+			<ParentImage condition="is">C:\Windows\LTSvc\LTSvcMon.exe</ParentImage>
+			<Image condition="is">C:\Windows\LTSvc\LTTray.exe</Image>
+			<ParentCommandLine condition="contains">Get-ItemProperty HKLM:\software\microsoft\windows\currentversion\uninstall</ParentCommandLine>
+			<CommandLine condition="contains">interface tcp show global</CommandLine>
+			<Image condition="is">nslookup.exe</Image><!--Labtech NStest.bat lookups-->
+			<!--END: Labtech-->
+			<Image condition="end with">ScreenConnect.WindowsClient.exe</Image><!--Screenconnect Remote Desktop Client-->
+			<Image condition="begin with">C:\Program Files (x86)\SmartGit</Image> <!--SmartGit-->
+			<ParentImage condition="begin with">C:\Program Files (x86)\SmartGit</ParentImage> <!--SmartGit-->
+			<Image condition="end with">Vivaldi\Application\vivaldi.exe</Image> <!--Vivaldi Browser-->
+			<Image condition="end with">controls\cef\ConnectWise.exe</Image> <!--Connectwise-->
+			<!-- VMware vSphere spawns child processes to svtres.exe and csc.exe, currently unable to exclude those child processes, csc and cvtres.exe are used by some malware-->
+			<ParentCommandLine condition="contains">C:\Program Files (x86)\VMware\Infrastructure\Virtual Infrastructure Client\Launcher\VpxClient.exe</ParentCommandLine> <!--VMware vSphere spawns subprocesses-->
+			<CommandLine condition="contains">C:\Program Files (x86)\VMware\Infrastructure\Virtual Infrastructure Client\Launcher\VpxClient.exe</CommandLine><!--VMware vSphere spawns subprocesses-->
+			<ParentImage condition="is">C:\Program Files (x86)\SyncedTool\bin\agent_service.exe</ParentImage><!--eFolder Synced Tool-->
+			<Image condition="is">C:\Program Files (x86)\Notepad++\notepad++.exe</Image><!-- Notepad++ -->
+			<Image condition="is">C:\Program Files\OpenVPN\bin\openvpn-gui.exe</Image>
+			<ParentImage condition="is">C:\Program Files (x86)\Enpass\Enpass.exe</ParentImage> <!--Enpass Password Manager-->
+			<Image condition="contains">C:\Program Files (x86)\Enpass\Enpass.exe</Image> <!--Enpass Password Manager-->
+			<ParentImage condition="image">C:\Program Files (x86)\Dell\CommandUpdate\InvColPC.exe</ParentImage> <!--Dell:CommandUpdate: Detection process-->
+			<ParentImage condition="contains">C:\Program Files (x86)\Fortinet\FortiClient\scheduler.exe</ParentImage> <!--FortiClient Noise -->
+			<ParentImage condition="contains">C:\Program Files (x86)\Fortinet\FortiClient\FCHelper64.exe</ParentImage> <!--FortiClient Noise -->
+			<Image condition="is">C:\Program Files (x86)\Fortinet\FortiClient\update_task.exe</Image> <!-- Forticlient Updater -->
+			<Image condition="contains">C:\Program Files (x86)\SyncedTool\bin\agent_gui.exe</Image>
+			<Image condition="is">C:\Anchor Server\penv\Scripts\python.exe</Image> <!-- eFolder Anchor Server -->
+			<ParentImage condition="is">C:\Anchor Server\redis\redis-server.exe</ParentImage> <!-- eFolder Anchor Server -->
+			<Image condition="is">C:\Anchor Server\redis\redis-server.exe</Image> <!-- eFolder Anchor Server -->
+			<ParentImage condition="is">C:\PostgreSQL9.1\bin\postgres.exe</ParentImage> <!-- eFolder Anchor Server -->
+			<Image condition="is">C:\PostgreSQL9.1\bin\postgres.exe</Image> <!-- eFolder Anchor Server -->
+			<Image condition="is">C:\ProgramData\sysmon\sysmon64.exe</Image> <!-- Exclude Sysmon Process events -->
 		</ProcessCreate>
 
 	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM [FileCreateTime]-->
