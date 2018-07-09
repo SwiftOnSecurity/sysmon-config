@@ -326,9 +326,9 @@
 			<Image condition="image">Mavinject.exe</Image><!--Mitre T1218-->
 			<Image name="Alert=Secure Shell Execution" condition="image">ssh.exe</Image><!-- SSH -->
 			<Image name="Alert=Secure Shell Execution" condition="image">putty.exe</Image><!-- SSH -->
-			<Image name="Alert=Secure Shell Execution"condition="image">kitty.exe</Image><!-- SSH -->
-			<Image cname="Alert=Secure Shell Execution"ondition="image">kitty_portable.exe</Image><!-- SSH -->
-			<Image name="Alert=Secure Shell FTP Execution"condition="image">psftp.exe</Image><!-- SFTP -->
+			<Image name="Alert=Secure Shell Execution" condition="image">kitty.exe</Image><!-- SSH -->
+			<Image name="Alert=Secure Shell Execution" condition="image">kitty_portable.exe</Image><!-- SSH -->
+			<Image name="Alert=Secure Shell FTP Execution" condition="image">psftp.exe</Image><!-- SFTP -->
 			<Image condition="image">tftp.exe</Image><!-- TFTP -->
 			<Image condition="image">wmic.exe</Image><!-- wmic /node logging -->
 			<Image condition="image">net.exe</Image><!-- net use/net view-->
