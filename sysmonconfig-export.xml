@@ -51,7 +51,7 @@
   PERFORMANCE: By using "end with" you can save performance by starting a string match at the end of a line, which usually triggers earlier.
 -->
 
-<Sysmon schemaversion="4.00">
+<Sysmon schemaversion="4.10">
 	<!--SYSMON META CONFIG-->
 	<HashAlgorithms>md5,sha256</HashAlgorithms> <!-- Both MD5 and SHA256 are the industry-standard algorithms for identifying files -->
 	<CheckRevocation/> <!-- Check loaded drivers, log if their code-signing certificate has been revoked, in case malware stole one to sign a kernel driver -->
@@ -70,6 +70,304 @@
 			code signatures to validate, but Sysmon does not support that. Look into Windows Device Guard for whitelisting support. -->
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessID, Image, FileVersion, Description, Product, Company, CommandLine, CurrentDirectory, User, LogonGuid, LogonId, TerminalSessionId, IntegrityLevel, Hashes, ParentProcessGuid, ParentProcessId, ParentImage, ParentCommandLine-->
+		<ProcessCreate onmatch="include">
+			<!--Mitre ATT&CK Rules-->
+			<!--Accessibility Features-->
+			<ParentImage name="MitreRef=T1015,Technique=Persistence Privilege Escalation" condition="end with">sethc.exe</ParentImage>
+			<ParentImage name="MitreRef=T1015,Technique=Persistence Privilege Escalation" condition="end with">utilman.exe</ParentImage>
+			<ParentImage name="MitreRef=T1015,Technique=Persistence Privilege Escalation" condition="end with">osk.exe</ParentImage>
+			<ParentImage name="MitreRef=T1015,Technique=Persistence Privilege Escalation" condition="end with">Magnify.exe</ParentImage>
+			<ParentImage name="MitreRef=T1015,Technique=Persistence Privilege Escalation" condition="end with">DisplaySwitch.exe</ParentImage>
+			<ParentImage name="MitreRef=T1015,Technique=Persistence Privilege Escalation" condition="end with">Narrator.exe</ParentImage>
+			<ParentImage name="MitreRef=T1015,Technique=Persistence Privilege Escalation" condition="end with">AtBroker.exe</ParentImage>
+	  		<!--                                                                                                                                            -->
+			<!--Native Windows tools - Living off the land-->
+			<Image name="MitreRef=T1049,Technique=System Network Connections Discovery,MitreURL=https://attack.mitre.org/wiki/Technique/T1049" condition="end with">whoami.exe</Image>
+			<Image name="MitreRef=T1049,Technique=Discovery" condition="end with">ipconfig.exe</Image> <!--Microsoft:Windows: shows ip configuration -->
+			<Image name="MitreRef=T1057,Technique=Process Discovery" condition="end with">tasklist.exe</Image> <!--Microsoft:Windows: shows current running processes-->
+			<Image name="MitreRef=T1016,Technique=System Information Discovery" condition="end with">sysinfo.exe</Image> <!--Microsoft:Windows: shows systeminformation -->
+			<Image name="MitreRef=T1049,Technique=System Network Connections Discovery" condition="end with">netstat.exe</Image> <!--Microsoft:Windows: shows protocol statistics and current TCP/IP network connections -->
+			<Image name="MitreRef=T1057,Technique=Process Discovery" condition="end with">qprocess.exe</Image> <!--Microsoft:Windows: shows information about processes -->
+			<Image name="MitreRef=T1049,Technique=System Network Connections Discovery" condition="end with">nslookup.exe</Image> <!--Microsoft:Windows: shows DNS configuration and enables quering -->
+			<Image name="MitreRef=T1201/T1087,Technique=System Network Connections Discovery/Account Discovery" condition="end with">net.exe</Image> <!--Microsoft:Windows: "net use"/"net view" used by attackers to surveil and connect with file shares from command line | Credit @ion-storm -->
+			<Image name="MitreRef=T1201/T1087,Technique=System Network Connections Discovery/Account Discovery" condition="end with">net1.exe</Image> <!--Microsoft:Windows: "net use"/"net view" used by attackers to surveil and connect with file shares from command line | Credit @ion-storm -->
+			<Image name="MitreRef=T1049,Technique=System Network Connections Discovery" condition="end with">quser.exe</Image> <!--Microsoft:Windows: shows logged-on users -->
+			<Image name="MitreRef=ToDo,Technique=" condition="end with">query.exe</Image> <!--Microsoft:Windows: shows information about processes -->
+			<Image name="MitreRef=CAPEC-293,Technique=Traceroute Route Enumeration" condition="end with">tracert.exe</Image> <!--Microsoft:Windows: shows routing information -->
+			<Image name="MitreRef=ToDo,Technique=" condition="end with">tree.com</Image> <!--Microsoft:Windows: shows recursive directory listing -->
+			<Image name="MitreRef=T1016,Technique=System Network Configuration Discovery" condition="end with">route.exe</Image> <!--Microsoft:Windows: manipulates network routing tables -->
+			<Image name="MitreRef=T1134,Technique=Access Token Manipulation" condition="end with">runas.exe</Image> <!--Microsoft:Windows: run a process as another user -->
+			<Image name="MitreRef=T1016,Technique=System Information Discovery" condition="end with">reg.exe</Image> <!--Microsoft:Windows: reads and modifies the Windows register -->
+			<Image name="MitreRef=ToDo,Technique=" condition="end with">taskkill.exe</Image> <!--Microsoft:Windows: stops processes -->
+			<Image name="MitreRef=T1016,Technique=System Network Connections Discovery" condition="end with">netsh.exe</Image> <!--Microsoft:Windows: manipulate the firewall -->
+			<Image name="MitreRef=ToDo,Technique=" condition="end with">klist.exe</Image> <!--Microsoft:Windows: show cached kerberos tickets -->
+			<Image name="MitreRef=T1070,Technique=Indicator Removal on Host-Defense Evasion" condition="end with">wevtutil.exe</Image> <!--Microsoft:Windows: read and modify the Windows Eventlog -->
+			<Image name="MitreRef=T1053,Technique=Scheduled Task-Execution/Persistence/Privilege Escalation" condition="end with">taskeng.exe</Image> <!--Microsoft:Windows: taskscheduler -->
+			<Image name="MitreRef=T1117,Technique=Regsvr32-Defense Evasion/Execution" condition="end with">regsvr32.exe</Image> <!--Microsoft:Windows: [ https://subt0x10.blogspot.com/2016/04/bypass-application-whitelisting-script.html ] -->
+			<ParentImage name="MitreRef=T1028,Technique=Remote WMIC/Execution, Lateral Movement" condition="end with">wmiprvse.exe</ParentImage>
+			<ParentImage name="MitreRefS=S0029,Command execution - Execution/Lateral Movement" condition="end with">psexesvc.exe</ParentImage>
+			<Description name="MitreRefS=S0029,Command execution - Execution/Lateral Movement" condition="contains">Execute processes remotely</Description>
+			<ParentImage name="MitreRefS=S0029,Command execution - Execution/Lateral Movement" condition="end with">psexec.exe</ParentImage>
+			<Description name="MitreRefS=S0029,Command execution - Execution/Lateral Movement" condition="contains">Execute processes remotely</Description>
+			<ParentImage name="MitreRefS=S0029,Command execution - Execution/Lateral Movement" condition="end with">pskill.exe</ParentImage>
+			<Image name="MitreRef=ToDo,Technique=" condition="end with">hh.exe</Image> <!--Microsoft:Windows: HTML Helper-->
+			<Image name="MitreRef=T1059,Technique=" condition="end with">cmd.exe</Image> <!--Microsoft:Windows: Command prompt-->
+			<ParentImage name="MitreRef=T1059,Technique=" condition="end with">cmd.exe</ParentImage> <!--Microsoft:Windows: Command prompt-->
+			<Image name="MitreRef=T1086,Technique=Execution" condition="end with">powershell.exe</Image> <!--Microsoft:Windows: PowerShell interface-->
+			<Description name="MitreRef=T1086,Technique=Execution" condition="end with">powershell.exe</Description> <!--Microsoft:Windows: PowerShell interface-->
+			<ParentImage name="MitreRef=T1086,Technique=Execution" condition="end with">powershell.exe</ParentImage> <!--Microsoft:Windows: PowerShell interface-->
+			<Image name="MitreRef=T1202,Technique=Hacking/LOLBins-Living off the Land" condition="end with">bash.exe</Image> <!--Microsoft:Windows: bash on Windows, Linux subsystem-->
+			<ParentImage name="MitreRef=T1202,Technique=Hacking/LOLBins-Living off the Land" condition="end with">bash.exe</ParentImage> <!--Microsoft:Windows: bash on Windows, Linux subsystem-->
+			<Image name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="end with">odbcconf.exe</Image> <!--Microsoft:Windows: allows for driver loads -->
+			<Image name="MitreRef=T1202,Technique=Hacking/LOLBins-Living off the Land" condition="end with">pcalua.exe</Image> <!--Microsoft:Windows: Program Compatibility Assistant)-->
+			<Image name="MitreRef=T1158,Technique=Hacking/LOLBins-Living off the Land" condition="end with">attrib.exe</Image>
+			<Image name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="end with">cmdkey.exe</Image> <!--Microsoft:Windows: creates, lists, and deletes stored user names and passwords or credentials.-->
+			<Image name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="end with">nltest.exe</Image>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">nltest.exe</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">ExtExport</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">bash -c</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">bash.exe -c</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">cmdkey /list</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">cmdkey.exe /list</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">certutil.exe -urlcache -split -f</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">certutil -urlcache -split -f</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">csc -out:</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">csc.exe -out:</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">csc -target:library</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">csc.exe -target:library</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">cmdkey /list</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">cmd.exe /k</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">cmstp.exe /ni /s</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">cmstp /ni /s</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">esentutl.exe /y \\</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">esentutl /y \\</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">expand \\</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">expand.exe \\</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">extrac32 \\</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">extrac32.exe \\</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">ieexec.exe http</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">ieexec http</CommandLine>
+			<ParentImage name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">diskshadow</ParentImage>
+			<ParentImage name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">rundll32.exe advpack.dll,LaunchINFSection</ParentImage>
+			<ParentImage name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">rundll32 advpack.dll,LaunchINFSection</ParentImage>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="begin with">set </CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="begin with">setx </CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">pushd</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">popd</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">subst</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="begin with">ren </CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="begin with">move </CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="begin with">md </CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="begin with">del </CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="begin with">rd </CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="begin with">expand </CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="begin with">find </CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="begin with">format </CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="begin with">format </CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="begin with">assoc </CommandLine>
+			<Image name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land-detect cls in batch scripts" condition="end with">cls.exe</Image>
+			<Image name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land-detect aliases" condition="end with">doskey.exe</Image>
+	  		<!--                                                                                                                                            -->
+			<!--appc shim-->
+			<Image name="MitreRef=T1138,Technique=Application Shimming-Persistence/Privilege Escalation" condition="end with">sdbinst.exe</Image>
+	  		<!--                                                                                                                                            -->
+			<!--BitsAdmin-->
+			<Image name="MitreRef=T1197,Technique=Bitsadmin File Transfers/Defense Evasion" condition="end with">bitsadmin.exe</Image>
+	  		<!--                                                                                                                                            -->
+			<!--UAC Bypass-->
+			<ParentImage name="MitreRef=T1088,Technique=UAC Bypass" condition="end with">eventvwr.exe</ParentImage>
+			<ParentImage name="MitreRef=T1088,Technique=UAC Bypass" condition="end with">fodhelper.exe</ParentImage>
+	  		<!--                                                                                                                                            -->
+			<!--InstallUtil Abuse-->
+			<Image name="MitreRef=T1118,Technique=Defense Evasion/Execution" condition="end with">InstallUtil.exe</Image>
+			<CommandLine name="MitreRef=T1118,Technique=Defense Evasion/Execution" condition="contains">/logfile= /LogToConsole=false /U</CommandLine>
+	  		<!--                                                                                                                                            -->
+			<!--Mavinject -->
+	        <Image name="MitreRef=T1218,Technique=" condition="end with">Mavinject.exe</Image>
+			<Image name="MitreRef=T1191,Technique=" condition="end with">CMSTP.exe</Image>
+	  		<!--                                                                                                                                            -->
+			<!--MSBuild-->
+			<Image name="MitreRef=T1191,Technique=" condition="end with">MSBuild.exe</Image>
+	        <Image name="MitreRef=T1121,Technique=" condition="end with">regsvcs.exe</Image>
+			<Image name="MitreRef=T1121,Technique=" condition="end with">regasm.exe</Image>
+			<Image name="MitreRef=T1218,Technique=" condition="end with">SyncAppvPublishingServer.exe</Image>
+	  		<!--                                                                                                                                            -->
+			<!--Control Panel-->
+			<Image name="MitreRef=T1218,Technique=Defense Evasion/Execution" condition="end with">control.exe</Image>
+	        <CommandLine name="MitreRef=T1196,Technique=Defense Evasion/Execution" condition="contains">control.exe /name</CommandLine>
+			<CommandLine name="MitreRef=T1196,Technique=Defense Evasion/Execution" condition="contains">rundll32.exe shell32.dll,Control_RunDLL</CommandLine>
+	  		<!--                                                                                                                                            -->
+			<!--Custom Mitre-->
+			<Image name="MitreRef=T1028,Technique=Windows Remote Management" condition="end with">wsmprovhost.exe</Image>
+			<ParentImage name="MitreRef=T1028,Technique=Windows Remote Management" condition="end with">wsmprovhost.exe</ParentImage>
+			<Image name="MitreRef=T1028,Technique=Windows Remote Management" condition="end with">winrm.cmd</Image>
+			<CommandLine name="MitreRef=T1105,Technique=Command and Control/Lateral Movement" condition="contains">certutil.exe -decode</CommandLine>
+			<CommandLine name="MitreRef=T1105,Technique=Command and Control/Lateral Movement" condition="contains">certutil -decode</CommandLine>
+			<Image name="MitreRef=T1170,Technique=Defense Evasion/Execution" condition="end with">mshta.exe</Image>
+			<Image name="MitreRef=T1070,Technique=Defense Evasion" condition="end with">wevutil.exe</Image>
+			<CommandLine name="MitreRef=T1070,Technique=Defense Evasion" condition="contains">wevutil cl</CommandLine>
+			<Image name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="end with">schtasks.exe</Image>
+			<ParentImage name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="end with">schtasks.exe</ParentImage>
+			<Image name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="end with">at.exe</Image>
+			<ParentImage name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="end with">at.exe</ParentImage>
+			<Image name="MitreRef=T1202,Technique=Indirect Command Execution" condition="end with">forfiles.exe</Image>
+			<ParentImage name="MitreRef=T1202,Technique=Indirect Command Execution" condition="end with">forfiles.exe</ParentImage>
+			<Image name="MitreRef=T1202,Technique=Indirect Command Execution" condition="end with">pcalua.exe</Image>
+			<ParentImage name="MitreRef=T1202,Technique=Indirect Command Execution" condition="end with">pcalua.exe</ParentImage>
+			<Image name="MitreRef=T1202,Technique=Indirect Command Execution" condition="end with">bash.exe</Image>
+			<ParentImage name="MitreRef=T1202,Technique=Indirect Command Execution" condition="end with">bash.exe</ParentImage>
+			<Image name="MitreRef=T1202,Technique=Indirect Command Execution" condition="end with">bash.exe</Image>
+			<CommandLine name="MitreRef=ToDo,Technique=Powershell Injection Persistence Bypass - Execution, Lateral Movement" condition="contains">System.Management.Automation</CommandLine>
+	  		<!--                                                                                                                                            -->
+			<!--Detect Spawned Adobe Parent Processes-->
+			<ParentImage name="MitreRef=ToDo,Technique=Process Spawned from Acrobat" condition="end with">acrobat.exe</ParentImage>
+			<ParentImage name="MitreRef=ToDo,Technique=Process Spawned from Adobe Reader" condition="end with">acrord32.exe</ParentImage>
+	  		<!--                                                                                                                                            -->
+			<!--Detect Spawned Browser Parent Processes-->
+			<ParentImage name="MitreRef=ToDo,Technique=Process Spawned Process from Chrome" condition="end with">chrome.exe</ParentImage>
+			<ParentImage name="MitreRef=ToDo,Technique=Process Spawned from Firefox" condition="end with">firefox.exe</ParentImage>
+			<ParentImage name="MitreRef=ToDo,Technique=Process Spawned from Internet Explorer" condition="end with">iexplore.exe</ParentImage>
+			<ParentImage name="MitreRef=ToDo,Technique=Process Spawned from Edge Browser" condition="end with">MicrosoftEdgeCP.exe</ParentImage>
+			<ParentImage name="MitreRef=ToDo,Technique=Process Spawned from Edge Browser" condition="end with">MicrosoftEdge.exe</ParentImage>
+			<ParentImage name="MitreRef=ToDo,Technique=Process Spawned from Vivaldi Browser" condition="end with">vivaldi.exe</ParentImage>
+			<ParentImage name="MitreRef=ToDo,Technique=Process Spawned from Waterfox Browser" condition="end with">waterfox.exe</ParentImage>
+	  		<!--                                                                                                                                            -->
+			<!--Detect Spawned Java Parent Processes-->
+			<ParentImage name="MitreRef=ToDo,Technique=" condition="end with">java.exe</ParentImage>
+			<ParentImage name="MitreRef=ToDo,Technique=" condition="end with">javaw.exe</ParentImage>
+	  		<!--                                                                                                                                            -->
+			<!--Detect Spawned Office Parent Processes & Abuse-->
+			<ParentImage name="MitreRef=ToDo,Technique=" condition="end with">word.exe</ParentImage>
+			<ParentImage name="MitreRef=ToDo,Technique=" condition="end with">excel.exe</ParentImage>
+			<ParentImage name="MitreRef=ToDo,Technique=" condition="end with">POWERPNT.exe</ParentImage>
+			<ParentImage name="MitreRef=ToDo,Technique=" condition="end with">outlook.exe</ParentImage>
+			<ParentImage name="MitreRef=ToDo,Technique=" condition="end with">visio.exe</ParentImage>
+			<ParentImage name="MitreRef=ToDo,Technique=" condition="end with">msaccess.exe</ParentImage>
+			<ParentImage name="MitreRef=ToDo,Technique=" condition="end with">lync.exe</ParentImage>
+			<ParentImage name="MitreRef=ToDo,Technique=" condition="end with">skype.exe</ParentImage>
+	  		<!--                                                                                                                                            -->
+			<!--Detect Output Redirection-->
+			<CommandLine name="Alert=Output Redirection" condition="contains">2></CommandLine>
+			<CommandLine name="Alert=Output Redirection" condition="contains">&lt;</CommandLine>
+			<CommandLine name="Alert=Output Redirection" condition="contains">></CommandLine>
+			<CommandLine name="Alert=Output Redirection" condition="contains">^</CommandLine>
+			
+	  		<!--                                                                                                                                            -->
+			<!--Detect Multiple Commands-->
+			<CommandLine name="Alert=Multiple Commands" condition="contains">&amp;</CommandLine>
+			<CommandLine name="Alert=Multiple Commands" condition="contains">;</CommandLine>
+			<CommandLine name="Alert=Command Pipe" condition="contains">|</CommandLine>
+			<CommandLine name="Alert=interactive command to slow output" condition="contains">more</CommandLine>
+			<CommandLine name="Alert=Commands run from \\tsclient share ie: samsam ransomware" condition="contains">\\tsclient</CommandLine>
+			<CommandLine name="Alert=DotDot Dirs" condition="contains">..</CommandLine>
+	  		<!--                                                                                                                                            -->
+			<!--Hack Command Line Events-->
+			<CommandLine name="MitreRef=T1059,Technique=Command-Line Interface/Execution" condition="contains">COMSPEC</CommandLine>
+			<CommandLine name="MitreRef=T1086,Technique=Execution,Alert=Powershell Invoke-Expression" condition="contains">iex</CommandLine>
+			<CommandLine name="MitreRef=T1086,Technique=Execution,Alert=Powershell Invoke-Expression" condition="contains">Invoke-Expression</CommandLine>
+			<CommandLine name="MitreRef=T1086,Technique=Execution,Alert=Powershell Invoke-WebRequest" condition="contains">iwr</CommandLine>
+			<CommandLine name="MitreRef=T1086,Technique=Execution,Alert=Powershell Invoke-WebRequest" condition="contains">Invoke-WebRequest</CommandLine>
+			<CommandLine name="MitreRef=T1086,Technique=Execution,Alert=Powershell Download" condition="contains">DownloadFile</CommandLine>
+			<CommandLine name="MitreRef=T1086,Technique=Execution,Alert=Powershell Download" condition="contains">DownloadString</CommandLine>
+			<CommandLine name="MitreRef=T1086,Technique=Execution,Alert=Powershell Download" condition="contains">Net.WebClient</CommandLine>
+			<CommandLine name="MitreRef=T1086,Technique=Execution,Alert=Powershell Download" condition="contains">System.Net.WebRequest</CommandLine>
+			<CommandLine name="MitreRef=T1086,Technique=Execution,Alert=Powershell Download" condition="contains">System.Net.SecurityProtocolType</CommandLine>
+			<CommandLine name="MitreRef=T1086,Technique=Execution,Alert=invoke-shellcode" condition="contains">Shellcode</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control-Execution,Alert=Detect Base64 encoding" condition="contains">FromBase64String</CommandLine>
+			<CommandLine name="MitreRef=T1086,Technique=Execution,Alert=Detect Secure Strings" condition="contains">convertto-securestring</CommandLine>
+			<CommandLine name="MitreRef=T1086,Technique=Execution,Alert=Detect some more obfuscation" condition="contains">VerbosePreference.ToString</CommandLine>
+	  		<!--                                                                                                                                            -->
+			<!--Ofuscated Command Line arguments-->
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">runtime.interopservices.marshal</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">VerbosePreference.ToString</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-windowstyle h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-windowstyl h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-windowsty h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-windowst h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-windows h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-window h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-windo h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-wind h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-win h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-wi h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-w h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-wi h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-win hi</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-win hid</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-win hidd</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-win hidde</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-win hidden</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-Nop</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-Noni</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-ec</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-en</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">^c^o^m^S^p^E^c^</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">C^om^S^pEc</CommandLine>
+			<!--Suspicious Windows tools-->
+			<Image condition="image">cscript.exe</Image> <!--Microsoft:WindowsScriptingHost: | Credit @Neo23x0 [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
+			<Image condition="image">wscript.exe</Image> <!--Microsoft:WindowsScriptingHost: | Credit @arekfurt -->
+			<Image condition="image">rundll32.exe</Image> <!--Microsoft:Windows: [ https://blog.cobaltstrike.com/2016/07/22/why-is-rundll32-exe-connecting-to-the-internet/ ] -->
+			<Image condition="image">notepad.exe</Image> <!--Microsoft:Windows: [ https://blog.cobaltstrike.com/2013/08/08/why-is-notepad-exe-connecting-to-the-internet/ ] -->
+			<Image condition="image">regsvr32.exe</Image> <!--Microsoft:Windows: [ https://subt0x10.blogspot.com/2016/04/bypass-application-whitelisting-script.html ] -->
+			<Image condition="image">regsvcs.exe</Image> <!--Microsoft:Windows: [ https://www.hybrid-analysis.com/sample/3f94d7080e6c5b8f59eeecc3d44f7e817b31562caeba21d02ad705a0bfc63d67?environmentId=100 ] -->
+			<Image condition="image">C:\Windows\system32\svchost.exe</Image> <!--Windows Services hidden by Svchost.exe, BITS File Transfer program-->
+			<Image condition="image">mshta.exe</Image>
+			<Image name="Alert=Psexec Utilities" condition="contains">psexe</Image><!--Detect PSExec, PSexec services-->
+			<Image name="Alert=PsKill Command" condition="contains">pskill</Image><!--Detect pskill-->
+			<Image name="Alert=Remote Shutdown with Psexec" condition="contains">psshutdown</Image><!--Detect PsShutdown-->
+			<Image condition="contains">psservice</Image><!--Detect PsService-->
+			<Image condition="contains">PsPasswd</Image><!--Detect PsPasswd-->
+			<Image name="Alert=MSBuild Applocker bypass" condition="image">msbuild.exe</Image> <!--Microsoft:Windows: [ https://www.hybrid-analysis.com/sample/a314f6106633fba4b70f9d6ddbee452e8f8f44a72117749c21243dc93c7ed3ac?environmentId=100 ] -->
+			<Image condition="image">installutil.exe</Image>
+			<Image name="Alert=MSI Installer Launched" condition="image">msiexec.exe</Image> <!-- msiexec /i http://pathtomsi -->
+			<Image name="Alert=Remote Desktop" condition="image">mstsc.exe</Image><!-- Remote Desktop -->
+			<Image name="Alert=Telnet Terminal Emulator" condition="image">telnet.exe</Image><!-- Telnet -->
+			<Image condition="image">SyncAppvPublishingServer.exe</Image><!--Mitre T1218-->
+			<Image condition="image">Mavinject.exe</Image><!--Mitre T1218-->
+			<Image name="Alert=Secure Shell Execution" condition="image">ssh.exe</Image><!-- SSH -->
+			<Image name="Alert=Secure Shell Execution" condition="image">putty.exe</Image><!-- SSH -->
+			<Image name="Alert=Secure Shell Execution"condition="image">kitty.exe</Image><!-- SSH -->
+			<Image cname="Alert=Secure Shell Execution"ondition="image">kitty_portable.exe</Image><!-- SSH -->
+			<Image name="Alert=Secure Shell FTP Execution"condition="image">psftp.exe</Image><!-- SFTP -->
+			<Image condition="image">tftp.exe</Image><!-- TFTP -->
+			<Image condition="image">wmic.exe</Image><!-- wmic /node logging -->
+			<Image condition="image">net.exe</Image><!-- net use/net view-->
+			<Image condition="image">nbtstat.exe</Image><!-- Netbios stat-->
+			<Image condition="image">dsquery.exe</Image><!-- Query domain-->
+			<Image condition="image">driverquery.exe</Image><!-- Remote Driver querying-->
+			<Image condition="image">infDefaultInstall.exe</Image> <!--Microsoft: [ https://github.com/huntresslabs/evading-autoruns ] | Credit @KyleHanslovan -->
+			<Image condition="image">sc.exe</Image><!-- Service Control Manager-->
+			<Image condition="image">auditpol.exe</Image><!-- Auditpol-->
+			<Image condition="image">qwinsta.exe</Image><!-- Query Remote Sessions-->
+			<Image condition="image">rwinsta.exe</Image><!-- Reset Remote Sessions-->
+			<Image condition="image">curl.exe</Image>
+			<Image condition="image">wget.exe</Image>
+			<Image condition="image">www.exe</Image>
+			<Image condition="image">awk.exe</Image>
+			<Image condition="image">sed.exe</Image>
+			<!--Tor-->
+			<Image condition="image">tor.exe</Image><!-- Tor-->
+			<!--                                                                                                                                            -->
+			<!--Suspicious Command Line Locations-->
+			<Image name="MitreRef=T1059,Technique=Command-Line Interface/Execution" condition="end with">.com</Image>
+			<Image name="Info=Executables Launched In Temp" condition="contains">\temp\</Image>
+			<Image name="Info=Executables Launched In User Dirs" condition="begin with">C:\users</Image>
+			<ParentImage condition="end with">explorer.exe</ParentImage>
+			<Image condition="end with">control.exe</Image>
+			<Image condition="end with">acrord32.exe</Image>
+			<Image condition="end with">installutil.exe</Image>
+			<Image name="Info=Registry modification/queries" condition="end with">reg.exe</Image>
+			<Image name="Info=ipconfig discovery" condition="end with">ipconfig.exe</Image>
+			<Image name="Info=Executables Launched In Appdata" condition="contains">\appdata\</Image>
+			<Image condition="contains">\programdata\</Image>
+			<Image condition="contains">\Users</Image> <!--Tools downloaded by users can use other processes for networking, but this is a very valuable indicator.-->
+			<Image condition="contains">\ProgramData</Image>
+			<Image condition="contains">\Windows\</Image>
+			<Image condition="contains">\Perflogs\</Image>
+			<Image condition="contains">\config\systemprofile\</Image>
+			<!--Include Everything last to allow rules to apply and to allow previous exclude ruleset to function-->
+			<Image condition="contains">\</Image>
+		</ProcessCreate>
 		<ProcessCreate onmatch="exclude">
 			<!--SECTION: Microsoft Windows-->
 			<IntegrityLevel condition="is">AppContainer</IntegrityLevel> <!--Microsoft:Windows: Don't care about sandboxed processes-->
@@ -516,6 +814,31 @@
 			<DestinationHostname condition="contains">tor2web.blutmagie.de</DestinationHostname>
 			<DestinationHostname condition="contains">tor-gateways.de</DestinationHostname>
 			<DestinationHostname condition="contains">hiddenservice.net</DestinationHostname>
+			<!--Public Port Scan Detection-->
+			<DestinationHostname name="MitreRef=T1046,Technique=Discovery/Reconnaissance" condition="contains">shodan</DestinationHostname>
+			<DestinationHostname name="MitreRef=T1046,Technique=Discovery/Reconnaissance" condition="contains">shadow</DestinationHostname>
+			<DestinationHostname name="MitreRef=T1046,Technique=Discovery/Reconnaissance" condition="contains">researchscan</DestinationHostname>
+			<DestinationHostname name="MitreRef=T1046,Technique=Discovery/Reconnaissance" condition="contains">census</DestinationHostname>
+			<DestinationHostname name="MitreRef=T1046,Technique=Discovery/Reconnaissance" condition="contains">linode</DestinationHostname>
+			<DestinationHostname name="MitreRef=T1046,Technique=Discovery/Reconnaissance" condition="contains">sl-reverse</DestinationHostname>
+			<DestinationHostname name="MitreRef=T1046,Technique=Discovery/Reconnaissance" condition="contains">scanhub</DestinationHostname>
+			<DestinationIp name="MitreRef=T1046,Technique=Discovery/Reconnaissance" condition="contains">.edu</DestinationIp>
+			<DestinationIp name="MitreRef=T1046,Technique=Discovery/Reconnaissance" condition="contains">158.130.6.</DestinationIp>
+			<DestinationIp name="MitreRef=T1046,Technique=Discovery/Reconnaissance" condition="contains">71.6.216.</DestinationIp>
+			<DestinationIp name="MitreRef=T1046,Technique=Discovery/Reconnaissance" condition="contains">137.226.113.</DestinationIp>
+			<DestinationIp name="MitreRef=T1046,Technique=Discovery/Reconnaissance" condition="contains">138.246.252.</DestinationIp>
+			<DestinationIp name="MitreRef=T1046,Technique=Discovery/Reconnaissance" condition="contains">128.32.30.</DestinationIp>
+			<DestinationIp name="MitreRef=T1046,Technique=Discovery/Reconnaissance" condition="contains">208.93.152.</DestinationIp>
+			<DestinationIp name="MitreRef=T1046,Technique=Discovery/Reconnaissance" condition="contains">162.216.46.</DestinationIp>
+			<DestinationIp name="MitreRef=T1046,Technique=Discovery/Reconnaissance" condition="contains">169.229.3.</DestinationIp>
+			<DestinationIp name="MitreRef=T1046,Technique=Discovery/Reconnaissance" condition="contains">155.94.254.</DestinationIp>
+			<DestinationIp name="MitreRef=T1046,Technique=Discovery/Reconnaissance" condition="contains">98.143.148.</DestinationIp>
+			<DestinationIp name="MitreRef=T1046,Technique=Discovery/Reconnaissance" condition="contains">155.94.222.</DestinationIp>
+			<DestinationIp name="MitreRef=T1046,Technique=Discovery/Reconnaissance" condition="contains">134.147.203.</DestinationIp>
+			<DestinationIp name="MitreRef=T1046,Technique=Discovery/Reconnaissance" condition="contains">69.170.62.</DestinationIp>
+			<DestinationIp name="MitreRef=T1046,Technique=Discovery/Reconnaissance" condition="contains">159.203.213.</DestinationIp>
+			<DestinationIp name="MitreRef=T1046,Technique=Discovery/Reconnaissance" condition="contains">209.236.120.</DestinationIp>
+			<DestinationIp name="MitreRef=T1046,Technique=Discovery/Reconnaissance" condition="contains">158.130.6</DestinationIp>
 			<!--Ports-->
 			<DestinationPort condition="is">80</DestinationPort> <!--RDP Port-->
 			<DestinationPort condition="is">443</DestinationPort> <!--RDP Port-->
