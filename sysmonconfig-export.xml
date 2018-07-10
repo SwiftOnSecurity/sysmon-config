@@ -683,6 +683,9 @@
 			<!--N-Able/N-Central Exclusions-->
 			<Image condition="is">C:\Program Files (x86)\N-able Technologies\Windows Agent\bin\bitsadmin.exe</Image>
 			<Image condition="is">C:\Program Files\N-able Technologies\Windows Agent\bin\bitsadmin.exe</Image>
+			<ParentImage condition="is">C:\Program Files (x86)\N-able Technologies\Windows Software Probe\bin\wsp.exe</ParentImage>
+			<ParentImage condition="is">C:\Program Files (x86)\N-able Technologies\Windows Agent\bin\agent.exe</ParentImage>
+			<ParentImage condition="is">C:\Program Files (x86)\MaaS360\Cloud Extender\EMSAgent.exe</ParentImage>
 			<Hashes condition="contains">3070E798134A11ADB01129F06A36CD924267E6DA95DAB2E3196105264D2BF818</Hashes><!--Winlogbeat-->
 		</ProcessCreate>
 
