@@ -73,40 +73,40 @@
 		<ProcessCreate onmatch="include">
 			<!--Mitre ATT&CK Rules-->
 			<!--MITRE TACTIC: Defense Evasion-->
-			<Image name="MitreRef=T1117,Technique=Regsvr32-Defense Evasion/Execution" condition="end with">regsvr32.exe</Image> <!--Microsoft:Windows: [ https://subt0x10.blogspot.com/2016/04/bypass-application-whitelisting-script.html ] -->
-			<Image name="MitreRef=T1197,Technique=Bitsadmin File Transfers/Defense Evasion" condition="end with">bitsadmin.exe</Image>
-			<ParentImage name="MitreRef=T1088,Technique=UAC Bypass,Tactic=Defense Evasion/Privilege Escalation" condition="end with">eventvwr.exe</ParentImage>
-			<ParentImage name="MitreRef=T1088,Technique=UAC Bypass,Tactic=Defense Evasion/Privilege Escalation" condition="end with">fodhelper.exe</ParentImage>
-			<Image name="MitreRef=T1118,Technique=InstallUtil,Tactic=Defense Evasion/Execution" condition="end with">InstallUtil.exe</Image>
+			<Image name="MitreRef=T1117,Technique=Regsvr32-Defense Evasion/Execution" condition="is">regsvr32.exe</Image> <!--Microsoft:Windows: [ https://subt0x10.blogspot.com/2016/04/bypass-application-whitelisting-script.html ] -->
+			<Image name="MitreRef=T1197,Technique=Bitsadmin File Transfers/Defense Evasion" condition="is">bitsadmin.exe</Image>
+			<ParentImage name="MitreRef=T1088,Technique=UAC Bypass,Tactic=Defense Evasion/Privilege Escalation" condition="is">eventvwr.exe</ParentImage>
+			<ParentImage name="MitreRef=T1088,Technique=UAC Bypass,Tactic=Defense Evasion/Privilege Escalation" condition="is">fodhelper.exe</ParentImage>
+			<Image name="MitreRef=T1118,Technique=InstallUtil,Tactic=Defense Evasion/Execution" condition="is">InstallUtil.exe</Image>
 			<CommandLine name="MitreRef=T1118,Technique=InstallUtil,Tactic=Defense Evasion/Execution" condition="contains">/logfile= /LogToConsole=false /U</CommandLine>
-			<Image name="MitreRef=T1191,Technique=Trusted Developer Utilities,Tactic=Defense Evasion/Execution,Note=MSBuild Applocker Bypass" condition="end with">MSBuild.exe</Image>
-	        <Image name="MitreRef=T1121,Technique=Trusted Developer Utilities,Tactic=Defense Evasion/Execution,Note=MSBuild Applocker Bypass" condition="end with">regsvcs.exe</Image>
-			<Image name="MitreRef=T1121,Technique=Trusted Developer Utilities,Tactic=Defense Evasion/Execution,Note=MSBuild Applocker Bypass" condition="end with">regasm.exe</Image>
-			<Image name="MitreRef=T1218,Technique=Trusted Developer Utilities,Tactic=Defense Evasion/Execution,Note=MSBuild Applocker Bypass" condition="end with">SyncAppvPublishingServer.exe</Image>
-			<Image name="MitreRef=T1218,Technique=Defense Evasion/Execution" condition="end with">control.exe</Image>
+			<Image name="MitreRef=T1191,Technique=Trusted Developer Utilities,Tactic=Defense Evasion/Execution,Note=MSBuild Applocker Bypass" condition="is">MSBuild.exe</Image>
+	        <Image name="MitreRef=T1121,Technique=Trusted Developer Utilities,Tactic=Defense Evasion/Execution,Note=MSBuild Applocker Bypass" condition="is">regsvcs.exe</Image>
+			<Image name="MitreRef=T1121,Technique=Trusted Developer Utilities,Tactic=Defense Evasion/Execution,Note=MSBuild Applocker Bypass" condition="is">regasm.exe</Image>
+			<Image name="MitreRef=T1218,Technique=Trusted Developer Utilities,Tactic=Defense Evasion/Execution,Note=MSBuild Applocker Bypass" condition="is">SyncAppvPublishingServer.exe</Image>
+			<Image name="MitreRef=T1218,Technique=Defense Evasion/Execution" condition="is">control.exe</Image>
 	        <CommandLine name="MitreRef=T1196,Technique=Control Panel Items,Tactic=Defense Evasion/Execution" condition="contains">control.exe /name</CommandLine>
 			<CommandLine name="MitreRef=T1196,Technique=Control Panel Items,Tactic=Defense Evasion/Execution" condition="contains">rundll32.exe shell32.dll,Control_RunDLL</CommandLine>
-			<Image name="MitreRef=T1170,Technique=MSHTA,Tactic=Defense Evasion/Execution" condition="end with">mshta.exe</Image>
-			<Image name="MitreRef=T1070,Technique=Indicator Removal on Host,Tactic=Defense Evasion" condition="end with">wevutil.exe</Image>
+			<Image name="MitreRef=T1170,Technique=MSHTA,Tactic=Defense Evasion/Execution" condition="is">mshta.exe</Image>
+			<Image name="MitreRef=T1070,Technique=Indicator Removal on Host,Tactic=Defense Evasion" condition="is">wevutil.exe</Image>
 			<CommandLine name="MitreRef=T1070,Technique=Indicator Removal on Host,Tactic=Defense Evasion" condition="contains">wevutil cl</CommandLine>
 			<!--MITRE TACTIC: Discovery-->
 			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="begin with">net user</CommandLine>
 			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="begin with">net localgroup</CommandLine>
 			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="begin with">net group</CommandLine>
-			<Image name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="image">dsquery.exe</Image><!-- Query domain-->
-			<Image name="MitreRef=T1049,Technique=System Network Connections Discovery,Tactic=Discovery,MitreURL=https://attack.mitre.org/wiki/Technique/T1049" condition="end with">whoami.exe</Image>
-			<Image name="MitreRef=T1049,Technique=Discovery,Tactic=Discovery" condition="end with">ipconfig.exe</Image> <!--Microsoft:Windows: shows ip configuration -->
-			<Image name="MitreRef=T1057,Technique=Process Discovery,Tactic=Discovery" condition="end with">tasklist.exe</Image> <!--Microsoft:Windows: shows current running processes-->
-			<Image name="MitreRef=T1016,Technique=System Information Discovery,Tactic=Discovery" condition="end with">sysinfo.exe</Image> <!--Microsoft:Windows: shows systeminformation -->
-			<Image name="MitreRef=T1049,Technique=System Network Connections Discovery,Tactic=Discovery" condition="end with">netstat.exe</Image> <!--Microsoft:Windows: shows protocol statistics and current TCP/IP network connections -->
-			<Image name="MitreRef=T1057,Technique=Process Discovery,Tactic=Discovery" condition="end with">qprocess.exe</Image> <!--Microsoft:Windows: shows information about processes -->
+			<Image name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="is">dsquery.exe</Image><!-- Query domain-->
+			<Image name="MitreRef=T1049,Technique=System Network Connections Discovery,Tactic=Discovery,MitreURL=https://attack.mitre.org/wiki/Technique/T1049" condition="is">whoami.exe</Image>
+			<Image name="MitreRef=T1049,Technique=Discovery,Tactic=Discovery" condition="is">ipconfig.exe</Image> <!--Microsoft:Windows: shows ip configuration -->
+			<Image name="MitreRef=T1057,Technique=Process Discovery,Tactic=Discovery" condition="is">tasklist.exe</Image> <!--Microsoft:Windows: shows current running processes-->
+			<Image name="MitreRef=T1016,Technique=System Information Discovery,Tactic=Discovery" condition="is">sysinfo.exe</Image> <!--Microsoft:Windows: shows systeminformation -->
+			<Image name="MitreRef=T1049,Technique=System Network Connections Discovery,Tactic=Discovery" condition="is">netstat.exe</Image> <!--Microsoft:Windows: shows protocol statistics and current TCP/IP network connections -->
+			<Image name="MitreRef=T1057,Technique=Process Discovery,Tactic=Discovery" condition="is">qprocess.exe</Image> <!--Microsoft:Windows: shows information about processes -->
 			<Image name="MitreRef=T1049,Technique=System Network Connections Discovery,Tactic=Discovery" condition="end with">nslookup.exe</Image> <!--Microsoft:Windows: shows DNS configuration and enables quering -->
 			<Image name="MitreRef=T1201/T1087,Technique=System Network Connections Discovery/Account Discovery,Tactic=Discovery" condition="is">net.exe</Image> <!--Microsoft:Windows: "net use"/"net view" used by attackers to surveil and connect with file shares from command line | Credit @ion-storm -->
 			<Image name="MitreRef=T1201/T1087,Technique=System Network Connections Discovery/Account Discovery,Tactic=Discovery" condition="is">net1.exe</Image> <!--Microsoft:Windows: "net use"/"net view" used by attackers to surveil and connect with file shares from command line | Credit @ion-storm -->
-			<Image name="MitreRef=T1049,Technique=System Network Connections Discovery,Tactic=Discovery" condition="end with">quser.exe</Image> <!--Microsoft:Windows: shows logged-on users -->
-			<Image name="MitreRef=T1016,Technique=System Network Configuration Discovery,Tactic=Discovery" condition="end with">route.exe</Image> <!--Microsoft:Windows: manipulates network routing tables -->
-			<Image name="MitreRef=T1016,Technique=System Information Discovery,Tactic=Discovery" condition="end with">reg.exe</Image> <!--Microsoft:Windows: reads and modifies the Windows register -->
-			<Image name="MitreRef=T1016,Technique=System Network Connections Discovery,Tactic=Discovery" condition="end with">netsh.exe</Image> <!--Microsoft:Windows: manipulate the firewall -->
+			<Image name="MitreRef=T1049,Technique=System Network Connections Discovery,Tactic=Discovery" condition="is">quser.exe</Image> <!--Microsoft:Windows: shows logged-on users -->
+			<Image name="MitreRef=T1016,Technique=System Network Configuration Discovery,Tactic=Discovery" condition="is">route.exe</Image> <!--Microsoft:Windows: manipulates network routing tables -->
+			<Image name="MitreRef=T1016,Technique=System Information Discovery,Tactic=Discovery" condition="is">reg.exe</Image> <!--Microsoft:Windows: reads and modifies the Windows register -->
+			<Image name="MitreRef=T1016,Technique=System Network Connections Discovery,Tactic=Discovery" condition="is">netsh.exe</Image> <!--Microsoft:Windows: manipulate the firewall -->
 			<!--MITRE TACTIC: Execution-->
 			<CommandLine name="MitreRef=T1059,Technique=Command-Line Interface,Tactic=Execution" condition="contains">COMSPEC</CommandLine>
 			<ParentCommandLine name="MitreRef=T1059,Technique=Command-Line Interface,Tactic=Execution" condition="contains">COMSPEC</ParentCommandLine>
