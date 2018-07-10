@@ -685,7 +685,11 @@
 			<Image condition="is">C:\Program Files\N-able Technologies\Windows Agent\bin\bitsadmin.exe</Image>
 			<ParentImage condition="is">C:\Program Files (x86)\N-able Technologies\Windows Software Probe\bin\wsp.exe</ParentImage>
 			<ParentImage condition="is">C:\Program Files (x86)\N-able Technologies\Windows Agent\bin\agent.exe</ParentImage>
-			<ParentImage condition="is">C:\Program Files (x86)\MaaS360\Cloud Extender\EMSAgent.exe</ParentImage>
+			<ParentImage condition="is">C:\Program Files (x86)\N-able Technologies\Windows Agent\bin\AutomationManager.ScriptRunner64.exe</ParentImage>			
+			<Image condition="is">C:\Program Files (x86)\N-able Technologies\Windows Agent\bin\AutomationManager.ScriptRunner64.exe</Image>			
+			<ParentImage condition="is">C:\Program Files\N-able Technologies\AVDefender\installer\installer.exe	</ParentImage>
+			<ParentImage condition="is">C:\Program Files\N-able Technologies\AVDefender\epupdateservice.exe</ParentImage>
+			<ParentImage condition="is">C:\Program Files (x86)\N-able Technologies\Windows Agent\bin\ShadowProtectDataReader.exe</ParentImage>
 			<Hashes condition="contains">3070E798134A11ADB01129F06A36CD924267E6DA95DAB2E3196105264D2BF818</Hashes><!--Winlogbeat-->
 			<!--Sysmon Auto-Update Exclusion-->
 			<ParentCommandLine condition="contains">\sysmon\Auto_Update.bat</ParentCommandLine>
