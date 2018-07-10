@@ -109,13 +109,13 @@
 			<Image name="MitreRef=T1016,Technique=System Information Discovery" condition="end with">reg.exe</Image> <!--Microsoft:Windows: reads and modifies the Windows register -->
 			<Image name="MitreRef=T1016,Technique=System Network Connections Discovery" condition="end with">netsh.exe</Image> <!--Microsoft:Windows: manipulate the firewall -->
 			<!--MITRE TACTIC: Execution-->
-			<CommandLine name="MitreRef=T1059,Technique=Command-Line Interface/Execution" condition="contains">COMSPEC</CommandLine>
-			<ParentCommandLine name="MitreRef=T1059,Technique=Command-Line Interface/Execution" condition="contains">COMSPEC</ParentCommandLine>
-			<Image name="MitreRef=T1059,Technique=" condition="end with">cmd.exe</Image> <!--Microsoft:Windows: Command prompt-->
-			<ParentImage name="MitreRef=T1059,Technique=" condition="end with">cmd.exe</ParentImage> <!--Microsoft:Windows: Command prompt-->
-			<Image name="MitreRef=T1086,Technique=Execution" condition="end with">powershell.exe</Image> <!--Microsoft:Windows: PowerShell interface-->
-			<Description name="MitreRef=T1086,Technique=Execution" condition="end with">powershell.exe</Description> <!--Microsoft:Windows: PowerShell interface-->
-			<ParentImage name="MitreRef=T1086,Technique=Execution" condition="end with">powershell.exe</ParentImage> <!--Microsoft:Windows: PowerShell interface-->
+			<CommandLine name="MitreRef=T1059,Technique=Command-Line Interface,Tactic=Execution" condition="contains">COMSPEC</CommandLine>
+			<ParentCommandLine name="MitreRef=T1059,Technique=Command-Line Interface,Tactic=Execution" condition="contains">COMSPEC</ParentCommandLine>
+			<Image name="MitreRef=T1059,Technique=Command-Line Interface,Tactic=Execution" condition="end with">cmd.exe</Image> <!--Microsoft:Windows: Command prompt-->
+			<ParentImage name="MitreRef=T1059,Technique=Command-Line Interface,Tactic=Execution" condition="end with">cmd.exe</ParentImage> <!--Microsoft:Windows: Command prompt-->
+			<Image name="MitreRef=T1086,Technique=Powershell" condition="end with">powershell.exe</Image> <!--Microsoft:Windows: PowerShell interface-->
+			<Description name="MitreRef=T1086,Technique=Powershell,Tactic=Execution" condition="end with">powershell.exe</Description> <!--Microsoft:Windows: PowerShell interface-->
+			<ParentImage name="MitreRef=T1086,Technique=Powershell,Tactic=Execution" condition="end with">powershell.exe</ParentImage> <!--Microsoft:Windows: PowerShell interface-->
 			<CommandLine name="MitreRef=T1086,Technique=PowerShell,Tactic=Execution,Alert=Powershell Invoke-Expression" condition="contains">iex</CommandLine>
 			<CommandLine name="MitreRef=T1086,Technique=PowerShell,Tactic=Execution,Alert=Powershell Invoke-Expression" condition="contains">Invoke-Expression</CommandLine>
 			<CommandLine name="MitreRef=T1086,Technique=PowerShell,Tactic=Execution,Alert=Powershell Invoke-WebRequest" condition="contains">iwr</CommandLine>
@@ -128,11 +128,11 @@
 			<CommandLine name="MitreRef=T1086,Technique=PowerShell,Tactic=Execution,Alert=invoke-shellcode" condition="contains">Shellcode</CommandLine>
 			<Image name="MitreRef=T1202,Technique=Hacking/LOLBins-Living off the Land" condition="end with">bash.exe</Image> <!--Microsoft:Windows: bash on Windows, Linux subsystem-->
 			<ParentImage name="MitreRef=T1202,Technique=Hacking/LOLBins-Living off the Land" condition="end with">bash.exe</ParentImage> <!--Microsoft:Windows: bash on Windows, Linux subsystem-->
-			<ParentImage name="MitreRefS=S0029,Command execution - Execution/Lateral Movement" condition="end with">psexesvc.exe</ParentImage>
-			<Description name="MitreRefS=S0029,Command execution - Execution/Lateral Movement" condition="contains">Execute processes remotely</Description>
-			<ParentImage name="MitreRefS=S0029,Command execution - Execution/Lateral Movement" condition="end with">psexec.exe</ParentImage>
-			<Description name="MitreRefS=S0029,Command execution - Execution/Lateral Movement" condition="contains">Execute processes remotely</Description>
-			<ParentImage name="MitreRefS=S0029,Command execution - Execution/Lateral Movement" condition="end with">pskill.exe</ParentImage>
+			<ParentImage name="MitreRefS=S0029,Technique=Command execution - Execution/Lateral Movement" condition="end with">psexesvc.exe</ParentImage>
+			<Description name="MitreRefS=S0029,Technique=Command execution - Execution/Lateral Movement" condition="contains">Execute processes remotely</Description>
+			<ParentImage name="MitreRefS=S0029,Technique=Command execution - Execution/Lateral Movement" condition="end with">psexec.exe</ParentImage>
+			<Description name="MitreRefS=S0029,Technique=Command execution - Execution/Lateral Movement" condition="contains">Execute processes remotely</Description>
+			<ParentImage name="MitreRefS=S0029,Technique=Command execution - Execution/Lateral Movement" condition="end with">pskill.exe</ParentImage>
 			<Image name="MitreRef=T1202,Technique=Indirect Command Execution" condition="end with">forfiles.exe</Image>
 			<ParentImage name="MitreRef=T1202,Technique=Indirect Command Execution" condition="end with">forfiles.exe</ParentImage>
 			<Image name="MitreRef=T1202,Technique=Indirect Command Execution" condition="end with">pcalua.exe</Image>
@@ -853,11 +853,11 @@
 			<DestinationIp name="MitreRef=T1046,Technique=Network Service Scanning/Reconnaissance,Tactic=Discovery" condition="contains">209.236.120.</DestinationIp>
 			<DestinationIp name="MitreRef=T1046,Technique=Network Service Scanning/Reconnaissance,Tactic=Discovery" condition="contains">158.130.6</DestinationIp>
 			<!--Ports-->
-			<DestinationPort condition="is">80</DestinationPort> <!--RDP Port-->
-			<DestinationPort condition="is">443</DestinationPort> <!--RDP Port-->
-			<DestinationPort condition="is">3389</DestinationPort> <!--RDP Port-->
+			<DestinationPort name="Service=HTTP Connection" condition="is">80</DestinationPort> <!--RDP Port-->
+			<DestinationPort name="Service=HTTPS Connection" condition="is">443</DestinationPort>
+			<DestinationPort name="Service=Remote Desktop Connection" condition="is">3389</DestinationPort> <!--RDP Port-->
 			<DestinationPort condition="is">3540</DestinationPort> <!--Remote Assistance Port-->
-			<DestinationPort condition="is">22</DestinationPort>   <!--SSH Port-->
+			<DestinationPort name="Service=SSH Connection" condition="is">22</DestinationPort>   <!--SSH Port-->
 			<DestinationPort condition="is">23</DestinationPort>   <!--Telnet Port-->
 			<DestinationPort condition="is">25</DestinationPort>   <!--SMTP Port-->
 			<DestinationPort condition="is">139</DestinationPort>  <!--SMB Port-->
@@ -1269,7 +1269,7 @@
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime-->
 		<FileCreate onmatch="include">
 			<TargetFilename condition="contains">\Start Menu</TargetFilename> <!--Microsoft:Windows: Startup links and shortcut modification-->
-			<TargetFilename condition="contains">\Startup</TargetFilename> <!--Microsoft:Office: Changes to user's autoloaded files under AppData-->
+			<TargetFilename name="MitreRef=T1060,Technique=Autorun Folder,Tactic=Persistence" condition="contains">\Startup</TargetFilename> <!--Microsoft:Office: Changes to user's autoloaded files under AppData-->
 			<TargetFilename condition="contains">\Content.Outlook\</TargetFilename> <!--Microsoft:Outlook: attachments--> <!--PRIVACY WARNING-->
 			<TargetFilename condition="contains">\Downloads\</TargetFilename> <!--Downloaded files. Does not include "Run" files in IE--> <!--PRIVACY WARNING-->
 			<TargetFilename condition="end with">.dll</TargetFilename> <!-- Lets detect DLL's being dropped in locations and to detect DLL Search Order Hijacking -->
@@ -1525,14 +1525,14 @@
 				<!--ADDITIONAL REFERENCE: [ http://www.ghacks.net/2016/06/04/windows-automatic-startup-locations/ ] -->
 				<!--ADDITIONAL REFERENCE: [ https://view.officeapps.live.com/op/view.aspx?src=https://arsenalrecon.com/downloads/resources/Registry_Keys_Related_to_Autorun.ods ] -->
 				<!--ADDITIONAL REFERENCE: [ http://www.silentrunners.org/launchpoints.html ] -->
-			<TargetObject condition="contains">\CurrentVersion\Run</TargetObject> <!--Microsoft:Windows: Run keys, incld RunOnce, RunOnceEx, RunServices, RunServicesOnce [Also covers terminal server] -->
-			<TargetObject condition="contains">\Group Policy\Scripts</TargetObject> <!--Microsoft:Windows: Group policy scripts-->
-			<TargetObject condition="contains">\Windows\System\Scripts</TargetObject> <!--Microsoft:Windows: Logon, Loggoff, Shutdown-->
-			<TargetObject condition="contains">\Microsoft\System\Scripts</TargetObject> <!--Microsoft:Windows: Legacy Logon, Loggoff, Shutdown Scripts-->
-			<TargetObject condition="end with">\ServiceDll</TargetObject> <!--Microsoft:Windows: Points to a service's DLL [ https://blog.cylance.com/windows-registry-persistence-part-1-introduction-attack-phases-and-windows-services ] -->
-			<TargetObject condition="end with">\ImagePath</TargetObject> <!--Microsoft:Windows: Points to a service's EXE [ https://github.com/crypsisgroup/Splunkmon/blob/master/sysmon.cfg ] -->
-			<TargetObject condition="end with">\Start</TargetObject> <!--Microsoft:Windows: Services start mode changes (Disabled, Automatically, Manual)-->
-			<TargetObject condition="begin with">HKLM\SYSTEM\Setup\CmdLine</TargetObject>
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="contains">\CurrentVersion\Run</TargetObject> <!--Microsoft:Windows: Run keys, incld RunOnce, RunOnceEx, RunServices, RunServicesOnce [Also covers terminal server] -->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="contains">\Group Policy\Scripts</TargetObject> <!--Microsoft:Windows: Group policy scripts-->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="contains">\Windows\System\Scripts</TargetObject> <!--Microsoft:Windows: Logon, Loggoff, Shutdown-->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="contains">\Microsoft\System\Scripts</TargetObject> <!--Microsoft:Windows: Legacy Logon, Loggoff, Shutdown Scripts-->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="end with">\ServiceDll</TargetObject> <!--Microsoft:Windows: Points to a service's DLL [ https://blog.cylance.com/windows-registry-persistence-part-1-introduction-attack-phases-and-windows-services ] -->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="end with">\ImagePath</TargetObject> <!--Microsoft:Windows: Points to a service's EXE [ https://github.com/crypsisgroup/Splunkmon/blob/master/sysmon.cfg ] -->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="end with">\Start</TargetObject> <!--Microsoft:Windows: Services start mode changes (Disabled, Automatically, Manual)-->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="begin with">HKLM\SYSTEM\Setup\CmdLine</TargetObject>
 			<TargetObject condition="contains">Session Manager\KnownDlls</TargetObject>
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Print\Monitors</TargetObject> <!-- Print Monitor DLL's loaded at startup can be malicious, lets monitor those -->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Print\Providers</TargetObject> <!-- Print Provider DLL's loaded at startup can be malicious, lets monitor those -->
@@ -1543,29 +1543,29 @@
 			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Control\Lsa\Authentication Packages</TargetObject> <!-- Windows Security Support Provider (SSP) DLLs are loaded into the Local Security Authority (LSA) process at system start. Once loaded into the LSA, SSP DLLs have access to encrypted and plaintext passwords that are stored in Windows, such as any logged-on user's Domain password or smart card PINs. -->
 			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Control\Lsa\OSConfig\Authentication Packages</TargetObject> <!-- Windows Security Support Provider (SSP) DLLs are loaded into the Local Security Authority (LSA) process at system start. Once loaded into the LSA, SSP DLLs have access to encrypted and plaintext passwords that are stored in Windows, such as any logged-on user's Domain password or smart card PINs. -->
 			<TargetObject condition="begin with">HKLM\HARDWARE\ACPI\DSDT</TargetObject> <!--Detect ACPI Rootkits -->
-			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify\</TargetObject> <!--Microsoft:Windows: Autorun location [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
-			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Userinit\</TargetObject> <!--Microsoft:Windows: Autorun location [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
-			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\VmApplet</TargetObject> <!--Microsoft:Windows: Legacy Autorun Location -->
-			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Control\Session Manager\Execute</TargetObject> <!--Microsoft:Windows: Legacy Autorun Location-->
-			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Control\Session Manager\SetupExecute</TargetObject> <!--Microsoft:Windows: Legacy Autorun Location-->
-			<TargetObject condition="begin with">HKLM\Software\Microsoft\WindowsNT\CurrentVersion\Winlogon</TargetObject> <!--Microsoft:Windows: Legacy Autorun Location-->
-			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\AppSetup</TargetObject> <!--Microsoft:Windows: Legacy Autorun Location-->
-			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\BootExecute</TargetObject> <!--Microsoft:Windows: Autorun | Credit @ion-storm | [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
-			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\BootVerificationProgram\ImagePath</TargetObject><!--Microsoft:Windows: Legacy Autorun may exist in server 2003-2008-->
-			<TargetObject condition="begin with">HKLM\Software\Microsoft\Command Processor\AutoRun</TargetObject> <!-- Legacy Autorun location -->
-			<TargetObject condition="begin with">HKLM\Software\Wow6432Node\Microsoft\Command Processor\AutoRun</TargetObject> <!-- Legacy Autorun location -->
-			<TargetObject condition="begin with">HKLU\Software\Microsoft\Command Processor\AutoRun</TargetObject> <!-- Legacy Autorun location -->
-			<TargetObject condition="begin with">HKLM\Software\Wow6432Node\Microsoft\Command Processor\AutoRun</TargetObject> <!-- Legacy Autorun location -->
-			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows NT\CurrentVersion\AeDebug</TargetObject> <!-- Windows Debugger Hijack Autorun -->
-			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\Shell</TargetObject> <!--Microsoft:Windows: [ https://technet.microsoft.com/en-us/library/ee851671.aspx ] -->
-			<TargetObject condition="contains">UserInitMprLogonScript</TargetObject> <!--Microsoft:Windows: Legacy logon script environment variable [ http://www.hexacorn.com/blog/2014/11/14/beyond-good-ol-run-key-part-18/ ] -->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify\</TargetObject> <!--Microsoft:Windows: Autorun location [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Userinit\</TargetObject> <!--Microsoft:Windows: Autorun location [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\VmApplet</TargetObject> <!--Microsoft:Windows: Legacy Autorun Location -->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="begin with">HKLM\System\CurrentControlSet\Control\Session Manager\Execute</TargetObject> <!--Microsoft:Windows: Legacy Autorun Location-->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="begin with">HKLM\System\CurrentControlSet\Control\Session Manager\SetupExecute</TargetObject> <!--Microsoft:Windows: Legacy Autorun Location-->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="begin with">HKLM\Software\Microsoft\WindowsNT\CurrentVersion\Winlogon</TargetObject> <!--Microsoft:Windows: Legacy Autorun Location-->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\AppSetup</TargetObject> <!--Microsoft:Windows: Legacy Autorun Location-->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\BootExecute</TargetObject> <!--Microsoft:Windows: Autorun | Credit @ion-storm | [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\BootVerificationProgram\ImagePath</TargetObject><!--Microsoft:Windows: Legacy Autorun may exist in server 2003-2008-->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="begin with">HKLM\Software\Microsoft\Command Processor\AutoRun</TargetObject> <!-- Legacy Autorun location -->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="begin with">HKLM\Software\Wow6432Node\Microsoft\Command Processor\AutoRun</TargetObject> <!-- Legacy Autorun location -->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="begin with">HKLU\Software\Microsoft\Command Processor\AutoRun</TargetObject> <!-- Legacy Autorun location -->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="begin with">HKLM\Software\Wow6432Node\Microsoft\Command Processor\AutoRun</TargetObject> <!-- Legacy Autorun location -->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="begin with">HKLM\Software\Microsoft\Windows NT\CurrentVersion\AeDebug</TargetObject> <!-- Windows Debugger Hijack Autorun -->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="begin with">HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\Shell</TargetObject> <!--Microsoft:Windows: [ https://technet.microsoft.com/en-us/library/ee851671.aspx ] -->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="contains">UserInitMprLogonScript</TargetObject> <!--Microsoft:Windows: Legacy logon script environment variable [ http://www.hexacorn.com/blog/2014/11/14/beyond-good-ol-run-key-part-18/ ] -->
 			<TargetObject condition="end with">\CurrentVersion\Font Drivers</TargetObject>
 			<TargetObject condition="contains">Active Setup\Installed Components</TargetObject>
 			<TargetObject condition="contains">Windows CE Services\AutoStartOnConnect</TargetObject>
 			<TargetObject condition="contains">Windows CE Services\AutoStartOnDisconnect</TargetObject>
 			<TargetObject condition="contains">CurrentVersion\Windows\IconServiceLib</TargetObject>
 			<TargetObject condition="contains">Winlogon\AlternateShells\AvailableShells</TargetObject>
-			<TargetObject condition="contains">Terminal Server\Wds\rdpwd\StartupPrograms</TargetObject>
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="contains">Terminal Server\Wds\rdpwd\StartupPrograms</TargetObject>
 			<TargetObject condition="contains">SafeBoot\AlternateShell</TargetObject>
 			<TargetObject condition="contains">Terminal Server\WinStations\RDP-Tcp\InitialProgram</TargetObject>
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Taskman</TargetObject>
@@ -1661,17 +1661,17 @@
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\</TargetObject> <!--Microsoft:Windows:UAC: Detect malware changes to UAC prompt level -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Drivers32</TargetObject> <!--Detect Legacy Driver loading-->
 			<!--Common Malware Persistence locations-->
-			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce</TargetObject>
-			<TargetObject condition="contains">\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce</TargetObject>
-			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\RunService</TargetObject>
-			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run</TargetObject>
-			<TargetObject condition="contains">\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run</TargetObject>
-			<TargetObject condition="contains">\Software\Microsoft\Windows NT\CurrentVersion\Windows\load</TargetObject>
-			<TargetObject condition="begin with">HKLM\SOFTWARE\Classes\ CLSID\{73E709EA-5D93-4B2E-BBB0-99B7938DA9E4}\LocalServer32</TargetObject>
-			<TargetObject condition="contains">CurrentVersion\Windows\Load</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/jj874148.aspx ] -->
-			<TargetObject condition="contains">CurrentVersion\Windows\Run</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/jj874148.aspx ] -->
-			<TargetObject condition="contains">CurrentVersion\Winlogon\Shell</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/ms838576(v=winembedded.5).aspx ] -->
-			<TargetObject condition="contains">CurrentVersion\Winlogon\System</TargetObject> <!--Microsoft:Windows [ https://www.exterminate-it.com/malpedia/regvals/zlob-dns-changer/118 ] -->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce</TargetObject>
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="contains">\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce</TargetObject>
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\RunService</TargetObject>
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run</TargetObject>
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="contains">\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run</TargetObject>
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="contains">\Software\Microsoft\Windows NT\CurrentVersion\Windows\load</TargetObject>
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="begin with">HKLM\SOFTWARE\Classes\ CLSID\{73E709EA-5D93-4B2E-BBB0-99B7938DA9E4}\LocalServer32</TargetObject>
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="contains">CurrentVersion\Windows\Load</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/jj874148.aspx ] -->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="contains">CurrentVersion\Windows\Run</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/jj874148.aspx ] -->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="contains">CurrentVersion\Winlogon\Shell</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/ms838576(v=winembedded.5).aspx ] -->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="contains">CurrentVersion\Winlogon\System</TargetObject> <!--Microsoft:Windows [ https://www.exterminate-it.com/malpedia/regvals/zlob-dns-changer/118 ] -->
 			<!--Group Policy Scripts-->
 			<TargetObject condition="contains">\Software\Policies\Microsoft\Windows\System\Scripts\Logon</TargetObject>
 			<TargetObject condition="contains">\Software\Policies\Microsoft\Windows\System\Scripts\Logoff</TargetObject>
