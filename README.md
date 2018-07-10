@@ -1,6 +1,6 @@
 ﻿# Sysmon Threat Intelligence Configuration #
+See the develop Branch for more bleeding edge updates: https://github.com/ion-storm/sysmon-config/tree/develop
 
-** See the develop Branch for more bleeding edge updates: https://github.com/ion-storm/sysmon-config/tree/develop **
 This is a Microsoft Sysinternals Sysmon configuration file template with default high-quality event tracing.
 
 The file provided should function as a great starting point for system monitoring in a self-contained package. This configuration and results should give you a good idea of what's possible for Sysmon.
