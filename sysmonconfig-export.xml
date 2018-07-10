@@ -687,6 +687,10 @@
 			<ParentImage condition="is">C:\Program Files (x86)\N-able Technologies\Windows Agent\bin\agent.exe</ParentImage>
 			<ParentImage condition="is">C:\Program Files (x86)\MaaS360\Cloud Extender\EMSAgent.exe</ParentImage>
 			<Hashes condition="contains">3070E798134A11ADB01129F06A36CD924267E6DA95DAB2E3196105264D2BF818</Hashes><!--Winlogbeat-->
+			<!--Sysmon Auto-Update Exclusion-->
+			<ParentCommandLine condition="contains">\sysmon\Auto_Update.bat</ParentCommandLine>
+			<CommandLine condition="contains">ion-storm/sysmon-config</CommandLine>
+
 		</ProcessCreate>
 
 	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM [FileCreateTime]-->
