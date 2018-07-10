@@ -243,7 +243,7 @@
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="begin with">format </CommandLine>
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="begin with">format </CommandLine>
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="begin with">assoc </CommandLine>
-			<Image name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land-detect cls in batch scripts" condition="end with">cls.exe</Image>
+			<Image name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land-detect cls in batch scripts" condition="is">cls.exe</Image>
 			<Image name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land-detect aliases" condition="end with">doskey.exe</Image>
 	  		<!--                                                                                                                                            -->
 			<!--Mavinject -->
