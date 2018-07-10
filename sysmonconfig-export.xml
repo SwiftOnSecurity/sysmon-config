@@ -678,6 +678,11 @@
 			<ParentImage condition="is">C:\PostgreSQL9.1\bin\postgres.exe</ParentImage> <!-- eFolder Anchor Server -->
 			<Image condition="is">C:\PostgreSQL9.1\bin\postgres.exe</Image> <!-- eFolder Anchor Server -->
 			<Image condition="is">C:\ProgramData\sysmon\sysmon64.exe</Image> <!-- Exclude Sysmon Process events -->
+			<!--Ignore MSPaint.exe-->
+			<Hashes condition="contains">56BFB300BA379181CE09C3130775DFBBCAFF9DB764BDC39086C2FEC2547EE900</Hashes>
+			<!--N-Able/N-Central Exclusions-->
+			<Image condition="is">C:\Program Files (x86)\N-able Technologies\Windows Agent\bin\bitsadmin.exe</Image>
+			<Image condition="is">C:\Program Files\N-able Technologies\Windows Agent\bin\bitsadmin.exe</Image>
 		</ProcessCreate>
 
 	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM [FileCreateTime]-->
