@@ -183,14 +183,14 @@
 			<CommandLine name="MitreRef=T1118,Technique=Defense Evasion/Execution" condition="contains">/logfile= /LogToConsole=false /U</CommandLine>
 	  		<!--                                                                                                                                            -->
 			<!--Mavinject -->
-	        <Image name="MitreRef=T1218,Technique=" condition="end with">Mavinject.exe</Image>
-			<Image name="MitreRef=T1191,Technique=" condition="end with">CMSTP.exe</Image>
+	        <Image name="MitreRef=T1218,Technique=Mavinject" condition="end with">Mavinject.exe</Image>
+			<Image name="MitreRef=T1191,Technique=Mavinject" condition="end with">CMSTP.exe</Image>
 	  		<!--                                                                                                                                            -->
 			<!--MSBuild-->
-			<Image name="MitreRef=T1191,Technique=" condition="end with">MSBuild.exe</Image>
-	        <Image name="MitreRef=T1121,Technique=" condition="end with">regsvcs.exe</Image>
-			<Image name="MitreRef=T1121,Technique=" condition="end with">regasm.exe</Image>
-			<Image name="MitreRef=T1218,Technique=" condition="end with">SyncAppvPublishingServer.exe</Image>
+			<Image name="MitreRef=T1191,Technique=MSBuild Applocker Bypass" condition="end with">MSBuild.exe</Image>
+	        <Image name="MitreRef=T1121,Technique=MSBuild Applocker Bypass" condition="end with">regsvcs.exe</Image>
+			<Image name="MitreRef=T1121,Technique=MSBuild Applocker Bypass" condition="end with">regasm.exe</Image>
+			<Image name="MitreRef=T1218,Technique=MSBuild Applocker Bypass" condition="end with">SyncAppvPublishingServer.exe</Image>
 	  		<!--                                                                                                                                            -->
 			<!--Control Panel-->
 			<Image name="MitreRef=T1218,Technique=Defense Evasion/Execution" condition="end with">control.exe</Image>
@@ -263,48 +263,48 @@
 	  		<!--                                                                                                                                            -->
 			<!--Hack Command Line Events-->
 			<CommandLine name="MitreRef=T1059,Technique=Command-Line Interface/Execution" condition="contains">COMSPEC</CommandLine>
-			<CommandLine name="MitreRef=T1086,Technique=Execution,Alert=Powershell Invoke-Expression" condition="contains">iex</CommandLine>
-			<CommandLine name="MitreRef=T1086,Technique=Execution,Alert=Powershell Invoke-Expression" condition="contains">Invoke-Expression</CommandLine>
-			<CommandLine name="MitreRef=T1086,Technique=Execution,Alert=Powershell Invoke-WebRequest" condition="contains">iwr</CommandLine>
-			<CommandLine name="MitreRef=T1086,Technique=Execution,Alert=Powershell Invoke-WebRequest" condition="contains">Invoke-WebRequest</CommandLine>
-			<CommandLine name="MitreRef=T1086,Technique=Execution,Alert=Powershell Download" condition="contains">DownloadFile</CommandLine>
-			<CommandLine name="MitreRef=T1086,Technique=Execution,Alert=Powershell Download" condition="contains">DownloadString</CommandLine>
-			<CommandLine name="MitreRef=T1086,Technique=Execution,Alert=Powershell Download" condition="contains">Net.WebClient</CommandLine>
-			<CommandLine name="MitreRef=T1086,Technique=Execution,Alert=Powershell Download" condition="contains">System.Net.WebRequest</CommandLine>
-			<CommandLine name="MitreRef=T1086,Technique=Execution,Alert=Powershell Download" condition="contains">System.Net.SecurityProtocolType</CommandLine>
-			<CommandLine name="MitreRef=T1086,Technique=Execution,Alert=invoke-shellcode" condition="contains">Shellcode</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control-Execution,Alert=Detect Base64 encoding" condition="contains">FromBase64String</CommandLine>
-			<CommandLine name="MitreRef=T1086,Technique=Execution,Alert=Detect Secure Strings" condition="contains">convertto-securestring</CommandLine>
-			<CommandLine name="MitreRef=T1086,Technique=Execution,Alert=Detect some more obfuscation" condition="contains">VerbosePreference.ToString</CommandLine>
+			<CommandLine name="MitreRef=T1086,Technique=PowerShell,Tactic=Execution,Alert=Powershell Invoke-Expression" condition="contains">iex</CommandLine>
+			<CommandLine name="MitreRef=T1086,Technique=PowerShell,Tactic=Execution,Alert=Powershell Invoke-Expression" condition="contains">Invoke-Expression</CommandLine>
+			<CommandLine name="MitreRef=T1086,Technique=PowerShell,Tactic=Execution,Alert=Powershell Invoke-WebRequest" condition="contains">iwr</CommandLine>
+			<CommandLine name="MitreRef=T1086,Technique=PowerShell,Tactic=Execution,Alert=Powershell Invoke-WebRequest" condition="contains">Invoke-WebRequest</CommandLine>
+			<CommandLine name="MitreRef=T1086,Technique=PowerShell,Tactic=Execution,Alert=Powershell Download" condition="contains">DownloadFile</CommandLine>
+			<CommandLine name="MitreRef=T1086,Technique=PowerShell,Tactic=Execution,Alert=Powershell Download" condition="contains">DownloadString</CommandLine>
+			<CommandLine name="MitreRef=T1086,Technique=PowerShell,Tactic=Execution,Alert=Powershell Download" condition="contains">Net.WebClient</CommandLine>
+			<CommandLine name="MitreRef=T1086,Technique=PowerShell,Tactic=Execution,Alert=Powershell Download" condition="contains">System.Net.WebRequest</CommandLine>
+			<CommandLine name="MitreRef=T1086,Technique=PowerShell,Tactic=Execution,Alert=Powershell Download" condition="contains">System.Net.SecurityProtocolType</CommandLine>
+			<CommandLine name="MitreRef=T1086,Technique=PowerShell,Tactic=Execution,Alert=invoke-shellcode" condition="contains">Shellcode</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">FromBase64String</CommandLine>
+			<CommandLine name="MitreRef=T1086,Technique=PowerShell,Tactic=Execution,Alert=Detect Secure Strings" condition="contains">convertto-securestring</CommandLine>
+			<CommandLine name="MitreRef=T1086,Technique=PowerShell,Tactic=Execution,Alert=Detect some more obfuscation" condition="contains">VerbosePreference.ToString</CommandLine>
 	  		<!--                                                                                                                                            -->
 			<!--Ofuscated Command Line arguments-->
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">runtime.interopservices.marshal</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">VerbosePreference.ToString</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-windowstyle h</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-windowstyl h</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-windowsty h</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-windowst h</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-windows h</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-window h</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-windo h</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-wind h</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-win h</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-wi h</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-w h</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-wi h</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-win hi</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-win hid</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-win hidd</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-win hidde</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-win hidden</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-Nop</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-Noni</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-ec</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">-en</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">^c^o^m^S^p^E^c^</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation/Command And Control" condition="contains">C^om^S^pEc</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">runtime.interopservices.marshal</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">VerbosePreference.ToString</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-windowstyle h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-windowstyl h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-windowsty h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-windowst h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-windows h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-window h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-windo h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-wind h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-win h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-wi h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-w h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-wi h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-win hi</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-win hid</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-win hidd</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-win hidde</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-win hidden</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-Nop</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-Noni</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-ec</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-en</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">^c^o^m^S^p^E^c^</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">C^om^S^pEc</CommandLine>
 			<!--Suspicious Windows tools-->
-			<Image condition="image">cscript.exe</Image> <!--Microsoft:WindowsScriptingHost: | Credit @Neo23x0 [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
+			<Image name="MitreRef=T1001,Technique=Signed Script Proxy Execution,Tactic=Defense Evasion/Execution" condition="image">cscript.exe</Image> <!--Microsoft:WindowsScriptingHost: | Credit @Neo23x0 [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
 			<Image condition="image">wscript.exe</Image> <!--Microsoft:WindowsScriptingHost: | Credit @arekfurt -->
 			<Image condition="image">rundll32.exe</Image> <!--Microsoft:Windows: [ https://blog.cobaltstrike.com/2016/07/22/why-is-rundll32-exe-connecting-to-the-internet/ ] -->
 			<Image condition="image">notepad.exe</Image> <!--Microsoft:Windows: [ https://blog.cobaltstrike.com/2013/08/08/why-is-notepad-exe-connecting-to-the-internet/ ] -->
@@ -678,9 +678,9 @@
 			<ParentImage condition="is">C:\PostgreSQL9.1\bin\postgres.exe</ParentImage> <!-- eFolder Anchor Server -->
 			<Image condition="is">C:\PostgreSQL9.1\bin\postgres.exe</Image> <!-- eFolder Anchor Server -->
 			<Image condition="is">C:\ProgramData\sysmon\sysmon64.exe</Image> <!-- Exclude Sysmon Process events -->
-			<!--Ignore MSPaint.exe-->
+			<!--Exclude: MSPaint.exe-->
 			<Hashes condition="contains">56BFB300BA379181CE09C3130775DFBBCAFF9DB764BDC39086C2FEC2547EE900</Hashes>
-			<!--N-Able/N-Central Exclusions-->
+			<!--Exclude: N-Able/N-Central-->
 			<Image condition="is">C:\Program Files (x86)\N-able Technologies\Windows Agent\bin\bitsadmin.exe</Image>
 			<Image condition="is">C:\Program Files\N-able Technologies\Windows Agent\bin\bitsadmin.exe</Image>
 			<ParentImage condition="is">C:\Program Files (x86)\N-able Technologies\Windows Software Probe\bin\wsp.exe</ParentImage>
@@ -691,11 +691,13 @@
 			<ParentImage condition="is">C:\Program Files\N-able Technologies\AVDefender\epupdateservice.exe</ParentImage>
 			<ParentImage condition="is">C:\Program Files (x86)\N-able Technologies\Windows Agent\bin\ShadowProtectDataReader.exe</ParentImage>
 			<Hashes condition="contains">3070E798134A11ADB01129F06A36CD924267E6DA95DAB2E3196105264D2BF818</Hashes><!--Winlogbeat-->
-			<!--Sysmon Auto-Update Exclusion-->
+			<!--Exclude: Sysmon Auto-Update-->
 			<ParentCommandLine condition="contains">\sysmon\Auto_Update.bat</ParentCommandLine>
 			<CommandLine condition="contains">\sysmon\Auto_Update.bat</CommandLine>
 			<CommandLine condition="contains">ion-storm/sysmon-config</CommandLine>
-
+			 <!--Exclude: Netlogon scripts-->
+			<ParentCommandLine condition="contains">\netlogon\</ParentCommandLine>
+			<CommandLine condition="contains">\netlogon\</CommandLine>
 		</ProcessCreate>
 
 	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM [FileCreateTime]-->
