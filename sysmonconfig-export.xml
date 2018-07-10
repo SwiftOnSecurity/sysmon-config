@@ -154,8 +154,8 @@
 			<Image name="MitreRef=T1138,Technique=Application Shimming-Persistence/Privilege Escalation" condition="end with">sdbinst.exe</Image>
 			<Image name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="end with">schtasks.exe</Image>
 			<ParentImage name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="end with">schtasks.exe</ParentImage>
-			<Image name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="end with">at.exe</Image>
-			<ParentImage name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="end with">at.exe</ParentImage>
+			<Image name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="is">at.exe</Image>
+			<ParentImage name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="is">at.exe</ParentImage>
 			<CommandLine name="MitreRef=ToDo,Technique=Powershell Injection Persistence Bypass - Execution, Lateral Movement" condition="contains">System.Management.Automation</CommandLine>
 			<!--MITRE TACTIC: Lateral Movement-->
 			<ParentImage name="MitreRef=T1028,Technique=Remote WMIC/Execution, Lateral Movement" condition="end with">wmiprvse.exe</ParentImage>
