@@ -689,6 +689,7 @@
 			<Hashes condition="contains">3070E798134A11ADB01129F06A36CD924267E6DA95DAB2E3196105264D2BF818</Hashes><!--Winlogbeat-->
 			<!--Sysmon Auto-Update Exclusion-->
 			<ParentCommandLine condition="contains">\sysmon\Auto_Update.bat</ParentCommandLine>
+			<CommandLine condition="contains">\sysmon\Auto_Update.bat</CommandLine>
 			<CommandLine condition="contains">ion-storm/sysmon-config</CommandLine>
 
 		</ProcessCreate>
