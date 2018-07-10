@@ -683,6 +683,7 @@
 			<!--N-Able/N-Central Exclusions-->
 			<Image condition="is">C:\Program Files (x86)\N-able Technologies\Windows Agent\bin\bitsadmin.exe</Image>
 			<Image condition="is">C:\Program Files\N-able Technologies\Windows Agent\bin\bitsadmin.exe</Image>
+			<Hashes condition="contains">3070E798134A11ADB01129F06A36CD924267E6DA95DAB2E3196105264D2BF818</Hashes><!--Winlogbeat-->
 		</ProcessCreate>
 
 	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM [FileCreateTime]-->
