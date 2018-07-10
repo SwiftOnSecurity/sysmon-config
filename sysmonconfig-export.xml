@@ -110,8 +110,8 @@
 			<!--MITRE TACTIC: Execution-->
 			<CommandLine name="MitreRef=T1059,Technique=Command-Line Interface,Tactic=Execution" condition="contains">COMSPEC</CommandLine>
 			<ParentCommandLine name="MitreRef=T1059,Technique=Command-Line Interface,Tactic=Execution" condition="contains">COMSPEC</ParentCommandLine>
-			<Image name="MitreRef=T1059,Technique=Command-Line Interface,Tactic=Execution" condition="end with">cmd.exe</Image> <!--Microsoft:Windows: Command prompt-->
-			<ParentImage name="MitreRef=T1059,Technique=Command-Line Interface,Tactic=Execution" condition="end with">cmd.exe</ParentImage> <!--Microsoft:Windows: Command prompt-->
+			<Image name="MitreRef=T1059,Technique=Command-Line Interface,Tactic=Execution" condition="end with">\cmd.exe</Image> <!--Microsoft:Windows: Command prompt-->
+			<ParentImage name="MitreRef=T1059,Technique=Command-Line Interface,Tactic=Execution" condition="end with">\cmd.exe</ParentImage> <!--Microsoft:Windows: Command prompt-->
 			<Image name="MitreRef=T1086,Technique=Powershell,Tactic=Execution" condition="end with">powershell.exe</Image> <!--Microsoft:Windows: PowerShell interface-->
 			<Description name="MitreRef=T1086,Technique=Powershell,Tactic=Execution" condition="end with">powershell.exe</Description> <!--Microsoft:Windows: PowerShell interface-->
 			<ParentImage name="MitreRef=T1086,Technique=Powershell,Tactic=Execution" condition="end with">powershell.exe</ParentImage> <!--Microsoft:Windows: PowerShell interface-->
@@ -310,7 +310,6 @@
 			<Image condition="contains">psservice</Image><!--Detect PsService-->
 			<Image condition="contains">PsPasswd</Image><!--Detect PsPasswd-->
 			<Image name="Alert=MSBuild Applocker bypass" condition="image">msbuild.exe</Image> <!--Microsoft:Windows: [ https://www.hybrid-analysis.com/sample/a314f6106633fba4b70f9d6ddbee452e8f8f44a72117749c21243dc93c7ed3ac?environmentId=100 ] -->
-			<Image condition="image">installutil.exe</Image>
 			<Image name="Alert=MSI Installer Launched" condition="image">msiexec.exe</Image> <!-- msiexec /i http://pathtomsi -->
 			<Image name="Alert=Remote Desktop" condition="image">mstsc.exe</Image><!-- Remote Desktop -->
 			<Image name="Alert=Telnet Terminal Emulator" condition="image">telnet.exe</Image><!-- Telnet -->
