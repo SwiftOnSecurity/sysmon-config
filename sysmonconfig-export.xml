@@ -101,8 +101,8 @@
 			<Image name="MitreRef=T1049,Technique=System Network Connections Discovery,Tactic=Discovery" condition="end with">netstat.exe</Image> <!--Microsoft:Windows: shows protocol statistics and current TCP/IP network connections -->
 			<Image name="MitreRef=T1057,Technique=Process Discovery,Tactic=Discovery" condition="end with">qprocess.exe</Image> <!--Microsoft:Windows: shows information about processes -->
 			<Image name="MitreRef=T1049,Technique=System Network Connections Discovery,Tactic=Discovery" condition="end with">nslookup.exe</Image> <!--Microsoft:Windows: shows DNS configuration and enables quering -->
-			<Image name="MitreRef=T1201/T1087,Technique=System Network Connections Discovery/Account Discovery,Tactic=Discovery" condition="end with">net.exe</Image> <!--Microsoft:Windows: "net use"/"net view" used by attackers to surveil and connect with file shares from command line | Credit @ion-storm -->
-			<Image name="MitreRef=T1201/T1087,Technique=System Network Connections Discovery/Account Discovery,Tactic=Discovery" condition="end with">net1.exe</Image> <!--Microsoft:Windows: "net use"/"net view" used by attackers to surveil and connect with file shares from command line | Credit @ion-storm -->
+			<Image name="MitreRef=T1201/T1087,Technique=System Network Connections Discovery/Account Discovery,Tactic=Discovery" condition="is">net.exe</Image> <!--Microsoft:Windows: "net use"/"net view" used by attackers to surveil and connect with file shares from command line | Credit @ion-storm -->
+			<Image name="MitreRef=T1201/T1087,Technique=System Network Connections Discovery/Account Discovery,Tactic=Discovery" condition="is">net1.exe</Image> <!--Microsoft:Windows: "net use"/"net view" used by attackers to surveil and connect with file shares from command line | Credit @ion-storm -->
 			<Image name="MitreRef=T1049,Technique=System Network Connections Discovery,Tactic=Discovery" condition="end with">quser.exe</Image> <!--Microsoft:Windows: shows logged-on users -->
 			<Image name="MitreRef=T1016,Technique=System Network Configuration Discovery,Tactic=Discovery" condition="end with">route.exe</Image> <!--Microsoft:Windows: manipulates network routing tables -->
 			<Image name="MitreRef=T1016,Technique=System Information Discovery,Tactic=Discovery" condition="end with">reg.exe</Image> <!--Microsoft:Windows: reads and modifies the Windows register -->
@@ -157,6 +157,9 @@
 			<Image name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="is">at.exe</Image>
 			<ParentImage name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="is">at.exe</ParentImage>
 			<CommandLine name="MitreRef=ToDo,Technique=Powershell Injection Persistence Bypass - Execution, Lateral Movement" condition="contains">System.Management.Automation</CommandLine>
+			<CommandLine name="MitreRef=T1136,Technique=Create Account,Tactic=Persistence" condition="contains">net user /add</CommandLine>
+			<CommandLine name="MitreRef=T1136,Technique=Create Account,Tactic=Persistence" condition="contains">net localgroup administrators /add</CommandLine>
+
 			<!--MITRE TACTIC: Lateral Movement-->
 			<ParentImage name="MitreRef=T1028,Technique=Remote WMIC/Execution, Lateral Movement" condition="end with">wmiprvse.exe</ParentImage>
 			<!--MITRE TECHNIQUE: Obfuscation-->
@@ -381,6 +384,7 @@
 			<ParentCommandLine condition="begin with">%%SystemRoot%%\system32\csrss.exe ObjectDirectory=\Windows</ParentCommandLine> <!--Microsoft:Windows:CommandShell: Triggered when programs use the command shell, but without attribution-->
 			<ParentImage condition="is">C:\Windows\system32\SearchIndexer.exe</ParentImage> <!--Microsoft:Windows:Search: Launches many uninteresting sub-processes-->
 			<Image condition="is">C:\Windows\system32\vssvc.exe</Image><!-- Microsoft Windows: Volume Shadow Copy Service -->
+			<CommandLine condition="contains">net use</CommandLine> <!-- Silence domain login scripts -->
 			<CommandLine condition="contains">net use</CommandLine> <!-- Silence domain login scripts -->
 			<!--SECTION: Microsoft:Windows:Defender-->
 			<Image condition="begin with">C:\Program Files\Windows Defender</Image> <!--Microsoft:Windows:Defender in Win10-->
