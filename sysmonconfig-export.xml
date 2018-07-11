@@ -171,7 +171,6 @@
 			<ParentImage name="MitreRef=T1015,Technique=Accessibility Features,Tactic=Persistence/Privilege Escalation" condition="is">DisplaySwitch.exe</ParentImage>
 			<ParentImage name="MitreRef=T1015,Technique=Accessibility Features,Tactic=Persistence/Privilege Escalation" condition="is">Narrator.exe</ParentImage>
 			<ParentImage name="MitreRef=T1015,Technique=Accessibility Features,Tactic=Persistence/Privilege Escalation" condition="is">AtBroker.exe</ParentImage>
-			<Image name="MitreRef=T1053,Technique=Scheduled Task-Execution/Persistence/Privilege Escalation" condition="is">taskeng.exe</Image> <!--Microsoft:Windows: taskscheduler -->
 			<Image name="MitreRef=T1138,Technique=Application Shimming-Persistence/Privilege Escalation" condition="is">sdbinst.exe</Image>
 			<Image name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="is">schtasks.exe</Image>
 			<ParentImage name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="is">schtasks.exe</ParentImage>
@@ -725,6 +724,7 @@
 			<CommandLine condition="contains">net time</CommandLine>
 			<CommandLine condition="contains">net.exe time</CommandLine>
 			<CommandLine condition="contains">net1 time</CommandLine>
+			<CommandLine condition="contains">C:\Windows\system32\cmd.exe /c UsrLogon.cmd</CommandLine>
 		</ProcessCreate>
 
 	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM [FileCreateTime]-->
