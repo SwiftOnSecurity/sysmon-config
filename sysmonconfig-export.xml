@@ -693,6 +693,8 @@
 			 <!--Exclude: Netlogon scripts-->
 			<ParentCommandLine condition="contains">\netlogon\</ParentCommandLine>
 			<CommandLine condition="contains">\netlogon\</CommandLine>
+			<ParentImage condition="is">C:\PROGRA~2\SAAZOD\SAAZMSMACTL.EXE</ParentImage>
+
 		</ProcessCreate>
 
 	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM [FileCreateTime]-->
