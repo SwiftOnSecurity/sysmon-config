@@ -2001,6 +2001,26 @@
 			<TargetObject condition="contains">\Software\NITRO\PRO</TargetObject>
 			<!--SECTION: Webroot Spam-->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Wow6432Node\WRData\Status</TargetObject>
+			<!--MITRE Autorun Exclusions-->
+			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Services\RapportIaso</TargetObject>
+			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Services\gzflt</TargetObject>
+			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Services\trufos</TargetObject>
+			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Services\wudfsvc</TargetObject>
+			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Services\EFS</TargetObject>
+			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Services\avc3</TargetObject>
+			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Services\NableRemoteService</TargetObject>
+			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Services\TabletInputService</TargetObject>
+			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Services\AdobeARMservice</TargetObject>
+			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Services\EPUpdateService</TargetObject>
+			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Services\ScreenConnect </TargetObject>
+			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Services\EPSecurityService</TargetObject>
+			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Services\EPIntegrationService</TargetObject>
+			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Services\wrUrlFlt</TargetObject>
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Run\WRSVC</TargetObject>
+			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Services\avckf</TargetObject>
+			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\services\NableRemoteService</TargetObject>
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Run\WRSVC</TargetObject>
+			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Services\BDElam</TargetObject>
 		</RegistryEvent>
 
 	<!--SYSMON EVENT ID 15 : ALTERNATE DATA STREAM CREATED [FileCreateStreamHash]-->
