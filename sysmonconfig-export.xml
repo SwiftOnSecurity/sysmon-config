@@ -1187,6 +1187,10 @@
 		[ https://attack.mitre.org/wiki/Technique/T1055 ] -->
 
 		<!--DATA: UtcTime, SourceProcessGuid, SourceProcessId, SourceImage, TargetProcessId, TargetImage, NewThreadId, StartAddress, StartModule, StartFunction-->
+		<CreateRemoteThread onmatch="include">
+			<StartFunction name="MitreRef=T1055,Technique=DLL Injection via LoadLibrary API Call,Tactic=Defense Evasion" condition="contains">LoadLibrary</StartFunction>
+			<SourceImage condition="contains">\</SourceImage>
+		</CreateRemoteThread>
 		<CreateRemoteThread onmatch="exclude">
 			<!--COMMENT: Exclude mostly-safe sources and log anything else.-->
 			<SourceImage condition="is">C:\Windows\system32\wbem\WmiPrvSE.exe</SourceImage>
@@ -1201,6 +1205,13 @@
 			<SourceImage condition="contains">FireSvc.exe</SourceImage>
 			<SourceImage condition="is">C:\Program Files (x86)\Webroot\WRSA.exe</SourceImage>
 			<TargetImage condition="end with">controls\cef\ConnectWise.exe</TargetImage>
+			<SourceImage condition="is">C:\Program Files\N-able Technologies\AVDefender\epsecurityservice.exe</SourceImage>
+			<SourceImage condition="is">C:\Program Files\N-able Technologies\AVDefender\EPSecurityService.exe</SourceImage>
+			<SourceImage condition="is">C:\Program Files (x86)\Kaspersky Lab\Kaspersky Endpoint Security 10 for Windows SP1\avp.exe</SourceImage>
+			<SourceImage condition="is">C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\Remote Debugger\x64\msvsmon.exe</SourceImage>
+			<SourceImage condition="is">C:\Windows\System32\rdpclip.exe</SourceImage>
+			<SourceImage condition="is">C:\Windows\sysmon64.exe</SourceImage>
+			<SourceImage condition="is">C:\Windows\sysmon.exe</SourceImage>
 		</CreateRemoteThread>
 
 	<!--SYSMON EVENT ID 9 : RAW DISK ACCESS [RawAccessRead]-->
