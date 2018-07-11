@@ -678,6 +678,7 @@
 			<Image condition="is">C:\Program Files (x86)\N-able Technologies\Windows Agent\bin\bitsadmin.exe</Image>
 			<Image condition="is">C:\Program Files\N-able Technologies\Windows Agent\bin\bitsadmin.exe</Image>
 			<ParentImage condition="is">C:\Program Files (x86)\N-able Technologies\Windows Software Probe\bin\wsp.exe</ParentImage>
+			<ParentCommandLine condition="contains">N-able Technologies\Windows Software Probe\bin\wsp.exe</ParentCommandLine>
 			<ParentImage condition="is">C:\Program Files (x86)\N-able Technologies\Windows Agent\bin\agent.exe</ParentImage>
 			<ParentImage condition="is">C:\Program Files (x86)\N-able Technologies\Windows Agent\bin\AutomationManager.ScriptRunner64.exe</ParentImage>			
 			<Image condition="is">C:\Program Files (x86)\N-able Technologies\Windows Agent\bin\AutomationManager.ScriptRunner64.exe</Image>			
