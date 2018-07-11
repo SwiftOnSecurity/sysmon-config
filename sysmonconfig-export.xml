@@ -869,7 +869,6 @@
 			<DestinationHostname name="MitreRef=T1046,Technique=Network Service Scanning/Reconnaissance,Tactic=Discovery" condition="contains">shadow</DestinationHostname>
 			<DestinationHostname name="MitreRef=T1046,Technique=Network Service Scanning/Reconnaissance,Tactic=Discovery" condition="contains">researchscan</DestinationHostname>
 			<DestinationHostname name="MitreRef=T1046,Technique=Network Service Scanning/Reconnaissance,Tactic=Discovery" condition="contains">census</DestinationHostname>
-			<DestinationHostname name="MitreRef=T1046,Technique=Network Service Scanning/Reconnaissance,Tactic=Discovery" condition="contains">linode</DestinationHostname>
 			<DestinationHostname name="MitreRef=T1046,Technique=Network Service Scanning/Reconnaissance,Tactic=Discovery" condition="contains">sl-reverse</DestinationHostname>
 			<DestinationHostname name="MitreRef=T1046,Technique=Network Service Scanning/Reconnaissance,Tactic=Discovery" condition="contains">scanhub</DestinationHostname>
 			<DestinationIp name="MitreRef=T1046,Technique=Network Service Scanning/Reconnaissance,Tactic=Discovery" condition="contains">.edu</DestinationIp>
