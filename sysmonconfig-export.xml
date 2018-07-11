@@ -114,15 +114,15 @@
 			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="begin with">net.exe  group</CommandLine>
 			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="begin with">net1.exe group</CommandLine>
 			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="begin with">net1.exe  group</CommandLine>
-			<Image name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="is">dsquery.exe</Image><!-- Query domain-->
-			<Image name="MitreRef=T1049,Technique=System Network Connections Discovery,Tactic=Discovery,MitreURL=https://attack.mitre.org/wiki/Technique/T1049" condition="is">whoami.exe</Image>
-			<Image name="MitreRef=T1049,Technique=Discovery,Tactic=Discovery" condition="is">ipconfig.exe</Image> <!--Microsoft:Windows: shows ip configuration -->
-			<Image name="MitreRef=T1057,Technique=Process Discovery,Tactic=Discovery" condition="is">tasklist.exe</Image> <!--Microsoft:Windows: shows current running processes-->
-			<Image name="MitreRef=T1016,Technique=System Information Discovery,Tactic=Discovery" condition="is">sysinfo.exe</Image> <!--Microsoft:Windows: shows systeminformation -->
-			<Image name="MitreRef=T1049,Technique=System Network Connections Discovery,Tactic=Discovery" condition="is">netstat.exe</Image> <!--Microsoft:Windows: shows protocol statistics and current TCP/IP network connections -->
-			<Image name="MitreRef=T1057,Technique=Process Discovery,Tactic=Discovery" condition="is">qprocess.exe</Image> <!--Microsoft:Windows: shows information about processes -->
-			<Image name="MitreRef=T1201/T1087,Technique=System Network Connections Discovery/Account Discovery,Tactic=Discovery" condition="is">net.exe</Image> <!--Microsoft:Windows: "net use"/"net view" used by attackers to surveil and connect with file shares from command line | Credit @ion-storm -->
-			<Image name="MitreRef=T1201/T1087,Technique=System Network Connections Discovery/Account Discovery,Tactic=Discovery" condition="is">net1.exe</Image> <!--Microsoft:Windows: "net use"/"net view" used by attackers to surveil and connect with file shares from command line | Credit @ion-storm -->
+			<Image name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="end with">dsquery.exe</Image><!-- Query domain-->
+			<Image name="MitreRef=T1049,Technique=System Network Connections Discovery,Tactic=Discovery,MitreURL=https://attack.mitre.org/wiki/Technique/T1049" condition="end with">whoami.exe</Image>
+			<Image name="MitreRef=T1049,Technique=Discovery,Tactic=Discovery" condition="end with">ipconfig.exe</Image> <!--Microsoft:Windows: shows ip configuration -->
+			<Image name="MitreRef=T1057,Technique=Process Discovery,Tactic=Discovery" condition="end with">tasklist.exe</Image> <!--Microsoft:Windows: shows current running processes-->
+			<Image name="MitreRef=T1016,Technique=System Information Discovery,Tactic=Discovery" condition="end with">sysinfo.exe</Image> <!--Microsoft:Windows: shows systeminformation -->
+			<Image name="MitreRef=T1049,Technique=System Network Connections Discovery,Tactic=Discovery" condition="end with">netstat.exe</Image> <!--Microsoft:Windows: shows protocol statistics and current TCP/IP network connections -->
+			<Image name="MitreRef=T1057,Technique=Process Discovery,Tactic=Discovery" condition="end with">qprocess.exe</Image> <!--Microsoft:Windows: shows information about processes -->
+			<Image name="MitreRef=T1201/T1087,Technique=System Network Connections Discovery/Account Discovery,Tactic=Discovery" condition="end with">net.exe</Image> <!--Microsoft:Windows: "net use"/"net view" used by attackers to surveil and connect with file shares from command line | Credit @ion-storm -->
+			<Image name="MitreRef=T1201/T1087,Technique=System Network Connections Discovery/Account Discovery,Tactic=Discovery" condition="end with">net1.exe</Image> <!--Microsoft:Windows: "net use"/"net view" used by attackers to surveil and connect with file shares from command line | Credit @ion-storm -->
 			<Image name="MitreRef=T1049,Technique=System Network Connections Discovery,Tactic=Discovery" condition="end with">quser.exe</Image> <!--Microsoft:Windows: shows logged-on users -->
 			<Image name="MitreRef=T1016,Technique=System Network Configuration Discovery,Tactic=Discovery" condition="end with">route.exe</Image> <!--Microsoft:Windows: manipulates network routing tables -->
 			<Image name="MitreRef=T1016,Technique=System Information Discovery,Tactic=Discovery" condition="end with">reg.exe</Image> <!--Microsoft:Windows: reads and modifies the Windows register -->
@@ -163,20 +163,20 @@
 			<ParentImage name="MitreRef=T1028,Technique=Windows Remote Management,Tactic=Execution" condition="end with">wsmprovhost.exe</ParentImage>
 			<Image name="MitreRef=T1028,Technique=Windows Remote Management,Tactic=Execution" condition="end with">winrm.cmd</Image>
 			<!--MITRE TACTIC: Persistence-->
-			<ParentImage name="MitreRef=T1015,Technique=Accessibility Features,Tactic=Persistence Privilege Escalation" condition="is">sethc.exe</ParentImage>
-			<ParentImage name="MitreRef=T1015,Technique=Accessibility Features,Tactic=Persistence/Privilege Escalation" condition="is">utilman.exe</ParentImage>
-			<ParentImage name="MitreRef=T1015,Technique=Accessibility Features,Tactic=Persistence/Privilege Escalation" condition="is">osk.exe</ParentImage>
-			<ParentImage name="MitreRef=T1015,Technique=Accessibility Features,Tactic=Persistence/Privilege Escalation" condition="is">Magnify.exe</ParentImage>
-			<ParentImage name="MitreRef=T1015,Technique=Accessibility Features,Tactic=Persistence/Privilege Escalation" condition="is">DisplaySwitch.exe</ParentImage>
-			<ParentImage name="MitreRef=T1015,Technique=Accessibility Features,Tactic=Persistence/Privilege Escalation" condition="is">Narrator.exe</ParentImage>
-			<ParentImage name="MitreRef=T1015,Technique=Accessibility Features,Tactic=Persistence/Privilege Escalation" condition="is">AtBroker.exe</ParentImage>
-			<Image name="MitreRef=T1138,Technique=Application Shimming-Persistence/Privilege Escalation" condition="is">sdbinst.exe</Image>
-			<Image name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="is">schtasks.exe</Image>
-			<ParentImage name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="is">schtasks.exe</ParentImage>
+			<ParentImage name="MitreRef=T1015,Technique=Accessibility Features,Tactic=Persistence Privilege Escalation" condition="end with">sethc.exe</ParentImage>
+			<ParentImage name="MitreRef=T1015,Technique=Accessibility Features,Tactic=Persistence/Privilege Escalation" condition="end with">utilman.exe</ParentImage>
+			<ParentImage name="MitreRef=T1015,Technique=Accessibility Features,Tactic=Persistence/Privilege Escalation" condition="end with">osk.exe</ParentImage>
+			<ParentImage name="MitreRef=T1015,Technique=Accessibility Features,Tactic=Persistence/Privilege Escalation" condition="end with">Magnify.exe</ParentImage>
+			<ParentImage name="MitreRef=T1015,Technique=Accessibility Features,Tactic=Persistence/Privilege Escalation" condition="end with">DisplaySwitch.exe</ParentImage>
+			<ParentImage name="MitreRef=T1015,Technique=Accessibility Features,Tactic=Persistence/Privilege Escalation" condition="end with">Narrator.exe</ParentImage>
+			<ParentImage name="MitreRef=T1015,Technique=Accessibility Features,Tactic=Persistence/Privilege Escalation" condition="end with">AtBroker.exe</ParentImage>
+			<Image name="MitreRef=T1138,Technique=Application Shimming-Persistence/Privilege Escalation" condition="end with">sdbinst.exe</Image>
+			<Image name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="end with">schtasks.exe</Image>
+			<ParentImage name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="end with">schtasks.exe</ParentImage>
 			<CommandLine name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="contains">schtasks /create</CommandLine>
 			<CommandLine name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="contains">schtasks.exe /create</CommandLine>
-			<Image name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="is">at.exe</Image>
-			<ParentImage name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="is">at.exe</ParentImage>
+			<Image name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="end with">at.exe</Image>
+			<ParentImage name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="end with">at.exe</ParentImage>
 			<CommandLine name="MitreRef=ToDo,Technique=Powershell Injection Persistence Bypass - Execution, Lateral Movement" condition="contains">System.Management.Automation</CommandLine>
 			<CommandLine name="MitreRef=T1136,Technique=Create Account,Tactic=Persistence" condition="contains">net user /add</CommandLine>
 			<CommandLine name="MitreRef=T1136,Technique=Create Account,Tactic=Persistence" condition="contains">net localgroup administrators /add</CommandLine>
@@ -266,7 +266,7 @@
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="begin with">format </CommandLine>
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="begin with">format </CommandLine>
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="begin with">assoc </CommandLine>
-			<Image name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land-detect cls in batch scripts" condition="is">cls.exe</Image>
+			<Image name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land-detect cls in batch scripts" condition="end with">cls.exe</Image>
 			<Image name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land-detect aliases" condition="end with">doskey.exe</Image>
 	  		<!--                                                                                                                                            -->
 			<!--Mavinject -->
