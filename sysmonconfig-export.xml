@@ -356,6 +356,30 @@
 			<Image condition="image">www.exe</Image>
 			<Image condition="image">awk.exe</Image>
 			<Image condition="image">sed.exe</Image>
+			<!--SECTION: Crypto Currency Miners-->
+			<CommandLine name="Alert=Crypto Currency Miner" condition="contains">stratum+tcp</CommandLine>
+			<CommandLine name="Alert=Crypto Currency Miner" condition="contains">coinhive</CommandLine>
+			<CommandLine name="Alert=Crypto Currency Miner" condition="contains">minergate</CommandLine>
+			<CommandLine name="Alert=Crypto Currency Miner" condition="contains">ccminer</CommandLine>
+			<CommandLine name="Alert=Crypto Currency Miner" condition="contains">cgminer</CommandLine>
+			<CommandLine name="Alert=Crypto Currency Miner" condition="contains">sgminer</CommandLine>
+			<CommandLine name="Alert=Crypto Currency Miner" condition="contains">rainbowminer</CommandLine>
+			<CommandLine name="Alert=Crypto Currency Miner" condition="contains">xmrMiner</CommandLine>
+			<CommandLine name="Alert=Crypto Currency Miner" condition="contains">poolpassword</CommandLine>
+			<CommandLine name="Alert=Crypto Currency Miner" condition="contains">poolurl</CommandLine>
+			<CommandLine name="Alert=Crypto Currency Miner" condition="contains">poolname</CommandLine>
+			<CommandLine name="Alert=Crypto Currency Miner" condition="contains">ahashpool</CommandLine>
+			<CommandLine name="Alert=Crypto Currency Miner" condition="contains">poolname</CommandLine>
+			<CommandLine name="Alert=Crypto Currency Miner" condition="contains">blazepool</CommandLine>
+			<CommandLine name="Alert=Crypto Currency Miner" condition="contains">blockmasters</CommandLine>
+			<CommandLine name="Alert=Crypto Currency Miner" condition="contains">blockmasterscoins</CommandLine>
+			<CommandLine name="Alert=Crypto Currency Miner" condition="contains">hashrefinery</CommandLine>
+			<CommandLine name="Alert=Crypto Currency Miner" condition="contains">miningpoolhubcoins</CommandLine>
+			<CommandLine name="Alert=Crypto Currency Miner" condition="contains">nicehash</CommandLine>
+			<CommandLine name="Alert=Crypto Currency Miner" condition="contains">yiimp</CommandLine>
+			<CommandLine name="Alert=Crypto Currency Miner" condition="contains">zergpool</CommandLine>
+			<CommandLine name="Alert=Crypto Currency Miner" condition="contains">zergpoolcoins</CommandLine>
+			<CommandLine name="Alert=Crypto Currency Miner" condition="contains">zpool</CommandLine>
 			<!--Tor-->
 			<Image condition="image">tor.exe</Image><!-- Tor-->
 			<!--                                                                                                                                            -->
@@ -885,6 +909,50 @@
 			<DestinationIp name="MitreRef=T1046,Technique=Network Service Scanning/Reconnaissance,Tactic=Discovery" condition="contains">159.203.213.</DestinationIp>
 			<DestinationIp name="MitreRef=T1046,Technique=Network Service Scanning/Reconnaissance,Tactic=Discovery" condition="contains">209.236.120.</DestinationIp>
 			<DestinationIp name="MitreRef=T1046,Technique=Network Service Scanning/Reconnaissance,Tactic=Discovery" condition="contains">158.130.6</DestinationIp>
+			<!--Crypto Currency Mining pools-->
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">blazepool</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">blockmasters</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">blockmasterscoins</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">hashrefinery</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">miningpoolhubcoins</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">nicehash</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">yiimp</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">zergpool</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">zergpoolcoins</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">zpool</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">slushpool</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">minexmr</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">minergate</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">monero</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">prohash</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">dwarfpool</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">nanopool.org</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">mixpools.org</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">viaxmr.com</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">hashvault.pro</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">moriaxmr.com</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">suprnova.cc</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">mixpools.org</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">monero</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">usxmrpool</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">xmrpool</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">poolto.be</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">mineXMR</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">prohash.net</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">mine.bz</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">mypool.online</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">bohemianpool</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">mineXMR</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">iwanttoearn.money</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">pool.xmr</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">crypto-pool</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">miners.pro</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">minercircle.com</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">monero.lindon-pool.win</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">teracycle.net</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">ratchetmining.com</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">cryptmonero</DestinationHostname>
+			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">mineXMR</DestinationHostname>
 			<!--Ports-->
 			<DestinationPort name="Service=HTTP Connection" condition="is">80</DestinationPort> <!--RDP Port-->
 			<DestinationPort name="Service=HTTPS Connection" condition="is">443</DestinationPort>
