@@ -1224,8 +1224,8 @@
 			<Image condition="image">g2ax_comm_expert.exe</Image> <!--GoToMeeting-->
 			<Image condition="image">g2mcomm.exe</Image> <!--GoToMeeting-->
 			<Image condition="end with">AppData\Local\Microsoft\Teams\current\Teams.exe</Image> <!--Microsoft: Teams-->
+			<DestinationPort condition="is">53</DestinationPort>   <!--DNS Lookups-->
 		</NetworkConnect>
-
 	<!--SYSMON EVENT ID 4 : RESERVED FOR SYSMON STATUS MESSAGES-->
 
 		<!--DATA: UtcTime, State, Version, SchemaVersion-->
