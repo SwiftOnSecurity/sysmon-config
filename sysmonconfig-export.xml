@@ -213,7 +213,7 @@
 			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">C^om^S^pEc</CommandLine>
 			<!--Native Windows tools - Living off the land-->
 			<Image name="MitreRef=ToDo,Technique=" condition="end with">query.exe</Image> <!--Microsoft:Windows: shows information about processes -->
-			<Image name="MitreRef=CAPEC-293,Technique=Traceroute Route Enumeration" condition="end with">tracert.exe</Image> <!--Microsoft:Windows: shows routing information -->
+			<Image name="MitreRef=CAPEC-293,Technique=Traceroute Route Enumeratio,MitreURL=https://capec.mitre.org/data/definitions/293.html" condition="end with">tracert.exe</Image> <!--Microsoft:Windows: shows routing information -->
 			<Image name="MitreRef=ToDo,Technique=" condition="end with">tree.com</Image> <!--Microsoft:Windows: shows recursive directory listing -->
 			<Image name="MitreRef=T1134,Technique=Access Token Manipulation" condition="end with">runas.exe</Image> <!--Microsoft:Windows: run a process as another user -->
 			<Image name="MitreRef=ToDo,Technique=" condition="end with">taskkill.exe</Image> <!--Microsoft:Windows: stops processes -->
@@ -316,7 +316,135 @@
 			<CommandLine name="Alert=interactive command to slow output" condition="contains">more</CommandLine>
 			<CommandLine name="Alert=Commands run from \\tsclient share ie: samsam ransomware" condition="contains">\\tsclient</CommandLine>
 			<CommandLine name="Alert=DotDot Dirs" condition="contains">..</CommandLine>
-	  		<!--                                                                                                                                            -->
+	  		<!--Hacking Command Line Events-->
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">wmic shadowcopy delete</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">telnet</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">-dumpcr</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">putty</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">bash.exe</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">pssh</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">sdelete</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">shareenum</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">sekurlsa</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">reg SAVE</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-DllInjection</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-Shellcode</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-WmiCommand</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-GPPPassword</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-Keystrokes</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-TimedScreenshot</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-VaultCredential</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-CredentialInjection</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">mimikatz</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-NinjaCopy</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-TokenManipulation</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Out-Minidump</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">VolumeShadowCopyTools</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-ReflectivePEInjection</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-UserHunter</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Find-GPOLocation</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-ACLScanner</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-DowngradeAccount</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-ServiceUnquoted</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-ServiceFilePermission</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-ServicePermission</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-ServiceAbuse</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Install-ServiceBinary</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-RegAutoLogon</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-VulnAutoRun</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-VulnSchTask</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-UnattendedInstallFile</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-WebConfig</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-ApplicationHost</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-RegAlwaysInstallElevated</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-Unconstrained</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Add-RegBackdoor</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Add-ScrnSaveBackdoor</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Gupt-Backdoor</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-ADSBackdoor</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Enabled-DuplicateToken</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-PsUaCme</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Remove-Update</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Check-VM</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-LSASecret</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-PassHashes</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Show-TargetScreen</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Port-Scan</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">netscan</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">psscan</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-PoshRatHttp</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-PowerShellTCP</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-PowerShellWMI</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Add-Exfiltration</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Add-Persistence</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Do-Exfiltration</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Start-CaptureServer</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-DllInjection</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-ReflectivePEInjection</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-ShellCode</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-ChromeDump</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-ClipboardContents</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-FoxDump</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-IndexedItem</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-Keystrokes</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-Screenshot</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-Inveigh</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-NetRipper</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-NinjaCopy</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Out-Minidump</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-EgressCheck</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-PSInject</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-RunAs</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">MailRaider</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">New-HoneyHash</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Set-MacAttribute</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-VaultCredential</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-DCSync</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-PowerDump</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-TokenManipulation</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Exploit-Jboss</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-ThunderStruck</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-VoiceTroll</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Set-Wallpaper</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-InveighRelay</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-PsExec</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-SSHCommand</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-SecurityPackages</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Install-SSP</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-BackdoorLNK</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">PowerBreach</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-GPPPassword</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-SiteListPassword</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-System</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">BypassUAC</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-Tater</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">PowerUp</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">PowerView</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-RickAstley</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Find-Fruit</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">HTTP-Login</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Find-TrustedDocuments</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-Paranoia</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-WinEnum</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-ARPScan</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-ReverseDNSLookup</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">smbscanner</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-FruityC2</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-Stager</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">process call create</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">root\\default</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">FilterToConsumerBinding</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">root\\subscription</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Win32_TaskService</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Win32_TaskService</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">stratum+tcp</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">-donate-level=</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Wmiclass</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">WmiCl'+'as'+'s</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">ntdsutil</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">mimiauth</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Powersploit</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Mimikittenz</CommandLine>
 			<!--Suspicious Windows tools-->
 			<Image name="MitreRef=T1001,Technique=Signed Script Proxy Execution,Tactic=Defense Evasion/Execution" condition="image">cscript.exe</Image> <!--Microsoft:WindowsScriptingHost: | Credit @Neo23x0 [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
 			<Image condition="image">wscript.exe</Image> <!--Microsoft:WindowsScriptingHost: | Credit @arekfurt -->
@@ -2591,59 +2719,59 @@
 			<TargetFilename condition="end with">.default\prefs-1.js</TargetFilename> <!--Exclude: Firefox prefs update spam-->
 		</FileCreateStreamHash>
 		<FileCreateStreamHash onmatch="include">
-			<TargetFilename condition="contains">Content.Outlook</TargetFilename> <!--Microsoft:Outlook: Attachments--> <!--PRIVACY WARNING-->
-			<TargetFilename condition="contains">Downloads</TargetFilename> <!--Downloaded files. Does not include "Run" files in IE-->
-			<TargetFilename condition="contains">Temp\7z</TargetFilename> <!--7zip extractions-->
-			<TargetFilename condition="contains">Startup</TargetFilename> <!--ADS startup | Example: [ https://www.hybrid-analysis.com/sample/a314f6106633fba4b70f9d6ddbee452e8f8f44a72117749c21243dc93c7ed3ac?environmentId=100 ] -->
-			<TargetFilename condition="end with">.vb</TargetFilename> <!--VisualBasicScripting files-->
-			<TargetFilename condition="end with">.application</TargetFilename> <!--Microsoft:ClickOnce: [ https://blog.netspi.com/all-you-need-is-one-a-clickonce-love-story/ ] -->
-			<TargetFilename condition="end with">.appref-ms</TargetFilename> <!--Microsoft:ClickOnce application | Credit @ion-storm -->
-			<TargetFilename condition="end with">.bat</TargetFilename> <!--Batch scripting-->
-			<TargetFilename condition="end with">.cmd</TargetFilename> <!--Batch scripting: Batch scripts can also use the .cmd extension | Credit: @mmazanec -->
-			<TargetFilename condition="end with">.cmdline</TargetFilename> <!--Microsoft:dotNet: Executed by cvtres.exe-->
-			<TargetFilename condition="end with">.docm</TargetFilename> <!--Microsoft:Office:Word: Macro-->
-			<TargetFilename condition="end with">.exe</TargetFilename> <!--Executable-->
-			<TargetFilename condition="end with">.dll</TargetFilename> <!--Executable-->
-			<TargetFilename condition="end with">.sys</TargetFilename> <!--Executable-->
-			<TargetFilename condition="end with">.hta</TargetFilename> <!--Scripting-->
-			<TargetFilename condition="end with">.pptm</TargetFilename> <!--Microsoft:Office:Word: Macro-->
-			<TargetFilename condition="end with">.ps1</TargetFilename> <!--PowerShell [ More information: http://www.hexacorn.com/blog/2014/08/27/beyond-good-ol-run-key-part-16/ ] -->
-			<TargetFilename condition="end with">.sys</TargetFilename> <!--System driver files-->
-			<TargetFilename condition="end with">.reg</TargetFilename> <!--Registry files-->
-			<TargetFilename condition="end with">.docm</TargetFilename> <!--Office Macros-->
-			<TargetFilename condition="end with">.xlsm</TargetFilename> <!--Office Macros-->
-			<TargetFilename condition="end with">.xlam</TargetFilename> <!--Office Macros-->
-			<TargetFilename condition="end with">.pptm</TargetFilename> <!--Office Macros-->
-			<TargetFilename condition="end with">.potm</TargetFilename> <!--Office Macros-->
-			<TargetFilename condition="end with">.pptm</TargetFilename> <!--Office Macros-->
-			<TargetFilename condition="end with">.sldm</TargetFilename> <!--Office Macros-->
-			<TargetFilename condition="end with">.scf</TargetFilename> <!--Explorer Command File-->
-			<TargetFilename condition="end with">.appref-ms</TargetFilename> <!--ClickOnce Application-->
-			<TargetFilename condition="end with">.rdp</TargetFilename> <!--Remote Desktop file-->
-			<TargetFilename condition="end with">.vbs</TargetFilename> <!--VisualBasicScripting-->
-			<TargetFilename condition="end with">.js</TargetFilename> <!--Java-->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="contains">Content.Outlook</TargetFilename> <!--Microsoft:Outlook: Attachments--> <!--PRIVACY WARNING-->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="contains">Downloads</TargetFilename> <!--Downloaded files. Does not include "Run" files in IE-->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="contains">Temp\7z</TargetFilename> <!--7zip extractions-->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="contains">Startup</TargetFilename> <!--ADS startup | Example: [ https://www.hybrid-analysis.com/sample/a314f6106633fba4b70f9d6ddbee452e8f8f44a72117749c21243dc93c7ed3ac?environmentId=100 ] -->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="end with">.vb</TargetFilename> <!--VisualBasicScripting files-->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="end with">.application</TargetFilename> <!--Microsoft:ClickOnce: [ https://blog.netspi.com/all-you-need-is-one-a-clickonce-love-story/ ] -->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="end with">.appref-ms</TargetFilename> <!--Microsoft:ClickOnce application | Credit @ion-storm -->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="end with">.bat</TargetFilename> <!--Batch scripting-->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="end with">.cmd</TargetFilename> <!--Batch scripting: Batch scripts can also use the .cmd extension | Credit: @mmazanec -->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="end with">.cmdline</TargetFilename> <!--Microsoft:dotNet: Executed by cvtres.exe-->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="end with">.docm</TargetFilename> <!--Microsoft:Office:Word: Macro-->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="end with">.exe</TargetFilename> <!--Executable-->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="end with">.dll</TargetFilename> <!--Executable-->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="end with">.sys</TargetFilename> <!--Executable-->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="end with">.hta</TargetFilename> <!--Scripting-->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="end with">.pptm</TargetFilename> <!--Microsoft:Office:Word: Macro-->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="end with">.ps1</TargetFilename> <!--PowerShell [ More information: http://www.hexacorn.com/blog/2014/08/27/beyond-good-ol-run-key-part-16/ ] -->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="end with">.sys</TargetFilename> <!--System driver files-->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="end with">.reg</TargetFilename> <!--Registry files-->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="end with">.docm</TargetFilename> <!--Office Macros-->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="end with">.xlsm</TargetFilename> <!--Office Macros-->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="end with">.xlam</TargetFilename> <!--Office Macros-->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="end with">.pptm</TargetFilename> <!--Office Macros-->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="end with">.potm</TargetFilename> <!--Office Macros-->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="end with">.pptm</TargetFilename> <!--Office Macros-->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="end with">.sldm</TargetFilename> <!--Office Macros-->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="end with">.scf</TargetFilename> <!--Explorer Command File-->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="end with">.appref-ms</TargetFilename> <!--ClickOnce Application-->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="end with">.rdp</TargetFilename> <!--Remote Desktop file-->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="end with">.vbs</TargetFilename> <!--VisualBasicScripting-->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="end with">.js</TargetFilename> <!--Java-->
 			<!--SECTION: Certificates -->
-			<TargetFilename condition="contains">.pem</TargetFilename>
-			<TargetFilename condition="contains">.crt</TargetFilename>
-			<TargetFilename condition="contains">.ca-bundle</TargetFilename>
-			<TargetFilename condition="contains">.cer</TargetFilename>
-			<TargetFilename condition="contains">.csr</TargetFilename>
-			<TargetFilename condition="contains">.der</TargetFilename>
-			<TargetFilename condition="contains">.p7b</TargetFilename>
-			<TargetFilename condition="contains">.p7r</TargetFilename>
-			<TargetFilename condition="contains">.p7s</TargetFilename>
-			<TargetFilename condition="contains">.pfx</TargetFilename>
-			<TargetFilename condition="contains">.sto</TargetFilename>
-			<TargetFilename condition="contains">.p12</TargetFilename>
-			<TargetFilename condition="contains">.crl</TargetFilename>
-			<TargetFilename condition="contains">.sst</TargetFilename>
-			<TargetFilename condition="contains">.key</TargetFilename>
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="contains">.pem</TargetFilename>
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="contains">.crt</TargetFilename>
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="contains">.ca-bundle</TargetFilename>
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="contains">.cer</TargetFilename>
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="contains">.csr</TargetFilename>
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="contains">.der</TargetFilename>
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="contains">.p7b</TargetFilename>
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="contains">.p7r</TargetFilename>
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="contains">.p7s</TargetFilename>
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="contains">.pfx</TargetFilename>
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="contains">.sto</TargetFilename>
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="contains">.p12</TargetFilename>
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="contains">.crl</TargetFilename>
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="contains">.sst</TargetFilename>
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="contains">.key</TargetFilename>
 			<!--SECTION: CIA Vault7 Leak -->
-			<TargetFilename condition="contains">.mht</TargetFilename> <!-- Possible malformed file will escape IE sandbox -->
-			<TargetFilename condition="contains">.manifest</TargetFilename>
-			<TargetFilename condition="contains">.cpl</TargetFilename> <!-- Vault7 CIA Leak: Control Panel Persistence -->
-			<TargetFilename condition="contains">.scr</TargetFilename> <!-- Vault7 CIA Leak: Screensaver Persistence -->
-			<TargetFilename condition="contains">.inf</TargetFilename> <!-- Vault7 CIA Leak: Sandworm: Uses INF File to bypass UAC on windows 7 -->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="contains">.mht</TargetFilename> <!-- Possible malformed file will escape IE sandbox -->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="contains">.manifest</TargetFilename>
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="contains">.cpl</TargetFilename> <!-- Vault7 CIA Leak: Control Panel Persistence -->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="contains">.scr</TargetFilename> <!-- Vault7 CIA Leak: Screensaver Persistence -->
+			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="contains">.inf</TargetFilename> <!-- Vault7 CIA Leak: Sandworm: Uses INF File to bypass UAC on windows 7 -->
 		</FileCreateStreamHash>
 
 	<!--SYSMON EVENT ID 16 : SYSMON CONFIGURATION CHANGE-->
