@@ -2718,6 +2718,7 @@
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime, Hash-->
 		<FileCreateStreamHash onmatch="exclude">
 			<TargetFilename condition="end with">.default\prefs-1.js</TargetFilename> <!--Exclude: Firefox prefs update spam-->
+			<TargetFilename condition="contains">\Microsoft\Windows\INetCache\</TargetFilename> <!--Exclude: IE Cache Spam-->
 		</FileCreateStreamHash>
 		<FileCreateStreamHash onmatch="include">
 			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL=https://attack.mitre.org/wiki/Technique/T1096" condition="contains">Content.Outlook</TargetFilename> <!--Microsoft:Outlook: Attachments--> <!--PRIVACY WARNING-->
