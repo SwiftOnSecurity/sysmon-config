@@ -923,7 +923,7 @@
 			<Image condition="contains">MicrosoftEdgeCP.exe</Image>
 			<Image condition="contains">MicrosoftEdge.exe</Image>
 			<Image condition="contains">explorer.exe</Image>
-			<Image name="Alert=Non-Exe Connecting to network" condition="excludes">.exe</Image>
+			<!--<Image name="Alert=Non-Exe Connecting to network" condition="excludes">.exe</Image>-->
 			<!--Suspicious Windows tools-->
 			<Image condition="image">at.exe</Image> <!--Microsoft:Windows: Remote task scheduling | Credit @ion-storm -->
 			<Image condition="image">certutil.exe</Image> <!--Microsoft:Windows: Certificate tool can contact outbound | Credit @ion-storm and @FVT [ https://twitter.com/FVT/status/834433734602530817 ] -->
