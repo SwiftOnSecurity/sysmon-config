@@ -1876,6 +1876,56 @@
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.8lock8</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">==READ==THIS==PLEASE==</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">randomname</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="contains">.weapologize</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="contains">SORRY-FOR-FILES</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="contains">PLEASE-READ-WE-HELP.</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="contains">CHECK-IT-HELP-FILES</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="contains">HAPPEN-ENCED-FILES</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="contains">HELP-ME-ENCED-FILES</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="contains">PLS-DEC-MY-FILES</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="contains">WE-MUST-DEC-FILES</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="contains">No-PROBLEM-WE-DEC-FILES</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="contains">TRY-READ-ME-TO-DEC</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="contains">IF-YOU-WANT-DEC-FILES</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="contains">LET-ME-TRY-DEC-FILES</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="contains">READ-FOR-DECRYPT-FILES</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="contains">PLEASE-READIT-IF_YOU-WANT</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="contains">READ-READ-READ</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="contains">WANT_FILES_BACK</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="contains">READ-FOR-DECCCC-FILESSS</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="contains">PLEASE-README-AFFECTED-FILES</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="contains">_DEC_FILES.</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.notfoundrans</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.VforVendetta</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.theworldisyours</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.helpmeencedfiles</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.wowwhereismyfiles</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.wowreadfordecryp</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.powerfulldecrypt</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.noproblemwedecfiles</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.weareyourfriends</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.otherinformation</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.letmetrydecfiles</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.encryptedyourfiles</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.weencedufiles</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.filegofprencrp</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.iaufkakfhsaraf</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.cifgksaffsfyghd</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.skjdthghh</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.ransom</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.breeding123</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.mention9823</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.suppose666</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.moments2900</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.country82000</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.supported2017</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.prosperous666</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.disposed2017</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.myrandsext2017</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.loveransisgood</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.areyoulovemyrans</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.stubbin</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.berkshire</TargetFilename>
 			<!--SamSam Ransomware File drops -->
 			<TargetFilename condition="contains">www.exe</TargetFilename>
 			<TargetFilename condition="contains">ps.exe</TargetFilename>
