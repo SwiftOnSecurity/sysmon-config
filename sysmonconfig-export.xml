@@ -2718,6 +2718,7 @@
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime, Hash-->
 		<FileCreateStreamHash onmatch="exclude">
 			<TargetFilename condition="end with">.default\prefs-1.js</TargetFilename> <!--Exclude: Firefox prefs update spam-->
+			<TargetFilename condition="contains">\Mozilla\Firefox\Profiles\</TargetFilename>
 			<TargetFilename condition="contains">\Microsoft\Windows\INetCache\</TargetFilename> <!--Exclude: IE Cache Spam-->
 			<TargetFilename condition="contains">\Microsoft\Windows\Temporary Internet Files\Content.IE5</TargetFilename> <!--Exclude: IE Cache Spam-->
 		</FileCreateStreamHash>
