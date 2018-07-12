@@ -746,6 +746,8 @@
 			<CommandLine condition="contains">net.exe time</CommandLine>
 			<CommandLine condition="contains">net1 time</CommandLine>
 			<CommandLine condition="contains">C:\Windows\system32\cmd.exe /c UsrLogon.cmd</CommandLine>
+			<ParentImage condition="is">C:\Program Files (x86)\MaaS360\Cloud Extender\EMSAgent.exe</ParentImage>
+			<ParentImage condition="is">C:\Program Files\Octopus Deploy\Tentacle\Tentacle.exe</ParentImage>
 		</ProcessCreate>
 
 	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM [FileCreateTime]-->
