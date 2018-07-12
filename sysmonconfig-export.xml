@@ -5,12 +5,12 @@
   Master project:	https://github.com/SwiftOnSecurity/sysmon-config
   Master license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
 
-  Fork version:	150
+  Fork version:	300
   Fork author:	ionstorm
   Fork project:	https://github.com/ion-storm/sysmon-config
   Fork license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
 
-  REQUIRED: Sysmon version 7.01 or higher (due to changes in registry syntax and bug-fixes)
+  REQUIRED: Sysmon version 8.00 or higher (due to changes in registry syntax and bug-fixes)
 	https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon
 	Note that 6.03 and 7.01 have critical fixes for filtering, it's recommended you stay updated.
 
