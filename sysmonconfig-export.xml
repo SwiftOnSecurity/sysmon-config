@@ -1676,10 +1676,9 @@
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">recoveryfile</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">help_recover_instructions</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">_Locky_recover</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">_ReCoVeRy_</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">help_decrypt</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">help_restore</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.CRAB</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.CRAB</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">cerber</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">_decrypt</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">-decrypt</TargetFilename>
@@ -1752,12 +1751,11 @@
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">restorefiles</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">help_recover_instructions</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">_Locky_recover</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">_ReCoVeRy_</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">!!!READ_TO_UNLOCK!!!.TXT</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">openforyou@india.com</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.warn_wallet</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">hacks.at.sigaint.org</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.MATRIX</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.MATRIX</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">Crytp0l0cker</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">decrypted_files.dat</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">padcrypt</TargetFilename>
@@ -1771,7 +1769,6 @@
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">IF_WANT_FILES_BACK_PLS_READ.html</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">_HELP_HELP_HELP_</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">zXz.html</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.zXz</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">HELP_ME_PLEASE.txt</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">!_RECOVERY_HELP_!.txt</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">PLEASE-READIT-IF_YOU-WANT.html</TargetFilename>
@@ -1787,14 +1784,14 @@
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">_DECRYPT_ASSISTANCE_</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">_HELP_HELP_HELP_</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">BTC_DECRYPT_FILES</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.TheTrumpLocker</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.TheTrumpLocker</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">READ-READ-READ</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.weencedufiles</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.powned</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.weencedufiles</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.powned</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">[KASISKI]</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">INSTRUCCIONES</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">_USE_TO_FIX_</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.happydayzz</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.happydayzz</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">001-READ-FOR-DECRYPT-FILES</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">DECRYPT_INFORMATION</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">Rans0m_N0te_Read_ME</TargetFilename>
@@ -1804,54 +1801,54 @@
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">HERMES</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">_DECRYPT_INFO_szesnl</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">000-IF-YOU-WANT-DEC-FILES</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.evillock</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.letmetrydecfiles</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.yourransom</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.lambda_l0cked</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.gefickt</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.sigaint.org</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.HakunaMatata</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.CRYPTOSHIELD</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.weareyourfriends</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.evillock</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.letmetrydecfiles</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.yourransom</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.lambda_l0cked</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.gefickt</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.sigaint.org</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.HakunaMatata</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.CRYPTOSHIELD</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.weareyourfriends</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">MERRY_I_LOVE_YOU_BRUCE.hta</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">How decrypt files.hta</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">unCrypte</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">decipher_ne</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.paytounlock</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.paytounlock</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">TRY-READ-ME-TO-DEC</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">protonmail.ch</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">LEER_INMEDIATAMENTE</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.killedXXX</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.doomed</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.killedXXX</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.doomed</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">000-No-PROBLEM-WE-DEC-FILES</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.noproblemwedecfiles</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.noproblemwedecfiles</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">WE-MUST-DEC-FILES</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">powerfulldecrypt</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">opensourcemail.org</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">contains(to_string($message.file_created), "READ_ME_TO_DECRYPT_YOU_INFORMA</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">file0locked</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">CryptoRansomware</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.VBRANSOM</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.VBRANSOM</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">_HELP_Recover_Files_</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.oops</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.deria</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.RMCM1</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.oops</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.deria</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.RMCM1</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">Locked-by-Mafia</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">-filesencrypted</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">decrypt_Globe</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.hnumkhotep</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.decrypt2017</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.hnumkhotep</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.decrypt2017</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">DecryptFile</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.L0CKED</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.L0CKED</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">1025-7152.exe</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">firstransomware.exe</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">HELP-ME-ENCED-FILES</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">helpmeencedfiles</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">EdgeLocker</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.XBTL</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.firecrypt</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.XBTL</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.firecrypt</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">YOUR_FILES_ARE_DEAD</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.airacropencrypted!</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.airacropencrypted!</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">mail.ru</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">WHERE-YOUR-FILES</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">Whereisyourfiles</TargetFilename>
@@ -1859,10 +1856,10 @@
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">_README.hta</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">_README.jpg</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">HOW_OPEN_FILES</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.gangbang</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.gangbang</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">GJENOPPRETTING_AV_FILER</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">!!! HOW TO DECRYPT FILES !!!</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.braincrypt</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.braincrypt</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">INSTRUCTION RESTORE FILE</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">Survey Locker.exe</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">Receipt.exe</TargetFilename>
@@ -1874,16 +1871,15 @@
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">RESTORE_CORUPTED_FILES</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">Cyber SpLiTTer Vbs.exe</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">000-PLEASE-READ-WE-HELP</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.VforVendetta</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.VforVendetta</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">popcorn_time.exe</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.wallet</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">OSIRIS-</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">DesktopOsiris</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">inbox.ru</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.no_more_ransom</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.lovewindows</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.osiris</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.R.i.P</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.no_more_ransom</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.lovewindows</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.osiris</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.R.i.P</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">Important!.txt</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">!_HOW_TO_RESTORE_</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">HOW_TO_RESTORE_FILES</TargetFilename>
@@ -1893,7 +1889,6 @@
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">ThxForYurTyme</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">_HOW_TO_Decrypt</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">_RECOVER_INSTRUCTIONS</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">rtext.txt</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">DECRYPTION INSTRUCTIONS.</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">decrypt explanations.</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">_WHAT_is.html</TargetFilename>
@@ -1908,7 +1903,7 @@
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">ATTENTION.url</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">README!!!</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">email-salazar_slytherin10</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">._AiraCropEncrypted!</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">._AiraCropEncrypted!</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">README_RECOVER_FILES_</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">_HOWDO_text.html</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">_HOWDO_text.bmp</TargetFilename>
@@ -2032,15 +2027,15 @@
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">BUYUNLOCKCODE.txt</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">AllFilesAreLocked</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">@ukr.net</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.fuckyourdata</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.encrypted.locked</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.Where_my_files.txt</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.RSplited</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.KEYZ.KEYH0LES</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.How_To_Get_Back.txt</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.How_To_Decrypt.txt</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.Contact_Here_To_Recover_Your_Files.txt</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.31392E30362E32303136_</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.fuckyourdata</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.encrypted.locked</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.Where_my_files.txt</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.RSplited</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.KEYZ.KEYH0LES</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.How_To_Get_Back.txt</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.How_To_Decrypt.txt</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.Contact_Here_To_Recover_Your_Files.txt</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.31392E30362E32303136_</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains"># DECRYPT MY FILES #.vbs</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains"># DECRYPT MY FILES #.txt</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains"># DECRYPT MY FILES #.html</TargetFilename>
@@ -2048,10 +2043,10 @@
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">!!!README!!!</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">!!!-WARNING-!!!.txt</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">!!!-WARNING-!!!.html</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.magic_software_syndicate</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.magic_software_syndicate</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">maestro@pizzacrypts.info</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">howtodecryptaesfiles.txt</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.SecureCrypted</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.SecureCrypted</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">decrypt-instruct</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">files_are_encrypted.</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">decryptmyfiles</TargetFilename>
@@ -2083,14 +2078,14 @@
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">decrypt_instruct</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">cryptolocker.</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">recover_instruction</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.hydracrypt_ID</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.cryptotorlocker</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.one-we_can-help_you</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.OMG!</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.nochance</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.LOL!</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.CryptoTorLocker2015!</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.{CRYPTENDBLACKDC}</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.hydracrypt_ID</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.cryptotorlocker</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.one-we_can-help_you</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.OMG!</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.nochance</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.LOL!</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.CryptoTorLocker2015!</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.{CRYPTENDBLACKDC}</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">vault.txt</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">vault.key</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">recovery_key.txt</TargetFilename>
@@ -2107,15 +2102,15 @@
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">Howto_Restore_FILES.TXT</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">recoveryfile</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">_how_recover.txt</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.SUPERCRYPT</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.helpdecrypt</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">only-we_can-help_you</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.fileiscryptedhard</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.blocatto</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">.8lock8</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.SUPERCRYPT</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.helpdecrypt</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">only-we_can-help_you</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.fileiscryptedhard</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.blocatto</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.8lock8</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">==READ==THIS==PLEASE==</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">randomname</TargetFilename>
-			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="contains">.weapologize</TargetFilename>
+			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.weapologize</TargetFilename>
 			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="contains">SORRY-FOR-FILES</TargetFilename>
 			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="contains">PLEASE-READ-WE-HELP.</TargetFilename>
 			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="contains">CHECK-IT-HELP-FILES</TargetFilename>
