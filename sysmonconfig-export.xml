@@ -83,7 +83,7 @@
 	        <Image name="MitreRef=T1121,Technique=Trusted Developer Utilities,Tactic=Defense Evasion/Execution,Note=MSBuild Applocker Bypass" condition="end with">regsvcs.exe</Image>
 			<Image name="MitreRef=T1121,Technique=Trusted Developer Utilities,Tactic=Defense Evasion/Execution,Note=MSBuild Applocker Bypass" condition="end with">regasm.exe</Image>
 			<Image name="MitreRef=T1218,Technique=Trusted Developer Utilities,Tactic=Defense Evasion/Execution,Note=MSBuild Applocker Bypass" condition="end with">SyncAppvPublishingServer.exe</Image>
-			<Image name="MitreRef=T1218,Technique=Defense Evasion/Execution" condition="end with">control.exe</Image>
+			<Image name="MitreRef=T1218,Technique=Defense Evasion/Execution" condition="end with">\control.exe</Image>
 	        <CommandLine name="MitreRef=T1196,Technique=Control Panel Items,Tactic=Defense Evasion/Execution" condition="contains">control.exe /name</CommandLine>
 			<CommandLine name="MitreRef=T1196,Technique=Control Panel Items,Tactic=Defense Evasion/Execution" condition="contains">rundll32.exe shell32.dll,Control_RunDLL</CommandLine>
 			<Image name="MitreRef=T1170,Technique=MSHTA,Tactic=Defense Evasion/Execution" condition="end with">mshta.exe</Image>
@@ -124,8 +124,8 @@
 			<Image name="MitreRef=T1201/T1087,Technique=System Network Connections Discovery/Account Discovery,Tactic=Discovery" condition="end with">\net.exe</Image> <!--Microsoft:Windows: "net use"/"net view" used by attackers to surveil and connect with file shares from command line | Credit @ion-storm -->
 			<Image name="MitreRef=T1201/T1087,Technique=System Network Connections Discovery/Account Discovery,Tactic=Discovery" condition="end with">\net1.exe</Image> <!--Microsoft:Windows: "net use"/"net view" used by attackers to surveil and connect with file shares from command line | Credit @ion-storm -->
 			<Image name="MitreRef=T1049,Technique=System Network Connections Discovery,Tactic=Discovery" condition="end with">quser.exe</Image> <!--Microsoft:Windows: shows logged-on users -->
-			<Image name="MitreRef=T1016,Technique=System Network Configuration Discovery,Tactic=Discovery" condition="end with">route.exe</Image> <!--Microsoft:Windows: manipulates network routing tables -->
-			<Image name="MitreRef=T1016,Technique=System Information Discovery,Tactic=Discovery" condition="end with">reg.exe</Image> <!--Microsoft:Windows: reads and modifies the Windows register -->
+			<Image name="MitreRef=T1016,Technique=System Network Configuration Discovery,Tactic=Discovery" condition="end with">\route.exe</Image> <!--Microsoft:Windows: manipulates network routing tables -->
+			<Image name="MitreRef=T1016,Technique=System Information Discovery,Tactic=Discovery" condition="end with">\reg.exe</Image> <!--Microsoft:Windows: reads and modifies the Windows register -->
 			<Image name="MitreRef=T1016,Technique=System Network Connections Discovery,Tactic=Discovery" condition="end with">netsh.exe</Image> <!--Microsoft:Windows: manipulate the firewall -->
 			<!--MITRE TACTIC: Execution-->
 			<CommandLine name="MitreRef=T1059,Technique=Command-Line Interface,Tactic=Execution" condition="contains">COMSPEC</CommandLine>
@@ -558,7 +558,7 @@
 			<Image condition="end with">control.exe</Image>
 			<Image condition="end with">acrord32.exe</Image>
 			<Image condition="end with">installutil.exe</Image>
-			<Image name="Info=Registry modification/queries" condition="end with">reg.exe</Image>
+			<Image name="Info=Registry modification/queries" condition="end with">\reg.exe</Image>
 			<Image name="Info=ipconfig discovery" condition="end with">ipconfig.exe</Image>
 			<Image name="Info=Executables Launched In Appdata" condition="contains">\appdata\</Image>
 			<Image condition="contains">\programdata\</Image>
@@ -594,8 +594,13 @@
 			<ParentCommandLine condition="begin with">%%SystemRoot%%\system32\csrss.exe ObjectDirectory=\Windows</ParentCommandLine> <!--Microsoft:Windows:CommandShell: Triggered when programs use the command shell, but without attribution-->
 			<ParentImage condition="is">C:\Windows\system32\SearchIndexer.exe</ParentImage> <!--Microsoft:Windows:Search: Launches many uninteresting sub-processes-->
 			<Image condition="is">C:\Windows\system32\vssvc.exe</Image><!-- Microsoft Windows: Volume Shadow Copy Service -->
+			<CommandLine condition="contains">net.exe use</CommandLine> <!-- Silence domain login scripts -->
 			<CommandLine condition="contains">net use</CommandLine> <!-- Silence domain login scripts -->
-			<CommandLine condition="contains">net use</CommandLine> <!-- Silence domain login scripts -->
+			<CommandLine condition="contains">net1 use</CommandLine> <!-- Silence domain login scripts -->
+			<CommandLine condition="contains">net.exe time</CommandLine> <!-- Silence domain login scripts -->
+			<CommandLine condition="contains">net time</CommandLine> <!-- Silence domain login scripts -->
+			<CommandLine condition="contains">net1 time</CommandLine> <!-- Silence domain login scripts -->
+			<CommandLine condition="contains">gpscript.exe</CommandLine> <!-- Silence domain login scripts -->
 			<!--SECTION: Microsoft:Windows:Defender-->
 			<Image condition="begin with">C:\Program Files\Windows Defender</Image> <!--Microsoft:Windows:Defender in Win10-->
 			<Image condition="end with">C:\Windows\System32\CompatTelRunner.exe</Image> <!--Microsoft:Windows:Customer Experience Improvement-->
