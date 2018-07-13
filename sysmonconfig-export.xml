@@ -568,6 +568,7 @@
 			<Image condition="contains">\Perflogs\</Image>
 			<Image condition="contains">\config\systemprofile\</Image>
 			<!--Include Everything last to allow rules to apply and to allow previous exclude ruleset to function-->
+			<CommandLine name="Note=Windows Firewall Modifications" condition="contains">netsh advfirewall firewall</CommandLine>
 			<Image condition="contains">\</Image>
 		</ProcessCreate>
 		<ProcessCreate onmatch="exclude">
