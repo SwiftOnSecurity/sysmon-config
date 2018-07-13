@@ -135,6 +135,8 @@
 			<Image name="MitreRef=T1086,Technique=Powershell,Tactic=Execution" condition="end with">powershell.exe</Image> <!--Microsoft:Windows: PowerShell interface-->
 			<Description name="MitreRef=T1086,Technique=Powershell,Tactic=Execution" condition="end with">powershell.exe</Description> <!--Microsoft:Windows: PowerShell interface-->
 			<ParentImage name="MitreRef=T1086,Technique=Powershell,Tactic=Execution" condition="end with">powershell.exe</ParentImage> <!--Microsoft:Windows: PowerShell interface-->
+			<CommandLine name="MitreRef=T1086,Technique=Powershell,Tactic=Execution" condition="begin with">powershell.exe -Version</CommandLine> <!--Microsoft:Windows: PowerShell interface-->
+			<CommandLine name="MitreRef=T1086,Technique=Powershell,Tactic=Execution,Note=Powershell Downgrade attack" condition="begin with">powershell -Version</CommandLine> <!--Microsoft:Windows: PowerShell interface-->
 			<CommandLine name="MitreRef=T1086,Technique=PowerShell,Tactic=Execution,Alert=Powershell Invoke-Expression" condition="contains">iex</CommandLine>
 			<CommandLine name="MitreRef=T1086,Technique=PowerShell,Tactic=Execution,Alert=Powershell Invoke-Expression" condition="contains">Invoke-Expression</CommandLine>
 			<CommandLine name="MitreRef=T1086,Technique=PowerShell,Tactic=Execution,Alert=Powershell Invoke-WebRequest" condition="contains">iwr</CommandLine>
@@ -249,8 +251,12 @@
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">ieexec.exe http</CommandLine>
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">ieexec http</CommandLine>
 			<ParentImage name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">diskshadow</ParentImage>
-			<ParentImage name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">rundll32.exe advpack.dll,LaunchINFSection</ParentImage>
-			<ParentImage name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">rundll32 advpack.dll,LaunchINFSection</ParentImage>
+			<!--LoLBin Applocker bypasses-->
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">advpack.dll,LaunchINFSection</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">mshtml,RunHTMLApplication</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">/s /n /u /i:http:</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">mshtml,RunHTMLApplication</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">bginfo.bgi /popup /nolicprompt</CommandLine>
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="begin with">set </CommandLine>
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="begin with">setx </CommandLine>
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">pushd</CommandLine>
@@ -318,6 +324,8 @@
 			<CommandLine name="Alert=DotDot Dirs" condition="contains">..</CommandLine>
 	  		<!--Hacking Command Line Events-->
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">wmic shadowcopy delete</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">wbadmin delete catalog</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation,Note=BCDEdit disabling auto repair" condition="contains">/set {default} recoveryenabled no</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">telnet</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">-dumpcr</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">putty</CommandLine>
@@ -445,6 +453,37 @@
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">mimiauth</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Powersploit</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Mimikittenz</CommandLine>
+			<!--Malicious Keywords Credits: Sean Metcalf (source), Florian Roth (rule)-->
+			<CommandLine name="Alert=Malicious Keywords from Exploitation Frameworks,Tactic=Privilege Escalation" condition="contains">AdjustTokenPrivileges</CommandLine>
+			<CommandLine name="Alert=Malicious Keywords from Exploitation Frameworks,Tactic=Privilege Escalation" condition="contains">IMAGE_NT_OPTIONAL_HDR64_MAGIC</CommandLine>
+			<CommandLine name="Alert=Malicious Keywords from Exploitation Frameworks,Tactic=Privilege Escalation" condition="contains">Management.Automation.RuntimeException</CommandLine>
+			<CommandLine name="Alert=Malicious Keywords from Exploitation Frameworks,Tactic=Privilege Escalation" condition="contains">Microsoft.Win32.UnsafeNativeMethods</CommandLine>
+			<CommandLine name="Alert=Malicious Keywords from Exploitation Frameworks,Tactic=Privilege Escalation" condition="contains">ReadProcessMemory.Invoke</CommandLine>
+			<CommandLine name="Alert=Malicious Keywords from Exploitation Frameworks,Tactic=Privilege Escalation" condition="contains">Runtime.InteropServices</CommandLine>
+			<CommandLine name="Alert=Malicious Keywords from Exploitation Frameworks,Tactic=Privilege Escalation" condition="contains">SE_PRIVILEGE_ENABLED</CommandLine>
+			<CommandLine name="Alert=Malicious Keywords from Exploitation Frameworks,Tactic=Privilege Escalation" condition="contains">System.Security.Cryptography</CommandLine>
+			<CommandLine name="Alert=Malicious Keywords from Exploitation Frameworks,Tactic=Privilege Escalation" condition="contains">System.Runtime.InteropServices</CommandLine>
+			<CommandLine name="Alert=Malicious Keywords from Exploitation Frameworks,Tactic=Privilege Escalation" condition="contains">LSA_UNICODE_STRING</CommandLine>
+			<CommandLine name="Alert=Malicious Keywords from Exploitation Frameworks,Tactic=Privilege Escalation" condition="contains">MiniDumpWriteDump</CommandLine>
+			<CommandLine name="Alert=Malicious Keywords from Exploitation Frameworks,Tactic=Privilege Escalation" condition="contains">PAGE_EXECUTE_READ</CommandLine>
+			<CommandLine name="Alert=Malicious Keywords from Exploitation Frameworks,Tactic=Privilege Escalation" condition="contains">Net.Sockets.SocketFlags</CommandLine>
+			<CommandLine name="Alert=Malicious Keywords from Exploitation Frameworks,Tactic=Privilege Escalation" condition="contains">Reflection.Assembly</CommandLine>
+			<CommandLine name="Alert=Malicious Keywords from Exploitation Frameworks,Tactic=Privilege Escalation" condition="contains">SECURITY_DELEGATION</CommandLine>
+			<CommandLine name="Alert=Malicious Keywords from Exploitation Frameworks,Tactic=Privilege Escalation" condition="contains">TOKEN_ADJUST_PRIVILEGES</CommandLine>
+			<CommandLine name="Alert=Malicious Keywords from Exploitation Frameworks,Tactic=Privilege Escalation" condition="contains">TOKEN_ALL_ACCESS</CommandLine>
+			<CommandLine name="Alert=Malicious Keywords from Exploitation Frameworks,Tactic=Privilege Escalation" condition="contains">TOKEN_ASSIGN_PRIMARY</CommandLine>
+			<CommandLine name="Alert=Malicious Keywords from Exploitation Frameworks,Tactic=Privilege Escalation" condition="contains">TOKEN_DUPLICATE</CommandLine>
+			<CommandLine name="Alert=Malicious Keywords from Exploitation Frameworks,Tactic=Privilege Escalation" condition="contains">TOKEN_ELEVATION</CommandLine>
+			<CommandLine name="Alert=Malicious Keywords from Exploitation Frameworks,Tactic=Privilege Escalation" condition="contains">TOKEN_IMPERSONATE</CommandLine>
+			<CommandLine name="Alert=Malicious Keywords from Exploitation Frameworks,Tactic=Privilege Escalation" condition="contains">TOKEN_INFORMATION_CLASS</CommandLine>
+			<CommandLine name="Alert=Malicious Keywords from Exploitation Frameworks,Tactic=Privilege Escalation" condition="contains">TOKEN_PRIVILEGES</CommandLine>
+			<CommandLine name="Alert=Malicious Keywords from Exploitation Frameworks,Tactic=Privilege Escalation" condition="contains">TOKEN_QUERY</CommandLine>
+			<CommandLine name="Alert=Malicious Keywords from Exploitation Frameworks,Tactic=Privilege Escalation" condition="contains">Metasploit</CommandLine>
+			<CommandLine name="Alert=Malicious Keywords from Exploitation Frameworks,Tactic=Privilege Escalation" condition="contains">Mimikatz</CommandLine>
+			<!--Malware IOC's-->
+			<CommandLine name="Alert=Potential Ransomware indicator" condition="contains">usn deletejournal</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">^h^t^t^p</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">h"t"t"p</CommandLine>
 			<!--Suspicious Windows tools-->
 			<Image name="MitreRef=T1001,Technique=Signed Script Proxy Execution,Tactic=Defense Evasion/Execution" condition="image">cscript.exe</Image> <!--Microsoft:WindowsScriptingHost: | Credit @Neo23x0 [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
 			<Image condition="image">wscript.exe</Image> <!--Microsoft:WindowsScriptingHost: | Credit @arekfurt -->
@@ -2509,6 +2548,10 @@
 			<!-- NOTICE: Detect New USB Network Devices: Poison Tap - Creates lots of noise, disabled for now
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}</TargetObject>
 			-->
+			<TargetObject name="NetNTLM downgrade attack" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\lmcompatibilitylevel</TargetObject> <!--Detects post exploitation using NetNTLM downgrade attacks-->
+			<TargetObject name="NetNTLM downgrade attack" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\NtlmMinClientSec</TargetObject> <!--Detects post exploitation using NetNTLM downgrade attacks-->
+			<TargetObject name="NetNTLM downgrade attack" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\RestrictSendingNTLMTraffic</TargetObject> <!--Detects post exploitation using NetNTLM downgrade attacks-->
+
 		</RegistryEvent>
 
 		<RegistryEvent onmatch="exclude">
