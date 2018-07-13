@@ -177,8 +177,8 @@
 			<ParentImage name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="end with">schtasks.exe</ParentImage>
 			<CommandLine name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="contains">schtasks /create</CommandLine>
 			<CommandLine name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="contains">schtasks.exe /create</CommandLine>
-			<Image name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="end with">at.exe</Image>
-			<ParentImage name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="end with">at.exe</ParentImage>
+			<Image name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="end with">\at.exe</Image>
+			<ParentImage name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="end with">\at.exe</ParentImage>
 			<CommandLine name="MitreRef=ToDo,Technique=Powershell Injection Persistence Bypass - Execution, Lateral Movement" condition="contains">System.Management.Automation</CommandLine>
 			<CommandLine name="MitreRef=T1136,Technique=Create Account,Tactic=Persistence" condition="contains">net user /add</CommandLine>
 			<CommandLine name="MitreRef=T1136,Technique=Create Account,Tactic=Persistence" condition="contains">net localgroup administrators /add</CommandLine>
