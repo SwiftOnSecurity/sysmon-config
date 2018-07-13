@@ -121,8 +121,8 @@
 			<Image name="MitreRef=T1016,Technique=System Information Discovery,Tactic=Discovery" condition="end with">sysinfo.exe</Image> <!--Microsoft:Windows: shows systeminformation -->
 			<Image name="MitreRef=T1049,Technique=System Network Connections Discovery,Tactic=Discovery" condition="end with">netstat.exe</Image> <!--Microsoft:Windows: shows protocol statistics and current TCP/IP network connections -->
 			<Image name="MitreRef=T1057,Technique=Process Discovery,Tactic=Discovery" condition="end with">qprocess.exe</Image> <!--Microsoft:Windows: shows information about processes -->
-			<Image name="MitreRef=T1201/T1087,Technique=System Network Connections Discovery/Account Discovery,Tactic=Discovery" condition="end with">net.exe</Image> <!--Microsoft:Windows: "net use"/"net view" used by attackers to surveil and connect with file shares from command line | Credit @ion-storm -->
-			<Image name="MitreRef=T1201/T1087,Technique=System Network Connections Discovery/Account Discovery,Tactic=Discovery" condition="end with">net1.exe</Image> <!--Microsoft:Windows: "net use"/"net view" used by attackers to surveil and connect with file shares from command line | Credit @ion-storm -->
+			<Image name="MitreRef=T1201/T1087,Technique=System Network Connections Discovery/Account Discovery,Tactic=Discovery" condition="end with">\net.exe</Image> <!--Microsoft:Windows: "net use"/"net view" used by attackers to surveil and connect with file shares from command line | Credit @ion-storm -->
+			<Image name="MitreRef=T1201/T1087,Technique=System Network Connections Discovery/Account Discovery,Tactic=Discovery" condition="end with">\net1.exe</Image> <!--Microsoft:Windows: "net use"/"net view" used by attackers to surveil and connect with file shares from command line | Credit @ion-storm -->
 			<Image name="MitreRef=T1049,Technique=System Network Connections Discovery,Tactic=Discovery" condition="end with">quser.exe</Image> <!--Microsoft:Windows: shows logged-on users -->
 			<Image name="MitreRef=T1016,Technique=System Network Configuration Discovery,Tactic=Discovery" condition="end with">route.exe</Image> <!--Microsoft:Windows: manipulates network routing tables -->
 			<Image name="MitreRef=T1016,Technique=System Information Discovery,Tactic=Discovery" condition="end with">reg.exe</Image> <!--Microsoft:Windows: reads and modifies the Windows register -->
@@ -2266,6 +2266,16 @@
 			<TargetFilename condition="end with">N-able Technologies\AVDefender\ThreatScanner\Antivirus-NewTemp\scanclient.dll</TargetFilename>
 			<TargetFilename condition="begin with">C:\Program Files (x86)\N-able Technologies\Windows Software Probe\Repository\nagent</TargetFilename>
 			<TargetFilename condition="begin with">C:\Program Files (x86)\N-able Technologies\Windows Agent\Temp\</TargetFilename>
+			<Image condition="is">C:\Program Files (x86)\MaaS360\Cloud Extender\EMSAgent.exe</Image>
+			<Image condition="is">C:\Program Files\graylog\collector-sidecar\winlogbeat.exe</Image>
+			<Image condition="is">C:\Program Files\N-able Technologies\Endpoint Update Server\bin\EPUpdateServer.exe</Image>
+			<Image condition="is">C:\Program Files (x86)\N-able Technologies\Windows Agent\AVDefender\Installer.exe</Image>
+			<Image condition="is">C:\Program Files (x86)\N-able Technologies\Windows Agent\bin\AutomationManager.ScriptRunner64.exe</Image>
+			<Image condition="is">C:\Program Files (x86)\StorageCraft\ShadowProtect\ShadowSnap\raw_agent_svc.exe</Image>
+			<Image condition="is">C:\Windows\system32\printfilterpipelinesvc.exe</Image>
+			<Image condition="is">C:\Program Files\Microsoft\Exchange Server\V15\FIP-FS\Bin\updateservice.exe</Image>
+			<Image condition="end with">\Runtime\1.0\NodeRunner.exe</Image><!--Exchange NodeRunner-->
+			
 		</FileCreate>
 
 	<!--SYSMON EVENT ID 12 & 13 & 14 : REGISTRY MODIFICATION [RegistryEvent]-->
