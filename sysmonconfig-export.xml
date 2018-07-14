@@ -10,45 +10,7 @@
   Fork project:	https://github.com/ion-storm/sysmon-config
   Fork license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
 
-  REQUIRED: Sysmon version 8.00 or higher (due to changes in registry syntax and bug-fixes)
-	https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon
-	Note that 6.03 and 7.01 have critical fixes for filtering, it's recommended you stay updated.
-
-  NOTE: To collect Sysmon logs centrally for free, see https://aka.ms/WEF. Will need to run command to allow log access to the Network Service:
-	wevtutil.exe sl Microsoft-Windows-Sysmon/Operational /ca:O:BAG:SYD:(A;;0xf0005;;;SY)(A;;0x5;;;BA)(A;;0x1;;;S-1-5-32-573)(A;;0x1;;;NS)
-
-  NOTE: Do not let the size and complexity of this configuration discourage you from customizing this or building your own.
-	This configuration is based around known, high-signal event tracing, and thus appears complicated, but it's only very
-	detailed. Significant effort over years has been invested in front-loading as much filtering as possible onto the
-	client. This is to make analysis of intrusions possible by hand, and to try to surface anomalous activity as quickly
-	as possible to any technician armed only with Event Viewer. Its purpose is to democratize system monitoring for all organizations.
-
-  NOTE: Sysmon is NOT a whitelist solution or HIDS engine, it is a computer change and event logging tool with very basic exclude rules.
-	Do NOT ignore everything possible. Sysmon's purpose is providing context during a threat or problem investigation. Legitimate
-	processes are routinely used by threats - do not blindly exclude them. Additionally, be mindful of process-hollowing / imitation.
-
-  NOTE: Sysmon is not hardened against an attacker with admin rights. Additionally, this configuration offers an attacker, willing
-	to study it, many ways to evade some of the logging. If you are in a high-threat environment, you should consider a much broader
-	log-most approach. However, in the vast majority of cases, an attacker will bumble along through multiple behavioral traps which
-	this configuration monitors, especially in the first minutes.
-
-  TECHNICAL:
-  - Run sysmon.exe -? for a briefing on Sysmon configuration.
-  - Sysmon does not support nested/multi-conditional rules. There are only blanket INCLUDE and EXCLUDE. "Exclude" rules override "Include" rules.
-  - If you only specify exclude for a filtering subsection, everything in that subsection is logged by default.
-  - Some Sysmon monitoring abilities are not meant for general-purpose use due to their large performance impact, such as ProcessAccess.
-  - Duplicate or overlapping "Include" rules do not result in duplicate events being logged.
-  - All characters enclosed by XML tags are always interpreted literally. Sysmon does not support wildcards (*), alternate characters, or RegEx.
-  - In registry events, the value name is appended to the full key path with a "\" delimiter. Default key values are named "\(Default)"
-  - "Image" is a technical term for a compiled binary file like an EXE or DLL. Also, it can match just the filename, or entire path.
-  - "ProcessGuid" is randomly generated, assigned, and tracked by Sysmon to assist in tracing individual process launches. Cleared on service restart.
-  - "LoginGuid" is randomly generated, assigned, and tracked by Sysmon to assist in tracing individual user sessions. Cleared on service restart.
-  - Sysmon does not track which rule caused an event to be logged.
-
-  TECHNICAL: Filter conditions available for use are: is, is not, contains, excludes, begin with, end with, less than, more than, image
-  - The "image" filter is usable with any field. Same as "is" but can either match the entire string, or only the text after the last "\" in the string. Credit: @mattifestation
-
-  PERFORMANCE: By using "end with" you can save performance by starting a string match at the end of a line, which usually triggers earlier.
+  REQUIRED: Sysmon version 8.00 or higher, it's recommended you stay updated.
 -->
 
 <Sysmon schemaversion="4.10">
@@ -61,15 +23,13 @@
 	<!-- <PipeMonitoringConfig/> --> <!-- Would manually force-on PipeCreated / PipeConnected events, even without configuration below. Included only documentation. -->
 
 	<EventFiltering>
-
 	<!--SYSMON EVENT ID 1 : PROCESS CREATION [ProcessCreate]-->
 		<!--COMMENT:	All process launched will be included, except for what matches a rule below. It's best to be as specific as possible, to
 			avoid user-mode executables imitating other process names to avoid logging, or if malware drops files in an existing directory.
 			Ultimately, you must weigh CPU time checking many detailed rules, against the risk of malware exploiting the blindness created.
 			Beware of Masquerading, where attackers imitate the names and paths of legitimate tools. Ideally, you'd use both file path and
 			code signatures to validate, but Sysmon does not support that. Look into Windows Device Guard for whitelisting support. -->
-
-		<!--DATA: UtcTime, ProcessGuid, ProcessID, Image, FileVersion, Description, Product, Company, CommandLine, CurrentDirectory, User, LogonGuid, LogonId, TerminalSessionId, IntegrityLevel, Hashes, ParentProcessGuid, ParentProcessId, ParentImage, ParentCommandLine-->
+		<!--DATA: RuleName, UtcTime, ProcessGuid, ProcessID, Image, FileVersion, Description, Product, Company, CommandLine, CurrentDirectory, User, LogonGuid, LogonId, TerminalSessionId, IntegrityLevel, Hashes, ParentProcessGuid, ParentProcessId, ParentImage, ParentCommandLine-->
 		<ProcessCreate onmatch="include">
 			<!--Mitre ATT&CK Rules-->
 			<!--MITRE TACTIC: Defense Evasion-->
@@ -928,7 +888,7 @@
 	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM [FileCreateTime]-->
 		<!--COMMENT:	[ https://attack.mitre.org/wiki/Technique/T1099 ] -->
 
-		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime, PreviousCreationUtcTime-->
+		<!--DATA: RuleName, UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime, PreviousCreationUtcTime-->
 		<FileCreateTime onmatch="include">
 			<Image condition="begin with">C:\Users</Image> <!--Look for timestomping in user area-->
 			<Image condition="begin with">C:\ProgramData</Image> <!--Look for timestomping in user area-->
@@ -952,7 +912,7 @@
 		<!--TECHNICAL:	For the DestinationPortName, Sysmon uses the GetNameInfo API for the friendly name of ports you see in logs.-->
 		<!--TECHNICAL:	These exe do not initiate their connections, and thus including does not work in this section: BITSADMIN.exe-->
 
-		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, User, Protocol, Initiated, SourceIsIpv6, SourceIp, SourceHostname, SourcePort, SourcePortName, DestinationIsIpV6, DestinationIp, DestinationHostname, DestinationPort, DestinationPortName-->
+		<!--DATA: RuleName, UtcTime, ProcessGuid, ProcessId, Image, User, Protocol, Initiated, SourceIsIpv6, SourceIp, SourceHostname, SourcePort, SourcePortName, DestinationIsIpV6, DestinationIp, DestinationHostname, DestinationPort, DestinationPortName-->
 		<NetworkConnect onmatch="include">
 			<!--Suspicious sources for network-connecting binaries-->
 			<Image condition="begin with">C:\Users</Image> <!--Tools downloaded by users can use other processes for networking, but this is a very valuable indicator.-->
@@ -1281,7 +1241,7 @@
 	<!--SYSMON EVENT ID 5 : PROCESS ENDED [ProcessTerminate]-->
 		<!--COMMENT:	Useful data in building infection timelines.-->
 
-		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image-->
+		<!--DATA: Rulename, UtcTime, ProcessGuid, ProcessId, Image-->
 		<ProcessTerminate onmatch="include">
 		<!--COMMENT:	Useful data in building infection timelines.-->
 			<Image condition="begin with">C:\Users</Image> <!--Process terminations by user binaries-->
@@ -1297,7 +1257,7 @@
 			[ https://attack.mitre.org/wiki/Technique/T1014 ] -->
 		<!--TECHNICAL:	Sysmon will check the signing certificate revocation status of any driver you don't exclude.-->
 
-		<!--DATA: UtcTime, ImageLoaded, Hashes, Signed, Signature, SignatureStatus-->
+		<!--DATA: RuleName, UtcTime, ImageLoaded, Hashes, Signed, Signature, SignatureStatus-->
 		<DriverLoad onmatch="exclude">
 		<!--COMMENT:	Because drivers with bugs can be used to escalate to kernel permissions, be extremely selective
 				about what you exclude from monitoring. Low event volume, little incentive to exclude.-->
@@ -1332,7 +1292,7 @@
 		<!--COMMENT:	Can cause high system load, disabled by default.-->
 		<!--COMMENT:	[ https://attack.mitre.org/wiki/Technique/T1073 ] [ https://attack.mitre.org/wiki/Technique/T1038 ] [ https://attack.mitre.org/wiki/Technique/T1034 ] -->
 
-		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, ImageLoaded, Hashes, Signed, Signature, SignatureStatus-->
+		<!--DATA: RuleName, UtcTime, ProcessGuid, ProcessId, Image, ImageLoaded, Hashes, Signed, Signature, SignatureStatus-->
 		<ImageLoad onmatch="include">
 			<Signed condition="is">false</Signed> <!-- Lets Only show Unsigned DLL's loaded-->
 			<SignatureStatus condition="is">Invalid</SignatureStatus> <!--Lets Show DLL's where their Signature's are Invalid-->
@@ -1429,7 +1389,7 @@
 		<!--COMMENT:	Monitor for processes injecting code into other processes. Often used by malware to cloak their actions. Also when Firefox loads Flash.
 		[ https://attack.mitre.org/wiki/Technique/T1055 ] -->
 
-		<!--DATA: UtcTime, SourceProcessGuid, SourceProcessId, SourceImage, TargetProcessId, TargetImage, NewThreadId, StartAddress, StartModule, StartFunction-->
+		<!--DATA: RuleName, UtcTime, SourceProcessGuid, SourceProcessId, SourceImage, TargetProcessId, TargetImage, NewThreadId, StartAddress, StartModule, StartFunction-->
 		<CreateRemoteThread onmatch="include">
 			<StartFunction name="MitreRef=T1055,Technique=DLL Injection via LoadLibrary API Call,Tactic=Defense Evasion" condition="contains">LoadLibrary</StartFunction>
 			<SourceImage condition="contains">\</SourceImage>
@@ -1465,7 +1425,7 @@
 			Encourage you to experiment with this feature yourself. [ https://attack.mitre.org/wiki/Technique/T1067 ] -->
 		<!--COMMENT:	You will likely want to set this to a full capture on domain controllers, where no process should be doing raw reads.-->
 
-		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, Device-->
+		<!--DATA: RuleName, UtcTime, ProcessGuid, ProcessId, Image, Device-->
 		<RawAccessRead onmatch="include">
 		</RawAccessRead>
 
@@ -1473,7 +1433,7 @@
 		<!--EVENT 10: "Process accessed"-->
 		<!--COMMENT:	Can cause high system load, disabled by default.-->
 		<!--COMMENT:	Monitor for processes accessing other process' memory.-->
-		<!--DATA: UtcTime, SourceProcessGuid, SourceProcessId, SourceThreadId, SourceImage, TargetProcessGuid, TargetProcessId, TargetImage, GrantedAccess, CallTrace-->
+		<!--DATA: RuleName, UtcTime, SourceProcessGuid, SourceProcessId, SourceThreadId, SourceImage, TargetProcessGuid, TargetProcessId, TargetImage, GrantedAccess, CallTrace-->
 		<ProcessAccess onmatch="include">
 			<TargetImage condition="end with">:\Windows\System32\lsass.exe</TargetImage>
 			<TargetImage condition="end with">:\Windows\System32\winlogon.exe</TargetImage>
@@ -1557,7 +1517,7 @@
 		<!--NOTE:	Other filesystem "minifilters" can make it appear to Sysmon that some files are being written twice. This is not a Sysmon issue, per Mark Russinovich.-->
 		<!--NOTE:	You may not see files detected by antivirus. Other filesystem minifilters, like antivirus, can act before Sysmon receives the alert a file was written.-->
 
-		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime-->
+		<!--DATA: RuleName, UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime-->
 		<FileCreate onmatch="include">
 			<TargetFilename condition="contains">\Start Menu</TargetFilename> <!--Microsoft:Windows: Startup links and shortcut modification-->
 			<TargetFilename condition="contains">\Startup</TargetFilename> <!--Microsoft:Office: Changes to user's autoloaded files under AppData-->
@@ -2771,7 +2731,7 @@
 			[ https://textslashplain.com/2016/04/04/downloads-and-the-mark-of-the-web/ ] -->
 		<!--NOTE: Other filesystem minifilters can make it appear to Sysmon that some files are being written twice. This is not a Sysmon issue, per Mark Russinovich.-->
 
-		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime, Hash-->
+		<!--DATA: RuleName, UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime, Hash-->
 		<FileCreateStreamHash onmatch="exclude">
 			<TargetFilename condition="end with">.default\prefs-1.js</TargetFilename> <!--Exclude: Firefox prefs update spam-->
 			<TargetFilename condition="contains">\Mozilla\Firefox\Profiles\</TargetFilename>
@@ -2838,14 +2798,14 @@
 		<!--EVENT 16: "Sysmon config state changed"-->
 		<!--COMMENT:	This ONLY logs if the hash of the configuration changes. Running "sysmon.exe -c" with the current configuration will not be logged with Event 16-->
 		
-		<!--DATA: UtcTime, Configuration, ConfigurationFileHash-->
+		<!--DATA: RuleName, UtcTime, Configuration, ConfigurationFileHash-->
 		<!--Cannot be filtered.-->
 
 	<!--SYSMON EVENT ID 17 & 18 : PIPE CREATED / PIPE CONNECTED [PipeEvent]-->
 		<!--EVENT 17: "Pipe Created"-->
 		<!--EVENT 18: "Pipe Connected"-->
 
-		<!--DATA: UtcTime, ProcessGuid, ProcessId, PipeName, Image-->
+		<!--DATA: RuleName, UtcTime, ProcessGuid, ProcessId, PipeName, Image-->
 		<PipeEvent onmatch="exclude">
 		<!--COMMENT: Exclude known-good pipe users-->
 				<!--ADDITIONAL REFERENCE: [ https://www.cobaltstrike.com/help-smb-beacon ] -->
