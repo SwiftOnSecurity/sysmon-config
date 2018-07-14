@@ -73,6 +73,8 @@
 		<ProcessCreate onmatch="include">
 			<!--Mitre ATT&CK Rules-->
 			<!--MITRE TACTIC: Defense Evasion-->
+			<ParentImage name="Alert=Unknown Process Execution" condition="contains">unknown process</ParentImage>
+			<Image name="Alert=Unknown Process Execution" condition="contains">unknown process</Image>
 			<Image name="MitreRef=T1117,Technique=Regsvr32-Defense Evasion/Execution" condition="end with">regsvr32.exe</Image> <!--Microsoft:Windows: [ https://subt0x10.blogspot.com/2016/04/bypass-application-whitelisting-script.html ] -->
 			<Image name="MitreRef=T1197,Technique=Bitsadmin File Transfers/Defense Evasion" condition="end with">bitsadmin.exe</Image>
 			<ParentImage name="MitreRef=T1088,Technique=UAC Bypass,Tactic=Defense Evasion/Privilege Escalation" condition="end with">eventvwr.exe</ParentImage>
@@ -1130,82 +1132,82 @@
 			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">cryptmonero</DestinationHostname>
 			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">mineXMR</DestinationHostname>
 			<!--Ports-->
-			<DestinationPort name="Service=HTTP Connection" condition="is">80</DestinationPort> <!--RDP Port-->
+			<DestinationPort name="Service=HTTP Connection" condition="is">80</DestinationPort>
 			<DestinationPort name="Service=HTTPS Connection" condition="is">443</DestinationPort>
-			<DestinationPort name="Service=Remote Desktop Connection" condition="is">3389</DestinationPort> <!--RDP Port-->
+			<DestinationPort name="Service=Remote Desktop Connection" condition="is">3389</DestinationPort>
 			<DestinationPort condition="is">3540</DestinationPort> <!--Remote Assistance Port-->
-			<DestinationPort name="Service=SSH Connection" condition="is">22</DestinationPort>   <!--SSH Port-->
-			<DestinationPort condition="is">23</DestinationPort>   <!--Telnet Port-->
-			<DestinationPort condition="is">25</DestinationPort>   <!--SMTP Port-->
-			<DestinationPort condition="is">139</DestinationPort>  <!--SMB Port-->
+			<DestinationPort name="Service=SSH Connection" condition="is">22</DestinationPort>
+			<DestinationPort name="Service=Telnet" condition="is">23</DestinationPort>
+			<DestinationPort name="Service=SMTP" condition="is">25</DestinationPort>
+			<DestinationPort name="Service=SMB" condition="is">139</DestinationPort>
 			<!--<DestinationPort condition="is">445</DestinationPort> SMB Port: Removed because of noise-->
-			<DestinationPort condition="is">5800</DestinationPort> <!--VNC Port-->
-			<DestinationPort condition="is">5900</DestinationPort> <!--VNC Port-->
-			<DestinationPort condition="is">1194</DestinationPort> <!--OpenVPN Port-->
-			<DestinationPort condition="is">1701</DestinationPort> <!--L2TP Port-->
-			<DestinationPort condition="is">1723</DestinationPort> <!--Tor Port-->
-			<DestinationPort condition="is">1293</DestinationPort> <!--IPSec Nat Traversal Port-->
-			<DestinationPort condition="is">4500</DestinationPort> <!--Tor Port-->
-			<DestinationPort condition="is">1080</DestinationPort> <!--Socks Port-->
-			<DestinationPort condition="is">8080</DestinationPort> <!--Socks Port-->
-			<DestinationPort condition="is">3128</DestinationPort> <!--Socks Port-->
-			<DestinationPort condition="is">9001</DestinationPort> <!--Tor Port-->
-			<DestinationPort condition="is">9030</DestinationPort> <!--Tor Port-->
-			<DestinationPort condition="is">4443</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">2448</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">8143</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">1777</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">1443</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">243</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">65535</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">13506</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">3360</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">200</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">198</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">49180</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">13507</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">3360</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">6625</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">4444</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">4438</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">1904</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">13505</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">13504</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">12102</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">9631</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">5445</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">2443</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">777</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">13394</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">13145</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">12103</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">5552</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">3939</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">3675</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">666</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">473</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">5649</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">4455</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">4433</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">1817</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">100</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">65520</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">1960</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">1515</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">743</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">700</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">14154</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">14103</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">14102</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">12322</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">10101</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">7210</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">4040</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
-			<DestinationPort condition="is">9943</DestinationPort> <!--Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo -->
+			<DestinationPort name="Service=VNC" condition="is">5800</DestinationPort>
+			<DestinationPort name="Service=VNC" condition="is">5900</DestinationPort>
+			<DestinationPort name="Service=OpenVPN" condition="is">1194</DestinationPort>
+			<DestinationPort name="Service=L2TP" condition="is">1701</DestinationPort>
+			<DestinationPort name="Service=TOR" condition="is">1723</DestinationPort>
+			<DestinationPort name="Service=IPSec" condition="is">1293</DestinationPort>
+			<DestinationPort name="Service=Tor" condition="is">4500</DestinationPort>
+			<DestinationPort name="Service=Socks Proxy Port" condition="is">1080</DestinationPort>
+			<DestinationPort name="Service=Socks Proxy Port" condition="is">8080</DestinationPort>
+			<DestinationPort name="Service=Socks Proxy Port" condition="is">3128</DestinationPort>
+			<DestinationPort name="Service=Tor" condition="is">9001</DestinationPort>
+			<DestinationPort name="Service=Tor" condition="is">9030</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">4443</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">2448</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">8143</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">1777</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">1443</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">243</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">65535</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">13506</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">3360</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">200</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">198</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">49180</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">13507</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">3360</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">6625</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">4444</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">4438</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">1904</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">13505</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">13504</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">12102</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">9631</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">5445</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">2443</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">777</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">13394</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">13145</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">12103</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">5552</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">3939</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">3675</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">666</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">473</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">5649</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">4455</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">4433</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">1817</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">100</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">65520</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">1960</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">1515</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">743</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">700</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">14154</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">14103</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">14102</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">12322</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">10101</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">7210</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">4040</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">9943</DestinationPort>
 			<!--Ports: Threats-->
-			<DestinationPort condition="is">7777</DestinationPort> <!-- https://www.hybrid-analysis.com/search?query=port:7777 -->
-			<DestinationPort condition="is">9943</DestinationPort> <!-- https://www.hybrid-analysis.com/search?query=port:9943 -->
-			<DestinationPort condition="is">666</DestinationPort> <!-- https://www.hybrid-analysis.com/search?query=port:666 -->
+			<DestinationPort name="Note=Suspicious Ports: https://www.hybrid-analysis.com/search?query=port:7777" condition="is">7777</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://www.hybrid-analysis.com/search?query=port:9943" condition="is">9943</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://www.hybrid-analysis.com/search?query=port:666" condition="is">666</DestinationPort>
 		</NetworkConnect>
 		<NetworkConnect onmatch="exclude">
 			<!--SECTION: Microsoft -->
