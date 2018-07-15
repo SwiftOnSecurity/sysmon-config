@@ -562,7 +562,6 @@
 			<CommandLine condition="contains">net.exe time</CommandLine> <!-- Silence domain login scripts -->
 			<CommandLine condition="contains">net time</CommandLine> <!-- Silence domain login scripts -->
 			<CommandLine condition="contains">net1 time</CommandLine> <!-- Silence domain login scripts -->
-			<CommandLine condition="contains">gpscript.exe</CommandLine> <!-- Silence domain login scripts -->
 			<!--SECTION: Microsoft:Windows:Defender-->
 			<Image condition="begin with">C:\Program Files\Windows Defender</Image> <!--Microsoft:Windows:Defender in Win10-->
 			<Image condition="end with">C:\Windows\System32\CompatTelRunner.exe</Image> <!--Microsoft:Windows:Customer Experience Improvement-->
