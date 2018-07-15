@@ -142,39 +142,39 @@
 			<Image name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="end with">\at.exe</Image>
 			<ParentImage name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="end with">\at.exe</ParentImage>
 			<CommandLine name="MitreRef=ToDo,Technique=Powershell Injection Persistence Bypass - Execution, Lateral Movement" condition="contains">System.Management.Automation</CommandLine>
-			<CommandLine name="MitreRef=T1136,Technique=Create Account,Tactic=Persistence" condition="contains">net user /add</CommandLine>
-			<CommandLine name="MitreRef=T1136,Technique=Create Account,Tactic=Persistence" condition="contains">net localgroup administrators /add</CommandLine>
+			<CommandLine name="MitreRef=T1136,Technique=Create Account,Tactic=Persistence,Alert=Account Creation via command line" condition="contains">net user /add</CommandLine>
+			<CommandLine name="MitreRef=T1136,Technique=Create Account,Tactic=Persistence,Alert=Administrator added via Command Line" condition="contains">net localgroup administrators /add</CommandLine>
 			<!--MITRE TACTIC: Lateral Movement-->
-			<ParentImage name="MitreRef=T1028,Technique=Remote WMIC/Execution, Lateral Movement" condition="end with">wmiprvse.exe</ParentImage>
+			<ParentImage name="MitreRef=T1028,Technique=Remote WMIC/Execution, Lateral Movement,Alert=Hacking" condition="end with">wmiprvse.exe</ParentImage>
 			<!--MITRE TECHNIQUE: Obfuscation-->
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">FromBase64String</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control,Alert=Hacking" condition="contains">FromBase64String</CommandLine>
 			<CommandLine name="MitreRef=T1086,Technique=PowerShell,Tactic=Execution,Alert=Detect Secure Strings" condition="contains">convertto-securestring</CommandLine>
 			<CommandLine name="MitreRef=T1086,Technique=PowerShell,Tactic=Execution,Alert=Detect some more obfuscation" condition="contains">VerbosePreference.ToString</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">runtime.interopservices.marshal</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">VerbosePreference.ToString</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-windowstyle h</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-windowstyl h</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-windowsty h</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-windowst h</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-windows h</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-window h</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-windo h</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-wind h</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-win h</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-wi h</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-w h</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-wi h</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-win hi</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-win hid</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-win hidd</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-win hidde</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-win hidden</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-Nop</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-Noni</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control,Alert=Hacking" condition="contains">runtime.interopservices.marshal</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control,Alert=Hacking" condition="contains">VerbosePreference.ToString</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control,Alert=Hacking" condition="contains">-windowstyle h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control,Alert=Hacking" condition="contains">-windowstyl h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control,Alert=Hacking" condition="contains">-windowsty h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control,Alert=Hacking" condition="contains">-windowst h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control,Alert=Hacking" condition="contains">-windows h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control,Alert=Hacking" condition="contains">-window h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control,Alert=Hacking" condition="contains">-windo h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control,Alert=Hacking" condition="contains">-wind h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control,Alert=Hacking" condition="contains">-win h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control,Alert=Hacking" condition="contains">-wi h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control,Alert=Hacking" condition="contains">-w h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control,Alert=Hacking" condition="contains">-wi h</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control,Alert=Hacking" condition="contains">-win hi</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control,Alert=Hacking" condition="contains">-win hid</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control,Alert=Hacking" condition="contains">-win hidd</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control,Alert=Hacking" condition="contains">-win hidde</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control,Alert=Hacking" condition="contains">-win hidden</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control,Alert=Hacking" condition="contains">-Nop</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control,Alert=Hacking" condition="contains">-Noni</CommandLine>
 			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-ec</CommandLine>
 			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">-en</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">^c^o^m^S^p^E^c^</CommandLine>
-			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control" condition="contains">C^om^S^pEc</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control,Alert=Hacking" condition="contains">^c^o^m^S^p^E^c^</CommandLine>
+			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control,Alert=Hacking" condition="contains">C^om^S^pEc</CommandLine>
 			<!--Native Windows tools - Living off the land-->
 			<Image name="MitreRef=ToDo,Technique=" condition="end with">query.exe</Image> <!--Microsoft:Windows: shows information about processes -->
 			<Image name="MitreRef=CAPEC-293,Technique=Traceroute Route Enumeratio,MitreURL= https://capec.mitre.org/data/definitions/293.html" condition="end with">tracert.exe</Image> <!--Microsoft:Windows: shows routing information -->
@@ -190,12 +190,12 @@
 			<Image name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="end with">nltest.exe</Image>
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">nltest.exe</CommandLine>
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">ExtExport</CommandLine>
-			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">bash -c</CommandLine>
-			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">bash.exe -c</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land,Alert=Hacking" condition="contains">bash -c</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land,Alert=Hacking" condition="contains">bash.exe -c</CommandLine>
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">cmdkey /list</CommandLine>
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">cmdkey.exe /list</CommandLine>
-			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">certutil.exe -urlcache -split -f</CommandLine>
-			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">certutil -urlcache -split -f</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land,Alert=Hacking" condition="contains">certutil.exe -urlcache -split -f</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land,Alert=Hacking" condition="contains">certutil -urlcache -split -f</CommandLine>
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">csc -out:</CommandLine>
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">csc.exe -out:</CommandLine>
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">csc -target:library</CommandLine>
@@ -210,9 +210,9 @@
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">expand.exe \\</CommandLine>
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">extrac32 \\</CommandLine>
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">extrac32.exe \\</CommandLine>
-			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">ieexec.exe http</CommandLine>
-			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">ieexec http</CommandLine>
-			<ParentImage name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">diskshadow</ParentImage>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land,Alert=Hacking" condition="contains">ieexec.exe http</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land,Alert=Hacking" condition="contains">ieexec http</CommandLine>
+			<ParentImage name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land,Alert=Hacking" condition="contains">diskshadow</ParentImage>
 			<!--LoLBin Applocker bypasses-->
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">advpack.dll,LaunchINFSection</CommandLine>
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">mshtml,RunHTMLApplication</CommandLine>
