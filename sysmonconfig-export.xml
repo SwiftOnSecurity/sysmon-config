@@ -146,6 +146,8 @@
 			<CommandLine name="MitreRef=T1136,Technique=Create Account,Tactic=Persistence,Alert=Administrator added via Command Line" condition="contains">net localgroup administrators /add</CommandLine>
 			<!--MITRE TACTIC: Lateral Movement-->
 			<ParentImage name="MitreRef=T1028,Technique=Remote WMIC/Execution, Lateral Movement,Alert=Hacking" condition="end with">wmiprvse.exe</ParentImage>
+			<CommandLine name="MitreRef=T0000,Technique=Remote Desktop Shadow,Alert=Hacking/Remote Admin" condition="contains">/shadow</CommandLine>
+			<CommandLine name="MitreRef=T0000,Technique=Remote Desktop Shadow,Alert=Hacking/Remote Admin" condition="contains">/noConsentPrompt</CommandLine>
 			<!--MITRE TECHNIQUE: Obfuscation-->
 			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control,Alert=Hacking" condition="contains">FromBase64String</CommandLine>
 			<CommandLine name="MitreRef=T1086,Technique=PowerShell,Tactic=Execution,Alert=Detect Secure Strings" condition="contains">convertto-securestring</CommandLine>
