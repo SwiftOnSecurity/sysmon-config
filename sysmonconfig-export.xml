@@ -144,6 +144,9 @@
 			<CommandLine name="MitreRef=ToDo,Technique=Powershell Injection Persistence Bypass - Execution, Lateral Movement" condition="contains">System.Management.Automation</CommandLine>
 			<CommandLine name="MitreRef=T1136,Technique=Create Account,Tactic=Persistence,Alert=Account Creation via command line" condition="contains">net user /add</CommandLine>
 			<CommandLine name="MitreRef=T1136,Technique=Create Account,Tactic=Persistence,Alert=Administrator added via Command Line" condition="contains">net localgroup administrators /add</CommandLine>
+			<CommandLine name="MitreRef=T1050,Technique=New Service,Tactic=Persistence/Privilege Escalation,Alert=Service added via Command Line" condition="contains">sc create</CommandLine>
+			<CommandLine name="MitreRef=T1050,Technique=New Service,Tactic=Persistence/Privilege Escalation,Alert=Service added via Command Line" condition="contains">sc.exe create</CommandLine>
+			<CommandLine name="MitreRef=T1050,Technique=New Service,Tactic=Persistence/Privilege Escalation,Alert=Service added via Command Line" condition="contains">new-service</CommandLine>
 			<!--MITRE TACTIC: Lateral Movement-->
 			<ParentImage name="MitreRef=T1028,Technique=Remote WMIC/Execution, Lateral Movement,Alert=Hacking" condition="end with">wmiprvse.exe</ParentImage>
 			<CommandLine name="MitreRef=T0000,Technique=Remote Desktop Shadow,Alert=Hacking/Remote Admin" condition="contains">/shadow</CommandLine>
