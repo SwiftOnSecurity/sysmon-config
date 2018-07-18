@@ -896,9 +896,9 @@
 
 		<!--DATA: RuleName, UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime, PreviousCreationUtcTime-->
 		<FileCreateTime onmatch="include">
-			<Image condition="begin with">C:\Users</Image> <!--Look for timestomping in user area-->
-			<Image condition="begin with">C:\ProgramData</Image> <!--Look for timestomping in user area-->
-			<Image condition="contains">\Temp\</Image> <!--Mitre T1099--><!--Look for timestomping in temp folders-->
+			<Image name="MitreRef=T1099,Technique=Timestomp,Tactic=Defense Evasion,Alert=Timestomp/File creation time retroactively changed!" condition="begin with">C:\Users</Image> <!--Look for timestomping in user area-->
+			<Image name="MitreRef=T1099,Technique=Timestomp,Tactic=Defense Evasion,Alert=Timestomp/File creation time retroactively changed!" condition="begin with">C:\ProgramData</Image> <!--Look for timestomping in user area-->
+			<Image name="MitreRef=T1099,Technique=Timestomp,Tactic=Defense Evasion,Alert=Timestomp/File creation time retroactively changed!" condition="contains">\Temp\</Image> <!--Mitre T1099--><!--Look for timestomping in temp folders-->
 		</FileCreateTime>
 
 		<FileCreateTime onmatch="exclude">
