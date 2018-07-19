@@ -87,15 +87,18 @@
 			<Image condition="is">C:\Windows\System32\plasrv.exe</Image> <!--Microsoft:Windows: Performance Logs and Alerts DCOM Server-->
 			<Image condition="is">C:\Windows\System32\wifitask.exe</Image> <!--Microsoft:Windows: Wireless Background Task-->
 			<Image condition="is">C:\Program Files (x86)\Common Files\microsoft shared\ink\TabTip32.exe</Image> <!--Microsoft:Windows: Touch Keyboard and Handwriting Panel Helper-->
+			<Image condition="is">C:\Windows\System32\smartscreen.exe</Image> <!--Microsoft:Windows: Block malicious web content and downloaded files-->
+			<Image condition="is">C:\Windows\System32\msfeedssync.exe</Image> <!--Microsoft:Windows: Microsoft Feeds Synchronization service-->
+			<Image condition="is">C:\Windows\System32\RuntimeBroker.exe</Image> <!--Microsoft:Windows: Checks universal/Metro apps permissions declarations-->
 			<Image condition="is">C:\Windows\System32\TokenBrokerCookies.exe</Image> <!--Microsoft:Windows: SSO sign-in assistant for MicrosoftOnline.com-->
-			<CommandLine condition="is">C:\windows\system32\wermgr.exe -queuereporting</CommandLine> <!--Microsoft:Windows:Windows error reporting/telemetry-->
-			<ParentCommandLine condition="is">C:\windows\system32\wermgr.exe -queuereporting</ParentCommandLine> <!--Microsoft:Windows:Windows error reporting/telemetry-->
-			<CommandLine condition="begin with"> "C:\Windows\system32\wermgr.exe" "-queuereporting_svc" </CommandLine> <!--Microsoft:Windows:Windows error reporting/telemetry-->
-			<CommandLine condition="is">C:\WINDOWS\system32\wermgr.exe -upload</CommandLine> <!--Microsoft:Windows:Windows error reporting/telemetry-->
+			<CommandLine condition="is">C:\Windows\system32\wermgr.exe -queuereporting</CommandLine> <!--Microsoft:Windows: Windows error reporting/telemetry-->
+			<ParentCommandLine condition="is">C:\Windows\system32\wermgr.exe -queuereporting</ParentCommandLine> <!--Microsoft: Windows:Windows error reporting/telemetry-->
+			<CommandLine condition="begin with"> "C:\Windows\system32\wermgr.exe" "-queuereporting_svc" </CommandLine> <!--Microsoft: Windows:Windows error reporting/telemetry-->
+			<CommandLine condition="is">C:\Windows\system32\wermgr.exe -upload</CommandLine> <!--Microsoft:Windows: Windows error reporting/telemetry-->
 			<CommandLine condition="is">\SystemRoot\System32\smss.exe</CommandLine> <!--Microsoft:Bootup: Windows Session Manager-->
-			<CommandLine condition="is">\??\C:\WINDOWS\system32\autochk.exe *</CommandLine> <!--Microsoft:Bootup: Auto Check Utility-->
+			<CommandLine condition="is">\??\C:\Windows\system32\autochk.exe *</CommandLine> <!--Microsoft:Bootup: Auto Check Utility-->
 			<IntegrityLevel condition="is">AppContainer</IntegrityLevel> <!--Microsoft:Windows: Don't care about sandboxed processes-->
-			<ParentCommandLine condition="begin with">%%SystemRoot%%\system32\csrss.exe ObjectDirectory=\Windows</ParentCommandLine> <!--Microsoft:Windows:CommandShell: Triggered when programs use the command shell, but doesn't provide attribution for what caused it-->
+			<ParentCommandLine condition="begin with">%%SystemRoot%%\system32\csrss.exe ObjectDirectory=\Windows</ParentCommandLine> <!--Microsoft:Windows: CommandShell: Triggered when programs use the command shell, but doesn't provide attribution for what caused it-->
 			<ParentImage condition="is">C:\Windows\system32\SearchIndexer.exe</ParentImage> <!--Microsoft:Windows:Search: Launches many uninteresting sub-processes-->
 			<Image condition="is">C:\Windows\system32\mobsync.exe</Image> <!--Microsoft:Windows: Network file syncing-->
 			<CommandLine condition="begin with">C:\Windows\system32\wbem\wmiprvse.exe -Embedding</CommandLine> <!--Microsoft:Windows: WMI provider host-->
@@ -103,14 +106,14 @@
 			<Image condition="is">C:\Windows\system32\SppExtComObj.Exe</Image> <!--Microsoft:Windows: KMS activation-->
 			<Image condition="is">C:\Windows\system32\PrintIsolationHost.exe</Image> <!--Microsoft:Windows: Printing-->
 			<!--SECTION: Microsoft:Windows:Defender-->
-			<Image condition="begin with">C:\Program Files\Windows Defender</Image> <!--Microsoft:Windows:Defender in Win10-->
+			<Image condition="begin with">C:\Program Files\Windows Defender</Image> <!--Microsoft:Windows: Defender in Win10-->
 			<Image condition="is">C:\Windows\system32\MpSigStub.exe</Image> <!--Microsoft:Windows: Microsoft Malware Protection Signature Update Stub-->
 			<Image condition="begin with">C:\Windows\SoftwareDistribution\Download\Install\AM_</Image> <!--Microsoft:Defender: Signature updates-->
 			<!--SECTION: Microsoft:Windows:svchost-->
 				<!--COMMENT: These generally not exclude sub-processes, which may be important. Do not exclude RemoteRegistry or Schedule.-->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k appmodel -s StateRepository</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k appmodel</CommandLine> <!--Microsoft:Windows 10-->
-			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k appmodel -p -s tiledatamodelsvc</CommandLine>
+			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k appmodel -p -s tiledatamodelsvc</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k camera -s FrameServer</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k dcomlaunch -s LSM</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k dcomlaunch -s PlugPlay</CommandLine>
@@ -138,10 +141,11 @@
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted -s UmRdpService</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted -s WPDBusEnum</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted -s WdiSystemHost</CommandLine> <!--Microsoft:Windows: Diagnostic System Host [ http://www.blackviper.com/windows-services/diagnostic-system-host/ ] -->
-			<CommandLine condition="is">C:\WINDOWS\System32\svchost.exe -k LocalSystemNetworkRestricted -p -s WdiSystemHost</CommandLine> <!--Microsoft:Windows: Diagnostic System Host [ http://www.blackviper.com/windows-services/diagnostic-system-host/ ] -->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k LocalSystemNetworkRestricted -p -s WdiSystemHost</CommandLine> <!--Microsoft:Windows: Diagnostic System Host [ http://www.blackviper.com/windows-services/diagnostic-system-host/ ] -->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted</CommandLine> <!--Microsoft:Windows-->
-			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k netsvcs -p -s wlidsvc</CommandLine> <!--Microsoft:Windows: Windows Live Sign-In Assistant [ https://www.howtogeek.com/howto/30348/what-are-wlidsvc.exe-and-wlidsvcm.exe-and-why-are-they-running/ ] -->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs -p -s ncaSvc</CommandLine> <!--Microsoft:Windows: Network Connectivity Assistant [ http://www.blackviper.com/windows-services/network-connectivity-assistant/ ] -->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k netsvcs -p -s NetSetupSvc</CommandLine> <!--Microsoft:Windows: Network Setup Service-->
+			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs -p -s wlidsvc</CommandLine> <!--Microsoft:Windows: Windows Live Sign-In Assistant [ https://www.howtogeek.com/howto/30348/what-are-wlidsvc.exe-and-wlidsvcm.exe-and-why-are-they-running/ ] -->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs -s BDESVC</CommandLine> <!--Microsoft:Windows:Network: BitLocker Drive Encryption-->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs -s BITS</CommandLine> <!--Microsoft:Windows:Network: Background Intelligent File Transfer (BITS) -->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs -s CertPropSvc</CommandLine>
@@ -167,8 +171,8 @@
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k utcsvc</CommandLine> <!--Microsoft:Windows Services-->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k wbioSvcGroup</CommandLine> <!--Microsoft:Windows Services-->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k werSvcGroup</CommandLine> <!--Microsoft:Windows: ErrorReporting-->
-			<CommandLine condition="is">C:\WINDOWS\System32\svchost.exe -k wsappx -p -s ClipSVC</CommandLine> <!--Microsoft:Windows:Apps: Client License Service-->
-			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k wsappx -p -s AppXSvc</CommandLine> <!--Microsoft:Windows:Apps: AppX Deployment Service-->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k wsappx -p -s ClipSVC</CommandLine> <!--Microsoft:Windows:Apps: Client License Service-->
+			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k wsappx -p -s AppXSvc</CommandLine> <!--Microsoft:Windows:Apps: AppX Deployment Service-->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k wsappx -s ClipSVC</CommandLine> <!--Microsoft:Windows:Apps: Client License Service-->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k wsappx</CommandLine> <!--Microsoft:Windows:Apps [ https://www.howtogeek.com/320261/what-is-wsappx-and-why-is-it-running-on-my-pc/ ] -->
 			<ParentCommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs</ParentCommandLine> <!--Microsoft:Windows: Network services: Spawns Consent.exe-->
@@ -280,7 +284,7 @@
 		<!--TECHNICAL:	For the DestinationHostname, Sysmon uses the GetNameInfo API, which will often not have any information, and may just be a CDN. This is NOT reliable for filtering.-->
 		<!--TECHNICAL:	For the DestinationPortName, Sysmon uses the GetNameInfo API for the friendly name of ports you see in logs.-->
 		<!--TECHNICAL:	These exe do not initiate their connections, and thus includes do not work in this section: BITSADMIN NLTEST-->
-		
+
 		<!-- https://www.first.org/resources/papers/conf2017/APT-Log-Analysis-Tracking-Attack-Tools-by-Audit-Policy-and-Sysmon.pdf -->
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, User, Protocol, Initiated, SourceIsIpv6, SourceIp, SourceHostname, SourcePort, SourcePortName, DestinationIsIpV6, DestinationIp, DestinationHostname, DestinationPort, DestinationPortName-->
@@ -791,7 +795,7 @@
 	<!--SYSMON EVENT ID 16 : SYSMON CONFIGURATION CHANGE-->
 		<!--EVENT 16: "Sysmon config state changed"-->
 		<!--COMMENT:	This ONLY logs if the hash of the configuration changes. Running "sysmon.exe -c" with the current configuration will not be logged with Event 16-->
-		
+
 		<!--DATA: UtcTime, Configuration, ConfigurationFileHash-->
 		<!--Cannot be filtered.-->
 
