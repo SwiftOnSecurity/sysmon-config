@@ -1,18 +1,17 @@
 <!--
-  sysmon-config | A Sysmon configuration focused on default high-quality event tracing and easy customization by the community
+  sysmon-config | A Sysmon configuration focused on default high-quality event tracing with modifications for tracking XMR mining software.
   Master version:	64 | Date: 2018-01-30
   Master author:	@SwiftOnSecurity, other contributors also credited in-line or on Git
   Master project:	https://github.com/SwiftOnSecurity/sysmon-config
   Master license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
 
-  Fork version:	<N/A>
-  Fork author:	<N/A>
-  Fork project:	<N/A>
-  Fork license:	<N/A>
+  Fork version:	1 | Date: 2018-07-20
+  Fork author:	@ryanku98
+  Fork project:	https://github.com/ryanku98/sysmon-config
+  Fork license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
 
-  REQUIRED: Sysmon version 7.01 or higher (due to changes in registry syntax and bug-fixes)
+  REQUIRED: Sysmon version 8.00 or higher (due to changes in registry syntax and bug-fixes)
 	https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon
-	Note that 6.03 and 7.01 have critical fixes for filtering, it's recommended you stay updated.
 
   NOTE: To collect Sysmon logs centrally for free, see https://aka.ms/WEF. Command to allow log access to the Network Service:
 	wevtutil.exe sl Microsoft-Windows-Sysmon/Operational /ca:O:BAG:SYD:(A;;0xf0005;;;SY)(A;;0x5;;;BA)(A;;0x1;;;S-1-5-32-573)(A;;0x1;;;NS)
@@ -52,7 +51,7 @@
   PERFORMANCE: By using "end with" you can save performance by starting a string match at the end of a line, which usually triggers earlier.
 -->
 
-<Sysmon schemaversion="4.00">
+<Sysmon schemaversion="4.10">
 	<!--SYSMON META CONFIG-->
 	<HashAlgorithms>md5,sha256</HashAlgorithms> <!-- Both MD5 and SHA256 are the industry-standard algorithms for identifying files -->
 	<CheckRevocation/> <!-- Check loaded drivers, log if their code-signing certificate has been revoked, in case malware stole one to sign a kernel driver -->
@@ -62,8 +61,7 @@
 	<!-- <PipeMonitoringConfig/> --> <!-- Would manually force-on PipeCreated / PipeConnected events, even without configuration below. Included only documentation. -->
 
 	<EventFiltering>
-
-	<!--SYSMON EVENT ID 1 : PROCESS CREATION [ProcessCreate]-->
+		<!--SYSMON EVENT ID 1 : PROCESS CREATION [ProcessCreate]-->
 		<!--COMMENT:	All process launched will be included, except for what matches a rule below. It's best to be as specific as possible, to
 			avoid user-mode executables imitating other process names to avoid logging, or if malware drops files in an existing directory.
 			Ultimately, you must weigh CPU time checking many detailed rules, against the risk of malware exploiting the blindness created.
@@ -71,6 +69,57 @@
 			code signatures to validate, but Sysmon does not support that. Look into Windows Device Guard for whitelisting support. -->
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessID, Image, FileVersion, Description, Product, Company, CommandLine, CurrentDirectory, User, LogonGuid, LogonId, TerminalSessionId, IntegrityLevel, Hashes, ParentProcessGuid, ParentProcessId, ParentImage, ParentCommandLine-->
+		<ProcessCreate onmatch="include">
+			<!--SECTION: Cryptocurrency Miners
+				Originally derived from: 	https://github.com/ion-storm/sysmon-config/blob/master/sysmonconfig-export.xml
+																	Fork Version: 300
+				Further contributed by:		https://github.com/ryanku98
+			-->
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">cast_xmr</Image>
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">Claymore</Image>
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">CryptoGoblin</Image>
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">CryptoNote</Image>
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">cryptonight</Image>
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">miner</Image>
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">minergate</Image>
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">xmr</Image>
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">xmrig</Image>
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">xmr-stak</Image>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">ahashpool</CommandLine>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">algo</CommandLine>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">blazepool</CommandLine>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">blockmasters</CommandLine>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">blockmasterscoins</CommandLine>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">ccminer</CommandLine>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">cgminer</CommandLine>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">coinhive</CommandLine>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">cryptonight</CommandLine>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">hashrefinery</CommandLine>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">miner</CommandLine>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">minerd</CommandLine> <!--CPUminer-->
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">minergate</CommandLine>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">miningpoolhubcoins</CommandLine>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">nicehash</CommandLine>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">NsCpuCNMiner</CommandLine> <!--Claymore CPU Miner-->
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">NsGpuCNMiner</CommandLine> <!--Claymore GPU Miner-->
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">poolpassword</CommandLine>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">poolurl</CommandLine>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">poolname</CommandLine>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">poolname</CommandLine>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">rainbowminer</CommandLine>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">sgminer</CommandLine>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">stratum+tcp</CommandLine>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">xmr</CommandLine>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">xmrig</CommandLine>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">xmrMiner</CommandLine>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">xmr-stak</CommandLine>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">yam</CommandLine> <!--YAM Miner-->
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">yiimp</CommandLine>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">zergpool</CommandLine>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">zergpoolcoins</CommandLine>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">zpool</CommandLine>
+		</ProcessCreate>
+
 		<ProcessCreate onmatch="exclude">
 			<!--SECTION: Microsoft Windows-->
 			<CommandLine condition="begin with">C:\Windows\system32\DllHost.exe /Processid</CommandLine> <!--Microsoft:Windows-->
@@ -103,7 +152,7 @@
 			<Image condition="is">C:\Windows\system32\mobsync.exe</Image> <!--Microsoft:Windows: Network file syncing-->
 			<CommandLine condition="begin with">C:\Windows\system32\wbem\wmiprvse.exe -Embedding</CommandLine> <!--Microsoft:Windows: WMI provider host-->
 			<CommandLine condition="begin with">C:\Windows\system32\wbem\wmiprvse.exe -secured -Embedding</CommandLine> <!--Microsoft:Windows: WMI provider host-->
-			<Image condition="is">C:\Windows\system32\SppExtComObj.Exe</Image> <!--Microsoft:Windows: KMS activation-->
+			<Image condition="is">C:\Windows\system32\SppExtComObj.exe</Image> <!--Microsoft:Windows: KMS activation-->
 			<Image condition="is">C:\Windows\system32\PrintIsolationHost.exe</Image> <!--Microsoft:Windows: Printing-->
 			<!--SECTION: Microsoft:Windows:Defender-->
 			<Image condition="begin with">C:\Program Files\Windows Defender</Image> <!--Microsoft:Windows: Defender in Win10-->
@@ -257,9 +306,11 @@
 			<Image condition="is">C:\Program Files\Dell\SupportAssist\pcdrcui.exe</Image> <!--Dell:SupportAssist: routine actions-->
 			<Image condition="is">C:\Program Files\Dell\SupportAssist\koala.exe</Image> <!--Dell:SupportAssist: routine actions-->
 			<ParentCommandLine condition="end with">"-outc=C:\ProgramData\Dell\CommandUpdate\inventory.xml" "-logc=C:\ProgramData\Dell\CommandUpdate\scanerrs.xml" "-lang=en" "-enc=UTF-16" </ParentCommandLine>
+			<!--SECTION: Others-->
+				<Image condition="end with">atom.exe</Image> <!--Atom Editor-->
 		</ProcessCreate>
 
-	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM [FileCreateTime]-->
+		<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM [FileCreateTime]-->
 		<!--COMMENT:	[ https://attack.mitre.org/wiki/Technique/T1099 ] -->
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime, PreviousCreationUtcTime-->
@@ -269,16 +320,17 @@
 
 		<FileCreateTime onmatch="exclude">
 			<Image condition="image">OneDrive.exe</Image> <!--OneDrive constantly changes file times-->
-			<Image condition="image">C:\Windows\system32\backgroundTaskHost.exe</Image>
+			<Image condition="image">C:\Windows\System32\backgroundTaskHost.exe</Image>
 			<Image condition="contains">setup</Image> <!--Ignore setups-->
 			<Image condition="contains">install</Image> <!--Ignore setups-->
 			<Image condition="contains">Update\</Image> <!--Ignore setups-->
 			<Image condition="end with">redist.exe</Image> <!--Ignore setups-->
 			<Image condition="is">msiexec.exe</Image> <!--Ignore setups-->
 			<Image condition="is">TrustedInstaller.exe</Image> <!--Ignore setups-->
+			<Image condition="end with">atom.exe</Image> <!--Atom Editor-->
 		</FileCreateTime>
 
-	<!--SYSMON EVENT ID 3 : NETWORK CONNECTION INITIATED [NetworkConnect]-->
+		<!--SYSMON EVENT ID 3 : NETWORK CONNECTION INITIATED [NetworkConnect]-->
 		<!--COMMENT:	By default this configuration takes a very conservative approach to network logging, limited to only extremely high-signal events.-->
 		<!--COMMENT:	[ https://attack.mitre.org/wiki/Command_and_Control ] [ https://attack.mitre.org/wiki/Exfiltration ] [ https://attack.mitre.org/wiki/Lateral_Movement ] -->
 		<!--TECHNICAL:	For the DestinationHostname, Sysmon uses the GetNameInfo API, which will often not have any information, and may just be a CDN. This is NOT reliable for filtering.-->
@@ -306,7 +358,7 @@
 			<Image condition="image">java.exe</Image> <!--Java: Monitor usage of vulnerable application and init from JAR files | Credit @ion-storm -->
 			<Image condition="image">javaw.exe</Image> <!--Java: Monitor usage of vulnerable application and init from JAR files -->
 			<Image condition="image">javaws.exe</Image> <!--Java: Monitor usage of vulnerable application and init from JAR files -->
-			<Image condition="image">mmc.exe</Image> <!--Microsoft:Windows: -->
+			<Image condition="image">mmc.exe</Image> <!--Microsoft:Windows: Microsoft Management Console-->
 			<Image condition="image">msbuild.exe</Image> <!--Microsoft:Windows: [ https://www.hybrid-analysis.com/sample/a314f6106633fba4b70f9d6ddbee452e8f8f44a72117749c21243dc93c7ed3ac?environmentId=100 ] -->
 			<Image condition="image">mshta.exe</Image> <!--Microsoft:Windows: HTML application executes scripts without IE protections | Credit @ion-storm [ https://en.wikipedia.org/wiki/HTML_Application ] -->
 			<Image condition="image">msiexec.exe</Image> <!--Microsoft:Windows: Can install from http:// paths | Credit @vector-sec -->
@@ -359,6 +411,430 @@
 			<DestinationPort condition="is">4500</DestinationPort> <!--Tor protocol, also triggers on IPsec [ https://attack.mitre.org/wiki/Technique/T1090 ] | Credit @ion-storm-->
 			<DestinationPort condition="is">9001</DestinationPort> <!--Tor protocol [ http://www.computerworlduk.com/tutorial/security/tor-enterprise-2016-blocking-malware-darknet-use-rogue-nodes-3633907/ ] -->
 			<DestinationPort condition="is">9030</DestinationPort> <!--Tor protocol [ http://www.computerworlduk.com/tutorial/security/tor-enterprise-2016-blocking-malware-darknet-use-rogue-nodes-3633907/ ] -->
+			<!--Cryptocurrency Mining pools
+				Originally derived from: 	https://github.com/ion-storm/sysmon-config/blob/master/sysmonconfig-export.xml
+																	Fork Version: 300
+				Further contributed by:		https://github.com/ryanku98
+			-->
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">blazepool</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">blockmasters</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">blockmasterscoins</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">bohemianpool</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">cryptmonero</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">crypto-pool</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">dwarfpool</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">hashrefinery</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">hashvault</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">iwanttoearn.money</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">mine</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">minercircle</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">minergate</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">miners</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">mineXMR</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">miningpoolhub</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">mixpools</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">mmmoneropool</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">monero</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">monerohash</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">moneroocean</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">moneropool</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">monero.lindon-pool.win</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">moriaxmr</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">multipooler</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">mypool</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">nanopool</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">nicehash</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">pool.xmr</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">pooldd</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">poolto</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">prohash</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">ratchetmining</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">slushpool</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">supportxmr</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">teracycle</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">usxmrpool</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">suprnova.cc</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">viaxmr.com</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">xmrpool</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">yiimp</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">zergpool</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">zergpoolcoins</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">zpool</DestinationHostname>
+			<!--SECTION: XMR Mining Pool IPs-->
+			<!--supportxmr.com-->
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">pool.supportxmr.com</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">pool-phx.supportxmr.com</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">pool-nyc.supportxmr.com</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">pool-de.supportxmr.com</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">pool-hk.supportxmr.com</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">pool-fr.supportxmr.com</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">pool-ca.supportxmr.com</DestinationHostname>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">192.110.160.114</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">107.178.104.10</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">104.140.201.62</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">104.140.244.186</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">104.140.201.58</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">104.140.201.102</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">104.140.201.42</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">94.130.12.27</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">94.130.12.30</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">94.130.167.181</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">103.253.40.188</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">45.125.194.34</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">45.125.194.18</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">103.253.40.189</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">37.187.95.110</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">37.59.52.83</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">149.202.83.171</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">91.121.140.167</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">94.23.23.52</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">158.69.255.67</DestinationIp>
+			<!--minexmr.com-->
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">pool.minexmr.com</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">fr.minexmr.com</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">de.minexmr.com</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">ca.minexmr.com</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">sg.minexmr.com</DestinationHostname>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">37.59.43.131</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">37.59.51.212</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">178.63.48.196</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">37.59.43.136</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">91.121.87.10</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">78.46.91.134</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">37.59.45.174</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">78.46.89.102</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">176.9.53.68</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">37.59.44.193</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">37.59.55.60</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">94.23.41.130</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">176.9.50.126</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">46.105.103.169</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">94.130.206.79</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">37.187.154.79</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">94.23.206.130</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">37.187.154.79</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">46.105.103.169</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">178.63.48.196</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">78.46.89.102</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">78.46.91.134</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">144.217.73.200</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">167.114.210.141</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">66.70.238.157</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">158.69.25.62</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">139.99.120.50</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">139.99.120.75</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">139.99.120.73</DestinationIp>
+			<!--xmrpool.net-->
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">mine.xmrpool.net</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">frankfurt-1.xmrpool.net</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">vegas-backup.xmrpool.net</DestinationHostname>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">195.201.12.107</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">199.231.85.124</DestinationIp>
+			<!--nanopool.org-->
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">xmr-eu1.nanopool.org</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">xmr-eu2.nanopool.org</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">xmr-us-east1.nanopool.org</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">xmr-us-west1.nanopool.org</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">xmr-asia1.nanopool.org</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">xmr-jp1.nanopool.org</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">xmr-au1.nanopool.org</DestinationHostname>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">51.15.65.182</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">164.132.109.110</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">51.15.69.136</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">51.15.54.102</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">198.251.88.21</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">79.137.82.5</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">151.80.144.253</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">51.15.58.224</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">51.15.78.68</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">5.196.13.29</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">217.182.169.148</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">5.196.23.240</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">213.32.29.143</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">51.255.34.118</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">92.222.180.119</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">51.15.55.100</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">5.196.26.96</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">51.15.55.162</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">92.222.10.59</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">151.80.144.188</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">213.32.74.157</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">51.15.67.17</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">51.255.34.80</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">51.255.34.79</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">149.202.42.174</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">142.44.242.100</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">144.217.14.109</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">144.217.14.139</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">142.44.243.6</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">192.99.69.170</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">45.76.65.223</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">207.246.100.198</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">45.32.71.82</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">45.63.61.87</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">103.3.62.64</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">139.99.102.72</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">139.99.102.71</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">139.99.101.232</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">139.99.101.198</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">139.99.101.197</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">139.99.102.74</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.104.165.191</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">139.99.102.70</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">139.99.102.73</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.105.211.250</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">139.162.81.90</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.105.211.250</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">139.162.81.90</DestinationIp>
+			<!--viaxmr.com-->
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">stratum.viaxmr.com</DestinationHostname>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">163.172.18.134</DestinationIp>
+			<!--monero.hashvault.pro-->
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">frankfurt01.monero.hashvault.pro</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">london01.monero.hashvault.pro</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">moscow01.monero.hashvault.pro</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">newyork01.monero.hashvault.pro</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">atlanta01.monero.hashvault.pro</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">losangeles01.monero.hashvault.pro</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">seattle01.monero.hashvault.pro</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">chicago01.monero.hashvault.pro</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">singapore01.monero.hashvault.pro</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">sydney01.monero.hashvault.pro</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">pool.monero.hashvault.pro</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">europe.monero.hashvault.pro</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">us.monero.hashvault.pro</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">asia.monero.hashvault.pro</DestinationHostname>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">145.239.0.75</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">209.250.245.190</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">95.213.245.107</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">207.148.17.158</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">45.32.223.48</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">45.77.123.191</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">45.77.212.83</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">45.76.231.45</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">139.99.9.133</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">45.32.246.116</DestinationIp>
+			<!--moriaxmr.com-->
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">de2.moriaxmr.com</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">de.moriaxmr.com</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">us.moriaxmr.com</DestinationHostname>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">78.46.44.164</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">178.254.29.69</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">162.210.173.109</DestinationIp>
+			<!--suprnova.cc-->
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">xmr-eu.suprnova.cc</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">xmr-us.suprnova.cc</DestinationHostname>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">37.187.24.170</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">158.69.52.135</DestinationIp>
+			<!--monerooceans.stream-->
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">gulf.moneroocean.stream</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">monerooceans.stream</DestinationHostname>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">45.32.81.217</DestinationIp>
+			<!--xmrpool.eu-->
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">xmrpool.eu</DestinationHostname>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">51.144.104.161</DestinationIp>
+			<!--xmrpool.de-->
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">xmrpool.de</DestinationHostname>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">77.76.228.4</DestinationIp>
+			<!--prohash.net-->
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">xmr.prohash.net</DestinationHostname>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">138.201.206.47</DestinationIp>
+			<!--bohemianpool.com-->
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">xmr.bohemianpool.com</DestinationHostname>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">80.188.53.27</DestinationIp>
+			<!--crypto-pool.fr-->
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">xmr.crypto-pool.fr</DestinationHostname>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">163.172.226.137</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">163.172.205.136</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">163.172.204.219</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">163.172.207.198</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">163.172.207.71</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">163.172.226.218</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">163.172.207.69</DestinationIp>
+			<!--moneropool.com-->
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">mine.moneropool.com</DestinationHostname>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">94.130.65.216</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">94.130.65.215</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">94.130.65.214</DestinationIp>
+			<!--dwarfpool.com-->
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">xmr-eu.dwarfpool.com</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">xmr-usa.dwarfpool.com</DestinationHostname>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">79.137.57.106</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">178.32.196.217</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">178.32.145.31</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">66.70.234.210</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">144.217.61.241</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">144.217.101.20</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">144.217.117.111</DestinationIp>
+			<!--monerohash.com-->
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">monerohash.com</DestinationHostname>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">2604:180:2:141e::47d9</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">107.191.99.95</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">107.191.99.227</DestinationIp>
+			<!--pooldd.com-->
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">minexmr.pooldd.com</DestinationHostname>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">139.59.96.215</DestinationIp>
+			<!--minercircle.com-->
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">xmr.minercircle.com</DestinationHostname>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">163.172.74.81</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">163.172.52.5</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">163.172.103.175</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">163.172.66.252</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">163.172.251.224</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">163.172.251.223</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">163.172.74.85</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">163.172.251.222</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">163.172.251.49</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">163.172.251.48</DestinationIp>
+			<!--miningpoolhub.com-->
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">hub.miningpoolhub.com</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">mph-1535617039.us-east-1.elb.amazonaws.com</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">us-east.cryptonight-hub.miningpoolhub.com</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">europe.cryptonight-hub.miningpoolhub.com</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">asia.cryptonight-hub.miningpoolhub.com</DestinationHostname>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">52.73.251.246</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">34.196.203.126</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.104.247.21</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.105.205.58</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">45.79.207.32</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.104.76.21</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">139.162.132.70</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">45.79.217.166</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.104.241.136</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">139.162.46.14</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">45.79.204.241</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">45.79.200.97</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">139.162.158.223</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.105.197.212</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">139.162.60.220</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.104.252.176</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">45.79.192.137</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">45.79.210.48</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.104.94.15</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.104.250.141</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.104.129.254</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.105.235.97</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.105.210.116</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.104.143.224</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.105.205.68</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.104.224.250</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.105.210.117</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.104.250.141</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">139.162.190.248</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.104.235.129</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.105.235.97</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.105.197.212</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.104.241.136</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.105.205.68</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.104.76.21</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">139.162.132.70</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.104.252.176</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.104.143.224</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.105.205.58</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.104.247.21</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">45.79.204.241</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.104.94.15</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.105.210.117</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">85.90.247.242</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">139.162.60.220</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.104.159.158</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.104.224.250</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.104.151.232</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">139.162.158.223</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.104.129.254</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.104.148.42</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.105.210.116</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.105.210.116</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.105.242.222</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.104.49.55</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.105.210.117</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.104.241.136</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">139.162.60.220</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">139.162.158.223</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.105.197.212</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.105.205.58</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.104.250.141</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.105.231.113</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.104.126.71</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.105.235.97</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.104.143.224</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">45.79.200.97</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.104.224.250</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">139.162.102.104</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">139.162.46.14</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.105.205.68</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.104.76.21</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.104.129.254</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">139.162.65.177</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">45.79.204.241</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.104.94.15</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">172.104.252.176</DestinationIp>
+			<!--mmmoneropool.com-->
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">mmmoneropool.com</DestinationHostname>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">45.77.101.57</DestinationIp>
+			<!--poolto.be-->
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">xmr.poolto.be</DestinationHostname>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">178.21.23.4</DestinationIp>
+			<!--multipooler.com-->
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">multipooler.com</DestinationHostname>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">78.24.235.235</DestinationIp>
+			<!--minergate.com-->
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">xmr.pool.minergate.com</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">bcn.pool.minergate.com</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">xmo.pool.minergate.com</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">xdn.pool.minergate.com</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">qcn.pool.minergate.com</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">fcn.pool.minergate.com</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">aeon.pool.minergate.com</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">dsh.pool.minergate.com</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">fcn-xmr.pool.minergate.com</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">fcn-qcn.pool.minergate.com</DestinationHostname>
+			<DestinationHostname name="Alert=Cryptocurrency Miner" condition="contains">fcn-dsh.pool.minergate.com</DestinationHostname>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">136.243.102.157</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">94.130.64.225</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">176.9.147.178</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">78.46.23.253</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">78.46.49.212</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">46.4.119.208</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">94.130.48.154</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">94.130.9.194</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">136.243.88.145</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">136.243.94.27</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">176.9.2.145</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">176.9.147.78</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">94.130.9.194</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">78.46.49.212</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">46.4.119.208</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">136.243.94.27</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">136.243.88.145</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">78.46.23.253</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">94.130.9.194</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">94.130.48.154</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">94.130.64.225</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">136.243.102.157</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">78.46.49.212</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">176.9.47.243</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">46.4.119.208</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">176.9.147.178</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">176.9.147.178</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">176.9.147.78</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">176.9.2.145</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">176.9.47.243</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">176.9.147.78</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">176.9.2.145</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">94.130.239.15</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">176.9.122.21</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">176.9.47.243</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">94.130.48.154</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">94.130.64.225</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">136.243.94.27</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">138.201.124.177</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">136.243.88.145</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">78.46.23.253</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">136.243.102.157</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">138.201.60.198</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">176.9.47.243</DestinationIp>
+			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">176.9.47.243</DestinationIp>
 		</NetworkConnect>
 
 		<NetworkConnect onmatch="exclude">
@@ -371,17 +847,18 @@
 			<Image condition="image">OneDrive.exe</Image> <!--Microsoft:OneDrive-->
 			<Image condition="image">OneDriveStandaloneUpdater.exe</Image> <!--Microsoft:OneDrive-->
 			<Image condition="end with">AppData\Local\Microsoft\Teams\current\Teams.exe</Image> <!--Microsoft: Teams-->
+			<Image condition="end with">MsMpEng.exe</Image> <!--Microsoft:Windows: Antimalware Service Executable-->
 			<DestinationHostname condition="end with">microsoft.com</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">microsoft.com.akadns.net</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">microsoft.com.nsatc.net</DestinationHostname> <!--Microsoft:Update delivery-->
 		</NetworkConnect>
 
-	<!--SYSMON EVENT ID 4 : RESERVED FOR SYSMON STATUS MESSAGES-->
+		<!--SYSMON EVENT ID 4 : RESERVED FOR SYSMON STATUS MESSAGES-->
 
 		<!--DATA: UtcTime, State, Version, SchemaVersion-->
 		<!--Cannot be filtered.-->
 
-	<!--SYSMON EVENT ID 5 : PROCESS ENDED [ProcessTerminate]-->
+		<!--SYSMON EVENT ID 5 : PROCESS ENDED [ProcessTerminate]-->
 		<!--COMMENT:	Useful data in building infection timelines.-->
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image-->
@@ -390,9 +867,10 @@
 		</ProcessTerminate>
 
 		<ProcessTerminate onmatch="exclude">
+			<Image condition="end with">atom.exe</Image> <!--Atom Editor-->
 		</ProcessTerminate>
 
-	<!--SYSMON EVENT ID 6 : DRIVER LOADED INTO KERNEL [DriverLoad]-->
+		<!--SYSMON EVENT ID 6 : DRIVER LOADED INTO KERNEL [DriverLoad]-->
 		<!--COMMENT:	Because drivers with bugs can be used to escalate to kernel permissions, be extremely selective
 			about what you exclude from monitoring. Low event volume, little incentive to exclude.
 			[ https://attack.mitre.org/wiki/Technique/T1014 ] -->
@@ -405,7 +883,7 @@
 			<Signature condition="begin with">Intel </Signature> <!--Exclude signed Intel drivers-->
 		</DriverLoad>
 
-	<!--SYSMON EVENT ID 7 : DLL (IMAGE) LOADED BY PROCESS [ImageLoad]-->
+		<!--SYSMON EVENT ID 7 : DLL (IMAGE) LOADED BY PROCESS [ImageLoad]-->
 		<!--COMMENT:	Can cause high system load, disabled by default.-->
 		<!--COMMENT:	[ https://attack.mitre.org/wiki/Technique/T1073 ] [ https://attack.mitre.org/wiki/Technique/T1038 ] [ https://attack.mitre.org/wiki/Technique/T1034 ] -->
 
@@ -413,7 +891,7 @@
 		<ImageLoad onmatch="include">
 		</ImageLoad>
 
-	<!--SYSMON EVENT ID 8 : REMOTE THREAD CREATED [CreateRemoteThread]-->
+		<!--SYSMON EVENT ID 8 : REMOTE THREAD CREATED [CreateRemoteThread]-->
 		<!--COMMENT:	Monitor for processes injecting code into other processes. Often used by malware to cloak their actions. Also when Firefox loads Flash.
 		[ https://attack.mitre.org/wiki/Technique/T1055 ] -->
 
@@ -432,7 +910,7 @@
 			<SourceImage condition="is">C:\Program Files (x86)\Webroot\WRSA.exe</SourceImage>
 		</CreateRemoteThread>
 
-	<!--SYSMON EVENT ID 9 : RAW DISK ACCESS [RawAccessRead]-->
+		<!--SYSMON EVENT ID 9 : RAW DISK ACCESS [RawAccessRead]-->
 		<!--EVENT 9: "RawAccessRead detected"-->
 		<!--COMMENT:	Can cause high system load, disabled by default.-->
 		<!--COMMENT:	Monitor for raw sector-level access to the disk, often used to bypass access control lists or access locked files.
@@ -444,7 +922,7 @@
 		<RawAccessRead onmatch="include">
 		</RawAccessRead>
 
-	<!--SYSMON EVENT ID 10 : INTER-PROCESS ACCESS [ProcessAccess]-->
+		<!--SYSMON EVENT ID 10 : INTER-PROCESS ACCESS [ProcessAccess]-->
 		<!--EVENT 10: "Process accessed"-->
 		<!--COMMENT:	Can cause high system load, disabled by default.-->
 		<!--COMMENT:	Monitor for processes accessing other process' memory.-->
@@ -453,7 +931,7 @@
 		<ProcessAccess onmatch="include">
 		</ProcessAccess>
 
-	<!--SYSMON EVENT ID 11 : FILE CREATED [FileCreate]-->
+		<!--SYSMON EVENT ID 11 : FILE CREATED [FileCreate]-->
 		<!--EVENT 11: "File created"-->
 		<!--NOTE:	Other filesystem "minifilters" can make it appear to Sysmon that some files are being written twice. This is not a Sysmon issue, per Mark Russinovich.-->
 		<!--NOTE:	You may not see files detected by antivirus. Other filesystem minifilters, like antivirus, can act before Sysmon receives the alert a file was written.-->
@@ -533,7 +1011,7 @@
 			<TargetFilename condition="is">C:\Windows\System32\Tasks\Adobe Flash Player Updater</TargetFilename>
 		</FileCreate>
 
-	<!--SYSMON EVENT ID 12 & 13 & 14 : REGISTRY MODIFICATION [RegistryEvent]-->
+		<!--SYSMON EVENT ID 12 & 13 & 14 : REGISTRY MODIFICATION [RegistryEvent]-->
 		<!--EVENT 12: "Registry object added or deleted"-->
 		<!--EVENT 13: "Registry value set-->
 		<!--EVENT 14: "Registry objected renamed"-->
@@ -672,7 +1150,7 @@
 		</RegistryEvent>
 
 		<RegistryEvent onmatch="exclude">
-		<!--COMMENT:	Remove low-information noise. Often these hide a procress recreating an empty key and do not hide the values created subsequently.-->
+			<!--COMMENT:	Remove low-information noise. Often these hide a procress recreating an empty key and do not hide the values created subsequently.-->
 			<!--SECTION: Microsoft binaries-->
 			<Image condition="end with">Office\root\integration\integrator.exe</Image> <!--Microsoft:Office: C2R client-->
 			<Image condition="is">C:\Windows\system32\backgroundTaskHost.exe</Image> <!--Microsoft:Windows: Changes association registry keys-->
@@ -763,7 +1241,7 @@
 			<TargetObject condition="begin with">HKCR\iTunes.</TargetObject> <!--Apple: iTunes update noise-->
 		</RegistryEvent>
 
-	<!--SYSMON EVENT ID 15 : ALTERNATE DATA STREAM CREATED [FileCreateStreamHash]-->
+		<!--SYSMON EVENT ID 15 : ALTERNATE DATA STREAM CREATED [FileCreateStreamHash]-->
 		<!--EVENT 15: "File stream created"-->
 		<!--COMMENT:	Any files created with an NTFS Alternate Data Stream which match these rules will be hashed and logged.
 			[ https://blogs.technet.microsoft.com/askcore/2013/03/24/alternate-data-streams-in-ntfs/ ]
@@ -792,14 +1270,14 @@
 		<FileCreateStreamHash onmatch="exclude">
 		</FileCreateStreamHash>
 
-	<!--SYSMON EVENT ID 16 : SYSMON CONFIGURATION CHANGE-->
+		<!--SYSMON EVENT ID 16 : SYSMON CONFIGURATION CHANGE-->
 		<!--EVENT 16: "Sysmon config state changed"-->
 		<!--COMMENT:	This ONLY logs if the hash of the configuration changes. Running "sysmon.exe -c" with the current configuration will not be logged with Event 16-->
 
 		<!--DATA: UtcTime, Configuration, ConfigurationFileHash-->
 		<!--Cannot be filtered.-->
 
-	<!--SYSMON EVENT ID 17 & 18 : PIPE CREATED / PIPE CONNECTED [PipeEvent]-->
+		<!--SYSMON EVENT ID 17 & 18 : PIPE CREATED / PIPE CONNECTED [PipeEvent]-->
 		<!--EVENT 17: "Pipe Created"-->
 		<!--EVENT 18: "Pipe Connected"-->
 
@@ -807,10 +1285,10 @@
 		<!--ADDITIONAL REFERENCE: [ https://blog.cobaltstrike.com/2015/10/07/named-pipe-pivoting/ ] -->
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, PipeName, Image-->
-		<PipeEvent onmatch="include">
+		<PipeEvent onmatch="exclude">
 		</PipeEvent>
 
-	<!--SYSMON EVENT ID 19 & 20 & 21 : WMI EVENT MONITORING [WmiEvent]-->
+		<!--SYSMON EVENT ID 19 & 20 & 21 : WMI EVENT MONITORING [WmiEvent]-->
 		<!--EVENT 19: "WmiEventFilter activity detected"-->
 		<!--EVENT 20: "WmiEventConsumer activity detected"-->
 		<!--EVENT 21: "WmiEventConsumerToFilter activity detected"-->
@@ -819,10 +1297,10 @@
 		<!--ADDITIONAL REFERENCE: [ https://rawsec.lu/blog/posts/2017/Sep/19/sysmon-v610-vs-wmi-persistence/ ] -->
 
 		<!--DATA: EventType, UtcTime, Operation, User, Name, Type, Destination, Consumer, Filter-->
-		<WmiEvent onmatch="include">
+		<WmiEvent onmatch="exclude">
 		</WmiEvent>
 
-	<!--SYSMON EVENT ID 255 : ERROR-->
+		<!--SYSMON EVENT ID 255 : ERROR-->
 		<!--"This event is generated when an error occurred within Sysmon. They can happen if the system is under heavy load
 			and certain tasked could not be performed or a bug exists in the Sysmon service. You can report any bugs on the
 			Sysinternals forum or over Twitter (@markrussinovich)."-->
