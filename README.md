@@ -2,7 +2,7 @@
 
 This is a Microsoft Sysinternals Sysmon configuration file template with default high-quality event tracing modified to specifically track XMR mining software.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**[sysmonconfig-export.xml](https://github.com/ryanku98/sysmon-config/blob/master/sysmonconfig-export.xml)**
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**[sysmonconfig-export.xml](https://github.com/ryanku98/sysmon-config-cryptomining/blob/master/sysmonconfig-export.xml)**
 
 Pull requests and issue tickets are welcome, and new additions will be credited in-line or on Git.
 
