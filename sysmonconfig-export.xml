@@ -312,7 +312,7 @@
 			<Image condition="end with">\resources\app.asar.unpacked\node_modules\dugite\git\mingw64\bin\git.exe</Image> <!--GitHub:Atom git.exe-->
 		</ProcessCreate>
 
-		<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESystem [FileCreateTime]-->
+		<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM [FileCreateTime]-->
 		<!--COMMENT:	[ https://attack.mitre.org/wiki/Technique/T1099 ] -->
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime, PreviousCreationUtcTime-->
