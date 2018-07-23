@@ -1206,11 +1206,6 @@
 			<TargetObject condition="is">HKLM\System\CurrentControlSet\Services\PimIndexMaintenanceSvc_3c0ed\ImagePath</TargetObject> <!--Microsoft:Windows: Remove noise from UnistackSvcGroup-->
 			<TargetObject condition="is">HKLM\System\CurrentControlSet\Services\PrintWorkflowUserSvc_3c0ed\ImagePath</TargetObject> <!--Microsoft:Windows: Remove noise from PrintWorkflow-->
 			<TargetObject condition="is">HKLM\System\CurrentControlSet\Services\WpnUserService_3c0ed\ImagePath</TargetObject> <!--Microsoft:Windows: Remove noise from UnistackSvcGroup-->
-			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k BcastDVRUserService</CommandLine> <!--Microsoft:Windows 10-->
-			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k BthAppGroup</CommandLine> <!--Microsoft:Windows 10-->
-			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k DevicesFlow</CommandLine> <!--Microsoft:Windows 10-->
-			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k PrintWorkflow</CommandLine> <!--Microsoft:Windows 10-->
-			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k UnistackSvcGroup</CommandLine> <!--Microsoft:Windows 10-->
 			<!--SECTION: Misc-->
 			<TargetObject condition="end with">Toolbar\WebBrowser</TargetObject> <!--Microsoft:IE: Extraneous activity-->
 			<TargetObject condition="end with">Toolbar\WebBrowser\ITBar7Height</TargetObject> <!--Microsoft:IE: Extraneous activity-->
@@ -1294,7 +1289,6 @@
 			<Image condition="is">C:\Program Files\WIDCOMM\Bluetooth Software\btwdins.exe</Image> <!--Constantly writes to HKLM-->
 			<TargetObject condition="begin with">HKCR\VLC.</TargetObject> <!--VLC update noise-->
 			<TargetObject condition="begin with">HKCR\iTunes.</TargetObject> <!--Apple: iTunes update noise-->
-			<CommandLine condition="is">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe --flag-switches-begin --flag-switches-end --restore-last-session</CommandLine> <!--Google:Chrome Startup noise-->
 			<Image condition="image">C:\WINDOWS\system32\csrss.exe</Image> <!--Google:Chrome Startup noise-->
 		</RegistryEvent>
 
@@ -1325,7 +1319,7 @@
 		</FileCreateStreamHash>
 
 		<FileCreateStreamHash onmatch="exclude">
-			<SourceImage condition="is">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</SourceImage>
+			<Image condition="is">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Image>
 		</FileCreateStreamHash>
 
 		<!--SYSMON EVENT ID 16 : SYSMON CONFIGURATION CHANGE-->
