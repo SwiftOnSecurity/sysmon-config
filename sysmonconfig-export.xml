@@ -870,7 +870,7 @@
 
 		<ProcessTerminate onmatch="exclude">
 			<Image condition="image">atom.exe</Image> <!--GitHub:Atom-->
-			<Image codnition="end with">\AppData\Local\atom\Update.exe</Image> <!--GitHub:Atom: Updater-->
+			<Image condition="end with">\AppData\Local\atom\Update.exe</Image> <!--GitHub:Atom: Updater-->
 			<Image condition="end with">\resources\app\apm\bin\node.exe</Image> <!--GitHub:Atom: node.exe-->
 			<Image condition="end with">\resources\app.asar.unpacked\node_modules\dugite\git\cmd\git.exe</Image> <!--GitHub:Atom: git.exe-->
 			<Image condition="end with">\resources\app.asar.unpacked\node_modules\dugite\git\mingw64\bin\git.exe</Image> <!--GitHub:Atom: git.exe-->
