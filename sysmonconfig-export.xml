@@ -75,41 +75,44 @@
 																	Fork Version: 300
 				Further contributed by:		https://github.com/ryanku98
 			-->
-			<Image name="Alert=Cryptocurrency Miner" condition="contains">cast_xmr</Image>
-			<Image name="Alert=Cryptocurrency Miner" condition="contains">Claymore</Image>
-			<Image name="Alert=Cryptocurrency Miner" condition="contains">CryptoGoblin</Image>
-			<Image name="Alert=Cryptocurrency Miner" condition="contains">CryptoNote</Image>
-			<Image name="Alert=Cryptocurrency Miner" condition="contains">cryptonight</Image>
-			<Image name="Alert=Cryptocurrency Miner" condition="contains">miner</Image>
-			<Image name="Alert=Cryptocurrency Miner" condition="contains">minergate</Image>
-			<Image name="Alert=Cryptocurrency Miner" condition="contains">xmr</Image>
-			<Image name="Alert=Cryptocurrency Miner" condition="contains">xmrig</Image>
-			<Image name="Alert=Cryptocurrency Miner" condition="contains">xmr-stak</Image>
-			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">ahashpool</CommandLine>
-			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">algo</CommandLine>
-			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">blazepool</CommandLine>
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">bitcoin</Image> <!--Cryptocurrency-->
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">cast_xmr</Image> <!--Miner-->
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">Claymore</Image> <!--Miner-->
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">CryptoGoblin</Image> <!--Miner-->
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">CryptoNote</Image> <!--Cryptocurrency concept keyword-->
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">cryptonight</Image> <!--PoW algorithm-->
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">mine</Image> <!--keyword-->
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">miner</Image> <!--keyword-->
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">mining</Image> <!--keyword-->
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">minergate</Image> <!--Miner-->
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">monero</Image> <!--Cryptocurrency-->
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">xmr</Image> <!--Monero shorthand-->
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">xmrig</Image> <!--Miner-->
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">xmr-stak</Image> <!--Miner-->
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">ahashpool</CommandLine> <!--Mining Pool-->
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">algo</CommandLine> <!--Algorithm setting-->
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">blazepool</CommandLine> <!--Mining Pool-->
 			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">blockmasters</CommandLine>
 			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">blockmasterscoins</CommandLine>
-			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">ccminer</CommandLine>
-			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">cgminer</CommandLine>
-			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">coinhive</CommandLine>
-			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">cryptonight</CommandLine>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">ccminer</CommandLine> <!--ccminer-->
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">cgminer</CommandLine> <!--cgminer-->
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">coinhive</CommandLine> <!--Online JavaScript Monero miner-->
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">cryptonight</CommandLine> <!--Monero mining algorithm name-->
 			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">hashrefinery</CommandLine>
-			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">miner</CommandLine>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">miner</CommandLine> <!--Possible catch-all phrase-->
 			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">minerd</CommandLine> <!--CPUminer-->
-			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">minergate</CommandLine>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">minergate</CommandLine> <!--Closed-sourced miner-->
 			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">miningpoolhubcoins</CommandLine>
-			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">nicehash</CommandLine>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">nicehash</CommandLine> <!--Cloud miner-->
 			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">NsCpuCNMiner</CommandLine> <!--Claymore CPU Miner-->
 			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">NsGpuCNMiner</CommandLine> <!--Claymore GPU Miner-->
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">pool</CommandLine>
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">poolname</CommandLine>
 			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">poolpassword</CommandLine>
 			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">poolurl</CommandLine>
-			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">poolname</CommandLine>
-			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">poolname</CommandLine>
 			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">rainbowminer</CommandLine>
 			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">sgminer</CommandLine>
 			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">stratum+tcp</CommandLine>
-			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">xmr</CommandLine>
 			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">xmrig</CommandLine>
 			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">xmrMiner</CommandLine>
 			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">xmr-stak</CommandLine>
@@ -118,6 +121,8 @@
 			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">zergpool</CommandLine>
 			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">zergpoolcoins</CommandLine>
 			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">zpool</CommandLine>
+			<!--SECTION: Cryptocurrencies-->
+			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">xmr</CommandLine>
 		</ProcessCreate>
 
 		<ProcessCreate onmatch="exclude">
@@ -841,10 +846,9 @@
 
 		<NetworkConnect onmatch="exclude">
 			<!--COMMENT: Unfortunately, these exclusions are very broad and easily abused, but it's a limitation of Sysmon rules that they can't be more specific as they're in user folders-->
-			<Image condition="image">Spotify.exe</Image> <!--Spotify-->
-			<Image condition="end with">AppData\Roaming\Dropbox\bin\Dropbox.exe</Image> <!--Dropbox-->
-			<Image condition="image">g2ax_comm_expert.exe</Image> <!--GoToMeeting-->
-			<Image condition="image">g2mcomm.exe</Image> <!--GoToMeeting-->
+			<Image condition="end with">\AppData\Local\atom\Update.exe</Image> <!--GitHub:Atom: Updater-->
+			<Image condition="end with">\resources\app\apm\bin\node.exe</Image> <!--GitHub:Atom: node.exe-->
+			<Image condition="image">atom.exe</Image> <!--GitHub: Atom-->
 			<!--SECTION: Microsoft-->
 			<Image condition="image">OneDrive.exe</Image> <!--Microsoft:OneDrive-->
 			<Image condition="image">OneDriveStandaloneUpdater.exe</Image> <!--Microsoft:OneDrive Updater-->
@@ -853,6 +857,8 @@
 			<DestinationHostname condition="end with">microsoft.com</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">microsoft.com.akadns.net</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">microsoft.com.nsatc.net</DestinationHostname> <!--Microsoft:Update delivery-->
+			<!--SECTION: Sophos-->
+			<Image condition="is">C:\ProgramData\Sophos\AutoUpdate\Cache\sophos_autoupdate1.dir\ALUpdate.exe</Image> <!--Sophos: Updater-->
 		</NetworkConnect>
 
 		<!--SYSMON EVENT ID 4 : RESERVED FOR SYSMON STATUS MESSAGES-->
@@ -861,11 +867,22 @@
 		<!--Cannot be filtered.-->
 
 		<!--SYSMON EVENT ID 5 : PROCESS ENDED [ProcessTerminate]-->
-		<!--COMMENT:	Useful data in building infection timelines.-->
+		<!--COMMENT: Useful data in building infection timelines.-->
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image-->
 		<ProcessTerminate onmatch="include">
 			<Image condition="begin with">C:\Users</Image> <!--Process terminations by user binaries-->
+			<!--COMMENT: mirror ProcessCreate include section WITHOUT CommmandLine-->
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">cast_xmr</Image>
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">Claymore</Image>
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">CryptoGoblin</Image>
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">CryptoNote</Image>
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">cryptonight</Image>
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">miner</Image>
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">minergate</Image>
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">xmr</Image>
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">xmrig</Image>
+			<Image name="Alert=Cryptocurrency Miner" condition="contains">xmr-stak</Image>
 		</ProcessTerminate>
 
 		<ProcessTerminate onmatch="exclude">
@@ -874,9 +891,12 @@
 			<Image condition="end with">\resources\app\apm\bin\node.exe</Image> <!--GitHub:Atom: node.exe-->
 			<Image condition="end with">\resources\app.asar.unpacked\node_modules\dugite\git\cmd\git.exe</Image> <!--GitHub:Atom: git.exe-->
 			<Image condition="end with">\resources\app.asar.unpacked\node_modules\dugite\git\mingw64\bin\git.exe</Image> <!--GitHub:Atom: git.exe-->
+			<Image condition="image">FileCoAuth.exe</Image> <!--Microsoft:OneDrive: FileCoAuth-->
+			<Image condition="image">GoogleUpdateCore.exe</Image> <!--Google: Google Update Core-->
 			<Image condition="image">OneDrive.exe</Image> <!--Microsoft:OneDrive-->
 			<Image condition="image">OneDriveStandaloneUpdater.exe</Image> <!--Microsoft:OneDrive Updater-->
 			<Image condition="image">software_reporter_tool.exe</Image> <!--Google:Chrome: Software Reporter Tool-->
+			<Image condition="end with">\AppData\Local\NVIDIA\NvBackend\ApplicationOntology\OAWrapper.exe</Image> <!--NVIDIA Backend-->
 		</ProcessTerminate>
 
 		<!--SYSMON EVENT ID 6 : DRIVER LOADED INTO KERNEL [DriverLoad]-->
@@ -887,20 +907,26 @@
 
 		<!--DATA: UtcTime, ImageLoaded, Hashes, Signed, Signature, SignatureStatus-->
 		<DriverLoad onmatch="exclude">
+			<ImageLoaded condition="is">C:\Program Files\McAfee\WebAdvisor\mfesapsn.sys</ImageLoaded> <!--Exclude McAfee AV drivers-->
 			<ImageLoaded condition="is">C:\Windows\System32\drivers\AsusTP.sys</ImageLoaded> <!--Exclude ASUS drivers-->
 			<ImageLoaded condition="is">C:\Windows\System32\drivers\asvpndrv.sys</ImageLoaded> <!--Exclude Astrill drivers-->
-			<ImageLoaded condition="is">C:\Windows\System32\drivers\networx.sys</ImageLoaded> <!--Exclude networx drivers-->
+			<ImageLoaded condition="is">C:\Windows\System32\drivers\networx.sys</ImageLoaded> <!--Exclude NetWorx drivers-->
 			<ImageLoaded condition="is">C:\Windows\System32\drivers\rt640x64.sys</ImageLoaded> <!--Exclude Realtek drivers-->
+			<ImageLoaded condition="is">C:\Windows\System32\drivers\RfeCo10X64.sys</ImageLoaded> <!--Exclude Rivet Networks Traffic Controller Driver-->
 			<ImageLoaded condition="is">C:\Windows\System32\drivers\RtsBaStor.sys</ImageLoaded> <!--Exclude Realtek drivers-->
+			<ImageLoaded condition="is">C:\Windows\System32\drivers\sntp.sys</ImageLoaded> <!--Exclude Sophos AV drivers-->
 			<ImageLoaded condition="is">C:\Windows\System32\drivers\USBPcap.sys</ImageLoaded> <!--Exclude USBPcap drivers-->
 			<Signature condition="contains">microsoft</Signature> <!--Exclude signed Microsoft drivers-->
 			<Signature condition="contains">windows</Signature> <!--Exclude signed Microsoft drivers-->
 			<Signature condition="begin with">Intel</Signature> <!--Exclude signed Intel drivers-->
 			<Signature condition="is">Astrill</Signature> <!--Exclude Astrill VPN drivers-->
 			<Signature condition="is">ASUSTek Computer Inc</Signature> <!--Exclude native ASUS computer drivers-->
+			<Signature condition="is">McAfee, Inc.</Signature> <!--Exclude McAfee AV drivers-->
 			<Signature condition="is">Realtek Semiconductor Corp</Signature> <!--Exclude Realtek drivers-->
 			<Signature condition="is">Riverbed Technology, Inc.</Signature> <!--Exclude WinPCAP drivers-->
+			<Signature condition="is">Rivet Networks LLC</Signature> <!--Exclude Rivet Networks drivers-->
 			<Signature condition="is">SoftPerfect Pty. Ltd.</Signature> <!--Exclude networx drivers-->
+			<Signature condition="is">Sophos Limited</Signature> <!--Exclude Sophos AV drivers-->
 			<Signature condition="is">Tomasz Moń</Signature> <!--Exclude USBPcap drivers-->
 
 		</DriverLoad>
@@ -951,6 +977,10 @@
 
 		<!--DATA: UtcTime, SourceProcessGuid, SourceProcessId, SourceThreadId, SourceImage, TargetProcessGuid, TargetProcessId, TargetImage, GrantedAccess, CallTrace-->
 		<ProcessAccess onmatch="include">
+			<TargetImage condition="is">C:\WINDOWS\System32\lsass.exe</TargetImage> <!--Microsoft:Windows: Local Security Authority Subsystem Service (often faked by malware)-->
+		</ProcessAccess>
+
+		<ProcessAccess onmatch="exclude">
 		</ProcessAccess>
 
 		<!--SYSMON EVENT ID 11 : FILE CREATED [FileCreate]-->
@@ -1029,12 +1059,14 @@
 			<!--SECTION: Dell-->
 			<Image condition="is">C:\Program Files (x86)\Dell\CommandUpdate\InvColPC.exe</Image>
 			<!--SECTION: Intel-->
-			<Image condition="is">C:\Windows\system32\igfxCUIService.exe</Image> <!--Intel: Drops bat and other files in \Windows in normal operation-->
+			<Image condition="is">C:\Windows\System32\DriverStore\FileRepository\k127369.inf_amd64_b8b3c10a6624488c\igfxCUIService.exe</Image> <!--Intel: Drops bat and other files in \Windows in normal operation-->
 			<!--SECTION: Adobe-->
 			<TargetFilename condition="is">C:\Windows\System32\Tasks\Adobe Acrobat Update Task</TargetFilename>
 			<TargetFilename condition="is">C:\Windows\System32\Tasks\Adobe Flash Player Updater</TargetFilename>
 			<!--SECTION: Google-->
 			<Image condition="is">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Image>
+			<!--SECTION: Sophos-->
+			<Image condition="is">C:\Program Files (x86)\Sophos\AutoUpdate\ALsvc.exe</Image> <!--Sophos: Updater-->
 		</FileCreate>
 
 		<!--SYSMON EVENT ID 12 & 13 & 14 : REGISTRY MODIFICATION [RegistryEvent]-->
@@ -1084,6 +1116,16 @@
 			<TargetObject condition="contains">Explorer\FileExts\</TargetObject> <!--Microsoft:Windows: Changes to file extension mapping-->
 			<TargetObject condition="contains">{86C86720-42A0-1069-A2E8-08002B30309D}</TargetObject> <!--Microsoft:Windows: Tooltip handler-->
 			<TargetObject condition="contains">exefile</TargetObject> <!--Microsoft:Windows Executable handler, to ensure any changes not generally monitored, for less-common shell command types like "runas"-->
+			<!--SECTION: Bootup Control noise-->
+			<TargetObject condition="end with">HKLM\System\CurrentControlSet\Control\Lsa\Audit</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise--> <!--Win8+-->
+			<TargetObject condition="end with">HKLM\System\CurrentControlSet\Control\Lsa\Audit\AuditPolicy</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise--> <!--Win8+-->
+			<TargetObject condition="end with">HKLM\System\CurrentControlSet\Control\Lsa\Audit\PerUserAuditing\System</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise--> <!--Win8+-->
+			<TargetObject condition="end with">HKLM\System\CurrentControlSet\Control\Lsa\Kerberos\Domains</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise--> <!--Win8+-->
+			<TargetObject condition="end with">HKLM\System\CurrentControlSet\Control\Lsa\LsaPid</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise-->
+			<TargetObject condition="end with">HKLM\System\CurrentControlSet\Control\Lsa\ProductType</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise-->
+			<TargetObject condition="end with">HKLM\System\CurrentControlSet\Control\Lsa\SspiCache\credssp.dll</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise-->
+			<TargetObject condition="end with">HKLM\System\CurrentControlSet\Control\Lsa\SspiCache</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise--> <!--Win8+-->
+			<TargetObject condition="end with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Audit</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise--> <!--Win8+-->
 			<!--Windows COM-->
 			<TargetObject condition="end with">\InprocServer32\(Default)</TargetObject> <!--Microsoft:Windows:COM Object Hijacking [ https://blog.gdatasoftware.com/2014/10/23941-com-object-hijacking-the-discreet-way-of-persistence ] | Credit @ion-storm -->
 			<!--Windows shell visual modifications-->
@@ -1175,12 +1217,16 @@
 			<!--SECTION: Microsoft binaries-->
 			<Image condition="end with">Office\root\integration\integrator.exe</Image> <!--Microsoft:Office: C2R client-->
 			<Image condition="end with">\AppData\Local\Microsoft\OneDrive\OneDrive.exe</Image> <!--Microsoft:OneDrive-->
-			<Image condition="end with">MsMpEng.exe</Image> <!--Microsoft:Windows:Defender-->
+			<Image condition="image">MsMpEng.exe</Image> <!--Microsoft:Windows:Defender-->
 			<Image condition="is">C:\Windows\system32\backgroundTaskHost.exe</Image> <!--Microsoft:Windows: Changes association registry keys-->
 			<Image condition="is">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeClickToRun.exe</Image> <!--Microsoft:Office: C2R client-->
 			<Image condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</Image> <!--Microsoft:Windows:Defender-->
 			<Image condition="is">C:\Windows\SystemApps\Microsoft.Windows.Cortana_cw5n1h2txyewy\SearchUI.exe</Image> <!--Microsoft:Cortana-->
 			<Image condition="is">C:\Program Files (x86)\EMET 5.5\EMET_Service.exe</Image> <!--Microsoft:EMET: Routinely refreshes EMET configuration keys from Group Policy-->
+			<TargetObject condition="end with">\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.msc</TargetObject> <!--Microsoft:Windows: File Explorer-->
+			<!--SECTION: Sophos-->
+			<Image condition="is">C:\ProgramData\Sophos\AutoUpdate\cache\sophos_autoupdate1.dir\ALUpdate.exe</Image> <!--Sophos: Updater-->
+			<TargetObject condition="is">HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run\sau_check_key</TargetObject> <!--Sophos: Updater-->
 			<!--SECTION: Microsoft Windows Defender-->
 			<Image condition="is">C:\ProgramData\Microsoft\Windows Defender\platform\4.18.1806.18062-0\MsMpEng.exe</Image> <!--Microsoft:Windows: Current Version Windows Defender-->
 			<TargetObject condition="is">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\WindowsDefender</TargetObject> <!--Microsoft:Windows: Windows Defender-->
@@ -1237,16 +1283,6 @@
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Publishers\</TargetObject> <!--Microsoft:Windows: SvcHost Noise-->
 			<Image condition="is">C:\Windows\SystemApps\Microsoft.Windows.Cortana_cw5n1h2txyewy\SearchUI.exe</Image> <!--Microsoft:Windows: Remove noise from Windows 10 Cortana | Credit @ion-storm--> <!--Win10-->
 			<Image condition="is">C:\Program Files (x86)\Cisco\Cisco AnyConnect Secure Mobility Client\vpnagent.exe</Image>
-			<!--SECTION: Bootup Control noise-->
-			<TargetObject condition="end with">HKLM\System\CurrentControlSet\Control\Lsa\Audit</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise--> <!--Win8+-->
-			<TargetObject condition="end with">HKLM\System\CurrentControlSet\Control\Lsa\Audit\AuditPolicy</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise--> <!--Win8+-->
-			<TargetObject condition="end with">HKLM\System\CurrentControlSet\Control\Lsa\Audit\PerUserAuditing\System</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise--> <!--Win8+-->
-			<TargetObject condition="end with">HKLM\System\CurrentControlSet\Control\Lsa\Kerberos\Domains</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise--> <!--Win8+-->
-			<TargetObject condition="end with">HKLM\System\CurrentControlSet\Control\Lsa\LsaPid</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise-->
-			<TargetObject condition="end with">HKLM\System\CurrentControlSet\Control\Lsa\ProductType</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise-->
-			<TargetObject condition="end with">HKLM\System\CurrentControlSet\Control\Lsa\SspiCache\credssp.dll</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise-->
-			<TargetObject condition="end with">HKLM\System\CurrentControlSet\Control\Lsa\SspiCache</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise--> <!--Win8+-->
-			<TargetObject condition="end with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Audit</TargetObject> <!--Microsoft:Windows:lsass.exe: Boot noise--> <!--Win8+-->
 			<!--SECTION: Services startup settings noise, some low-risk services routinely change it and this can be ignored-->
 			<TargetObject condition="end with">\services\bits\Start</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "\Start"-->
 			<TargetObject condition="end with">\services\clr_optimization_v2.0.50727_32\Start</TargetObject> <!--Microsoft:dotNet: Windows 7-->
@@ -1337,7 +1373,32 @@
 		<!--ADDITIONAL REFERENCE: [ https://blog.cobaltstrike.com/2015/10/07/named-pipe-pivoting/ ] -->
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, PipeName, Image-->
+		<PipeEvent onmatch="include">
+			<Image condition="is">C:\WINDOWS\system32\wbem\wmiprvse.exe</Image> <!--Microsoft:Windows: WWI Provider Host (run when other applications request data; shouldn't occur often)-->
+		</PipeEvent>
+
 		<PipeEvent onmatch="exclude">
+			<Image condition="is">C:\Program Files\NetWorx\networx.exe</Image> <!--NetWorx-->
+			<Image condition="is">C:\Program Files\Google\Drive\googledrivesync.exe</Image> <!--Google: Back Up and Sync-->
+			<Image condition="is">C:\Program Files (x86)\ASUS\ASUS Smart Gesture\AsTPCenter\x64\AsusTPCenter.exe</Image> <!--ASUS Smart Gesture Raw Data Request Cmd/Report-->
+			<Image condition="is">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Image> <!--Google:Chrome-->
+			<Image condition="is">C:\Program Files (x86)\Google\Update\GoogleUpdate.exe</Image> <!--Google: Updater-->
+			<Image condition="is">C:\WINDOWS\Explorer.EXE</Image> <!--Microsoft:Windows: File Explorer-->
+			<Image condition="is">C:\WINDOWS\system32\LogonUI.exe</Image> <!--Microsoft:Windows: Logon UI-->
+			<Image condition="is">C:\Windows\System32\RuntimeBroker.exe</Image> <!--Microsoft:Windows: Runtime Broker (permissions manager)-->
+			<Image condition="is">C:\WINDOWS\system32\SearchIndexer.exe</Image> <!--Microsoft:Windows: Search Text Harvester-->
+			<Image condition="is">C:\WINDOWS\system32\services.exe</Image> <!--Microsoft:Windows: Services Control Manager-->
+			<Image condition="is">C:\Windows\System32\smartscreen.exe</Image> <!--Microsoft:Windows: Smartscreen-->
+			<Image condition="is">C:\WINDOWS\System32\spoolsv.exe</Image> <!--Microsoft:Windows: Spooler Subsystem App (printing)-->
+			<Image condition="is">C:\WINDOWS\system32\srtasks.exe</Image> <!--Microsoft:Windows: System Protection Background Tasks-->
+			<Image condition="is">C:\windows\system32\taskhostw.exe</Image> <!--Microsoft:Windows: Task Host for Windows-->
+			<Image condition="is">C:\WINDOWS\System32\Taskmgr.exe</Image> <!--Microsoft:Windows: Task Manager-->
+			<Image condition="is">C:\WINDOWS\system32\winlogon.exe</Image> <!--Microsoft:Windows: Windows Logon Application-->
+			<Image condition="is">C:\WINDOWS\system32\wininit.exe</Image> <!--Microsoft:Windows: Windows Initialization-->
+			<Image condition="image">GoogleCrashHandler.exe</Image> <!--Google: Google Crash Services-->
+			<Image condition="image">GoogleCrashHandler64.exe</Image> <!--Google: Google Crash Services x64-->
+			<Image condition="image">MsMpEng.exe</Image> <!--Microsoft:Windows: Antimalware Service Executable-->
+			<Image condition="image">SearchUI.exe</Image> <!--Microsoft:Windows: Cortana SearchUI-->
 		</PipeEvent>
 
 		<!--SYSMON EVENT ID 19 & 20 & 21 : WMI EVENT MONITORING [WmiEvent]-->
