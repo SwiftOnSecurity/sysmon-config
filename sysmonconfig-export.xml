@@ -871,7 +871,11 @@
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image-->
 		<ProcessTerminate onmatch="include">
-			<Image condition="begin with">C:\Users</Image> <!--Process terminations by user binaries-->
+			<Image condition="begin with">C:\Users</Image> <!--Process terminations by user binaries Users-->
+			<Image condition="begin with">C:\ProgramData</Image> <!--Process terminations by user binaries in ProgramData-->
+			<Image condition="contains">\Temp\</Image> <!--Process terminations in temp directories-->
+			<Image condition="image">Sysmon.exe</Image> <!--Detect killing Sysmon (malware indicator)-->
+			<Image condition="image">Sysmon64.exe</Image> <!--Detect killing Sysmon (malware indicator)-->
 			<!--COMMENT: mirror ProcessCreate include section WITHOUT CommmandLine-->
 			<Image name="Alert=Cryptocurrency Miner" condition="contains">cast_xmr</Image>
 			<Image name="Alert=Cryptocurrency Miner" condition="contains">Claymore</Image>
