@@ -5,7 +5,7 @@
   Master project:	https://github.com/SwiftOnSecurity/sysmon-config
   Master license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
 
-  Fork version:	4 | Date: 2018-07-23
+  Fork version:	5 | Date: 2018-07-24
   Fork author:	@ryanku98
   Fork project:	https://github.com/ryanku98/sysmon-config-cryptomining
   Fork license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
@@ -122,12 +122,12 @@
 			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">zergpoolcoins</CommandLine>
 			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">zpool</CommandLine>
 			<!--SECTION: Cryptocurrencies-->
-			<!--COMMENT:	This is just a list of the names (full and shorthand) of the top 94 cryptocurrencies (by market cap), i.e. all
+				<!--COMMENT:	This is just a list of the names (full and shorthand) of the top 94 cryptocurrencies (by market cap), i.e. all
 										the currencies with a market cap of over 100,000,000 USD as of 2018 July 24. Since the shorthand versions (symbols)
 										of many of the currencies are fairly simple, the occurence of them in the CommandLine arguments of regular executables
 										are not uncommon. As such, if any of the following inclusions flag certain ProcessCreate events, look into origin of
 										the event before immediately assuming it's related to cryptocurrencies.
-			-->
+				-->
 				<!--SUB-SECTION: Full Names-->
 			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Bitcoin</CommandLine>
 			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Ethereum</CommandLine>
