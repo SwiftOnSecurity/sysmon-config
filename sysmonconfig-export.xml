@@ -5,7 +5,7 @@
   Master project:	https://github.com/SwiftOnSecurity/sysmon-config
   Master license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
 
-  Fork version:	5 | Date: 2018-07-24
+  Fork version:	6 | Date: 2018-07-24
   Fork author:	@ryanku98
   Fork project:	https://github.com/ryanku98/sysmon-config-cryptomining
   Fork license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
@@ -230,13 +230,14 @@
 			<Image condition="is">C:\Windows\system32\CompatTelRunner.exe</Image> <!--Microsoft:Windows: Customer Experience Improvement-->
 			<Image condition="is">C:\Windows\system32\audiodg.exe</Image> <!--Microsoft:Windows: Launched constantly-->
 			<Image condition="is">C:\Windows\system32\conhost.exe</Image> <!--Microsoft:Windows: Command line interface host process-->
+			<Image condition="is">C:\Windows\System32\LogonUI.exe</Image> <!--Microsoft:Windows: Logon UI-->
 			<Image condition="is">C:\Windows\system32\musNotification.exe</Image> <!--Microsoft:Windows: Update pop-ups-->
 			<Image condition="is">C:\Windows\system32\musNotificationUx.exe</Image> <!--Microsoft:Windows: Update pop-ups-->
 			<Image condition="is">C:\Windows\system32\powercfg.exe</Image> <!--Microsoft:Power configuration management-->
+			<Image condition="is">C:\Windows\System32\plasrv.exe</Image> <!--Microsoft:Windows: Performance Logs and Alerts DCOM Server-->
 			<Image condition="is">C:\Windows\system32\sndVol.exe</Image> <!--Microsoft:Windows: Volume control-->
 			<Image condition="is">C:\Windows\system32\sppsvc.exe</Image> <!--Microsoft:Windows: Software Protection Service-->
 			<Image condition="is">C:\Windows\system32\wbem\WmiApSrv.exe</Image> <!--Microsoft:Windows: WMI performance adapter host process-->
-			<Image condition="is">C:\Windows\System32\plasrv.exe</Image> <!--Microsoft:Windows: Performance Logs and Alerts DCOM Server-->
 			<Image condition="is">C:\Windows\System32\wifitask.exe</Image> <!--Microsoft:Windows: Wireless Background Task-->
 			<Image condition="is">C:\Program Files (x86)\Common Files\microsoft shared\ink\TabTip32.exe</Image> <!--Microsoft:Windows: Touch Keyboard and Handwriting Panel Helper-->
 			<Image condition="is">C:\Windows\System32\smartscreen.exe</Image> <!--Microsoft:Windows: Block malicious web content and downloaded files-->
@@ -409,12 +410,15 @@
 			<Image condition="is">C:\Program Files\Dell\SupportAssist\pcdrcui.exe</Image> <!--Dell:SupportAssist: routine actions-->
 			<Image condition="is">C:\Program Files\Dell\SupportAssist\koala.exe</Image> <!--Dell:SupportAssist: routine actions-->
 			<ParentCommandLine condition="end with">"-outc=C:\ProgramData\Dell\CommandUpdate\inventory.xml" "-logc=C:\ProgramData\Dell\CommandUpdate\scanerrs.xml" "-lang=en" "-enc=UTF-16" </ParentCommandLine>
-			<!--SECTION: Others-->
+			<!--SECTION: Atom-->
 			<Image condition="image">atom.exe</Image> <!--GitHub:Atom-->
 			<Image condition="end with">\AppData\Local\atom\Update.exe</Image> <!--GitHub:Atom: Updater-->
 			<ParentImage condition="image">atom.exe</ParentImage> <!--GitHub:Atom-->
 			<Image condition="end with">\resources\app.asar.unpacked\node_modules\dugite\git\cmd\git.exe</Image> <!--GitHub:Atom git.exe-->
 			<Image condition="end with">\resources\app.asar.unpacked\node_modules\dugite\git\mingw64\bin\git.exe</Image> <!--GitHub:Atom git.exe-->
+			<!--SECTION: Others-->
+			<ParentImage condition="is">C:\Program Files (x86)\Sophos\Sophos Anti-Virus\SAVAdminService.exe</ParentImage> <!--Sophos: Sophos WSC remediation program-->
+			<ParentCommandLine condition="is">C:\Program Files (x86)\Sophos\Sophos Anti-Virus\SAVAdminService.exe</ParentCommandLine> <!--Sophos: Sophos WSC remediation program-->
 		</ProcessCreate>
 
 		<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM [FileCreateTime]-->
@@ -943,14 +947,17 @@
 		</NetworkConnect>
 		<NetworkConnect onmatch="exclude">
 			<!--COMMENT: Unfortunately, these exclusions are very broad and easily abused, but it's a limitation of Sysmon rules that they can't be more specific as they're in user folders-->
+			<!--SECTION: Atom-->
 			<Image condition="end with">\AppData\Local\atom\Update.exe</Image> <!--GitHub:Atom: Updater-->
 			<Image condition="end with">\resources\app\apm\bin\node.exe</Image> <!--GitHub:Atom: node.exe-->
 			<Image condition="image">atom.exe</Image> <!--GitHub: Atom-->
+			<!--SECTION: Google-->
+			<Image condition="end with">\AppData\Local\Programs\Google\MusicManager\MusicManager.exe</Image> <!--Google: Music Manager-->
 			<!--SECTION: Microsoft-->
 			<Image condition="image">OneDrive.exe</Image> <!--Microsoft:OneDrive-->
 			<Image condition="image">OneDriveStandaloneUpdater.exe</Image> <!--Microsoft:OneDrive Updater-->
 			<Image condition="end with">AppData\Local\Microsoft\Teams\current\Teams.exe</Image> <!--Microsoft: Teams-->
-			<Image condition="image">MsMpEng.exe</Image> <!--Microsoft:Windows: Antimalware Service Executable-->
+			<Image condition="is">C:\ProgramData\Microsoft\Windows Defender\platform\4.18.1806.18062-0\MsMpEng.exe</Image> <!--Microsoft:Windows: Current Version Windows Defender-->
 			<DestinationHostname condition="end with">microsoft.com</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">microsoft.com.akadns.net</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">microsoft.com.nsatc.net</DestinationHostname> <!--Microsoft:Update delivery-->
@@ -1008,6 +1015,10 @@
 			<ImageLoaded condition="is">C:\Program Files\McAfee\WebAdvisor\mfesapsn.sys</ImageLoaded> <!--Exclude McAfee AV drivers-->
 			<ImageLoaded condition="is">C:\Windows\System32\drivers\AsusTP.sys</ImageLoaded> <!--Exclude ASUS drivers-->
 			<ImageLoaded condition="is">C:\Windows\System32\drivers\asvpndrv.sys</ImageLoaded> <!--Exclude Astrill drivers-->
+			<ImageLoaded condition="is">C:\Windows\System32\drivers\LEqdUsb.sys</ImageLoaded> <!--Exclude Logitech LeqdUsb driver-->
+			<ImageLoaded condition="is">C:\Windows\System32\drivers\LHidEqd.sys</ImageLoaded> <!--Exclude Logitech LHidEqd driver-->
+			<ImageLoaded condition="is">C:\Windows\System32\drivers\LHidFilt.Sys</ImageLoaded> <!--Exclude Logitech LHidFilt driver-->
+			<ImageLoaded condition="is">C:\Windows\System32\drivers\LMouFilt.Sys</ImageLoaded> <!--Exclude Logitech LMouFilt driver-->
 			<ImageLoaded condition="is">C:\Windows\System32\drivers\networx.sys</ImageLoaded> <!--Exclude NetWorx drivers-->
 			<ImageLoaded condition="is">C:\Windows\System32\drivers\rt640x64.sys</ImageLoaded> <!--Exclude Realtek drivers-->
 			<ImageLoaded condition="is">C:\Windows\System32\drivers\RfeCo10X64.sys</ImageLoaded> <!--Exclude Rivet Networks Traffic Controller Driver-->
@@ -1019,6 +1030,7 @@
 			<Signature condition="begin with">Intel</Signature> <!--Exclude signed Intel drivers-->
 			<Signature condition="is">Astrill</Signature> <!--Exclude Astrill VPN drivers-->
 			<Signature condition="is">ASUSTek Computer Inc</Signature> <!--Exclude native ASUS computer drivers-->
+			<Signature condition="is">Logitech Inc</Signature> <!--Exclude Logitech drivers-->
 			<Signature condition="is">McAfee, Inc.</Signature> <!--Exclude McAfee AV drivers-->
 			<Signature condition="is">Realtek Semiconductor Corp</Signature> <!--Exclude Realtek drivers-->
 			<Signature condition="is">Riverbed Technology, Inc.</Signature> <!--Exclude WinPCAP drivers-->
@@ -1078,6 +1090,7 @@
 		</ProcessAccess>
 		<ProcessAccess onmatch="exclude">
 			<SourceImage condition="is">C:\ProgramData\Microsoft\Windows Defender\platform\4.18.1806.18062-0\MsMpEng.exe</SourceImage> <!--Microsoft:Windows: Current Version Windows Defender-->
+			<SourceImage condition="is">C:\WINDOWS\System32\Taskmgr.exe</SourceImage> <!--Microsoft:Windows: Task Manager-->
 			<SourceImage condition="is">C:\Windows\system32\wbem\wmiprvse.exe</SourceImage> <!--Microsoft:Windows: WWI Provider Host (run when other applications request data-->
 		</ProcessAccess>
 
@@ -1133,6 +1146,15 @@
 			<TargetFilename condition="end with">.rft</TargetFilename> <!--RTF files often 0day malware vectors when opened by Office-->
 		</FileCreate>
 		<FileCreate onmatch="exclude">
+			<!--SECTION: Adobe-->
+			<TargetFilename condition="is">C:\Windows\System32\Tasks\Adobe Acrobat Update Task</TargetFilename>
+			<TargetFilename condition="is">C:\Windows\System32\Tasks\Adobe Flash Player Updater</TargetFilename>
+			<!--SECTION: Dell-->
+			<Image condition="is">C:\Program Files (x86)\Dell\CommandUpdate\InvColPC.exe</Image>
+			<!--SECTION: Google-->
+			<Image condition="is">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Image>
+			<!--SECTION: Intel-->
+			<Image condition="is">C:\Windows\System32\DriverStore\FileRepository\k127369.inf_amd64_b8b3c10a6624488c\igfxCUIService.exe</Image> <!--Intel: Drops bat and other files in \Windows in normal operation-->
 			<!--SECTION: Microsoft-->
 			<Image condition="is">C:\Program Files (x86)\EMET 5.5\EMET_Service.exe</Image> <!--Microsoft:EMET: Writes to C:\Windows\AppPatch\-->
 			<!--SECTION: Microsoft:Office-->
@@ -1141,10 +1163,14 @@
 			<!--SECTION: Microsoft:Office:Click2Run-->
 			<Image condition="is">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeC2RClient.exe</Image> <!--Microsoft:Office Click2Run-->
 			<!--SECTION: Microsoft:Windows-->
-			<Image condition="is">C:\Windows\system32\smss.exe</Image> <!--Microsoft:Windows: Session Manager SubSystem: Creates swapfile.sys,pagefile.sys,hiberfile.sys-->
+			<Image condition="is">C:\ProgramData\Microsoft\Windows Defender\platform\4.18.1806.18062-0\MsMpEng.exe</Image> <!--Microsoft:Windows: Current Version Windows Defender-->
+			<Image condition="is">C:\WINDOWS\system32\cleanmgr.exe</Image> <!--Microsoft:Windows: Disk Cleanup-->
 			<Image condition="is">C:\Windows\system32\CompatTelRunner.exe</Image> <!--Microsoft:Windows: Windows 10 app, creates tons of cache files-->
-			<Image condition="is">\\?\C:\Windows\system32\wbem\WMIADAP.EXE</Image> <!--Microsoft:Windows: WMI Performance updates-->
 			<Image condition="is">C:\Windows\system32\mobsync.exe</Image> <!--Microsoft:Windows: Network file syncing-->
+			<Image condition="is">C:\WINDOWS\System32\sdiagnhost.exe</Image> <!--Microsoft:Windows: Scripted Diagnostics Native Host-->
+			<Image condition="is">C:\Windows\system32\smss.exe</Image> <!--Microsoft:Windows: Session Manager SubSystem: Creates swapfile.sys,pagefile.sys,hiberfile.sys-->
+			<Image condition="is">C:\windows\system32\taskhostw.exe</Image> <!--Microsoft:Windows: Task Host for Windows-->
+			<Image condition="is">\\?\C:\Windows\system32\wbem\WMIADAP.EXE</Image> <!--Microsoft:Windows: WMI Performance updates-->
 			<TargetFilename condition="begin with">C:\Proram Files\WindowsApps\Microsoft.MicrosoftSolitaireCollection</TargetFilename> <!--Microsoft:Windows: Solitaire-->
 			<TargetFilename condition="begin with">C:\Windows\system32\DriverStore\Temp\</TargetFilename> <!--Microsoft:Windows: Temp files by DrvInst.exe-->
 			<TargetFilename condition="begin with">C:\Windows\system32\wbem\Performance\</TargetFilename> <!--Microsoft:Windows: Created in wbem by WMIADAP.exe-->
@@ -1153,15 +1179,6 @@
 			<!--SECTION: Microsoft:Windows:Updates-->
 			<TargetFilename condition="begin with">C:\$WINDOWS.~BT\Sources\</TargetFilename> <!--Microsoft:Windows: Feature updates containing lots of .exe and .sys-->
 			<Image condition="begin with">C:\Windows\winsxs\amd64_microsoft-windows</Image> <!--Microsoft:Windows: Windows update-->
-			<!--SECTION: Dell-->
-			<Image condition="is">C:\Program Files (x86)\Dell\CommandUpdate\InvColPC.exe</Image>
-			<!--SECTION: Intel-->
-			<Image condition="is">C:\Windows\System32\DriverStore\FileRepository\k127369.inf_amd64_b8b3c10a6624488c\igfxCUIService.exe</Image> <!--Intel: Drops bat and other files in \Windows in normal operation-->
-			<!--SECTION: Adobe-->
-			<TargetFilename condition="is">C:\Windows\System32\Tasks\Adobe Acrobat Update Task</TargetFilename>
-			<TargetFilename condition="is">C:\Windows\System32\Tasks\Adobe Flash Player Updater</TargetFilename>
-			<!--SECTION: Google-->
-			<Image condition="is">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Image>
 			<!--SECTION: Sophos-->
 			<Image condition="is">C:\Program Files (x86)\Sophos\AutoUpdate\ALsvc.exe</Image> <!--Sophos: Updater-->
 		</FileCreate>
@@ -1303,7 +1320,7 @@
 			<!--SECTION: Microsoft binaries-->
 			<Image condition="end with">Office\root\integration\integrator.exe</Image> <!--Microsoft:Office: C2R client-->
 			<Image condition="end with">\AppData\Local\Microsoft\OneDrive\OneDrive.exe</Image> <!--Microsoft:OneDrive-->
-			<Image condition="image">MsMpEng.exe</Image> <!--Microsoft:Windows:Defender-->
+			<Image condition="is">C:\ProgramData\Microsoft\Windows Defender\platform\4.18.1806.18062-0\MsMpEng.exe</Image> <!--Microsoft:Windows: Current Version Windows Defender-->
 			<Image condition="is">C:\Windows\system32\backgroundTaskHost.exe</Image> <!--Microsoft:Windows: Changes association registry keys-->
 			<Image condition="is">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeClickToRun.exe</Image> <!--Microsoft:Office: C2R client-->
 			<Image condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</Image> <!--Microsoft:Windows:Defender-->
@@ -1469,7 +1486,6 @@
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, PipeName, Image-->
 		<PipeEvent onmatch="include">
-			<Image condition="is">C:\WINDOWS\system32\wbem\wmiprvse.exe</Image> <!--Microsoft:Windows: WWI Provider Host (run when other applications request data; shouldn't occur often)-->
 		</PipeEvent>
 		<PipeEvent onmatch="exclude">
 			<Image condition="is">C:\Program Files\NetWorx\networx.exe</Image> <!--NetWorx-->
@@ -1477,6 +1493,7 @@
 			<Image condition="is">C:\Program Files (x86)\ASUS\ASUS Smart Gesture\AsTPCenter\x64\AsusTPCenter.exe</Image> <!--ASUS Smart Gesture Raw Data Request Cmd/Report-->
 			<Image condition="is">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Image> <!--Google:Chrome-->
 			<Image condition="is">C:\Program Files (x86)\Google\Update\GoogleUpdate.exe</Image> <!--Google: Updater-->
+			<Image condition="is">C:\ProgramData\Microsoft\Windows Defender\platform\4.18.1806.18062-0\MsMpEng.exe</Image> <!--Microsoft:Windows: Current Version Windows Defender-->
 			<Image condition="is">C:\WINDOWS\Explorer.EXE</Image> <!--Microsoft:Windows: File Explorer-->
 			<Image condition="is">C:\WINDOWS\system32\LogonUI.exe</Image> <!--Microsoft:Windows: Logon UI-->
 			<Image condition="is">C:\Windows\System32\RuntimeBroker.exe</Image> <!--Microsoft:Windows: Runtime Broker (permissions manager)-->
@@ -1489,9 +1506,9 @@
 			<Image condition="is">C:\WINDOWS\System32\Taskmgr.exe</Image> <!--Microsoft:Windows: Task Manager-->
 			<Image condition="is">C:\WINDOWS\system32\winlogon.exe</Image> <!--Microsoft:Windows: Windows Logon Application-->
 			<Image condition="is">C:\WINDOWS\system32\wininit.exe</Image> <!--Microsoft:Windows: Windows Initialization-->
+			<Image condition="is">C:\WINDOWS\system32\wbem\wmiprvse.exe</Image> <!--Microsoft:Windows: WWI Provider Host (run when other applications request data); WARNING: shouldn't occur often-->
 			<Image condition="image">GoogleCrashHandler.exe</Image> <!--Google: Google Crash Services-->
 			<Image condition="image">GoogleCrashHandler64.exe</Image> <!--Google: Google Crash Services x64-->
-			<Image condition="image">MsMpEng.exe</Image> <!--Microsoft:Windows: Antimalware Service Executable-->
 			<Image condition="image">SearchUI.exe</Image> <!--Microsoft:Windows: Cortana SearchUI-->
 		</PipeEvent>
 
