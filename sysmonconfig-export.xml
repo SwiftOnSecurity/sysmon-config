@@ -122,202 +122,106 @@
 			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">zergpoolcoins</CommandLine>
 			<CommandLine name="Alert=Cryptocurrency Miner" condition="contains">zpool</CommandLine>
 			<!--SECTION: Cryptocurrencies-->
-				<!--COMMENT:	This is just a list of the names (full and shorthand) of the top 94 cryptocurrencies (by market cap), i.e. all
-										the currencies with a market cap of over 100,000,000 USD as of 2018 July 24. Since the shorthand versions (symbols)
-										of many of the currencies are fairly simple, the occurence of them in the CommandLine arguments of regular executables
-										are not uncommon. As such, if any of the following inclusions flag certain ProcessCreate events, look into origin of
-										the event before immediately assuming it's related to cryptocurrencies.
+				<!--COMMENT:	This is just a list of the names of the top 94 cryptocurrencies (by market cap), i.e. all the currencies with a market
+											cap of over 100,000,000 USD as of 2018 July 24. It is important to note that some of the names are fairly simple (i.e.
+											NEO, NEM, etc.). As such, if any of the following inclusions flag certain ProcessCreate events, look into origin of
+											the event before immediately assuming it's related to cryptocurrencies.
 				-->
 				<!--SUB-SECTION: Full Names-->
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Bitcoin</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Ethereum</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">XRP</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Bitcoin Cash</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">EOS</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Stellar</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Litecoin</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Cardano</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">IOTA</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Tether</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">TRON</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Monero</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">NEO</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Dash</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Ethereum Classic</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">NEM</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Tezos</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Binance Coin</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">VeChain</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">OmiseGO</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Zcash</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Qtum</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">0x</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Decred</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Bytecoin</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">BitShares</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Zilliqa</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Bitcoin Gold</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Lisk</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">ICON</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">DigiByte</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Ontology</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Aeternity</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Maker</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Dogecoin</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Siacoin</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Steem</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Bytom</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Verge</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Bitcoin Diamond</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Basic Attenti...</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Augur</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Nano</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Mithril</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Golem</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Stratis</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Waves</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">RChain</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Pundi X</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Hshare</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Status</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">KuCoin Shares</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Waltonchain</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Populous</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Wanchain</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">MaidSafeCoin</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">IOST</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Mixin</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">DigixDAO</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">GXChain</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Ardor</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Bitcoin Private</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Huobi Token</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Kin</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">MOAC</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Komodo</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">aelf</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Loopring</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Aion</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Nebulas</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Cryptonex</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">MonaCoin</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Decentraland</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">ReddCoin</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Emercoin</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Ark</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">FunFair</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Dentacoin</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Power Ledger</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">WAX</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Kyber Network</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Holo</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Dropil</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">MCO</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Bancor</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Loom Network</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">ZenCash</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Nxt</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Gas</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Paypex</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">Nuls</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">PIVX</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">TenX</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">CyberMiles</CommandLine>
-			<!--SUB-SECTION: Symbols-->
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">BTC</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">ETH</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">XRP</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">BCH</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">EOS</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">XLM</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">LTC</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">ADA</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">MIOTA</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">USDT</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">TRX</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">XMR</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">NEO</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">DASH</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">ETC</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">XEM</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">XTZ</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">BNB</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">VEN</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">OMG</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">ZEC</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">QTUM</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">ZRX</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">DCR</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">BCN</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">BTS</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">ZIL</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">BTG</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">LSK</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">ICX</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">DGB</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">ONT</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">AE</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">MKR</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">DOGE</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">SC</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">STEEM</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">BTM</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">XVG</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">BCD</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">BAT</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">REP</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">NANO</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">MITH</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">GNT</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">STRAT</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">WAVES</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">RHOC</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">NPXS</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">HSR</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">SNT</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">KCS</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">WTC</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">PPT</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">WAN</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">MAID</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">IOST</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">XIN</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">DGD</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">GXS</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">ARDR</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">BTCP</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">HT</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">KIN</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">MOAC</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">KMD</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">ELF</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">LRC</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">AION</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">NAS</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">CNX</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">MONA</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">MANA</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">RDD</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">EMC</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">ARK</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">FUN</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">DCN</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">POWR</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">WAX</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">KNC</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">HOT</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">DROP</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">MCO</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">BNT</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">LOOM</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">ZEN</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">NXT</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">GAS</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">PAYX</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">NULS</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">PIVX</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">PAY</CommandLine>
-			<CommandLine name="Alert=Possible Cryptocurrency Miner" condition="contains">CMT</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Bitcoin"	condition="contains">Bitcoin</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Ethereum" condition="contains">Ethereum</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->XRP" condition="contains">XRP</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Bitcoin Cash" condition="contains">Bitcoin Cash</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->EOS" condition="contains">EOS</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Stellar" condition="contains">Stellar</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Litecoin" condition="contains">Litecoin</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Cardano" condition="contains">Cardano</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->IOTA" condition="contains">IOTA</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Tether" condition="contains">Tether</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->TRON" condition="contains">TRON</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Monero" condition="contains">Monero</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->NEO" condition="contains">NEO</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Dash" condition="contains">Dash</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Ethereum Classic" condition="contains">Ethereum Classic</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->NEM" condition="contains">NEM</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Tezos" condition="contains">Tezos</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Binance Coin" condition="contains">Binance Coin</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->VeChain" condition="contains">VeChain</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->OmiseGO" condition="contains">OmiseGO</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Zcash" condition="contains">Zcash</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Qtum" condition="contains">Qtum</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->0x" condition="contains">0x</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Decred" condition="contains">Decred</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Bytecoin" condition="contains">Bytecoin</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->BitShares" condition="contains">BitShares</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Zilliqa" condition="contains">Zilliqa</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Bitcoin Gold" condition="contains">Bitcoin Gold</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Lisk" condition="contains">Lisk</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->ICON" condition="contains">ICON</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->DigiByte" condition="contains">DigiByte</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Ontology" condition="contains">Ontology</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Aeternity" condition="contains">Aeternity</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Maker" condition="contains">Maker</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Dogecoin" condition="contains">Dogecoin</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Siacoin" condition="contains">Siacoin</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Steem" condition="contains">Steem</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Bytom" condition="contains">Bytom</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Verge" condition="contains">Verge</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Bitcoin Diamond" condition="contains">Bitcoin Diamond</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Basic Attenti..." condition="contains">Basic Attenti...</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Augur" condition="contains">Augur</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Nano" condition="contains">Nano</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Mithril" condition="contains">Mithril</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Golem" condition="contains">Golem</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Stratis" condition="contains">Stratis</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Waves" condition="contains">Waves</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->RChain" condition="contains">RChain</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Pundi X" condition="contains">Pundi X</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Hshare" condition="contains">Hshare</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Status" condition="contains">Status</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->KuCoin Shares" condition="contains">KuCoin Shares</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Waltonchain" condition="contains">Waltonchain</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Populous" condition="contains">Populous</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Wanchain" condition="contains">Wanchain</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->MaidSafeCoin" condition="contains">MaidSafeCoin</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->IOST" condition="contains">IOST</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Mixin" condition="contains">Mixin</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->DigixDAO" condition="contains">DigixDAO</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->GXChain" condition="contains">GXChain</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Ardor" condition="contains">Ardor</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Bitcoin Private" condition="contains">Bitcoin Private</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Huobi Token" condition="contains">Huobi Token</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Kin" condition="contains">Kin</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->MOAC" condition="contains">MOAC</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Komodo" condition="contains">Komodo</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->aelf" condition="contains">aelf</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Loopring" condition="contains">Loopring</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Aion" condition="contains">Aion</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Nebulas" condition="contains">Nebulas</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Cryptonex" condition="contains">Cryptonex</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->MonaCoin" condition="contains">MonaCoin</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Decentraland" condition="contains">Decentraland</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->ReddCoin" condition="contains">ReddCoin</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Emercoin" condition="contains">Emercoin</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Ark" condition="contains">Ark</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->FunFair" condition="contains">FunFair</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Dentacoin" condition="contains">Dentacoin</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Power Ledger" condition="contains">Power Ledger</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->WAX" condition="contains">WAX</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Kyber Network" condition="contains">Kyber Network</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Holo" condition="contains">Holo</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Dropil" condition="contains">Dropil</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->MCO" condition="contains">MCO</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Bancor" condition="contains">Bancor</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Loom Network" condition="contains">Loom Network</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->ZenCash" condition="contains">ZenCash</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Nxt" condition="contains">Nxt</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Gas" condition="contains">Gas</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Paypex" condition="contains">Paypex</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->Nuls" condition="contains">Nuls</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->PIVX" condition="contains">PIVX</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->TenX" condition="contains">TenX</CommandLine>
+			<CommandLine name="Alert=Possible Cryptocurrency Miner-->CyberMiles" condition="contains">CyberMiles</CommandLine>
 		</ProcessCreate>
 		<ProcessCreate onmatch="exclude">
 			<!--SECTION: Microsoft Windows-->
@@ -507,6 +411,8 @@
 			<ParentCommandLine condition="end with">"-outc=C:\ProgramData\Dell\CommandUpdate\inventory.xml" "-logc=C:\ProgramData\Dell\CommandUpdate\scanerrs.xml" "-lang=en" "-enc=UTF-16" </ParentCommandLine>
 			<!--SECTION: Others-->
 			<Image condition="image">atom.exe</Image> <!--GitHub:Atom-->
+			<Image condition="end with">\AppData\Local\atom\Update.exe</Image> <!--GitHub:Atom: Updater-->
+			<ParentImage condition="image">atom.exe</ParentImage> <!--GitHub:Atom-->
 			<Image condition="end with">\resources\app.asar.unpacked\node_modules\dugite\git\cmd\git.exe</Image> <!--GitHub:Atom git.exe-->
 			<Image condition="end with">\resources\app.asar.unpacked\node_modules\dugite\git\mingw64\bin\git.exe</Image> <!--GitHub:Atom git.exe-->
 		</ProcessCreate>
@@ -540,76 +446,6 @@
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, User, Protocol, Initiated, SourceIsIpv6, SourceIp, SourceHostname, SourcePort, SourcePortName, DestinationIsIpV6, DestinationIp, DestinationHostname, DestinationPort, DestinationPortName-->
 		<NetworkConnect onmatch="include">
-			<!--Suspicious sources for network-connecting binaries-->
-			<Image condition="begin with">C:\Users</Image> <!--Tools downloaded by users can use other processes for networking, but this is a very valuable indicator.-->
-			<Image condition="begin with">C:\ProgramData</Image> <!--Normally, network communications should be sourced from "Program Files" not from ProgramData, something to look at-->
-			<Image condition="begin with">C:\Windows\Temp</Image> <!--Suspicious anything would communicate from the system-level temp directory-->
-			<!--Suspicious Windows tools-->
-			<Image condition="image">at.exe</Image> <!--Microsoft:Windows: Remote task scheduling, removed in Win10 | Credit @ion-storm -->
-			<Image condition="image">certutil.exe</Image> <!--Microsoft:Windows: Certificate tool can contact outbound | Credit @ion-storm @FVT [ https://twitter.com/FVT/status/834433734602530817 ] -->
-			<Image condition="image">cmd.exe</Image> <!--Microsoft:Windows: Remote command prompt-->
-			<Image condition="image">cmstp.exe</Image> <!--Microsoft:Windows: Connection manager profiles can launch executables from WebDAV [ https://twitter.com/NickTyrer/status/958450014111633408 ] | Credit @NickTyrer @Oddvarmoe @KyleHanslovan @subTee -->
-			<Image condition="image">cscript.exe</Image> <!--Microsoft:WindowsScriptingHost: | Credit @Cyb3rOps [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
-			<Image condition="image">driverquery.exe</Image> <!--Microsoft:Windows: Remote recognisance of system configuration, oudated/vulnerable drivers -->
-			<Image condition="image">dsquery.exe</Image> <!--Microsoft: Query Active Directory -->
-			<Image condition="image">hh.exe</Image> <!--Microsoft:Windows: HTML Help Executable, opens CHM files -->
-			<Image condition="image">infDefaultInstall.exe</Image> <!--Microsoft: [ https://github.com/huntresslabs/evading-autoruns ] | Credit @KyleHanslovan -->
-			<Image condition="image">java.exe</Image> <!--Java: Monitor usage of vulnerable application and init from JAR files | Credit @ion-storm -->
-			<Image condition="image">javaw.exe</Image> <!--Java: Monitor usage of vulnerable application and init from JAR files -->
-			<Image condition="image">javaws.exe</Image> <!--Java: Monitor usage of vulnerable application and init from JAR files -->
-			<Image condition="image">mmc.exe</Image> <!--Microsoft:Windows: Microsoft Management Console-->
-			<Image condition="image">msbuild.exe</Image> <!--Microsoft:Windows: [ https://www.hybrid-analysis.com/sample/a314f6106633fba4b70f9d6ddbee452e8f8f44a72117749c21243dc93c7ed3ac?environmentId=100 ] -->
-			<Image condition="image">mshta.exe</Image> <!--Microsoft:Windows: HTML application executes scripts without IE protections | Credit @ion-storm [ https://en.wikipedia.org/wiki/HTML_Application ] -->
-			<Image condition="image">msiexec.exe</Image> <!--Microsoft:Windows: Can install from http:// paths | Credit @vector-sec -->
-			<Image condition="image">nbtstat.exe</Image> <!--Microsoft:Windows: NetBIOS statistics, attackers use to enumerate local network -->
-			<Image condition="image">net.exe</Image> <!--Microsoft:Windows: Note - May not detect anything, net.exe is a front-end to lower APIs | Credit @ion-storm -->
-			<Image condition="image">net1.exe</Image> <!--Microsoft:Windows: Launched by "net.exe", but it may not detect connections either -->
-			<Image condition="image">notepad.exe</Image> <!--Microsoft:Windows: [ https://secrary.com/ReversingMalware/CoinMiner/ ] [ https://blog.cobaltstrike.com/2013/08/08/why-is-notepad-exe-connecting-to-the-internet/ ] -->
-			<Image condition="image">nslookup.exe</Image> <!--Microsoft:Windows: Retrieve data over DNS -->
-			<Image condition="image">powershell.exe</Image> <!--Microsoft:Windows: PowerShell interface-->
-			<Image condition="image">qprocess.exe</Image> <!--Microsoft:Windows: [ https://www.first.org/resources/papers/conf2017/APT-Log-Analysis-Tracking-Attack-Tools-by-Audit-Policy-and-Sysmon.pdf ] -->
-			<Image condition="image">qwinsta.exe</Image> <!--Microsoft:Windows: Query remote sessions | Credit @ion-storm -->
-			<Image condition="image">qwinsta.exe</Image> <!--Microsoft:Windows: Remotely query login sessions on a server or workstation | Credit @ion-storm -->
-			<Image condition="image">reg.exe</Image> <!--Microsoft:Windows: Remote Registry editing ability | Credit @ion-storm -->
-			<Image condition="image">regsvcs.exe</Image> <!--Microsoft:Windows: [ https://www.hybrid-analysis.com/sample/3f94d7080e6c5b8f59eeecc3d44f7e817b31562caeba21d02ad705a0bfc63d67?environmentId=100 ] -->
-			<Image condition="image">regsvr32.exe</Image> <!--Microsoft:Windows: [ https://subt0x10.blogspot.com/2016/04/bypass-application-whitelisting-script.html ] -->
-			<Image condition="image">rundll32.exe</Image> <!--Microsoft:Windows: [ https://blog.cobaltstrike.com/2016/07/22/why-is-rundll32-exe-connecting-to-the-internet/ ] -->
-			<Image condition="image">rwinsta.exe</Image> <!--Microsoft:Windows: Disconnect remote sessions | Credit @ion-storm -->
-			<Image condition="image">sc.exe</Image> <!--Microsoft:Windows: Remotely change Windows service settings | Credit @ion-storm -->
-			<Image condition="image">schtasks.exe</Image> <!--Microsoft:Windows: Command-line interface to local and remote tasks -->
-			<Image condition="image">taskkill.exe</Image> <!--Microsoft:Windows: Kill processes, has remote ability -->
-			<Image condition="image">tasklist.exe</Image> <!--Microsoft:Windows: List processes, has remote ability -->
-			<Image condition="image">wmic.exe</Image> <!--Microsoft:WindowsManagementInstrumentation: Credit @Cyb3rOps [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
-			<Image condition="image">wscript.exe</Image> <!--Microsoft:WindowsScriptingHost: | Credit @arekfurt -->
-			<!--Relevant 3rd Party Tools-->
-			<Image condition="image">nc.exe</Image> <!--Nmap's modern version of netcat [ https://nmap.org/ncat/guide/index.html#ncat-overview ] [ https://securityblog.gr/1517/create-backdoor-in-windows-with-ncat/ ] -->
-			<Image condition="image">ncat.exe</Image> <!--Nmap's modern version of netcat [ https://nmap.org/ncat/guide/index.html#ncat-overview ] [ https://securityblog.gr/1517/create-backdoor-in-windows-with-ncat/ ] -->
-			<Image condition="image">psexec.exe</Image> <!--Sysinternals:PsExec client side | Credit @Cyb3rOps -->
-			<Image condition="image">psexesvc.exe</Image> <!--Sysinternals:PsExec server side | Credit @Cyb3rOps -->
-			<Image condition="image">tor.exe</Image> <!--Tor [ https://www.hybrid-analysis.com/sample/800bf028a23440134fc834efc5c1e02cc70f05b2e800bbc285d7c92a4b126b1c?environmentId=100 ] -->
-			<Image condition="image">vnc.exe</Image> <!--VNC client | Credit @Cyb3rOps -->
-			<Image condition="image">vncservice.exe</Image> <!--VNC server | Credit @Cyb3rOps -->
-			<Image condition="image">vncviewer.exe</Image> <!--VNC client | Credit @Cyb3rOps -->
-			<Image condition="image">winexesvc.exe</Image> <!--Winexe service executable | Credit @Cyb3rOps -->
-			<Image condition="image">nmap.exe</Image>
-			<Image condition="image">psinfo.exe</Image>
-			<!--Ports: Suspicious-->
-			<DestinationPort name="Suspicious Port" condition="is">22</DestinationPort> <!--SSH protocol, monitor admin connections-->
-			<DestinationPort name="Suspicious Port" condition="is">23</DestinationPort> <!--Telnet protocol, monitor admin connections, insecure-->
-			<DestinationPort name="Suspicious Port" condition="is">25</DestinationPort> <!--SMTP mail protocol port, insecure, used by threats-->
-			<DestinationPort name="Suspicious Port" condition="is">142</DestinationPort> <!--IMAP mail protocol port, insecure, used by threats-->
-			<DestinationPort name="Suspicious Port" condition="is">3389</DestinationPort> <!--Microsoft:Windows:RDP: Monitor admin connections-->
-			<DestinationPort name="Suspicious Port" condition="is">5800</DestinationPort> <!--VNC protocol: Monitor admin connections, often insecure-->
-			<DestinationPort name="Suspicious Port" condition="is">5900</DestinationPort> <!--VNC protocol Monitor admin connections, often insecure-->
-			<!--Ports: Proxy-->
-			<DestinationPort name="Suspicious Port" condition="is">1080</DestinationPort> <!--Socks proxy port | Credit @ion-storm-->
-			<DestinationPort name="Suspicious Port" condition="is">3128</DestinationPort> <!--Socks proxy port | Credit @ion-storm-->
-			<DestinationPort name="Suspicious Port" condition="is">8080</DestinationPort> <!--Socks proxy port | Credit @ion-storm-->
-			<!--Ports: Tor-->
-			<DestinationPort name="Suspicious Port" condition="is">1723</DestinationPort> <!--Tor protocol [ https://attack.mitre.org/wiki/Technique/T1090 ] | Credit @ion-storm-->
-			<DestinationPort name="Suspicious Port" condition="is">4500</DestinationPort> <!--Tor protocol, also triggers on IPsec [ https://attack.mitre.org/wiki/Technique/T1090 ] | Credit @ion-storm-->
-			<DestinationPort name="Suspicious Port" condition="is">9001</DestinationPort> <!--Tor protocol [ http://www.computerworlduk.com/tutorial/security/tor-enterprise-2016-blocking-malware-darknet-use-rogue-nodes-3633907/ ] -->
-			<DestinationPort name="Suspicious Port" condition="is">9030</DestinationPort> <!--Tor protocol [ http://www.computerworlduk.com/tutorial/security/tor-enterprise-2016-blocking-malware-darknet-use-rogue-nodes-3633907/ ] -->
 			<!--Cryptocurrency Mining pools
 				Originally derived from: 	https://github.com/ion-storm/sysmon-config/blob/master/sysmonconfig-export.xml
 																	Fork Version: 300
@@ -1034,6 +870,76 @@
 			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">138.201.60.198</DestinationIp>
 			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">176.9.47.243</DestinationIp>
 			<DestinationIp name="Alert=Cryptocurrency Mining Pool" condition="contains">176.9.47.243</DestinationIp>
+			<!--Suspicious sources for network-connecting binaries-->
+			<Image condition="begin with">C:\Users</Image> <!--Tools downloaded by users can use other processes for networking, but this is a very valuable indicator.-->
+			<Image condition="begin with">C:\ProgramData</Image> <!--Normally, network communications should be sourced from "Program Files" not from ProgramData, something to look at-->
+			<Image condition="begin with">C:\Windows\Temp</Image> <!--Suspicious anything would communicate from the system-level temp directory-->
+			<!--Suspicious Windows tools-->
+			<Image condition="image">at.exe</Image> <!--Microsoft:Windows: Remote task scheduling, removed in Win10 | Credit @ion-storm -->
+			<Image condition="image">certutil.exe</Image> <!--Microsoft:Windows: Certificate tool can contact outbound | Credit @ion-storm @FVT [ https://twitter.com/FVT/status/834433734602530817 ] -->
+			<Image condition="image">cmd.exe</Image> <!--Microsoft:Windows: Remote command prompt-->
+			<Image condition="image">cmstp.exe</Image> <!--Microsoft:Windows: Connection manager profiles can launch executables from WebDAV [ https://twitter.com/NickTyrer/status/958450014111633408 ] | Credit @NickTyrer @Oddvarmoe @KyleHanslovan @subTee -->
+			<Image condition="image">cscript.exe</Image> <!--Microsoft:WindowsScriptingHost: | Credit @Cyb3rOps [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
+			<Image condition="image">driverquery.exe</Image> <!--Microsoft:Windows: Remote recognisance of system configuration, oudated/vulnerable drivers -->
+			<Image condition="image">dsquery.exe</Image> <!--Microsoft: Query Active Directory -->
+			<Image condition="image">hh.exe</Image> <!--Microsoft:Windows: HTML Help Executable, opens CHM files -->
+			<Image condition="image">infDefaultInstall.exe</Image> <!--Microsoft: [ https://github.com/huntresslabs/evading-autoruns ] | Credit @KyleHanslovan -->
+			<Image condition="image">java.exe</Image> <!--Java: Monitor usage of vulnerable application and init from JAR files | Credit @ion-storm -->
+			<Image condition="image">javaw.exe</Image> <!--Java: Monitor usage of vulnerable application and init from JAR files -->
+			<Image condition="image">javaws.exe</Image> <!--Java: Monitor usage of vulnerable application and init from JAR files -->
+			<Image condition="image">mmc.exe</Image> <!--Microsoft:Windows: Microsoft Management Console-->
+			<Image condition="image">msbuild.exe</Image> <!--Microsoft:Windows: [ https://www.hybrid-analysis.com/sample/a314f6106633fba4b70f9d6ddbee452e8f8f44a72117749c21243dc93c7ed3ac?environmentId=100 ] -->
+			<Image condition="image">mshta.exe</Image> <!--Microsoft:Windows: HTML application executes scripts without IE protections | Credit @ion-storm [ https://en.wikipedia.org/wiki/HTML_Application ] -->
+			<Image condition="image">msiexec.exe</Image> <!--Microsoft:Windows: Can install from http:// paths | Credit @vector-sec -->
+			<Image condition="image">nbtstat.exe</Image> <!--Microsoft:Windows: NetBIOS statistics, attackers use to enumerate local network -->
+			<Image condition="image">net.exe</Image> <!--Microsoft:Windows: Note - May not detect anything, net.exe is a front-end to lower APIs | Credit @ion-storm -->
+			<Image condition="image">net1.exe</Image> <!--Microsoft:Windows: Launched by "net.exe", but it may not detect connections either -->
+			<Image condition="image">notepad.exe</Image> <!--Microsoft:Windows: [ https://secrary.com/ReversingMalware/CoinMiner/ ] [ https://blog.cobaltstrike.com/2013/08/08/why-is-notepad-exe-connecting-to-the-internet/ ] -->
+			<Image condition="image">nslookup.exe</Image> <!--Microsoft:Windows: Retrieve data over DNS -->
+			<Image condition="image">powershell.exe</Image> <!--Microsoft:Windows: PowerShell interface-->
+			<Image condition="image">qprocess.exe</Image> <!--Microsoft:Windows: [ https://www.first.org/resources/papers/conf2017/APT-Log-Analysis-Tracking-Attack-Tools-by-Audit-Policy-and-Sysmon.pdf ] -->
+			<Image condition="image">qwinsta.exe</Image> <!--Microsoft:Windows: Query remote sessions | Credit @ion-storm -->
+			<Image condition="image">qwinsta.exe</Image> <!--Microsoft:Windows: Remotely query login sessions on a server or workstation | Credit @ion-storm -->
+			<Image condition="image">reg.exe</Image> <!--Microsoft:Windows: Remote Registry editing ability | Credit @ion-storm -->
+			<Image condition="image">regsvcs.exe</Image> <!--Microsoft:Windows: [ https://www.hybrid-analysis.com/sample/3f94d7080e6c5b8f59eeecc3d44f7e817b31562caeba21d02ad705a0bfc63d67?environmentId=100 ] -->
+			<Image condition="image">regsvr32.exe</Image> <!--Microsoft:Windows: [ https://subt0x10.blogspot.com/2016/04/bypass-application-whitelisting-script.html ] -->
+			<Image condition="image">rundll32.exe</Image> <!--Microsoft:Windows: [ https://blog.cobaltstrike.com/2016/07/22/why-is-rundll32-exe-connecting-to-the-internet/ ] -->
+			<Image condition="image">rwinsta.exe</Image> <!--Microsoft:Windows: Disconnect remote sessions | Credit @ion-storm -->
+			<Image condition="image">sc.exe</Image> <!--Microsoft:Windows: Remotely change Windows service settings | Credit @ion-storm -->
+			<Image condition="image">schtasks.exe</Image> <!--Microsoft:Windows: Command-line interface to local and remote tasks -->
+			<Image condition="image">taskkill.exe</Image> <!--Microsoft:Windows: Kill processes, has remote ability -->
+			<Image condition="image">tasklist.exe</Image> <!--Microsoft:Windows: List processes, has remote ability -->
+			<Image condition="image">wmic.exe</Image> <!--Microsoft:WindowsManagementInstrumentation: Credit @Cyb3rOps [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
+			<Image condition="image">wscript.exe</Image> <!--Microsoft:WindowsScriptingHost: | Credit @arekfurt -->
+			<!--Relevant 3rd Party Tools-->
+			<Image condition="image">nc.exe</Image> <!--Nmap's modern version of netcat [ https://nmap.org/ncat/guide/index.html#ncat-overview ] [ https://securityblog.gr/1517/create-backdoor-in-windows-with-ncat/ ] -->
+			<Image condition="image">ncat.exe</Image> <!--Nmap's modern version of netcat [ https://nmap.org/ncat/guide/index.html#ncat-overview ] [ https://securityblog.gr/1517/create-backdoor-in-windows-with-ncat/ ] -->
+			<Image condition="image">psexec.exe</Image> <!--Sysinternals:PsExec client side | Credit @Cyb3rOps -->
+			<Image condition="image">psexesvc.exe</Image> <!--Sysinternals:PsExec server side | Credit @Cyb3rOps -->
+			<Image condition="image">tor.exe</Image> <!--Tor [ https://www.hybrid-analysis.com/sample/800bf028a23440134fc834efc5c1e02cc70f05b2e800bbc285d7c92a4b126b1c?environmentId=100 ] -->
+			<Image condition="image">vnc.exe</Image> <!--VNC client | Credit @Cyb3rOps -->
+			<Image condition="image">vncservice.exe</Image> <!--VNC server | Credit @Cyb3rOps -->
+			<Image condition="image">vncviewer.exe</Image> <!--VNC client | Credit @Cyb3rOps -->
+			<Image condition="image">winexesvc.exe</Image> <!--Winexe service executable | Credit @Cyb3rOps -->
+			<Image condition="image">nmap.exe</Image>
+			<Image condition="image">psinfo.exe</Image>
+			<!--Ports: Suspicious-->
+			<DestinationPort name="Suspicious Port" condition="is">22</DestinationPort> <!--SSH protocol, monitor admin connections-->
+			<DestinationPort name="Suspicious Port" condition="is">23</DestinationPort> <!--Telnet protocol, monitor admin connections, insecure-->
+			<DestinationPort name="Suspicious Port" condition="is">25</DestinationPort> <!--SMTP mail protocol port, insecure, used by threats-->
+			<DestinationPort name="Suspicious Port" condition="is">142</DestinationPort> <!--IMAP mail protocol port, insecure, used by threats-->
+			<DestinationPort name="Suspicious Port" condition="is">3389</DestinationPort> <!--Microsoft:Windows:RDP: Monitor admin connections-->
+			<DestinationPort name="Suspicious Port" condition="is">5800</DestinationPort> <!--VNC protocol: Monitor admin connections, often insecure-->
+			<DestinationPort name="Suspicious Port" condition="is">5900</DestinationPort> <!--VNC protocol Monitor admin connections, often insecure-->
+			<!--Ports: Proxy-->
+			<DestinationPort name="Suspicious Port" condition="is">1080</DestinationPort> <!--Socks proxy port | Credit @ion-storm-->
+			<DestinationPort name="Suspicious Port" condition="is">3128</DestinationPort> <!--Socks proxy port | Credit @ion-storm-->
+			<DestinationPort name="Suspicious Port" condition="is">8080</DestinationPort> <!--Socks proxy port | Credit @ion-storm-->
+			<!--Ports: Tor-->
+			<DestinationPort name="Suspicious Port" condition="is">1723</DestinationPort> <!--Tor protocol [ https://attack.mitre.org/wiki/Technique/T1090 ] | Credit @ion-storm-->
+			<DestinationPort name="Suspicious Port" condition="is">4500</DestinationPort> <!--Tor protocol, also triggers on IPsec [ https://attack.mitre.org/wiki/Technique/T1090 ] | Credit @ion-storm-->
+			<DestinationPort name="Suspicious Port" condition="is">9001</DestinationPort> <!--Tor protocol [ http://www.computerworlduk.com/tutorial/security/tor-enterprise-2016-blocking-malware-darknet-use-rogue-nodes-3633907/ ] -->
+			<DestinationPort name="Suspicious Port" condition="is">9030</DestinationPort> <!--Tor protocol [ http://www.computerworlduk.com/tutorial/security/tor-enterprise-2016-blocking-malware-darknet-use-rogue-nodes-3633907/ ] -->
 		</NetworkConnect>
 		<NetworkConnect onmatch="exclude">
 			<!--COMMENT: Unfortunately, these exclusions are very broad and easily abused, but it's a limitation of Sysmon rules that they can't be more specific as they're in user folders-->
@@ -1171,6 +1077,8 @@
 			<TargetImage condition="is">C:\WINDOWS\System32\lsass.exe</TargetImage> <!--Microsoft:Windows: Local Security Authority Subsystem Service (often faked by malware)-->
 		</ProcessAccess>
 		<ProcessAccess onmatch="exclude">
+			<SourceImage condition="is">C:\ProgramData\Microsoft\Windows Defender\platform\4.18.1806.18062-0\MsMpEng.exe</SourceImage> <!--Microsoft:Windows: Current Version Windows Defender-->
+			<SourceImage condition="is">C:\Windows\system32\wbem\wmiprvse.exe</SourceImage> <!--Microsoft:Windows: WWI Provider Host (run when other applications request data-->
 		</ProcessAccess>
 
 		<!--SYSMON EVENT ID 11 : FILE CREATED [FileCreate]-->
