@@ -957,7 +957,7 @@
 			<Image condition="image">OneDrive.exe</Image> <!--Microsoft:OneDrive-->
 			<Image condition="image">OneDriveStandaloneUpdater.exe</Image> <!--Microsoft:OneDrive Updater-->
 			<Image condition="end with">AppData\Local\Microsoft\Teams\current\Teams.exe</Image> <!--Microsoft: Teams-->
-			<Image condition="is">C:\ProgramData\Microsoft\Windows Defender\platform\4.18.1806.18062-0\MsMpEng.exe</Image> <!--Microsoft:Windows: Current Version Windows Defender-->
+			<Image condition="is">C:\ProgramData\Microsoft\Windows Defender\platform\4.18.1807.18075-0\MsMpEng.exe</Image> <!--Microsoft:Windows: Current Version Windows Defender-->
 			<DestinationHostname condition="end with">microsoft.com</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">microsoft.com.akadns.net</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">microsoft.com.nsatc.net</DestinationHostname> <!--Microsoft:Update delivery-->
@@ -1089,7 +1089,7 @@
 			<TargetImage condition="is">C:\WINDOWS\System32\lsass.exe</TargetImage> <!--Microsoft:Windows: Local Security Authority Subsystem Service (often faked by malware)-->
 		</ProcessAccess>
 		<ProcessAccess onmatch="exclude">
-			<SourceImage condition="is">C:\ProgramData\Microsoft\Windows Defender\platform\4.18.1806.18062-0\MsMpEng.exe</SourceImage> <!--Microsoft:Windows: Current Version Windows Defender-->
+			<SourceImage condition="is">C:\ProgramData\Microsoft\Windows Defender\platform\4.18.1807.18075-0\MsMpEng.exe</SourceImage> <!--Microsoft:Windows: Current Version Windows Defender-->
 			<SourceImage condition="is">C:\WINDOWS\System32\Taskmgr.exe</SourceImage> <!--Microsoft:Windows: Task Manager-->
 			<SourceImage condition="is">C:\Windows\system32\wbem\wmiprvse.exe</SourceImage> <!--Microsoft:Windows: WWI Provider Host (run when other applications request data-->
 		</ProcessAccess>
@@ -1163,7 +1163,7 @@
 			<!--SECTION: Microsoft:Office:Click2Run-->
 			<Image condition="is">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeC2RClient.exe</Image> <!--Microsoft:Office Click2Run-->
 			<!--SECTION: Microsoft:Windows-->
-			<Image condition="is">C:\ProgramData\Microsoft\Windows Defender\platform\4.18.1806.18062-0\MsMpEng.exe</Image> <!--Microsoft:Windows: Current Version Windows Defender-->
+			<Image condition="is">C:\ProgramData\Microsoft\Windows Defender\platform\4.18.1807.18075-0\MsMpEng.exe</Image> <!--Microsoft:Windows: Current Version Windows Defender-->
 			<Image condition="is">C:\WINDOWS\system32\cleanmgr.exe</Image> <!--Microsoft:Windows: Disk Cleanup-->
 			<Image condition="is">C:\Windows\system32\CompatTelRunner.exe</Image> <!--Microsoft:Windows: Windows 10 app, creates tons of cache files-->
 			<Image condition="is">C:\Windows\system32\mobsync.exe</Image> <!--Microsoft:Windows: Network file syncing-->
@@ -1320,7 +1320,7 @@
 			<!--SECTION: Microsoft binaries-->
 			<Image condition="end with">Office\root\integration\integrator.exe</Image> <!--Microsoft:Office: C2R client-->
 			<Image condition="end with">\AppData\Local\Microsoft\OneDrive\OneDrive.exe</Image> <!--Microsoft:OneDrive-->
-			<Image condition="is">C:\ProgramData\Microsoft\Windows Defender\platform\4.18.1806.18062-0\MsMpEng.exe</Image> <!--Microsoft:Windows: Current Version Windows Defender-->
+			<Image condition="is">C:\ProgramData\Microsoft\Windows Defender\platform\4.18.1807.18075-0\MsMpEng.exe</Image> <!--Microsoft:Windows: Current Version Windows Defender-->
 			<Image condition="is">C:\Windows\system32\backgroundTaskHost.exe</Image> <!--Microsoft:Windows: Changes association registry keys-->
 			<Image condition="is">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeClickToRun.exe</Image> <!--Microsoft:Office: C2R client-->
 			<Image condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</Image> <!--Microsoft:Windows:Defender-->
@@ -1331,7 +1331,7 @@
 			<Image condition="is">C:\ProgramData\Sophos\AutoUpdate\cache\sophos_autoupdate1.dir\ALUpdate.exe</Image> <!--Sophos: Updater-->
 			<TargetObject condition="is">HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run\sau_check_key</TargetObject> <!--Sophos: Updater-->
 			<!--SECTION: Microsoft Windows Defender-->
-			<Image condition="is">C:\ProgramData\Microsoft\Windows Defender\platform\4.18.1806.18062-0\MsMpEng.exe</Image> <!--Microsoft:Windows: Current Version Windows Defender-->
+			<Image condition="is">C:\ProgramData\Microsoft\Windows Defender\platform\4.18.1807.18075-0\MsMpEng.exe</Image> <!--Microsoft:Windows: Current Version Windows Defender-->
 			<TargetObject condition="is">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\WindowsDefender</TargetObject> <!--Microsoft:Windows: Windows Defender-->
 			<TargetObject condition="is">HKCR\Directory\shellex\ContextMenuHandlers\EPP\(Default)</TargetObject> <!--Microsoft:Windows: Windows Defender-->
 			<TargetObject condition="is">HKCR\Drive\shellex\ContextMenuHandlers\EPP\(Default)</TargetObject> <!--Microsoft:Windows: Windows Defender-->
@@ -1493,7 +1493,7 @@
 			<Image condition="is">C:\Program Files (x86)\ASUS\ASUS Smart Gesture\AsTPCenter\x64\AsusTPCenter.exe</Image> <!--ASUS Smart Gesture Raw Data Request Cmd/Report-->
 			<Image condition="is">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Image> <!--Google:Chrome-->
 			<Image condition="is">C:\Program Files (x86)\Google\Update\GoogleUpdate.exe</Image> <!--Google: Updater-->
-			<Image condition="is">C:\ProgramData\Microsoft\Windows Defender\platform\4.18.1806.18062-0\MsMpEng.exe</Image> <!--Microsoft:Windows: Current Version Windows Defender-->
+			<Image condition="is">C:\ProgramData\Microsoft\Windows Defender\platform\4.18.1807.18075-0\MsMpEng.exe</Image> <!--Microsoft:Windows: Current Version Windows Defender-->
 			<Image condition="is">C:\WINDOWS\Explorer.EXE</Image> <!--Microsoft:Windows: File Explorer-->
 			<Image condition="is">C:\WINDOWS\system32\LogonUI.exe</Image> <!--Microsoft:Windows: Logon UI-->
 			<Image condition="is">C:\Windows\System32\RuntimeBroker.exe</Image> <!--Microsoft:Windows: Runtime Broker (permissions manager)-->
