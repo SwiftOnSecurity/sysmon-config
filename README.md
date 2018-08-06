@@ -18,7 +18,7 @@ sysmon -accepteula -i
 ### Update existing configuration ###
 Run with administrator rights
 ~~~~
-sysmon -c C:\[Path]\[To]\[File]\sysmonconfig-export.xml
+sysmon -c C:\[Path]\[To]\[File]\config-cryptocurrency.xml
 ~~~~
 
 ### Uninstall ###
