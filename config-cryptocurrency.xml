@@ -7,7 +7,7 @@
 
   Fork version:	6 | Date: 2018-07-24
   Fork author:	@ryanku98
-  Fork project:	https://github.com/ryanku98/sysmon-config-cryptomining
+  Fork project:	https://github.com/ryanku98/sysmon-configs
   Fork license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
 
   REQUIRED: Sysmon version 8.00 or higher (due to changes in registry syntax and bug-fixes)
