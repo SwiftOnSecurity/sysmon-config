@@ -2815,6 +2815,23 @@
 		<!--EVENT 18: "Pipe Connected"-->
 
 		<!--DATA: RuleName, UtcTime, ProcessGuid, ProcessId, PipeName, Image-->
+		<PipeEvent onmatch="include">
+	  	 	<PipeName name="MitreRef=T1055,Technique=Process Injection" condition="contains">\isapi_http</PipeName><!-- Credits @Cyb3rops & @olafhartong-->
+			<PipeName name="MitreRef=T1055,Technique=Process Injection" condition="contains">\isapi_dg</PipeName><!-- Credits @Cyb3rops & @olafhartong-->
+			<PipeName name="MitreRef=T1055,Technique=Process Injection" condition="contains">\isapi_dg2</PipeName><!-- Credits @Cyb3rops & @olafhartong -->
+			<PipeName name="MitreRef=T1055,Technique=Process Injection" condition="contains">\isapi_http</PipeName><!-- Credits @Cyb3rops & @olafhartong -->
+			<PipeName name="MitreRef=T1055,Technique=Process Injection" condition="contains">\sdlrpc</PipeName><!-- Credits @Cyb3rops & @olafhartong -->
+			<PipeName name="MitreRef=T1055,Technique=Process Injection" condition="contains">\ahexec</PipeName><!-- Credits @Cyb3rops & @olafhartong -->
+			<PipeName name="MitreRef=T1055,Technique=Process Injection" condition="contains">\winsession</PipeName><!-- Credits @Cyb3rops & @olafhartong -->
+			<PipeName name="MitreRef=T1055,Technique=Process Injection" condition="contains">\lsassw</PipeName><!-- Credits @Cyb3rops & @olafhartong -->
+			<PipeName name="MitreRef=T1055,Technique=Process Injection" condition="contains">\46a676ab7f179e511e30dd2dc41bd388</PipeName><!-- Credits @Cyb3rops & @olafhartong -->
+			<PipeName name="MitreRef=T1055,Technique=Process Injection" condition="contains">\9f81f59bc58452127884ce513865ed20</PipeName><!-- Credits @Cyb3rops & @olafhartong -->
+			<PipeName name="MitreRef=T1055,Technique=Process Injection" condition="contains">\e710f28d59aa529d6792ca6ff0ca1b34</PipeName><!-- Credits @Cyb3rops & @olafhartong -->
+			<PipeName name="MitreRef=T1055,Technique=Process Injection" condition="contains">\rpchlp_3</PipeName><!-- Credits @Cyb3rops & @olafhartong -->
+			<PipeName name="MitreRef=T1055,Technique=Process Injection" condition="contains">\NamePipe_MoreWindows</PipeName><!-- Credits @Cyb3rops & @olafhartong -->
+			<PipeName name="MitreRef=T1055,Technique=Process Injection" condition="contains">\pcheap_reuse</PipeName><!-- Credits @Cyb3rops & @olafhartong -->
+			<PipeName condition="contains">\</PipeName><!--Include Everything else to mark above rules-->
+		</PipeEvent>
 		<PipeEvent onmatch="exclude">
 		<!--COMMENT: Exclude known-good pipe users-->
 				<!--ADDITIONAL REFERENCE: [ https://www.cobaltstrike.com/help-smb-beacon ] -->
