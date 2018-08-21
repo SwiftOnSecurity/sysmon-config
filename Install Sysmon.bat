@@ -17,7 +17,7 @@ pushd "C:\ProgramData\sysmon\"
 echo [+] Downloading Sysmon...
 @powershell (new-object System.Net.WebClient).DownloadFile('https://live.sysinternals.com/Sysmon64.exe','C:\ProgramData\sysmon\sysmon64.exe')"
 echo [+] Downloading Sysmon config...
-@powershell (new-object System.Net.WebClient).DownloadFile('https://smartsync.omegapa.com/1/files/share/44/dev/omega-sysmon/sysmonconfig-export.xml/a0e2616fc58e1c','C:\ProgramData\sysmon\sysmonconfig-export.xml')"
+@powershell (new-object System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/ion-storm/sysmon-config/develop/sysmonconfig-export.xml','C:\ProgramData\sysmon\sysmonconfig-export.xml')"
 @powershell (new-object System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/ion-storm/sysmon-config/develop/Auto_Update.bat','C:\ProgramData\sysmon\Auto_Update.bat')"
 sysmon64.exe -accepteula -i sysmonconfig-export.xml
 sc failure Sysmon64 actions= restart/10000/restart/10000// reset= 120
