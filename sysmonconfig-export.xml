@@ -15,7 +15,7 @@
 
 <Sysmon schemaversion="4.10">
 	<!--SYSMON META CONFIG-->
-	<HashAlgorithms>md5,sha256</HashAlgorithms> <!-- Both MD5 and SHA256 are the industry-standard algorithms for identifying files -->
+	<HashAlgorithms>md5,imphash,sha256</HashAlgorithms> <!-- Both MD5 and SHA256 are the industry-standard algorithms for identifying files -->
 	<CheckRevocation/> <!-- Check loaded drivers, log if their code-signing certificate has been revoked, in case malware stole one to sign a kernel driver -->
 
 	<!-- <ImageLoad/> --> <!-- Would manually force-on ImageLoad monitoring, even without configuration below. Included only documentation. -->
@@ -36,69 +36,71 @@
 			<ParentImage name="Alert=Unknown Process Execution" condition="contains">unknown process</ParentImage>
 			<Image name="Alert=Unknown Process Execution" condition="contains">unknown process</Image>
 			<Image name="MitreRef=T1117,Technique=Regsvr32-Defense Evasion/Execution" condition="end with">regsvr32.exe</Image> <!--Microsoft:Windows: [ https://subt0x10.blogspot.com/2016/04/bypass-application-whitelisting-script.html ] -->
-			<Image name="MitreRef=T1197,Technique=Bitsadmin File Transfers/Defense Evasion" condition="end with">bitsadmin.exe</Image>
+			<Image name="MitreRef=T1197,Technique=Bitsadmin File Transfers/Defense Evasion,Alert=BitsAdmin File Transfers" condition="end with">bitsadmin.exe</Image>
 			<ParentImage name="MitreRef=T1088,Technique=UAC Bypass,Tactic=Defense Evasion/Privilege Escalation" condition="end with">eventvwr.exe</ParentImage>
 			<ParentImage name="MitreRef=T1088,Technique=UAC Bypass,Tactic=Defense Evasion/Privilege Escalation" condition="end with">fodhelper.exe</ParentImage>
-			<Image name="MitreRef=T1118,Technique=InstallUtil,Tactic=Defense Evasion/Execution" condition="end with">InstallUtil.exe</Image>
-			<CommandLine name="MitreRef=T1118,Technique=InstallUtil,Tactic=Defense Evasion/Execution" condition="contains">/logfile= /LogToConsole=false /U</CommandLine>
-			<Image name="MitreRef=T1191,Technique=Trusted Developer Utilities,Tactic=Defense Evasion/Execution,Note=MSBuild Applocker Bypass" condition="end with">MSBuild.exe</Image>
-	        <Image name="MitreRef=T1121,Technique=Trusted Developer Utilities,Tactic=Defense Evasion/Execution,Note=MSBuild Applocker Bypass" condition="end with">regsvcs.exe</Image>
-			<Image name="MitreRef=T1121,Technique=Trusted Developer Utilities,Tactic=Defense Evasion/Execution,Note=MSBuild Applocker Bypass" condition="end with">regasm.exe</Image>
-			<Image name="MitreRef=T1218,Technique=Trusted Developer Utilities,Tactic=Defense Evasion/Execution,Note=MSBuild Applocker Bypass" condition="end with">SyncAppvPublishingServer.exe</Image>
-			<Image name="MitreRef=T1218,Technique=Defense Evasion/Execution" condition="end with">\control.exe</Image>
-	        <CommandLine name="MitreRef=T1196,Technique=Control Panel Items,Tactic=Defense Evasion/Execution" condition="contains">control.exe /name</CommandLine>
-			<CommandLine name="MitreRef=T1196,Technique=Control Panel Items,Tactic=Defense Evasion/Execution" condition="contains">rundll32.exe shell32.dll,Control_RunDLL</CommandLine>
-			<Image name="MitreRef=T1170,Technique=MSHTA,Tactic=Defense Evasion/Execution" condition="end with">mshta.exe</Image>
+			<Image name="MitreRef=T1118,Technique=InstallUtil,Tactic=Defense Evasion/Execution,Alert=InstallUtil" condition="end with">InstallUtil.exe</Image>
+			<CommandLine name="MitreRef=T1118,Technique=InstallUtil,Tactic=Defense Evasion/Execution,Alert=InstallUtil" condition="contains">/logfile= /LogToConsole=false /U</CommandLine>
+			<Image name="MitreRef=T1121,Technique=Trusted Developer Utilities,Tactic=Defense Evasion/Execution,Note=MSBuild Applocker Bypass" condition="end with">MSBuild.exe</Image>
+	        <Image name="MitreRef=T1121,Technique=Regsvcs/Regasm Bypass,Tactic=Defense Evasion/Execution,Note=MSBuild Applocker Bypass" condition="end with">regsvcs.exe</Image>
+			<Image name="MitreRef=T1121,Technique=Regsvcs/Regasm Bypass,Tactic=Defense Evasion/Execution,Note=MSBuild Applocker Bypass" condition="end with">regasm.exe</Image>
+			<Image name="MitreRef=T1218,Technique=Signed Binary Proxy Execution,Tactic=Defense Evasion/Execution,Note=MSBuild Applocker Bypass" condition="end with">SyncAppvPublishingServer.exe</Image>
+			<Image name="MitreRef=T1218,Technique=Signed Binary Proxy Execution,Tactic=Defense Evasion/Execution" condition="end with">\control.exe</Image>
+	        <CommandLine name="MitreRef=T1196,Technique=Control Panel Items,Tactic=Defense Evasion/Execution,Alert=Control Panel Execution" condition="contains">control.exe /name</CommandLine>
+			<CommandLine name="MitreRef=T1196,Technique=Control Panel Items,Tactic=Defense Evasion/Execution,Alert=Control Panel Execution" condition="contains">rundll32.exe shell32.dll,Control_RunDLL</CommandLine>
+			<Image name="MitreRef=T1170,Technique=MSHTA,Tactic=Defense Evasion/Execution,Alert=MSHTA Execution" condition="end with">mshta.exe</Image>
 			<Image name="MitreRef=T1070,Technique=Indicator Removal on Host,Tactic=Defense Evasion" condition="end with">wevutil.exe</Image>
-			<CommandLine name="MitreRef=T1070,Technique=Indicator Removal on Host,Tactic=Defense Evasion" condition="contains">wevutil cl</CommandLine>
+			<CommandLine name="MitreRef=T1070,Technique=Indicator Removal on Host,Tactic=Defense Evasion,Alert=Eventlog Removal Detected" condition="contains">wevutil cl</CommandLine>
 			<!--MITRE TACTIC: Discovery-->
-			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="begin with">net user</CommandLine>
-			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="begin with">net  user</CommandLine>
-			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="begin with">net.exe user</CommandLine>
-			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="begin with">net.exe  user</CommandLine>
-			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="begin with">net1.exe user</CommandLine>
-			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="begin with">net1.exe  user</CommandLine>
-			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="begin with">net localgroup</CommandLine>
-			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="begin with">net  localgroup</CommandLine>
-			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="begin with">net.exe localgroup</CommandLine>
-			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="begin with">net.exe  localgroup</CommandLine>
-			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="begin with">net1 localgroup</CommandLine>
-			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="begin with">net1  localgroup</CommandLine>
-			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="begin with">net group</CommandLine>
-			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="begin with">net  group</CommandLine>
-			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="begin with">net group</CommandLine>
-			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="begin with">net  group</CommandLine>
-			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="begin with">net.exe group</CommandLine>
-			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="begin with">net.exe  group</CommandLine>
-			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="begin with">net group</CommandLine>
-			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="begin with">net  group</CommandLine>
-			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="begin with">net.exe group</CommandLine>
-			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="begin with">net.exe  group</CommandLine>
-			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="begin with">net1.exe group</CommandLine>
-			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="begin with">net1.exe  group</CommandLine>
-			<Image name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery" condition="end with">dsquery.exe</Image><!-- Query domain-->
-			<Image name="MitreRef=T1049,Technique=System Network Connections Discovery,Tactic=Discovery,MitreURL= https://attack.mitre.org/wiki/Technique/T1049" condition="end with">whoami.exe</Image>
+			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery,Alert=NET.EXE Discovery" condition="contains">net user</CommandLine>
+			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery,Alert=NET.EXE Discovery" condition="contains">net  user</CommandLine>
+			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery,Alert=NET.EXE Discovery" condition="contains">net.exe user</CommandLine>
+			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery,Alert=NET.EXE Discovery" condition="contains">net.exe  user</CommandLine>
+			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery,Alert=NET.EXE Discovery" condition="contains">net1 user</CommandLine>
+			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery,Alert=NET.EXE Discovery" condition="contains">net1  user</CommandLine>
+			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery,Alert=NET.EXE Discovery" condition="contains">net1.exe user</CommandLine>
+			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery,Alert=NET.EXE Discovery" condition="contains">net1.exe  user</CommandLine>
+			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery,Alert=NET.EXE Discovery" condition="contains">net localgroup</CommandLine>
+			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery,Alert=NET.EXE Discovery" condition="contains">net  localgroup</CommandLine>
+			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery,Alert=NET.EXE Discovery" condition="contains">net.exe localgroup</CommandLine>
+			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery,Alert=NET.EXE Discovery" condition="contains">net.exe  localgroup</CommandLine>
+			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery,Alert=NET.EXE Discovery" condition="contains">net1 localgroup</CommandLine>
+			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery,Alert=NET.EXE Discovery" condition="contains">net1  localgroup</CommandLine>
+			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery,Alert=NET.EXE Discovery" condition="contains">net group</CommandLine>
+			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery,Alert=NET.EXE Discovery" condition="contains">net  group</CommandLine>
+			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery,Alert=NET.EXE Discovery" condition="contains">net group</CommandLine>
+			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery,Alert=NET.EXE Discovery" condition="contains">net  group</CommandLine>
+			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery,Alert=NET.EXE Discovery" condition="contains">net.exe group</CommandLine>
+			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery,Alert=NET.EXE Discovery" condition="contains">net.exe  group</CommandLine>
+			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery,Alert=NET.EXE Discovery" condition="contains">net group</CommandLine>
+			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery,Alert=NET.EXE Discovery" condition="contains">net  group</CommandLine>
+			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery,Alert=NET.EXE Discovery" condition="contains">net.exe group</CommandLine>
+			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery,Alert=NET.EXE Discovery" condition="contains">net.exe  group</CommandLine>
+			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery,Alert=NET.EXE Discovery" condition="contains">net1.exe group</CommandLine>
+			<CommandLine name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery,Alert=NET.EXE Discovery" condition="begin with">net1.exe  group</CommandLine>
+			<CommandLine name="MitreRef=T1136,Technique=Create Account,Tactic=Persistence,Alert=Account Creation via command line,Alert=Account Creation" condition="begin with">dsadd </CommandLine>
+			<CommandLine name="MitreRef=T1136,Technique=Create Account,Tactic=Persistence,Alert=Account Creation via command line,Alert=Account Creation" condition="begin with">dsmod </CommandLine>
+			<Image name="MitreRef=T1087,Technique=Account Discovery,Tactic=Discovery,Alert=DSQuery.EXE Discovery" condition="end with">dsquery.exe</Image><!-- Query domain-->
+			<Image name="MitreRef=T1136,Technique=Create Account,Tactic=Persistence,Alert=Account Creation via command line,Alert=Account creation with dsmod" condition="end with">dsmod.exe</Image><!-- Query domain-->
+			<Image name="MitreRef=T1136,Technique=Create Account,Tactic=Persistence,Alert=Account Creation via command line,Alert=Account creation with dsadd" condition="end with">dsadd.exe</Image><!-- Query domain-->
+			<Image name="MitreRef=T1049,Technique=System Network Connections Discovery,Tactic=Discovery,Alert=Account Discovery,MitreURL= https://attack.mitre.org/wiki/Technique/T1049" condition="end with">whoami.exe</Image>
 			<Image name="MitreRef=T1049,Technique=Discovery,Tactic=Discovery" condition="end with">ipconfig.exe</Image> <!--Microsoft:Windows: shows ip configuration -->
-			<Image name="MitreRef=T1057,Technique=Process Discovery,Tactic=Discovery" condition="end with">tasklist.exe</Image> <!--Microsoft:Windows: shows current running processes-->
-			<Image name="MitreRef=T1016,Technique=System Information Discovery,Tactic=Discovery" condition="end with">sysinfo.exe</Image> <!--Microsoft:Windows: shows systeminformation -->
-			<Image name="MitreRef=T1049,Technique=System Network Connections Discovery,Tactic=Discovery" condition="end with">netstat.exe</Image> <!--Microsoft:Windows: shows protocol statistics and current TCP/IP network connections -->
-			<Image name="MitreRef=T1057,Technique=Process Discovery,Tactic=Discovery" condition="end with">qprocess.exe</Image> <!--Microsoft:Windows: shows information about processes -->
-			<Image name="MitreRef=T1201/T1087,Technique=System Network Connections Discovery/Account Discovery,Tactic=Discovery" condition="end with">\net.exe</Image> <!--Microsoft:Windows: "net use"/"net view" used by attackers to surveil and connect with file shares from command line | Credit @ion-storm -->
-			<Image name="MitreRef=T1201/T1087,Technique=System Network Connections Discovery/Account Discovery,Tactic=Discovery" condition="end with">\net1.exe</Image> <!--Microsoft:Windows: "net use"/"net view" used by attackers to surveil and connect with file shares from command line | Credit @ion-storm -->
-			<Image name="MitreRef=T1049,Technique=System Network Connections Discovery,Tactic=Discovery" condition="end with">quser.exe</Image> <!--Microsoft:Windows: shows logged-on users -->
-			<Image name="MitreRef=T1016,Technique=System Network Configuration Discovery,Tactic=Discovery" condition="end with">\route.exe</Image> <!--Microsoft:Windows: manipulates network routing tables -->
-			<Image name="MitreRef=T1016,Technique=System Information Discovery,Tactic=Discovery" condition="end with">\reg.exe</Image> <!--Microsoft:Windows: reads and modifies the Windows register -->
-			<Image name="MitreRef=T1016,Technique=System Network Connections Discovery,Tactic=Discovery" condition="end with">netsh.exe</Image> <!--Microsoft:Windows: manipulate the firewall -->
+			<Image name="MitreRef=T1057,Technique=Process Discovery,Tactic=Discovery,Alert=Process Discovery" condition="end with">tasklist.exe</Image> <!--Microsoft:Windows: shows current running processes-->
+			<Image name="MitreRef=T1016,Technique=System Information Discovery,Tactic=Discovery,Alert=System Information Discovery" condition="end with">sysinfo.exe</Image> <!--Microsoft:Windows: shows systeminformation -->
+			<Image name="MitreRef=T1049,Technique=System Network Connections Discovery,Tactic=Discovery,Alert=System Network Connections Discovery" condition="end with">netstat.exe</Image> <!--Microsoft:Windows: shows protocol statistics and current TCP/IP network connections -->
+			<Image name="MitreRef=T1057,Technique=Process Discovery,Tactic=Discovery,Alert=Process Discovery" condition="end with">qprocess.exe</Image> <!--Microsoft:Windows: shows information about processes -->
+			<Image name="MitreRef=T1049,Technique=System Network Connections Discovery,Tactic=Discovery,Alert=User enumeration/Discovery" condition="end with">quser.exe</Image> <!--Microsoft:Windows: shows logged-on users -->
+			<Image name="MitreRef=T1016,Technique=System Network Configuration Discovery,Tactic=Discovery,Alert=Network Configureation discovery with route.exe" condition="end with">\route.exe</Image> <!--Microsoft:Windows: manipulates network routing tables -->
+			<CommandLine name="MitreRef=T1016,Technique=System Information Discovery,Tactic=Discovery,Alert=System information discovery with reg.exe" condition="contains">reg query</CommandLine> <!--Microsoft:Windows: reads and modifies the Windows register -->
+			<CommandLine name="MitreRef=T1016,Technique=System Information Discovery,Tactic=Discovery,Alert=System information discovery with reg.exe" condition="contains">reg.exe query</CommandLine> <!--Microsoft:Windows: reads and modifies the Windows register -->
+			<Image name="MitreRef=T1016,Technique=System Network Connections Discovery,Tactic=Discovery,Alert=Network Connection Discovery with netsh" condition="end with">netsh.exe</Image> <!--Microsoft:Windows: manipulate the firewall -->
 			<!--MITRE TACTIC: Execution-->
-			<CommandLine name="MitreRef=T1059,Technique=Command-Line Interface,Tactic=Execution" condition="contains">COMSPEC</CommandLine>
-			<ParentCommandLine name="MitreRef=T1059,Technique=Command-Line Interface,Tactic=Execution" condition="contains">COMSPEC</ParentCommandLine>
-			<Image name="MitreRef=T1059,Technique=Command-Line Interface,Tactic=Execution" condition="end with">\cmd.exe</Image> <!--Microsoft:Windows: Command prompt-->
-			<ParentImage name="MitreRef=T1059,Technique=Command-Line Interface,Tactic=Execution" condition="end with">\cmd.exe</ParentImage> <!--Microsoft:Windows: Command prompt-->
-			<Image name="MitreRef=T1086,Technique=Powershell,Tactic=Execution" condition="end with">powershell.exe</Image> <!--Microsoft:Windows: PowerShell interface-->
-			<Description name="MitreRef=T1086,Technique=Powershell,Tactic=Execution" condition="end with">powershell.exe</Description> <!--Microsoft:Windows: PowerShell interface-->
-			<ParentImage name="MitreRef=T1086,Technique=Powershell,Tactic=Execution" condition="end with">powershell.exe</ParentImage> <!--Microsoft:Windows: PowerShell interface-->
+			<CommandLine name="MitreRef=T1059,Technique=Command-Line Interface,Tactic=Execution,Alert=Metasploit Detection" condition="contains">COMSPEC</CommandLine>
+			<ParentCommandLine name="MitreRef=T1059,Technique=Command-Line Interface,Tactic=Execution,Alert=Metasploit Detection" condition="contains">COMSPEC</ParentCommandLine>
 			<CommandLine name="MitreRef=T1086,Technique=Powershell,Tactic=Execution" condition="begin with">powershell.exe -Version</CommandLine> <!--Microsoft:Windows: PowerShell interface-->
-			<CommandLine name="MitreRef=T1086,Technique=Powershell,Tactic=Execution,Note=Powershell Downgrade attack" condition="begin with">powershell -Version</CommandLine> <!--Microsoft:Windows: PowerShell interface-->
+			<CommandLine name="MitreRef=T1086,Technique=Powershell,Tactic=Execution" condition="contains">powershell</CommandLine> <!--Microsoft:Windows: PowerShell interface-->
+			<ParentCommandLine name="MitreRef=T1086,Technique=Powershell,Tactic=Execution" condition="contains">powershell</ParentCommandLine> <!--Microsoft:Windows: PowerShell interface-->
+			<CommandLine name="MitreRef=T1086,Technique=Powershell,Tactic=Execution,Alert=Powershell Downgrade attack" condition="begin with">powershell -Version</CommandLine> <!--Microsoft:Windows: PowerShell interface-->
 			<CommandLine name="MitreRef=T1086,Technique=PowerShell,Tactic=Execution,Alert=Powershell Invoke-Expression" condition="contains">iex</CommandLine>
 			<CommandLine name="MitreRef=T1086,Technique=PowerShell,Tactic=Execution,Alert=Powershell Invoke-Expression" condition="contains">Invoke-Expression</CommandLine>
 			<CommandLine name="MitreRef=T1086,Technique=PowerShell,Tactic=Execution,Alert=Powershell Invoke-WebRequest" condition="contains">iwr</CommandLine>
@@ -109,23 +111,20 @@
 			<CommandLine name="MitreRef=T1086,Technique=PowerShell,Tactic=Execution,Alert=Powershell Download" condition="contains">System.Net.WebRequest</CommandLine>
 			<CommandLine name="MitreRef=T1086,Technique=PowerShell,Tactic=Execution,Alert=Powershell Download" condition="contains">System.Net.SecurityProtocolType</CommandLine>
 			<CommandLine name="MitreRef=T1086,Technique=PowerShell,Tactic=Execution,Alert=invoke-shellcode" condition="contains">Shellcode</CommandLine>
-			<Image name="MitreRef=T1202,Technique=Hacking/LOLBins-Living off the Land" condition="end with">bash.exe</Image> <!--Microsoft:Windows: bash on Windows, Linux subsystem-->
-			<ParentImage name="MitreRef=T1202,Technique=Hacking/LOLBins-Living off the Land" condition="end with">bash.exe</ParentImage> <!--Microsoft:Windows: bash on Windows, Linux subsystem-->
-			<ParentImage name="MitreRefS=S0029,Technique=Command execution - Execution/Lateral Movement" condition="end with">psexesvc.exe</ParentImage>
-			<Description name="MitreRefS=S0029,Technique=Command execution - Execution/Lateral Movement" condition="contains">Execute processes remotely</Description>
-			<ParentImage name="MitreRefS=S0029,Technique=Command execution - Execution/Lateral Movement" condition="end with">psexec.exe</ParentImage>
-			<Description name="MitreRefS=S0029,Technique=Command execution - Execution/Lateral Movement" condition="contains">Execute processes remotely</Description>
-			<ParentImage name="MitreRefS=S0029,Technique=Command execution - Execution/Lateral Movement" condition="end with">pskill.exe</ParentImage>
-			<Image name="MitreRef=T1202,Technique=Indirect Command Execution,Tactic=Execution" condition="end with">forfiles.exe</Image>
-			<ParentImage name="MitreRef=T1202,Technique=Indirect Command Execution,Tactic=Execution" condition="end with">forfiles.exe</ParentImage>
+			<Image name="MitreRef=T1202,Technique=Hacking/LOLBins-Living off the Land,Alert=Bash on Windows Execution" condition="end with">bash.exe</Image> <!--Microsoft:Windows: bash on Windows, Linux subsystem-->
+			<ParentImage name="MitreRef=T1202,Technique=Hacking/LOLBins-Living off the Land,Alert=Bash on windows execution" condition="end with">bash.exe</ParentImage> <!--Microsoft:Windows: bash on Windows, Linux subsystem-->
+			<ParentImage name="MitreRefS=S0029,Technique=Command execution - Execution/Lateral Movement,Alert=Child Process of psexec" condition="end with">psexesvc.exe</ParentImage>
+			<Description name="MitreRefS=S0029,Technique=Command execution - Execution/Lateral Movement,Alert=PSexec Execution" condition="contains">Execute processes remotely</Description>
+			<ParentImage name="MitreRefS=S0029,Technique=Command execution - Execution/Lateral Movement,Alert=PSexec Execution" condition="end with">psexec.exe</ParentImage>
+			<Description name="MitreRefS=S0029,Technique=Command execution - Execution/Lateral Movement,Alert=PSexec Execution" condition="contains">Execute processes remotely</Description>
+			<ParentImage name="MitreRefS=S0029,Technique=Command execution - Execution/Lateral Movement,Alert=PSKill Execution" condition="end with">pskill.exe</ParentImage>
+			<Image name="MitreRef=T1202,Technique=Indirect Command Execution,Tactic=Execution,Alert=Indirect Command Execution" condition="end with">forfiles.exe</Image>
+			<ParentImage name="MitreRef=T1202,Technique=Indirect Command Execution,Tactic=Execution,Alert=Indirect command execution child process" condition="end with">forfiles.exe</ParentImage>
 			<Image name="MitreRef=T1202,Technique=Indirect Command Execution,Tactic=Execution" condition="end with">pcalua.exe</Image>
 			<ParentImage name="MitreRef=T1202,Technique=Indirect Command Execution,Tactic=Execution" condition="end with">pcalua.exe</ParentImage>
-			<Image name="MitreRef=T1202,Technique=Indirect Command Execution,Tactic=Execution" condition="end with">bash.exe</Image>
-			<ParentImage name="MitreRef=T1202,Technique=Indirect Command Execution,Tactic=Execution" condition="end with">bash.exe</ParentImage>
-			<Image name="MitreRef=T1202,Technique=Indirect Command Execution,Tactic=Execution" condition="end with">bash.exe</Image>
-			<Image name="MitreRef=T1028,Technique=Windows Remote Management,Tactic=Execution" condition="end with">wsmprovhost.exe</Image>
-			<ParentImage name="MitreRef=T1028,Technique=Windows Remote Management,Tactic=Execution" condition="end with">wsmprovhost.exe</ParentImage>
-			<Image name="MitreRef=T1028,Technique=Windows Remote Management,Tactic=Execution" condition="end with">winrm.cmd</Image>
+			<Image name="MitreRef=T1028,Technique=Windows Remote Management,Tactic=Execution,Alert=Windows Remote Management execution" condition="end with">wsmprovhost.exe</Image>
+			<ParentImage name="MitreRef=T1028,Technique=Windows Remote Management,Tactic=Execution,Alert=Windows Remote Management execution" condition="end with">wsmprovhost.exe</ParentImage>
+			<Image name="MitreRef=T1028,Technique=Windows Remote Management,Tactic=Execution,Alert=Windows Remote Management Execution" condition="end with">winrm.cmd</Image>
 			<!--MITRE TACTIC: Persistence-->
 			<ParentImage name="MitreRef=T1015,Technique=Accessibility Features,Tactic=Persistence Privilege Escalation" condition="end with">sethc.exe</ParentImage>
 			<ParentImage name="MitreRef=T1015,Technique=Accessibility Features,Tactic=Persistence/Privilege Escalation" condition="end with">utilman.exe</ParentImage>
@@ -134,27 +133,27 @@
 			<ParentImage name="MitreRef=T1015,Technique=Accessibility Features,Tactic=Persistence/Privilege Escalation" condition="end with">DisplaySwitch.exe</ParentImage>
 			<ParentImage name="MitreRef=T1015,Technique=Accessibility Features,Tactic=Persistence/Privilege Escalation" condition="end with">Narrator.exe</ParentImage>
 			<ParentImage name="MitreRef=T1015,Technique=Accessibility Features,Tactic=Persistence/Privilege Escalation" condition="end with">AtBroker.exe</ParentImage>
-			<Image name="MitreRef=T1138,Technique=Application Shimming-Persistence/Privilege Escalation" condition="end with">sdbinst.exe</Image>
-			<Image name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="end with">schtasks.exe</Image>
-			<ParentImage name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="end with">schtasks.exe</ParentImage>
-			<CommandLine name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="contains">schtasks /create</CommandLine>
-			<CommandLine name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="contains">schtasks.exe /create</CommandLine>
-			<Image name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="end with">\at.exe</Image>
-			<ParentImage name="MitreRef=T1053,Technique=Execution/Persistence/Privledge Escalation" condition="end with">\at.exe</ParentImage>
-			<CommandLine name="MitreRef=ToDo,Technique=Powershell Injection Persistence Bypass - Execution, Lateral Movement" condition="contains">System.Management.Automation</CommandLine>
-			<CommandLine name="MitreRef=T1136,Technique=Create Account,Tactic=Persistence,Alert=Account Creation via command line" condition="contains">net user /add</CommandLine>
-			<CommandLine name="MitreRef=T1136,Technique=Create Account,Tactic=Persistence,Alert=Administrator added via Command Line" condition="contains">net localgroup administrators /add</CommandLine>
-			<CommandLine name="MitreRef=T1050,Technique=New Service,Tactic=Persistence/Privilege Escalation,Alert=Service added via Command Line" condition="contains">sc create</CommandLine>
-			<CommandLine name="MitreRef=T1050,Technique=New Service,Tactic=Persistence/Privilege Escalation,Alert=Service added via Command Line" condition="contains">sc.exe create</CommandLine>
-			<CommandLine name="MitreRef=T1050,Technique=New Service,Tactic=Persistence/Privilege Escalation,Alert=Service added via Command Line" condition="contains">new-service</CommandLine>
+			<Image name="MitreRef=T1138,Technique=Application Shimming-Persistence/Privilege Escalation,Alert=Application Shimming" condition="end with">sdbinst.exe</Image>
+			<Image name="MitreRef=T1053,Technique=Scheduled Task,Tactic=Execution/Persistence/Privledge Escalation,Alert=Task Scheduler execution" condition="end with">schtasks.exe</Image>
+			<ParentImage name="MitreRef=T1053,Technique=Scheduled Task,Tactic=Execution/Persistence/Privledge Escalation,Alert=Child process from schtasks" condition="end with">schtasks.exe</ParentImage>
+			<CommandLine name="MitreRef=T1053,Technique=Scheduled Task,Tactic=Execution/Persistence/Privledge Escalation,Alert=schtasks task created" condition="contains">schtasks /create</CommandLine>
+			<CommandLine name="MitreRef=T1053,Technique=Scheduled Task,Tactic=Execution/Persistence/Privledge Escalation,Alert=schtasks task created" condition="contains">schtasks.exe /create</CommandLine>
+			<Image name="MitreRef=T1053,Technique=Scheduled Task,Tactic=Execution/Persistence/Privledge Escalation,Alert=at.exe Task scheduler execution" condition="end with">\at.exe</Image>
+			<ParentImage name="MitreRef=T1053,Technique=Scheduled Task,Tactic=Execution/Persistence/Privledge Escalation,Alert=at.exe Task scheduler execution" condition="end with">\at.exe</ParentImage>
+			<CommandLine name="MitreRef=ToDo,Technique=Powershell Injection Persistence Bypass - Execution, Lateral Movement,Alert=Powershell Injection persistence bypass" condition="contains">System.Management.Automation</CommandLine>
+			<CommandLine name="MitreRef=T1136,Technique=Create Account,Tactic=Persistence,Alert=Account Creation via command line,Alert=User added by Command line" condition="contains">net user /add</CommandLine>
+			<CommandLine name="MitreRef=T1136,Technique=Create Account,Tactic=Persistence,Alert=Administrator added via Command Line,Alert=Adminstrator added via command line" condition="contains">net localgroup administrators /add</CommandLine>
+			<CommandLine name="MitreRef=T1050,Technique=New Service,Tactic=Persistence/Privilege Escalation,Alert=Service added via Command Line,Alert=Service added via command line" condition="contains">sc create</CommandLine>
+			<CommandLine name="MitreRef=T1050,Technique=New Service,Tactic=Persistence/Privilege Escalation,Alert=Service added via Command Line,Alert=Service added via command line" condition="contains">sc.exe create</CommandLine>
+			<CommandLine name="MitreRef=T1050,Technique=New Service,Tactic=Persistence/Privilege Escalation,Alert=Service added via Command Line,Alert=Service added via command line" condition="contains">new-service</CommandLine>
 			<!--MITRE TACTIC: Lateral Movement-->
 			<ParentImage name="MitreRef=T1028,Technique=Remote WMIC/Execution, Lateral Movement,Alert=Hacking" condition="end with">wmiprvse.exe</ParentImage>
-			<CommandLine name="MitreRef=T0000,Technique=Remote Desktop Shadow,Alert=Hacking/Remote Admin" condition="contains">/shadow</CommandLine>
-			<CommandLine name="MitreRef=T0000,Technique=Remote Desktop Shadow,Alert=Hacking/Remote Admin" condition="contains">/noConsentPrompt</CommandLine>
+			<CommandLine name="MitreRef=T0000,Technique=Remote Desktop Shadow,Alert=Hacking/Remote Admin,Alert=Remote Desktop Shadow Alert" condition="contains">/shadow</CommandLine>
+			<CommandLine name="MitreRef=T0000,Technique=Remote Desktop Shadow,Alert=Hacking/Remote Admin,Alert=Remote Desktop Shadow with no Consent alert" condition="contains">/noConsentPrompt</CommandLine>
 			<!--MITRE TECHNIQUE: Obfuscation-->
 			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control,Alert=Hacking" condition="contains">FromBase64String</CommandLine>
-			<CommandLine name="MitreRef=T1086,Technique=PowerShell,Tactic=Execution,Alert=Detect Secure Strings" condition="contains">convertto-securestring</CommandLine>
-			<CommandLine name="MitreRef=T1086,Technique=PowerShell,Tactic=Execution,Alert=Detect some more obfuscation" condition="contains">VerbosePreference.ToString</CommandLine>
+			<CommandLine name="MitreRef=T1086,Technique=PowerShell,Tactic=Execution,Alert=Detect Secure Strings,Alert=Powershell Secure String creation" condition="contains">convertto-securestring</CommandLine>
+			<CommandLine name="MitreRef=T1086,Technique=PowerShell,Tactic=Execution,Alert=Detect some more obfuscation,Alert=Powershell Obfuscation with VerbosePreference" condition="contains">VerbosePreference.ToString</CommandLine>
 			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control,Alert=Hacking" condition="contains">runtime.interopservices.marshal</CommandLine>
 			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control,Alert=Hacking" condition="contains">VerbosePreference.ToString</CommandLine>
 			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control,Alert=Hacking" condition="contains">-windowstyle h</CommandLine>
@@ -182,27 +181,27 @@
 			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control,Alert=Hacking" condition="contains">^c^o^m^S^p^E^c^</CommandLine>
 			<CommandLine name="MitreRef=T1001,Technique=Data Obfuscation,Tactic=Command And Control,Alert=Hacking" condition="contains">C^om^S^pEc</CommandLine>
 			<!--Native Windows tools - Living off the land-->
-			<Image name="MitreRef=ToDo,Technique=" condition="end with">query.exe</Image> <!--Microsoft:Windows: shows information about processes -->
-			<Image name="MitreRef=CAPEC-293,Technique=Traceroute Route Enumeratio,MitreURL= https://capec.mitre.org/data/definitions/293.html" condition="end with">tracert.exe</Image> <!--Microsoft:Windows: shows routing information -->
-			<Image name="MitreRef=ToDo,Technique=" condition="end with">tree.com</Image> <!--Microsoft:Windows: shows recursive directory listing -->
-			<Image name="MitreRef=T1134,Technique=Access Token Manipulation" condition="end with">runas.exe</Image> <!--Microsoft:Windows: run a process as another user -->
-			<Image name="MitreRef=ToDo,Technique=" condition="end with">taskkill.exe</Image> <!--Microsoft:Windows: stops processes -->
-			<Image name="MitreRef=ToDo,Technique=" condition="end with">klist.exe</Image> <!--Microsoft:Windows: show cached kerberos tickets -->
-			<Image name="MitreRef=ToDo,Technique=" condition="end with">hh.exe</Image> <!--Microsoft:Windows: HTML Helper-->
-			<Image name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="end with">odbcconf.exe</Image> <!--Microsoft:Windows: allows for driver loads -->
-			<Image name="MitreRef=T1202,Technique=Hacking/LOLBins-Living off the Land" condition="end with">pcalua.exe</Image> <!--Microsoft:Windows: Program Compatibility Assistant)-->
-			<Image name="MitreRef=T1158,Technique=Hacking/LOLBins-Living off the Land" condition="end with">attrib.exe</Image>
-			<Image name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="end with">cmdkey.exe</Image> <!--Microsoft:Windows: creates, lists, and deletes stored user names and passwords or credentials.-->
-			<Image name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="end with">nltest.exe</Image>
-			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">nltest.exe</CommandLine>
-			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">ExtExport</CommandLine>
+			<Image name="MitreRef=ToDo,Technique=,Alert=Process/Session/User Query with query.exe" condition="end with">query.exe</Image> <!--Microsoft:Windows: shows information about processes -->
+			<Image name="MitreRef=CAPEC-293,Technique=Traceroute Route Enumeration,Alert=Traceroute Enumeration,MitreURL= https://capec.mitre.org/data/definitions/293.html" condition="end with">tracert.exe</Image> <!--Microsoft:Windows: shows routing information -->
+			<Image name="MitreRef=ToDo,Technique=,Alert=tree of directory structure disclosure" condition="end with">tree.com</Image> <!--Microsoft:Windows: shows recursive directory listing -->
+			<Image name="MitreRef=T1134,Technique=Access Token Manipulation,Alert=Token Manipulation with runas.exe" condition="end with">runas.exe</Image> <!--Microsoft:Windows: run a process as another user -->
+			<Image name="MitreRef=ToDo,Technique=,Alert=Command Line task kill" condition="end with">taskkill.exe</Image> <!--Microsoft:Windows: stops processes -->
+			<Image name="MitreRef=ToDo,Technique=,Alert=Kerberos Ticket Disclosure with klist" condition="end with">klist.exe</Image> <!--Microsoft:Windows: show cached kerberos tickets -->
+			<Image name="MitreRef=ToDo,Technique=,Alert=Kerberos Ticket Disclosure" condition="end with">hh.exe</Image> <!--Microsoft:Windows: HTML Helper-->
+			<Image name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land,Alert=Possible driver load with odbcconf" condition="end with">odbcconf.exe</Image> <!--Microsoft:Windows: allows for driver loads -->
+			<Image name="MitreRef=T1202,Technique=Hacking/LOLBins-Living off the Land,Alert=Program Compatibility bypass" condition="end with">pcalua.exe</Image> <!--Microsoft:Windows: Program Compatibility Assistant)-->
+			<Image name="MitreRef=T1158,Technique=Hacking/LOLBins-Living off the Land,Alert=Attrib bypass" condition="end with">attrib.exe</Image>
+			<Image name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land,Alert=Possible credential modification or disclosure with cmdkey" condition="end with">cmdkey.exe</Image> <!--Microsoft:Windows: creates, lists, and deletes stored user names and passwords or credentials.-->
+			<Image name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land,AlertNLTest=" condition="end with">nltest.exe</Image>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land,Alert=NLTest" condition="contains">nltest.exe</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land,Alert=" condition="contains">ExtExport</CommandLine>
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land,Alert=Hacking" condition="contains">bash -c</CommandLine>
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land,Alert=Hacking" condition="contains">bash.exe -c</CommandLine>
-			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">cmdkey /list</CommandLine>
-			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">cmdkey.exe /list</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land,Alert=" condition="contains">cmdkey /list</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land,Alert=" condition="contains">cmdkey.exe /list</CommandLine>
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land,Alert=Hacking" condition="contains">certutil.exe -urlcache -split -f</CommandLine>
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land,Alert=Hacking" condition="contains">certutil -urlcache -split -f</CommandLine>
-			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">csc -out:</CommandLine>
+			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land,Alert=csc compile output" condition="contains">csc -out:</CommandLine>
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">csc.exe -out:</CommandLine>
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">csc -target:library</CommandLine>
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="contains">csc.exe -target:library</CommandLine>
@@ -280,7 +279,7 @@
 			<!--Detect Output Redirection-->
 			<CommandLine name="Alert=Output Redirection" condition="contains">2></CommandLine>
 			<CommandLine name="Alert=Output Redirection" condition="contains">&lt;</CommandLine>
-			<CommandLine name="Alert=Output Redirection" condition="contains">></CommandLine>
+			<CommandLine name="Alert=Output Redirection" condition="contains">&gt;</CommandLine>
 			<CommandLine name="Alert=Output Redirection" condition="contains">^</CommandLine>
 	  		<!--                                                                                                                                            -->
 			<!--Detect Multiple Commands-->
@@ -301,17 +300,17 @@
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">pssh</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">sdelete</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">shareenum</CommandLine>
-			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">sekurlsa</CommandLine>
-			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">reg SAVE</CommandLine>
+			<CommandLine name="MitreRef=T1003,Technique=Credential Dumping,Tactic=Credential Access,Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">sekurlsa</CommandLine>
+			<CommandLine name="MitreRef=T1003,Technique=Credential Dumping,Tactic=Credential Access,Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">reg SAVE</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-DllInjection</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-Shellcode</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-WmiCommand</CommandLine>
-			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-GPPPassword</CommandLine>
+			<CommandLine name="MitreRef=T1003,Technique=Credential Dumping,Tactic=Credential Access,Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-GPPPassword</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-Keystrokes</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-TimedScreenshot</CommandLine>
-			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-VaultCredential</CommandLine>
+			<CommandLine name="MitreRef=T1003,Technique=Credential Dumping,Tactic=Credential Access,Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-VaultCredential</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-CredentialInjection</CommandLine>
-			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">mimikatz</CommandLine>
+			<CommandLine name="MitreRef=T1003,Technique=Credential Dumping,Tactic=Credential Access,Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">mimikatz</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-NinjaCopy</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-TokenManipulation</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Out-Minidump</CommandLine>
@@ -353,7 +352,7 @@
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-PowerShellWMI</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Add-Exfiltration</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Add-Persistence</CommandLine>
-			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Do-Exfiltration</CommandLine>
+			<CommandLine name="MitreRef=T1003,Technique=Credential Dumping,Tactic=Credential Access,Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Do-Exfiltration</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Start-CaptureServer</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-DllInjection</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-ReflectivePEInjection</CommandLine>
@@ -389,25 +388,33 @@
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Install-SSP</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-BackdoorLNK</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">PowerBreach</CommandLine>
-			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-GPPPassword</CommandLine>
+			<CommandLine name="MitreRef=T1003,Technique=Credential Dumping,Tactic=Credential Access,Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-GPPPassword</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-SiteListPassword</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-System</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">BypassUAC</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-Tater</CommandLine>
-			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">PowerUp</CommandLine>
+			<CommandLine name="MitreRef=T1003,Technique=Credential Dumping,Tactic=Credential Access,Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">PowerUp</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">PowerView</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Get-RickAstley</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Find-Fruit</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">HTTP-Login</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Find-TrustedDocuments</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-Paranoia</CommandLine>
-			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-WinEnum</CommandLine>
+			<CommandLine name="MitreRef=T1003,Technique=Credential Dumping,Tactic=Credential Access,Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-WinEnum</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-ARPScan</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-ReverseDNSLookup</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">smbscanner</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-FruityC2</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Invoke-Stager</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">process call create</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">call set priority</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">call terminate</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events/WMIC product listing,Tactic=Privilege Escalation" condition="contains">product get name</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events/WMIC bios serial query,Tactic=Privilege Escalation" condition="contains">bios, get serialNumber</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events/WMIC query vmware,Tactic=Privilege Escalation" condition="contains">onboarddevice get</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events/WMIC User Modifications,Tactic=Privilege Escalation" condition="contains">useraccount where name</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events/WMIC Eventlog modifications,Tactic=Privilege Escalation" condition="contains">nteventlog where filename</CommandLine>
+			<CommandLine name="Alert=Hacking Command Line events/WMIC Eventlog modifications,Tactic=Privilege Escalation" condition="contains">cleareventlog</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">root\\default</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">FilterToConsumerBinding</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">root\\subscription</CommandLine>
@@ -418,9 +425,9 @@
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Wmiclass</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">WmiCl'+'as'+'s</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">ntdsutil</CommandLine>
-			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">mimiauth</CommandLine>
-			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Powersploit</CommandLine>
-			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Mimikittenz</CommandLine>
+			<CommandLine name="MitreRef=T1003,Technique=Credential Dumping,Tactic=Credential Access,Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">mimiauth</CommandLine>
+			<CommandLine name="MitreRef=T1003,Technique=Credential Dumping,Tactic=Credential Access,Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Powersploit</CommandLine>
+			<CommandLine name="MitreRef=T1003,Technique=Credential Dumping,Tactic=Credential Access,Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">Mimikittenz</CommandLine>
 			<!--Malicious Keywords Credits: Sean Metcalf (source), Florian Roth (rule)-->
 			<CommandLine name="Alert=Malicious Keywords from Exploitation Frameworks,Tactic=Privilege Escalation" condition="contains">AdjustTokenPrivileges</CommandLine>
 			<CommandLine name="Alert=Malicious Keywords from Exploitation Frameworks,Tactic=Privilege Escalation" condition="contains">IMAGE_NT_OPTIONAL_HDR64_MAGIC</CommandLine>
@@ -453,7 +460,7 @@
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">^h^t^t^p</CommandLine>
 			<CommandLine name="Alert=Hacking Command Line events,Tactic=Privilege Escalation" condition="contains">h"t"t"p</CommandLine>
 			<!--Suspicious Windows tools-->
-			<Image name="MitreRef=T1001,Technique=Signed Script Proxy Execution,Tactic=Defense Evasion/Execution" condition="image">cscript.exe</Image> <!--Microsoft:WindowsScriptingHost: | Credit @Neo23x0 [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
+			<CommandLine name="MitreRef=T1216,Technique=Signed Script Proxy Execution,Tactic=Defense Evasion/Execution" condition="contains">script:http</CommandLine> <!--Microsoft:WindowsScriptingHost: | Credit @Neo23x0 [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
 			<Image condition="image">wscript.exe</Image> <!--Microsoft:WindowsScriptingHost: | Credit @arekfurt -->
 			<Image condition="image">rundll32.exe</Image> <!--Microsoft:Windows: [ https://blog.cobaltstrike.com/2016/07/22/why-is-rundll32-exe-connecting-to-the-internet/ ] -->
 			<Image condition="image">notepad.exe</Image> <!--Microsoft:Windows: [ https://blog.cobaltstrike.com/2013/08/08/why-is-notepad-exe-connecting-to-the-internet/ ] -->
@@ -464,11 +471,11 @@
 			<Image name="Alert=Psexec Utilities" condition="contains">psexe</Image><!--Detect PSExec, PSexec services-->
 			<Image name="Alert=PsKill Command" condition="contains">pskill</Image><!--Detect pskill-->
 			<Image name="Alert=Remote Shutdown with Psexec" condition="contains">psshutdown</Image><!--Detect PsShutdown-->
-			<Image condition="contains">psservice</Image><!--Detect PsService-->
-			<Image condition="contains">PsPasswd</Image><!--Detect PsPasswd-->
+			<Image name="Alert=Sysinternals PSService" condition="contains">psservice</Image><!--Detect PsService-->
+			<Image name="Alert=Sysinternals PsPasswd" condition="contains">PsPasswd</Image><!--Detect PsPasswd-->
 			<Image name="Alert=MSBuild Applocker bypass" condition="image">msbuild.exe</Image> <!--Microsoft:Windows: [ https://www.hybrid-analysis.com/sample/a314f6106633fba4b70f9d6ddbee452e8f8f44a72117749c21243dc93c7ed3ac?environmentId=100 ] -->
-			<Image name="Alert=MSI Installer Launched" condition="image">msiexec.exe</Image> <!-- msiexec /i http://pathtomsi -->
-			<Image name="Alert=Remote Desktop" condition="image">mstsc.exe</Image><!-- Remote Desktop -->
+			<Image name="Note=MSI Installer Launched" condition="image">msiexec.exe</Image> <!-- msiexec /i http://pathtomsi -->
+			<Image name="Note=Remote Desktop" condition="image">mstsc.exe</Image><!-- Remote Desktop -->
 			<Image name="Alert=Telnet Terminal Emulator" condition="image">telnet.exe</Image><!-- Telnet -->
 			<Image condition="image">SyncAppvPublishingServer.exe</Image><!--Mitre T1218-->
 			<Image condition="image">Mavinject.exe</Image><!--Mitre T1218-->
@@ -477,20 +484,20 @@
 			<Image name="Alert=Secure Shell Execution" condition="image">kitty.exe</Image><!-- SSH -->
 			<Image name="Alert=Secure Shell Execution" condition="image">kitty_portable.exe</Image><!-- SSH -->
 			<Image name="Alert=Secure Shell FTP Execution" condition="image">psftp.exe</Image><!-- SFTP -->
-			<Image condition="image">tftp.exe</Image><!-- TFTP -->
-			<Image condition="image">wmic.exe</Image><!-- wmic /node logging -->
+			<Image name="Alert=TFTP Execution" condition="image">tftp.exe</Image><!-- TFTP -->
+			<Image name="Note=WMI Querying" condition="image">wmic.exe</Image><!-- wmic /node logging -->
 			<Image condition="image">nbtstat.exe</Image><!-- Netbios stat-->
-			<Image condition="image">driverquery.exe</Image><!-- Remote Driver querying-->
+			<Image name="Alert=Driver Querying" condition="image">driverquery.exe</Image><!-- Remote Driver querying-->
 			<Image condition="image">infDefaultInstall.exe</Image> <!--Microsoft: [ https://github.com/huntresslabs/evading-autoruns ] | Credit @KyleHanslovan -->
 			<Image condition="image">sc.exe</Image><!-- Service Control Manager-->
 			<Image condition="image">auditpol.exe</Image><!-- Auditpol-->
 			<Image condition="image">qwinsta.exe</Image><!-- Query Remote Sessions-->
 			<Image condition="image">rwinsta.exe</Image><!-- Reset Remote Sessions-->
-			<Image condition="image">curl.exe</Image>
-			<Image condition="image">wget.exe</Image>
-			<Image condition="image">www.exe</Image>
-			<Image condition="image">awk.exe</Image>
-			<Image condition="image">sed.exe</Image>
+			<Image name="Alert=Linux tools installed on windows" condition="image">curl.exe</Image>
+			<Image name="Alert=Linux tools installed on windows" condition="image">wget.exe</Image>
+			<Image name="Alert=Linux tools installed on windows" condition="image">www.exe</Image>
+			<Image name="Alert=Linux tools installed on windows" condition="image">awk.exe</Image>
+			<Image name="Alert=Linux tools installed on windows" condition="image">sed.exe</Image>
 			<!--SECTION: Crypto Currency Miners-->
 			<CommandLine name="Alert=Crypto Currency Miner" condition="contains">stratum+tcp</CommandLine>
 			<CommandLine name="Alert=Crypto Currency Miner" condition="contains">coinhive</CommandLine>
@@ -538,6 +545,14 @@
 			<!--Include Everything last to allow rules to apply and to allow previous exclude ruleset to function-->
 			<CommandLine name="Note=Windows Firewall Modifications" condition="contains">netsh advfirewall firewall</CommandLine>
 			<Image condition="contains">\</Image>
+			<CommandLine name="Alert=Windows Defender Disabled" condition="contains">DisableRealtimeMonitoring </CommandLine>
+			<CommandLine name="Alert=Ramnit Banker Malware!" condition="contains">--disable-http2 --disable-quic</CommandLine>
+			<Hashes name="Alert=Ramnit Banker Malware!" condition="contains">291ff87948e45914424cec9510c297da</Hashes><!--Ramnit Banker Malware: https://www.virustotal.com/#/file/7f054300fa64e7bcdec7f5538876e6008d6164f21ff21c6375e36dfe04a63412/details-->
+			<Hashes name="Alert=Ramnit Banker Malware!" condition="contains">304772c80b157a916c7041f2f15939fb</Hashes><!--Ramnit Banker Malware: https://www.virustotal.com/#/file/7f054300fa64e7bcdec7f5538876e6008d6164f21ff21c6375e36dfe04a63412/details-->
+			<Hashes name="Alert=Docusign Spam/Phishing!" condition="contains">5E022694C0DBD1FBBC263D608E577949</Hashes><!--Docusign Spam:https://www.vkremez.com/2018/03/malware-spam-internals-docusign-spam.html -->
+			<Hashes name="Alert=Gootkit Banker Malware!" condition="contains">71345b139166482acaa568ac8816c7bc</Hashes><!--Malware Traffic Internals: BlackTDS Leads to Gootkit Banking Malware Distribution: https://www.vkremez.com/2018/03/3-29-2018-malware-traffic-internals.html-->
+			<Hashes name="Alert=Gootkit Banker Malware!" condition="contains">1b60021baedc3f9201bcdb40e9b87f62</Hashes><!--Malware Traffic Internals: BlackTDS Leads to Gootkit Banking Malware Distribution: https://www.vkremez.com/2018/03/3-29-2018-malware-traffic-internals.html-->
+			<Hashes name="Alert=Gootkit Banker Malware!" condition="contains">c7c8d584758854bbe0d8e64ef53ae1a8</Hashes><!--Malware Traffic Internals: BlackTDS Leads to Gootkit Banking Malware Distribution: https://www.vkremez.com/2018/03/3-29-2018-malware-traffic-internals.html-->
 		</ProcessCreate>
 		<ProcessCreate onmatch="exclude">
 			<!--SECTION: Microsoft Windows-->
@@ -685,6 +700,9 @@
 			<!--SECTION: Adobe-->
 			<CommandLine condition="contains">AcroRd32.exe" /CR </CommandLine> <!--Adobe:AcrobatReader: Uninsteresting sandbox subprocess-->
 			<CommandLine condition="contains">AcroRd32.exe" --channel=</CommandLine> <!--Adobe:AcrobatReader: Uninteresting sandbox subprocess-->
+			<CommandLine condition="contains">"C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\AcroRd32.exe" --type=renderer /o /eo /l /b /id</CommandLine> <!--Adobe:AcrobatReader: Uninteresting sandbox subprocess-->
+			<CommandLine condition="contains">C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\AcroRd32.exe" --type=renderer /o /eo /l /b /ac /id</CommandLine> <!--Adobe:AcrobatReader: Uninteresting sandbox subprocess-->
+			<ParentCommandLine condition="contains">"C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\AcroRd32.exe" /o /eo /l /b /id</ParentCommandLine> <!--Adobe:AcrobatReader: Uninteresting sandbox subprocess-->
 			<Image condition="end with">C:\Program Files (x86)\Adobe\Acrobat DC\Acrobat\AcroCEF\AcroCEF.exe</Image> <!--Adobe:Acrobat: Sandbox subprocess, still evaluating security exposure-->
 			<ParentImage condition="end with">C:\Program Files (x86)\Common Files\Adobe\AdobeGCClient\AGSService.exe</ParentImage>
 			<Image condition="end with">C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\AcroCEF\RdrCEF.exe</Image> <!--Adobe:AcrobatReader: Sandbox subprocess, still evaluating security exposure-->
@@ -922,35 +940,36 @@
 		<NetworkConnect onmatch="include">
 			<!--Suspicious sources for network-connecting binaries-->
 			<Image condition="begin with">C:\Users</Image> <!--Tools downloaded by users can use other processes for networking, but this is a very valuable indicator.-->
-			<Image condition="contains">\temp\</Image> <!--Network Connection in Temp Directories-->
-			<Image condition="contains">$RECYCLE.BIN</Image> <!--Network Connection in Temp Directories-->
+			<Image name="Alert=Temp file location network connection,suspicious_net_event=True" condition="contains">\temp\</Image> <!--Network Connection in Temp Directories-->
+			<Image name="Alert=Network connection in Recycle Bin,suspicious_net_event=True" condition="contains">$RECYCLE.BIN</Image> <!--Network Connection in Temp Directories-->
 			<Image condition="begin with">C:\ProgramData</Image> <!--Normally, network communications should be sourced from "Program Files" not from ProgramData, something to look at-->
 			<Image condition="begin with">C:\Perflogs\</Image>
 			<Image condition="contains">config\systemprofile\</Image>
 			<Image condition="contains">\Windows\Fonts\</Image>
 			<Image condition="contains">\Windows\IME\</Image>
-			<Image condition="contains">\Windows\addins\</Image>
+			<Image name="Alert=Network connection in addins,suspicious_net_event=True" condition="contains">\Windows\addins\</Image>
 			<Image condition="contains">chrome.exe</Image>
 			<Image condition="contains">iexplore.exe</Image>
 			<Image condition="contains">firefox.exe</Image>
 			<Image condition="contains">MicrosoftEdgeCP.exe</Image>
 			<Image condition="contains">MicrosoftEdge.exe</Image>
 			<Image condition="contains">explorer.exe</Image>
-			<!--<Image name="Alert=Non-Exe Connecting to network" condition="excludes">.exe</Image>-->
-			<Image name="Alert=Unknown Process Connecting to network" condition="contains">unknown process</Image>
+			<!--<Image name="Info=Non-Exe Connecting to network" condition="excludes">.exe</Image>-->
+			<Image name="Info=Unknown Process Connecting to network" condition="contains">unknown process</Image>
 			<!--Suspicious Windows tools-->
-			<Image condition="image">at.exe</Image> <!--Microsoft:Windows: Remote task scheduling | Credit @ion-storm -->
-			<Image condition="image">certutil.exe</Image> <!--Microsoft:Windows: Certificate tool can contact outbound | Credit @ion-storm and @FVT [ https://twitter.com/FVT/status/834433734602530817 ] -->
-			<Image condition="image">cmd.exe</Image> <!--Microsoft:Windows: Command prompt-->
-			<Image condition="image">cscript.exe</Image> <!--Microsoft:WindowsScriptingHost: | Credit @Neo23x0 [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
-			<Image condition="image">wscript.exe</Image><Image condition="image">wscript.exe</Image> <!--Microsoft:WindowsScriptingHost: | Credit @arekfurt -->
+			<Image name="Alert=AT.EXE Task Scheduler Network Connection,suspicious_net_event=True" condition="image">at.exe</Image> <!--Microsoft:Windows: Remote task scheduling | Credit @ion-storm -->
+			<Image name="Alert=SCHTasks.exe Task Scheduler Network Connection,suspicious_net_event=True" condition="image">schtasks.exe</Image> <!--Microsoft:Windows: Remote task scheduling | Credit @ion-storm -->
+			<Image name="Alert=Certutil Connecting to network,suspicious_net_event=True" condition="image">certutil.exe</Image> <!--Microsoft:Windows: Certificate tool can contact outbound | Credit @ion-storm and @FVT [ https://twitter.com/FVT/status/834433734602530817 ] -->
+			<Image name="Alert=CMD Prompt network Connection,suspicious_net_event=True" condition="image">cmd.exe</Image> <!--Microsoft:Windows: Command prompt-->
+			<Image name="Alert=Cscript network Connection,suspicious_net_event=True" condition="image">cscript.exe</Image> <!--Microsoft:WindowsScriptingHost: | Credit @Neo23x0 [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
+			<Image name="Alert=WSCRIPT Network connection,suspicious_net_event=True" condition="image">wscript.exe</Image><Image condition="image">wscript.exe</Image> <!--Microsoft:WindowsScriptingHost: | Credit @arekfurt -->
 			<Image condition="image">rundll32.exe</Image> <!--Microsoft:Windows: [ https://blog.cobaltstrike.com/2016/07/22/why-is-rundll32-exe-connecting-to-the-internet/ ] -->
 			<Image condition="image">notepad.exe</Image> <!--Microsoft:Windows: [ https://blog.cobaltstrike.com/2013/08/08/why-is-notepad-exe-connecting-to-the-internet/ ] -->
 			<Image condition="image">regsvr32.exe</Image> <!--Microsoft:Windows: [ https://subt0x10.blogspot.com/2016/04/bypass-application-whitelisting-script.html ] -->
 			<Image condition="image">regsvcs.exe</Image> <!--Microsoft:Windows: [ https://www.hybrid-analysis.com/sample/3f94d7080e6c5b8f59eeecc3d44f7e817b31562caeba21d02ad705a0bfc63d67?environmentId=100 ] -->
 			<Image condition="image">C:\Windows\system32\svchost.exe</Image> <!--Windows Services hidden by Svchost.exe, BITS File Transfer program-->
-			<Image condition="image">mshta.exe</Image>
-			<Image condition="image">powershell.exe</Image> <!--Microsoft:WindowsPowerShell: | Credit @Cyb3rOps -->
+			<Image name="Alert=MSHTA Network Connection,suspicious_net_event=True" condition="image">mshta.exe</Image>
+			<Image name="Info=Powershell Network Connection,suspicious_net_event=True" condition="image">powershell.exe</Image> <!--Microsoft:WindowsPowerShell: | Credit @Cyb3rOps -->
 			<Image condition="contains">psexe</Image><!--Detect PSExec, PSexec services-->
 			<Image condition="contains">pskill</Image><!--Detect pskill-->
 			<Image condition="contains">psshutdown</Image><!--Detect PsShutdown-->
@@ -959,49 +978,74 @@
 			<Image condition="image">java.exe</Image>
 			<Image condition="image">msbuild.exe</Image> <!--Microsoft:Windows: [ https://www.hybrid-analysis.com/sample/a314f6106633fba4b70f9d6ddbee452e8f8f44a72117749c21243dc93c7ed3ac?environmentId=100 ] -->
 			<Image condition="image">installutil.exe</Image>
-			<Image condition="image">msiexec.exe</Image> <!-- msiexec /i http://pathtomsi -->
-			<Image condition="image">reg.exe</Image><!-- Remote Registry -->
+			<Image name="Alert=MSIExec Network connection,suspicious_net_event=True" condition="image">msiexec.exe</Image> <!-- msiexec /i http://pathtomsi -->
+			<Image name="Alert=REG.EXE Network Connection,suspicious_net_event=True" condition="image">reg.exe</Image><!-- Remote Registry -->
 			<Image condition="image">mstsc.exe</Image><!-- Remote Desktop -->
-			<Image condition="image">telnet.exe</Image><!-- Telnet -->
+			<Image name="Alert=Telnet Connection,suspicious_net_event=True" condition="image">telnet.exe</Image><!-- Telnet -->
 			<Image condition="image">SyncAppvPublishingServer.exe</Image><!--Mitre T1218-->
 			<Image condition="image">Mavinject.exe</Image><!--Mitre T1218-->
-			<Image condition="image">ssh.exe</Image><!-- SSH -->
-			<Image condition="image">putty.exe</Image><!-- SSH -->
-			<Image condition="image">kitty.exe</Image><!-- SSH -->
-			<Image condition="image">kitty_portable.exe</Image><!-- SSH -->
-			<Image condition="image">psftp.exe</Image><!-- SFTP -->
-			<Image condition="image">tftp.exe</Image><!-- TFTP -->
+			<Image name="Alert=SSH Connection with ssh.exe,suspicious_net_event=True" condition="image">ssh.exe</Image><!-- SSH -->
+			<Image name="Alert=SSH Connection with Putty,suspicious_net_event=True" condition="image">putty.exe</Image><!-- SSH -->
+			<Image name="Alert=SSH Connection with Kitty,suspicious_net_event=True" condition="image">kitty.exe</Image><!-- SSH -->
+			<Image name="Alert=SSH Connection with Kitty,suspicious_net_event=True" condition="image">kitty_portable.exe</Image><!-- SSH -->
+			<Image name="Alert=PSFTP Connection" condition="image">psftp.exe</Image><!-- SFTP -->
+			<Image name="Alert=PSFTP Connection" condition="image">tftp.exe</Image><!-- TFTP -->
 			<Image condition="image">wmic.exe</Image><!-- wmic /node logging -->
 			<Image condition="image">net.exe</Image><!-- net use/net view-->
-			<Image condition="image">nbtstat.exe</Image><!-- Netbios stat-->
+			<Image name="Alert=NBTSTAT Query" condition="image">nbtstat.exe</Image><!-- Netbios stat-->
 			<Image condition="image">dsquery.exe</Image><!-- Query domain-->
 			<Image condition="image">driverquery.exe</Image><!-- Remote Driver querying-->
 			<Image condition="image">infDefaultInstall.exe</Image> <!--Microsoft: [ https://github.com/huntresslabs/evading-autoruns ] | Credit @KyleHanslovan -->
-			<Image condition="image">sc.exe</Image><!-- Service Control Manager-->
+			<Image name="Alert=SC.exe Network Connection,suspicious_net_event=True" condition="image">sc.exe</Image><!-- Service Control Manager-->
 			<Image condition="image">auditpol.exe</Image><!-- Auditpol-->
-			<Image condition="image">qwinsta.exe</Image><!-- Query Remote Sessions-->
+			<Image name="Alert=User enumeration,suspicious_net_event=True" condition="image">qwinsta.exe</Image><!-- Query Remote Sessions-->
 			<Image condition="image">rwinsta.exe</Image><!-- Reset Remote Sessions-->
 			<!--Tor-->
-			<Image condition="image">tor.exe</Image><!-- Tor-->
+			<Image name="Alert=Tor Connection" condition="image">tor.exe</Image>
+			<DestinationIp name="Alert=Tor Connection" condition="is">185.41.154.130</DestinationIp>
+			<DestinationIp name="Alert=Tor Connection" condition="is">37.252.190.176</DestinationIp>
+			<DestinationIp name="Alert=Tor Connection" condition="is">82.118.17.235</DestinationIp>
+			<DestinationIp name="Alert=Tor Connection" condition="is">83.163.164.15</DestinationIp>
+			<DestinationIp name="Alert=Tor Connection" condition="is">69.163.34.173</DestinationIp>
+			<DestinationIp name="Alert=Tor Connection" condition="is">159.89.151.231</DestinationIp>
+			<DestinationIp name="Alert=Tor Connection" condition="is">212.47.246.229</DestinationIp>
+			<DestinationIp name="Alert=Tor Connection" condition="is">84.40.112.70</DestinationIp>
+			<DestinationIp name="Alert=Tor Connection" condition="is">2.137.16.245</DestinationIp>
+			<DestinationIp name="Alert=Tor Connection" condition="is">199.249.223.62</DestinationIp>
+			<DestinationIp name="Alert=Tor Connection" condition="is">185.22.172.237</DestinationIp>
+			<DestinationIp name="Alert=Tor Connection" condition="is">88.99.216.194</DestinationIp>
+			<DestinationIp name="Alert=Tor Connection" condition="is">185.13.39.197</DestinationIp>
+			<DestinationIp name="Alert=Tor Connection" condition="is">162.247.72.201</DestinationIp>
+			<DestinationIp name="Alert=Tor Connection" condition="is">174.127.217.73</DestinationIp>
+			<!-- Tor-->
 			<!--Hack tools hosting-->
-			<DestinationHostname condition="contains">githubusercontent.com</DestinationHostname> <!--Github: Malicious tools often loaded from here, not used except by developers-->
-			<DestinationHostname condition="contains">github.com</DestinationHostname> <!--Github: Malicious tools often loaded from here, not used except by developers-->
+			<DestinationHostname name="Alert=Connection to Github,suspicious_net_event=True" condition="contains">githubusercontent.com</DestinationHostname> <!--Github: Malicious tools often loaded from here, not used except by developers-->
+			<DestinationHostname name="Alert=Connection to Github,suspicious_net_event=True" condition="contains">github.com</DestinationHostname> <!--Github: Malicious tools often loaded from here, not used except by developers-->
 			<!--Suspicious destinations-->
-			<DestinationHostname condition="contains">api.ipify.org</DestinationHostname> <!--Malware uses to get external IP address-->
-			<DestinationHostname condition="contains">whatismyipaddress.com</DestinationHostname> <!--Malware uses to get external IP address-->
-			<DestinationHostname condition="contains">edns.ip-api.com</DestinationHostname> <!--Malware uses to get external IP address-->
-			<DestinationHostname condition="contains">checkip.dyndns.org</DestinationHostname> <!--Malware uses to get external IP address-->
-			<DestinationHostname condition="contains">icanhazip.com</DestinationHostname> <!--Malware uses to get external IP address-->
-			<DestinationHostname condition="contains">ifconfig.me</DestinationHostname> <!--Malware uses to get external IP address-->
-			<DestinationHostname condition="contains">ifconfig.co</DestinationHostname> <!--Malware uses to get external IP address-->
-			<DestinationHostname condition="contains">ipaddress.com</DestinationHostname> <!--Malware uses to get external IP address-->
-			<DestinationHostname condition="contains">ipinfo.io</DestinationHostname> <!--Malware uses to get external IP address-->
-			<DestinationHostname condition="contains">goo.gl</DestinationHostname>
-			<DestinationHostname condition="contains">git.io</DestinationHostname>
-			<DestinationHostname condition="contains">bit.ly</DestinationHostname>
-			<DestinationHostname condition="contains">t.co</DestinationHostname>
-			<DestinationHostname condition="contains">ow.ly</DestinationHostname>
-			<DestinationHostname condition="contains">ip-api.com</DestinationHostname> <!--Ransomware using ip-api for geolocation tracking-->
+			<DestinationHostname name="Alert=Malware IP Check,suspicious_net_event=True" condition="begin with">api.ipify.org</DestinationHostname> <!--Malware uses to get external IP address-->
+			<DestinationHostname name="Alert=Malware IP Check,suspicious_net_event=True" condition="begin with">whatismyipaddress.com</DestinationHostname> <!--Malware uses to get external IP address-->
+			<DestinationHostname name="Alert=Malware IP Check,suspicious_net_event=True" condition="begin with">edns.ip-api.com</DestinationHostname> <!--Malware uses to get external IP address-->
+			<DestinationHostname name="Alert=Malware IP Check,suspicious_net_event=True" condition="begin with">checkip.dyndns.org</DestinationHostname> <!--Malware uses to get external IP address-->
+			<DestinationHostname name="Alert=Malware IP Check,suspicious_net_event=True" condition="begin with">icanhazip.com</DestinationHostname> <!--Malware uses to get external IP address-->
+			<DestinationHostname name="Alert=Malware IP Check,suspicious_net_event=True" condition="begin with">ifconfig.me</DestinationHostname> <!--Malware uses to get external IP address-->
+			<DestinationHostname name="Alert=Malware IP Check,suspicious_net_event=True" condition="begin with">ifconfig.co</DestinationHostname> <!--Malware uses to get external IP address-->
+			<DestinationHostname name="Alert=Malware IP Check,suspicious_net_event=True" condition="begin with">ipaddress.com</DestinationHostname> <!--Malware uses to get external IP address-->
+			<DestinationHostname name="Alert=Malware IP Check,suspicious_net_event=True" condition="begin with">ipinfo.io</DestinationHostname> <!--Malware uses to get external IP address-->
+			<DestinationHostname name="Alert=Malware IP Check,suspicious_net_event=True" condition="begin with">ident.me</DestinationHostname> <!--Malware uses to get external IP address-->
+			<DestinationHostname name="Alert=Malware IP Check,suspicious_net_event=True" condition="begin with">api.ip.sb</DestinationHostname> <!--Malware uses to get external IP address-->
+			<DestinationHostname name="Alert=Malware IP Check,suspicious_net_event=True" condition="begin with">www.myexternalip.com</DestinationHostname> <!--Malware uses to get external IP address-->
+			<DestinationHostname name="Alert=Malware IP Check,suspicious_net_event=True" condition="begin with">ip.anysrc.net</DestinationHostname> <!--Malware uses to get external IP address-->
+			<DestinationHostname name="Alert=Malware IP Check,suspicious_net_event=True" condition="begin with">wtfismyip.com</DestinationHostname> <!--Malware uses to get external IP address-->
+			<DestinationHostname name="Alert=Malware IP Check,suspicious_net_event=True" condition="begin with">myexternalip.com</DestinationHostname> <!--Malware uses to get external IP address-->
+			<DestinationHostname name="Alert=Malware IP Check,suspicious_net_event=True" condition="begin with">api.ip.sb</DestinationHostname> <!--Malware uses to get external IP address-->
+			<DestinationHostname name="Alert=Malware IP Check,suspicious_net_event=True" condition="begin with">ipecho.net</DestinationHostname> <!--Malware uses to get external IP address-->
+			<DestinationHostname name="Alert=Malware IP Check,suspicious_net_event=True" condition="begin with">checkip.amazonaws.com</DestinationHostname> <!--Malware uses to get external IP address-->
+			<DestinationHostname name="Alert=Malware IP Check,suspicious_net_event=True" condition="begin with">goo.gl</DestinationHostname>
+			<DestinationHostname name="Alert=Malware IP Check,suspicious_net_event=True" condition="begin with">git.io</DestinationHostname>
+			<DestinationHostname name="Alert=Malware IP Check,suspicious_net_event=True" condition="begin with">bit.ly</DestinationHostname>
+			<DestinationHostname name="Alert=Malware IP Check,suspicious_net_event=True" condition="begin with">t.co</DestinationHostname>
+			<DestinationHostname name="Alert=Malware IP Check,suspicious_net_event=True" condition="begin with">ow.ly</DestinationHostname>
+			<DestinationHostname name="Alert=Malware IP Check,suspicious_net_event=True" condition="begin with">ip-api.com</DestinationHostname> <!--Ransomware using ip-api for geolocation tracking-->
 			<!--Dynamic DNS Providers-->
 			<DestinationHostname condition="contains">dlinkddns.com</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
 			<DestinationHostname condition="contains">no-ip.com</DestinationHostname> <!--Malware frequently uses dynamic DNS providers for C2 traffic | credit @daniel-gallagher -->
@@ -1109,71 +1153,71 @@
 			<!--<DestinationPort condition="is">445</DestinationPort> SMB Port: Removed because of noise-->
 			<DestinationPort name="Service=VNC" condition="is">5800</DestinationPort>
 			<DestinationPort name="Service=VNC" condition="is">5900</DestinationPort>
-			<DestinationPort name="Service=OpenVPN" condition="is">1194</DestinationPort>
-			<DestinationPort name="Service=L2TP" condition="is">1701</DestinationPort>
-			<DestinationPort name="Service=TOR" condition="is">1723</DestinationPort>
+			<DestinationPort name="Service=OpenVPN,suspicious_net_event=True" condition="is">1194</DestinationPort>
+			<DestinationPort name="Service=L2TP,suspicious_net_event=True" condition="is">1701</DestinationPort>
+			<DestinationPort name="Service=TOR,suspicious_net_event=True" condition="is">1723</DestinationPort>
 			<DestinationPort name="Service=IPSec" condition="is">1293</DestinationPort>
-			<DestinationPort name="Service=Tor" condition="is">4500</DestinationPort>
+			<DestinationPort name="Service=Tor,suspicious_net_event=True" condition="is">4500</DestinationPort>
 			<DestinationPort name="Service=Socks Proxy Port" condition="is">1080</DestinationPort>
 			<DestinationPort name="Service=Socks Proxy Port" condition="is">8080</DestinationPort>
 			<DestinationPort name="Service=Socks Proxy Port" condition="is">3128</DestinationPort>
-			<DestinationPort name="Service=Tor" condition="is">9001</DestinationPort>
-			<DestinationPort name="Service=Tor" condition="is">9030</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">4443</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">2448</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">8143</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">1777</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">1443</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">243</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">65535</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">13506</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">3360</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">200</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">198</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">49180</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">13507</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">3360</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">6625</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">4444</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">4438</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">1904</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">13505</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">13504</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">12102</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">9631</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">5445</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">2443</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">777</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">13394</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">13145</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">12103</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">5552</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">3939</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">3675</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">666</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">473</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">5649</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">4455</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">4433</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">1817</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">100</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">65520</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">1960</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">1515</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">743</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">700</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">14154</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">14103</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">14102</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">12322</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">10101</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">7210</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">4040</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo" condition="is">9943</DestinationPort>
+			<DestinationPort name="Service=Tor,suspicious_net_event=True" condition="is">9001</DestinationPort>
+			<DestinationPort name="Service=Tor,suspicious_net_event=True" condition="is">9030</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">4443</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">2448</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">8143</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">1777</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">1443</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">243</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">65535</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">13506</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">3360</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">200</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">198</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">49180</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">13507</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">3360</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">6625</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">4444</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">4438</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">1904</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">13505</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">13504</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">12102</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">9631</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">5445</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">2443</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">777</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">13394</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">13145</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">12103</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">5552</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">3939</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">3675</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">666</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">473</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">5649</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">4455</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">4433</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">1817</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">100</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">65520</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">1960</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">1515</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">743</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">700</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">14154</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">14103</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">14102</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">12322</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">10101</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">7210</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">4040</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://docs.google.com/spreadsheets/d/17pSTDNpa0sf6pHeRhusvWG6rThciE8CsXTSlDUAZDyo,suspicious_net_event=True" condition="is">9943</DestinationPort>
 			<!--Ports: Threats-->
-			<DestinationPort name="Note=Suspicious Ports: https://www.hybrid-analysis.com/search?query=port:7777" condition="is">7777</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://www.hybrid-analysis.com/search?query=port:9943" condition="is">9943</DestinationPort>
-			<DestinationPort name="Note=Suspicious Ports: https://www.hybrid-analysis.com/search?query=port:666" condition="is">666</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://www.hybrid-analysis.com/search?query=port:7777,suspicious_net_event=True" condition="is">7777</DestinationPort>
+			<DestinationPort name="Info=Suspicious Ports: https://www.hybrid-analysis.com/search?query=port:9943,suspicious_net_event=True" condition="is">9943</DestinationPort>
+			<DestinationPort name="Note=Suspicious Ports: https://www.hybrid-analysis.com/search?query=port:666,suspicious_net_event=True" condition="is">666</DestinationPort>
 		</NetworkConnect>
 		<NetworkConnect onmatch="exclude">
 			<!--SECTION: Microsoft -->
@@ -1185,6 +1229,88 @@
 			<Image condition="is">C:\Program Files\Microsoft\Exchange Server\V15\Bin\MSExchangeSubmission.exe</Image>
 			<Image condition="is">C:\Program Files\Microsoft\Exchange Server\V15\Bin\MSExchangeFrontendTransport.exe</Image>
 			<Image condition="is">C:\Program Files\Microsoft\Exchange Server\V15\Bin\MSExchangeDelivery.exe</Image>
+			<!--Ignore Microsoft Connections-->
+			<!--Microsoft Net Connections-->
+			<!--Microsoft ASN IP Block-->
+			<DestinationHostname condition="end with">aps.windows.com</DestinationHostname>
+			<DestinationHostname condition="end with">arc.msn.com</DestinationHostname>
+			<DestinationHostname condition="end with">arc.msn.com.nsatc.net</DestinationHostname>
+			<DestinationHostname condition="end with">atson.telemetry.microsoft.com</DestinationHostname>
+			<DestinationHostname condition="end with">au.download.windowsupdate.com</DestinationHostname>
+			<DestinationHostname condition="end with">b.akamaiedge.net</DestinationHostname>
+			<DestinationHostname condition="end with">bing.com</DestinationHostname>
+			<DestinationHostname condition="end with">cdn.onenote.net</DestinationHostname>
+			<DestinationHostname condition="end with">client-office365-tas.msedge.net</DestinationHostname>
+			<DestinationHostname condition="end with">config.edge.skype.com</DestinationHostname>
+			<DestinationHostname condition="end with">csp.digicert.com</DestinationHostname>
+			<DestinationHostname condition="end with">ctldl.windowsupdate.com</DestinationHostname>
+			<DestinationHostname condition="end with">cy2.licensing.md.mp.microsoft.com.akadns.net</DestinationHostname>
+			<DestinationHostname condition="end with">cy2.settings.data.microsoft.com.akadns.net</DestinationHostname>
+			<DestinationHostname condition="end with">displaycatalog.mp.microsoft.com</DestinationHostname>
+			<DestinationHostname condition="end with">download.windowsupdate.com</DestinationHostname>
+			<DestinationHostname condition="end with">e3.delivery.dsp.mp.microsoft.com.nsatc.net</DestinationHostname>
+			<DestinationHostname condition="end with">e-msedge.net</DestinationHostname>
+			<DestinationHostname condition="end with">emdl.ws.microsoft.com</DestinationHostname>
+			<DestinationHostname condition="end with">ettings-win.data.microsoft.com</DestinationHostname>
+			<DestinationHostname condition="end with">fe2.update.microsoft.com</DestinationHostname>
+			<DestinationHostname condition="end with">fe3.delivery.dsp.mp.microsoft.com.nsatc.net</DestinationHostname>
+			<DestinationHostname condition="end with">fe3.delivery.mp.microsoft.com</DestinationHostname>
+			<DestinationHostname condition="end with">g.akamaiedge.net</DestinationHostname>
+			<DestinationHostname condition="end with">g.live.com</DestinationHostname>
+			<DestinationHostname condition="end with">g.msn.com.nsatc.net</DestinationHostname>
+			<DestinationHostname condition="end with">geo-prod.do.dsp.mp.microsoft.com</DestinationHostname>
+			<DestinationHostname condition="end with">geo-prod.dodsp.mp.microsoft.com.nsatc.net</DestinationHostname>
+			<DestinationHostname condition="end with">ile-service.weather.microsoft.com</DestinationHostname>
+			<DestinationHostname condition="end with">ip5.afdorigin-prod-am02.afdogw.com</DestinationHostname>
+			<DestinationHostname condition="end with">ipv4.login.msa.akadns6.net</DestinationHostname>
+			<DestinationHostname condition="end with">licensing.mp.microsoft.com</DestinationHostname>
+			<DestinationHostname condition="end with">m3p.wns.notify.windows.com.akadns.net</DestinationHostname>
+			<DestinationHostname condition="end with">modern.watson.data.microsoft.com.akadns.net</DestinationHostname>
+			<DestinationHostname condition="end with">msn.com.nsatc.net</DestinationHostname>
+			<DestinationHostname condition="end with">ocation-inference-westus.cloudapp.net</DestinationHostname>
+			<DestinationHostname condition="end with">ocos-office365-s2s.msedge.net</DestinationHostname>
+			<DestinationHostname condition="end with">ocsp.digicert.com</DestinationHostname>
+			<DestinationHostname condition="end with">odern.watson.data.microsoft.com.akadns.net</DestinationHostname>
+			<DestinationHostname condition="end with">oneclient.sfx.ms</DestinationHostname>
+			<DestinationHostname condition="end with">pv4.login.msa.akadns6.net</DestinationHostname>
+			<DestinationHostname condition="end with">query.prod.cms.rt.microsoft.com</DestinationHostname>
+			<DestinationHostname condition="end with">ris.api.iris.microsoft.com</DestinationHostname>
+			<DestinationHostname condition="end with">ris.api.iris.microsoft.com.akadns.net</DestinationHostname>
+			<DestinationHostname condition="end with">s-msedge.net</DestinationHostname>
+			<DestinationHostname condition="end with">settings.data.microsoft.com</DestinationHostname>
+			<DestinationHostname condition="end with">sfe.trafficshaping.dsp.mp.microsoft.com</DestinationHostname>
+			<DestinationHostname condition="end with">sls.update.microsoft.com</DestinationHostname>
+			<DestinationHostname condition="end with">storecatalogrevocation.storequality.microsoft.com</DestinationHostname>
+			<DestinationHostname condition="end with">storeedgefd.dsx.mp.microsoft.com</DestinationHostname>
+			<DestinationHostname condition="end with">telecommand.telemetry.microsoft.com.akadns.net</DestinationHostname>
+			<DestinationHostname condition="end with">tile-service.weather.microsoft.com</DestinationHostname>
+			<DestinationHostname condition="end with">tlu.dl.delivery.mp.microsoft.com</DestinationHostname>
+			<DestinationHostname condition="end with">tsfe.trafficshaping.dsp.mp.microsoft.com</DestinationHostname>
+			<DestinationHostname condition="end with">vip5.afdorigin-prod-am02.afdogw.com</DestinationHostname>
+			<DestinationHostname condition="end with">vip5.afdorigin-prod-ch02.afdogw.com</DestinationHostname>
+			<DestinationHostname condition="end with">windowsupdate.com</DestinationHostname>
+			<DestinationHostname condition="end with">y2.displaycatalog.md.mp.microsoft.com.akadns.net</DestinationHostname>
+			<DestinationHostname condition="end with">y2.licensing.md.mp.microsoft.com.akadns.net</DestinationHostname>
+			<DestinationHostname condition="end with">y2.settings.data.microsoft.com.akadns.net</DestinationHostname>
+			<DestinationHostname condition="end with">msedge.net</DestinationHostname>
+			<DestinationHostname condition="end with">windows.net</DestinationHostname>
+			<DestinationHostname condition="end with">msn.com</DestinationHostname>
+			<DestinationHostname condition="end with">virtualearth.net</DestinationHostname>
+			<DestinationHostname condition="end with">bingforbusiness.com</DestinationHostname>
+			<DestinationHostname condition="end with">outlook.com</DestinationHostname>
+			<DestinationHostname condition="end with">lync.com</DestinationHostname>
+			<DestinationHostname condition="end with">cloudapp.net</DestinationHostname>
+			<DestinationHostname condition="end with">microsoft.com</DestinationHostname>
+			<DestinationHostname condition="end with">ec2-34-204-73-148.compute-1.amazonaws.com</DestinationHostname>
+			<DestinationHostname condition="end with">ec2-52-201-35-219.compute-1.amazonaws.com</DestinationHostname>
+			<DestinationHostname condition="end with">ec2-34-230-137-236.compute-1.amazonaws.com</DestinationHostname>
+			<DestinationHostname condition="end with">ec2-52-45-9-47.compute-1.amazonaws.com</DestinationHostname>
+			<DestinationHostname condition="end with">ec2-52-71-74-246.compute-1.amazonaws.com</DestinationHostname>
+			<DestinationHostname condition="end with">ec2-54-89-54-171.compute-1.amazonaws.com</DestinationHostname>
+			<DestinationHostname condition="end with">eset.com</DestinationHostname>
+			<DestinationHostname condition="end with">n-able.com</DestinationHostname>
+			<DestinationHostname condition="end with">www.agentexchange.com</DestinationHostname>
+			<DestinationHostname condition="end with">map2.hwcdn.net</DestinationHostname>
 			<Image condition="is">C:\Windows\SysWOW64\SearchProtocolHost.exe</Image>
 			<DestinationIsIpv6 condition="is">true </DestinationIsIpv6> <!-- IPv6 Exclusion: Re-Enable if you use ipv6 -->
 			<Image condition="image">OneDrive.exe</Image> <!--Microsoft:OneDrive-->
@@ -1222,16 +1348,33 @@
 			<DestinationPort condition="is">5357</DestinationPort> <!--WSD API noise-->
 			<DestinationPort condition="is">3544</DestinationPort> <!--Teredo-->
 			<DestinationPort condition="is">3702</DestinationPort> <!--Windows: WS-Discovery noise-->
+			<SourcePort condition="is">3702</SourcePort> <!--Windows: WS-Discovery noise-->
 			<SourcePort condition="is">50646</SourcePort> <!--Windows: WS-Discovery noise-->
-			<Image condition="is">C:\Program Files (x86)\SmartGit\jre\bin\java.exe</Image>
-			<Image condition="is">C:\Program Files (x86)\SyncedTool\bin\autoupdate.exe</Image>
+			<DestinationPort condition="is">53</DestinationPort>   <!--DNS Lookups-->
+			<SourcePort condition="is">53</SourcePort>  <!--DNS Lookups-->
+			<SourcePort condition="is">67</SourcePort>  <!--Bootp Lookups-->
+			<DestinationPort condition="is">67</DestinationPort>  <!--Bootp Lookups-->
+			<SourcePort condition="is">1812</SourcePort> <!--Radius-->
+			<DestinationPort condition="is">1812</DestinationPort> <!--Radius-->
+			<SourcePort condition="is">49154</SourcePort>  <!--DFRS/ADFS Replication spam-->
+			<DestinationPort condition="is">49154</DestinationPort>  <!--DFRS/ADFS Replication spam-->
+			<SourcePort condition="is">59241</SourcePort>  <!--DFRS/ADFS Replication spam-->
+			<DestinationPort condition="is">59241</DestinationPort>  <!--DFRS/ADFS Replication spam-->
+			<SourcePort condition="is">52176</SourcePort>  <!--DFRS/ADFS Replication spam-->
+			<DestinationPort condition="is">52176</DestinationPort>  <!--DFRS/ADFS Replication spam-->
+			<SourcePort condition="is">49209</SourcePort>  <!--DFRS/ADFS Replication spam-->
+			<DestinationPort condition="is">49209</DestinationPort>  <!--DFRS/ADFS Replication spam-->
+			<SourcePort condition="is">6007</SourcePort>  <!--Exchange WMI Spam-->
+			<DestinationPort condition="is">6007</DestinationPort>  <!--Exchange WMI Spam-->
+			<Image condition="end with">C:\Program Files (x86)\SmartGit\jre\bin\java.exe</Image>
+			<Image condition="end with">C:\Program Files (x86)\SyncedTool\bin\autoupdate.exe</Image>
 			<Image condition="end with">penv\Scripts\python.exe</Image> <!-- eFolder Anchor Server -->
 			<DestinationHostname condition="begin with">efolder01</DestinationHostname> <!-- eFolder Noise -->
 			<DestinationPort condition="is">2080</DestinationPort><!--eFolder Noise -->
 			<Image condition="end with">g2mcomm.exe</Image> <!-- gotomeeting noise -->
-			<Image condition="is">C:\Program Files (x86)\LabTech Client\LTClient.exe</Image>
-			<Image condition="is">C:\Windows\LTSvc\LTSVC.exe</Image>
-			<Image condition="is">C:\Program Files (x86)\Webroot\WRSA.exe</Image>
+			<Image condition="end with">C:\Program Files (x86)\LabTech Client\LTClient.exe</Image>
+			<Image condition="end with">C:\Windows\LTSvc\LTSVC.exe</Image>
+			<Image condition="end with">C:\Program Files (x86)\Webroot\WRSA.exe</Image>
 			<Image condition="begin with">C:\Program Files (x86)\SmartGit\</Image>
 			<Image condition="end with">DSPro\Programs\pr001Celery98.exe</Image>
 			<Image condition="image">g2ax_comm_expert.exe</Image> <!--GoToMeeting-->
@@ -1308,6 +1451,7 @@
 			<ImageLoaded condition="contains">\Temp\</ImageLoaded>
 			<ImageLoaded name="MitreRef=T1128,Technique=Netsh Helper Beacon DLL,Tactic=Persistence,Alert=Cobalt Strike Netsh Helper Beacon" condition="contains">NetshHelperBeacon</ImageLoaded>
 			<Image name="MitreRef=T1128,Technique=Netsh Helper Beacon DLL,Tactic=Persistence" condition="contains">netsh.exe</Image>
+			<ImageLoaded name="Alert=Ramnit Banker Malware!" condition="contains">rmnsoft.dll</ImageLoaded>
 		</ImageLoad>
 		<ImageLoad onmatch="exclude">
 			<SignatureStatus condition="is">Valid</SignatureStatus>
@@ -1399,7 +1543,7 @@
 
 		<!--DATA: RuleName, UtcTime, SourceProcessGuid, SourceProcessId, SourceImage, TargetProcessId, TargetImage, NewThreadId, StartAddress, StartModule, StartFunction-->
 		<CreateRemoteThread onmatch="include">
-			<StartFunction name="MitreRef=T1055,Technique=DLL Injection via LoadLibrary API Call,Tactic=Defense Evasion" condition="contains">LoadLibrary</StartFunction>
+			<StartFunction name="MitreRef=T1055,Technique=DLL Injection via LoadLibrary API Call,Tactic=Defense Evasion,Alert=DLL Injection via LoadLibrary API Call" condition="contains">LoadLibrary</StartFunction>
 			<SourceImage condition="contains">\</SourceImage>
 		</CreateRemoteThread>
 		<CreateRemoteThread onmatch="exclude">
@@ -1461,7 +1605,6 @@
 			PROCESS_VM_WRITE (0x0020)
 			PROCESS_VM_READ (0x0010)
 			PROCESS_VM_OPERATION (0x0008)
-          
 			0x1410 (potential memory read) is common activity. E.g. by taskmgr.exe. We only want to capture this against lsass.exe and winlogon.exe, but this logic is in the subscription.
 			-->
 			<GrantedAccess condition="is">0x40</GrantedAccess>
@@ -1472,7 +1615,6 @@
 			<GrantedAccess condition="is">0x3200</GrantedAccess>
 			<GrantedAccess condition="is">0x101400</GrantedAccess>
 			<GrantedAccess condition="is">0x101001</GrantedAccess>
-			
 			<!-- These binaries appear to access lsass legitimately -->
 			<SourceImage condition="is">C:\Windows\sysWOW64\wbem\wmiprvse.exe</SourceImage>
 			<SourceImage condition="begin with">C:\ProgramData\Microsoft\Windows Defender\platform\</SourceImage>
@@ -1654,11 +1796,7 @@
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">help_decrypt</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">help_restore</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.CRAB</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">cerber</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">_decrypt</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">-decrypt</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">decrypt-</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">decrypt_</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.cerber</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">help_decrypt</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">help_restore_files</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">HELP_YOUR_FILES</TargetFilename>
@@ -1773,7 +1911,7 @@
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">wowwhereismyfiles</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">decryptional</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">wowreadfordecryp</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">HERMES</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.HERMES</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">_DECRYPT_INFO_szesnl</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">000-IF-YOU-WANT-DEC-FILES</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.evillock</TargetFilename>
@@ -1800,7 +1938,7 @@
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">WE-MUST-DEC-FILES</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">powerfulldecrypt</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">opensourcemail.org</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">contains(to_string($message.file_created), "READ_ME_TO_DECRYPT_YOU_INFORMA</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">READ_ME_TO_DECRYPT_YOU_INFORMA</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">file0locked</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">CryptoRansomware</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.VBRANSOM</TargetFilename>
@@ -1824,7 +1962,7 @@
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.firecrypt</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">YOUR_FILES_ARE_DEAD</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="end with">.airacropencrypted!</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">mail.ru</TargetFilename>
+			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">@mail.ru</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">WHERE-YOUR-FILES</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">Whereisyourfiles</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">india.com</TargetFilename>
@@ -1858,7 +1996,6 @@
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">Important!.txt</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">!_HOW_TO_RESTORE_</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">HOW_TO_RESTORE_FILES</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">_README_</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">HOWTO_RECOVER_FILES_</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">HELP_RESTORE_FILES_</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">ThxForYurTyme</TargetFilename>
@@ -2026,7 +2163,6 @@
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">files_are_encrypted.</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">decryptmyfiles</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">help_instructions.</TargetFilename>
-			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">-recover-</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">de_crypt_readme.</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">!recover!</TargetFilename>
 			<TargetFilename name="Alert=Ransomware Detected!,ransomware_detected=True" condition="contains">recover}-</TargetFilename>
@@ -2136,12 +2272,12 @@
 			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.stubbin</TargetFilename>
 			<TargetFilename name="Alert=Samsam Ransomware Detected!,ransomware_detected=True" condition="end with">.berkshire</TargetFilename>
 			<!--SamSam Ransomware File drops -->
-			<TargetFilename condition="contains">www.exe</TargetFilename>
-			<TargetFilename condition="contains">ps.exe</TargetFilename>
-			<TargetFilename condition="contains">nt.exe</TargetFilename>
-			<TargetFilename condition="contains">doliohdyjkajd.dll</TargetFilename>
-			<TargetFilename condition="contains">run2.exe</TargetFilename>
-			<TargetFilename condition="contains">ping2.exe</TargetFilename>
+			<TargetFilename name="Alert=SamSam file created!" condition="end with">\www.exe</TargetFilename>
+			<TargetFilename name="Alert=SamSam file created!" condition="end with">\ps.exe</TargetFilename>
+			<TargetFilename name="Alert=SamSam file created!" condition="end with">\nt.exe</TargetFilename>
+			<TargetFilename name="Alert=SamSam file created!" condition="end with">\doliohdyjkajd.dll</TargetFilename>
+			<TargetFilename name="Alert=SamSam file created!" condition="end with">\run2.exe</TargetFilename>
+			<TargetFilename name="Alert=SamSam file created!" condition="end with">\ping2.exe</TargetFilename>
 			<!--END: SamSam Ransomware File drops -->
 			<!--SECTION: Certificates -->
 			<TargetFilename condition="contains">.pem</TargetFilename>
@@ -2160,7 +2296,7 @@
 			<TargetFilename condition="contains">.sst</TargetFilename>
 			<TargetFilename condition="contains">.key</TargetFilename>
 			<!--SECTION: CIA Vault7 Leak -->
-			<TargetFilename condition="contains">.mht</TargetFilename> <!-- Vault7 CIA Leak: Possible malformed file will escape IE sandbox -->
+			<TargetFilename name="Info=CIA Vault7 file created: https://wikileaks.org/ciav7p1/cms/page_16384212.html" condition="contains">.mht</TargetFilename> <!-- Vault7 CIA Leak: Possible malformed file will escape IE sandbox -->
 			<TargetFilename condition="contains">.cpl</TargetFilename> <!-- Vault7 CIA Leak: Control Panel Persistence -->
 			<TargetFilename condition="contains">.scr</TargetFilename> <!-- Vault7 CIA Leak: Screensaver Persistence -->
 			<TargetFilename condition="contains">.manifest</TargetFilename>
@@ -2250,14 +2386,12 @@
 			<Image condition="is">C:\Windows\system32\printfilterpipelinesvc.exe</Image>
 			<Image condition="is">C:\Program Files\Microsoft\Exchange Server\V15\FIP-FS\Bin\updateservice.exe</Image>
 			<Image condition="end with">\Runtime\1.0\NodeRunner.exe</Image><!--Exchange NodeRunner-->
-			
 		</FileCreate>
 
 	<!--SYSMON EVENT ID 12 & 13 & 14 : REGISTRY MODIFICATION [RegistryEvent]-->
 		<!--EVENT 12: "Registry object added or deleted"-->
 		<!--EVENT 13: "Registry value set-->
 		<!--EVENT 14: "Registry objected renamed"-->
-		
 		<!--NOTE:	"contains" conditions below are formatted to reduce CPU load, so they may appear written inconsistently, but this is on purpose from tuning.-->
 		<!--NOTE:	"contains" works by finding the first letter, then matching the second, etc, so the first letters should be as low-occurrence as possible.-->
 		<!--NOTE:	Windows writes hundreds or thousands of registry keys a minute, so just because you're not changing things, doesn't mean these rules aren't being run.-->
@@ -2278,7 +2412,7 @@
 				<!--ADDITIONAL REFERENCE: [ http://www.ghacks.net/2016/06/04/windows-automatic-startup-locations/ ] -->
 				<!--ADDITIONAL REFERENCE: [ https://view.officeapps.live.com/op/view.aspx?src=https://arsenalrecon.com/downloads/resources/Registry_Keys_Related_to_Autorun.ods ] -->
 				<!--ADDITIONAL REFERENCE: [ http://www.silentrunners.org/launchpoints.html ] -->
-			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="contains">\CurrentVersion\Run</TargetObject> <!--Microsoft:Windows: Run keys, incld RunOnce, RunOnceEx, RunServices, RunServicesOnce [Also covers terminal server] -->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=AutoRun Keys" condition="contains">\CurrentVersion\Run</TargetObject> <!--Microsoft:Windows: Run keys, incld RunOnce, RunOnceEx, RunServices, RunServicesOnce [Also covers terminal server] -->
 			<TargetObject condition="contains">\Group Policy\Scripts</TargetObject> <!--Microsoft:Windows: Group policy scripts-->
 			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="contains">\Windows\System\Scripts</TargetObject> <!--Microsoft:Windows: Logon, Loggoff, Shutdown-->
 			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="contains">\Microsoft\System\Scripts</TargetObject> <!--Microsoft:Windows: Legacy Logon, Loggoff, Shutdown Scripts-->
@@ -2286,7 +2420,6 @@
 			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="end with">\ImagePath</TargetObject> <!--Microsoft:Windows: Points to a service's EXE [ https://github.com/crypsisgroup/Splunkmon/blob/master/sysmon.cfg ] -->
 			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="end with">\Start</TargetObject> <!--Microsoft:Windows: Services start mode changes (Disabled, Automatically, Manual)-->
 			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="begin with">HKLM\SYSTEM\Setup\CmdLine</TargetObject>
-			<TargetObject name="MitreRef=T1209,Technique=Time Provider Keys,Tactic=Persistence,Alert=Detect Malicious Time Provider DLL" condition="begin with">HKLM\System\CurrentControlSet\Services\W32Time\TimeProviders\</TargetObject>
 			<TargetObject condition="contains">Session Manager\KnownDlls</TargetObject>
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Print\Monitors</TargetObject> <!-- Print Monitor DLL's loaded at startup can be malicious, lets monitor those -->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Print\Providers</TargetObject> <!-- Print Provider DLL's loaded at startup can be malicious, lets monitor those -->
@@ -2297,29 +2430,29 @@
 			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Control\Lsa\Authentication Packages</TargetObject> <!-- Windows Security Support Provider (SSP) DLLs are loaded into the Local Security Authority (LSA) process at system start. Once loaded into the LSA, SSP DLLs have access to encrypted and plaintext passwords that are stored in Windows, such as any logged-on user's Domain password or smart card PINs. -->
 			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Control\Lsa\OSConfig\Authentication Packages</TargetObject> <!-- Windows Security Support Provider (SSP) DLLs are loaded into the Local Security Authority (LSA) process at system start. Once loaded into the LSA, SSP DLLs have access to encrypted and plaintext passwords that are stored in Windows, such as any logged-on user's Domain password or smart card PINs. -->
 			<TargetObject condition="begin with">HKLM\HARDWARE\ACPI\DSDT</TargetObject> <!--Detect ACPI Rootkits -->
-			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=Detect Autorun Key persistenence" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify\</TargetObject> <!--Microsoft:Windows: Autorun location [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
-			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=Detect Autorun Key persistenence" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Userinit\</TargetObject> <!--Microsoft:Windows: Autorun location [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
-			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=Detect Autorun Key persistenence" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\VmApplet</TargetObject> <!--Microsoft:Windows: Legacy Autorun Location -->
-			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=Detect Autorun Key persistenence" condition="begin with">HKLM\System\CurrentControlSet\Control\Session Manager\Execute</TargetObject> <!--Microsoft:Windows: Legacy Autorun Location-->
-			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=Detect Autorun Key persistenence" condition="begin with">HKLM\System\CurrentControlSet\Control\Session Manager\SetupExecute</TargetObject> <!--Microsoft:Windows: Legacy Autorun Location-->
-			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=Detect Autorun Key persistenence" condition="begin with">HKLM\Software\Microsoft\WindowsNT\CurrentVersion\Winlogon</TargetObject> <!--Microsoft:Windows: Legacy Autorun Location-->
-			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=Detect Autorun Key persistenence" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\AppSetup</TargetObject> <!--Microsoft:Windows: Legacy Autorun Location-->
-			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=Detect Autorun Key persistenence" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\BootExecute</TargetObject> <!--Microsoft:Windows: Autorun | Credit @ion-storm | [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
-			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=Detect Autorun Key persistenence" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\BootVerificationProgram\ImagePath</TargetObject><!--Microsoft:Windows: Legacy Autorun may exist in server 2003-2008-->
-			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=Detect Autorun Key persistenence" condition="begin with">HKLM\Software\Microsoft\Command Processor\AutoRun</TargetObject> <!-- Legacy Autorun location -->
-			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=Detect Autorun Key persistenence" condition="begin with">HKLM\Software\Wow6432Node\Microsoft\Command Processor\AutoRun</TargetObject> <!-- Legacy Autorun location -->
-			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=Detect Autorun Key persistenence" condition="begin with">HKLU\Software\Microsoft\Command Processor\AutoRun</TargetObject> <!-- Legacy Autorun location -->
-			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=Detect Autorun Key persistenence" condition="begin with">HKLM\Software\Wow6432Node\Microsoft\Command Processor\AutoRun</TargetObject> <!-- Legacy Autorun location -->
-			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=Detect Autorun Key persistenence" condition="begin with">HKLM\Software\Microsoft\Windows NT\CurrentVersion\AeDebug</TargetObject> <!-- Windows Debugger Hijack Autorun -->
-			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=Detect Autorun Key persistenence" condition="begin with">HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\Shell</TargetObject> <!--Microsoft:Windows: [ https://technet.microsoft.com/en-us/library/ee851671.aspx ] -->
-			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=Detect Autorun Key persistenence" condition="contains">UserInitMprLogonScript</TargetObject> <!--Microsoft:Windows: Legacy logon script environment variable [ http://www.hexacorn.com/blog/2014/11/14/beyond-good-ol-run-key-part-18/ ] -->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=AutoRun Keys" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify\</TargetObject> <!--Microsoft:Windows: Autorun location [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=AutoRun Keys" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Userinit\</TargetObject> <!--Microsoft:Windows: Autorun location [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=AutoRun Keys" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\VmApplet</TargetObject> <!--Microsoft:Windows: Legacy Autorun Location -->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=AutoRun Keys" condition="begin with">HKLM\System\CurrentControlSet\Control\Session Manager\Execute</TargetObject> <!--Microsoft:Windows: Legacy Autorun Location-->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=AutoRun Keys" condition="begin with">HKLM\System\CurrentControlSet\Control\Session Manager\SetupExecute</TargetObject> <!--Microsoft:Windows: Legacy Autorun Location-->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=AutoRun Keys" condition="begin with">HKLM\Software\Microsoft\WindowsNT\CurrentVersion\Winlogon</TargetObject> <!--Microsoft:Windows: Legacy Autorun Location-->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=AutoRun Keys" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\AppSetup</TargetObject> <!--Microsoft:Windows: Legacy Autorun Location-->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=AutoRun Keys" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\BootExecute</TargetObject> <!--Microsoft:Windows: Autorun | Credit @ion-storm | [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\BootVerificationProgram\ImagePath</TargetObject><!--Microsoft:Windows: Legacy Autorun may exist in server 2003-2008-->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=AutoRun Keys" condition="begin with">HKLM\Software\Microsoft\Command Processor\AutoRun</TargetObject> <!-- Legacy Autorun location -->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=AutoRun Keys" condition="begin with">HKLM\Software\Wow6432Node\Microsoft\Command Processor\AutoRun</TargetObject> <!-- Legacy Autorun location -->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=AutoRun Keys" condition="begin with">HKLU\Software\Microsoft\Command Processor\AutoRun</TargetObject> <!-- Legacy Autorun location -->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=AutoRun Keys" condition="begin with">HKLM\Software\Wow6432Node\Microsoft\Command Processor\AutoRun</TargetObject> <!-- Legacy Autorun location -->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=AutoRun Keys" condition="begin with">HKLM\Software\Microsoft\Windows NT\CurrentVersion\AeDebug</TargetObject> <!-- Windows Debugger Hijack Autorun -->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=AutoRun Keys" condition="begin with">HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\Shell</TargetObject> <!--Microsoft:Windows: [ https://technet.microsoft.com/en-us/library/ee851671.aspx ] -->
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=AutoRun Keys" condition="contains">UserInitMprLogonScript</TargetObject> <!--Microsoft:Windows: Legacy logon script environment variable [ http://www.hexacorn.com/blog/2014/11/14/beyond-good-ol-run-key-part-18/ ] -->
 			<TargetObject condition="end with">\CurrentVersion\Font Drivers</TargetObject>
 			<TargetObject condition="contains">Active Setup\Installed Components</TargetObject>
 			<TargetObject condition="contains">Windows CE Services\AutoStartOnConnect</TargetObject>
 			<TargetObject condition="contains">Windows CE Services\AutoStartOnDisconnect</TargetObject>
 			<TargetObject condition="contains">CurrentVersion\Windows\IconServiceLib</TargetObject>
 			<TargetObject condition="contains">Winlogon\AlternateShells\AvailableShells</TargetObject>
-			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence" condition="contains">Terminal Server\Wds\rdpwd\StartupPrograms</TargetObject>
+			<TargetObject name="MitreRef=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=AutoRun Keys" condition="contains">Terminal Server\Wds\rdpwd\StartupPrograms</TargetObject>
 			<TargetObject condition="contains">SafeBoot\AlternateShell</TargetObject>
 			<TargetObject condition="contains">Terminal Server\WinStations\RDP-Tcp\InitialProgram</TargetObject>
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Taskman</TargetObject>
@@ -2380,7 +2513,7 @@
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\Credential Provider</TargetObject> <!--Wildcard, includes Credental Providers and Credential Provider Filters-->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\</TargetObject>
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SecurityProviders</TargetObject> <!--Microsoft:Windows: Changes to WDigest-UseLogonCredential for password scraping [ https://www.trustedsec.com/april-2015/dumping-wdigest-creds-with-meterpreter-mimikatzkiwi-in-windows-8-1/ ] -->
-			<TargetObject name="MitreRef=T1128,Technique=Netsh Helper Beacon DLL,Tactic=Persistence" condition="begin with">HKLM\SOFTWARE\Microsoft\Netsh</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1128 ] -->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Netsh</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1128 ] -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\Credential Provider Filters</TargetObject>
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\PLAP Providers</TargetObject>
 			<!--Networking-->
@@ -2533,9 +2666,7 @@
 			<TargetObject name="NetNTLM downgrade attack" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\lmcompatibilitylevel</TargetObject> <!--Detects post exploitation using NetNTLM downgrade attacks-->
 			<TargetObject name="NetNTLM downgrade attack" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\NtlmMinClientSec</TargetObject> <!--Detects post exploitation using NetNTLM downgrade attacks-->
 			<TargetObject name="NetNTLM downgrade attack" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\RestrictSendingNTLMTraffic</TargetObject> <!--Detects post exploitation using NetNTLM downgrade attacks-->
-
 		</RegistryEvent>
-
 		<RegistryEvent onmatch="exclude">
 		<!--COMMENT:	Remove low-information noise. Often these hide a process recreating an empty key and do not hide the values created subsequently.-->
 			<!--SECTION: Microsoft binaries-->
@@ -2569,6 +2700,7 @@
 			<TargetObject condition="end with">\CurrentVersion\Image File Execution Options</TargetObject> <!--Microsoft:Windows: Remove noise from the "\Windows\CurrentVersion\Image File Execution Options" wildcard-->
 			<TargetObject condition="end with">\CurrentVersion\Shell Extensions\Cached</TargetObject> <!--Microsoft:Windows: Remove noise from the "\CurrentVersion\Shell Extensions\Cached" wildcard-->
 			<TargetObject condition="end with">\CurrentVersion\Shell Extensions\Approved</TargetObject> <!--Microsoft:Windows: Remove noise from the "\CurrentVersion\Shell Extensions\Approved" wildcard-->
+			<TargetObject condition="end with">\PreviousPolicyAreas</TargetObject> <!--Microsoft:Windows: Remove noise from \Winlogon\GPExtensions by svchost.exe-->
 			<TargetObject condition="end with">}\PreviousPolicyAreas</TargetObject> <!--Microsoft:Windows: Remove noise from \Winlogon\GPExtensions by svchost.exe-->
 			<TargetObject condition="contains">\Control\WMI\Autologger\</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "\Start"-->
 			<TargetObject condition="end with">HKLM\SYSTEM\CurrentControlSet\Services\UsoSvc\Start</TargetObject> <!--Microsoft:Windows: Remove noise from monitoring "\Start"-->
@@ -2741,12 +2873,6 @@
 		<!--NOTE: Other filesystem minifilters can make it appear to Sysmon that some files are being written twice. This is not a Sysmon issue, per Mark Russinovich.-->
 
 		<!--DATA: RuleName, UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime, Hash-->
-		<FileCreateStreamHash onmatch="exclude">
-			<TargetFilename condition="end with">.default\prefs-1.js</TargetFilename> <!--Exclude: Firefox prefs update spam-->
-			<TargetFilename condition="contains">\Mozilla\Firefox\Profiles\</TargetFilename>
-			<TargetFilename condition="contains">\Microsoft\Windows\INetCache\</TargetFilename> <!--Exclude: IE Cache Spam-->
-			<TargetFilename condition="contains">\Microsoft\Windows\Temporary Internet Files\Content.IE5</TargetFilename> <!--Exclude: IE Cache Spam-->
-		</FileCreateStreamHash>
 		<FileCreateStreamHash onmatch="include">
 			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL= https://attack.mitre.org/wiki/Technique/T1096" condition="contains">Content.Outlook</TargetFilename> <!--Microsoft:Outlook: Attachments--> <!--PRIVACY WARNING-->
 			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL= https://attack.mitre.org/wiki/Technique/T1096" condition="contains">Downloads</TargetFilename> <!--Downloaded files. Does not include "Run" files in IE-->
@@ -2801,6 +2927,16 @@
 			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL= https://attack.mitre.org/wiki/Technique/T1096" condition="contains">.cpl</TargetFilename> <!-- Vault7 CIA Leak: Control Panel Persistence -->
 			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL= https://attack.mitre.org/wiki/Technique/T1096" condition="contains">.scr</TargetFilename> <!-- Vault7 CIA Leak: Screensaver Persistence -->
 			<TargetFilename name="MitreRef=T1096,Technique=Alternate Data Stream,Tactic=Defense Evasion,MitreURL= https://attack.mitre.org/wiki/Technique/T1096" condition="contains">.inf</TargetFilename> <!-- Vault7 CIA Leak: Sandworm: Uses INF File to bypass UAC on windows 7 -->
+			<Hash name="Alert=Ramnit Banker Trojan!" condition="contains">291ff87948e45914424cec9510c297da</Hash><!--Ramnit Banker Malware: https://www.virustotal.com/#/file/7f054300fa64e7bcdec7f5538876e6008d6164f21ff21c6375e36dfe04a63412/details-->
+			<Hash name="Alert=Ramnit Banker Trojan!" condition="contains">304772c80b157a916c7041f2f15939fb</Hash><!--Ramnit Banker Malware: https://www.virustotal.com/#/file/7f054300fa64e7bcdec7f5538876e6008d6164f21ff21c6375e36dfe04a63412/details-->
+			<Hash name="Alert=Docusign Phish!" condition="contains">5E022694C0DBD1FBBC263D608E577949</Hash><!--Docusign Spam:https://www.vkremez.com/2018/03/malware-spam-internals-docusign-spam.html -->
+			<Hash name="Alert=Docusign Phish!" condition="contains">88ce6c0affcdbdc82abe53957dddfa12</Hash><!--Docusign Spam:https://www.vkremez.com/2018/03/malware-spam-internals-docusign-spam.html -->
+		</FileCreateStreamHash>
+		<FileCreateStreamHash onmatch="exclude">
+			<TargetFilename condition="end with">.default\prefs-1.js</TargetFilename> <!--Exclude: Firefox prefs update spam-->
+			<TargetFilename condition="contains">\Mozilla\Firefox\Profiles\</TargetFilename>
+			<TargetFilename condition="contains">\Microsoft\Windows\INetCache\</TargetFilename> <!--Exclude: IE Cache Spam-->
+			<TargetFilename condition="contains">\Microsoft\Windows\Temporary Internet Files\Content.IE5</TargetFilename> <!--Exclude: IE Cache Spam-->
 		</FileCreateStreamHash>
 
 	<!--SYSMON EVENT ID 16 : SYSMON CONFIGURATION CHANGE-->
@@ -2942,7 +3078,6 @@
 			<!--SECTION: Sophos VPN Client-->
 			<Image condition="is">c:\program files (x86)\sophos\sophos ssl vpn client\bin\openvpnserv.exe</Image>
 			<!--SECTION: Labtech-->
-			<Image condition="is">C:\Windows\LTSvc\LTSVC.exe</Image>
 			<Image condition="contains">ScreenConnect.WindowsClient.exe</Image>
 			<Image condition="contains">ScreenConnect.ClientService.exe</Image>
 			<!--SECTION: N-Able -->
@@ -2961,7 +3096,6 @@
 			<Image condition="is">C:\Program Files (x86)\SmartGit\git\mingw32\bin\git.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\SmartGit\git\mingw32\libexec\git-core\git.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\SmartGit\bin\smartgit.exe</Image>
-			<PipeName condition="contains">Anonymous Pipe</PipeName> <!-- NOTICE: Comment this out if you dont use Labtech, labtech nests processes and causes excessive noise -->
 			<Image condition="is">C:\Program Files (x86)\Fortinet\FortiClient\FortiESNAC.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Fortinet\FortiClient\update_task.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Fortinet\FortiClient\FortiTray.exe</Image>
