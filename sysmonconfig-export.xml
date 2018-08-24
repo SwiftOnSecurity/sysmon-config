@@ -91,8 +91,8 @@
 			<Image name="MitreRef=T1057,Technique=Process Discovery,Tactic=Discovery,Alert=Process Discovery" condition="end with">qprocess.exe</Image> <!--Microsoft:Windows: shows information about processes -->
 			<Image name="MitreRef=T1049,Technique=System Network Connections Discovery,Tactic=Discovery,Alert=User enumeration/Discovery" condition="end with">quser.exe</Image> <!--Microsoft:Windows: shows logged-on users -->
 			<Image name="MitreRef=T1016,Technique=System Network Configuration Discovery,Tactic=Discovery,Alert=Network Configureation discovery with route.exe" condition="end with">\route.exe</Image> <!--Microsoft:Windows: manipulates network routing tables -->
-			<CommandLine name="MitreRef=T1016,Technique=System Information Discovery,Tactic=Discovery,Alert=System information discovery with reg.exe" condition="contains">reg query</CommandLine> <!--Microsoft:Windows: reads and modifies the Windows register -->
-			<CommandLine name="MitreRef=T1016,Technique=System Information Discovery,Tactic=Discovery,Alert=System information discovery with reg.exe" condition="contains">reg.exe query</CommandLine> <!--Microsoft:Windows: reads and modifies the Windows register -->
+			<CommandLine name="MitreRef=T1016,Technique=System Information Discovery,Tactic=Discovery,Info=System information discovery with reg.exe" condition="contains">reg query</CommandLine> <!--Microsoft:Windows: reads and modifies the Windows register -->
+			<CommandLine name="MitreRef=T1016,Technique=System Information Discovery,Tactic=Discovery,Info=System information discovery with reg.exe" condition="contains">reg.exe query</CommandLine> <!--Microsoft:Windows: reads and modifies the Windows register -->
 			<Image name="MitreRef=T1016,Technique=System Network Connections Discovery,Tactic=Discovery,Alert=Network Connection Discovery with netsh" condition="end with">netsh.exe</Image> <!--Microsoft:Windows: manipulate the firewall -->
 			<!--MITRE TACTIC: Execution-->
 			<CommandLine name="MitreRef=T1059,Technique=Command-Line Interface,Tactic=Execution,Alert=Metasploit Detection" condition="contains">COMSPEC</CommandLine>
