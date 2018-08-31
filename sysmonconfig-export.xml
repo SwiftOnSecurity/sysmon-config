@@ -1670,11 +1670,15 @@
 
 		<!--DATA: RuleName, UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime-->
 		<FileCreate onmatch="include">
+			<TargetFilename condition="begin with">C:\Windows\Prefetch</TargetFilename> <!--Microsoft:Windows: Prefetch Forensics that may possibly bypass sysmon-->
+			<TargetFilename condition="begin with">C:\Windows\System32\drivers</TargetFilename> <!--Microsoft:Windows: Monitor Driver Drops & hosts location-->
 			<TargetFilename condition="contains">\Start Menu</TargetFilename> <!--Microsoft:Windows: Startup links and shortcut modification-->
 			<TargetFilename condition="contains">\Startup</TargetFilename> <!--Microsoft:Office: Changes to user's autoloaded files under AppData-->
 			<TargetFilename name="MitreRef=T1060,Technique=Autorun Folder Entries,Tactic=Persistence" condition="contains">\Programs\Startup</TargetFilename> <!--Microsoft:Windows: Autorun Startup Folder-->
 			<TargetFilename condition="contains">\Content.Outlook\</TargetFilename> <!--Microsoft:Outlook: attachments--> <!--PRIVACY WARNING-->
 			<TargetFilename condition="contains">\Downloads\</TargetFilename> <!--Downloaded files. Does not include "Run" files in IE--> <!--PRIVACY WARNING-->
+			<TargetFilename condition="contains">$RECYCLE.BIN</TargetFilename> <!--Files created in Recycle bin-->
+			<TargetFilename condition="contains">\Microsoft\Office\Recent</TargetFilename> <!--Recent Office History-->
 			<TargetFilename condition="end with">.dll</TargetFilename> <!-- Lets detect DLL's being dropped in locations and to detect DLL Search Order Hijacking -->
 			<TargetFilename condition="end with">.ocx</TargetFilename>
 			<TargetFilename condition="end with">.sys</TargetFilename> <!-- Lets detect Drivers's being dropped in locations -->
@@ -1738,6 +1742,10 @@
 			<TargetFilename condition="begin with">C:\Windows\SysWOW64\WindowsPowerShell</TargetFilename> <!--Microsoft:Powershell: Look for modifications for persistence [ https://www.malwarearchaeology.com/cheat-sheets ] -->
 			<TargetFilename condition="begin with">C:\Windows\Tasks\</TargetFilename> <!--Microsoft:ScheduledTasks -->
 			<TargetFilename condition="begin with">C:\Windows\System32\Tasks</TargetFilename> <!--Microsoft:ScheduledTasks -->
+			<TargetFilename condition="begin with">C:\Windows\SysWow64\Tasks</TargetFilename> <!--Microsoft:ScheduledTasks -->
+			<TargetFilename condition="begin with">C:\Windows\Minidump</TargetFilename> <!--Windows Minidumps -->
+			<TargetFilename condition="contains">Microsoft\Windows\WER\</TargetFilename> <!--Windows Minidumps -->
+			<TargetFilename condition="end with">MEMORY.dmp</TargetFilename> <!--Microsoft:ScheduledTasks -->
 			<TargetFilename condition="begin with">C:\Windows\AppPatch\Custom</TargetFilename> <!--Microsoft:Windows: Application compatibility shims [ https://www.fireeye.com/blog/threat-research/2017/05/fin7-shim-databases-persistence.html ] -->
 			<TargetFilename condition="end with">.cmdline</TargetFilename> <!--Microsoft:dotNet: Executed by cvtres.exe-->
 			<TargetFilename condition="begin with">C:\Windows\System32\</TargetFilename> <!--Microsoft: Files dropped here -->
@@ -2466,6 +2474,7 @@
 			<TargetObject condition="contains">\shell\install\command\</TargetObject> <!--Microsoft:Windows: Sensitive subkey under file associations and CLSID that map to launch command-->
 			<TargetObject condition="contains">\shell\open\command\</TargetObject> <!--Microsoft:Windows: Sensitive subkey under file associations and CLSID that map to launch command-->
 			<TargetObject condition="contains">\shell\open\ddeexec\</TargetObject> <!--Microsoft:Windows: Sensitive subkey under file associations and CLSID that map to launch command-->
+			<TargetObject condition="contains">SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList\</TargetObject><!--Lets Get SID History and other info for Forensics, this is created on logon-->
 			<!--Windows COM-->
 			<TargetObject condition="end with">\InprocServer32\(Default)</TargetObject> <!--Microsoft:Windows:COM Object Hijacking [ https://blog.gdatasoftware.com/2014/10/23941-com-object-hijacking-the-discreet-way-of-persistence ] | Credit @ion-storm -->
 			<!--Windows shell hijack-->
