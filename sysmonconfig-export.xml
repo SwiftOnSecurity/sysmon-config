@@ -243,7 +243,8 @@
 			<Image name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land-detect aliases" condition="end with">doskey.exe</Image>
 	  		<!--                                                                                                                                            -->
 			<!--Mavinject -->
-	        <Image name="MitreRef=T1218,Technique=Mavinject" condition="end with">Mavinject.exe</Image>
+	        <Image name="MitreRef=T1218,Technique=Mavinject,Alert=Process Injection" condition="end with">Mavinject.exe</Image>
+	        <CommandLine name="MitreRef=T1218,Technique=Mavinject,Alert=Process Injection" condition="contains">/INJECTRUNNING</CommandLine>
 			<Image name="MitreRef=T1191,Technique=Mavinject" condition="end with">CMSTP.exe</Image>
 	  		<!--                                                                                                                                            -->
 			<CommandLine name="MitreRef=T1105,Technique=Command and Control/Lateral Movement" condition="contains">certutil.exe -decode</CommandLine>
@@ -892,7 +893,7 @@
 			<CommandLine condition="contains">\sysmon\Auto_Update.bat</CommandLine>
 			<CommandLine condition="contains">ion-storm/sysmon-config</CommandLine>
 			 <!--Exclude: Netlogon scripts-->
-			<ParentCommandLine condition="contains">\netlogon\</ParentCommandLine>
+			<ParentCommandLine name="MitreRef=T1037,Technique=Logon Scripts,Tactic=Lateral Movement Persistence" condition="contains">\netlogon\</ParentCommandLine>
 			<CommandLine condition="contains">\netlogon\</CommandLine>
 			<ParentImage condition="is">C:\PROGRA~2\SAAZOD\SAAZMSMACTL.EXE</ParentImage>
 			 <!--Exclude: Too noisy in a domain environment with legacy logon scripts-->
@@ -1142,14 +1143,14 @@
 			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">cryptmonero</DestinationHostname>
 			<DestinationHostname name="Alert=Crypto Currency Miner" condition="contains">mineXMR</DestinationHostname>
 			<!--Ports-->
-			<DestinationPort name="Service=HTTP Connection" condition="is">80</DestinationPort>
-			<DestinationPort name="Service=HTTPS Connection" condition="is">443</DestinationPort>
+			<DestinationPort name="Technique=Commonly Used Port,Tactic=Command and Control,MitreRef=1043" condition="is">80</DestinationPort>
+			<DestinationPort name="Technique=Commonly Used Port,Tactic=Command and Control,MitreRef=1043" condition="is">443</DestinationPort>
 			<DestinationPort name="Service=Remote Desktop Connection" condition="is">3389</DestinationPort>
 			<DestinationPort condition="is">3540</DestinationPort> <!--Remote Assistance Port-->
-			<DestinationPort name="Service=SSH Connection" condition="is">22</DestinationPort>
-			<DestinationPort name="Service=Telnet" condition="is">23</DestinationPort>
-			<DestinationPort name="Service=SMTP" condition="is">25</DestinationPort>
-			<DestinationPort name="Service=SMB" condition="is">139</DestinationPort>
+			<DestinationPort name="Technique=Commonly Used Port,Tactic=Command and Control,MitreRef=1043" condition="is">22</DestinationPort>
+			<DestinationPort name="Technique=Commonly Used Port,Tactic=Command and Control,MitreRef=1043" condition="is">23</DestinationPort>
+			<DestinationPort name="Technique=Commonly Used Port,Tactic=Command and Control,MitreRef=1043" condition="is">25</DestinationPort>
+			<DestinationPort name="Technique=Commonly Used Port,Tactic=Command and Control,MitreRef=1043" condition="is">139</DestinationPort>
 			<!--<DestinationPort condition="is">445</DestinationPort> SMB Port: Removed because of noise-->
 			<DestinationPort name="Service=VNC" condition="is">5800</DestinationPort>
 			<DestinationPort name="Service=VNC" condition="is">5900</DestinationPort>
@@ -2519,7 +2520,7 @@
 			<!--Networking-->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\NetworkProvider\Order\</TargetObject> <!--Microsoft:Windows: Order of network providers that are checked to connect to destination [ https://www.malwarearchaeology.com/cheat-sheets ] -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Profiles</TargetObject> <!--Microsoft:Windows: | Credit @ion-storm -->
-			<TargetObject condition="end with">EnableFirewall</TargetObject> <!--Microsoft:Windows: Monitor for firewall disablement [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
+			<TargetObject name="Technique=Disabling Security Tools,Tactic=Defense Evasion,MitreRef=1089" condition="end with">EnableFirewall</TargetObject> <!--Microsoft:Windows: Monitor for firewall disablement [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
 			<!--DLLs that get injected into every process launch-->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/windows/desktop/dd744762(v=vs.85).aspx ] -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/windows/desktop/dn280412(v=vs.85).aspx ] -->
@@ -2616,7 +2617,7 @@
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection\DisableBehaviorMonitoring</TargetObject>
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection\DisableOnAccessProtection</TargetObject>
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection\DisableScanOnRealtimeEnable</TargetObject>
-			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters\DisablePasswordChange</TargetObject> <!-- Detect disabling of machine password change -->
+			<TargetObject name="Technique=Disabling Security Tools,Tactic=Defense Evasion,MitreRef=1089" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters\DisablePasswordChange</TargetObject> <!-- Detect disabling of machine password change -->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters\RefusePasswordChange</TargetObject> <!-- Causes the domain controller to refuse password change requests only from workstations or member servers -->
 			<!-- Detect Root Certificate Store Hijacking and Unauthorized changes -->
 			<!-- Lots of noise from multiple locations, need a better monitor
