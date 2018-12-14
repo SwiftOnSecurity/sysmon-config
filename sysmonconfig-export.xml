@@ -800,56 +800,6 @@
 			<Image condition="is">C:\Program Files\Synaptics\SynTP\SynTPEnh.exe</Image>
 			<Image condition="is">C:\Program Files\Synaptics\SynTP\SynTPEnhService.exe</Image>
 			<!--SECTION: Custom Apps-->
-			<!--SECTION: Labtech -->
-			<!--Since Labtech nests its processes, the following exclusions could be exploited, remove if you do not need-->
-			<!--TODO: Will define these more in the future-->
-			<ParentCommandLine condition="is">C:\Windows\LTSvc\LTSVC.exe -sLTService</ParentCommandLine> <!--Labtech Agent-->
-			<ParentImage condition="is">C:\Windows\LTSvc\LTSVC.exe</ParentImage> <!--Labtech Agent-->
-			<CurrentDirectory condition="is">C:\Windows\LTSvc\</CurrentDirectory><!--Labtech Agent: Noise from nested processes in labtech-->
-			<CommandLine condition="contains">find /i "Listening"</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
-			<CommandLine condition="contains">netstat -an</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
-			<CommandLine condition="contains">tasklist</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
-			<CommandLine condition="contains">nslookup</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
-			<CommandLine condition="contains">nbtstat.exe</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
-			<CommandLine condition="contains">dsquery</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
-			<CommandLine condition="contains">sc query</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
-			<ParentCommandLine condition="contains">find /i "Listening"</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
-			<ParentCommandLine condition="contains">netstat -an</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
-			<ParentCommandLine condition="contains">tasklist</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
-			<ParentCommandLine condition="contains">interface tcp show global</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
-			<ParentCommandLine condition="contains">wmic path win32_operatingsystem get</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
-			<ParentCommandLine condition="contains">sc queryex type= service</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
-			<ParentCommandLine condition="contains">C:\Program Files (x86)\StorageCraft\ImageManager\ImageManager.exe</ParentCommandLine> <!--ShadowProtect noise -->
-			<ParentCommandLine condition="contains">raw_agent_svc.exe</ParentCommandLine> <!--ShadowProtect noise -->
-			<ParentImage condition="end with">raw_agent_svc.exe</ParentImage> <!--ShadowProtect noise -->
-			<CommandLine condition="contains">IscsidscInterface.exe</CommandLine> <!--ShadowProtect noise -->
-			<ParentCommandLine condition="contains">IscsidscInterface.exe</ParentCommandLine> <!--ShadowProtect noise -->
-			<ParentCommandLine condition="contains">Add-PSSnapin Microsoft.SharePoint.PowerShell</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
-			<CommandLine condition="contains">find /i "Listening"</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
-			<CommandLine condition="contains">netstat -an</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
-			<CommandLine condition="contains">tasklist</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
-			<CommandLine condition="contains">wmic path win32_operatingsystem get</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
-			<CommandLine condition="contains">sc queryex type= service</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
-			<CommandLine condition="contains">C:\Program Files\StorageCraft\ImageManager\ImageManager.exe</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
-			<CommandLine condition="contains">Add-PSSnapin Microsoft.SharePoint.PowerShell</CommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
-			<CommandLine condition="contains">Get-ItemProperty HKLM:\software\microsoft\windows\currentversion\uninstall\* | select-object displayname</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
-			<CommandLine condition="contains">Get-WmiObject -Query 'SELECT LicensingType FROM Win32_TerminalServiceSetting').LicensingType</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
-			<CommandLine condition="contains">Get-WmiObject -Namespace Root\CimV2\TerminalServices</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
-			<CommandLine condition="contains">tasklist</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
-			<ParentCommandLine condition="contains">vssadmin list writers</ParentCommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
-			<CommandLine condition="contains">vssadmin  list writers</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
-			<ParentCommandLine condition="contains">net view \\localhost | find " Print</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
-			<ParentCommandLine condition="contains">net view \\localhost | find " Disk</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
-			<CommandLine condition="contains">C:\Windows\system32\net1 Share</CommandLine><!--Labtech Agent: Noise from nested processes in labtech-->
-			<ParentCommandLine condition="contains">Get-ItemProperty HKLM:\software\microsoft\windows\currentversion\uninstall\* | select-object displayname | format-table -autosize" | find /i "vss writer" | find /i "sql server""</ParentCommandLine> <!--Labtech Agent: Noise from nested processes in labtech-->
-			<ParentImage condition="is">C:\Program Files (x86)\LabTech Client\LTClient.exe</ParentImage> <!--Labtech Client-->
-			<ParentCommandLine condition="contains">C:\Windows\LTSvc\LTSvcMon.exe -sLTService</ParentCommandLine>
-			<ParentImage condition="is">C:\Windows\LTSvc\LTSvcMon.exe</ParentImage>
-			<Image condition="is">C:\Windows\LTSvc\LTTray.exe</Image>
-			<ParentCommandLine condition="contains">Get-ItemProperty HKLM:\software\microsoft\windows\currentversion\uninstall</ParentCommandLine>
-			<CommandLine condition="contains">interface tcp show global</CommandLine>
-			<Image condition="is">nslookup.exe</Image><!--Labtech NStest.bat lookups-->
-			<!--END: Labtech-->
 			<Image condition="end with">ScreenConnect.WindowsClient.exe</Image><!--Screenconnect Remote Desktop Client-->
 			<Image condition="begin with">C:\Program Files (x86)\SmartGit</Image> <!--SmartGit-->
 			<ParentImage condition="begin with">C:\Program Files (x86)\SmartGit</ParentImage> <!--SmartGit-->
@@ -1546,6 +1496,7 @@
 		<CreateRemoteThread onmatch="include">
 			<StartFunction name="MitreRef=T1055,Technique=DLL Injection via LoadLibrary API Call,Tactic=Defense Evasion,Alert=DLL Injection via LoadLibrary API Call" condition="contains">LoadLibrary</StartFunction>
 			<SourceImage condition="contains">\</SourceImage>
+			<StartAddress name="Alert=Cobalt Strike Detected!"  condition="end with">0B80</StartAddress>
 		</CreateRemoteThread>
 		<CreateRemoteThread onmatch="exclude">
 			<!--COMMENT: Exclude mostly-safe sources and log anything else.-->
@@ -2311,6 +2262,7 @@
 			<TargetFilename condition="contains">.manifest</TargetFilename>
 			<TargetFilename condition="contains">.inf</TargetFilename> <!-- Vault7 CIA Leak: Sandworm: Uses INF File to bypass UAC on windows 7 -->
 			<TargetFilename condition="contains">HammerDrillStatus.dll</TargetFilename> <!-- Vault7 CIA Leak: HammerDrill DLL -->
+			<TargetFilename condition="contains">PSReadLine\ConsoleHost_history.txt</TargetFilename> <!-- Powershell History -->
 			<!--SECTION: Mimikatz-->
 			<!--Default-disable <TargetFileName condition="end with">.kirbi</TargetFileName> --> <!-- [ https://github.com/gentilkiwi/mimikatz/wiki/module-~-kerberos ] -->
 		</FileCreate>
@@ -2585,10 +2537,12 @@
 			<TargetObject condition="end with">DHCPDefaultGateway</TargetObject><!--Networking: Detect changes-->
 			<TargetObject condition="end with">DhcpIPAddress</TargetObject><!--Networking: Detect changes-->
 			<TargetObject condition="end with">DhcpNameserver</TargetObject><!--Networking: Detect changes-->
+			<TargetObject condition="end with">Nameserver</TargetObject><!--Networking: Detect changes-->
 			<TargetObject condition="end with">Dhcpserver</TargetObject><!--Networking: Detect changes-->
 			<TargetObject condition="end with">DhcpSubnetMask</TargetObject><!--Networking: Detect changes-->
 			<TargetObject condition="end with">SubnetMask</TargetObject><!--Networking: Detect changes-->
 			<TargetObject condition="end with">PersistentRoutes</TargetObject><!--Networking: Detect persistent routes-->
+			<TargetObject condition="end with">}\Category</TargetObject><!--Networking: Detect Network type change-->
 			<!--Detect User Activity-->
 			<TargetObject condition="contains">\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU</TargetObject>
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Enum\USBSTOR</TargetObject>
@@ -2687,8 +2641,11 @@
 			<Image condition="is">C:\Program Files (x86)\Microsoft Office\Office15\lync.exe</Image> <!-- Lync Adding registry values to network adapter.. facepalm -->
 			<Image condition="is">C:\Windows\SystemApps\Microsoft.Windows.Cortana_cw5n1h2txyewy\SearchUI.exe</Image>
 			<Image condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</Image>
+			<Image condition="contains">\Microsoft\Exchange Server</Image>
 			<TargetObject condition="contains">Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\ExtensionsStore\</TargetObject> <!-- Edge Extensions Creating Reg entries on launch -->
 			<!--Misc-->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\ExchangeServer\</TargetObject>
+			<TargetObject condition="begin with">HKLM\CLUSTER\ExchangeActiveManager</TargetObject>
 			<TargetObject condition="begin with">HKLM\SOFTWARE\MICROSOFT\WINDOWS NT\CURRENTVERSION\Schedule\TaskCache\Tree\Optimize Start Menu Cache Files-</TargetObject>
 			<TargetObject condition="begin with">HKLM\SOFTWARE\MICROSOFT\WINDOWS NT\CURRENTVERSION\Schedule\TaskCache\Tree\User_Feed_Synchronization-</TargetObject>
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\UpdateOrchestrator</TargetObject>
