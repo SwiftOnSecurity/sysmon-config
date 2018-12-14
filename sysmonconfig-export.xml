@@ -242,7 +242,7 @@
 			<Image name="MitreRef=T1202,Technique=Hacking/LOLBins-Living off the Land,Alert=Program Compatibility bypass" condition="image">pcalua.exe</Image> <!--Microsoft:Windows: Program Compatibility Assistant)-->
 			<Image name="MitreRef=T1158,Technique=Hacking/LOLBins-Living off the Land,Alert=Attrib bypass" condition="image">attrib.exe</Image>
 			<Image name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land,Alert=Possible credential modification or disclosure with cmdkey" condition="image">cmdkey.exe</Image> <!--Microsoft:Windows: creates, lists, and deletes stored user names and passwords or credentials.-->
-			<Image name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land,AlertNLTest=" condition="end with">nltest.exe</Image>
+			<Image name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land,AlertNLTest=" condition="image">nltest.exe</Image>
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land,Alert=NLTest" condition="contains">nltest.exe</CommandLine>
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land,Alert=" condition="contains">ExtExport</CommandLine>
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land,Alert=Hacking" condition="contains">bash -c</CommandLine>
@@ -289,7 +289,7 @@
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="begin with">format </CommandLine>
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="begin with">format </CommandLine>
 			<CommandLine name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land" condition="begin with">assoc </CommandLine>
-			<Image name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land-detect cls in batch scripts" condition="end with">cls.exe</Image>
+			<Image name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land-detect cls in batch scripts" condition="image">cls.exe</Image>
 			<Image name="MitreRef=ToDo,Technique=Hacking/LOLBins-Living off the Land-detect aliases" condition="image">doskey.exe</Image>
 	  		<!--                                                                                                                                            -->
 			<!--Mavinject -->
