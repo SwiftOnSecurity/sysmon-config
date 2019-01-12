@@ -342,7 +342,7 @@
 			<DestinationPort condition="is">22</DestinationPort> <!--SSH protocol, monitor admin connections-->
 			<DestinationPort condition="is">23</DestinationPort> <!--Telnet protocol, monitor admin connections, insecure-->
 			<DestinationPort condition="is">25</DestinationPort> <!--SMTP mail protocol port, insecure, used by threats-->
-			<DestinationPort condition="is">142</DestinationPort> <!--IMAP mail protocol port, insecure, used by threats-->
+			<DestinationPort condition="is">143</DestinationPort> <!--IMAP mail protocol port, insecure, used by threats-->
 			<DestinationPort condition="is">3389</DestinationPort> <!--Microsoft:Windows:RDP: Monitor admin connections-->
 			<DestinationPort condition="is">5800</DestinationPort> <!--VNC protocol: Monitor admin connections, often insecure-->
 			<DestinationPort condition="is">5900</DestinationPort> <!--VNC protocol Monitor admin connections, often insecure-->
