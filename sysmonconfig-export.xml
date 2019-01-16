@@ -54,7 +54,7 @@
 
 <Sysmon schemaversion="4.00">
 	<!--SYSMON META CONFIG-->
-	<HashAlgorithms>sha1,sha256</HashAlgorithms> <!-- Both SHA1 and SHA256 are the industry-standard algorithms for identifying files -->
+	<HashAlgorithms>sha1,sha256,imphash</HashAlgorithms> <!-- Both SHA1 and SHA256 are the industry-standard algorithms for identifying files -->
 	<CheckRevocation/> <!-- Check loaded drivers, log if their code-signing certificate has been revoked, in case malware stole one to sign a kernel driver -->
 
 	<!-- <ImageLoad/> --> <!-- Would manually force-on ImageLoad monitoring, even without configuration below. Included only documentation. -->
