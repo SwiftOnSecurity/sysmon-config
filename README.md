@@ -1,8 +1,7 @@
 ﻿# Sysmon Threat Intelligence Configuration #
 See the develop Branch for more bleeding edge updates: https://github.com/ion-storm/sysmon-config/tree/develop
 
-This config is based off of the OR logic in sysmon 8.00, sysmon 8.02 breaks this functionality, Mark Cook and Mark Russinovich will be
-making some changes to allow my config to work in future sysmon releases.  For now stay on 8.00, 8.02 has breaking changes.
+This config is based off of the OR logic in sysmon 8.00 and 8.04, sysmon 8.02 breaks this functionality.  Also 8.00 introduced a memory leak that will consume all available memory on your system if you frequently reload the config file.  Upgrading to 8.04 is mandatory.
 
 This is a Microsoft Sysinternals Sysmon configuration file template with default high-quality event tracing.
 
