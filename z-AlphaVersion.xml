@@ -1,6 +1,6 @@
 <!--
   sysmon-config | A Sysmon configuration focused on default high-quality event tracing and easy customization by the community
-  Master version:	70 | Date: 2019-04-05
+  Master version:	70alpha | Date: 2019-05-10
   Master author:	@SwiftOnSecurity, other contributors also credited in-line or on Git
   Master project:	https://github.com/SwiftOnSecurity/sysmon-config
   Master license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
@@ -10,7 +10,7 @@
   Fork project:	<N/A>
   Fork license:	<N/A>
 
-  REQUIRED: Sysmon version 9.01 or higher (due to changes in registry syntax and bug-fixes)
+  REQUIRED: Sysmon version 9.02 or higher (due to changes in syntax and bug-fixes)
 	https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon
 	Note that 6.03 and 7.01 have critical fixes for filtering, it's recommended you stay updated.
 
@@ -23,7 +23,7 @@
 	client. This is to make analysis of intrusions possible by hand, and to try to surface anomalous activity as quickly
 	as possible to any technician armed only with Event Viewer. Its purpose is to democratize system monitoring for all organizations.
 
-  NOTE: Sysmon is NOT a whitelist solution or HIDS correlation engine, it is a computer change and event logging tool.
+  NOTE: Sysmon is NOT a whitelist solution or HIDS correlation engine, it is a computer change event logging tool.
 	Do NOT ignore everything possible. Sysmon's purpose is providing context during a threat or problem investigation. Legitimate
 	processes are routinely used by threats - do not blindly exclude them. Additionally, be mindful of process-hollowing / imitation.
 
@@ -861,7 +861,7 @@
 		<!--EVENT 22: "Dns query"-->
 
 		<!--NOTE:	Due to the volume of events that DNS queries generate, some orgs may want to remove this section from their configuration to reduce Sysmon log turnover.
-					If you do not collect events centrally yet, definately remove this section to preserve other events that are much more important. It's okay to come back later. -->
+					If you do not collect events centrally yet, definitely remove this section to preserve other events that are much more important. It's okay to come back later. -->
 
 		<!--COMMENT:	DNS logging is a very nuanced challenge in monitoring due to event volume. Legitimate domains can be used to host malware/C2, but lookup itself is not very informative.
 						It's fine to exclude monitoring these bulk low-value lookups, but at same time, you would not have a full log of how malware communicated, potentially missing C2.
