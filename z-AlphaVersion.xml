@@ -881,8 +881,6 @@
 					Research: [ https://blogs.cisco.com/security/dnschanger-outbreak-linked-to-adware-install-base ]
 					Research: [ http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.298.5810&rep=rep1&type=pdf ] -->
 
-		<!--FUTURE:	Scope exclusions of nuisance C2 domains to only browsers, so any other program doing an unusual lookup will be logged.-->
-
 		<!--CRITICAL:	Do NOT exclude "wpad" lookups. This is a MitM vector routinely used by attackers. Disable WPAD or enforce client-side DNSSEC for AD domain lookups.-->
 		<!--CRITICAL:	Do NOT exclude IPv6 lookups.-->
 
