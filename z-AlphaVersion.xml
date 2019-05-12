@@ -872,6 +872,7 @@
 		<!-- Rejected: .cloudfront.net, customer content -->
 		<!-- Rejected: .windows.net, customer content -->
 		<!-- Rejected: *github.com, customer content-->
+		<!-- Rejected: .zorosrv.com, customer content-->
 
 	<RuleGroup name="Dns" groupRelation="or">
 		<DnsQuery onmatch="exclude">
@@ -879,6 +880,7 @@
 			<QueryName condition="end with">.arpa.</QueryName> <!--Design decision to not log reverse DNS lookups. You will need to decide.-->
 			<QueryName condition="end with">.arpa</QueryName> <!--Design decision to not log reverse DNS lookups. You will need to decide.-->
 			<QueryName condition="end with">.msftncsi.com</QueryName> <!--Microsoft proxy detection | Microsoft default exclusion-->
+			<QueryResults condition="is">127.0.0.1;<QueryResults> <!--Localhost result. Caused by Nvidia nvcontainer.exe-->
 			<!--Microsoft-->
 			<QueryName condition="end with">.b-msedge.net</QueryName> <!--Microsoft: Doesn't appear to host customer content or subdomains-->
 			<QueryName condition="end with">-pushp.svc.ms</QueryName> <!--Microsoft: Doesn't appear to host customer content or subdomains-->
@@ -893,19 +895,24 @@
 			<QueryName condition="end with">.skype.net</QueryName> <!--Microsoft | Microsoft default exclusion-->
 			<QueryName condition="end with">.msocdn.com</QueryName> <!--Microsoft-->
 			<QueryName condition="end with">.windows.com</QueryName> <!--Microsoft-->
+			<QueryName condition="end with">.windowsupdate.com</QueryName> <!--Microsoft-->
+			<QueryName condition="end with">.windows.net.nsatc.net</QueryName> <!--Microsoft-->
 			<!--Microsoft:Office365/AzureAD-->
 			<QueryName condition="end with">.msauth.net</QueryName>
 			<QueryName condition="end with">.msftauth.net</QueryName>
 			<QueryName condition="is">outlook.office365.com</QueryName> <!--Microsoft: Protected by HSTS-->
 			<QueryName condition="end with">.activedirectory.windowsazure.com</QueryName> <!--Microsoft: AzureAD-->
-			<QueryName condition="end with">oms.opinsights.azure.com</QueryName> <!--Microsoft: AzureAD/InTune client event monitoring-->
+			<QueryName condition="end with">.opinsights.azure.com</QueryName> <!--Microsoft: AzureAD/InTune client event monitoring-->
 			<QueryName condition="end with">.aria.microsoft.com</QueryName> <!--Microsoft: OneDrive/SharePoint-->
 			<QueryName condition="is">management.azure.com</QueryName> <!--Microsoft: AzureAD/InTune-->
 			<QueryName condition="is">portal.azure.com</QueryName> <!--Microsoft: AzureAD/InTune-->
+			
 			<!--3rd-party applications-->
 			<QueryName condition="end with">.spotify.com</QueryName>
 			<!--Goodlist CDN-->
 			<QueryName condition="is">cdnjs.cloudflare.com</QueryName> <!--Cloudflare: Hosts popular javascript libraries-->
+			<!--Personal-->
+			<QueryName condition="end with">.steamcontent.com</QueryName> <!--If you seriously host malware in a Steam game, I give up-->
 			<!--Misc-->
 			<QueryName condition="end with">.adap.tv</QueryName> <!--Ads:AOL | Microsoft default exclusion [ https://www.crunchbase.com/organization/adap-tv ] -->
 			<QueryName condition="end with">.addthis.com</QueryName> <!--Ads:Oracle | Microsoft default exclusion [ https://en.wikipedia.org/wiki/AddThis ] -->
@@ -936,6 +943,12 @@
 			<QueryName condition="end with">.smartadserver.com</QueryName> <!--Ads-->
 			<QueryName condition="end with">.adnxs.com</QueryName> <!--Ads | Microsoft default exclusion-->
 			<QueryName condition="is">d29x207vrinatv.cloudfront.net</QueryName> <!--Amazon-developed applications-->
+			<QueryName condition="end with">opps.zorosrv.com</QueryName>
+			<QueryName condition="end with">wf.zorosrv.com</QueryName>
+			<QueryName condition="end with">.taboola.map.fastly.net</QueryName>
+			<QueryName condition="end with">.mathtag.com</QueryName> <!--Microsoft default exclusion-->
+			<QueryName condition="end with">.ytimg.com</QueryName> <!--Google-->
+			<QueryName condition="end with">.chartbeat.net</QueryName> <!--Microsoft default exclusion-->
 
 		</DnsQuery>
 	</RuleGroup>
