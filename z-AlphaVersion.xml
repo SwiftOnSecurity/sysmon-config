@@ -1,9 +1,9 @@
 <!--
   sysmon-config | A Sysmon configuration focused on default high-quality event tracing and easy customization by the community
-  Master version:	70alpha | Date: 2019-05-10
-  Master author:	@SwiftOnSecurity, other contributors also credited in-line or on Git
-  Master project:	https://github.com/SwiftOnSecurity/sysmon-config
-  Master license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
+  Source version:	70alpha | Date: 2019-05-10
+  Source author:	@SwiftOnSecurity, other contributors also credited in-line or on Git
+  Source project:	https://github.com/SwiftOnSecurity/sysmon-config
+  Source license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
 
   Fork version:	<N/A>
   Fork author:	<N/A>
@@ -23,7 +23,7 @@
 	client. This is to make analysis of intrusions possible by hand, and to try to surface anomalous activity as quickly
 	as possible to any technician armed only with Event Viewer. Its purpose is to democratize system monitoring for all organizations.
 
-  NOTE: Sysmon is NOT a whitelist solution or HIDS correlation engine, it is a computer change event logging tool.
+  NOTE: Sysmon is NOT a whitelist solution or HIDS correlation engine, it is a computer change logging tool.
 	Do NOT ignore everything possible. Sysmon's purpose is providing context during a threat or problem investigation. Legitimate
 	processes are routinely used by threats - do not blindly exclude them. Additionally, be mindful of process-hollowing / imitation.
 
@@ -43,7 +43,6 @@
 
   TECHNICAL:
   - Run sysmon.exe -? for a briefing on Sysmon configuration.
-  - Sysmon 9+ supports nested/multi-conditional rules. https://posts.specterops.io/putting-sysmon-v9-0-and-or-grouping-logic-to-the-test-c3ec27263df8
   - Sysmon 8+ can track which rule caused an event to be logged through the "RuleName" field.
   - If you only specify exclude for a filtering subsection, everything in that subsection is logged by default.
   - Some Sysmon monitoring abilities are not meant for widely deployed general-purpose use due to performance impact. Depends on environment.
@@ -71,7 +70,7 @@
 	<EventFiltering>
 
 	<!--SYSMON EVENT ID 1 : PROCESS CREATION [ProcessCreate]-->
-		<!--COMMENT:	All process launched will be included, except for what matches a rule below. It's best to be as specific as possible, to
+		<!--COMMENT:	All process launched will be logged, except for what matches a rule below. It's best to be as specific as possible, to
 			avoid user-mode executables imitating other process names to avoid logging, or if malware drops files in an existing directory.
 			Ultimately, you must weigh CPU time checking many detailed rules, against the risk of malware exploiting the blindness created.
 			Beware of Masquerading, where attackers imitate the names and paths of legitimate tools. Ideally, you'd use both file path and
@@ -106,7 +105,7 @@
 			<Image condition="is">C:\Windows\system32\sndVol.exe</Image> <!--Microsoft:Windows: Volume control-->
 			<Image condition="is">C:\Windows\system32\sppsvc.exe</Image> <!--Microsoft:Windows: Software Protection Service-->
 			<Image condition="is">C:\Windows\system32\wbem\WmiApSrv.exe</Image> <!--Microsoft:Windows: WMI performance adapter host process-->
-			<IntegrityLevel condition="is">AppContainer</IntegrityLevel> <!--Microsoft:Windows: Don't care about sandboxed processes-->
+			<IntegrityLevel condition="is">AppContainer</IntegrityLevel> <!--Microsoft:Windows: Don't care about sandboxed processes. May need to revisit this decision.-->
 			<ParentCommandLine condition="begin with">%%SystemRoot%%\system32\csrss.exe ObjectDirectory=\Windows</ParentCommandLine> <!--Microsoft:Windows:CommandShell: Triggered when programs use the command shell, but doesn't provide attribution for what caused it-->
 			<ParentCommandLine condition="is">C:\windows\system32\wermgr.exe -queuereporting</ParentCommandLine> <!--Microsoft:Windows:Windows error reporting/telemetry-->
 			<ParentImage condition="is">C:\Windows\system32\SearchIndexer.exe</ParentImage> <!--Microsoft:Windows:Search: Launches many uninteresting sub-processes-->
@@ -845,7 +844,7 @@
 						It's fine to exclude monitoring these bulk low-value lookups, but at same time, you would not have a full log of how malware communicated, potentially missing C2.
 						This section of Sysmon configuration will require your full judgement and knowledge of your org's priorities. There is no correct answer.-->
 
-		<!--OPERATIONS:	Chrome and Firefox often prefetch DNS lookups it sees on a page, or use alternate DNS lookup methods Sysmon won't capture. You need to turn these off.
+		<!--OPERATIONS:	Chrome and Firefox prefetch DNS lookups, or use alternate DNS lookup methods Sysmon won't capture. You need to turn these off.
 						Search for Group Policy for these browsers to configure this.-->
 
 		<!--OPERATIONS:	Most DNS traffic is web advertising. To significantly reduce DNS queries and malware ads, enable client-side advertising filtering via Group Policy. This is easy.
@@ -857,12 +856,12 @@
 		<!--CONFIG:	DNS poisoning is an issue during threat investigations. Try to only exclude ROUTINE system-level queries you know are strongly validated with HTTPS or code signing.-->
 		<!--CONFIG:	If you exclude microsoft.com, someone could register malware-microsoft.com and it wouldn't be logged. Use leading "END WITH" with leading . or "IS" operators.-->
 		<!--CONFIG:	Be very specific in exclusions. Threat actors use legitimate services, too. Dont exclude all of AWS or Azure or Google or CDNs!-->
-		<!--CONFIG: Popularity data: [ http://s3-us-west-1.amazonaws.com/umbrella-static/index.html ] [ https://better.fyi/trackers/alexa-top-500-news/ ]
+		<!--CONFIG: Popularity data: [ http://s3-us-west-1.amazonaws.com/umbrella-static/index.html ] [ https://better.fyi/trackers/alexa-top-500-news/ ] -->
 
 		<!--CRITICAL:	Do NOT exclude "wpad" lookups. This is a MitM vector routinely used by attackers. Disable WPAD or enforce client-side DNSSEC for AD domain lookups.-->
 		<!--CRITICAL:	Do NOT exclude IPv6 lookups.-->
 
-		<!--DATA: RuleName, UtcTime, ProcessGuid, ProcessId, QueryName, QueryType, QueryStatus, QueryResults-->
+		<!--DATA: RuleName, UtcTime, ProcessGuid, ProcessId, QueryName, QueryType, QueryStatus, QueryResults (can't filter on)-->
 
 		<!--BELOW: These domains should not be excluded at the top level. Be specific if you want to reduce noise under them.-->
 		<!-- Rejected: .cloudapp.net, customer content [ https://blogs.technet.microsoft.com/ptsblog/2012/06/18/security-consideration-when-using-cloudapp-net-domain-as-production-environment-in-windows-azure/ ] -->
@@ -871,7 +870,7 @@
 		<!-- Rejected: .windows.net, customer content -->
 		<!-- Rejected: *github.com, customer content-->
 
-	<RuleGroup name="Dns" groupRelation="or">
+	<RuleGroup name="" groupRelation="or">
 		<DnsQuery onmatch="exclude">
 			<!--Network noise-->
 			<QueryName condition="end with">.arpa.</QueryName> <!--Design decision to not log reverse DNS lookups. You will need to decide.-->
