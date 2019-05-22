@@ -89,6 +89,7 @@
 			<CommandLine condition="is">C:\windows\system32\wermgr.exe -queuereporting</CommandLine> <!--Microsoft:Windows:Windows error reporting/telemetry-->
 			<CommandLine condition="is">\??\C:\Windows\system32\autochk.exe *</CommandLine> <!--Microsoft:Bootup: Auto Check Utility-->
 			<CommandLine condition="is">\SystemRoot\System32\smss.exe</CommandLine> <!--Microsoft:Bootup: Windows Session Manager-->
+			<CommandLine condition="is">C:\Windows\System32\RuntimeBroker.exe -Embedding</CommandLine> <!--Microsoft:Windows:Apps permissions [ https://fossbytes.com/runtime-broker-process-windows-10/ ] -->
 			<Image condition="is">C:\Program Files (x86)\Common Files\microsoft shared\ink\TabTip32.exe</Image> <!--Microsoft:Windows: Touch Keyboard and Handwriting Panel Helper-->
 			<Image condition="is">C:\Windows\System32\TokenBrokerCookies.exe</Image> <!--Microsoft:Windows: SSO sign-in assistant for MicrosoftOnline.com-->
 			<Image condition="is">C:\Windows\System32\plasrv.exe</Image> <!--Microsoft:Windows: Performance Logs and Alerts DCOM Server-->
@@ -136,6 +137,7 @@
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localServiceNetworkRestricted -s WFDSConMgrSvc</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localServiceNetworkRestricted</CommandLine> <!--Microsoft:Windows: Network services-->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localServiceAndNoImpersonation -s SensrSvc</CommandLine>
+			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k LocalServiceAndNoImpersonation -p -s SSDPSRV</CommandLine> <!--Microsoft:Windows:SSDP [ https://en.wikipedia.org/wiki/Simple_Service_Discovery_Protocol ] -->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localServiceNoNetwork</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted -p -s WPDBusEnum</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted -p -s fhsvc</CommandLine>
@@ -145,8 +147,11 @@
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted -s TabletInputService</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted -s UmRdpService</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted -s WPDBusEnum</CommandLine>
+			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k LocalSystemNetworkRestricted -p -s NgcSvc</CommandLine> <!--Microsoft:Passport--> 
+			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k LocalServiceNetworkRestricted -p -s NgcCtnrSvc</CommandLine> <!--Microsoft:Passport Container--> 
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k LocalServiceAndNoImpersonation -s SCardSvr</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs -p -s wuauserv</CommandLine>
+			<CommandLine condition="is">C:\WINDOWS\System32\svchost.exe -k netsvcs -p -s SessionEnv</CommandLine> <!--Microsoft:Windows:Remote desktop configuration-->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted -s WdiSystemHost</CommandLine> <!--Microsoft:Windows: Diagnostic System Host [ http://www.blackviper.com/windows-services/diagnostic-system-host/ ] -->
 			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k LocalSystemNetworkRestricted -p -s WdiSystemHost</CommandLine> <!--Microsoft:Windows: Diagnostic System Host [ http://www.blackviper.com/windows-services/diagnostic-system-host/ ] -->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted</CommandLine> <!--Microsoft:Windows-->
@@ -157,6 +162,7 @@
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs -s BITS</CommandLine> <!--Microsoft:Windows:Network: Background Intelligent File Transfer (BITS) -->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs -s CertPropSvc</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs -s DsmSvc</CommandLine>
+			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k netsvcs -p -s Appinfo</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs -s Gpsvc</CommandLine> <!--Microsoft:Windows:Network: Group Policy -->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs -s ProfSvc</CommandLine> <!--Microsoft:Windows: Network services-->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs -s SENS</CommandLine> <!--Microsoft:Windows: Network services-->
@@ -190,6 +196,7 @@
 			<CommandLine condition="begin with">"C:\Program Files (x86)\Microsoft\Edge Dev\Application\msedge.exe" --type=</CommandLine>
 			<!--SECTION: Microsoft:dotNet-->
 			<CommandLine condition="begin with">C:\Windows\Microsoft.NET\Framework\v4.0.30319\ngen.exe</CommandLine> <!--Microsoft:DotNet-->
+			<CommandLine condition="begin with">C:\WINDOWS\Microsoft.NET\Framework64\v4.0.30319\Ngen.exe</CommandLine> <!--Microsoft:DotNet-->
 			<Image condition="is">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\mscorsvw.exe</Image> <!--Microsoft:DotNet-->
 			<Image condition="is">C:\Windows\Microsoft.NET\Framework\v4.0.30319\mscorsvw.exe</Image> <!--Microsoft:DotNet-->
 			<Image condition="is">C:\Windows\Microsoft.Net\Framework64\v3.0\WPF\PresentationFontCache.exe</Image> <!--Microsoft:Windows: Font cache service-->
@@ -220,8 +227,6 @@
 			<CommandLine condition="begin with">"C:\Program Files\Mozilla Firefox\plugin-container.exe" --channel</CommandLine> <!-- Mozilla:Firefox: Large command-line arguments | Credit @Darkbat91 -->
 			<CommandLine condition="begin with">"C:\Program Files (x86)\Mozilla Firefox\plugin-container.exe" --channel</CommandLine> <!-- Mozilla:Firefox: Large command-line arguments | Credit @Darkbat91 -->
 			<!--SECTION: Adobe-->
-			<CommandLine condition="contains">AcroRd32.exe" /CR </CommandLine> <!--Adobe:AcrobatReader: Uninteresting sandbox subprocess-->
-			<CommandLine condition="contains">AcroRd32.exe" --channel=</CommandLine> <!--Adobe:AcrobatReader: Uninteresting sandbox subprocess-->
 			<ParentImage condition="end with">C:\Program Files (x86)\Common Files\Adobe\AdobeGCClient\AGSService.exe</ParentImage>
 			<!--SECTION: Adobe:Acrobat DC-->
 			<Image condition="end with">C:\Program Files (x86)\Adobe\Acrobat DC\Acrobat\AcroCEF\AcroCEF.exe</Image> <!--Adobe:Acrobat: Sandbox subprocess, still evaluating security exposure-->
@@ -232,6 +237,8 @@
 			<!--SECTION: Adobe:Acrobat Reader DC-->
 			<Image condition="end with">C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\AcroCEF\RdrCEF.exe</Image> <!--Adobe:AcrobatReader: Sandbox subprocess, still evaluating security exposure-->
 			<Image condition="end with">C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\LogTransport2.exe</Image> <!--Adobe: Telemetry [ https://forums.adobe.com/thread/1006701 ] -->
+			<CommandLine condition="begin with">"C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\AcroRd32.exe" /CR </CommandLine> <!--Adobe:AcrobatReader: Uninteresting sandbox subprocess-->
+			<CommandLine condition="begin with">"C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\AcroRd32.exe" --channel=</CommandLine> <!--Adobe:AcrobatReader: Uninteresting sandbox subprocess-->
 			<!--SECTION: Adobe:Flash-->
 			<Image condition="end with">C:\Windows\SysWOW64\Macromed\Flash\FlashPlayerUpdateService.exe</Image> <!--Adobe:Flash: Properly hardened updater, not a risk-->
 			<!--SECTION: Adobe:Updater-->
@@ -242,7 +249,6 @@
 			<Image condition="end with">C:\Program Files (x86)\Adobe\Acrobat DC\Acrobat\AdobeCollabSync.exe</Image>
 			<Image condition="end with">C:\Program Files (x86)\Common Files\Adobe\Adobe Desktop Common\HEX\Adobe CEF Helper.exe</Image>
 			<Image condition="end with">C:\Program Files (x86)\Common Files\Adobe\AdobeGCClient\AdobeGCClient.exe</Image> <!--Adobe:Creative Cloud-->
-			<Image condition="end with">C:\Program Files (x86)\Common Files\Adobe\OOBE\PDApp\P6\adobe_licutil.exe</Image> <!--Adobe:License utility-->
 			<Image condition="end with">C:\Program Files (x86)\Common Files\Adobe\OOBE\PDApp\P7\adobe_licutil.exe</Image> <!--Adobe:License utility-->
 			<ParentImage condition="end with">C:\Program Files (x86)\Common Files\Adobe\OOBE\PDApp\P7\adobe_licutil.exe</ParentImage> <!--Adobe:License utility-->
 			<Image condition="end with">C:\Program Files (x86)\Common Files\Adobe\OOBE\PDApp\UWA\updaterstartuputility.exe</Image>
@@ -256,18 +262,9 @@
 			<ParentImage condition="end with">C:\Program Files (x86)\Cisco\Cisco AnyConnect Secure Mobility Client\vpnagent.exe</ParentImage> <!--Cisco: Calls netsh to change settings on connect-->
 			<!--SECTION: Drivers-->
 				<!--COMMENT: Attackers sometimes hide themselves in the folders of drivers, be careful to only exclude what is clogging events-->
-			<CommandLine condition="begin with">"C:\Program Files\DellTPad\ApMsgFwd.exe" -s{</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\igfxsrvc.exe -Embedding</CommandLine>
-			<ParentImage condition="end with">C:\Program Files\DellTPad\HidMonitorSvc.exe</ParentImage>
 			<ParentImage condition="end with">C:\Program Files\Realtek\Audio\HDA\RtkAudioService64.exe</ParentImage> <!--Realtek:Driver: routine actions-->
-			<!--SECTION: Dropbox-->
-			<Image condition="end with">C:\Program Files (x86)\Dropbox\Update\DropboxUpdate.exe</Image> <!--Dropbox:Updater: Lots of command-line arguments-->
-			<ParentImage condition="end with">C:\Program Files (x86)\Dropbox\Update\DropboxUpdate.exe</ParentImage>
 			<!--SECTION: Dell-->
-			<ParentImage condition="is">C:\Program Files (x86)\Dell\CommandUpdate\InvColPC.exe</ParentImage> <!--Dell:CommandUpdate: Detection process-->
-			<Image condition="is">C:\Program Files\Dell\SupportAssist\pcdrcui.exe</Image> <!--Dell:SupportAssist: routine actions-->
-			<Image condition="is">C:\Program Files\Dell\SupportAssist\koala.exe</Image> <!--Dell:SupportAssist: routine actions-->
-			<ParentCommandLine condition="end with">"-outc=C:\ProgramData\Dell\CommandUpdate\inventory.xml" "-logc=C:\ProgramData\Dell\CommandUpdate\scanerrs.xml" "-lang=en" "-enc=UTF-16" </ParentCommandLine>
 		</ProcessCreate>
 	</RuleGroup>
 	
@@ -872,9 +869,11 @@
 			<QueryName condition="end with">.arpa.</QueryName> <!--Design decision to not log reverse DNS lookups. You will need to decide.-->
 			<QueryName condition="end with">.arpa</QueryName> <!--Design decision to not log reverse DNS lookups. You will need to decide.-->
 			<QueryName condition="end with">.msftncsi.com</QueryName> <!--Microsoft proxy detection | Microsoft default exclusion-->
+			<QueryName condition="is">localhost</QueryName> <!--Microsoft proxy detection | Microsoft default exclusion-->
 			<!--Microsoft-->
 			<QueryName condition="end with">-pushp.svc.ms</QueryName> <!--Microsoft: Doesn't appear to host customer content or subdomains-->
 			<QueryName condition="end with">.b-msedge.net</QueryName> <!--Microsoft: Doesn't appear to host customer content or subdomains-->
+			<QueryName condition="end with">.msedge.net</QueryName> <!--Microsoft: Doesn't appear to host customer content or subdomains-->
 			<QueryName condition="end with">.hotmail.com</QueryName> <!--Microsoft | Microsoft default exclusion-->
 			<QueryName condition="end with">.live.com</QueryName> <!--Microsoft | Microsoft default exclusion-->
 			<QueryName condition="end with">.live.net</QueryName> <!--Microsoft | Microsoft default exclusion-->
@@ -886,8 +885,12 @@
 			<QueryName condition="end with">.skype.com</QueryName> <!--Microsoft | Microsoft default exclusion-->
 			<QueryName condition="end with">.skype.net</QueryName> <!--Microsoft | Microsoft default exclusion-->
 			<QueryName condition="end with">.windows.com</QueryName> <!--Microsoft-->
+			<QueryName condition="is">login.windows.net</QueryName> <!--Microsoft-->
+			<QueryName condition="end with">.xboxlive.com</QueryName> <!--Microsoft-->
 			<QueryName condition="end with">.windows.net.nsatc.net</QueryName> <!--Microsoft-->
 			<QueryName condition="end with">.windowsupdate.com</QueryName> <!--Microsoft-->
+			<QueryName condition="end with">.bing.com</QueryName> <!-- Microsoft | Microsoft default exclusion -->
+			<QueryName condition="end with">.msn.com</QueryName> <!--Microsoft | Microsoft default exclusion-->
 			<!--Microsoft:Office365/AzureAD-->
 			<QueryName condition="end with">.activedirectory.windowsazure.com</QueryName> <!--Microsoft: AzureAD-->
 			<QueryName condition="end with">.aria.microsoft.com</QueryName> <!--Microsoft: OneDrive/SharePoint-->
@@ -897,40 +900,58 @@
 			<QueryName condition="is">management.azure.com</QueryName> <!--Microsoft: AzureAD/InTune-->
 			<QueryName condition="is">outlook.office365.com</QueryName> <!--Microsoft: Protected by HSTS-->
 			<QueryName condition="is">portal.azure.com</QueryName> <!--Microsoft: AzureAD/InTune-->
-		
 			<!--3rd-party applications-->
 			<QueryName condition="end with">.spotify.com</QueryName>
+			<QueryName condition="end with">.mozilla.com</QueryName>
+			<QueryName condition="end with">.mozilla.org</QueryName>
+			<QueryName condition="end with">.mozaws.net</QueryName>
+			<QueryName condition="is">clients1.google.com</QueryName> <!--Google-->
+			<QueryName condition="is">clients2.google.com</QueryName> <!--Google-->
+			<QueryName condition="is">clients3.google.com</QueryName> <!--Google-->
+			<QueryName condition="is">clients4.google.com</QueryName> <!--Google-->
+			<QueryName condition="is">clients5.google.com</QueryName> <!--Google-->
+			<QueryName condition="is">clients6.google.com</QueryName> <!--Google-->
+			<QueryName condition="is">safebrowsing.googleapis.com</QueryName> <!--Google-->
+			<QueryName condition="end with">.spotify.map.fastly.net</QueryName> <!--Spotify-->
 			<!--Goodlist CDN-->
 			<QueryName condition="is">cdnjs.cloudflare.com</QueryName> <!--Cloudflare: Hosts popular javascript libraries-->
 			<QueryName condition="end with">.netflix.com</QueryName>
 			<QueryName condition="is">ajax.googleapis.com</QueryName>
+			<QueryName condition="end with">aspnetcdn.com</QueryName> <!--Microsoft [ https://docs.microsoft.com/en-us/aspnet/ajax/cdn/overview ]-->
+			<QueryName condition="end with">.akadns.net</QueryName> <!--AkamaiCDN, extensively used by Microsoft | Microsoft default exclusion-->
+			<QueryName condition="is">fonts.googleapis.com</QueryName> <!--Google fonts-->
 			<!--Personal-->
 			<QueryName condition="end with">.steamcontent.com</QueryName> <!--If you seriously host malware in a Steam game, I give up-->
-			<!--Misc-->
+			<!--Web resources-->
+			<QueryName condition="end with">.disqus.com</QueryName> <!--Microsoft default exclusion-->
+			<QueryName condition="end with">.fontawesome.com</QueryName>
+			<QueryName condition="is">disqus.com</QueryName> <!--Microsoft default exclusion-->
+			<!--Ads-->
 			<QueryName condition="end with">.2mdn.net</QueryName> <!--Ads: Google | Microsoft default exclusion-->
+			<QueryName condition="end with">.adadvisor.net</QueryName> <!--Ads: Neustar [ https://better.fyi/trackers/adadvisor.net/ ] -->
 			<QueryName condition="end with">.adap.tv</QueryName> <!--Ads:AOL | Microsoft default exclusion [ https://www.crunchbase.com/organization/adap-tv ] -->
 			<QueryName condition="end with">.addthis.com</QueryName> <!--Ads:Oracle | Microsoft default exclusion [ https://en.wikipedia.org/wiki/AddThis ] -->
-			<QueryName condition="end with">.adnxs.com</QueryName> <!--Ads: AppNexus | Microsoft default exclusion-->
-			<QueryName condition="end with">.adsafeprotected.com</QueryName> <!--Advertising-->
-			<QueryName condition="end with">.adsrvr.org</QueryName> <!--Ads-->
 			<QueryName condition="end with">.adform.net</QueryName> <!--Ads-->
-			<QueryName condition="end with">.advertising.com</QueryName> <!--Advertising | Microsoft default exclusion-->
-			<QueryName condition="end with">.akadns.net</QueryName> <!--AkamaiCDN, extensively used by Microsoft | Microsoft default exclusion-->
-			<QueryName condition="end with">.aol.com</QueryName> <!--Advertising | Microsoft default exclusion -->
+			<QueryName condition="end with">.adnxs.com</QueryName> <!--Ads: AppNexus | Microsoft default exclusion-->
+			<QueryName condition="end with">.adsafeprotected.com</QueryName> <!--Ads-->
+			<QueryName condition="end with">.adsrvr.org</QueryName> <!--Ads-->
+			<QueryName condition="end with">.advertising.com</QueryName> <!--Ads | Microsoft default exclusion-->
+			<QueryName condition="end with">.amazon-adsystem.com</QueryName> <!--Ads-->
+			<QueryName condition="end with">.analytics.yahoo.com</QueryName> <!--Ads:Yahoo-->
+			<QueryName condition="end with">.aol.com</QueryName> <!--Ads | Microsoft default exclusion -->
 			<QueryName condition="end with">.betrad.com</QueryName> <!--Ads | Microsoft default exclusion-->
 			<QueryName condition="end with">.bidswitch.net</QueryName> <!--Ads-->
-			<QueryName condition="end with">.bing.com</QueryName> <!-- Microsoft | Microsoft default exclusion -->
 			<QueryName condition="end with">.casalemedia.com</QueryName> <!--Ads | Microsoft default exclusion-->
 			<QueryName condition="end with">.chartbeat.net</QueryName> <!--Ads | Microsoft default exclusion [ https://better.fyi/trackers/chartbeat.com/ ]-->
 			<QueryName condition="end with">.cnn.com</QueryName> <!-- Microsoft default exclusion-->
 			<QueryName condition="end with">.criteo.com</QueryName> <!--Ads [ https://better.fyi/trackers/criteo.com/ ] -->
+			<QueryName condition="end with">.criteo.net</QueryName> <!--Ads [ https://better.fyi/trackers/criteo.com/ ] -->
 			<QueryName condition="end with">.crwdcntrl.net</QueryName> <!--Ads: Lotame [ https://better.fyi/trackers/crwdcntrl.net/ ] -->
 			<QueryName condition="end with">.demdex.net</QueryName> <!--Ads | Microsoft default exclusion-->
-			<QueryName condition="end with">.disqus.com</QueryName> <!--Microsoft default exclusion-->
 			<QueryName condition="end with">.dotomi.com</QueryName> <!--Ads | Microsoft default exclusion-->
 			<QueryName condition="end with">.doubleclick.net</QueryName> <!--Ads:Conversant | Microsoft default exclusion [ https://www.crunchbase.com/organization/dotomi ] -->
 			<QueryName condition="end with">.doubleverify.com</QueryName> <!--Ads: [ ] -->
-			<QueryName condition="end with">.fontawesome.com</QueryName>
+			<QueryName condition="end with">.exelator.com</QueryName> <!--Ads:Nielson Marketing Cloud-->
 			<QueryName condition="end with">.google-analytics.com</QueryName> <!--Ads:Google | Microsoft default exclusion-->
 			<QueryName condition="end with">.googlesyndication.com</QueryName> <!--Ads:Google, sometimes called during malicious ads, but not directly responsible | Microsoft default exclusion [ https://www.hackread.com/wp-content/uploads/2018/06/Bitdefender-Whitepaper-Zacinlo.pdf ]-->
 			<QueryName condition="end with">.googletagmanager.com</QueryName> <!--Google-->
@@ -943,7 +964,6 @@
 			<QueryName condition="end with">.mathtag.com</QueryName> <!--Microsoft default exclusion-->
 			<QueryName condition="end with">.moatads.com</QueryName> <!--Ads | Microsoft default exclusion-->
 			<QueryName condition="end with">.moatpixel.com</QueryName> <!--Ads | Microsoft default exclusion-->
-			<QueryName condition="end with">.msn.com</QueryName> <!--Microsoft | Microsoft default exclusion-->
 			<QueryName condition="end with">.myvisualiq.net</QueryName> <!--Ads-->
 			<QueryName condition="end with">.netmng.com</QueryName> <!--Ads-->
 			<QueryName condition="end with">.nexac.com</QueryName> <!--Ads | Microsoft default exclusion-->
@@ -964,32 +984,31 @@
 			<QueryName condition="end with">.sitescout.com</QueryName> <!--Ads-->
 			<QueryName condition="end with">.smartadserver.com</QueryName> <!--Ads-->
 			<QueryName condition="end with">.snapads.com</QueryName> <!--Ads-->
-			<QueryName condition="end with">.spotify.map.fastly.net</QueryName> <!--Spotify-->
 			<QueryName condition="end with">.spotxchange.com</QueryName> <!--Ads-->
 			<QueryName condition="end with">.taboola.com</QueryName> <!--Ads:Taboola-->
 			<QueryName condition="end with">.taboola.map.fastly.net</QueryName> <!--Ads:Taboola-->
+			<QueryName condition="end with">.tidaltv.com</QueryName> <!--Ads: Videology [ https://better.fyi/trackers/tidaltv.com/ ] -->
 			<QueryName condition="end with">.trafficmanager.net</QueryName> <!--Ads | Microsoft default exclusion-->
 			<QueryName condition="end with">.tremorhub.com</QueryName> <!--Ads-->
 			<QueryName condition="end with">.tribalfusion.com</QueryName> <!--Ads: Exponential [ https://better.fyi/trackers/tribalfusion.com/ ] -->
-			<QueryName condition="end with">.turn.com</QueryName> <!--Ads | Microsoft default exclusion-->
+			<QueryName condition="end with">.turn.com</QueryName> <!--Ads | Microsoft default exclusion [ https://better.fyi/trackers/turn.com/ ] -->
 			<QueryName condition="end with">.twimg.com</QueryName> <!--Ads | Microsoft default exclusion-->
+			<QueryName condition="end with">.w55c.net</QueryName> <!--Ads:dataxu-->
 			<QueryName condition="end with">.ytimg.com</QueryName> <!--Google-->
 			<QueryName condition="end with">.zorosrv.com</QueryName> <!--Ads:Taboola-->
 			<QueryName condition="is">ampcid.google.com</QueryName> <!--Google-->
-			<QueryName condition="is">clients1.google.com</QueryName> <!--Google-->
-			<QueryName condition="is">clients2.google.com</QueryName> <!--Google-->
-			<QueryName condition="is">clients4.google.com</QueryName> <!--Google-->
-			<QueryName condition="is">clients6.google.com</QueryName> <!--Google-->
 			<QueryName condition="is">clientservices.googleapis.com</QueryName> <!--Google-->
 			<QueryName condition="is">d29x207vrinatv.cloudfront.net</QueryName> <!--Amazon-developed applications-->
-			<QueryName condition="is">fonts.googleapis.com</QueryName> <!--Google fonts-->
 			<QueryName condition="is">imasdk.googleapis.com</QueryName> <!--Google [ https://developers.google.com/interactive-media-ads/docs/sdks/html5/ ] -->
 			<QueryName condition="is">l.google.com</QueryName> <!--Google-->
 			<QueryName condition="is">mtalk.google.com</QueryName> <!--Google-->
-			<QueryName condition="is">safebrowsing.googleapis.com</QueryName> <!--Google-->
 			<QueryName condition="is">update.googleapis.com</QueryName> <!--Google-->
-			<!--OSCP Common-->
-			<QueryName condition="is">ocsp.digicert.com</QueryName>
+			<!--OSCP/CRL Common-->
+			<QueryName condition="end with">.digicert.com</QueryName>
+			<QueryName condition="end with">.globalsign.com</QueryName>
+			<QueryName condition="end with">.globalsign.net</QueryName>
+			<QueryName condition="is">msocsp.com</QueryName> <!--Microsoft:OCSP-->
+			<QueryName condition="end with">pki.goog</QueryName>
 		</DnsQuery>
 	</RuleGroup>
 
