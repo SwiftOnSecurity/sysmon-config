@@ -10,7 +10,7 @@
   Fork project:	<N/A>
   Fork license:	<N/A>
 
-  REQUIRED: Sysmon version 7.01 or higher (due to changes in registry syntax and bug-fixes)
+  REQUIRED: Sysmon version 10.0 or higher (due to changes in registry syntax and bug-fixes)
 	https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon
 	Note that 6.03 and 7.01 have critical fixes for filtering, it's recommended you stay updated.
 
@@ -52,7 +52,7 @@
   PERFORMANCE: By using "end with" you can save performance by starting a string match at the end of a line, which usually triggers earlier.
 -->
 
-<Sysmon schemaversion="4.00">
+<Sysmon schemaversion="4.21">
 	<!--SYSMON META CONFIG-->
 	<HashAlgorithms>md5,sha256</HashAlgorithms> <!-- Both MD5 and SHA256 are the industry-standard algorithms for identifying files -->
 	<CheckRevocation/> <!-- Check loaded drivers, log if their code-signing certificate has been revoked, in case malware stole one to sign a kernel driver -->
@@ -817,6 +817,19 @@
 		<!--DATA: EventType, UtcTime, Operation, User, Name, Type, Destination, Consumer, Filter-->
 		<WmiEvent onmatch="include">
 		</WmiEvent>
+		
+	<!--SYSMON EVENT ID 22 : DNS Query Monitoring [DNSQuery]-->
+		<RuleGroup groupRelation="or">
+			<DnsQuery onmatch="exclude">	 <!--Exclude high volume of successful reverse lookups performed by sysmon in reaction to network connection events-->
+				<Image condition="is">C:\Windows\Sysmon.exe</Image>
+				<QueryResults condition="begin with">type:  12 </QueryResults>
+			</DnsQuery>	
+			<DnsQuery onmatch="exclude">	 <!--Exclude high volume of unsuccessful reverse lookups performed by sysmon in reaction to network connection events-->
+				<Image condition="is">C:\Windows\Sysmon.exe</Image>
+				<QueryResults condition="is"></QueryResults>
+			</DnsQuery>				
+		</RuleGroup>
+				
 
 	<!--SYSMON EVENT ID 255 : ERROR-->
 		<!--"This event is generated when an error occurred within Sysmon. They can happen if the system is under heavy load
