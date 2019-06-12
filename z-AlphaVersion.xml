@@ -48,7 +48,7 @@
 	Find somewhere new if you are selfless, yet unvalued. These words are what I would have told an earlier me. I wish I did.
 	You are already the candidate of the future. A mirror will never tell truth. Tools can only show what you already beleive.
 
-  NOTE: If you encounter unexplanable event inclusion/exclusion, you may have a second Sysmon instance installed under a different exe filename.
+  NOTE: If you encounter unexplainable event inclusion/exclusion, you may have a second Sysmon instance installed under a different exe filename.
 	To clear this, try downloading the latest version and uninstalling with -u force. If it hangs, kill the processes and run it again to cleanup.
 
   TECHNICAL:
