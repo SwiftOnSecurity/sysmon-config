@@ -35,7 +35,7 @@
 	Otherwise, attackers could imitate these common applications, and bypass your logging. Below are silent upgrades you can do, no user impact:
 	https://docs.microsoft.com/en-us/onedrive/per-machine-installation
 	https://cloud.google.com/chrome-enterprise/browser/download/
-	
+
   NOTE: Sysmon is not hardened against an attacker with admin rights. Additionally, this configuration offers an attacker, willing
 	to study it, limited ways to evade some of the logging. If you are in a very high-threat environment, you should consider a broader,
 	log-most approach. However, in the vast majority of cases, an attacker will bumble through multiple behavioral traps which
