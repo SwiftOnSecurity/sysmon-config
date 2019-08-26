@@ -942,13 +942,14 @@
 			<QueryName condition="is">fonts.googleapis.com</QueryName> <!--Google fonts-->
 			<QueryName condition="end with">.typekit.net</QueryName> <!--Adobe fonts-->
 			<QueryName condition="is">cdnjs.cloudflare.com</QueryName>
-			<!--Personal-->
-			<QueryName condition="end with">.steamcontent.com</QueryName> <!--If you seriously host malware C2 in game binaries in Steam, I give up-->
+			<QueryName condition="end with">.stackassets.com</QueryName> <!--Stack Overflow-->
+			<QueryName condition="end with">.steamcontent.com</QueryName>
 			<!--Web resources-->
 			<QueryName condition="end with">.disqus.com</QueryName> <!--Microsoft default exclusion-->
 			<QueryName condition="end with">.fontawesome.com</QueryName>
 			<QueryName condition="is">disqus.com</QueryName> <!--Microsoft default exclusion-->
 			<!--Ads-->
+			<QueryName condition="end with">.1rx.io</QueryName> <!--Ads-->
 			<QueryName condition="end with">.2mdn.net</QueryName> <!--Ads: Google | Microsoft default exclusion-->
 			<QueryName condition="end with">.adadvisor.net</QueryName> <!--Ads: Neustar [ https://better.fyi/trackers/adadvisor.net/ ] -->
 			<QueryName condition="end with">.adap.tv</QueryName> <!--Ads:AOL | Microsoft default exclusion [ https://www.crunchbase.com/organization/adap-tv ] -->
@@ -956,6 +957,7 @@
 			<QueryName condition="end with">.adform.net</QueryName> <!--Ads-->
 			<QueryName condition="end with">.adnxs.com</QueryName> <!--Ads: AppNexus | Microsoft default exclusion-->
 			<QueryName condition="end with">.adroll.com</QueryName> <!--Ads-->
+			<QueryName condition="end with">.adrta.com</QueryName> <!--Ads-->
 			<QueryName condition="end with">.adsafeprotected.com</QueryName> <!--Ads-->
 			<QueryName condition="end with">.adsrvr.org</QueryName> <!--Ads-->
 			<QueryName condition="end with">.advertising.com</QueryName> <!--Ads | Microsoft default exclusion-->
@@ -996,7 +998,6 @@
 			<QueryName condition="end with">.myvisualiq.net</QueryName> <!--Ads-->
 			<QueryName condition="end with">.netmng.com</QueryName> <!--Ads-->
 			<QueryName condition="end with">.nexac.com</QueryName> <!--Ads | Microsoft default exclusion-->
-			<QueryName condition="end with">.nexac.com</QueryName> <!--Ads | Microsoft default exclusion-->
 			<QueryName condition="end with">.openx.net</QueryName> <!--Ads-->
 			<QueryName condition="end with">.optimizely.com</QueryName> <!--Ads-->
 			<QueryName condition="end with">.outbrain.com</QueryName> <!--Ads-->
@@ -1019,8 +1020,6 @@
 			<QueryName condition="end with">.smartadserver.com</QueryName> <!--Ads-->
 			<QueryName condition="end with">.snapads.com</QueryName> <!--Ads-->
 			<QueryName condition="end with">.spotxchange.com</QueryName> <!--Ads-->
-			<QueryName condition="end with">.1rx.io</QueryName> <!--Ads-->
-			<QueryName condition="end with">.adrta.com</QueryName> <!--Ads-->
 			<QueryName condition="end with">.taboola.com</QueryName> <!--Ads:Taboola-->
 			<QueryName condition="end with">.taboola.map.fastly.net</QueryName> <!--Ads:Taboola-->
 			<QueryName condition="end with">.tapad.com</QueryName>
@@ -1034,6 +1033,7 @@
 			<QueryName condition="end with">.w55c.net</QueryName> <!--Ads:dataxu-->
 			<QueryName condition="end with">.ytimg.com</QueryName> <!--Google-->
 			<QueryName condition="end with">.zorosrv.com</QueryName> <!--Ads:Taboola-->
+			<QueryName condition="is">1rx.io</QueryName> <!--Ads-->
 			<QueryName condition="is">adservice.google.com</QueryName> <!--Google-->
 			<QueryName condition="is">ampcid.google.com</QueryName> <!--Google-->
 			<QueryName condition="is">clientservices.googleapis.com</QueryName> <!--Google-->
@@ -1043,7 +1043,6 @@
 			<QueryName condition="is">ml314.com</QueryName> <!--Ads-->
 			<QueryName condition="is">mtalk.google.com</QueryName> <!--Google-->
 			<QueryName condition="is">update.googleapis.com</QueryName> <!--Google-->
-			<QueryName condition="is">1rx.io</QueryName> <!--Google-->
 			<QueryName condition="is">www.googletagservices.com</QueryName> <!--Google-->
 			<!--SocialNet-->
 			<QueryName condition="end with">.pscp.tv</QueryName> <!--Twitter:Periscope-->
