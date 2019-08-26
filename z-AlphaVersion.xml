@@ -41,7 +41,7 @@
 	this configuration monitors, especially in the first minutes. Even APT do not send their A-team unless they know you're hardened.
 	5% of the effort gets 95% of the results. APT rely on nobody watching because almost nobody does. Your effort makes the difference.
 
-  NOTE: If you encounter unexplanable event inclusion/exclusion, you may have a second Sysmon instance installed under a different exe filename.
+  NOTE: If you encounter unexplainable event inclusion/exclusion, you may have a second Sysmon instance installed under a different exe filename.
 	To clear this, try downloading the latest version and uninstalling with -u force. If it hangs, kill the processes and run it again to cleanup.
 
   TECHNICAL:
