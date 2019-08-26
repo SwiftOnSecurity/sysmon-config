@@ -469,6 +469,7 @@
 			<TargetFilename condition="end with">.chm</TargetFilename>
 			<TargetFilename condition="end with">.cmd</TargetFilename> <!--Batch scripting: Batch scripts can also use the .cmd extension | Credit: @mmazanec -->
 			<TargetFilename condition="end with">.cmdline</TargetFilename> <!--Microsoft:dotNet: Executed by cvtres.exe-->
+			<TargetFilename condition="end with">.dmp</TargetFilename> <!--Process dumps [ (fr) http://blog.gentilkiwi.com/securite/mimikatz/minidump ] -->
 			<TargetFilename condition="end with">.docm</TargetFilename> <!--Microsoft:Office:Word: Macro-->
 			<TargetFilename condition="end with">.exe</TargetFilename> <!--Executable-->
 			<TargetFilename condition="end with">.jar</TargetFilename> <!--Java applets-->
