@@ -87,6 +87,9 @@
 			<Image condition="is">C:\Windows\System32\plasrv.exe</Image> <!--Microsoft:Windows: Performance Logs and Alerts DCOM Server-->
 			<Image condition="is">C:\Windows\System32\wifitask.exe</Image> <!--Microsoft:Windows: Wireless Background Task-->
 			<Image condition="is">C:\Program Files (x86)\Common Files\microsoft shared\ink\TabTip32.exe</Image> <!--Microsoft:Windows: Touch Keyboard and Handwriting Panel Helper-->
+			<Image condition="is">C:\Windows\System32\smartscreen.exe</Image> <!-- Microsoft:Windows: Smartscreen, checks malicious websites and files https://www.howtogeek.com/320711/what-is-smartscreen-and-why-is-it-running-on-my-pc/ -->
+			<Image condition="is">C:\Windows\System32\msfeedssync.exe</Image> <!-- Microsoft:Windows: Microsoft Feeds Synchronization https://superuser.com/questions/445995/msfeedssync-exe-what-does-it-do -->
+			<Image condition="is">C:\Windows\System32\RuntimeBroker.exe</Image> <!-- Microsoft:Windows: Runtime Broker https://www.howtogeek.com/268240/what-is-runtime-broker-and-why-is-it-running-on-my-pc/ -->
 			<Image condition="is">C:\Windows\System32\TokenBrokerCookies.exe</Image> <!--Microsoft:Windows: SSO sign-in assistant for MicrosoftOnline.com-->
 			<CommandLine condition="is">C:\windows\system32\wermgr.exe -queuereporting</CommandLine> <!--Microsoft:Windows:Windows error reporting/telemetry-->
 			<ParentCommandLine condition="is">C:\windows\system32\wermgr.exe -queuereporting</ParentCommandLine> <!--Microsoft:Windows:Windows error reporting/telemetry-->
@@ -147,6 +150,7 @@
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs -s CertPropSvc</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs -s DsmSvc</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs -s Gpsvc</CommandLine> <!--Microsoft:Windows:Network: Group Policy -->
+			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k netsvcs -p -s NetSetupSvc</CommandLine> <!--Microsoft:Windows: Network Setup Service, manages the installation of network drivers -->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs -s ProfSvc</CommandLine> <!--Microsoft:Windows: Network services-->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs -s SENS</CommandLine> <!--Microsoft:Windows: Network services-->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs -s SessionEnv</CommandLine> <!--Microsoft:Windows: Network services-->
