@@ -94,6 +94,8 @@
 			<CommandLine condition="is">\SystemRoot\System32\smss.exe</CommandLine> <!--Microsoft:Bootup: Windows Session Manager-->
 			<CommandLine condition="is">C:\Windows\System32\RuntimeBroker.exe -Embedding</CommandLine> <!--Windows:Apps permissions [ https://fossbytes.com/runtime-broker-process-windows-10/ ] -->
 			<Image condition="is">C:\Program Files (x86)\Common Files\microsoft shared\ink\TabTip32.exe</Image> <!--Windows: Touch Keyboard and Handwriting Panel Helper-->
+ 			 <Image condition="is">C:\Windows\System32\smartscreen.exe</Image> <!-- Microsoft:Windows: Smartscreen, checks malicious websites and files https://www.howtogeek.com/320711/what-is-smartscreen-and-why-is-it-running-on-my-pc/ -->
+ 			 <Image condition="is">C:\Windows\System32\msfeedssync.exe</Image> <!-- Microsoft:Windows: Microsoft Feeds Synchronization https://superuser.com/questions/445995/msfeedssync-exe-what-does-it-do -->			
 			<Image condition="is">C:\Windows\System32\TokenBrokerCookies.exe</Image> <!--Windows: SSO sign-in assistant for MicrosoftOnline.com-->
 			<Image condition="is">C:\Windows\System32\plasrv.exe</Image> <!--Windows: Performance Logs and Alerts DCOM Server-->
 			<Image condition="is">C:\Windows\System32\wifitask.exe</Image> <!--Windows: Wireless Background Task-->
@@ -370,6 +372,9 @@
 			<DestinationHostname condition="end with">.microsoft.com</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">microsoft.com.akadns.net</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">microsoft.com.nsatc.net</DestinationHostname> <!--Microsoft:Update delivery-->
+			<!--Section: Loopback Addresses-->
+			<DestinationIp condition="is">127.0.0.1</DestinationIp>
+			<DestinationIp condition="begin with">fe80:0:0:0</DestinationIp>			
 		</NetworkConnect>
 	</RuleGroup>
 
@@ -485,6 +490,7 @@
 			<TargetFilename condition="end with">.chm</TargetFilename>
 			<TargetFilename condition="end with">.cmd</TargetFilename> <!--Batch scripting: Batch scripts can also use the .cmd extension | Credit: @mmazanec -->
 			<TargetFilename condition="end with">.cmdline</TargetFilename> <!--Microsoft:dotNet: Executed by cvtres.exe-->
+ 			<TargetFilename condition="end with">.dmp</TargetFilename> <!--Process dumps [ (fr) http://blog.gentilkiwi.com/securite/mimikatz/minidump ] -->			
 			<TargetFilename name="T1176" condition="end with">.crx</TargetFilename> <!--Chrome extension-->
 			<TargetFilename condition="end with">.docm</TargetFilename> <!--Microsoft:Office:Word: Macro-->
 			<TargetFilename name="DLL" condition="end with">.dll</TargetFilename> <!--Microsoft:Office:Word: Macro-->
