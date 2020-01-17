@@ -1,6 +1,6 @@
-<!--
+﻿<!--
   sysmon-config | A Sysmon configuration focused on default high-quality event tracing and easy customization by the community
-  Source version:	70 | Date: 2019-12-04
+  Source version:	71 | Date: 2020-01-16
   Source project:	https://github.com/SwiftOnSecurity/sysmon-config
   Source license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
 
@@ -46,6 +46,7 @@
 
   TECHNICAL:
   - Run sysmon.exe -? for a briefing on Sysmon configuration.
+  - Sysmon XML cannot use the AMPERSAND sign. Replace it with this: &amp;
   - Sysmon 8+ can track which rule caused an event to be logged through the "RuleName" field.
   - If you only specify exclude for a filtering subsection, everything in that subsection is logged by default.
   - Some Sysmon monitoring abilities are not meant for widely deployed general-purpose use due to performance impact. Depends on environment.
@@ -62,7 +63,7 @@
 
 <Sysmon schemaversion="4.22">
 	<!--SYSMON META CONFIG-->
-	<HashAlgorithms>md5,sha256</HashAlgorithms> <!-- Both MD5 and SHA256 are the industry-standard algorithms for identifying files -->
+	<HashAlgorithms>md5,sha256,IMPHASH</HashAlgorithms> <!-- Both MD5 and SHA256 are the industry-standard algorithms for identifying files -->
 	<CheckRevocation/> <!-- Check loaded drivers, log if their code-signing certificate has been revoked, in case malware stole one to sign a kernel driver -->
 
 	<!-- <ImageLoad/> --> <!-- Would manually force-on ImageLoad monitoring, even without configuration below. Included only documentation. -->
@@ -82,7 +83,6 @@
 	<RuleGroup name="" groupRelation="or">
 		<ProcessCreate onmatch="exclude">
 			<!--SECTION: Microsoft Windows-->
-			<ParentCommandLine condition="is">"C:\Program Files\Microsoft Monitoring Agent\Agent\MonitoringHost.exe" -Embedding</ParentCommandLine>
 			<CommandLine condition="begin with"> "C:\Windows\system32\wermgr.exe" "-queuereporting_svc" </CommandLine> <!--Windows:Windows error reporting/telemetry-->
 			<CommandLine condition="begin with">C:\Windows\system32\DllHost.exe /Processid</CommandLine> <!--Windows-->
 			<CommandLine condition="begin with">C:\Windows\system32\wbem\wmiprvse.exe -Embedding</CommandLine> <!--Windows: WMI provider host-->
@@ -115,9 +115,6 @@
 			<CommandLine condition="is">C:\WINDOWS\system32\devicecensus.exe UserCxt</CommandLine>
 			<CommandLine condition="is">C:\Windows\System32\usocoreworker.exe -Embedding</CommandLine>
 			<ParentImage condition="is">C:\Windows\system32\SearchIndexer.exe</ParentImage> <!--Windows:Search: Launches many uninteresting sub-processes-->
-			<!--SECTION: Windows:Defender-->
-			<Image condition="begin with">C:\Program Files\Windows Defender</Image> <!--Windows:Defender in Win10-->
-			<Image condition="is">C:\Windows\system32\MpSigStub.exe</Image> <!--Windows: Microsoft Malware Protection Signature Update Stub-->
 			<!--SECTION: Windows:svchost-->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k appmodel -s StateRepository</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k appmodel -p -s camsvc</CommandLine>
@@ -482,6 +479,7 @@
 			<TargetFilename condition="end with">.jnlp</TargetFilename> <!--Java applets-->
 			<TargetFilename condition="end with">.jse</TargetFilename> <!--Scripting [ Example: https://www.sophos.com/en-us/threat-center/threat-analyses/viruses-and-spyware/Mal~Phires-C/detailed-analysis.aspx ] -->
 			<TargetFilename condition="end with">.hta</TargetFilename> <!--Scripting-->
+			<TargetFilename condition="end with">.job</TargetFilename> <!--Scheduled task-->
 			<TargetFilename condition="end with">.pptm</TargetFilename> <!--Microsoft:Office:Word: Macro-->
 			<TargetFilename condition="end with">.ps1</TargetFilename> <!--PowerShell [ More information: http://www.hexacorn.com/blog/2014/08/27/beyond-good-ol-run-key-part-16/ ] -->
 			<TargetFilename condition="end with">.sys</TargetFilename> <!--System driver files-->
@@ -502,6 +500,7 @@
 			<TargetFilename condition="begin with">C:\Windows\SysWOW64\WindowsPowerShell</TargetFilename> <!--Microsoft:Powershell: Look for modifications for persistence [ https://www.malwarearchaeology.com/cheat-sheets ] -->
 			<TargetFilename name="T1053" condition="begin with">C:\Windows\Tasks\</TargetFilename> <!--Microsoft:ScheduledTasks [ https://attack.mitre.org/wiki/Technique/T1053 ] -->
 			<TargetFilename name="T1053" condition="begin with">C:\Windows\system32\Tasks</TargetFilename> <!--Microsoft:ScheduledTasks [ https://attack.mitre.org/wiki/Technique/T1053 ] -->
+			<TargetFilename name="T1053" condition="begin with">C:\Windows\SysWOW64\Tasks</TargetFilename> <!--Microsoft:ScheduledTasks [ https://attack.mitre.org/wiki/Technique/T1053 ] -->
 			<Image condition="begin with">\Device\HarddiskVolumeShadowCopy</Image> <!--Nothing should be executing from VSC | Credit: @SBousseaden [ https://twitter.com/SBousseaden/status/1133030955407630336 ] -->
 			<!--Windows application compatibility-->
 			<TargetFilename condition="begin with">C:\Windows\AppPatch\Custom</TargetFilename> <!--Windows: Application compatibility shims [ https://www.fireeye.com/blog/threat-research/2017/05/fin7-shim-databases-persistence.html ] -->
@@ -550,7 +549,8 @@
 		<!--NOTE:	Because Sysmon runs as a service, it has no filtering ability for, or concept of, HKCU or HKEY_CURRENT_USER. Use "contains" or "end with" to get around this limitation-->
 
 		<!-- ! CRITICAL NOTE !:	It may appear this section is MISSING important entries, but SOME RULES MONITOR MANY KEYS, so look VERY CAREFULLY to see if something is already covered.
-								Sysmon's wildcard monitoring along with highly-tuned generic strings cuts the rulesets down immensely, compared to doing this in other tools. -->
+								Sysmon's wildcard monitoring along with highly-tuned generic strings cuts the rulesets down immensely, compared to doing this in other tools.
+								For example, most COM hijacking in CLSID's across the registry is covered by a single rule monitoring a InProcServer32 wildcard-->
 
 		<!--DATA: EventType, UtcTime, ProcessGuid, ProcessId, Image, TargetObject, Details (can't filter on), NewName (can't filter on)-->
 	<RuleGroup name="" groupRelation="or">
@@ -560,6 +560,7 @@
 				<!--ADDITIONAL REFERENCE: [ https://view.officeapps.live.com/op/view.aspx?src=https://arsenalrecon.com/downloads/resources/Registry_Keys_Related_to_Autorun.ods ] -->
 				<!--ADDITIONAL REFERENCE: [ http://www.silentrunners.org/launchpoints.html ] -->
 				<!--ADDITIONAL REFERENCE: [ https://www.microsoftpressstore.com/articles/article.aspx?p=2762082&seqNum=2 ] -->
+				<!--ADDITIONAL REFERENCE: [ https://web.archive.org/web/20200116001643/http://scholarworks.rit.edu/cgi/viewcontent.cgi?article=1533&context=theses | Understanding malware autostart techniques - Matthew Gottlieb ] -->
 			<TargetObject name="T1060,RunKey" condition="contains">CurrentVersion\Run</TargetObject> <!--Windows: Wildcard for Run keys, including RunOnce, RunOnceEx, RunServices, RunServicesOnce [Also covers terminal server] -->
 			<TargetObject name="T1060,RunPolicy" condition="contains">Policies\Explorer\Run</TargetObject> <!--Windows: Alternate runs keys | Credit @ion-storm-->
 			<TargetObject name="T1484" condition="contains">Group Policy\Scripts</TargetObject> <!--Windows: Group policy scripts-->
@@ -575,7 +576,7 @@
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\BootExecute</TargetObject> <!--Windows: Autorun | Credit @ion-storm | [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
 			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows NT\CurrentVersion\AeDebug</TargetObject> <!--Windows: Automatic program crash debug program [ https://www.symantec.com/security_response/writeup.jsp?docid=2007-050712-5453-99&tabid=2 ] -->
 			<TargetObject condition="contains">UserInitMprLogonScript</TargetObject> <!--Windows: Legacy logon script environment variable [ http://www.hexacorn.com/blog/2014/11/14/beyond-good-ol-run-key-part-18/ ] -->
-			<TargetObject name="T1112,ChangeStartupFolderPath" condition="end with">User Shell Folders\Startup</TargetObject> <!--Monitor changes to Startup folder location for monitoring evasion | Credit @SBousseaden-->
+			<TargetObject name="T1112,ChangeStartupFolderPath" condition="end with">user shell folders\startup</TargetObject> <!--Monitor changes to Startup folder location for monitoring evasion | Credit @SBousseaden-->
 			<!--Services-->
 			<TargetObject name="T1031,T1050" condition="end with">\ServiceDll</TargetObject> <!--Windows: Points to a service's DLL [ https://blog.cylance.com/windows-registry-persistence-part-1-introduction-attack-phases-and-windows-services ] -->
 			<TargetObject name="T1031,T1050" condition="end with">\ServiceManifest</TargetObject> <!--Windows: Manifest pointing to service's DLL [ https://www.geoffchappell.com/studies/windows/win32/services/svchost/index.htm ] -->
@@ -594,7 +595,7 @@
 			<TargetObject name="T1122" condition="contains">{86C86720-42A0-1069-A2E8-08002B30309D}</TargetObject> <!--Windows: Tooltip handler-->
 			<TargetObject name="T1042" condition="contains">exefile</TargetObject> <!--Windows Executable handler, to log any changes not already monitored-->
 			<!--Windows COM-->
-			<TargetObject condition="end with">\InprocServer32\(Default)</TargetObject> <!--Windows:COM Object Hijacking [ https://blog.gdatasoftware.com/2014/10/23941-com-object-hijacking-the-discreet-way-of-persistence ] | Credit @ion-storm -->
+			<TargetObject name="T1122" condition="end with">\InprocServer32\(Default)</TargetObject> <!--Windows:COM Object Hijacking [ https://blog.gdatasoftware.com/2014/10/23941-com-object-hijacking-the-discreet-way-of-persistence ] | Credit @ion-storm -->
 			<!--Windows shell visual modifications used by malware-->
 			<TargetObject name="T1158" condition="end with">\Hidden</TargetObject> <!--Windows:Explorer: Some types of malware try to hide their hidden system files from the user, good signal event -->
 			<TargetObject name="T1158" condition="end with">\ShowSuperHidden</TargetObject> <!--Windows:Explorer: Some types of malware try to hide their hidden system files from the user, good signal event [ Example: https://www.symantec.com/security_response/writeup.jsp?docid=2007-061811-4341-99&tabid=2 ] -->
@@ -605,6 +606,7 @@
 			<TargetObject condition="contains">Classes\Directory\</TargetObject> <!--Windows:Explorer: [ https://stackoverflow.com/questions/1323663/windows-shell-context-menu-option ] -->
 			<TargetObject condition="contains">Classes\Drive\</TargetObject> <!--Windows:Explorer: [ https://stackoverflow.com/questions/1323663/windows-shell-context-menu-option ] -->
 			<TargetObject condition="contains">Classes\Folder\</TargetObject> <!--Windows:Explorer: ContextMenuHandlers, DragDropHandlers, CopyHookHandlers, [ https://stackoverflow.com/questions/1323663/windows-shell-context-menu-option ] -->
+			<TargetObject condition="contains">Classes\PROTOCOLS\</TargetObject> <!--Windows:Explorer: Protocol handlers-->
 			<TargetObject condition="contains">ContextMenuHandlers\</TargetObject> <!--Windows: [ http://oalabs.openanalysis.net/2015/06/04/malware-persistence-hkey_current_user-shell-extension-handlers/ ] -->
 			<TargetObject condition="contains">CurrentVersion\Shell</TargetObject> <!--Windows: Shell Folders, ShellExecuteHooks, ShellIconOverloadIdentifers, ShellServiceObjects, ShellServiceObjectDelayLoad [ http://oalabs.openanalysis.net/2015/06/04/malware-persistence-hkey_current_user-shell-extension-handlers/ ] -->
 			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\explorer\ShellExecuteHooks</TargetObject> <!--Windows: ShellExecuteHooks-->
@@ -648,11 +650,14 @@
 			<TargetObject condition="end with">\3\2500</TargetObject> <!--Microsoft:InternetExplorer: Malware sometimes disables Protected Mode in Internet Zone [ https://blog.avast.com/2013/08/12/your-documents-are-corrupted-from-image-to-an-information-stealing-trojan/ ] -->
 			<TargetObject condition="end with">\3\1809</TargetObject> <!--Microsoft:InternetExplorer: Malware sometimes disables Pop-up Blocker in Internet Zone [ https://support.microsoft.com/en-us/help/182569/internet-explorer-security-zones-registry-entries-for-advanced-users ] -->
 			<!--Magic registry keys-->
-			<TargetObject condition="contains">{AB8902B4-09CA-4bb6-B78D-A8F59079A8D5}\</TargetObject> <!--Windows: Thumbnail cache autostart [ http://blog.trendmicro.com/trendlabs-security-intelligence/poweliks-levels-up-with-new-autostart-mechanism/ ] -->
-			<TargetObject name="Alert,Sysinternals Tool Used" condition="end with">\EulaAccepted</TargetObject> <!--Sysinternals tool launched. Lots of useful abilities for attackers -->
-			<!--Install/Infection artifacts-->
+			<TargetObject condition="begin with">HKLM\Software\Classes\CLSID\{AB8902B4-09CA-4BB6-B78D-A8F59079A8D5}\</TargetObject> <!--Windows: Thumbnail cache autostart [ http://blog.trendmicro.com/trendlabs-security-intelligence/poweliks-levels-up-with-new-autostart-mechanism/ ] -->
+			<TargetObject condition="begin with">HKLM\Software\Classes\WOW6432Node\CLSID\{AB8902B4-09CA-4BB6-B78D-A8F59079A8D5}\</TargetObject> <!--Windows: Thumbnail cache autostart [ http://blog.trendmicro.com/trendlabs-security-intelligence/poweliks-levels-up-with-new-autostart-mechanism/ ] -->
+			<TargetObject condition="begin with">HKLM\Software\Classes\CLSID\{083863F1-70DE-11d0-BD40-00A0C911CE86}\</TargetObject> <!--Windows: DirectX instances-->
+			<TargetObject condition="begin with">HKLM\Software\Classes\WOW6432Node\CLSID\{083863F1-70DE-11d0-BD40-00A0C911CE86}\</TargetObject> <!--Windows: DirectX instances-->
+			<!--Install/Run artifacts-->
 			<TargetObject condition="end with">\UrlUpdateInfo</TargetObject> <!--Microsoft:ClickOnce: Source URL is stored in this value [ https://subt0x10.blogspot.com/2016/12/mimikatz-delivery-via-clickonce-with.html ] -->
 			<TargetObject condition="end with">\InstallSource</TargetObject> <!--Windows: Source folder for certain program and component installations-->
+			<TargetObject name="Alert,Sysinternals Tool Used" condition="end with">\EulaAccepted</TargetObject> <!--Sysinternals tool launched. Lots of useful abilities for attackers -->
 			<!--Antivirus tampering-->
 			<TargetObject name="T1089,Tamper-Defender" condition="end with">\DisableAntiSpyware</TargetObject> <!--Windows:Defender: State modified via registry-->
 			<TargetObject name="T1089,Tamper-Defender" condition="end with">\DisableAntiVirus</TargetObject> <!--Windows:Defender: State modified via registry-->
@@ -932,6 +937,7 @@
 			<QueryName condition="end with">.typekit.net</QueryName> <!--Adobe fonts-->
 			<QueryName condition="is">cdnjs.cloudflare.com</QueryName>
 			<QueryName condition="end with">.stackassets.com</QueryName> <!--Stack Overflow-->
+			<QueryName condition="end with">.steamcontent.com</QueryName>
 			<!--Web resources-->
 			<QueryName condition="end with">.disqus.com</QueryName> <!--Microsoft default exclusion-->
 			<QueryName condition="end with">.fontawesome.com</QueryName>
