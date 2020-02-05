@@ -301,6 +301,7 @@
 			<Image condition="image">notepad.exe</Image> <!--Windows: [ https://secrary.com/ReversingMalware/CoinMiner/ ] [ https://blog.cobaltstrike.com/2013/08/08/why-is-notepad-exe-connecting-to-the-internet/ ] -->
 			<Image condition="image">nslookup.exe</Image> <!--Windows: Retrieve data over DNS -->
 			<Image condition="image">powershell.exe</Image> <!--Windows: PowerShell interface-->
+			<Image condition="image">powershell_ise.exe</Image> <!--Windows: PowerShell interface-->
 			<Image condition="image">qprocess.exe</Image> <!--Windows: [ https://www.first.org/resources/papers/conf2017/APT-Log-Analysis-Tracking-Attack-Tools-by-Audit-Policy-and-Sysmon.pdf ] -->
 			<Image condition="image">qwinsta.exe</Image> <!--Windows: Query remote sessions | Credit @ion-storm -->
 			<Image condition="image">qwinsta.exe</Image> <!--Windows: Remotely query login sessions on a server or workstation | Credit @ion-storm -->
