@@ -63,7 +63,7 @@
 
 <Sysmon schemaversion="4.22">
 	<!--SYSMON META CONFIG-->
-	<HashAlgorithms>md5,sha256,IMPHASH</HashAlgorithms> <!-- Both MD5 and SHA256 are the industry-standard algorithms for identifying files -->
+	<HashAlgorithms>*</HashAlgorithms> <!-- Both MD5 and SHA256 are the industry-standard algorithms for identifying files -->
 	<CheckRevocation/> <!-- Check loaded drivers, log if their code-signing certificate has been revoked, in case malware stole one to sign a kernel driver -->
 
 	<!-- <ImageLoad/> --> <!-- Would manually force-on ImageLoad monitoring, even without configuration below. Included only documentation. -->
@@ -399,7 +399,7 @@
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, ImageLoaded, Hashes, Signed, Signature, SignatureStatus-->
 	<RuleGroup name="" groupRelation="or">
-		<ImageLoad onmatch="include">
+		<ImageLoad onmatch="exclude">
 			<!--NOTE: Using "include" with no rules means nothing in this section will be logged-->
 		</ImageLoad>
 	</RuleGroup>
@@ -434,7 +434,7 @@
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, Device-->
 	<RuleGroup name="" groupRelation="or">
-		<RawAccessRead onmatch="include">
+		<RawAccessRead onmatch="exclude">
 			<!--NOTE: Using "include" with no rules means nothing in this section will be logged-->
 		</RawAccessRead>
 	</RuleGroup>
@@ -446,7 +446,7 @@
 
 		<!--DATA: UtcTime, SourceProcessGuid, SourceProcessId, SourceThreadId, SourceImage, TargetProcessGuid, TargetProcessId, TargetImage, GrantedAccess, CallTrace-->
 	<RuleGroup name="" groupRelation="or">
-		<ProcessAccess onmatch="include">
+		<ProcessAccess onmatch="exclude">
 			<!--NOTE: Using "include" with no rules means nothing in this section will be logged-->
 		</ProcessAccess>
 	</RuleGroup>
@@ -812,7 +812,7 @@
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, PipeName, Image-->
 	<RuleGroup name="" groupRelation="or">
-		<PipeEvent onmatch="include">
+		<PipeEvent onmatch="exclude">
 			<!--NOTE: Using incide with no rules means nothing in this section will be logged-->
 		</PipeEvent>
 	</RuleGroup>
