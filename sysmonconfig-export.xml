@@ -311,6 +311,9 @@
 			<Image condition="image">tasklist.exe</Image> <!--Windows: List processes, has remote ability -->
 			<Image condition="image">wmic.exe</Image> <!--WindowsManagementInstrumentation: Credit @Cyb3rOps [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
 			<Image condition="image">wscript.exe</Image> <!--WindowsScriptingHost: | Credit @arekfurt -->
+			
+			<Image condition="image">WINWORD.exe</Image> <!-- CVE-2017-0199, CVE-2017-8759 OLE2 embedded link in Office initiating a HTTP request to a remote server to retrieve payload [https://www.fireeye.com/blog/threat-research/2017/04/cve-2017-0199-hta-handler.html] [https://www.fireeye.com/blog/threat-research/2017/09/zero-day-used-to-distribute-finspy.html]-->
+			<Image condition="image">EXCEL.exe</Image> <!-- [https://www.logpoint.com/en/blog/using-logpoint-to-mitigate-cisa-routinely-exploited-vulnerabilities-2016-2020/]-->>
 			<!--Relevant 3rd Party Tools-->
 			<Image condition="image">nc.exe</Image> <!-- Nmap's modern version of netcat [ https://nmap.org/ncat/guide/index.html#ncat-overview ] [ https://securityblog.gr/1517/create-backdoor-in-windows-with-ncat/ ] -->
 			<Image condition="image">ncat.exe</Image> <!-- Nmap's modern version of netcat [ https://nmap.org/ncat/guide/index.html#ncat-overview ] [ https://securityblog.gr/1517/create-backdoor-in-windows-with-ncat/ ] -->
