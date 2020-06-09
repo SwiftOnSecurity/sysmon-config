@@ -340,11 +340,26 @@
 			<DestinationPort name="Tor" condition="is">1723</DestinationPort> <!--Tor protocol [ https://attack.mitre.org/wiki/Technique/T1090 ] | Credit @ion-storm-->
 			<DestinationPort name="Tor" condition="is">9001</DestinationPort> <!--Tor protocol [ http://www.computerworlduk.com/tutorial/security/tor-enterprise-2016-blocking-malware-darknet-use-rogue-nodes-3633907/ ] -->
 			<DestinationPort name="Tor" condition="is">9030</DestinationPort> <!--Tor protocol [ http://www.computerworlduk.com/tutorial/security/tor-enterprise-2016-blocking-malware-darknet-use-rogue-nodes-3633907/ ] -->
+			<!--SMB Traffic-->
+			<DestinationPort name="SMB" condition="is">445</DestinationPort> <!--To be used in-conjunction with corresponding exclude-rule to filter local SMB Traffic-->
 		</NetworkConnect>
 	</RuleGroup>
 
 	<RuleGroup name="" groupRelation="or">
 		<NetworkConnect onmatch="exclude">
+			<!-- Filtering out Local SMB Traffic -->
+			<Rule groupRelation="and">
+				<DestinationPort condition="is">445</DestinationPort>
+				<SourceIp condition="begin with">172.16.</SourceIp>
+    		</Rule>
+    		<Rule groupRelation="and">
+				<DestinationPort condition="is">445</DestinationPort>
+				<SourceIp condition="begin with">192.168.</SourceIp>
+    		</Rule>
+    		<Rule groupRelation="and">
+				<DestinationPort condition="is">445</DestinationPort>
+				<SourceIp condition="begin with">10.</SourceIp>
+    		</Rule>
 			<!--SECTION: Microsoft-->
 			<Image condition="begin with">C:\ProgramData\Microsoft\Windows Defender\Platform\</Image>
 			<Image condition="end with">AppData\Local\Microsoft\Teams\current\Teams.exe</Image> <!--Microsoft: Teams-->
