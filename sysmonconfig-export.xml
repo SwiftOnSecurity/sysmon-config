@@ -626,6 +626,7 @@
 			<TargetObject name="T1101" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1131 ] [ https://attack.mitre.org/wiki/Technique/T1101 ] -->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SecurityProviders</TargetObject> <!--Windows: Changes to WDigest-UseLogonCredential for password scraping [ https://www.trustedsec.com/april-2015/dumping-wdigest-creds-with-meterpreter-mimikatzkiwi-in-windows-8-1/ ] -->
 			<TargetObject condition="begin with">HKLM\Software\Microsoft\Netsh</TargetObject> <!--Windows: Netsh helper DLL [ https://attack.mitre.org/wiki/Technique/T1128 ] -->
+			<TargetObject condition="contains">Software\Microsoft\Windows\CurrentVersion\Internet Settings\ProxyEnable</TargetObject> <!--Windows: Malware often disables a web proxy for 2nd stage downloads -->
 			<!--Networking-->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\NetworkProvider\Order\</TargetObject> <!--Windows: Order of network providers that are checked to connect to destination [ https://www.malwarearchaeology.com/cheat-sheets ] -->
 			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows NT\CurrentVersion\NetworkList\Profiles</TargetObject> <!--Windows: | Credit @ion-storm -->
