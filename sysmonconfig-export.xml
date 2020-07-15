@@ -1074,6 +1074,7 @@
 			<QueryName condition="is">status.rapidssl.com</QueryName>
 			<QueryName condition="is">status.thawte.com</QueryName>
 			<QueryName condition="is">ocsp.int-x3.letsencrypt.org</QueryName>
+			<QueryName condition="begin with">_ldap._tcp</QueryName>
 		</DnsQuery>
 	</RuleGroup>
 
