@@ -6,6 +6,8 @@ The file provided should function as a great starting point for system change mo
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**[sysmonconfig-export.xml](https://github.com/SwiftOnSecurity/sysmon-config/blob/master/sysmonconfig-export.xml)**
 
+**TEST VERSION THAT INCLUDES DNS LOGGING:** **[z-AlphaVersion.xml](https://github.com/SwiftOnSecurity/sysmon-config/blob/master/z-AlphaVersion.xml)**
+
 Because virtually every line is commented and sections are marked with explanations, it should also function as a tutorial for Sysmon and a guide to critical monitoring areas in Windows systems.
 
 Pull requests and issue tickets are welcome, and new additions will be credited in-line or on Git.
