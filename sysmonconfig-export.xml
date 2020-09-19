@@ -249,6 +249,7 @@
 			<Image condition="end with">redist.exe</Image> <!--Ignore setups-->
 			<Image condition="is">msiexec.exe</Image> <!--Ignore setups-->
 			<Image condition="is">TrustedInstaller.exe</Image> <!--Ignore setups-->
+			<TargetFilename condition="contains">\NVIDIA\NvBackend\ApplicationOntology\</TargetFilename> <!--NVIDIA GeForce Experience Application Ontology, 1000's of events in user profile-->
 		</FileCreateTime>
 	</RuleGroup>
 
