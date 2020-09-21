@@ -349,9 +349,12 @@
 			<!--SECTION: Microsoft-->
 			<Image condition="begin with">C:\ProgramData\Microsoft\Windows Defender\Platform\</Image>
 			<Image condition="end with">AppData\Local\Microsoft\Teams\current\Teams.exe</Image> <!--Microsoft: Teams-->
+			<DestinationHostname condition="is">microsoft.com</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">.microsoft.com</DestinationHostname> <!--Microsoft:Update delivery-->
-			<DestinationHostname condition="end with">microsoft.com.akadns.net</DestinationHostname> <!--Microsoft:Update delivery-->
-			<DestinationHostname condition="end with">microsoft.com.nsatc.net</DestinationHostname> <!--Microsoft:Update delivery-->
+			<DestinationHostname condition="is">microsoft.com.akadns.net</DestinationHostname> <!--Microsoft:Update delivery-->
+			<DestinationHostname condition="end with">.microsoft.com.nsatc.net</DestinationHostname> <!--Microsoft:Update delivery-->
+			<DestinationHostname condition="is">microsoft.com.akadns.net</DestinationHostname> <!--Microsoft:Update delivery-->
+			<DestinationHostname condition="end with">.microsoft.com.nsatc.net</DestinationHostname> <!--Microsoft:Update delivery-->
 			<!--Section: Loopback Addresses-->
 			<DestinationIp condition="is">127.0.0.1</DestinationIp> <!--Credit @ITProPaul-->
 			<DestinationIp condition="begin with">fe80:0:0:0</DestinationIp> <!--Credit @ITProPaul-->
@@ -931,7 +934,8 @@
 			<!--Goodlist CDN-->
 			<QueryName condition="end with">.akadns.net</QueryName> <!--AkamaiCDN, extensively used by Microsoft | Microsoft default exclusion-->
 			<QueryName condition="end with">.netflix.com</QueryName>
-			<QueryName condition="end with">aspnetcdn.com</QueryName> <!--Microsoft [ https://docs.microsoft.com/en-us/aspnet/ajax/cdn/overview ]-->
+			<QueryName condition="is">aspnetcdn.com</QueryName> <!--Microsoft [ https://docs.microsoft.com/en-us/aspnet/ajax/cdn/overview ]-->
+			<QueryName condition="end with">.aspnetcdn.com</QueryName> <!--Microsoft [ https://docs.microsoft.com/en-us/aspnet/ajax/cdn/overview ]-->
 			<QueryName condition="is">ajax.googleapis.com</QueryName>
 			<QueryName condition="is">cdnjs.cloudflare.com</QueryName> <!--Cloudflare: Hosts popular javascript libraries-->
 			<QueryName condition="is">fonts.googleapis.com</QueryName> <!--Google fonts-->
@@ -1047,16 +1051,19 @@
 			<QueryName condition="end with">.globalsign.net</QueryName>
 			<QueryName condition="is">msocsp.com</QueryName> <!--Microsoft:OCSP-->
 			<QueryName condition="is">ocsp.msocsp.com</QueryName> <!--Microsoft:OCSP-->
-			<QueryName condition="end with">pki.goog</QueryName>
+			<QueryName condition="is">pki.goog</QueryName>
+			<QueryName condition="end with">.pki.goog</QueryName>
 			<QueryName condition="is">ocsp.godaddy.com</QueryName>
-			<QueryName condition="end with">amazontrust.com</QueryName>
+			<QueryName condition="is">amazontrust.com</QueryName>
+			<QueryName condition="end with">.amazontrust.com</QueryName>
 			<QueryName condition="is">ocsp.sectigo.com</QueryName>
 			<QueryName condition="is">pki-goog.l.google.com</QueryName>
 			<QueryName condition="end with">.usertrust.com</QueryName>
 			<QueryName condition="is">ocsp.comodoca.com</QueryName>
 			<QueryName condition="is">ocsp.verisign.com</QueryName>
 			<QueryName condition="is">ocsp.entrust.net</QueryName>
-			<QueryName condition="end with">ocsp.identrust.com</QueryName>
+			<QueryName condition="is">ocsp.identrust.com</QueryName>
+			<QueryName condition="end with">.ocsp.identrust.com</QueryName>
 			<QueryName condition="is">status.rapidssl.com</QueryName>
 			<QueryName condition="is">status.thawte.com</QueryName>
 			<QueryName condition="is">ocsp.int-x3.letsencrypt.org</QueryName>
