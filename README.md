@@ -2,17 +2,17 @@
 
 This is a Microsoft Sysinternals Sysmon configuration file template with default high-quality event tracing.
 
-The file should function as a great starting point for system change monitoring in a self-contained package. This configuration and results should give you a good idea of what's possible for Sysmon. Note that this does not track things like authentication and other Windows events that are also vital for incident investigation.
+The file should function as a great starting point for system change monitoring in a self-contained and accessible package. This configuration and results should give you a good idea of what's possible for Sysmon. Note that this does not track things like authentication and other Windows events that are also vital for incident investigation.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**[sysmonconfig-export.xml](https://github.com/SwiftOnSecurity/sysmon-config/blob/master/sysmonconfig-export.xml)**
 
 Because virtually every line is commented and sections are marked with explanations, it should also function as a tutorial for Sysmon and a guide to critical monitoring areas in Windows systems.
 
-For mature organizations needing a more scalable approach after initial proof-of-concept, see **[sysmon-modular](https://github.com/olafhartong/sysmon-modular)** by [@olafhartong](https://github.com/olafhartong).
+- For a more exhaustive and detailed approach to Sysmon configuration with a different approach, see also **[sysmon-modular](https://github.com/olafhartong/sysmon-modular)** by [@olafhartong](https://github.com/olafhartong), which can act as a superset of sysmon-config. Each approach offers different benefits and costs.
 
-Pull requests and issue tickets are welcome, and new additions will be credited in-line or on Git.
+- Sysmon is a compliment to native Windows logging abilities, not a replacement for it. For valuable advice on these configurations, see **[MalwareArchaeology Logging Cheat Sheets](https://www.malwarearchaeology.com/cheat-sheets)** by [@HackerHurricane](https://twitter.com/hackerhurricane).
 
-Note: Exact syntax and filtering choices are deliberate and to have as little performance impact as possible. Sysmon's filtering abilities are different than the built-in Windows auditing features, so often a different approach is taken than the normal static listing of every possible important area.
+Note: Exact syntax and filtering choices in the configuration are highly deliberate in what they target, and to have as little performance impact as possible. Sysmon's filtering abilities are different than the built-in Windows auditing features, so often a different approach is taken than the normal static listing of paths. 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**[See other forks of this configuration](https://github.com/SwiftOnSecurity/sysmon-config/network)**
 
@@ -46,6 +46,4 @@ You will need to install and observe the results of the configuration in your ow
 The configuration is highly commented and designed to be self-explanatory to assist you in this customization to your environment.
 
 ### Design notes ###
-This configuration expects software to be installed system-wide and NOT in the C:\Users folder. 
-
-Various pieces of software install themselves in User directories, which are subject to extra monitoring. Where possible, you should install the system-wide version of these pieces of software, like Chrome. See the configuration file for more instructions.
+This configuration expects software to be installed system-wide and NOT in the C:\Users folder. Various pieces of software install themselves in User directories, which are subject to extra monitoring. Where possible, you should install the system-wide version of these pieces of software, like Chrome. See the configuration file for more instructions.
