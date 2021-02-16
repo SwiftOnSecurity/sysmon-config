@@ -2,17 +2,17 @@
 
 This is a Microsoft Sysinternals Sysmon configuration file template with default high-quality event tracing.
 
-The file provided should function as a great starting point for system change monitoring in a self-contained package. This configuration and results should give you a good idea of what's possible for Sysmon. Note that this does not track things like authentication and other Windows events that are also vital for incident investigation.
+The file should function as a great starting point for system change monitoring in a self-contained package. This configuration and results should give you a good idea of what's possible for Sysmon. Note that this does not track things like authentication and other Windows events that are also vital for incident investigation.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**[sysmonconfig-export.xml](https://github.com/SwiftOnSecurity/sysmon-config/blob/master/sysmonconfig-export.xml)**
 
 Because virtually every line is commented and sections are marked with explanations, it should also function as a tutorial for Sysmon and a guide to critical monitoring areas in Windows systems.
 
-For mature organizations needing a more scalable approach after initial proof-of-concept, see **[sysmon-modular](https://github.com/olafhartong/sysmon-modular)** by [https://github.com/olafhartong](@olafhartong).
+For mature organizations needing a more scalable approach after initial proof-of-concept, see **[sysmon-modular](https://github.com/olafhartong/sysmon-modular)** by [@olafhartong](https://github.com/olafhartong).
 
 Pull requests and issue tickets are welcome, and new additions will be credited in-line or on Git.
 
-Note: Exact syntax and filtering choices are deliberate to catch appropriate entries and to have as little performance impact as possible. Sysmon's filtering abilities are different than the built-in Windows auditing features, so often a different approach is taken than the normal static listing of every possible important area.
+Note: Exact syntax and filtering choices are deliberate and to have as little performance impact as possible. Sysmon's filtering abilities are different than the built-in Windows auditing features, so often a different approach is taken than the normal static listing of every possible important area.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**[See other forks of this configuration](https://github.com/SwiftOnSecurity/sysmon-config/network)**
 
@@ -48,4 +48,4 @@ The configuration is highly commented and designed to be self-explanatory to ass
 ### Design notes ###
 This configuration expects software to be installed system-wide and NOT in the C:\Users folder. 
 
-If your users install Chrome themselves, you should deploy the [Chrome MSI](https://enterprise.google.com/chrome/chrome-browser/), which will automatically change the shortcuts to the machine-level installation. Your users will not even notice anything different.
+Various pieces of software install themselves in User directories, which are subject to extra monitoring. Where possible, you should install the system-wide version of these pieces of software, like Chrome. See the configuration file for more instructions.
