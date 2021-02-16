@@ -6,17 +6,15 @@ The file provided should function as a great starting point for system change mo
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**[sysmonconfig-export.xml](https://github.com/SwiftOnSecurity/sysmon-config/blob/master/sysmonconfig-export.xml)**
 
-**TEST VERSION THAT INCLUDES DNS LOGGING:** **[z-AlphaVersion.xml](https://github.com/SwiftOnSecurity/sysmon-config/blob/master/z-AlphaVersion.xml)**
-
 Because virtually every line is commented and sections are marked with explanations, it should also function as a tutorial for Sysmon and a guide to critical monitoring areas in Windows systems.
+
+For mature organizations needing a more scalable approach after initial proof-of-concept, see **[sysmon-modular](https://github.com/olafhartong/sysmon-modular)** by [https://github.com/olafhartong](@olafhartong).
 
 Pull requests and issue tickets are welcome, and new additions will be credited in-line or on Git.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**[See forks of this configuration](https://github.com/SwiftOnSecurity/sysmon-config/network)**
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**[See @ion-storm Threat Intelligence SIEM fork](https://github.com/ion-storm/sysmon-config)**
-
 Note: Exact syntax and filtering choices are deliberate to catch appropriate entries and to have as little performance impact as possible. Sysmon's filtering abilities are different than the built-in Windows auditing features, so often a different approach is taken than the normal static listing of every possible important area.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**[See other forks of this configuration](https://github.com/SwiftOnSecurity/sysmon-config/network)**
 
 ## Use ##
 ### Install ###
