@@ -1,6 +1,6 @@
 ﻿<!--
   sysmon-config | A Sysmon configuration focused on default high-quality event tracing and easy customization by the community
-  Source version:	71 | Date: 2020-01-16
+  Source version:	73 | Date: 2021-02-16
   Source project:	https://github.com/SwiftOnSecurity/sysmon-config
   Source license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
 
@@ -9,7 +9,7 @@
   Fork project:	<N/A>
   Fork license:	<N/A>
 
-  REQUIRED: Sysmon version 10.0.4.1 or higher (due to changes in syntax and bug-fixes)
+  REQUIRED: Sysmon version 13 or higher (due to changes in syntax and bug-fixes)
 	https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon
 
   NOTE: To collect Sysmon logs centrally for free, see https://aka.ms/WEF | Command to allow log access to the Network Service:
@@ -33,13 +33,12 @@
 	Otherwise, attackers could imitate these common applications, and bypass your logging. Below are silent upgrades you can do, no user impact:
 	- https://docs.microsoft.com/en-us/onedrive/per-machine-installation
 	- https://cloud.google.com/chrome-enterprise/browser/download/
-	- As of 2019-08-25 there is no usermode version of Microsoft Teams.
+	- As of 2021-02-16 there is no machine-level version of Microsoft Teams. The one provided copies itself to the user profile.
 
   NOTE: Sysmon is not hardened against an attacker with admin rights. Additionally, this configuration offers an attacker, willing
 	to study it, limited ways to evade some of the logging. If you are in a very high-threat environment, you should consider a broader,
 	log-most approach. However, in the vast majority of cases, an attacker will bumble through multiple behavioral traps which
-	this configuration monitors, especially in the first minutes. Even APT do not send their A-team unless they know you're hardened.
-	5% of the effort gets 95% of the results. APT rely on nobody watching because almost nobody does. Your effort makes the difference.
+	this configuration monitors, especially in the first minutes.
 
   NOTE: If you encounter unexplainable event inclusion/exclusion, you may have a second Sysmon instance installed under a different exe filename.
 	To clear this, try downloading the latest version and uninstalling with -u force. If it hangs, kill the processes and run it again to cleanup.
@@ -56,19 +55,20 @@
   - "Image" is a technical term for a compiled binary file like an EXE or DLL. Also, it can match just the filename, or entire path.
   - "ProcessGuid" and "LoginGuid" are not random, they contain some embedded information. https://gist.github.com/mattifestation/0102042160c9a60b2b847378c0ef70b4
 
-  FILTERING: Filter conditions available for use are: is, is not, contains, excludes, begin with, end with, less than, more than, image
+  FILTERING: Filter conditions available for use are: is,is not,contains,contains any,contains all,excludes,excludes any,excludes all,begin with,end with,less than,more than,image
   - The "image" filter is usable on any field. Same as "is" but can either match entire string, or only the text after last "\". Credit: @mattifestation
 
 -->
 
-<Sysmon schemaversion="4.22">
+<Sysmon schemaversion="4.50">
 	<!--SYSMON META CONFIG-->
-	<HashAlgorithms>md5,sha256,IMPHASH</HashAlgorithms> <!-- Both MD5 and SHA256 are the industry-standard algorithms for identifying files -->
+	<HashAlgorithms>md5,sha256,IMPHASH</HashAlgorithms> <!-- Both MD5 and SHA256 are the industry-standard algorithms. Remove IMPHASH if you do not use DLL import fingerprinting. -->
 	<CheckRevocation/> <!-- Check loaded drivers, log if their code-signing certificate has been revoked, in case malware stole one to sign a kernel driver -->
 
 	<!-- <ImageLoad/> --> <!-- Would manually force-on ImageLoad monitoring, even without configuration below. Included only documentation. -->
 	<!-- <ProcessAccessConfig/> --> <!-- Would manually force-on ProcessAccess monitoring, even without configuration below. Included only documentation. -->
 	<!-- <PipeMonitoringConfig/> --> <!-- Would manually force-on PipeCreated / PipeConnected events, even without configuration below. Included only documentation. -->
+	<!-- <ArchiveDirectory> -->
 
 	<EventFiltering>
 
@@ -352,6 +352,9 @@
 			<DestinationHostname condition="end with">.microsoft.com</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">microsoft.com.akadns.net</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">microsoft.com.nsatc.net</DestinationHostname> <!--Microsoft:Update delivery-->
+			<!--OCSP known addresses-->
+			<DestinationIp condition="is">23.4.43.27</DestinationIp> <!--Digicert [ https://otx.alienvault.com/indicator/ip/23.4.43.27 ] -->
+			<DestinationIp condition="is">72.21.91.29</DestinationIp> <!--Digicert [ https://otx.alienvault.com/indicator/ip/72.21.91.29 ] -->
 			<!--Section: Loopback Addresses-->
 			<DestinationIp condition="is">127.0.0.1</DestinationIp> <!--Credit @ITProPaul-->
 			<DestinationIp condition="begin with">fe80:0:0:0</DestinationIp> <!--Credit @ITProPaul-->
@@ -488,8 +491,10 @@
 			<TargetFilename condition="end with">.vbe</TargetFilename> <!--VisualBasicScripting-->
 			<TargetFilename condition="end with">.vbs</TargetFilename> <!--VisualBasicScripting-->
 			<TargetFilename condition="end with">.xlsm</TargetFilename> <!--Microsoft:Office:Word: Macro-->
-			<TargetFilename condition="end with">proj</TargetFilename><!--Microsoft:MSBuild:Script: More information: https://twitter.com/subTee/status/885919612969394177-->
-			<TargetFilename condition="end with">.sln</TargetFilename><!--Microsoft:MSBuild:Script: More information: https://twitter.com/subTee/status/885919612969394177-->
+			<TargetFilename condition="end with">.ocx</TargetFilename> <!--Microsoft:ActiveX-->
+			<TargetFilename condition="end with">proj</TargetFilename><!--Microsoft:MSBuild:Script: [ https://twitter.com/subTee/status/885919612969394177 ] -->
+			<TargetFilename condition="end with">.sln</TargetFilename><!--Microsoft:MSBuild:Script: [ https://twitter.com/subTee/status/885919612969394177 ] -->
+			<TargetFilename condition="end with">.xls</TargetFilename><!--Microsoft [ https://medium.com/@threathuntingteam/msxsl-exe-and-wmic-exe-a-way-to-proxy-code-execution-8d524f642b75 ] -->
 			<TargetFilename name="DefaultUserModified" condition="begin with">C:\Users\Default</TargetFilename> <!--Windows: Changes to default user profile-->
 			<TargetFilename condition="begin with">C:\Windows\system32\Drivers</TargetFilename> <!--Microsoft: Drivers dropped here-->
 			<TargetFilename condition="begin with">C:\Windows\SysWOW64\Drivers</TargetFilename> <!--Microsoft: Drivers dropped here-->
@@ -694,6 +699,7 @@
 			<TargetObject name="InvDB-CompileTimeClaim" condition="end with">\LinkDate</TargetObject> <!-- Compile time of EXE, may not be reliable [ https://en.wikipedia.org/wiki/Link_time ] -->
 			<TargetObject name="InvDB" condition="contains">Compatibility Assistant\Store\</TargetObject> <!-- Inventory -->
 			<!--Suspicious sources-->
+			<Image name="Suspicious,ImageBeginWithBackslash" condition="end with">regedit.exe</Image> <!--Users and helpdesk staff making system modifications -->
 			<Image name="Suspicious,ImageBeginWithBackslash" condition="begin with">\</Image> <!--Devices and VSC shouldn't be executing changes | Credit: @SBousseaden @ionstorm @neu5ron @PerchedSystems [ https://twitter.com/SwiftOnSecurity/status/1133167323991486464 ] -->
 		</RegistryEvent>
 	</RuleGroup>
@@ -907,8 +913,11 @@
 			<QueryName condition="end with">.aria.microsoft.com</QueryName> <!--Microsoft: OneDrive/SharePoint-->
 			<QueryName condition="end with">.msauth.net</QueryName>
 			<QueryName condition="end with">.msftauth.net</QueryName>
+			<QueryName condition="end with">.office.net</QueryName> <!--Microsoft: Office-->
 			<QueryName condition="end with">.opinsights.azure.com</QueryName> <!--Microsoft: AzureAD/InTune client event monitoring-->
-			<QueryName condition="end with">osi.office.net</QueryName> <!--Microsoft: Office-->
+			<QueryName condition="end with">.res.office365.com</QueryName> <!--Microsoft: Office-->
+			<QueryName condition="is">acdc-direct.office.com</QueryName> <!--Microsoft: Office-->
+			<QueryName condition="is">atm-fp-direct.office.com</QueryName> <!--Microsoft: Office-->
 			<QueryName condition="is">loki.delve.office.com</QueryName> <!--Microsoft: Office-->
 			<QueryName condition="is">management.azure.com</QueryName> <!--Microsoft: AzureAD/InTune-->
 			<QueryName condition="is">messaging.office.com</QueryName> <!--Microsoft: Office-->
@@ -916,13 +925,18 @@
 			<QueryName condition="is">portal.azure.com</QueryName> <!--Microsoft: AzureAD/InTune-->
 			<QueryName condition="is">protection.outlook.com</QueryName> <!--Microsoft: Office-->
 			<QueryName condition="is">substrate.office.com</QueryName> <!--Microsoft: Office-->
+			<QueryName condition="end with">.measure.office.com</QueryName> <!--Microsoft: Office-->
 			<!--3rd-party applications-->
+			<QueryName condition="end with">.adobe.com</QueryName> <!--Adobe-->
+			<QueryName condition="end with">.adobe.io</QueryName> <!--Adobe-->
 			<QueryName condition="end with">.mozaws.net</QueryName> <!--Mozilla-->
 			<QueryName condition="end with">.mozilla.com</QueryName> <!--Mozilla-->
 			<QueryName condition="end with">.mozilla.net</QueryName> <!--Mozilla-->
 			<QueryName condition="end with">.mozilla.org</QueryName> <!--Mozilla-->
 			<QueryName condition="end with">.spotify.com</QueryName> <!--Spotify-->
 			<QueryName condition="end with">.spotify.map.fastly.net</QueryName> <!--Spotify-->
+			<QueryName condition="end with">.wbx2.com</QueryName> <!--Webex-->
+			<QueryName condition="end with">.webex.com</QueryName> <!--Webex-->
 			<QueryName condition="is">clients1.google.com</QueryName> <!--Google-->
 			<QueryName condition="is">clients2.google.com</QueryName> <!--Google-->
 			<QueryName condition="is">clients3.google.com</QueryName> <!--Google-->
@@ -941,6 +955,8 @@
 			<QueryName condition="is">cdnjs.cloudflare.com</QueryName>
 			<QueryName condition="end with">.stackassets.com</QueryName> <!--Stack Overflow-->
 			<QueryName condition="end with">.steamcontent.com</QueryName>
+			<QueryName condition="is">play.google.com</QueryName>
+			<QueryName condition="is">content-autofill.googleapis.com</QueryName>
 			<!--Web resources-->
 			<QueryName condition="end with">.disqus.com</QueryName> <!--Microsoft default exclusion-->
 			<QueryName condition="end with">.fontawesome.com</QueryName>
@@ -948,6 +964,7 @@
 			<!--Ads-->
 			<QueryName condition="end with">.1rx.io</QueryName> <!--Ads-->
 			<QueryName condition="end with">.2mdn.net</QueryName> <!--Ads: Google | Microsoft default exclusion-->
+			<QueryName condition="end with">.3lift.com</QueryName> <!--Ads-->
 			<QueryName condition="end with">.adadvisor.net</QueryName> <!--Ads: Neustar [ https://better.fyi/trackers/adadvisor.net/ ] -->
 			<QueryName condition="end with">.adap.tv</QueryName> <!--Ads:AOL | Microsoft default exclusion [ https://www.crunchbase.com/organization/adap-tv ] -->
 			<QueryName condition="end with">.addthis.com</QueryName> <!--Ads:Oracle | Microsoft default exclusion [ https://en.wikipedia.org/wiki/AddThis ] -->
@@ -957,7 +974,9 @@
 			<QueryName condition="end with">.adrta.com</QueryName> <!--Ads-->
 			<QueryName condition="end with">.adsafeprotected.com</QueryName> <!--Ads-->
 			<QueryName condition="end with">.adsrvr.org</QueryName> <!--Ads-->
+			<QueryName condition="end with">.adsymptotic.com</QueryName> <!--Ads-->
 			<QueryName condition="end with">.advertising.com</QueryName> <!--Ads | Microsoft default exclusion-->
+			<QueryName condition="end with">.agkn.com</QueryName> <!--Ads | [ https://www.home.neustar/privacy ] -->
 			<QueryName condition="end with">.amazon-adsystem.com</QueryName> <!--Ads-->
 			<QueryName condition="end with">.amazon-adsystem.com</QueryName> <!--Ads-->
 			<QueryName condition="end with">.analytics.yahoo.com</QueryName> <!--Ads:Yahoo-->
@@ -977,6 +996,7 @@
 			<QueryName condition="end with">.doubleclick.net</QueryName> <!--Ads:Conversant | Microsoft default exclusion [ https://www.crunchbase.com/organization/dotomi ] -->
 			<QueryName condition="end with">.doubleverify.com</QueryName> <!--Ads: Google-->
 			<QueryName condition="end with">.emxdgt.com</QueryName> <!--Ads: EMX-->
+			<QueryName condition="end with">.everesttech.net</QueryName> <!--Ads | [ https://better.fyi/trackers/everesttech.net/ ] -->
 			<QueryName condition="end with">.exelator.com</QueryName> <!--Ads:Nielson Marketing Cloud-->
 			<QueryName condition="end with">.google-analytics.com</QueryName> <!--Ads:Google | Microsoft default exclusion-->
 			<QueryName condition="end with">.googleadservices.com</QueryName> <!--Google-->
@@ -988,6 +1008,8 @@
 			<QueryName condition="end with">.gvt2.com</QueryName> <!--Google-->
 			<QueryName condition="end with">.ib-ibi.com</QueryName> <!--Ads: Offerpath [ https://better.fyi/trackers/ib-ibi.com/ ] -->
 			<QueryName condition="end with">.jivox.com</QueryName> <!--Ads-->
+			<QueryName condition="end with">.krxd.net</QueryName> <!--Ads-->
+			<QueryName condition="end with">.lijit.com</QueryName> <!--Ads-->
 			<QueryName condition="end with">.mathtag.com</QueryName> <!--Microsoft default exclusion-->
 			<QueryName condition="end with">.moatads.com</QueryName> <!--Ads | Microsoft default exclusion-->
 			<QueryName condition="end with">.moatpixel.com</QueryName> <!--Ads | Microsoft default exclusion-->
@@ -1044,10 +1066,23 @@
 			<!--SocialNet-->
 			<QueryName condition="end with">.pscp.tv</QueryName> <!--Twitter:Periscope-->
 			<!--OSCP/CRL Common-->
+			<QueryName condition="end with">.amazontrust.com</QueryName>
 			<QueryName condition="end with">.digicert.com</QueryName>
 			<QueryName condition="end with">.globalsign.com</QueryName>
 			<QueryName condition="end with">.globalsign.net</QueryName>
+			<QueryName condition="end with">.intel.com</QueryName>
+			<QueryName condition="end with">.symcb.com</QueryName> <!--Digicert-->
+			<QueryName condition="end with">.symcd.com</QueryName> <!--Digicert-->
+			<QueryName condition="end with">.thawte.com</QueryName>
+			<QueryName condition="end with">.usertrust.com</QueryName>
+			<QueryName condition="end with">.verisign.com</QueryName>
+			<QueryName condition="end with">ocsp.identrust.com</QueryName>
+			<QueryName condition="end with">pki.goog</QueryName>
 			<QueryName condition="is">msocsp.com</QueryName> <!--Microsoft:OCSP-->
+			<QueryName condition="is">ocsp.comodoca.com</QueryName>
+			<QueryName condition="is">ocsp.entrust.net</QueryName>
+			<QueryName condition="is">ocsp.godaddy.com</QueryName>
+			<QueryName condition="is">ocsp.int-x3.letsencrypt.org</QueryName>
 			<QueryName condition="is">ocsp.msocsp.com</QueryName> <!--Microsoft:OCSP-->
 			<QueryName condition="end with">pki.goog</QueryName>
 			<QueryName condition="is">ocsp.godaddy.com</QueryName>
@@ -1064,6 +1099,55 @@
 			<QueryName condition="is">ocsp.int-x3.letsencrypt.org</QueryName>
 		</DnsQuery>
 	</RuleGroup>
+
+	<!--SYSMON EVENT ID 23 : FILE DELETE [FileDelete]-->
+		<!--EVENT 22: "File Delete"-->
+		<!--COMMENT:	Sandbox usage. When a program signals to Windows a file should be deleted or wiped, Sysmon may be able to capture it. 
+			[ https://isc.sans.edu/forums/diary/Sysmon+and+File+Deletion/26084/ ]
+		-->
+
+		<!--DATA: RuleName, UtcTime, ProcessGuid, ProcessId, User, Image, TargetFilename, Hashes, IsExecutable, Archived -->
+
+	<!--
+	<RuleGroup name="" groupRelation="or">
+		<ClipboardChange onmatch="include">
+		</ClipboardChange>
+	</RuleGroup>
+	-->
+
+	<!--SYSMON EVENT ID 24 : CLIPBOARD EVENT MONITORING [ClipboardChange]-->
+		<!--EVENT 24: "Clipboard changed"-->
+		<!--COMMENT:	Sandbox usage.  Sysmon can capture the contents of clipboard events.
+			An  example of what could be a production usage on restricted desktops is provided below, but it is commented-out. -->
+			
+		<!--DATA: EventType, UtcTime, ProcessGuid, ProcessId, Image, Session, ClientInfo, Hashes, Archived -->
+
+	<!--
+	<RuleGroup name="" groupRelation="or">
+		<ClipboardChange onmatch="include">
+			<Image condition="end with">wscript.exe</Image>
+			<Image condition="end with">cscript.exe</Image>
+			<Image condition="end with">powershell.exe</Image>
+			<Image condition="end with">rdpclip.exe</Image>
+		</ClipboardChange>
+	</RuleGroup>
+	-->
+
+	<!--SYSMON EVENT ID 25 : PROCESS TAMPERING [ProcessTampering]-->
+		<!--EVENT 25: "Process Tampering"-->
+		<!--COMMENT:	This event is generated when a process image is changed from an external source, such as a different process.
+			This may or may not provide value in your environment as it requires tuning and a SIEM to correlate the ProcessGuids.
+			[ https://medium.com/falconforce/sysmon-13-process-tampering-detection-820366138a6c ] -->
+		
+		<!--DATA: EventType, RuleName, UtcTime, ProcessGuid, ProcessId, Image, Type -->
+	
+	<!--
+	<RuleGroup name="" groupRelation="or">
+		<ProcessTampering onmatch="exclude">
+			<Image condition="begin with">C:\Program Files (x86)\Microsoft\Edge\Application\</Image>
+		</ProcessTampering>
+	</RuleGroup>
+	-->
 
 	<!--SYSMON EVENT ID 255 : ERROR-->
 		<!--"This event is generated when an error occurred within Sysmon. They can happen if the system is under heavy load
