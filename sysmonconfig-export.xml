@@ -681,9 +681,10 @@
 			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\WINEVT\</TargetObject> <!--Windows: Event log system integrity and ACLs-->
 			<TargetObject name="Tamper-Safemode" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Safeboot\</TargetObject> <!--Windows: Services approved to load in safe mode. Almost nothing should ever modify this.-->
 			<TargetObject name="Tamper-Winlogon" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Winlogon\</TargetObject> <!--Windows: Providers notified by WinLogon-->
-			<TargetObject name="Context,DeviceConntectedOrUpdated" condition="end with">\FriendlyName</TargetObject> <!--Windows: New devices connected and remembered-->
+			<TargetObject name="Context,DeviceConnectedOrUpdated" condition="end with">\FriendlyName</TargetObject> <!--Windows: New devices connected and remembered-->
 			<TargetObject name="Context,MsiInstallerStarted" condition="is">HKLM\Software\Microsoft\Windows\CurrentVersion\Installer\InProgress\(Default)</TargetObject> <!--Windows: See when WindowsInstaller is engaged, useful for timeline matching with other events-->
 			<TargetObject name="Tamper-Tracing" condition="begin with">HKLM\Software\Microsoft\Tracing\RASAPI32</TargetObject> <!--Windows: Malware sometimes disables tracing to obfuscate tracks-->
+			<TargetObject name="Context,ProcessAccessedPrivateResource" condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\</TargetObject> <!-- Windows: Win10 tracks when and what process uses webcam/microphone/location etc [ https://medium.com/@7a616368/can-you-track-processes-accessing-the-camera-and-microphone-7e6885b37072 ] -->
 			<!--Windows inventory events-->
 			<TargetObject name="InvDB-Path" condition="end with">\LowerCaseLongPath</TargetObject> <!-- [ https://binaryforay.blogspot.com/2017/10/amcache-still-rules-everything-around.html ] -->
 			<TargetObject name="InvDB-Pub" condition="end with">\Publisher</TargetObject> <!-- [ https://binaryforay.blogspot.com/2017/10/amcache-still-rules-everything-around.html ] -->
