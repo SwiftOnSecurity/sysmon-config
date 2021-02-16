@@ -8,7 +8,7 @@ The file should function as a great starting point for system change monitoring 
 
 Because virtually every line is commented and sections are marked with explanations, it should also function as a tutorial for Sysmon and a guide to critical monitoring areas in Windows systems.
 
-- For a more exhaustive and detailed approach to Sysmon configuration with a different approach, see also **[sysmon-modular](https://github.com/olafhartong/sysmon-modular)** by [@olafhartong](https://github.com/olafhartong), which can act as a superset of sysmon-config. Each approach offers different benefits and costs.
+- For a far more exhaustive and detailed approach to Sysmon configuration from a different approach, see also **[sysmon-modular](https://github.com/olafhartong/sysmon-modular)** by [@olafhartong](https://twitter.com/olafhartong), which can act as a superset of sysmon-config.
 
 - Sysmon is a compliment to native Windows logging abilities, not a replacement for it. For valuable advice on these configurations, see **[MalwareArchaeology Logging Cheat Sheets](https://www.malwarearchaeology.com/cheat-sheets)** by [@HackerHurricane](https://twitter.com/hackerhurricane).
 
