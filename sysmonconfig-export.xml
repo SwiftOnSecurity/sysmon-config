@@ -150,8 +150,8 @@
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted -s TabletInputService</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted -s UmRdpService</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted -s WPDBusEnum</CommandLine>
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted -p -s NgcSvc</CommandLine> <!--Microsoft:Passport--> 
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localServiceNetworkRestricted -p -s NgcCtnrSvc</CommandLine> <!--Microsoft:Passport Container--> 
+			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted -p -s NgcSvc</CommandLine> <!--Microsoft:Passport-->
+			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localServiceNetworkRestricted -p -s NgcCtnrSvc</CommandLine> <!--Microsoft:Passport Container-->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localServiceAndNoImpersonation -s SCardSvr</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs -p -s wuauserv</CommandLine>
 			<CommandLine condition="is">C:\Windows\System32\svchost.exe -k netsvcs -p -s SessionEnv</CommandLine> <!--Windows:Remote desktop configuration-->
@@ -226,7 +226,7 @@
 			<CommandLine condition="begin with">"C:\Program Files\Google\Chrome\Application\chrome.exe" --type=</CommandLine> <!--Google:Chrome: massive command-line arguments-->
 		</ProcessCreate>
 	</RuleGroup>
-	
+
 	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM [FileCreateTime]-->
 		<!--COMMENT:	[ https://attack.mitre.org/wiki/Technique/T1099 ] -->
 
@@ -259,7 +259,7 @@
 		<!--TECHNICAL:	For the DestinationHostname, Sysmon uses the GetNameInfo API, which will often not have any information, and may just be a CDN. This is NOT reliable for filtering.-->
 		<!--TECHNICAL:	For the DestinationPortName, Sysmon uses the GetNameInfo API for the friendly name of ports you see in logs.-->
 		<!--TECHNICAL:	These exe do not initiate their connections, and thus includes do not work in this section: BITSADMIN NLTEST-->
-		
+
 		<!-- https://www.first.org/resources/papers/conf2017/APT-Log-Analysis-Tracking-Attack-Tools-by-Audit-Policy-and-Sysmon.pdf -->
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, User, Protocol, Initiated, SourceIsIpv6, SourceIp, SourceHostname, SourcePort, SourcePortName, DestinationIsIpV6, DestinationIp, DestinationHostname, DestinationPort, DestinationPortName-->
@@ -332,7 +332,7 @@
 			<DestinationPort name="RDP" condition="is">3389</DestinationPort> <!--Windows:RDP: Monitor admin connections-->
 			<DestinationPort name="VNC" condition="is">5800</DestinationPort> <!--VNC protocol: Monitor admin connections, often insecure, using hard-coded admin password-->
 			<DestinationPort name="VNC" condition="is">5900</DestinationPort> <!--VNC protocol Monitor admin connections, often insecure, using hard-coded admin password-->
-			<DestinationPort name="Alert,Metasploit" condition="is">444</DestinationPort>
+			<DestinationPort name="Alert,Metasploit" condition="is">4444</DestinationPort>
 			<!--Ports: Proxy-->
 			<DestinationPort name="Proxy" condition="is">1080</DestinationPort> <!--Socks proxy port | Credit @ion-storm-->
 			<DestinationPort name="Proxy" condition="is">3128</DestinationPort> <!--Socks proxy port | Credit @ion-storm-->
@@ -808,7 +808,7 @@
 	<!--SYSMON EVENT ID 16 : SYSMON CONFIGURATION CHANGE-->
 		<!--EVENT 16: "Sysmon config state changed"-->
 		<!--COMMENT:	This ONLY logs if the hash of the configuration changes. Running "sysmon.exe -c" with the current configuration will not be logged with Event 16-->
-		
+
 		<!--DATA: UtcTime, Configuration, ConfigurationFileHash-->
 		<!--Cannot be filtered.-->
 
@@ -991,7 +991,7 @@
 			<QueryName condition="end with">.criteo.net</QueryName> <!--Ads [ https://better.fyi/trackers/criteo.com/ ] -->
 			<QueryName condition="end with">.crwdcntrl.net</QueryName> <!--Ads: Lotame [ https://better.fyi/trackers/crwdcntrl.net/ ] -->
 			<QueryName condition="end with">.demdex.net</QueryName> <!--Ads | Microsoft default exclusion-->
-			<QueryName condition="end with">.domdex.com</QueryName> 
+			<QueryName condition="end with">.domdex.com</QueryName>
 			<QueryName condition="end with">.dotomi.com</QueryName> <!--Ads | Microsoft default exclusion-->
 			<QueryName condition="end with">.doubleclick.net</QueryName> <!--Ads:Conversant | Microsoft default exclusion [ https://www.crunchbase.com/organization/dotomi ] -->
 			<QueryName condition="end with">.doubleverify.com</QueryName> <!--Ads: Google-->
@@ -1102,7 +1102,7 @@
 
 	<!--SYSMON EVENT ID 23 : FILE DELETE [FileDelete]-->
 		<!--EVENT 22: "File Delete"-->
-		<!--COMMENT:	Sandbox usage. When a program signals to Windows a file should be deleted or wiped, Sysmon may be able to capture it. 
+		<!--COMMENT:	Sandbox usage. When a program signals to Windows a file should be deleted or wiped, Sysmon may be able to capture it.
 			[ https://isc.sans.edu/forums/diary/Sysmon+and+File+Deletion/26084/ ]
 		-->
 
@@ -1119,7 +1119,7 @@
 		<!--EVENT 24: "Clipboard changed"-->
 		<!--COMMENT:	Sandbox usage.  Sysmon can capture the contents of clipboard events.
 			An  example of what could be a production usage on restricted desktops is provided below, but it is commented-out. -->
-			
+
 		<!--DATA: EventType, UtcTime, ProcessGuid, ProcessId, Image, Session, ClientInfo, Hashes, Archived -->
 
 	<!--
@@ -1138,9 +1138,9 @@
 		<!--COMMENT:	This event is generated when a process image is changed from an external source, such as a different process.
 			This may or may not provide value in your environment as it requires tuning and a SIEM to correlate the ProcessGuids.
 			[ https://medium.com/falconforce/sysmon-13-process-tampering-detection-820366138a6c ] -->
-		
+
 		<!--DATA: EventType, RuleName, UtcTime, ProcessGuid, ProcessId, Image, Type -->
-	
+
 	<!--
 	<RuleGroup name="" groupRelation="or">
 		<ProcessTampering onmatch="exclude">
