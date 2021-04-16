@@ -781,6 +781,7 @@
 		<!--NOTE: Other filesystem minifilters can make it appear to Sysmon that some files are being written twice. This is not a Sysmon issue, per Mark Russinovich.-->
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime, Hash-->
+	<RuleGroup name="" groupRelation="or">
 		<FileCreateStreamHash onmatch="include">
 			<TargetFilename condition="contains">Downloads</TargetFilename> <!--Downloaded files. Does not include "Run" files in IE-->
 			<TargetFilename condition="contains">Temp\7z</TargetFilename> <!--7zip extractions-->
@@ -799,6 +800,7 @@
 			<TargetFilename condition="end with">.vbe</TargetFilename> <!--VisualBasicScripting files-->
 			<TargetFilename condition="end with">.vbs</TargetFilename> <!--VisualBasicScripting files-->
 		</FileCreateStreamHash>
+	</RuleGroup>
 
 	<RuleGroup name="" groupRelation="or">
 		<FileCreateStreamHash onmatch="exclude">
