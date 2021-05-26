@@ -1101,7 +1101,7 @@
 	</RuleGroup>
 
 	<!--SYSMON EVENT ID 23 : FILE DELETE [FileDelete]-->
-		<!--EVENT 22: "File Delete"-->
+		<!--EVENT 23: "File Delete"-->
 		<!--COMMENT:	Sandbox usage. When a program signals to Windows a file should be deleted or wiped, Sysmon may be able to capture it. 
 			[ https://isc.sans.edu/forums/diary/Sysmon+and+File+Deletion/26084/ ]
 		-->
@@ -1110,8 +1110,8 @@
 
 	<!--
 	<RuleGroup name="" groupRelation="or">
-		<ClipboardChange onmatch="include">
-		</ClipboardChange>
+		<FileDelete onmatch="include">
+		</FileDelete>
 	</RuleGroup>
 	-->
 
