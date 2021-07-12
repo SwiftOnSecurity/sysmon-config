@@ -671,6 +671,7 @@
 			<TargetObject name="T1089,Tamper-Defender" condition="end with">\SpynetReporting</TargetObject> <!--Windows:Defender: State modified via registry-->
 			<TargetObject name="T1089,Tamper-Defender" condition="end with">DisableRealtimeMonitoring</TargetObject> <!--Windows:Defender: State modified via registry-->
 			<TargetObject name="T1089,Tamper-Defender" condition="end with">\SubmitSamplesConsent</TargetObject> <!--Windows:Defender: State modified via registry-->
+			<TargetObject name="T1089,Tamper-Defender" condition="begin with">HKLM\Software\Microsoft\Windows Defender\Exclusions</TargetObject> <!--Windows:Defender: State modified via registry-->
 			<!--Windows UAC tampering-->
 			<TargetObject name="T1088" condition="end with">HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\EnableLUA</TargetObject> <!--Detect: UAC Tampering | Credit @ion-storm -->
 			<TargetObject name="T1088" condition="end with">HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\LocalAccountTokenFilterPolicy</TargetObject> <!--Detect: UAC Tampering | Credit @ion-storm -->
