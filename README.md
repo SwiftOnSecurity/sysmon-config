@@ -1,49 +1,45 @@
-# sysmon-config | A Sysmon configuration file for everybody to fork #
+# sysmon-config | A Sysmon configuration file
 
-This is a Microsoft Sysinternals Sysmon configuration file template with default high-quality event tracing.
+This is a forked and modified version of @SwiftOnSecurity's [sysmon config](https://github.com/SwiftOnSecurity/sysmon-config).
 
-The file should function as a great starting point for system change monitoring in a self-contained and accessible package. This configuration and results should give you a good idea of what's possible for Sysmon. Note that this does not track things like authentication and other Windows events that are also vital for incident investigation.
+Currently it is simply a copy with most of the 30+ open pull requests of the original repository merged. Thus we have fixed many of the issues that are still present in the original version and extended the coverage by important new extensions that have been provided over the last year.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**[sysmonconfig-export.xml](https://github.com/SwiftOnSecurity/sysmon-config/blob/master/sysmonconfig-export.xml)**
+## Testing
 
-Because virtually every line is commented and sections are marked with explanations, it should also function as a tutorial for Sysmon and a guide to critical monitoring areas in Windows systems.
+This configuration is focused on detection coverage. We have only one rather small testing environment to avoid problematic expressions that trigger too often. It is recommended to test the downloaded configuration on a small set of systems in your environment in any case. 
 
-- For a far more exhaustive and detailed approach to Sysmon configuration from a different approach, see also **[sysmon-modular](https://github.com/olafhartong/sysmon-modular)** by [@olafhartong](https://twitter.com/olafhartong), which can act as a superset of sysmon-config.
+## Feedback
 
-- Sysmon is a compliment to native Windows logging abilities, not a replacement for it. For valuable advice on these configurations, see **[MalwareArchaeology Logging Cheat Sheets](https://www.malwarearchaeology.com/cheat-sheets)** by [@HackerHurricane](https://twitter.com/hackerhurricane).
+Since we don't have more than one environment to test the config ourselves, we rely on feedback from the community.
 
-Note: Exact syntax and filtering choices in the configuration are highly deliberate in what they target, and to have as little performance impact as possible. Sysmon's filtering abilities are different than the built-in Windows auditing features, so often a different approach is taken than the normal static listing of paths. 
+Please report:
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**[See other forks of this configuration](https://github.com/SwiftOnSecurity/sysmon-config/network)**
+1. Expressions that cause a high volume of events
+2. Broken configuration elements (typos, wrong conditions)
+3. Missing coverage (preferrably as a pull request)
 
-## Use ##
-### Install ###
+## Usage
+
+### Install
+
 Run with administrator rights
-~~~~
+
+```batch
 sysmon.exe -accepteula -i sysmonconfig-export.xml
-~~~~
+```
 
-### Update existing configuration ###
+### Update existing configuration
+
 Run with administrator rights
-~~~~
+
+```batch
 sysmon.exe -c sysmonconfig-export.xml
-~~~~
+```
 
-### Uninstall ###
+### Uninstall
+
 Run with administrator rights
-~~~~
+
+```batch
 sysmon.exe -u
-~~~~
-
-## Required actions ##
-
-### Prerequisites ###
-Highly recommend using [Notepad++](https://notepad-plus-plus.org/) to edit this configuration. It understands UNIX newline format and does XML syntax highlighting, which makes this very understandable. I do not recommend using the built-in Notepad.exe.
-
-### Customization ###
-You will need to install and observe the results of the configuration in your own environment before deploying it widely. For example, you will need to exclude actions of your antivirus, which will otherwise likely fill up your logs with useless information.
-
-The configuration is highly commented and designed to be self-explanatory to assist you in this customization to your environment.
-
-### Design notes ###
-This configuration expects software to be installed system-wide and NOT in the C:\Users folder. Various pieces of software install themselves in User directories, which are subject to extra monitoring. Where possible, you should install the system-wide version of these pieces of software, like Chrome. See the configuration file for more instructions.
+```
