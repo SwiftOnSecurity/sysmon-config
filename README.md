@@ -4,6 +4,12 @@ This is a forked and modified version of @SwiftOnSecurity's [sysmon config](http
 
 Currently it is simply a copy with most of the 30+ open pull requests of the original repository merged. Thus we have fixed many of the issues that are still present in the original version and extended the coverage by important new extensions that have been provided over the last year.
 
+## Additional coverage includes
+
+- Cobalt Strike named pipes
+- PrinterNightmare
+- HiveNightmare
+
 ## Testing
 
 This configuration is focused on detection coverage. We have only one rather small testing environment to avoid problematic expressions that trigger too often. It is recommended to test the downloaded configuration on a small set of systems in your environment in any case. 
