@@ -553,6 +553,7 @@
 			<TargetFilename condition="contains">\SAM-haxx</TargetFilename> <!-- Default output of HiveNightmare / SeriousSAM tools -->
 			<TargetFilename condition="contains">\Sam.save</TargetFilename> <!-- Default output of HiveNightmare / SeriousSAM tools -->
 			<TargetFilename condition="contains">\hive_sam_</TargetFilename> <!-- Default output of HiveNightmare / SeriousSAM tools -->
+			<TargetFilename condition="begin with">C:\Windows\System32\spool\drivers\x64</TargetFilename> <!-- PrinterNight -->
 		</FileCreate>
 	</RuleGroup>
 
