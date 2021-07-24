@@ -754,6 +754,7 @@
 			<TargetObject condition="contains">WOW6432Node\Microsoft\Cryptography\OID\</TargetObject> <!-- Important trust registry values to monitor -->
 			<TargetObject condition="contains">Microsoft\Cryptography\Providers\Trust\</TargetObject> <!-- Important trust registry values to monitor -->
 			<TargetObject condition="contains">WOW6432Node\Microsoft\Cryptography\Providers\Trust\</TargetObject> <!-- Important trust registry values to monitor -->
+			<TargetObject condition="contains">Control\Print\Environments\Windows x64\Drivers</TargetObject> <!-- PrinterNightmare coverage -->
 		</RegistryEvent>
 	</RuleGroup>
 
