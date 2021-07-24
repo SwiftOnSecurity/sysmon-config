@@ -549,6 +549,10 @@
 			<TargetFilename condition="end with">.ashx</TargetFilename> <!-- possible dropped webshell -->
 			<TargetFilename condition="end with">.jsp</TargetFilename> <!-- possible dropped webshell -->
 			<TargetFilename condition="end with">.pl</TargetFilename> <!-- possible dropped webshell -->
+			<TargetFilename condition="contains">\SAM-20</TargetFilename> <!-- Default output of HiveNightmare / SeriousSAM tools -->
+			<TargetFilename condition="contains">\SAM-haxx</TargetFilename> <!-- Default output of HiveNightmare / SeriousSAM tools -->
+			<TargetFilename condition="contains">\Sam.save</TargetFilename> <!-- Default output of HiveNightmare / SeriousSAM tools -->
+			<TargetFilename condition="contains">\hive_sam_</TargetFilename> <!-- Default output of HiveNightmare / SeriousSAM tools -->
 		</FileCreate>
 	</RuleGroup>
 
