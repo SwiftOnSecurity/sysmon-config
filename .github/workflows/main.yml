@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  # Trigger the workflow on push or pull requests, but only for the
+  # main branch
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main
+  workflow_dispatch:
+  
+jobs:
+  msbuild:
+    runs-on: 'windows-latest'
+    steps:
+    - name: Checkout open-sysmon-conf
+      uses: actions/checkout@v2
+    
+    - name: Download Sysmon 
+      run: Invoke-WebRequest http://live.sysinternals.com/tools/sysmon.exe -OutFile .\sysmon.exe
+      shell: powershell
+    
+    - name: Run Sysmon 
+      run: .\sysmon.exe -accepteula -i sysmonconfig-export.xml
+      shell: powershell
