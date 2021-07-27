@@ -27,7 +27,7 @@ jobs:
       shell: powershell
       
     - name: Check Eventcount
-      run:  '$EventCount = 0 ;Get-WinEvent -ListLog * | where {$_.RecordCount -gt 0} | foreach{$_;$EventCount = $EventCount + $_.RecordCount}|Out-Null;"Eventcount: "+$EventCount; if ($EventCount -gt 52500){ Write-Output "Too many events"; $host.SetShouldExit(1)}'
+      run:  '$EventCount = 0 ;Get-WinEvent -ListLog Microsoft-Windows-Sysmon* | where {$_.RecordCount -gt 0} | foreach{$_;$EventCount = $EventCount + $_.RecordCount}|Out-Null;"Eventcount: "+$EventCount; if ($EventCount -gt 50){ Write-Output "Too many events"; $host.SetShouldExit(1)}'
       shell: powershell
       
   busySystem:
@@ -40,9 +40,16 @@ jobs:
       run: Invoke-WebRequest http://live.sysinternals.com/tools/sysmon.exe -OutFile .\sysmon.exe
       shell: powershell
       
+    - name: Run Sysmon 
+      run: .\sysmon.exe -accepteula -i sysmonconfig-export.xml
+      shell: powershell
+      
+    - name: Print Eventcount
+      run: Get-WinEvent -ListLog Microsoft-Windows-Sysmon*
+      
     - name: Install some Choco Packages
       run: choco install ninja adobereader googlechrome firefox jre8 notepadplusplus.install vlc python3 dotnetfx openssh winrar nodejs.install foxitreader autohotkey.portable putty.install skype ccleaner winlogbeat gimp
     
-    - name: Check Eventcount Post Choco
-      run:  '$EventCount = 0 ;Get-WinEvent -ListLog * | where {$_.RecordCount -gt 0} | foreach{$_;$EventCount = $EventCount + $_.RecordCount}|Out-Null;"Eventcount: "+$EventCount; if ($EventCount -gt 54000){ Write-Output "Too many events"; $host.SetShouldExit(1)}'
+    - name: Check Eventcount
+      run:  '$EventCount = 0 ;Get-WinEvent -ListLog Microsoft-Windows-Sysmon* | where {$_.RecordCount -gt 0} | foreach{$_;$EventCount = $EventCount + $_.RecordCount}|Out-Null;"Eventcount: "+$EventCount; if ($EventCount -gt 10000){ Write-Output "Too many events"; $host.SetShouldExit(1)}'
       shell: powershell
