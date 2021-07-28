@@ -479,6 +479,10 @@
 	<RuleGroup name="" groupRelation="or">
 		<ProcessAccess onmatch="include">
             <CallTrace condition="begin with">UNKNOWN</CallTrace> <!-- CobaltStrike BOF using NtOpenProcess Ref: https://medium.com/falconforce/falconfriday-direct-system-calls-and-cobalt-strike-bofs-0xff14-741fa8e1bdd6 -->
+            <Rule groupRelation="and">
+                <TargetImage name="lsass.exe access" condition="end with">lsass.exe</TargetImage>
+                <GrantedAccess condition="contains any">0x40,0x1000,0x1010,0x1038,0x1410,0x1418,0x1438,0x143a,0x100000,0x1f0fff,0x1f1fff,0x1f2fff,0x1f3fff,0x1fffff</GrantedAccess> <!--0x1400 too noisy-->
+            </Rule>
 		</ProcessAccess>
 	</RuleGroup>
 
