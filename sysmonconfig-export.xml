@@ -226,6 +226,7 @@
 			<!--SECTION: Google-->
 			<CommandLine condition="begin with">"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --type=</CommandLine> <!--Google:Chrome: massive command-line arguments-->
 			<CommandLine condition="begin with">"C:\Program Files\Google\Chrome\Application\chrome.exe" --type=</CommandLine> <!--Google:Chrome: massive command-line arguments-->
+			<!--SECTION: Splunk-->
 			<Image condition="begin with">C:\Program Files\Splunk\bin\</Image> <!--Splunk: Very noisy if using Universal Forwarders-->
 			<ParentImage condition="is">C:\Program Files\Splunk\bin\splunkd.exe</ParentImage> <!--Splunk: Very noisy if using Universal Forwarders-->
 			<ParentImage condition="is">C:\Program Files\Splunk\bin\splunk.exe</ParentImage> <!--Splunk: Very noisy if using Universal Forwarders-->
