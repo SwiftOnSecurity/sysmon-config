@@ -897,6 +897,30 @@
 				<PipeName condition="begin with">\postex_ssh_</PipeName>
 				<PipeName condition="begin with">\status_</PipeName>
 				<PipeName condition="begin with">\msagent_</PipeName>
+				<!-- Malleable C2 profiles https://svch0st.medium.com/guide-to-named-pipes-and-hunting-for-cobalt-strike-pipes-dc46b2c5f575 -->
+				<!-- some of these are not exact matches, but the corresponding Sigma rules use Regexp to match exactly -->
+				<PipeName condition="begin with">\mojo.5688.8052.183894939787088877</PipeName>
+				<PipeName condition="begin with">\mojo.5688.8052.35780273329370473</PipeName>
+				<PipeName condition="begin with">\DserNamePipe</PipeName>
+				<PipeName condition="begin with">\mypipe-f</PipeName>
+				<PipeName condition="begin with">\mypipe-h</PipeName>
+				<PipeName condition="begin with">\windows.update.manager</PipeName>
+				<PipeName condition="begin with">\ntsvcs_</PipeName>
+				<PipeName condition="begin with">\scerpc_</PipeName>
+				<!-- these are standard pipes that appear frequently but the Sigma rules use RE to match exactly -->
+				<PipeName condition="begin with">\scerpc</PipeName>
+				<PipeName condition="begin with">\ntsvcs</PipeName>
+				<PipeName condition="begin with">\wkssvc</PipeName>
+			</PipeEvent>
+		</RuleGroup>
+		<!-- we skip the connect pipe event since they could be to noisy and a CreatePipe event should come before these -->
+		<RuleGroup name="" groupRelation="or">
+			<PipeEvent onmatch="exclude">
+				<EventType condition="is">ConnectPipe</EventType>
+				<!-- the standard named pipes used by Windows services (we want only the ones that begin with these names)-->
+				<PipeName condition="is">\scerpc</PipeName>
+				<PipeName condition="is">\ntsvcs</PipeName>
+				<PipeName condition="is">\wkssvc</PipeName>
 			</PipeEvent>
 		</RuleGroup>
 
