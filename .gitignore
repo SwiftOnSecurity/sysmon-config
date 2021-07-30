@@ -5,3 +5,4 @@ sysmon.exe
 *.cfg
 *.zip
 sysmon-log-all.xml
+.vscode/
