@@ -129,7 +129,7 @@
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k LocalService -p -s BthAvctpSvc</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localService -s nsi</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localService -s w32Time</CommandLine>
-      <CommandLine condition="is">C:\Windows\system32\svchost.exe -k localServiceAndNoImpersonation</CommandLine> <!--Windows: Network services-->
+			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localServiceAndNoImpersonation</CommandLine> <!--Windows: Network services-->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localServiceAndNoImpersonation -p</CommandLine> <!--Windows: Network services-->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localServiceNetworkRestricted -s Dhcp</CommandLine> <!--Windows: Network services-->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localServiceNetworkRestricted -s EventLog</CommandLine>
@@ -342,7 +342,7 @@
 			<Image condition="image">nc64.exe</Image> <!-- 64-bit version of nc that can be used on 64-bit Windows Architectures https://github.com/DarrenRainey/netcat-->
 			<Image condition="image">ncat.exe</Image> <!-- Nmap's modern version of netcat [ https://nmap.org/ncat/guide/index.html#ncat-overview ] [ https://securityblog.gr/1517/create-backdoor-in-windows-with-ncat/ ] -->
 			<Image condition="image">procdump.exe</Image> <!-- Sysinternals Suite client side that can be used to dump clear text passwords from memory -->
-   			<Image condition="image">procdump64.exe</Image> <!-- Sysinternals Suite client side 64-bit version that can be used to dump clear text passwords from memory -->
+			<Image condition="image">procdump64.exe</Image> <!-- Sysinternals Suite client side 64-bit version that can be used to dump clear text passwords from memory -->
 			<Image condition="image">psexec.exe</Image> <!--Sysinternals:PsExec client side | Credit @Cyb3rOps -->
 			<Image condition="image">psexec64.exe</Image> <!-- Sysinernals:PsExec64 client side | 64-bit version of psexec.exe -->
 			<Image condition="image">psexesvc.exe</Image> <!--Sysinternals:PsExec server side | Credit @Cyb3rOps -->
@@ -534,7 +534,7 @@
 			<TargetFilename condition="end with">.docm</TargetFilename> <!--Microsoft:Office:Word: Macro-->
 			<TargetFilename name="DLL" condition="end with">.dll</TargetFilename> <!--Microsoft:Office:Word: Macro-->
 			<TargetFilename name="EXE" condition="end with">.exe</TargetFilename> <!--Executable-->
-			<TargetFilename name="ProcessHostingdotNETCode" condition="end with">.exe.log</TargetFilename> <!-- [ https://github.com/bitsadmin/nopowershell ] | Credit: @SBousseaden [ https://twitter.com/SBousseaden/status/1137493597769687040 ]  -->
+			<TargetFilename name="ProcessHostingdotNETCode" condition="end with">.exe.log</TargetFilename> <!-- [ https://github.com/bitsadmin/nopowershell ] | Credit: @SBousseaden [ https://twitter.com/SBousseaden/status/1137493597769687040 ] -->
 			<TargetFilename condition="end with">.jar</TargetFilename> <!--Java applets-->
 			<TargetFilename condition="end with">.jnlp</TargetFilename> <!--Java applets-->
 			<TargetFilename condition="end with">.jse</TargetFilename> <!--Scripting [ Example: https://www.sophos.com/en-us/threat-center/threat-analyses/viruses-and-spyware/Mal~Phires-C/detailed-analysis.aspx ] -->
@@ -639,7 +639,7 @@
 				<!--ADDITIONAL REFERENCE: [ http://www.silentrunners.org/launchpoints.html ] -->
 				<!--ADDITIONAL REFERENCE: [ https://www.microsoftpressstore.com/articles/article.aspx?p=2762082&seqNum=2 ] -->
 				<!--ADDITIONAL REFERENCE: [ https://web.archive.org/web/20200116001643/http://scholarworks.rit.edu/cgi/viewcontent.cgi?article=1533&context=theses | Understanding malware autostart techniques - Matthew Gottlieb ] -->
-			<TargetObject name="T1562.002" condition="end with">\MiniNT</TargetObject> <!--Windows: Disable eventlog by acting like WinPE [https://twitter.com/0gtweet/status/1182516740955226112]  -->
+			<TargetObject name="T1562.002" condition="end with">\MiniNT</TargetObject> <!--Windows: Disable eventlog by acting like WinPE [https://twitter.com/0gtweet/status/1182516740955226112] -->
 			<TargetObject name="T1060,RunKey" condition="contains">CurrentVersion\Run</TargetObject> <!--Windows: Wildcard for Run keys, including RunOnce, RunOnceEx, RunServices, RunServicesOnce [Also covers terminal server] -->
 			<TargetObject name="T1060,RunPolicy" condition="contains">Policies\Explorer\Run</TargetObject> <!--Windows: Alternate runs keys | Credit @ion-storm-->
 			<TargetObject name="T1484" condition="contains">Group Policy\Scripts</TargetObject> <!--Windows: Group policy scripts-->
@@ -1230,7 +1230,7 @@
 	<!--SYSMON EVENT ID 23 : FILE DELETE [FileDelete]-->
 		<!--EVENT 23: "File Delete"-->
 		<!--COMMENT:	Sandbox usage. When a program signals to Windows a file should be deleted or wiped, Sysmon may be able to capture it.
-		    Tries to save a copy of the deleted file in the archivedirectory which defaults to C:\Sysmon (to view uncheck "Hide protected
+			Tries to save a copy of the deleted file in the archivedirectory which defaults to C:\Sysmon (to view uncheck "Hide protected
 			operating system files (Recommended)" from Folder Options). Can quickly fill the available drive space with copies of files.
 			Use EVENT ID 26 if a copy is not needed.
 			[ https://isc.sans.edu/forums/diary/Sysmon+and+File+Deletion/26084/ ]
@@ -1247,8 +1247,8 @@
 
 	<!--SYSMON EVENT ID 24 : CLIPBOARD EVENT MONITORING [ClipboardChange]-->
 		<!--EVENT 24: "Clipboard changed"-->
-		<!--COMMENT:	Sandbox usage.  Sysmon can capture the contents of clipboard events.
-			An  example of what could be a production usage on restricted desktops is provided below, but it is commented-out. -->
+		<!--COMMENT:	Sandbox usage. Sysmon can capture the contents of clipboard events.
+			An example of what could be a production usage on restricted desktops is provided below, but it is commented-out. -->
 
 		<!--DATA: EventType, UtcTime, ProcessGuid, ProcessId, Image, Session, ClientInfo, Hashes, Archived -->
 
@@ -1282,7 +1282,7 @@
 	<!--SYSMON EVENT ID 26 : FILE DELETE LOGGED [FileDeleteDetected]-->
 		<!--EVENT 26: "File Delete logged"-->
 		<!--COMMENT:	This event is generated when a program signals to Windows a file should be deleted or wiped, Sysmon may be able to capture it.
-		    Unlike event ID 23 it does not archive a copy of the file deleted allowing for more widespread use outside of a sandbox or IR triage without
+			Unlike event ID 23 it does not archive a copy of the file deleted allowing for more widespread use outside of a sandbox or IR triage without
 			risk of filling up the storage space with deleted archives.
 			[ https://medium.com/falconforce/sysmon-13-10-filedeletedetected-fe2475cb419e ]
 		-->
