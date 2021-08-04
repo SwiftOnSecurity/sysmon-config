@@ -492,6 +492,11 @@
 				<CallTrace condition="not begin with">C:\Windows\SYSTEM32\wow64win.dll</CallTrace>
 			</Rule>
 			<CallTrace condition="begin with">UNKNOWN</CallTrace>
+			<!-- Inject AMSI Bypass via CobaltStrike BOF Ref: https://github.com/boku7/injectAmsiBypass -->
+			<Rule groupRelation="and">
+				<CallTrace condition="contains">UNKNOWN</CallTrace>
+				<GrantedAccess condition="contains any">0x1028</GrantedAccess>
+			</Rule>
 			<!-- lsass.exe access with critical permission -->
 			<Rule groupRelation="and">
 				<TargetImage condition="end with">lsass.exe</TargetImage>
