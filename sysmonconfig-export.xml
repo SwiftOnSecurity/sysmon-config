@@ -50,12 +50,12 @@
 	- "Image" is a technical term for a compiled binary file like an EXE or DLL. Also, it can match just the filename, or entire path.
 	- "ProcessGuid" and "LoginGuid" are not random, they contain some embedded information. https://gist.github.com/mattifestation/0102042160c9a60b2b847378c0ef70b4
 
-	FILTERING: Filter conditions available for use are: is,is any,is not,contains,contains any,contains all,excludes,excludes any,excludes all,begin with,end with,not begin with,not end with,less than,more than,image
+	FILTERING: Filter conditions available for use are: is,is not,contains,contains any,contains all,excludes,excludes any,excludes all,begin with,end with,less than,more than,image
 	- The "image" filter is usable on any field. Same as "is" but can either match entire string, or only the text after last "\". Credit: @mattifestation
 
 -->
 
-<Sysmon schemaversion="4.70">
+<Sysmon schemaversion="4.50">
 	<!--SYSMON META CONFIG-->
 	<HashAlgorithms>md5,sha256,IMPHASH</HashAlgorithms> <!-- Both MD5 and SHA256 are the industry-standard algorithms. Remove IMPHASH if you do not use DLL import fingerprinting. -->
 	<CheckRevocation/> <!-- Check loaded drivers, log if their code-signing certificate has been revoked, in case malware stole one to sign a kernel driver -->
@@ -486,11 +486,6 @@
 	<RuleGroup name="" groupRelation="or">
 		<ProcessAccess onmatch="include">
 			<!-- CobaltStrike BOF using OpenProcess/NtOpenProcess Ref: https://medium.com/falconforce/falconfriday-direct-system-calls-and-cobalt-strike-bofs-0xff14-741fa8e1bdd6 -->
-			<Rule groupRelation="and">
-				<CallTrace condition="not begin with">C:\Windows\SYSTEM32\ntdll.dll</CallTrace>
-				<CallTrace condition="not begin with">C:\Windows\SYSTEM32\win32u.dll</CallTrace>
-				<CallTrace condition="not begin with">C:\Windows\SYSTEM32\wow64win.dll</CallTrace>
-			</Rule>
 			<CallTrace condition="begin with">UNKNOWN</CallTrace>
 			<!-- Inject AMSI Bypass via CobaltStrike BOF Ref: https://github.com/boku7/injectAmsiBypass -->
 			<Rule groupRelation="and">
