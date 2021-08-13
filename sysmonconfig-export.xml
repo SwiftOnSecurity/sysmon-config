@@ -487,10 +487,10 @@
 		<ProcessAccess onmatch="include">
 			<!-- CobaltStrike BOF using OpenProcess/NtOpenProcess Ref: https://medium.com/falconforce/falconfriday-direct-system-calls-and-cobalt-strike-bofs-0xff14-741fa8e1bdd6 -->
 			<CallTrace condition="begin with">UNKNOWN</CallTrace>
-			<!-- Inject AMSI Bypass via CobaltStrike BOF Ref: https://github.com/boku7/injectAmsiBypass -->
+			<!-- Typical ProcessAccess Pattern of CobaltStrike BOF Ref: e.g. https://github.com/boku7/injectAmsiBypass -->
 			<Rule groupRelation="and">
 				<CallTrace condition="contains">UNKNOWN</CallTrace>
-				<GrantedAccess condition="contains any">0x1028</GrantedAccess>
+				<GrantedAccess condition="contains any">0x1028;0x1fffff</GrantedAccess>
 			</Rule>
 			<!-- lsass.exe access with critical permission -->
 			<Rule groupRelation="and">
