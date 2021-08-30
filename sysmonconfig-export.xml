@@ -508,7 +508,7 @@
 
 	<RuleGroup name="" groupRelation="or">
 		<ProcessAccess onmatch="exclude">
-			<!-- NOTE: Potentially noisy PorcessAccess Events in your environment can be excluded here -->
+			<!-- NOTE: Potentially noisy ProcessAccess Events in your environment can be excluded here -->
 		</ProcessAccess>
 	</RuleGroup>
 
