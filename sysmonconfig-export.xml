@@ -1,61 +1,61 @@
 <!--
-  sysmon-config | A Sysmon configuration focused on default high-quality event tracing and easy customization by the community
-  Source version:	73 | Date: 2021-02-16
-  Source project:	https://github.com/SwiftOnSecurity/sysmon-config
-  Source license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
+	sysmon-config | A Sysmon configuration focused on default high-quality event tracing and easy customization by the community
+	Source version:	73 | Date: 2021-02-16
+	Source project:	https://github.com/SwiftOnSecurity/sysmon-config
+	Source license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
 
-  REQUIRED: Sysmon version 13 or higher (due to changes in syntax and bug-fixes)
-	https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon
+	REQUIRED: Sysmon version 13 or higher (due to changes in syntax and bug-fixes)
+		https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon
 
-  NOTE: To collect Sysmon logs centrally for free, see https://aka.ms/WEF | Command to allow log access to the Network Service:
-	wevtutil.exe sl Microsoft-Windows-Sysmon/Operational /ca:O:BAG:SYD:(A;;0xf0005;;;SY)(A;;0x5;;;BA)(A;;0x1;;;S-1-5-32-573)(A;;0x1;;;NS)
+	NOTE: To collect Sysmon logs centrally for free, see https://aka.ms/WEF | Command to allow log access to the Network Service:
+		wevtutil.exe sl Microsoft-Windows-Sysmon/Operational /ca:O:BAG:SYD:(A;;0xf0005;;;SY)(A;;0x5;;;BA)(A;;0x1;;;S-1-5-32-573)(A;;0x1;;;NS)
 
-  NOTE: Do not let the size and complexity of this configuration discourage you from customizing it or building your own.
-	This configuration is based around known, high-signal event tracing, and thus appears complicated, but it is only very
-	detailed. Significant effort over years has been invested in front-loading as much filtering as possible onto the
-	client. This is to make analysis of intrusions possible by hand, and to try to surface anomalous activity as quickly
-	as possible to technicians armed only with Event Viewer. Its purpose is to democratize system monitoring for all organizations.
+	NOTE: Do not let the size and complexity of this configuration discourage you from customizing it or building your own.
+		This configuration is based around known, high-signal event tracing, and thus appears complicated, but it is only very
+		detailed. Significant effort over years has been invested in front-loading as much filtering as possible onto the
+		client. This is to make analysis of intrusions possible by hand, and to try to surface anomalous activity as quickly
+		as possible to technicians armed only with Event Viewer. Its purpose is to democratize system monitoring for all organizations.
 
-  NOTE: Sysmon is NOT a whitelist solution or HIDS correlation engine, it is a computer change logging tool.
-	Do NOT ignore everything possible. Sysmon's purpose is providing context during a threat or problem investigation. Legitimate
-	processes are routinely used by threats - do not blindly exclude them. Additionally, be mindful of process-hollowing / imitation.
+	NOTE: Sysmon is NOT a whitelist solution or HIDS correlation engine, it is a computer change logging tool.
+		Do NOT ignore everything possible. Sysmon's purpose is providing context during a threat or problem investigation. Legitimate
+		processes are routinely used by threats - do not blindly exclude them. Additionally, be mindful of process-hollowing / imitation.
 
-  NOTE: By default this monitors DNS, which is extremely noisy. If you are starting out on your monitoring journey, just remove that section.
-	You can remove DNS events from Event Viewer screen by applying a 'Filter Current View' for event IDs of: -22
-	Additionally, if you want to monitor DNS, you should deploy client-side adblocking to reduce lookups. See the DNS section for info.
+	NOTE: By default this monitors DNS, which is extremely noisy. If you are starting out on your monitoring journey, just remove that section.
+		You can remove DNS events from Event Viewer screen by applying a 'Filter Current View' for event IDs of: -22
+		Additionally, if you want to monitor DNS, you should deploy client-side adblocking to reduce lookups. See the DNS section for info.
 
-  NOTE: This configuration is designed for PER-MACHINE installs of Chrome and OneDrive. That moves their binaries out of user-controlled folders.
-	Otherwise, attackers could imitate these common applications, and bypass your logging. Below are silent upgrades you can do, no user impact:
-	- https://docs.microsoft.com/en-us/onedrive/per-machine-installation
-	- https://cloud.google.com/chrome-enterprise/browser/download/
-	- As of 2021-02-16 there is no machine-level version of Microsoft Teams. The one provided copies itself to the user profile.
+	NOTE: This configuration is designed for PER-MACHINE installs of Chrome and OneDrive. That moves their binaries out of user-controlled folders.
+		Otherwise, attackers could imitate these common applications, and bypass your logging. Below are silent upgrades you can do, no user impact:
+		- https://docs.microsoft.com/en-us/onedrive/per-machine-installation
+		- https://cloud.google.com/chrome-enterprise/browser/download/
+		- As of 2021-02-16 there is no machine-level version of Microsoft Teams. The one provided copies itself to the user profile.
 
-  NOTE: Sysmon is not hardened against an attacker with admin rights. Additionally, this configuration offers an attacker, willing
-	to study it, limited ways to evade some of the logging. If you are in a very high-threat environment, you should consider a broader,
-	log-most approach. However, in the vast majority of cases, an attacker will bumble through multiple behavioral traps which
-	this configuration monitors, especially in the first minutes.
+	NOTE: Sysmon is not hardened against an attacker with admin rights. Additionally, this configuration offers an attacker, willing
+		to study it, limited ways to evade some of the logging. If you are in a very high-threat environment, you should consider a broader,
+		log-most approach. However, in the vast majority of cases, an attacker will bumble through multiple behavioral traps which
+		this configuration monitors, especially in the first minutes.
 
-  NOTE: If you encounter unexplainable event inclusion/exclusion, you may have a second Sysmon instance installed under a different exe filename.
-	To clear this, try downloading the latest version and uninstalling with -u force. If it hangs, kill the processes and run it again to cleanup.
+	NOTE: If you encounter unexplainable event inclusion/exclusion, you may have a second Sysmon instance installed under a different exe filename.
+		To clear this, try downloading the latest version and uninstalling with -u force. If it hangs, kill the processes and run it again to cleanup.
 
-  TECHNICAL:
-  - Run sysmon.exe -? for a briefing on Sysmon configuration.
-  - Sysmon XML cannot use the AMPERSAND sign. Replace it with this: &amp;
-  - Sysmon 8+ can track which rule caused an event to be logged through the "RuleName" field.
-  - If you only specify exclude for a filtering subsection, everything in that subsection is logged by default.
-  - Some Sysmon monitoring abilities are not meant for widely deployed general-purpose use due to performance impact. Depends on environment.
-  - Duplicate or overlapping "Include" rules do not result in duplicate events being logged.
-  - All characters enclosed by XML tags are always interpreted literally. Sysmon does not support wildcards (*), alternate characters, or RegEx.
-  - In registry events, the value name is appended to the full key path with a "\" delimiter. Default key values are named "\(Default)"
-  - "Image" is a technical term for a compiled binary file like an EXE or DLL. Also, it can match just the filename, or entire path.
-  - "ProcessGuid" and "LoginGuid" are not random, they contain some embedded information. https://gist.github.com/mattifestation/0102042160c9a60b2b847378c0ef70b4
+	TECHNICAL:
+	- Run sysmon.exe -? for a briefing on Sysmon configuration.
+	- Sysmon XML cannot use the AMPERSAND sign. Replace it with this: &amp;
+	- Sysmon 8+ can track which rule caused an event to be logged through the "RuleName" field.
+	- If you only specify exclude for a filtering subsection, everything in that subsection is logged by default.
+	- Some Sysmon monitoring abilities are not meant for widely deployed general-purpose use due to performance impact. Depends on environment.
+	- Duplicate or overlapping "Include" rules do not result in duplicate events being logged.
+	- All characters enclosed by XML tags are always interpreted literally. Sysmon does not support wildcards (*), alternate characters, or RegEx.
+	- In registry events, the value name is appended to the full key path with a "\" delimiter. Default key values are named "\(Default)"
+	- "Image" is a technical term for a compiled binary file like an EXE or DLL. Also, it can match just the filename, or entire path.
+	- "ProcessGuid" and "LoginGuid" are not random, they contain some embedded information. https://gist.github.com/mattifestation/0102042160c9a60b2b847378c0ef70b4
 
-  FILTERING: Filter conditions available for use are: is,is not,contains,contains any,contains all,excludes,excludes any,excludes all,begin with,end with,less than,more than,image
-  - The "image" filter is usable on any field. Same as "is" but can either match entire string, or only the text after last "\". Credit: @mattifestation
+	FILTERING: Filter conditions available for use are: is,is not,contains,contains any,contains all,excludes,excludes any,excludes all,begin with,end with,less than,more than,image
+	- The "image" filter is usable on any field. Same as "is" but can either match entire string, or only the text after last "\". Credit: @mattifestation
 
 -->
 
-<Sysmon schemaversion="4.70">
+<Sysmon schemaversion="4.50">
 	<!--SYSMON META CONFIG-->
 	<HashAlgorithms>md5,sha256,IMPHASH</HashAlgorithms> <!-- Both MD5 and SHA256 are the industry-standard algorithms. Remove IMPHASH if you do not use DLL import fingerprinting. -->
 	<CheckRevocation/> <!-- Check loaded drivers, log if their code-signing certificate has been revoked, in case malware stole one to sign a kernel driver -->
@@ -129,7 +129,7 @@
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k LocalService -p -s BthAvctpSvc</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localService -s nsi</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localService -s w32Time</CommandLine>
-      <CommandLine condition="is">C:\Windows\system32\svchost.exe -k localServiceAndNoImpersonation</CommandLine> <!--Windows: Network services-->
+			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localServiceAndNoImpersonation</CommandLine> <!--Windows: Network services-->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localServiceAndNoImpersonation -p</CommandLine> <!--Windows: Network services-->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localServiceNetworkRestricted -s Dhcp</CommandLine> <!--Windows: Network services-->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localServiceNetworkRestricted -s EventLog</CommandLine>
@@ -226,6 +226,13 @@
 			<!--SECTION: Google-->
 			<CommandLine condition="begin with">"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --type=</CommandLine> <!--Google:Chrome: massive command-line arguments-->
 			<CommandLine condition="begin with">"C:\Program Files\Google\Chrome\Application\chrome.exe" --type=</CommandLine> <!--Google:Chrome: massive command-line arguments-->
+			<!--SECTION: Splunk-->
+			<Image condition="contains">:\Program Files\Splunk\bin\</Image> <!--Splunk: Very noisy if using Universal Forwarders-->
+			<ParentImage condition="end with">:\Program Files\Splunk\bin\splunkd.exe</ParentImage> <!--Splunk: Very noisy if using Universal Forwarders-->
+			<ParentImage condition="end with">:\Program Files\Splunk\bin\splunk.exe</ParentImage> <!--Splunk: Very noisy if using Universal Forwarders-->
+			<Image condition="contains">:\Program Files\SplunkUniversalForwarder\bin\</Image> <!--Splunk: Very noisy if using Universal Forwarders-->
+			<ParentImage condition="end with">:\Program Files\SplunkUniversalForwarder\bin\splunkd.exe</ParentImage> <!--Splunk: Very noisy if using Universal Forwarders-->
+			<ParentImage condition="end with">:\Program Files\SplunkUniversalForwarder\bin\splunk.exe</ParentImage> <!--Splunk: Very noisy if using Universal Forwarders-->
 		</ProcessCreate>
 	</RuleGroup>
 
@@ -335,7 +342,7 @@
 			<Image condition="image">nc64.exe</Image> <!-- 64-bit version of nc that can be used on 64-bit Windows Architectures https://github.com/DarrenRainey/netcat-->
 			<Image condition="image">ncat.exe</Image> <!-- Nmap's modern version of netcat [ https://nmap.org/ncat/guide/index.html#ncat-overview ] [ https://securityblog.gr/1517/create-backdoor-in-windows-with-ncat/ ] -->
 			<Image condition="image">procdump.exe</Image> <!-- Sysinternals Suite client side that can be used to dump clear text passwords from memory -->
-   			<Image condition="image">procdump64.exe</Image> <!-- Sysinternals Suite client side 64-bit version that can be used to dump clear text passwords from memory -->
+			<Image condition="image">procdump64.exe</Image> <!-- Sysinternals Suite client side 64-bit version that can be used to dump clear text passwords from memory -->
 			<Image condition="image">psexec.exe</Image> <!--Sysinternals:PsExec client side | Credit @Cyb3rOps -->
 			<Image condition="image">psexec64.exe</Image> <!-- Sysinernals:PsExec64 client side | 64-bit version of psexec.exe -->
 			<Image condition="image">psexesvc.exe</Image> <!--Sysinternals:PsExec server side | Credit @Cyb3rOps -->
@@ -478,11 +485,30 @@
 		<!--DATA: UtcTime, SourceProcessGuid, SourceProcessId, SourceThreadId, SourceImage, TargetProcessGuid, TargetProcessId, TargetImage, GrantedAccess, CallTrace-->
 	<RuleGroup name="" groupRelation="or">
 		<ProcessAccess onmatch="include">
-			<CallTrace condition="begin with">UNKNOWN</CallTrace> <!-- CobaltStrike BOF using NtOpenProcess Ref: https://medium.com/falconforce/falconfriday-direct-system-calls-and-cobalt-strike-bofs-0xff14-741fa8e1bdd6 -->
+			<!-- CobaltStrike BOF using OpenProcess/NtOpenProcess Ref: https://medium.com/falconforce/falconfriday-direct-system-calls-and-cobalt-strike-bofs-0xff14-741fa8e1bdd6 -->
+			<CallTrace condition="begin with">UNKNOWN</CallTrace>
+			<!-- Typical ProcessAccess Pattern of CobaltStrike BOF Ref: e.g. https://github.com/boku7/injectAmsiBypass -->
 			<Rule groupRelation="and">
-				<TargetImage name="lsass.exe access" condition="end with">lsass.exe</TargetImage>
-				<GrantedAccess condition="contains any">0x40,0x1000,0x1010,0x1038,0x1410,0x1418,0x1438,0x143a,0x100000,0x1f0fff,0x1f1fff,0x1f2fff,0x1f3fff,0x1fffff</GrantedAccess> <!--0x1400 too noisy-->
+				<CallTrace condition="contains">UNKNOWN</CallTrace>
+				<GrantedAccess condition="contains any">0x1028;0x1fffff</GrantedAccess>
 			</Rule>
+			<!-- lsass.exe access with critical permission -->
+			<Rule groupRelation="and">
+				<TargetImage condition="end with">lsass.exe</TargetImage>
+				<GrantedAccess condition="contains any">0x40;0x1000;0x1010;0x1038;0x1410;0x1418;0x1438;0x143a;0x100000;0x1f0fff;0x1f1fff;0x1f2fff;0x1f3fff;0x1fffff</GrantedAccess> <!--0x1400 too noisy-->
+			</Rule>
+			<!-- LittleCorporal generated MalDoc Ref: https://github.com/connormcgarr/LittleCorporal -->
+			<Rule groupRelation="and">
+				<SourceImage condition="contains">winword.exe</SourceImage>
+				<CallTrace condition="contains">:\Windows\Microsoft.NET\Framework64\v2.</CallTrace>
+				<CallTrace condition="contains">UNKNOWN</CallTrace>
+			</Rule>
+		</ProcessAccess>
+	</RuleGroup>
+
+	<RuleGroup name="" groupRelation="or">
+		<ProcessAccess onmatch="exclude">
+			<!-- NOTE: Potentially noisy PorcessAccess Events in your environment can be excluded here -->
 		</ProcessAccess>
 	</RuleGroup>
 
@@ -509,7 +535,7 @@
 			<TargetFilename condition="end with">.docm</TargetFilename> <!--Microsoft:Office:Word: Macro-->
 			<TargetFilename name="DLL" condition="end with">.dll</TargetFilename> <!--Microsoft:Office:Word: Macro-->
 			<TargetFilename name="EXE" condition="end with">.exe</TargetFilename> <!--Executable-->
-			<TargetFilename name="ProcessHostingdotNETCode" condition="end with">.exe.log</TargetFilename> <!-- [ https://github.com/bitsadmin/nopowershell ] | Credit: @SBousseaden [ https://twitter.com/SBousseaden/status/1137493597769687040 ]  -->
+			<TargetFilename name="ProcessHostingdotNETCode" condition="end with">.exe.log</TargetFilename> <!-- [ https://github.com/bitsadmin/nopowershell ] | Credit: @SBousseaden [ https://twitter.com/SBousseaden/status/1137493597769687040 ] -->
 			<TargetFilename condition="end with">.jar</TargetFilename> <!--Java applets-->
 			<TargetFilename condition="end with">.jnlp</TargetFilename> <!--Java applets-->
 			<TargetFilename condition="end with">.jse</TargetFilename> <!--Scripting [ Example: https://www.sophos.com/en-us/threat-center/threat-analyses/viruses-and-spyware/Mal~Phires-C/detailed-analysis.aspx ] -->
@@ -614,7 +640,7 @@
 				<!--ADDITIONAL REFERENCE: [ http://www.silentrunners.org/launchpoints.html ] -->
 				<!--ADDITIONAL REFERENCE: [ https://www.microsoftpressstore.com/articles/article.aspx?p=2762082&seqNum=2 ] -->
 				<!--ADDITIONAL REFERENCE: [ https://web.archive.org/web/20200116001643/http://scholarworks.rit.edu/cgi/viewcontent.cgi?article=1533&context=theses | Understanding malware autostart techniques - Matthew Gottlieb ] -->
-			<TargetObject name="T1562.002" condition="end with">\MiniNT</TargetObject> <!--Windows: Disable eventlog by acting like WinPE [https://twitter.com/0gtweet/status/1182516740955226112]  -->
+			<TargetObject name="T1562.002" condition="end with">\MiniNT</TargetObject> <!--Windows: Disable eventlog by acting like WinPE [https://twitter.com/0gtweet/status/1182516740955226112] -->
 			<TargetObject name="T1060,RunKey" condition="contains">CurrentVersion\Run</TargetObject> <!--Windows: Wildcard for Run keys, including RunOnce, RunOnceEx, RunServices, RunServicesOnce [Also covers terminal server] -->
 			<TargetObject name="T1060,RunPolicy" condition="contains">Policies\Explorer\Run</TargetObject> <!--Windows: Alternate runs keys | Credit @ion-storm-->
 			<TargetObject name="T1484" condition="contains">Group Policy\Scripts</TargetObject> <!--Windows: Group policy scripts-->
@@ -721,6 +747,7 @@
 			<TargetObject name="T1089,Tamper-Defender" condition="end with">DisableRealtimeMonitoring</TargetObject> <!--Windows:Defender: State modified via registry-->
 			<TargetObject name="T1089,Tamper-Defender" condition="end with">\SubmitSamplesConsent</TargetObject> <!--Windows:Defender: State modified via registry-->
 			<TargetObject name="T1089,Tamper-Defender" condition="begin with">HKLM\Software\Microsoft\Windows Defender\Exclusions</TargetObject> <!--Windows:Defender: State modified via registry-->
+			<TargetObject name="T1562,Tamper-Defender" condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Exclusions\</TargetObject> <!--Windows:Defender: Exclusions in policy key-->
 			<!--Windows UAC tampering-->
 			<TargetObject name="T1088" condition="end with">HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\EnableLUA</TargetObject> <!--Detect: UAC Tampering | Credit @ion-storm -->
 			<TargetObject name="T1088" condition="end with">HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\LocalAccountTokenFilterPolicy</TargetObject> <!--Detect: UAC Tampering | Credit @ion-storm -->
@@ -908,6 +935,23 @@
 				<PipeName condition="begin with">\windows.update.manager</PipeName>
 				<PipeName condition="begin with">\ntsvcs_</PipeName>
 				<PipeName condition="begin with">\scerpc_</PipeName>
+				<!-- Malleable C2 profiles https://gist.github.com/MHaggis/6c600e524045a6d49c35291a21e10752 -->
+				<PipeName condition="begin with">\demoagent_</PipeName>
+				<PipeName condition="begin with">\PGMessagePipe</PipeName>
+				<PipeName condition="begin with">\MsFteWds</PipeName>
+				<PipeName condition="begin with">\f4c3</PipeName>
+				<PipeName condition="begin with">\fullduplex_</PipeName>
+				<PipeName condition="begin with">\msrpc_</PipeName>
+				<PipeName condition="begin with">\win\msrpc_</PipeName>
+				<PipeName condition="begin with">\f53f</PipeName>
+				<PipeName condition="begin with">\rpc_</PipeName>
+				<PipeName condition="begin with">\spoolss_</PipeName>
+				<PipeName condition="begin with">\win_svc</PipeName>
+				<PipeName condition="begin with">\SearchTextHarvester</PipeName>
+				<Rule groupRelation="and"> <!-- would be noisy otherwise as \Winsock2\CatalogchangeListener-???-0 is a legitimate pipe name -->
+					<PipeName condition="begin with">\Winsock2\CatalogChangeListener-</PipeName>
+					<PipeName condition="end with">-0,</PipeName>
+				</Rule>
 				<!-- these are standard pipes that appear frequently but the Sigma rules use RE to match exactly -->
 				<PipeName condition="begin with">\scerpc</PipeName>
 				<PipeName condition="begin with">\ntsvcs</PipeName>
@@ -1208,7 +1252,7 @@
 	<!--SYSMON EVENT ID 23 : FILE DELETE [FileDelete]-->
 		<!--EVENT 23: "File Delete"-->
 		<!--COMMENT:	Sandbox usage. When a program signals to Windows a file should be deleted or wiped, Sysmon may be able to capture it.
-		    Tries to save a copy of the deleted file in the archivedirectory which defaults to C:\Sysmon (to view uncheck "Hide protected
+			Tries to save a copy of the deleted file in the archivedirectory which defaults to C:\Sysmon (to view uncheck "Hide protected
 			operating system files (Recommended)" from Folder Options). Can quickly fill the available drive space with copies of files.
 			Use EVENT ID 26 if a copy is not needed.
 			[ https://isc.sans.edu/forums/diary/Sysmon+and+File+Deletion/26084/ ]
@@ -1225,8 +1269,8 @@
 
 	<!--SYSMON EVENT ID 24 : CLIPBOARD EVENT MONITORING [ClipboardChange]-->
 		<!--EVENT 24: "Clipboard changed"-->
-		<!--COMMENT:	Sandbox usage.  Sysmon can capture the contents of clipboard events.
-			An  example of what could be a production usage on restricted desktops is provided below, but it is commented-out. -->
+		<!--COMMENT:	Sandbox usage. Sysmon can capture the contents of clipboard events.
+			An example of what could be a production usage on restricted desktops is provided below, but it is commented-out. -->
 
 		<!--DATA: EventType, UtcTime, ProcessGuid, ProcessId, Image, Session, ClientInfo, Hashes, Archived -->
 
@@ -1260,7 +1304,7 @@
 	<!--SYSMON EVENT ID 26 : FILE DELETE LOGGED [FileDeleteDetected]-->
 		<!--EVENT 26: "File Delete logged"-->
 		<!--COMMENT:	This event is generated when a program signals to Windows a file should be deleted or wiped, Sysmon may be able to capture it.
-		    Unlike event ID 23 it does not archive a copy of the file deleted allowing for more widespread use outside of a sandbox or IR triage without
+			Unlike event ID 23 it does not archive a copy of the file deleted allowing for more widespread use outside of a sandbox or IR triage without
 			risk of filling up the storage space with deleted archives.
 			[ https://medium.com/falconforce/sysmon-13-10-filedeletedetected-fe2475cb419e ]
 		-->

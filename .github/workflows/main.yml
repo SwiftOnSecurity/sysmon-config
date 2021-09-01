@@ -3,9 +3,9 @@ name: CI
 on:
   # Trigger the workflow on push or pull requests, but only for the
   # main branch
-  push:
-    branches:
-    - master
+  #push:
+  #  branches:
+  #  - master
   pull_request:
     branches:
     - master
@@ -48,7 +48,13 @@ jobs:
       run: Get-WinEvent -ListLog Microsoft-Windows-Sysmon*
       
     - name: Install some Choco Packages
-      run: choco install ninja adobereader googlechrome firefox jre8 notepadplusplus.install vlc python3 dotnetfx openssh winrar nodejs.install foxitreader autohotkey.portable putty.install skype ccleaner winlogbeat gimp
+      run: choco install ninja adobereader googlechrome firefox python3
+      
+    - name: Download User Sim
+      run: Invoke-WebRequest https://github.com/humpalum/sim-user/releases/download/latest/5minuser.exe  -OutFile .\5minuser.exe
+      
+    - name: Run User Sim
+      run: .\5minuser.exe
     
     - name: Check Eventcount
       run:  '$EventCount = 0 ;Get-WinEvent -ListLog Microsoft-Windows-Sysmon* | where {$_.RecordCount -gt 0} | foreach{$_;$EventCount = $EventCount + $_.RecordCount}|Out-Null;"Eventcount: "+$EventCount; if ($EventCount -gt 10000){ Write-Output "Too many events"; $host.SetShouldExit(1)}'
