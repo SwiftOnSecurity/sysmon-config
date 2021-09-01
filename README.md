@@ -56,6 +56,10 @@ Run with administrator rights
 sysmon.exe -u
 ```
 
+## Rule Development
+
+For rule development we use a very extensive [Sysmon config](https://github.com/OTRF/Blacksmith/blob/master/resources/configs/sysmon/sysmon.xml) provided by @Cyb3rWarD0g in our lab that logs almost any event on an end system.
+
 ## Credits
 
 Since we wanted to be able to receive new pull requests this repository, we had to squash all open(!) pull requests of the original reposiory into a single commit on this one.
