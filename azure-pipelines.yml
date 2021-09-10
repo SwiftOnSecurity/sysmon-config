@@ -17,3 +17,27 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      Write-Host "downloading sysmon..."
+      $sysmonDir = "C:\Sysmon"
+      
+      If (!(test-path $sysmonDir)) {
+        New-Item -ItemType Directory -Force -Path $sysmonDir} Else {
+        Write-Host "Sysmon directory exists. Exiting"
+        exit
+      } 
+      
+      $sysmonPath = "C:\Sysmon\Sysmon.exe"
+      $sysmonConfigPath = "D:\a\1\s\sysmonconfig.xml"
+      
+      [Net.ServicePointManager::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+      
+      (New-Object System.Net.WebClient).DownloadFile('https://live.sysinternals.com/Sysmon.exe', $sysmonPath)
+    failOnStderr: true
+  
+
+
