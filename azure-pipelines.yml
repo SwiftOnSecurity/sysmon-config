@@ -65,5 +65,5 @@ steps:
       Write-Host "Loading sysmon config"
       $sysmon = C:\Sysmon\Sysmon.exe -c $sysmonConfigPath
       $sysmon 2> $null
-      if($sysmon -like '*Configuration updated.*') {Write-Host "all good!"} else {throw "Error loading sysmon config to sysmon"}
-    failOnStderr: true
+      if($sysmon -like '*Configuration updatedx.*') {Write-Host "all good!"} else {throw "Error loading sysmon config to sysmon"}
+    failOnStderr: false
