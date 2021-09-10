@@ -9,6 +9,7 @@ trigger:
 pool:
   vmImage: windows-2019
 
+steps:
 - task: PowerShell@2
   inputs:
     targetType: 'inline'
@@ -29,6 +30,7 @@ pool:
       
       (New-Object System.Net.WebClient).DownloadFile('https://live.sysinternals.com/Sysmon.exe', $sysmonPath)
     failOnStderr: true
+  
 
 - task: PowerShell@2
   inputs:
