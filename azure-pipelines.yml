@@ -18,7 +18,7 @@ steps:
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
 
-- task: PowerShell@2 Download Sysmon
+- task: PowerShell@2.1
   inputs:
     targetType: 'inline'
     script: |
@@ -40,7 +40,7 @@ steps:
     failOnStderr: true
   
 
-- task: PowerShell@2 Install Sysmon
+- task: PowerShell@2.1
   inputs:
     targetType: 'inline'
     script: |
