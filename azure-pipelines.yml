@@ -56,3 +56,14 @@ steps:
       }
     failOnStderr: true
 
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      $sysmonConfigPath = D:\a\1\s\sysmonconfig-export.xml
+      
+      Write-Host "Loading sysmon config"
+      $sysmon = C:\Sysmon\Sysmon.exe -c $sysmonConfigPath
+      $sysmon
+      if($sysmon -like '*Configuration updated.*') {Write-Host "all good!"} else {throw "ERROR"}
+    failOnStderr: true
