@@ -60,7 +60,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      $sysmonConfigPath = D:\a\1\s\sysmonconfig-export.xml
+      $sysmonConfigPath = "D:\a\1\s\sysmonconfig-export.xml"
       
       Write-Host "Loading sysmon config"
       $sysmon = C:\Sysmon\Sysmon.exe -c $sysmonConfigPath
