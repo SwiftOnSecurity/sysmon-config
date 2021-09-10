@@ -587,6 +587,10 @@
 			<TargetFilename condition="contains">\hive_sam_</TargetFilename> <!-- Default output of HiveNightmare / SeriousSAM tools -->
 			<TargetFilename condition="is">C:\windows\temp\sam</TargetFilename> <!-- Default output of HiveNightmare / SeriousSAM tools -->
 			<TargetFilename condition="begin with">C:\Windows\System32\spool\drivers\x64</TargetFilename> <!-- PrinterNight -->
+			<Rule groupRelation="and"> <!-- CVE-2021-40444 https://twitter.com/RonnyTNL/status/1436334640617373699 -->
+				<Image condition="end with">\WINWORD.EXE</Image>
+				<TargetFilename condition="contains any">.cab;.inf</TargetFilename>
+			</Rule>
 		</FileCreate>
 	</RuleGroup>
 
