@@ -18,7 +18,7 @@ steps:
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
 
-- task: PowerShell@2
+- task: PowerShell@2 Download Sysmon
   inputs:
     targetType: 'inline'
     script: |
@@ -40,4 +40,19 @@ steps:
     failOnStderr: true
   
 
+- task: PowerShell@2 Install Sysmon
+  inputs:
+    targetType: 'inline'
+    script: |
+      $sysmonDir= "C:\Sysmon"
+      
+      Write-Host "Installing Sysmon"
+      Start-Process -FilePath "$sysmonDir\Sysmon.exe" -ArgumentList "-accepteula -i"
+      
+      Write-Host "verify that sysmon service is running..."
+      Start-Sleep 5
+      If ((Get-Service -name Sysmon).Status -ne "Running") {
+      throw "The sysmon service did NOT start"
+      }
+    failOnStderr: true
 
