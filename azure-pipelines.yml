@@ -34,7 +34,7 @@ steps:
       $sysmonPath = "C:\Sysmon\Sysmon.exe"
       $sysmonConfigPath = "D:\a\1\s\sysmonconfig.xml"
       
-      [Net.ServicePointManager::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+      [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
       
       (New-Object System.Net.WebClient).DownloadFile('https://live.sysinternals.com/Sysmon.exe', $sysmonPath)
     failOnStderr: true
