@@ -1,4 +1,5 @@
 ﻿<!--
+  testing the devops pipeline
   sysmon-config | A Sysmon configuration focused on default high-quality event tracing and easy customization by the community
   Source version:	73 | Date: 2021-02-16
   Source project:	https://github.com/SwiftOnSecurity/sysmon-config
