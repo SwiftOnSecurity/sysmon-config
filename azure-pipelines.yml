@@ -8,6 +8,7 @@ trigger:
 
 pool:
   vmImage: windows-2019
+  demands: Limit -quals DisAbleParallel
 
 steps:
 - task: PowerShell@2
