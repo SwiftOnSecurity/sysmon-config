@@ -59,3 +59,10 @@ steps:
       $sysmon 2> $null
       if($sysmon -like '*Configuration updated.*') {Write-Host "all good!"} else {throw "Error loading sysmon config to sysmon"}
     failOnStderr: false
+
+
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: 'powershell -exec bypass; Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force; Set-MpPreference -DisableRealtimeMonitoring $true'
