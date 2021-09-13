@@ -99,8 +99,8 @@ steps:
 
 - task: PowerShell@2
   inputs:
-    ScriptType: 'InlineScript'
-    Inline: |
+    targetType: 'inline'
+    script: |
       # Run specific ART tests
       Invoke-AtomicTest T1218.010 -TestNumbers 1,2
 
@@ -109,7 +109,6 @@ steps:
     targetType: 'inline'
     script: |
       # pull events after the ART test(s); then diff
-      
       
       get-winevent -FilterHashtable @{LogName="Microsoft-Windows-Sysmon/Operational";} | format-table -wrap | Out-File -FilePath .\afterTest
       compare-object (get-content .\beforeTest) (get-content .\afterTest)| Out-File -FilePath atomicT1218.010_sysmonResults
