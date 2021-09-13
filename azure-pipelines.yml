@@ -96,7 +96,8 @@ steps:
       
       get-winevent -FilterHashtable @{LogName="Microsoft-Windows-Sysmon/Operational";} | format-table -wrap | Out-File -FilePath .\beforeTest
 
-- task: AzurePowerShell@5
+
+- task: PowerShell@2
   inputs:
     ScriptType: 'InlineScript'
     Inline: |
