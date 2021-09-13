@@ -67,3 +67,49 @@ steps:
     script: |
       Install-PackageProvider -Name Nuget -MinimumVersion 2.8.5.201 -Force
       Set-MpPreference -DisableRealtimeMonitoring $true
+
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      # install ART; installing the atomics takes a long while      
+      IEX (IWR 'https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/install-atomicredteam.ps1' -UseBasicParsing);
+      Install-AtomicRedTeam -getAtomics -Force
+
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Clear all sysmon events before invoking ART
+      
+      $evtsession = [System.Diagnostics.Eventing.Reader.EventLogSession]::New("localhost")
+      $evtsession.ClearLog("Microsoft-Windows-Sysmon/Operational")
+
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      # then first pull out the windows events at the time
+      
+      get-winevent -FilterHashtable @{LogName="Microsoft-Windows-Sysmon/Operational";} | format-table -wrap | Out-File -FilePath .\beforeTest
+
+- task: AzurePowerShell@5
+  inputs:
+    ScriptType: 'InlineScript'
+    Inline: |
+      # Run specific ART tests
+      Invoke-AtomicTest T1218.010 -TestNumbers 1,2
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      # pull events after the ART test(s); then diff
+      
+      
+      get-winevent -FilterHashtable @{LogName="Microsoft-Windows-Sysmon/Operational";} | format-table -wrap | Out-File -FilePath .\afterTest
+      compare-object (get-content .\beforeTest) (get-content .\afterTest)| Out-File -FilePath atomicT1218.010_sysmonResults
+
