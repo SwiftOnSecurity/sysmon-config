@@ -113,3 +113,4 @@ steps:
       get-winevent -FilterHashtable @{LogName="Microsoft-Windows-Sysmon/Operational";} | format-table -wrap | Out-File -FilePath .\afterTest
       compare-object (get-content .\beforeTest) (get-content .\afterTest)| Out-File -FilePath atomicT1218.010_sysmonResults
 
+     
