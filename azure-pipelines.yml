@@ -1,0 +1,116 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: windows-2019
+  demands: Limit -equals DisAbleParallel
+
+steps:
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      Write-Host "downloading sysmon..."
+      $sysmonDir = "C:\Sysmon"
+      
+      If (!(test-path $sysmonDir)) {
+        New-Item -ItemType Directory -Force -Path $sysmonDir} Else {
+        Write-Host "Sysmon directory exists. Exiting"
+        exit
+      } 
+      
+      $sysmonPath = "C:\Sysmon\Sysmon.exe"
+      $sysmonConfigPath = "D:\a\1\s\sysmonconfig.xml"
+      
+      [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+      
+      (New-Object System.Net.WebClient).DownloadFile('https://live.sysinternals.com/Sysmon.exe', $sysmonPath)
+    failOnStderr: true
+  
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      $sysmonDir= "C:\Sysmon"
+      
+      Write-Host "Installing Sysmon"
+      Start-Process -FilePath "$sysmonDir\Sysmon.exe" -ArgumentList "-accepteula -i"
+      
+      Write-Host "verify that sysmon service is running..."
+      Start-Sleep 5
+      If ((Get-Service -name Sysmon).Status -ne "Running") {
+      throw "The sysmon service did NOT start"
+      }
+    failOnStderr: true
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      $sysmonConfigPath = "D:\a\1\s\sysmonconfig-export.xml"
+      
+      Write-Host "Loading sysmon config"
+      $sysmon = C:\Sysmon\Sysmon.exe -c $sysmonConfigPath
+      $sysmon 2> $null
+      if($sysmon -like '*Configuration updated.*') {Write-Host "all good!"} else {throw "Error loading sysmon config to sysmon"}
+    failOnStderr: false
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      Install-PackageProvider -Name Nuget -MinimumVersion 2.8.5.201 -Force
+      Set-MpPreference -DisableRealtimeMonitoring $true
+
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      # install ART; installing the atomics takes a long while      
+      IEX (IWR 'https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/install-atomicredteam.ps1' -UseBasicParsing);
+      Install-AtomicRedTeam -getAtomics -Force
+
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Clear all sysmon events before invoking ART
+      
+      $evtsession = [System.Diagnostics.Eventing.Reader.EventLogSession]::New("localhost")
+      $evtsession.ClearLog("Microsoft-Windows-Sysmon/Operational")
+
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      # then first pull out the windows events at the time
+      
+      get-winevent -FilterHashtable @{LogName="Microsoft-Windows-Sysmon/Operational";} | format-table -wrap | Out-File -FilePath .\beforeTest
+
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Run specific ART tests
+      Invoke-AtomicTest T1218.010 -TestNumbers 1,2
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      # pull events after the ART test(s); then diff
+      
+      get-winevent -FilterHashtable @{LogName="Microsoft-Windows-Sysmon/Operational";} | format-table -wrap | Out-File -FilePath .\afterTest
+      compare-object (get-content .\beforeTest) (get-content .\afterTest)| Out-File -FilePath atomicT1218.010_sysmonResults
+
+     
