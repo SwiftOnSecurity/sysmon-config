@@ -486,10 +486,13 @@
 			<TargetFilename condition="end with">.job</TargetFilename> <!--Scheduled task-->
 			<TargetFilename condition="end with">.pptm</TargetFilename> <!--Microsoft:Office:Word: Macro-->
 			<TargetFilename condition="end with">.ps1</TargetFilename> <!--PowerShell [ More information: http://www.hexacorn.com/blog/2014/08/27/beyond-good-ol-run-key-part-16/ ] -->
+			<TargetFilename condition="end with">.sct</TargetFilename> <!--Scripting | Credit @bartblaze -->
 			<TargetFilename condition="end with">.sys</TargetFilename> <!--System driver files-->
 			<TargetFilename condition="end with">.scr</TargetFilename> <!--System driver files-->
 			<TargetFilename condition="end with">.vbe</TargetFilename> <!--VisualBasicScripting-->
 			<TargetFilename condition="end with">.vbs</TargetFilename> <!--VisualBasicScripting-->
+			<TargetFilename condition="end with">.wsc</TargetFilename> <!--Scripting | Credit @bartblaze -->
+			<TargetFilename condition="end with">.wsf</TargetFilename> <!--Scripting | Credit @bartblaze -->
 			<TargetFilename condition="end with">.xlsm</TargetFilename> <!--Microsoft:Office:Word: Macro-->
 			<TargetFilename condition="end with">.ocx</TargetFilename> <!--Microsoft:ActiveX-->
 			<TargetFilename condition="end with">proj</TargetFilename><!--Microsoft:MSBuild:Script: [ https://twitter.com/subTee/status/885919612969394177 ] -->
@@ -791,15 +794,18 @@
 			<TargetFilename condition="end with">.cmd</TargetFilename> <!--Batch scripting | Credit @ion-storm -->
 			<TargetFilename condition="end with">.doc</TargetFilename> <!--Office doc potentially with macro -->
 			<TargetFilename condition="end with">.hta</TargetFilename> <!--Scripting-->
+			<TargetFilename condition="end with">.jse</TargetFilename> <!--Registry File-->
 			<TargetFilename condition="end with">.lnk</TargetFilename> <!--Shortcut file | Credit @ion-storm -->
 			<TargetFilename condition="end with">.ppt</TargetFilename> <!--Office doc potentially with macros-->
 			<TargetFilename condition="end with">.ps1</TargetFilename> <!--PowerShell-->
 			<TargetFilename condition="end with">.ps2</TargetFilename> <!--PowerShell-->
 			<TargetFilename condition="end with">.reg</TargetFilename> <!--Registry File-->
-			<TargetFilename condition="end with">.jse</TargetFilename> <!--Registry File-->
+			<TargetFilename condition="end with">.sct</TargetFilename> <!--Scripting | Credit @bartblaze -->
 			<TargetFilename condition="end with">.vb</TargetFilename> <!--VisualBasicScripting files-->
 			<TargetFilename condition="end with">.vbe</TargetFilename> <!--VisualBasicScripting files-->
 			<TargetFilename condition="end with">.vbs</TargetFilename> <!--VisualBasicScripting files-->
+			<TargetFilename condition="end with">.wsc</TargetFilename> <!--Scripting | Credit @bartblaze -->
+			<TargetFilename condition="end with">.wsf</TargetFilename> <!--Scripting | Credit @bartblaze -->
 		</FileCreateStreamHash>
 
 	<RuleGroup name="" groupRelation="or">
