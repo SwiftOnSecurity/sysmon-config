@@ -633,7 +633,7 @@
 			<!--Credential providers-->
 			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\Authentication\Credential Provider</TargetObject> <!--Wildcard, includes Credential Providers and Credential Provider Filters-->
 			<TargetObject name="T1101" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1131 ] [ https://attack.mitre.org/wiki/Technique/T1101 ] -->
-			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SecurityProviders</TargetObject> <!--Windows: Changes to WDigest-UseLogonCredential for password scraping [ https://www.trustedsec.com/april-2015/dumping-wdigest-creds-with-meterpreter-mimikatzkiwi-in-windows-8-1/ ] -->
+			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders</TargetObject> <!--Windows: Changes to WDigest-UseLogonCredential for password scraping [ https://www.trustedsec.com/april-2015/dumping-wdigest-creds-with-meterpreter-mimikatzkiwi-in-windows-8-1/ ] -->
 			<TargetObject condition="begin with">HKLM\Software\Microsoft\Netsh</TargetObject> <!--Windows: Netsh helper DLL [ https://attack.mitre.org/wiki/Technique/T1128 ] -->
 			<TargetObject condition="contains">Software\Microsoft\Windows\CurrentVersion\Internet Settings\ProxyEnable</TargetObject> <!--Windows: Malware often disables a web proxy for 2nd stage downloads -->
 			<!--Networking-->
@@ -695,6 +695,8 @@
 			<TargetObject name="Context,MsiInstallerStarted" condition="is">HKLM\Software\Microsoft\Windows\CurrentVersion\Installer\InProgress\(Default)</TargetObject> <!--Windows: See when WindowsInstaller is engaged, useful for timeline matching with other events-->
 			<TargetObject name="Tamper-Tracing" condition="begin with">HKLM\Software\Microsoft\Tracing\RASAPI32</TargetObject> <!--Windows: Malware sometimes disables tracing to obfuscate tracks-->
 			<TargetObject name="Context,ProcessAccessedPrivateResource" condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\</TargetObject> <!-- Windows: Win10 tracks when and what process uses webcam/microphone/location etc [ https://medium.com/@7a616368/can-you-track-processes-accessing-the-camera-and-microphone-7e6885b37072 ] -->
+			<TargetObject condition="contains">\Keyboard Layout\Preload</TargetObject> <!--Microsoft:Windows: Keyboard layout loaded into user session [ https://renenyffenegger.ch/notes/Windows/registry/tree/HKEY_CURRENT_USER/Keyboard-Layout/Preload/index ] | Credit @cyb3rops -->
+			<TargetObject condition="contains">\Keyboard Layout\Substitutes</TargetObject> <!--Microsoft:Windows: Keyboard layout loaded into user session [ https://renenyffenegger.ch/notes/Windows/registry/tree/HKEY_CURRENT_USER/Keyboard-Layout/Preload/index ] | Credit @cyb3rops -->
 			<!--Windows inventory events-->
 			<TargetObject name="InvDB-Path" condition="end with">\LowerCaseLongPath</TargetObject> <!-- [ https://binaryforay.blogspot.com/2017/10/amcache-still-rules-everything-around.html ] -->
 			<TargetObject name="InvDB-Pub" condition="end with">\Publisher</TargetObject> <!-- [ https://binaryforay.blogspot.com/2017/10/amcache-still-rules-everything-around.html ] -->
