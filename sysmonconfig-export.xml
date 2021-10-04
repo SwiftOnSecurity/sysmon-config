@@ -892,6 +892,9 @@
 			<TargetFilename condition="end with">.vb</TargetFilename> <!--VisualBasicScripting files-->
 			<TargetFilename condition="end with">.vbe</TargetFilename> <!--VisualBasicScripting files-->
 			<TargetFilename condition="end with">.vbs</TargetFilename> <!--VisualBasicScripting files-->
+			<TargetFilename condition="end with">:Zone.Identifier</TargetFilename> <!-- Track Zone.Identifiers regardless of their download location -->
+			<TargetFilename condition="end with">:newads</TargetFilename> <!-- CobaltStrike BOF https://github.com/EspressoCake/Self_Deletion_BOF/blob/main/src/main.c -->
+
 		</FileCreateStreamHash>
 
 	<RuleGroup name="" groupRelation="or">
