@@ -847,12 +847,22 @@
 
 		<!--ADDITIONAL REFERENCE: [ https://www.cobaltstrike.com/help-smb-beacon ] -->
 		<!--ADDITIONAL REFERENCE: [ https://blog.cobaltstrike.com/2015/10/07/named-pipe-pivoting/ ] -->
+		<!--ADDITIONAL REFERENCE: [ https://blog.cobaltstrike.com/2021/02/09/learn-pipe-fitting-for-all-of-your-offense-projects/ ] -->
+	
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, PipeName, Image-->
 	<RuleGroup name="" groupRelation="or">
 		<PipeEvent onmatch="include">
-			<!--NOTE: Using incide with no rules means nothing in this section will be logged-->
-		</PipeEvent>
+        <Rule groupRelation="and">
+        <PipeName condition="begin with">\msse-</PipeName>        <!-- default cobalt strike pipe name-->
+        <PipeName condition="end with">-server</PipeName>        <!-- default cobalt strike pipe name-->
+        </Rule>
+        <PipeName condition="begin with">\msagent_</PipeName>        <!-- default cobalt strike pipe name-->
+        <PipeName condition="begin with">\postex_</PipeName>        <!-- default cobalt strike pipe name-->
+        <PipeName condition="begin with">\postex_ssh_</PipeName>        <!-- default cobalt strike pipe name-->
+        <PipeName condition="begin with">\status_</PipeName>        <!-- default cobalt strike pipe name-->
+      </PipeEvent>
+
 	</RuleGroup>
 
 	<!--SYSMON EVENT ID 19 & 20 & 21 : WMI EVENT MONITORING [WmiEvent]-->
