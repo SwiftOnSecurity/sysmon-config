@@ -967,6 +967,11 @@
 				<!-- Other specific named pipes -->
 				<PipeName condition="contains">6e7645c4-32c5-4fe3-aabf-e94c2f4370e7</PipeName> <!-- LiquidSnake hacktool https://github.com/RiccardoAncarani/LiquidSnake -->
 				<Image condition="end with">\scrcons.exe</Image> <!-- Susupicious WMI Event Consumer creating a named pipe -->
+				<!-- Some interesting ConnectPipe events that we want to include -->
+				<PipeEvent onmatch="include">
+					<EventType condition="is">ConnectPipe</EventType>
+					<PipeName condition="is">\MICROSOFT##WID\tsql\query</PipeName> <!-- https://github.com/SigmaHQ/sigma/pull/2128 -->
+				</PipeEvent>
 			</PipeEvent>
 		</RuleGroup>
 		<!-- Common Pipe Names to would appear very often in -->
@@ -976,14 +981,6 @@
 				<PipeName condition="is">\scerpc</PipeName>
 				<PipeName condition="is">\ntsvcs</PipeName>
 				<PipeName condition="is">\wkssvc</PipeName>
-			</PipeEvent>
-		</RuleGroup>
-		<!-- ConnectPipe Events -->
-		<!-- Some interesting ConnectPipe events that we want to include -->
-		<RuleGroup name="InterestingConnectPipe" groupRelation="and">
-			<PipeEvent onmatch="include">
-				<EventType condition="is">ConnectPipe</EventType>
-				<PipeName condition="is">\MICROSOFT##WID\tsql\query</PipeName> <!-- https://github.com/SigmaHQ/sigma/pull/2128 -->
 			</PipeEvent>
 		</RuleGroup>
 
