@@ -960,20 +960,23 @@
 					<PipeName condition="begin with">\Winsock2\CatalogChangeListener-</PipeName>
 					<PipeName condition="end with">-0,</PipeName>
 				</Rule>
-				<!-- these are standard pipes that appear frequently but the Sigma rules use RE to match exactly -->
+				<!-- these are standard pipes that appear frequently but the Sigma rules use RE to match on malicious pipes that use the common names as a prefix -->
 				<PipeName condition="begin with">\scerpc</PipeName>
 				<PipeName condition="begin with">\ntsvcs</PipeName>
 				<PipeName condition="begin with">\wkssvc</PipeName>
 				<!-- Other specific named pipes -->
 				<PipeName condition="contains">6e7645c4-32c5-4fe3-aabf-e94c2f4370e7</PipeName> <!-- LiquidSnake hacktool https://github.com/RiccardoAncarani/LiquidSnake -->
 				<Image condition="end with">\scrcons.exe</Image> <!-- Susupicious WMI Event Consumer creating a named pipe -->
+				<Rule groupRelation="and"> <!-- Some interesting ConnectPipe events that we want to include -->
+					<EventType condition="is">ConnectPipe</EventType>
+					<PipeName condition="is">\MICROSOFT##WID\tsql\query</PipeName> <!-- https://github.com/SigmaHQ/sigma/pull/2128 -->
+				</Rule>
 			</PipeEvent>
 		</RuleGroup>
-		<!-- we skip the connect pipe event since they could be to noisy and a CreatePipe event should come before these -->
-		<RuleGroup name="" groupRelation="or">
+		<!-- Common Pipe Names to would appear very often in -->
+		<RuleGroup name="CommonPipes" groupRelation="or">
 			<PipeEvent onmatch="exclude">
-				<EventType condition="is">ConnectPipe</EventType>
-				<!-- the standard named pipes used by Windows services (we want only the ones that begin with these names)-->
+				<!-- the standard named pipes used by Windows services (we want only the ones that begin with these names) -->
 				<PipeName condition="is">\scerpc</PipeName>
 				<PipeName condition="is">\ntsvcs</PipeName>
 				<PipeName condition="is">\wkssvc</PipeName>
