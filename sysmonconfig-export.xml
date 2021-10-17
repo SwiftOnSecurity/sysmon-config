@@ -849,11 +849,23 @@
 		<!--ADDITIONAL REFERENCE: [ https://blog.cobaltstrike.com/2015/10/07/named-pipe-pivoting/ ] -->
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, PipeName, Image-->
-	<RuleGroup name="" groupRelation="or">
-		<PipeEvent onmatch="include">
-			<!--NOTE: Using incide with no rules means nothing in this section will be logged-->
-		</PipeEvent>
-	</RuleGroup>
+		<RuleGroup name="" groupRelation="or">
+			<PipeEvent onmatch="include">
+				<!-- Remote Command Execution Tools -->
+				<PipeName condition="contains any">paexec;remcom;csexec</PipeName>
+				<!-- Password or Credential Dumpers -->
+				<PipeName condition="contains any">\lsadump;\cachedump;\wceservicepipe</PipeName>
+				<!-- Malware -->
+				<PipeName condition="contains any">\isapi_http;\isapi_dg;\isapi_dg2;\sdlrpc;\ahexec;\winsession;\lsassw;\46a676ab7f179e511e30dd2dc41bd388;\9f81f59bc58452127884ce513865ed20;\e710f28d59aa529d6792ca6ff0ca1b34;\rpchlp_3;\NamePipe_MoreWindows;\pcheap_reuse;\gruntsvc;\583da945-62af-10e8-4902-a8f205c72b2e;\bizkaz;\svcctl;\Posh;\jaccdpqnvbrrxlaf;\csexecsvc</PipeName>
+				<PipeName condition="contains any">\atctl;\userpipe;\iehelper;\sdlrpc;\comnap</PipeName>
+				<!-- Cobalt Strike Pipe Names -->
+				<PipeName condition="contains all">MSSE-;-server</PipeName>
+				<PipeName condition="begin with">\postex_</PipeName>
+				<PipeName condition="begin with">\postex_ssh_</PipeName>
+				<PipeName condition="begin with">\status_</PipeName>
+				<PipeName condition="begin with">\msagent_</PipeName>
+			</PipeEvent>
+		</RuleGroup>
 
 	<!--SYSMON EVENT ID 19 & 20 & 21 : WMI EVENT MONITORING [WmiEvent]-->
 		<!--EVENT 19: "WmiEventFilter activity detected"-->
