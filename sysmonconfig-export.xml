@@ -80,7 +80,7 @@
 			code signatures to validate, but Sysmon does not support that. Look into AppLocker/WindowsDeviceGuard for whitelisting support. -->
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessID, Image, FileVersion, Description, Product, Company, CommandLine, CurrentDirectory, User, LogonGuid, LogonId, TerminalSessionId, IntegrityLevel, Hashes, ParentProcessGuid, ParentProcessId, ParentImage, ParentCommandLine, RuleName-->
-	<RuleGroup name="" groupRelation="or">
+	<RuleGroup name="" groupRelation="or"
 		<ProcessCreate onmatch="exclude">
 			<!--SECTION: Microsoft Windows-->
 			<CommandLine condition="begin with"> "C:\Windows\system32\wermgr.exe" "-queuereporting_svc" </CommandLine> <!--Windows:Windows error reporting/telemetry-->
@@ -669,6 +669,7 @@
 			<!--Office-->
 			<TargetObject name="T1137" condition="contains">Microsoft\Office\Outlook\Addins\</TargetObject> <!--Microsoft:Office: Outlook add-ins, access to sensitive data and often cause issues-->
 			<TargetObject name="T1137" condition="contains">Office Test\</TargetObject> <!-- Microsoft:Office: Persistence method [ http://www.hexacorn.com/blog/2014/04/16/beyond-good-ol-run-key-part-10/ ] | Credit @Hexacorn -->
+			<TargetObject name="Suspicious,ChangedURLOutlook" condition="contains all">\Software\Microsoft\Office\;\Outlook\WebView\;URL</TargetObject> <!-- The URL shouldn't be changed all that often and could enable persistance for hackers | @humpelpum [ https://speakerdeck.com/heirhabarov/hunting-for-persistence-via-microsoft-exchange-server-or-outlook?slide=70 ]-->
 			<TargetObject name="Context,ProtectedModeExitOrMacrosUsed" condition="contains">Security\Trusted Documents\TrustRecords</TargetObject> <!--Microsoft:Office: Monitor when "Enable editing" or "Enable macros" is used | Credit @OutflankNL | [ https://outflank.nl/blog/2018/01/16/hunting-for-evil-detect-macros-being-executed/ ] -->
 			<TargetObject name="Context,ContactedDomain" condition="end with">\EnableBHO</TargetObject> <!--Microsoft:Office: Contacted domains stored here 'HKEY_CURRENT_USER\<SID>\SOFTWARE\Microsoft\Office\16.0\Common\Internet\Server Cache\<domain>\EnableBHO' -->
 			<!--IE-->
