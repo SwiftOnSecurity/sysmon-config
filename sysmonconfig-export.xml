@@ -60,7 +60,7 @@
 
 -->
 
-<Sysmon schemaversion="4.50">
+<Sysmon schemaversion="4.70">
 	<!--SYSMON META CONFIG-->
 	<HashAlgorithms>md5,sha256,IMPHASH</HashAlgorithms> <!-- Both MD5 and SHA256 are the industry-standard algorithms. Remove IMPHASH if you do not use DLL import fingerprinting. -->
 	<CheckRevocation/> <!-- Check loaded drivers, log if their code-signing certificate has been revoked, in case malware stole one to sign a kernel driver -->
@@ -1142,8 +1142,11 @@
 	</RuleGroup>
 
 	<!--SYSMON EVENT ID 23 : FILE DELETE [FileDelete]-->
-		<!--EVENT 22: "File Delete"-->
-		<!--COMMENT:	Sandbox usage. When a program signals to Windows a file should be deleted or wiped, Sysmon may be able to capture it. 
+		<!--EVENT 23: "File Delete"-->
+		<!--COMMENT:	Sandbox usage. When a program signals to Windows a file should be deleted or wiped, Sysmon may be able to capture it.
+		    Tries to save a copy of the deleted file in the archivedirectory which defaults to C:\Sysmon (to view uncheck "Hide protected 
+			operating system files (Recommended)" from Folder Options). Can quickly fill the available drive space with copies of files. 
+			Use EVENT ID 26 if a copy is not needed.
 			[ https://isc.sans.edu/forums/diary/Sysmon+and+File+Deletion/26084/ ]
 		-->
 
@@ -1151,8 +1154,8 @@
 
 	<!--
 	<RuleGroup name="" groupRelation="or">
-		<ClipboardChange onmatch="include">
-		</ClipboardChange>
+		<FileDelete onmatch="include">
+		</FileDelete>
 	</RuleGroup>
 	-->
 
@@ -1190,6 +1193,23 @@
 	</RuleGroup>
 	-->
 
+	<!--SYSMON EVENT ID 26 : FILE DELETE LOGGED [FileDeleteDetected]-->
+		<!--EVENT 26: "File Delete logged"-->
+		<!--COMMENT:	This event is generated when a program signals to Windows a file should be deleted or wiped, Sysmon may be able to capture it.
+		    Unlike event ID 23 it does not archive a copy of the file deleted allowing for more widespread use outside of a sandbox or IR triage without
+			risk of filling up the storage space with deleted archives.
+			[ https://medium.com/falconforce/sysmon-13-10-filedeletedetected-fe2475cb419e ]
+		-->
+
+		<!--DATA: RuleName, UtcTime, ProcessGuid, ProcessId, User, Image, TargetFilename, Hashes, IsExecutable -->
+
+	
+	<RuleGroup name="" groupRelation="or">
+		<FileDeleteDetected onmatch="exclude">
+			<User condition="contains any">NETWORK SERVICE; LOCAL SERVICE</User> <!-- [ https://github.com/olafhartong/sysmon-modular ] -->
+		</FileDeleteDetected>
+	</RuleGroup>
+	
 	<!--SYSMON EVENT ID 255 : ERROR-->
 		<!--"This event is generated when an error occurred within Sysmon. They can happen if the system is under heavy load
 			and certain tasked could not be performed or a bug exists in the Sysmon service. You can report any bugs on the
