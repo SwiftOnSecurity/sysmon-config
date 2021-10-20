@@ -557,6 +557,8 @@
 			<TargetFilename name="DefaultUserModified" condition="begin with">C:\Users\Default</TargetFilename> <!--Windows: Changes to default user profile-->
 			<TargetFilename condition="begin with">C:\Windows\system32\Drivers</TargetFilename> <!--Microsoft: Drivers dropped here-->
 			<TargetFilename condition="begin with">C:\Windows\SysWOW64\Drivers</TargetFilename> <!--Microsoft: Drivers dropped here-->
+			<TargetFilename name="T1003" condition="end with">\Windows\System32\mimilsa.log</TargetFilename> <!--Detects usage of Mimikatz Security Package (mimilib.dll) to dump security passwords in clear text https://pentestlab.blog/2019/10/21/persistence-security-support-provider/ -->
+                        <TargetFilename name="T1003" condition="end with">\Windows\System32\kiwissp.log</TargetFilename> <!--Detects usage of old Mimikatz Security Package (mimilib.dll) to dump security passwords in clear text https://pentestlab.blog/2019/10/21/persistence-security-support-provider/ -->
 			<TargetFilename name="T1037,T1484" condition="begin with">C:\Windows\system32\GroupPolicy\Machine\Scripts</TargetFilename> <!--Group policy [ More information: http://www.hexacorn.com/blog/2017/01/07/beyond-good-ol-run-key-part-52/ ] -->
 			<TargetFilename name="T1037,T1484" condition="begin with">C:\Windows\system32\GroupPolicy\User\Scripts</TargetFilename> <!--Group policy [ More information: http://www.hexacorn.com/blog/2017/01/07/beyond-good-ol-run-key-part-52/ ] -->
 			<TargetFilename condition="begin with">C:\Windows\system32\Wbem</TargetFilename> <!--Microsoft:WMI: [ More information: http://2014.hackitoergosum.org/slides/day1_WMI_Shell_Andrei_Dumitrescu.pdf ] -->
