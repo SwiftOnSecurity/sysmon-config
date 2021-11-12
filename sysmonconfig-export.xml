@@ -1143,7 +1143,7 @@
 
 	<!--SYSMON EVENT ID 23 : FILE DELETE [FileDelete]-->
 		<!--EVENT 22: "File Delete"-->
-		<!--COMMENT:	Sandbox usage. When a program signals to Windows a file should be deleted or wiped, Sysmon may be able to capture it. 
+		<!--COMMENT:	Sandbox usage. When a program signals to Windows a file should be deleted or wiped, Sysmon may be able to capture it.
 			[ https://isc.sans.edu/forums/diary/Sysmon+and+File+Deletion/26084/ ]
 		-->
 
@@ -1160,7 +1160,7 @@
 		<!--EVENT 24: "Clipboard changed"-->
 		<!--COMMENT:	Sandbox usage.  Sysmon can capture the contents of clipboard events.
 			An  example of what could be a production usage on restricted desktops is provided below, but it is commented-out. -->
-			
+
 		<!--DATA: EventType, UtcTime, ProcessGuid, ProcessId, Image, Session, ClientInfo, Hashes, Archived -->
 
 	<!--
@@ -1179,9 +1179,9 @@
 		<!--COMMENT:	This event is generated when a process image is changed from an external source, such as a different process.
 			This may or may not provide value in your environment as it requires tuning and a SIEM to correlate the ProcessGuids.
 			[ https://medium.com/falconforce/sysmon-13-process-tampering-detection-820366138a6c ] -->
-		
+
 		<!--DATA: EventType, RuleName, UtcTime, ProcessGuid, ProcessId, Image, Type -->
-	
+
 	<!--
 	<RuleGroup name="" groupRelation="or">
 		<ProcessTampering onmatch="exclude">
