@@ -551,6 +551,7 @@
 			<Image condition="is">C:\Windows\system32\CompatTelRunner.exe</Image> <!-- Windows: Windows 10 app, creates tons of cache files-->
 			<Image condition="is">\\?\C:\Windows\system32\wbem\WMIADAP.EXE</Image> <!-- Windows: WMI Performance updates-->
 			<Image condition="is">C:\Windows\system32\mobsync.exe</Image> <!--Windows: Network file syncing-->
+			<Image condition="is">C:\Windows\System32\WUDFHost.exe</Image> <!--Windows: Windows User-Mode Driver Framework Host. Safe as long as in the correct path. -->
 			<TargetFilename condition="begin with">C:\Windows\system32\DriverStore\Temp\</TargetFilename> <!-- Windows: Temp files by DrvInst.exe-->
 			<TargetFilename condition="begin with">C:\Windows\system32\wbem\Performance\</TargetFilename> <!-- Windows: Created in wbem by WMIADAP.exe-->
 			<TargetFilename condition="begin with">C:\Windows\Installer\</TargetFilename> <!--Windows:Installer: Ignore MSI installer files caching-->
