@@ -827,17 +827,6 @@
 			<TargetFilename condition="end with">.vbs</TargetFilename> <!--VisualBasicScripting files-->
 			<TargetFilename condition="end with">.wsc</TargetFilename> <!--Scripting | Credit @bartblaze -->
 			<TargetFilename condition="end with">.wsf</TargetFilename> <!--Scripting | Credit @bartblaze -->
-			<TargetFilename condition="end with">.docm</TargetFilename> <!--Office Word potentially with macro -->
-			<TargetFilename condition="end with">.docx</TargetFilename> <!--Office Word potentially with macro -->
-			<TargetFilename condition="end with">.xls</TargetFilename> <!--Office Excel potentially with macro -->
-			<TargetFilename condition="end with">.xlsm</TargetFilename> <!--Office Excel potentially with macro -->
-			<TargetFilename condition="end with">.xlsx</TargetFilename> <!--Office Excel potentially with macro -->
-			<TargetFilename condition="end with">.pptm</TargetFilename> <!--Office PowerPoint potentially with macro -->
-			<TargetFilename condition="end with">.pptx</TargetFilename> <!--Office PowerPoint potentially with macro -->
-			<TargetFilename condition="end with">.rtf</TargetFilename> <!--RTF file potentially with exploitation -->
-			<TargetFilename condition="end with">.pdf</TargetFilename> <!--PDF file potentially with exploitation -->
-			<TargetFilename condition="end with">.zip</TargetFilename> <!--ZIP file potentially with delivering malicious files -->
-			<TargetFilename condition="end with">.7z</TargetFilename> <!--7-ZIP file potentially with delivering malicious files -->
 		</FileCreateStreamHash>
 
 	<RuleGroup name="" groupRelation="or">
