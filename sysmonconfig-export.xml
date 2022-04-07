@@ -398,6 +398,8 @@
 			<!-- SECTION: Azure OMS/MMA Agent -->
 			<Image condition="begin with">C:\Program Files\Microsoft Monitoring Agent\</Image>
 			<Image condition="begin with">C:\Program Files\OMS Gateway\</Image>
+			<!-- SECTION: PRTG -->
+			<Image condition="is">C:\Program Files (x86)\PRTG Network Monitor\PRTG Probe.exe</Image>
 		</NetworkConnect>
 	</RuleGroup>
 
@@ -1283,6 +1285,8 @@
 			<QueryName condition="is">status.rapidssl.com</QueryName>
 			<QueryName condition="is">status.thawte.com</QueryName>
 			<QueryName condition="is">ocsp.int-x3.letsencrypt.org</QueryName>
+			<!-- SECTION: PRTG -->
+			<Image condition="is">C:\Program Files (x86)\PRTG Network Monitor\PRTG Probe.exe</Image>
 		</DnsQuery>
 	</RuleGroup>
 
