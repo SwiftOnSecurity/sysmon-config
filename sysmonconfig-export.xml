@@ -77,7 +77,6 @@
 		<!--DATA: UtcTime, ProcessGuid, ProcessID, Image, FileVersion, Description, Product, Company, CommandLine, CurrentDirectory, User, LogonGuid, LogonId, TerminalSessionId, IntegrityLevel, Hashes, ParentProcessGuid, ParentProcessId, ParentImage, ParentCommandLine, RuleName-->
 	<RuleGroup name="" groupRelation="or">
 		<ProcessCreate onmatch="exclude">
-			<ParentCommandLine condition="is">"C:\Program Files\Microsoft Monitoring Agent\Agent\MonitoringHost.exe" -Embedding</ParentCommandLine> <!-- SECTION: Azure OMS/MMA Agent -->
 			<CommandLine condition="contains">\Machine\Scripts\Startup\ipamprovisioning.ps1</CommandLine> <!-- Windows IP Address Management (IPAM) -->
 			<!--SECTION: Microsoft Windows-->
 			<CommandLine condition="is">"C:\Windows\system32\cscript.exe" /nologo "MonitorKnowledgeDiscovery.vbs"</CommandLine>
@@ -233,6 +232,10 @@
 			<Image condition="contains">:\Program Files\SplunkUniversalForwarder\bin\</Image> <!--Splunk: Very noisy if using Universal Forwarders-->
 			<ParentImage condition="end with">:\Program Files\SplunkUniversalForwarder\bin\splunkd.exe</ParentImage> <!--Splunk: Very noisy if using Universal Forwarders-->
 			<ParentImage condition="end with">:\Program Files\SplunkUniversalForwarder\bin\splunk.exe</ParentImage> <!--Splunk: Very noisy if using Universal Forwarders-->
+			<!-- SECTION: Azure OMS/MMA Agent -->
+			<Image condition="begin with">C:\Program Files\Microsoft Monitoring Agent\</Image>
+			<ParentImage condition="is">C:\Program Files\Microsoft Monitoring Agent\MonitoringHost.exe</ParentImage>
+			<ParentImage condition="is">C:\Program Files\Microsoft Monitoring Agent\Agent\HealthService.exe</ParentImage>
 		</ProcessCreate>
 	</RuleGroup>
 
@@ -392,6 +395,9 @@
 			<DestinationIp condition="begin with">fe80:0:0:0</DestinationIp> <!--Credit @ITProPaul-->
 			<!-- OneDrive -->
 			<Image condition="end with">\AppData\Local\Microsoft\OneDrive\OneDrive.exe</Image> <!--Microsoft: OneDrive-->
+			<!-- SECTION: Azure OMS/MMA Agent -->
+			<Image condition="begin with">C:\Program Files\Microsoft Monitoring Agent\</Image>
+			<Image condition="begin with">C:\Program Files\OMS Gateway\</Image>
 		</NetworkConnect>
 	</RuleGroup>
 
