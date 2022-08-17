@@ -1369,18 +1369,24 @@
 			<Hashes condition="contains">IMPHASH=3DE09703C8E79ED2CA3F01074719906B</Hashes> <!-- UACMe Akagi -->
 			<Hashes condition="contains">IMPHASH=A53A02B997935FD8EEDCB5F7ABAB9B9F</Hashes> <!-- WCE -->
 			<Hashes condition="contains">IMPHASH=E96A73C7BF33A464C510EDE582318BF2</Hashes> <!-- WCE -->
-		</FileBlockExecutable>
-	</RuleGroup>
-	
-	<!-- Microsoft Office Programs Dropping Suspicious Files -->
-	<RuleGroup name="OfficeDrop" groupRelation="and">
-		<FileBlockExecutable onmatch="include">
+			<!-- Microsoft Office Programs Dropping Suspicious Files -->
+			<RuleGroup name="OfficeDrop" groupRelation="and">
 			<!-- Typical Office Programs -->
-			<Image condition="end with">\winword.exe</Image>
+				<RuleGroup name="OfficeApps" groupRelation="or">
+					<Image condition="image">winword.exe</Image>
+					<Image condition="image">excel.exe</Image>
+					<Image condition="image">powerpnt.exe</Image>
+					<Image condition="image">msaccess.exe</Image>
+					<Image condition="image">mspub.exe</Image>
+					<Image condition="image">eqnedt32.exe</Image>
+					<Image condition="image">visio.exe</Image>
+					<Image condition="image">wordpad.exe</Image>
+					<Image condition="image">wordview.exe</Image>
+				</RuleGroup>
 			<!-- Suspicious Extensions -->
-			<TargetFilename condition="contains any">.exe;.ps1;.vbs;.bat</TargetFilename>
+			<TargetFilename condition="contains any">.exe;.dll;.bat;.ps1;.vbs;.vbe;.hta</TargetFilename>
+			</RuleGroup>
 		</FileBlockExecutable>
 	</RuleGroup>
-
 	</EventFiltering>
 </Sysmon>
