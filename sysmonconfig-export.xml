@@ -258,7 +258,7 @@
 			<Image condition="contains">setup</Image> <!--Ignore setups-->
 			<Image condition="contains">install</Image> <!--Ignore setups-->
 			<Image condition="contains">Update\</Image> <!--Ignore setups-->
-			<Image condition="end with">redist.exe</Image> <!--Ignore setups-->
+			<Image condition="end with">\redist.exe</Image> <!--Ignore setups-->
 			<Image condition="is">msiexec.exe</Image> <!--Ignore setups-->
 			<Image condition="is">TrustedInstaller.exe</Image> <!--Ignore setups-->
 			<TargetFilename condition="contains">\NVIDIA\NvBackend\ApplicationOntology\</TargetFilename> <!--NVIDIA GeForce Experience Application Ontology, 1000's of events in user profile-->
@@ -502,7 +502,7 @@
 			</Rule>
 			<!-- lsass.exe access with critical permission -->
 			<Rule groupRelation="and">
-				<TargetImage condition="end with">lsass.exe</TargetImage>
+				<TargetImage condition="end with">\lsass.exe</TargetImage>
 				<GrantedAccess condition="contains any">0x40;0x1000;0x1010;0x1038;0x1410;0x1418;0x1438;0x143a;0x100000;0x1f0fff;0x1f1fff;0x1f2fff;0x1f3fff;0x1fffff</GrantedAccess> <!--0x1400 too noisy-->
 			</Rule>
 			<!-- LittleCorporal generated MalDoc Ref: https://github.com/connormcgarr/LittleCorporal -->
