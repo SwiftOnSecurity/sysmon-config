@@ -22,7 +22,7 @@ It started as a is simply copy of the original repository. We merged most of the
 This repo includes the original and two additional configurations
 
 - `sysmonconfig-export.xml` the original config provided by @SwiftOnSecurity
-- `sysmonconfig-export-block.xml` the original config provided by @SwiftOnSecurity with some basic blocking rules (careful!)
+- `sysmonconfig-export-block.xml` the original config provided by @SwiftOnSecurity with some basic blocking rules usable since Sysmon v14 (WARNING: use it with care!)
 - `sysmonconfig-trace.xml` a config by @Cyb3rWard0g that logs just everything with a few examples for debugging or threat research purposes
 
 ## Testing
