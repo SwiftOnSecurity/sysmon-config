@@ -1319,12 +1319,11 @@
 
 	<RuleGroup name="" groupRelation="or">
 		<FileBlockExecutable onmatch="include">
-			<Image name="technique_id=T1105,technique_name=Ingress Tool Transfer" condition="image">excel.exe</Image>
-			<Image name="technique_id=T1105,technique_name=Ingress Tool Transfer" condition="image">winword.exe</Image>
-			<Image name="technique_id=T1105,technique_name=Ingress Tool Transfer" condition="image">powerpnt.exe</Image>
-			<Image name="technique_id=T1105,technique_name=Ingress Tool Transfer" condition="image">outlook.exe</Image>
-			<Image name="technique_id=T1105,technique_name=Ingress Tool Transfer" condition="image">msaccess.exe</Image>
-			<Image name="technique_id=T1105,technique_name=Ingress Tool Transfer" condition="image">mspub.exe</Image>
+			<TargetFilename condition="contains all">C:\Users\Public;.exe</TargetFilename>
+			<TargetFilename condition="contains all">C:\Users\Public;.ps1</TargetFilename>
+			<TargetFilename condition="contains all">C:\Users\Public;.vbs</TargetFilename>
+			<TargetFilename condition="contains all">C:\Users\Public;.bat</TargetFilename>
+			<TargetFilename condition="contains all">C:\Users\Public;.vbe</TargetFilename>
 		</FileBlockExecutable>
 	</RuleGroup>
 
