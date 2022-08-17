@@ -1405,6 +1405,7 @@
 			<Hashes condition="contains">IMPHASH=3DE09703C8E79ED2CA3F01074719906B</Hashes> <!-- UACMe Akagi -->
 			<Hashes condition="contains">IMPHASH=A53A02B997935FD8EEDCB5F7ABAB9B9F</Hashes> <!-- WCE -->
 			<Hashes condition="contains">IMPHASH=E96A73C7BF33A464C510EDE582318BF2</Hashes> <!-- WCE -->
+
 			<!-- Microsoft Office Programs Dropping Suspicious Files -->
 			<RuleGroup name="OfficeDrop" groupRelation="and">
 			<!-- Typical Office Programs -->
@@ -1419,10 +1420,20 @@
 					<Image condition="image">wordpad.exe</Image>
 					<Image condition="image">wordview.exe</Image>
 				</RuleGroup>
-			<!-- Suspicious Extensions -->
-			<TargetFilename condition="contains any">.exe;.dll;.bat;.ps1;.vbs;.vbe;.hta</TargetFilename>
+				<!-- Suspicious Extensions -->
+				<RuleGroup name="SuspiciousExtensions" groupRelation="or">
+					<TargetFilename condition="end with">.exe</TargetFilename>
+					<TargetFilename condition="end with">.dll</TargetFilename>
+					<TargetFilename condition="end with">.bat</TargetFilename>
+					<TargetFilename condition="end with">.ps1</TargetFilename>
+					<TargetFilename condition="end with">.vbs</TargetFilename>
+					<TargetFilename condition="end with">.vbe</TargetFilename>
+					<TargetFilename condition="end with">.hta</TargetFilename>
+				</RuleGroup>
 			</RuleGroup>
+
 		</FileBlockExecutable>
+
 	</RuleGroup>
 	</EventFiltering>
 </Sysmon>
