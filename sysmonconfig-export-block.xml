@@ -1319,12 +1319,37 @@
 
 	<RuleGroup name="ImageBlock" groupRelation="or">
 		<FileBlockExecutable onmatch="include">
-			<!-- Suspicious Extensions in Public Folder -->
-			<TargetFilename condition="contains all">C:\Users\Public;.exe</TargetFilename>
-			<TargetFilename condition="contains all">C:\Users\Public;.ps1</TargetFilename>
-			<TargetFilename condition="contains all">C:\Users\Public;.vbs</TargetFilename>
-			<TargetFilename condition="contains all">C:\Users\Public;.bat</TargetFilename>
-			<TargetFilename condition="contains all">C:\Users\Public;.vbe</TargetFilename>
+			<!-- Executables dropped to suspicious folders -->
+			<TargetFilename condition="begin with">C:\Users\Public\</TargetFilename> <!-- often used staging directories; could cause false positives --> 
+			<TargetFilename condition="begin with">C:\Perflogs\</TargetFilename> <!-- often used staging directories --> 
+			<TargetFilename condition="begin with">C:\Windows\Fonts\</TargetFilename> <!-- often used staging directories --> 
+			<TargetFilename condition="begin with">C:\Windows\debug\</TargetFilename> <!-- often used staging directories --> 
+			<TargetFilename condition="begin with">C:\Windows\Tasks\</TargetFilename> <!-- often used staging directories --> 
+			<TargetFilename condition="begin with">C:\Windows\tracing\</TargetFilename> <!-- often used staging directories --> 
+			<TargetFilename condition="begin with">C:\Windows\Help\</TargetFilename> <!-- often used staging directories --> 
+			<TargetFilename condition="begin with">C:\Windows\Logs\</TargetFilename> <!-- often used staging directories --> 
+			<TargetFilename condition="begin with">C:\Windows\System32\spool\SERVERS\</TargetFilename> <!-- often used in exploits against print spooler --> 
+			<TargetFilename condition="begin with">C:\Windows\System32\spool\PRINTERS\</TargetFilename> <!-- often used in exploits against print spooler --> 
+			<TargetFilename condition="begin with">C:\Windows\Help\</TargetFilename> <!-- often used staging directories --> 
+			<TargetFilename condition="contains all">C:\Users\;\Music\</TargetFilename> <!-- often used staging directories in User folders --> 
+			<TargetFilename condition="contains all">C:\Users\;\Pictures\</TargetFilename> <!-- often used staging directories in User folders --> 
+			<TargetFilename condition="contains all">C:\Users\;\Videos\</TargetFilename> <!-- often used staging directories in User folders --> 
+			<TargetFilename condition="contains all">C:\Users\;\Contacts\</TargetFilename> <!-- often used staging directories in User folders --> 
+			<!-- Executables double extensions -->
+			<TargetFilename condition="end with">.pdf.exe</TargetFilename>
+			<TargetFilename condition="end with">.doc.exe</TargetFilename>
+			<TargetFilename condition="end with">.docx.exe</TargetFilename>
+			<TargetFilename condition="end with">.xls.exe</TargetFilename>
+			<TargetFilename condition="end with">.xlsx.exe</TargetFilename>
+			<TargetFilename condition="end with">.xlsm.exe</TargetFilename>
+			<TargetFilename condition="end with">.docm.exe</TargetFilename>
+			<TargetFilename condition="end with">.ppt.exe</TargetFilename>
+			<TargetFilename condition="end with">.pptx.exe</TargetFilename>
+			<TargetFilename condition="end with">.txt.exe</TargetFilename>
+			<TargetFilename condition="end with">.rtf.exe</TargetFilename>
+			<TargetFilename condition="end with">.htm.exe</TargetFilename>
+			<TargetFilename condition="end with">.html.exe</TargetFilename>
+			<TargetFilename condition="end with">.iso.exe</TargetFilename>
 			<!-- Hacktool Blocks based on Imphashes -->
 			<Hashes condition="contains">IMPHASH=BCCA3C247B619DCD13C8CDFF5F123932</Hashes> <!-- PetitPotam -->
 			<Hashes condition="contains">IMPHASH=3A19059BD7688CB88E70005F18EFC439</Hashes> <!-- PetitPotam -->
@@ -1405,35 +1430,18 @@
 			<Hashes condition="contains">IMPHASH=3DE09703C8E79ED2CA3F01074719906B</Hashes> <!-- UACMe Akagi -->
 			<Hashes condition="contains">IMPHASH=A53A02B997935FD8EEDCB5F7ABAB9B9F</Hashes> <!-- WCE -->
 			<Hashes condition="contains">IMPHASH=E96A73C7BF33A464C510EDE582318BF2</Hashes> <!-- WCE -->
-
-			<!-- Microsoft Office Programs Dropping Suspicious Files -->
-			<RuleGroup name="OfficeDrop" groupRelation="and">
-			<!-- Typical Office Programs -->
-				<RuleGroup name="OfficeApps" groupRelation="or">
-					<Image condition="image">winword.exe</Image>
-					<Image condition="image">excel.exe</Image>
-					<Image condition="image">powerpnt.exe</Image>
-					<Image condition="image">msaccess.exe</Image>
-					<Image condition="image">mspub.exe</Image>
-					<Image condition="image">eqnedt32.exe</Image>
-					<Image condition="image">visio.exe</Image>
-					<Image condition="image">wordpad.exe</Image>
-					<Image condition="image">wordview.exe</Image>
-				</RuleGroup>
-				<!-- Suspicious Extensions -->
-				<RuleGroup name="SuspiciousExtensions" groupRelation="or">
-					<TargetFilename condition="end with">.exe</TargetFilename>
-					<TargetFilename condition="end with">.dll</TargetFilename>
-					<TargetFilename condition="end with">.bat</TargetFilename>
-					<TargetFilename condition="end with">.ps1</TargetFilename>
-					<TargetFilename condition="end with">.vbs</TargetFilename>
-					<TargetFilename condition="end with">.vbe</TargetFilename>
-					<TargetFilename condition="end with">.hta</TargetFilename>
-				</RuleGroup>
-			</RuleGroup>
-
+			<!-- Microsoft Office Programs Dropping Executables -->
+			<Image condition="image">winword.exe</Image>
+			<Image condition="image">excel.exe</Image>
+			<Image condition="image">powerpnt.exe</Image>
+			<Image condition="image">msaccess.exe</Image>
+			<Image condition="image">mspub.exe</Image>
+			<Image condition="image">eqnedt32.exe</Image>
+			<Image condition="image">visio.exe</Image>
+			<Image condition="image">wordpad.exe</Image>
+			<Image condition="image">wordview.exe</Image>
 		</FileBlockExecutable>
-
 	</RuleGroup>
+
 	</EventFiltering>
 </Sysmon>
