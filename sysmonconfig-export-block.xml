@@ -1319,11 +1319,71 @@
 
 	<RuleGroup name="" groupRelation="or">
 		<FileBlockExecutable onmatch="include">
+			<!-- Suspicious Extensions in Public Folder -->
 			<TargetFilename condition="contains all">C:\Users\Public;.exe</TargetFilename>
 			<TargetFilename condition="contains all">C:\Users\Public;.ps1</TargetFilename>
 			<TargetFilename condition="contains all">C:\Users\Public;.vbs</TargetFilename>
 			<TargetFilename condition="contains all">C:\Users\Public;.bat</TargetFilename>
 			<TargetFilename condition="contains all">C:\Users\Public;.vbe</TargetFilename>
+			<!-- Hacktool Blocks based on Imphashes -->
+			<Hashes condition="contains">IMPHASH=BCCA3C247B619DCD13C8CDFF5F123932</Hashes> <!-- PetitPotam -->
+			<Hashes condition="contains">IMPHASH=3A19059BD7688CB88E70005F18EFC439</Hashes> <!-- PetitPotam -->
+			<Hashes condition="contains">IMPHASH=9DA6D5D77BE11712527DCAB86DF449A3</Hashes> <!-- Mimikatz -->
+			<Hashes condition="contains">IMPHASH=A6E01BC1AB89F8D91D9EAB72032AAE88</Hashes> <!-- Mimikatz -->
+			<Hashes condition="contains">IMPHASH=D21BBC50DCC169D7B4D0F01962793154</Hashes> <!-- Mimikatz -->
+			<Hashes condition="contains">IMPHASH=9528A0E91E28FBB88AD433FEABCA2456</Hashes> <!-- Mimikatz -->
+			<Hashes condition="contains">IMPHASH=4C1B52A19748428E51B14C278D0F58E3</Hashes> <!-- Mimikatz -->
+			<Hashes condition="contains">IMPHASH=725BB81DC24214F6ECACC0CFB36AD30D</Hashes> <!-- Mimikatz -->
+			<Hashes condition="contains">IMPHASH=672B13F4A0B6F27D29065123FE882DFC</Hashes> <!-- Mimikatz -->
+			<Hashes condition="contains">IMPHASH=0C106686A31BFE2BA931AE1CF6E9DBC6</Hashes> <!-- Mimikatz -->
+			<Hashes condition="contains">IMPHASH=23867A89C2B8FC733BE6CF5EF902F2D1</Hashes> <!-- JuicyPotato  -->
+			<Hashes condition="contains">IMPHASH=9FB060C2977A9D9B782440B98D410C3E</Hashes> <!-- RoguePotato -->
+			<Hashes condition="contains">IMPHASH=B18A1401FF8F444056D29450FBC0A6CE</Hashes> <!-- Pwdump -->
+			<Hashes condition="contains">IMPHASH=13F08707F759AF6003837A150A371BA1</Hashes> <!-- Pwdump -->
+			<Hashes condition="contains">IMPHASH=749A7BB1F0B4C4455949C0B2BF7F9E9F</Hashes> <!-- Pwdump -->
+			<Hashes condition="contains">IMPHASH=94CB940A1A6B65BED4D5A8F849CE9793</Hashes> <!-- PwDumpX -->
+			<Hashes condition="contains">IMPHASH=1781F06048A7E58B323F0B9259BE798B</Hashes> <!-- Pwdump -->
+			<Hashes condition="contains">IMPHASH=CB567F9498452721D77A451374955F5F</Hashes> <!-- Pwdump -->
+			<Hashes condition="contains">IMPHASH=730073214094CD328547BF1F72289752</Hashes> <!-- Htran -->
+			<Hashes condition="contains">IMPHASH=6EEFD92BFFBFB27F378B81C09CA96786</Hashes> <!-- Ncat -->
+			<Hashes condition="contains">IMPHASH=AC615FB1D93576FA3C26077A619C9144</Hashes> <!-- Ncat -->
+			<Hashes condition="contains">IMPHASH=DC25EE78E2EF4D36FAA0BADF1E7461C9</Hashes> <!-- Cobalt Strike beacons -->
+			<Hashes condition="contains">IMPHASH=17B461A082950FC6332228572138B80C</Hashes> <!-- Cobalt Strike beacons -->
+			<Hashes condition="contains">IMPHASH=C547F2E66061A8DFFB6F5A3FF63C0A74</Hashes> <!-- PPLDump -->
+			<Hashes condition="contains">IMPHASH=0588081AB0E63BA785938467E1B10CCA</Hashes> <!-- PPLDump -->
+			<Hashes condition="contains">IMPHASH=ADA161BF41B8E5E9132858CB54CAB5FB</Hashes> <!-- DripLoader -->
+			<Hashes condition="contains">IMPHASH=2A1BC4913CD5ECB0434DF07CB675B798</Hashes> <!-- DripLoader -->
+			<Hashes condition="contains">IMPHASH=11083E75553BAAE21DC89CE8F9A195E4</Hashes> <!-- DripLoader -->
+			<Hashes condition="contains">IMPHASH=A23D29C9E566F2FA8FFBB79267F5DF80</Hashes> <!-- DripLoader -->
+			<Hashes condition="contains">IMPHASH=4A07F944A83E8A7C2525EFA35DD30E2F</Hashes> <!-- CreateMiniDump -->
+			<Hashes condition="contains">IMPHASH=767637C23BB42CD5D7397CF58B0BE688</Hashes> <!-- UACMe Akagi -->
+			<Hashes condition="contains">IMPHASH=14C4E4C72BA075E9069EE67F39188AD8</Hashes> <!-- UACMe Akagi -->
+			<Hashes condition="contains">IMPHASH=3C782813D4AFCE07BBFC5A9772ACDBDC</Hashes> <!-- UACMe Akagi -->
+			<Hashes condition="contains">IMPHASH=7D010C6BB6A3726F327F7E239166D127</Hashes> <!-- UACMe Akagi -->
+			<Hashes condition="contains">IMPHASH=89159BA4DD04E4CE5559F132A9964EB3</Hashes> <!-- UACMe Akagi -->
+			<Hashes condition="contains">IMPHASH=6F33F4A5FC42B8CEC7314947BD13F30F</Hashes> <!-- UACMe Akagi -->
+			<Hashes condition="contains">IMPHASH=5834ED4291BDEB928270428EBBAF7604</Hashes> <!-- UACMe Akagi -->
+			<Hashes condition="contains">IMPHASH=5A8A8A43F25485E7EE1B201EDCBC7A38</Hashes> <!-- UACMe Akagi -->
+			<Hashes condition="contains">IMPHASH=DC7D30B90B2D8ABF664FBED2B1B59894</Hashes> <!-- UACMe Akagi -->
+			<Hashes condition="contains">IMPHASH=41923EA1F824FE63EA5BEB84DB7A3E74</Hashes> <!-- UACMe Akagi -->
+			<Hashes condition="contains">IMPHASH=3DE09703C8E79ED2CA3F01074719906B</Hashes> <!-- UACMe Akagi -->
+			<Hashes condition="contains">IMPHASH=A53A02B997935FD8EEDCB5F7ABAB9B9F</Hashes> <!-- WCE -->
+			<Hashes condition="contains">IMPHASH=E96A73C7BF33A464C510EDE582318BF2</Hashes> <!-- WCE -->
+		</FileBlockExecutable>
+	</RuleGroup>
+	
+	<!-- Microsoft Office Programs Dropping Suspicious Files -->
+	<RuleGroup name="" groupRelation="and">
+		<FileBlockExecutable onmatch="include">
+			<!-- Typical Office Programs -->
+			<Image condition="contains any">\excel.exe;\winword.exe</Image>
+		</FileBlockExecutable>
+		<FileBlockExecutable onmatch="include">
+			<!-- Suspicious Extensions -->
+			<TargetFilename condition="end with">.exe</TargetFilename>
+			<TargetFilename condition="end with">.ps1</TargetFilename>
+			<TargetFilename condition="end with">.vbs</TargetFilename>
+			<TargetFilename condition="end with">.bat</TargetFilename>
 		</FileBlockExecutable>
 	</RuleGroup>
 
