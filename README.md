@@ -17,6 +17,14 @@ It started as a is simply copy of the original repository. We merged most of the
 - PrinterNightmare
 - HiveNightmare
 
+## Configs
+
+This repo includes the original and two additional configurations
+
+- `sysmonconfig-export.xml` the original config provided by @SwiftOnSecurity
+- `sysmonconfig-export-block.xml` the original config provided by @SwiftOnSecurity with some basic blocking rules (careful!)
+- `sysmonconfig-trace.xml` a config by @Cyb3rWard0g that logs just everything with a few examples for debugging or threat research purposes
+
 ## Testing
 
 This configuration is focused on detection coverage. We have only one rather small testing environment to avoid problematic expressions that trigger too often. It is recommended to test the downloaded configuration on a small set of systems in your environment in any case.
