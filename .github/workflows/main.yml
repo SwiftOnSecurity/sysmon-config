@@ -43,7 +43,7 @@ jobs:
       shell: powershell
 
     - name: Check Eventcount
-      run:  '$EventCount = 0 ;Get-WinEvent -ListLog Microsoft-Windows-Sysmon* | where {$_.RecordCount -gt 0} | foreach{$_;$EventCount = $EventCount + $_.RecordCount}|Out-Null;"Eventcount: "+$EventCount; if ($EventCount -gt 100){ Write-Output "Too many events"; $host.SetShouldExit(1)}'
+      run:  '$EventCount = 0 ;Get-WinEvent -ListLog Microsoft-Windows-Sysmon* | where {$_.RecordCount -gt 0} | foreach{$_;$EventCount = $EventCount + $_.RecordCount}|Out-Null;"Eventcount: "+$EventCount; if ($EventCount -gt 2000){ Write-Output "Too many events"; $host.SetShouldExit(1)}'
       shell: powershell
   msbuild-block:
     runs-on: 'windows-latest'
