@@ -9,6 +9,7 @@ It started as a is simply copy of the original repository. We merged most of the
 - Florian Roth @Neo23x0
 - Tobias Michalski @humpalum
 - Christian Burkard @phantinuss
+- Nasreddine Bencherchali @nas_bench
 
 ## Additional coverage includes
 
