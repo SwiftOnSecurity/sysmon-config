@@ -1317,7 +1317,7 @@
 			[ https://medium.com/@olafhartong/sysmon-14-0-fileblockexecutable-13d7ba3dff3e ]
 		-->
 
-	<RuleGroup name="" groupRelation="or">
+	<RuleGroup name="ImageBlock" groupRelation="or">
 		<FileBlockExecutable onmatch="include">
 			<!-- Suspicious Extensions in Public Folder -->
 			<TargetFilename condition="contains all">C:\Users\Public;.exe</TargetFilename>
@@ -1373,17 +1373,12 @@
 	</RuleGroup>
 	
 	<!-- Microsoft Office Programs Dropping Suspicious Files -->
-	<RuleGroup name="" groupRelation="and">
+	<RuleGroup name="OfficeDrop" groupRelation="and">
 		<FileBlockExecutable onmatch="include">
 			<!-- Typical Office Programs -->
-			<Image condition="contains any">\excel.exe;\winword.exe</Image>
-		</FileBlockExecutable>
-		<FileBlockExecutable onmatch="include">
+			<Image condition="end with">\winword.exe</Image>
 			<!-- Suspicious Extensions -->
-			<TargetFilename condition="end with">.exe</TargetFilename>
-			<TargetFilename condition="end with">.ps1</TargetFilename>
-			<TargetFilename condition="end with">.vbs</TargetFilename>
-			<TargetFilename condition="end with">.bat</TargetFilename>
+			<TargetFilename condition="contains any">.exe;.ps1;.vbs;.bat</TargetFilename>
 		</FileBlockExecutable>
 	</RuleGroup>
 
