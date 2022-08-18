@@ -1442,6 +1442,13 @@
 			<Image condition="image">wordview.exe</Image>
 			<!-- LOLBINs that can be used to download executables -->
 			<Image condition="image">certutil.exe</Image>
+			<Image condition="image">certoc.exe</Image>
+			<Image condition="image">CertReq.exe</Image>
+			<!-- <Image condition="image">bitsadmin.exe</Image> (depends on the environment; comment in if you're sure that bitsadmin doesn't do that in your env) -->
+			<Image condition="image">Desktopimgdownldr.exe</Image>
+			<Image condition="image">esentutl.exe</Image>
+			<Image condition="image">expand.exe</Image>
+			<Image condition="image">finger.exe</Image>
 		</FileBlockExecutable>
 	</RuleGroup>
 
