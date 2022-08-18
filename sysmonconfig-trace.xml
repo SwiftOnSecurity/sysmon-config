@@ -139,7 +139,7 @@
 				<SourceImage condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</SourceImage>
 				<Rule name="MsMpEngVersion" groupRelation="and">
 					<SourceImage condition="begin with">C:\ProgramData\Microsoft\Windows Defender\platform\</SourceImage>
-					<SourceImage condition="end with">\MsMpEng.exe</TargetImage>
+					<SourceImage condition="end with">\MsMpEng.exe</SourceImage>
 				</Rule>
 				<SourceImage condition="is">C:\Program Files\Microsoft VS Code\Code.exe</SourceImage>
 				<SourceImage condition="is">C:\WindowsAzure\Packages\CollectGuestLogs.exe</SourceImage>
