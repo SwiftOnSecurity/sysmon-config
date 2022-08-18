@@ -11,6 +11,7 @@ on:
     - master
   workflow_dispatch:
 jobs:
+
   msbuild-default:
     runs-on: 'windows-latest'
     steps:
@@ -28,6 +29,7 @@ jobs:
     - name: Check Eventcount
       run:  '$EventCount = 0 ;Get-WinEvent -ListLog Microsoft-Windows-Sysmon* | where {$_.RecordCount -gt 0} | foreach{$_;$EventCount = $EventCount + $_.RecordCount}|Out-Null;"Eventcount: "+$EventCount; if ($EventCount -gt 100){ Write-Output "Too many events"; $host.SetShouldExit(1)}'
       shell: powershell
+
   msbuild-trace:
     runs-on: 'windows-latest'
     steps:
@@ -45,6 +47,7 @@ jobs:
     - name: Check Eventcount
       run:  '$EventCount = 0 ;Get-WinEvent -ListLog Microsoft-Windows-Sysmon* | where {$_.RecordCount -gt 0} | foreach{$_;$EventCount = $EventCount + $_.RecordCount}|Out-Null;"Eventcount: "+$EventCount; if ($EventCount -gt 2000){ Write-Output "Too many events"; $host.SetShouldExit(1)}'
       shell: powershell
+
   msbuild-block:
     runs-on: 'windows-latest'
     steps:
