@@ -1440,6 +1440,8 @@
 			<Image condition="image">visio.exe</Image>
 			<Image condition="image">wordpad.exe</Image>
 			<Image condition="image">wordview.exe</Image>
+			<!-- LOLBINs that can be used to download executables -->
+			<Image condition="image">certutil.exe</Image>
 		</FileBlockExecutable>
 	</RuleGroup>
 
