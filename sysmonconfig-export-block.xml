@@ -33,7 +33,6 @@
 			<!--SECTION: Microsoft Windows-->
 			<CommandLine condition="is">"C:\Windows\system32\cscript.exe" /nologo "MonitorKnowledgeDiscovery.vbs"</CommandLine>
 			<CommandLine condition="begin with"> "C:\Windows\system32\wermgr.exe" "-queuereporting_svc" </CommandLine> <!--Windows:Windows error reporting/telemetry-->
-			<CommandLine condition="begin with">C:\Windows\system32\DllHost.exe /Processid</CommandLine> <!--Windows-->
 			<CommandLine condition="begin with">C:\Windows\system32\wbem\wmiprvse.exe -Embedding</CommandLine> <!--Windows: WMI provider host-->
 			<CommandLine condition="begin with">C:\Windows\system32\wbem\wmiprvse.exe -secured -Embedding</CommandLine> <!--Windows: WMI provider host-->
 			<CommandLine condition="is">C:\Windows\system32\wermgr.exe -upload</CommandLine> <!--Windows:Windows error reporting/telemetry-->
@@ -398,6 +397,8 @@
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, ImageLoaded, Hashes, Signed, Signature, SignatureStatus-->
 	<RuleGroup name="" groupRelation="or">
 		<ImageLoad onmatch="include">
+			<ImageLoaded condition="begin with">C:\Users\Public\</ImageLoaded>
+			<ImageLoaded condition="begin with">C:\PerfLogs\</ImageLoaded>
 			<!--NOTE: Using "include" with no rules means nothing in this section will be logged-->
 		</ImageLoad>
 	</RuleGroup>
@@ -1351,7 +1352,10 @@
 			<TargetFilename condition="end with">.htm.exe</TargetFilename>
 			<TargetFilename condition="end with">.html.exe</TargetFilename>
 			<TargetFilename condition="end with">.iso.exe</TargetFilename>
-			
+			<TargetFilename condition="end with">.zip.exe</TargetFilename>
+			<TargetFilename condition="end with">.rar.exe</TargetFilename>
+			<TargetFilename condition="end with">.7z.exe</TargetFilename>
+
 			<!-- Hacktool Blocks based on Imphashes -->
 			<Hashes condition="contains">IMPHASH=BCCA3C247B619DCD13C8CDFF5F123932</Hashes> <!-- PetitPotam -->
 			<Hashes condition="contains">IMPHASH=3A19059BD7688CB88E70005F18EFC439</Hashes> <!-- PetitPotam -->
