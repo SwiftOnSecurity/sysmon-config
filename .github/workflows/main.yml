@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 jobs:
 
-  msbuild-default:
+  msbuild:
     runs-on: 'windows-latest'
     steps:
     - name: Checkout open-sysmon-conf
