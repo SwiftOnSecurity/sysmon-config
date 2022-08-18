@@ -1323,7 +1323,6 @@
 			<!-- Executables dropped to suspicious folders -->
 			<TargetFilename condition="begin with">C:\Users\Public\</TargetFilename> <!-- often used staging directories; could cause false positives --> 
 			<TargetFilename condition="begin with">C:\Perflogs\</TargetFilename> <!-- often used staging directories --> 
-			<TargetFilename condition="begin with">C:\Users\;\AppData\LocalLow\</TargetFilename> <!-- often used staging directories --> 
 			<TargetFilename condition="begin with">C:\Windows\Fonts\</TargetFilename> <!-- often used staging directories --> 
 			<TargetFilename condition="begin with">C:\Windows\debug\</TargetFilename> <!-- often used staging directories --> 
 			<TargetFilename condition="begin with">C:\Windows\Tasks\</TargetFilename> <!-- often used staging directories --> 
