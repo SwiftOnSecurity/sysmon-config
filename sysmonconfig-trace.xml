@@ -19,6 +19,7 @@
 			<!-- Event ID 1 == Process Creation. Log all newly created processes except -->
 			<ProcessCreate onmatch="exclude">
 				<Image condition="image">Sysmon.exe</Image>
+				<Image condition="image">Sysmon64.exe</Image>
 				<Image condition="contains">splunk</Image>
 				<Image condition="contains">btool.exe</Image>
 				<Image condition="contains">SnareCore</Image>
@@ -45,15 +46,16 @@
 			<!-- Event ID 3 == Network Connection. Log all initiated network connection except -->
 			<NetworkConnect onmatch="exclude">
 				<Image condition="is">C:\Program Files\Microsoft Office\Office15\ONENOTE.EXE</Image>
-				<Image condition="end with">Spotify.exe</Image>
-				<Image condition="end with">OneDrive.exe</Image>
-				<Image condition="end with">AppData\Roaming\Dashlane\Dashlane.exe</Image>
-				<Image condition="end with">AppData\Roaming\Dashlane\DashlanePlugin.exe</Image>
-				<Image condition="end with">winlogbeat.exe</Image>
-				<Image condition="end with">ec2config.exe</Image>
-				<Image condition="end with">cfn-signal.exe</Image>
-				<Image condition="end with">amazon-ssm-agent.exe</Image>
-				<Image condition="end with">ec2wallpaperinfo.exe</Image>
+				<Image condition="end with">\Spotify.exe</Image>
+				<Image condition="end with">\OneDrive.exe</Image>
+				<Image condition="end with">\AppData\Roaming\Dashlane\Dashlane.exe</Image>
+				<Image condition="end with">\AppData\Roaming\Dashlane\DashlanePlugin.exe</Image>
+				<Image condition="end with">\winlogbeat.exe</Image>
+				<Image condition="end with">\ec2config.exe</Image>
+				<Image condition="end with">\cfn-signal.exe</Image>
+				<Image condition="end with">\amazon-ssm-agent.exe</Image>
+				<Image condition="end with">\ec2wallpaperinfo.exe</Image>
+				<Image condition="end with">\Ninite.exe</Image>
 				<Image condition="is">C:\Windows\System32\spoolsv.exe</Image>
 				<Image condition="is">C:\Program Files\Common Files\microsoft shared\ClickToRun\OfficeClickToRun.exe</Image>
 				<Image condition="is">C:\Program Files (x86)\Common Files\Acronis\SyncAgent\syncagentsrv.exe</Image>
@@ -82,6 +84,7 @@
 			<DriverLoad onmatch="exclude">
 				<Signature condition="contains">microsoft</Signature>
 				<Signature condition="contains">windows</Signature>
+				<Signature condition="contains">symantec</Signature>
 				<Signature condition="is">VMware</Signature>
 				<Signature condition="begin with">Intel </Signature>
 			</DriverLoad>
@@ -92,18 +95,20 @@
 				<Image condition="image">chrome.exe</Image>
 				<Image condition="image">vmtoolsd.exe</Image>
 				<Image condition="image">Sysmon.exe</Image>
+				<Image condition="image">Sysmon64.exe</Image>
 				<Image condition="image">mmc.exe</Image>
-				<Image condition="is">C:\Program Files (x86)\Google\Update\GoogleUpdate.exe</Image>
+				<Image condition="end with">\Google\Update\GoogleUpdate.exe</Image>
 				<Image condition="is">C:\Windows\System32\taskeng.exe</Image>
 				<Image condition="is">C:\Program Files\VMware\VMware Tools\TPAutoConnect.exe</Image>
 				<Image condition="is">C:\Program Files\Windows Defender\NisSrv.exe</Image>
 				<Image condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</Image>
-				<Image condition="end with">onedrivesetup.exe</Image>
-				<Image condition="end with">onedrive.exe</Image>
-				<Image condition="end with">skypeapp.exe</Image>
+				<Image condition="end with">\onedrivesetup.exe</Image>
+				<Image condition="end with">\onedrive.exe</Image>
+				<Image condition="end with">\skypeapp.exe</Image>
 				<Image condition="begin with">C:\Packages\Plugins\</Image> <!--Azure ARM Extensions -->
 				<Image condition="begin with">C:\WindowsAzure\</Image> <!--Azure -->
 				<ImageLoaded condition="begin with">C:\Program Files\Microsoft Monitoring Agent\</ImageLoaded> <!--Azure Microsoft Monitoring Aget-->
+				<Image condition="end with">\CompatTelRunner.exe</Image>
 			</ImageLoad>
 		</RuleGroup>
 		<RuleGroup name="" groupRelation="or">
@@ -114,8 +119,11 @@
 			<!-- Event ID 9 == RawAccessRead. Log everything except -->
 			<RawAccessRead onmatch="exclude">
 				<Image condition="image">Sysmon.exe</Image>
+				<Image condition="image">Sysmon64.exe</Image>
 				<Image condition="is">C:\Program Files\VMware\VMware Tools\vmtoolsd.exe</Image>
-				<Image condition="is">C:\Program Files (x86)\Google\Update\GoogleUpdate.exe</Image>
+				<Image condition="end with">\Google\Update\GoogleUpdate.exe</Image>
+				<Image condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</Image>
+				<Image condition="is">C:\Windows\System32\svchost.exe</Image>
 			</RawAccessRead>
 		</RuleGroup>
 		<RuleGroup name="" groupRelation="or">
@@ -124,16 +132,21 @@
 				<SourceImage condition="is">C:\WINDOWS\System32\VBoxService.exe</SourceImage>
 				<SourceImage condition="is">C:\Program Files\VMware\VMware Tools\vmtoolsd.exe</SourceImage>
 				<SourceImage condition="image">Sysmon.exe</SourceImage>
+				<SourceImage condition="image">Sysmon64.exe</SourceImage>
 				<SourceImage condition="image">GoogleUpdate.exe</SourceImage>
 				<SourceImage condition="image">aurora-agent-64.exe</SourceImage>
-				<SourceImage condition="is">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</SourceImage>
+				<SourceImage condition="end with">\Google\Chrome\Application\chrome.exe</SourceImage>
 				<SourceImage condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</SourceImage>
-				<SourceImage condition="is">C:\ProgramData\Microsoft\Windows Defender\platform\4.18.1907.4-0\MsMpEng.exe</SourceImage>
+				<Rule name="MsMpEngVersion" groupRelation="and">
+					<SourceImage condition="begin with">C:\ProgramData\Microsoft\Windows Defender\platform\</SourceImage>
+					<SourceImage condition="end with">\MsMpEng.exe</TargetImage>
+				</Rule>
 				<SourceImage condition="is">C:\Program Files\Microsoft VS Code\Code.exe</SourceImage>
 				<SourceImage condition="is">C:\WindowsAzure\Packages\CollectGuestLogs.exe</SourceImage>
 				<SourceImage condition="is">C:\Program Files\Microsoft Monitoring Agent\Agent\HealthService.exe</SourceImage>
 				<SourceImage condition="is">C:\Program Files\Microsoft Monitoring Agent\Agent\MonitoringHost.exe</SourceImage>
 				<TargetImage condition="image">Sysmon.exe</TargetImage>
+				<TargetImage condition="image">Sysmon64.exe</TargetImage>
 				<TargetImage condition="is">C:\Program Files\VMware\VMware Tools\TPAutoConnSvc.exe</TargetImage>
 				<TargetImage condition="is">C:\Program Files\VMware\VMware Tools\TPAutoConnect.exe</TargetImage>
 				<TargetImage condition="is">C:\Program Files\Microsoft VS Code\Code.exe</TargetImage>
@@ -147,16 +160,16 @@
 				<TargetImage condition="begin with">C:\Program Files\WindowsApps\</TargetImage>
 				<TargetImage condition="begin with">C:\Program Files\Windows Defender Advanced Threat Protection\</TargetImage>
 				<SourceImage condition="begin with">C:\Program Files\Windows Defender Advanced Threat Protection\</SourceImage>
+				<SourceImage condition="begin with">C:\ProgramData\Microsoft\Windows Defender\platform\</SourceImage>
 				<TargetImage condition="begin with">C:\Windows\SystemApps\InputApp</TargetImage>
 				<SourceImage condition="begin with">C:\Program Files\Azure Advanced Threat Protection Sensor\</SourceImage> <!-- Microsoft Defender for Identity Sensor -->
-				<SourceImage condition="end with">Microsoft.Tri.Sensor.Updater.exe</SourceImage> <!-- Microsoft Defender for Identity Sensor -->
-				<SourceImage condition="end with">onedrivesetup.exe</SourceImage>
-				<TargetImage condition="end with">StartMenuExperienceHost.exe</TargetImage>
-				<TargetImage condition="end with">ShellExperienceHost.exe</TargetImage>
-				<TargetImage condition="end with">mmc.exe</TargetImage>
-				<TargetImage condition="end with">Microsoft.Tri.Sensor.exe</TargetImage> <!-- Microsoft Defender for Identity Sensor -->
-				<TargetImage condition="end with">Microsoft.Tri.Sensor.Updater.exe</TargetImage> <!-- Microsoft Defender for Identity Sensor -->
-				<SourceImage condition="begin with">C:\ProgramData\Microsoft\Windows Defender\platform\</SourceImage>
+				<SourceImage condition="end with">\Microsoft.Tri.Sensor.Updater.exe</SourceImage> <!-- Microsoft Defender for Identity Sensor -->
+				<SourceImage condition="end with">\onedrivesetup.exe</SourceImage>
+				<TargetImage condition="end with">\StartMenuExperienceHost.exe</TargetImage>
+				<TargetImage condition="end with">\ShellExperienceHost.exe</TargetImage>
+				<TargetImage condition="end with">\mmc.exe</TargetImage>
+				<TargetImage condition="end with">\Microsoft.Tri.Sensor.exe</TargetImage> <!-- Microsoft Defender for Identity Sensor -->
+				<TargetImage condition="end with">\Microsoft.Tri.Sensor.Updater.exe</TargetImage> <!-- Microsoft Defender for Identity Sensor -->
 				<Rule name="RuntimeBroker" groupRelation="and">
 					<SourceImage condition="is">C:\Windows\System32\RuntimeBroker.exe</SourceImage>
 					<TargetImage condition="is">C:\windows\Explorer.EXE</TargetImage>
@@ -166,6 +179,11 @@
 					<TargetImage condition="end with">\svchost.exe</TargetImage>
 				</Rule>
 				<TargetImage condition="contains">Microsoft.Windows.Cortana</TargetImage>
+				<TargetImage condition="end with">\MsMpEng.exe</TargetImage>
+				<TargetImage condition="is">C:\Windows\System32\VBoxService.exe</TargetImage>
+				<SourceImage condition="end with">\Ninite.exe</SourceImage>
+				<TargetImage condition="end with">\Ninite.exe</TargetImage>
+				<GrantedAccess condition="is">0x1000</GrantedAccess>
 			</ProcessAccess>
 		</RuleGroup>
 		<RuleGroup name="" groupRelation="or">
@@ -183,6 +201,8 @@
 				<Image condition="begin with">C:\Windows\SystemApps\Microsoft.Windows.Cortana</Image>
 				<Image condition="begin with">C:\Program Files\Microsoft Azure AD Sync\</Image> <!--Azure AD Connect Agent -->
 				<Image condition="begin with">C:\Program Files\Microsoft Azure AD Connect Health Sync Agent\</Image> <!--Azure AD Connect Agent -->
+				<Image condition="end with">\TiWorker.exe</Image>
+				<Image condition="end with">\Ninite.exe</Image>
 				<TargetFilename condition="begin with">C:\Windows\System32\winevt\Logs\</TargetFilename>
 			</FileCreate>
 		</RuleGroup>
@@ -201,15 +221,18 @@
 				<Image condition="begin with">C:\Program Files\Azure Advanced Threat Protection Sensor\</Image> <!-- Microsoft Defender for Identity Sensor -->
 				<Image condition="begin with">C:\Windows\SystemApps\Microsoft.Windows.Cortana</Image>
 				<Image condition="begin with">C:\WindowsAzure\</Image>
-				<Image condition="end with">onedrivesetup.exe</Image>
-				<Image condition="end with">onedrive.exe</Image>
-				<Image condition="end with">skypeapp.exe</Image>
-				<Image condition="end with">Sysmon64.exe</Image>
-				<Image condition="end with">Microsoft.Tri.Sensor.exe</Image> <!-- Microsoft Defender for Identity Sensor -->
-				<Image condition="end with">Microsoft.Tri.Sensor.Updater.exe</Image> <!-- Microsoft Defender for Identity Sensor -->
+				<Image condition="end with">\onedrivesetup.exe</Image>
+				<Image condition="end with">\onedrive.exe</Image>
+				<Image condition="end with">\skypeapp.exe</Image>
+				<Image condition="end with">\Sysmon64.exe</Image>
+				<Image condition="end with">\Microsoft.Tri.Sensor.exe</Image> <!-- Microsoft Defender for Identity Sensor -->
+				<Image condition="end with">\Microsoft.Tri.Sensor.Updater.exe</Image> <!-- Microsoft Defender for Identity Sensor -->
+				<Image condition="end with">\TiWorker.exe</Image>
+				<Image condition="is">C:\Windows\system32\compattelrunner.exe</Image>
+				<Image condition="is">C:\Windows\Sysmon64.exe</Image>
 				<TargetObject condition="is">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Print\Printers\Microsoft Print to PDF\PrinterDriverData</TargetObject>
-				<TargetObject condition="end with">LanguageList</TargetObject>
-				<TargetObject condition="end with">Windows.UI.SettingsAppThreshold.pri</TargetObject>
+				<TargetObject condition="end with">\LanguageList</TargetObject>
+				<TargetObject condition="end with">\Windows.UI.SettingsAppThreshold.pri</TargetObject>
 				<TargetObject condition="end with">\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications</TargetObject>
 				<TargetObject condition="end with">\Software\Microsoft\Input\Settings\Insights</TargetObject>
 				<TargetObject condition="end with">\Schemas\StateSchema</TargetObject>
@@ -228,6 +251,11 @@
 				<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\AppReadiness\</TargetObject>
 				<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModel\StateRepository\Cache\Package</TargetObject> <!--Windows app package-->
 				<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\Windows Error Reporting\TermReason</TargetObject>
+				<Rule groupRelation="and">
+					<Image condition="is">C:\Windows\system32\svchost.exe</Image>
+					<TargetObject condition="contains">\DRIVERS\DriverDatabase\</TargetObject>
+				</Rule>
+				<TargetObject condition="contains">\Microsoft\SystemCertificates\</TargetObject>
 			</RegistryEvent>
 		</RuleGroup>
 		<RuleGroup name="" groupRelation="or">
@@ -276,6 +304,7 @@
 			<FileDeleteDetected onmatch="exclude">
 				<Image condition="begin with">C:\WindowsAzure\</Image> <!--Azure -->
 				<Image condition="begin with">C:\Packages\Plugins\</Image> <!--Azure ARM Extensions -->
+				<Image condition="end with">\TiWorker.exe</Image>
 			</FileDeleteDetected>
 		</RuleGroup>
   </EventFiltering>
