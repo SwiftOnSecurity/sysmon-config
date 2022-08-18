@@ -1335,6 +1335,7 @@
 			<TargetFilename condition="contains all">C:\Users\;\Pictures\</TargetFilename> <!-- often used staging directories in User folders --> 
 			<TargetFilename condition="contains all">C:\Users\;\Videos\</TargetFilename> <!-- often used staging directories in User folders --> 
 			<TargetFilename condition="contains all">C:\Users\;\Contacts\</TargetFilename> <!-- often used staging directories in User folders --> 
+			
 			<!-- Executables double extensions -->
 			<TargetFilename condition="end with">.pdf.exe</TargetFilename>
 			<TargetFilename condition="end with">.doc.exe</TargetFilename>
@@ -1350,6 +1351,7 @@
 			<TargetFilename condition="end with">.htm.exe</TargetFilename>
 			<TargetFilename condition="end with">.html.exe</TargetFilename>
 			<TargetFilename condition="end with">.iso.exe</TargetFilename>
+			
 			<!-- Hacktool Blocks based on Imphashes -->
 			<Hashes condition="contains">IMPHASH=BCCA3C247B619DCD13C8CDFF5F123932</Hashes> <!-- PetitPotam -->
 			<Hashes condition="contains">IMPHASH=3A19059BD7688CB88E70005F18EFC439</Hashes> <!-- PetitPotam -->
@@ -1430,6 +1432,7 @@
 			<Hashes condition="contains">IMPHASH=3DE09703C8E79ED2CA3F01074719906B</Hashes> <!-- UACMe Akagi -->
 			<Hashes condition="contains">IMPHASH=A53A02B997935FD8EEDCB5F7ABAB9B9F</Hashes> <!-- WCE -->
 			<Hashes condition="contains">IMPHASH=E96A73C7BF33A464C510EDE582318BF2</Hashes> <!-- WCE -->
+			
 			<!-- Microsoft Office Programs Dropping Executables -->
 			<Image condition="image">winword.exe</Image>
 			<Image condition="image">excel.exe</Image>
@@ -1440,6 +1443,7 @@
 			<Image condition="image">visio.exe</Image>
 			<Image condition="image">wordpad.exe</Image>
 			<Image condition="image">wordview.exe</Image>
+			
 			<!-- LOLBINs that can be used to download executables -->
 			<Image condition="image">certutil.exe</Image>
 			<Image condition="image">certoc.exe</Image>
@@ -1449,6 +1453,13 @@
 			<Image condition="image">esentutl.exe</Image>
 			<Image condition="image">expand.exe</Image>
 			<Image condition="image">finger.exe</Image>
+
+			<!-- Executables that should never drop an executable to disk (but may after a previous process injection or if it's malware that uses a legitimate name)-->
+			<Image condition="image">notepad.exe</Image>
+			<Image condition="image">AcroRd32.exe</Image>
+			<Image condition="image">RdrCEF.exe</Image>
+			<Image condition="image">mshta.exe</Image>
+			<Image condition="image">hh.exe</Image>
 		</FileBlockExecutable>
 	</RuleGroup>
 
