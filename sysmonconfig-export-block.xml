@@ -3,6 +3,11 @@
 	Source project:	https://github.com/SwiftOnSecurity/sysmon-config
 	Source license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
 
+	WARNING: THIS CONFIG INCLUDES BLOCKING RULES THAT MAY CAUSE ISSUES ENDSYSTEMS!
+	         Test this configuration intensively before using it on productive systems
+
+	LAST CHANGE: 18.08.2022
+
 	REQUIRED: Sysmon version 14 or higher (due to changes in syntax and bug-fixes)
 		https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon
 -->
@@ -1436,6 +1441,7 @@
 			<Hashes condition="contains">IMPHASH=3DE09703C8E79ED2CA3F01074719906B</Hashes> <!-- UACMe Akagi -->
 			<Hashes condition="contains">IMPHASH=A53A02B997935FD8EEDCB5F7ABAB9B9F</Hashes> <!-- WCE -->
 			<Hashes condition="contains">IMPHASH=E96A73C7BF33A464C510EDE582318BF2</Hashes> <!-- WCE -->
+			<Hashes condition="contains">IMPHASH=32089B8851BBF8BC2D014E9F37288C83</Hashes> <!-- Sliver Stagers -->
 			
 			<!-- Microsoft Office Programs Dropping Executables -->
 			<Image condition="image">winword.exe</Image>
