@@ -1457,7 +1457,6 @@
 			<Image condition="image">wordpad.exe</Image>
 			<Image condition="image">wordview.exe</Image>
 			<Image condition="image">msohtmed.exe</Image>
-			<Image condition="image">mspub.exe</Image>
 			
 			<!-- LOLBINs that can be used to download executables -->
 			<Image condition="image">certutil.exe</Image>
