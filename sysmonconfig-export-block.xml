@@ -1456,6 +1456,7 @@
 			<Image condition="image">visio.exe</Image>
 			<Image condition="image">wordpad.exe</Image>
 			<Image condition="image">wordview.exe</Image>
+			<Image condition="image">msohtmed.exe</Image>
 			
 			<!-- LOLBINs that can be used to download executables -->
 			<Image condition="image">certutil.exe</Image>
@@ -1466,6 +1467,7 @@
 			<Image condition="image">esentutl.exe</Image>
 			<!-- <Image condition="image">expand.exe</Image> (depends on the environment; comment in if you're sure that expand doesn't do that in your env) -->
 			<Image condition="image">finger.exe</Image>
+			<Image condition="image">presentationhost.exe</Image>
 
 			<!-- Executables that should never drop an executable to disk (but may after a previous process injection or if it's malware that uses a legitimate name)-->
 			<Image condition="image">notepad.exe</Image>
@@ -1473,6 +1475,8 @@
 			<Image condition="image">RdrCEF.exe</Image>
 			<Image condition="image">mshta.exe</Image>
 			<Image condition="image">hh.exe</Image>
+			<Image condition="image">calc.exe</Image>
+			<Image condition="image">mspaint.exe</Image>
 		</FileBlockExecutable>
 	</RuleGroup>
 
