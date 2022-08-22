@@ -1464,7 +1464,7 @@
 			<!-- <Image condition="image">bitsadmin.exe</Image> (depends on the environment; comment in if you're sure that bitsadmin doesn't do that in your env) -->
 			<Image condition="image">Desktopimgdownldr.exe</Image>
 			<Image condition="image">esentutl.exe</Image>
-			<Image condition="image">expand.exe</Image>
+			<!-- <Image condition="image">expand.exe</Image> (depends on the environment; comment in if you're sure that expand doesn't do that in your env) -->
 			<Image condition="image">finger.exe</Image>
 
 			<!-- Executables that should never drop an executable to disk (but may after a previous process injection or if it's malware that uses a legitimate name)-->
