@@ -12,7 +12,7 @@
 				 Detect Exploitation events with wide CVE Coverage.
 				 Risk Scoring of CVE, UEBA, Forensic, MITRE ATT&CK Events.
 				 
-				 Tags Added:
+				 Primary Tags:
 				 Attack: Mitre ATT&CK Identifier
 				 Technique: Mitre ATT&CK Technique
 				 Tactic: Mitre ATT&CK Tactic
@@ -21,7 +21,12 @@
 				 Level: The level field contains one of five string values. It describes the criticality of a triggered rule. 
 				 While low and medium level events have an informative character, events with high and critical level should 
 				 lead to immediate reviews by security analysts.
-				 
+				 Desc: Description of non-alerting UEBA/Behavioral Based Rules
+				 Forensic: Forensic Artifacts
+				 CVE: CVE Vulnerability Identification
+				 FP: False Positive Rate
+
+				 Additional Tag Details:
 				 Rapid Response Tags: (for EDR/XDR/SIEM Response & Automation)
 				 kp=y 	Kill process with child processes
 				 kpp=y 	Kill Parent Processes & all Child Processes
