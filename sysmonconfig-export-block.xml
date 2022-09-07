@@ -1361,6 +1361,12 @@
 			<TargetFilename condition="end with">.rar.exe</TargetFilename>
 			<TargetFilename condition="end with">.7z.exe</TargetFilename>
 
+			<!-- Tools that tamper with Sysmon -->
+			<TargetFilename condition="end with">\EntenLoader.exe</TargetFilename>
+			<TargetFilename condition="end with">\SysmonQuiet.exe</TargetFilename>
+			<TargetFilename condition="end with">\SharpEvtMute.exe</TargetFilename>
+			<TargetFilename condition="end with">\EvtMuteHook.dll</TargetFilename>
+
 			<!-- Hacktool Blocks based on Imphashes -->
 			<Hashes condition="contains">IMPHASH=BCCA3C247B619DCD13C8CDFF5F123932</Hashes> <!-- PetitPotam -->
 			<Hashes condition="contains">IMPHASH=3A19059BD7688CB88E70005F18EFC439</Hashes> <!-- PetitPotam -->
@@ -1447,6 +1453,7 @@
 			<Hashes condition="contains">IMPHASH=E57401FBDADCD4571FF385AB82BD5D6D</Hashes> <!-- Dumpert -->
 			<Hashes condition="contains">IMPHASH=84B763C45C0E4A3E7CA5548C710DB4EE</Hashes> <!-- SysmonEnte -->
 			<Hashes condition="contains">IMPHASH=19584675D94829987952432E018D5056</Hashes> <!-- SysmonQuiet -->
+			<Hashes condition="contains">IMPHASH=330768A4F172E10ACB6287B87289D83B</Hashes> <!-- ShaprEvtMute Hook -->
 			
 			<!-- Microsoft Office Programs Dropping Executables -->
 			<Image condition="image">winword.exe</Image>
