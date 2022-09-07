@@ -1445,6 +1445,7 @@
 			<Hashes condition="contains">IMPHASH=09D278F9DE118EF09163C6140255C690</Hashes> <!-- Dumpert -->
 			<Hashes condition="contains">IMPHASH=03866661686829D806989E2FC5A72606</Hashes> <!-- Dumpert -->
 			<Hashes condition="contains">IMPHASH=E57401FBDADCD4571FF385AB82BD5D6D</Hashes> <!-- Dumpert -->
+			<Hashes condition="contains">IMPHASH=84B763C45C0E4A3E7CA5548C710DB4EE</Hashes> <!-- SysmonEnte -->
 			
 			<!-- Microsoft Office Programs Dropping Executables -->
 			<Image condition="image">winword.exe</Image>
