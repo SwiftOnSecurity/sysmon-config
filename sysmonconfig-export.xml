@@ -688,6 +688,10 @@
 			<!--MITRE ATT&CK TECHNIQUE: Deploy Container-->
 			<!--MITRE ATT&CK TECHNIQUE: Direct Volume Access-->
 			<!--MITRE ATT&CK TECHNIQUE: Domain Policy Modification-->
+			<Rule name="Attack=T1484.001,Technique=Group Policy Modification,Tactic=Defense Evasion,Level=3,Alert=Auditpol System Audit Policy Change - Should be set via group policy instead" groupRelation="and">
+				<OriginalFileName condition="contains">auditpol</OriginalFileName>
+				<CommandLine condition="contains any">/set;-set;/restore;-restore;/clear;-clear;/remove;-remove;/resourceSACL;-resourceSACL</CommandLine>
+			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: Execution Guardrails-->
 			<!--MITRE ATT&CK TECHNIQUE: Exploitation for Defense Evasion-->
 			<!--MITRE ATT&CK TECHNIQUE: File and Directory Permissions Modification-->
@@ -1276,6 +1280,12 @@
 			<!--MITRE ATT&CK TECHNIQUE: File and Directory Discovery-->
 			<Image name="Attack=T1083,Technique=File and Directory Discovery,Tactic=Discovery,Level=0,Desc=directory structure disclosure,Risk=30" condition="end with">tree.com</Image>
 			<!--MITRE ATT&CK TECHNIQUE: Group Policy Discovery-->
+			<Rule name="Attack=T1484.001,Technique=Group Policy Discovery,Tactic=Discovery,Level=3,Alert=Auditpol System/GP Audit Policy Discovery" groupRelation="and">
+				<OriginalFileName condition="contains">auditpol</OriginalFileName>
+				<CommandLine condition="contains any">/get;-get;/list;-list;/backup;-backup</CommandLine>
+			</Rule>
+			<Image name="Attack=T1484.001,Technique=Group Policy Discovery,Tactic=Discovery,Level=3,Alert=Group Policy Discovery with GPResult" condition="contains any">gpresult.exe</Image>
+			<CommandLine name="Attack=T1484.001,Technique=Group Policy Discovery,Tactic=Discovery,Level=3,Alert=Group Policy Discovery with Powershell" condition="contains any">get-gpo;get-gpresult;get-gpreg</CommandLine>
 			<!--MITRE ATT&CK TECHNIQUE: Network Service Discovery-->
 			<!--MITRE ATT&CK TECHNIQUE: Network Share Discovery-->
 			<!--MITRE ATT&CK TECHNIQUE: Network Sniffing-->
@@ -1879,7 +1889,6 @@
 			<Image name="Attack=T1059,Technique=Command and Scripting Interpreter,Tactic=Execution,Level=0,Desc=detect aliases" condition="image">doskey.exe</Image>
 			<Image name="Attack=T1059,Technique=Command and Scripting Interpreter,Tactic=Execution,Level=0,Desc=detect cls in batch scripts" condition="image">cls.exe</Image>
 			<Image name="Attack=T1059,Technique=Command and Scripting Interpreter,Tactic=Execution,Level=0,Desc=UNC\Device Launches - Image begins with \,Risk=10" condition="begin with">\</Image> 
-			<Image name="Level=0,Desc=Auditpol System Audit Policy Change - Should be set via group policy instead" condition="image">auditpol.exe</Image><!-- Auditpol-->
 			<ParentCommandLine name="Level=0,Desc=IIS Child Processes" condition="begin with">C:\Windows\system32\svchost.exe -k iissvcs</ParentCommandLine>
 			<ParentImage name="Attack=T1059,Technique=Command and Scripting Interpreter,Tactic=Execution,Level=0,Desc=UNC\Device Launches - Parent Image begins with \,Risk=10" condition="begin with">\</ParentImage> 
 			<ParentImage name="Attack=T1059,Level=0,Desc=Process Spawned from Acrobat" condition="image">acrobat.exe</ParentImage>
