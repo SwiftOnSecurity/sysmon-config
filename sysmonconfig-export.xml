@@ -816,6 +816,11 @@
 				<OriginalFileName condition="contains">powershell.exe</OriginalFileName>
 				<CommandLine condition="contains any">-w h;-wi h;-win h;-wind h;-windo h;-window h;-windows h;-windowst h;-windowsty h;-windowstyl h;-windowstyle h;/w h;/wi h;/win h;/wind h;/windo h;/window h;/windows h;/windowst h;/windowsty h;/windowstyl h;/windowstyle h</CommandLine>
 			</Rule>
+			<Rule name="Attack=T1027,Technique=Obfuscated Files or Information,Tactic=Defense Evasion,Level=4,Alert=Powershell Execution Policy Bypass,Risk=75" groupRelation="and">
+				<OriginalFileName condition="contains">powershell.exe</OriginalFileName>
+				<CommandLine condition="contains any">-ex;/ex</CommandLine>
+				<CommandLine condition="contains">bypass</CommandLine>
+			</Rule>
 			<Rule name="Attack=T1027,Technique=Obfuscated Files or Information,Tactic=Defense Evasion,Level=3,Alert=Powershell non-interactive Command" groupRelation="and">
 				<OriginalFileName condition="contains">powershell.exe</OriginalFileName>
 				<CommandLine condition="contains any">-noni;/noni</CommandLine>
@@ -828,7 +833,7 @@
 			</Rule>
 			<Rule name="Attack=T1027,Technique=Obfuscated Files or Information,Tactic=Defense Evasion,Level=4,Alert=Powershell Encoded Offsets,Risk=100" groupRelation="and">
 				<OriginalFileName condition="contains">powershell.exe</OriginalFileName>
-				<CommandLine condition="contains any">SUVYI;aWV4I;SQBFAFgA;aQBlA;TW96aWxsYS;1vemlsbGEv;Nb3ppbGxhL;TQBvAHoAaQBsAGwAYQAv;0AbwB6AGkAbABsAGEAL;BNAG8AegBpAGwAbABhAC</CommandLine>
+				<CommandLine condition="contains any">SUVYI;aWV4I;SQBFAFgA;aQBlA;TW96aWxsYS;1vemlsbGEv;Nb3ppbGxhL;TQBvAHoAaQBsAGwAYQAv;0AbwB6AGkAbABsAGEAL;BNAG8AegBpAGwAbABhAC;UwB0AGE</CommandLine>
 			</Rule>
 			<Rule name="Attack=T1001,Technique=Obfuscated Files or Information,Tactic=Defense Evasion,Level=4,Alert=Obfuscated Suspicious or Malicious Commands,Risk=70" groupRelation="and">
 				<CommandLine condition="contains any">C^om^S^pEc;^c^o^m^S^p^E^c^;Wscript.Shell;-ComObject;MsXml2.ServerXmlHttp;Remove.ToString;System.Convert;-UseB;[Byte[];^h^t^t^p;h"t"t"p</CommandLine>
@@ -1006,6 +1011,10 @@
 				<CommandLine condition="excludes">EDGEHTML.dll</CommandLine>
 				<CommandLine condition="excludes">PhotoViewer.dll</CommandLine>
 				<CurrentDirectory condition="excludes">\AppData\Local\WebEx\WebEx\</CurrentDirectory>
+			</Rule>
+			<Rule name="Attack=T1218.011,Technique=Rundll32,Tactic=Defense Evasion,Level=3,Alert=Rundll32 Single Threaded Apartment Switch - check for com hijacks,Risk=75" groupRelation="and">
+				<OriginalFileName condition="is">RUNDLL32.EXE</OriginalFileName>
+				<CommandLine condition="contains any">-sta;/sta</CommandLine>
 			</Rule>
 			<Rule name="Attack=T1218.011,Technique=Rundll32,Tactic=Defense Evasion,Level=0,Desc=Suspicious OpenAs_RunDLL,Risk=30" groupRelation="and">
 				<OriginalFileName condition="is">RUNDLL32.EXE</OriginalFileName>
@@ -4382,6 +4391,31 @@
 				<Image condition="excludes">C:\Programdata\sysmon\sysmon64.exe</Image>
 			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: Event Triggered Execution-->
+			<Rule name="Attack=T1546.001,Technique=Event Triggered Execution: Change Default File Association,Tactic=Persistence,Level=0,Desc=Monitor Endpoint Protocol Handlers" groupRelation="and">
+				<TargetObject condition="begin with">HKCR\</TargetObject>
+				<TargetObject condition="end with">(Default)</TargetObject>
+				<TargetObject condition="excludes">\shell\open\command\(Default)</TargetObject>
+				<Details condition="begin with">URL:</Details>
+			</Rule>
+			<Rule name="Attack=T1546.001,Technique=Event Triggered Execution: Change Default File Association,Tactic=Persistence,Level=0,Desc=Monitor User Protocol Handlers" groupRelation="and">
+				<TargetObject condition="begin with">HKCU\Software\Classes\</TargetObject>
+				<TargetObject condition="end with">(Default)</TargetObject>
+				<TargetObject condition="excludes">\shell\open\command\(Default)</TargetObject>
+				<Details condition="begin with">URL:</Details>
+			</Rule>
+			<Rule name="Attack=T1546.001,Technique=Event Triggered Execution: Change Default File Association,Tactic=Persistence,Level=0,Desc=Monitor Endpoint File Associations" groupRelation="and">
+				<TargetObject condition="begin with">HKCR\</TargetObject>
+				<TargetObject condition="end with">\shell\open\command\(Default)</TargetObject>
+				<Details condition="contains">%1</Details>
+			</Rule>
+			<Rule name="Attack=T1546.001,Technique=Event Triggered Execution: Change Default File Association,Tactic=Persistence,Level=0,Desc=Monitor User Default File Associations" groupRelation="and">
+				<TargetObject condition="begin with">HKCU\Software\Classes\</TargetObject>
+				<TargetObject condition="end with">\shell\open\command\(Default)</TargetObject>
+				<Details condition="contains">%1</Details>
+			</Rule>
+			<Rule name="Attack=T1546.001,Technique=Event Triggered Execution: Change Default File Association,Tactic=Persistence,Level=0,Desc=Monitor COM Hijacking" groupRelation="and">
+				<TargetObject condition="end with">\shell\open\command\DelegateExecute</TargetObject>
+			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: Event Triggered Execution: Accessibility Features-->
 			<Rule name="Attack=T1015,Technique=Accessibility Features,Tactic=Persistence/Privilege Escalation,Level=3,Alert=Utilman Priv Escalation,Risk=100" groupRelation="and">
 				<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\utilman.exe</TargetObject>
@@ -4455,6 +4489,17 @@
 			<!--MITRE ATT&CK TECHNIQUE: Domain Policy Modification-->
 			<!--MITRE ATT&CK TECHNIQUE: Escape to Host-->
 			<!--MITRE ATT&CK TECHNIQUE: Event Triggered Execution-->
+			<!--Microsoft:Windows:COM Object Hijacking [ https://blog.gdatasoftware.com/2014/10/23941-com-object-hijacking-the-discreet-way-of-persistence ] | Credit @ion-storm -->
+			<Rule name="Attack=T1546.015,Technique=Event Triggered Execution,Tactic=Defense Evasion,Level=3,Alert=Suspicious Com Object Hijacking Locations,Risk=30" groupRelation="and">
+				<TargetObject condition="contains any">\InprocServer32\(Default);\LocalServer32\(Default);\ScriptletURL\(Default)</TargetObject>
+				<Details condition="contains any">C:\Users\Public\;$Recyclebin;\temp\;\Desktop\;\Downloads\;\Content.Outlook\;\Microsoft\Office\</Details>
+			</Rule>
+			<Rule name="Attack=T1546.015,Technique=Event Triggered Execution,Tactic=Defense Evasion,Level=1,Desc=Com Object Hijacking Locations,Risk=30" groupRelation="and">
+				<TargetObject condition="contains any">\InprocServer32\(Default);\LocalServer32\(Default);\ScriptletURL\(Default)</TargetObject>
+			</Rule>
+			<Rule name="Attack=T1546.015,Technique=Event Triggered Execution,Tactic=Defense Evasion,Level=1,Desc=TreatAs/ProgID Friendly Name Com Hijacking Evasion - check for following rundll32 -sta,Risk=30" groupRelation="and">
+				<TargetObject condition="contains any">\ProgID\(Default);\TreatAs\(Default)</TargetObject>
+			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: Event Triggered Execution: Image File Execution Options Injection-->
 			<Rule name="Attack=T1183,Technique=Image File Execution Options Injection,Tactic=Defense Evasion,Level=0,Desc=IFEO,Risk=30" groupRelation="and">
 				<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\</TargetObject>
@@ -4962,11 +5007,7 @@
 			<!--CLSID launch commands and file association changes-->
 			<TargetObject name="Level=0,Desc=File Extension Mapping" condition="contains">\Explorer\FileExts\</TargetObject>
 			<TargetObject name="Level=0,Desc=Command Shell install Key" condition="contains">\shell\install\command\</TargetObject> <!--Microsoft:Windows: Sensitive subkey under file associations and CLSID that map to launch command-->
-			<TargetObject name="Level=0,Desc=Command Shell Open Key" condition="contains">\shell\open\command\</TargetObject> <!--Microsoft:Windows: Sensitive subkey under file associations and CLSID that map to launch command-->
-			<TargetObject name="Level=0,Desc=DDEexec Shell Open Key" condition="contains">\shell\open\ddeexec\</TargetObject> <!--Microsoft:Windows: Sensitive subkey under file associations and CLSID that map to launch command-->
 			<TargetObject name="Forensic=User SID History for Forensics" condition="end with">\ProfileImagePath</TargetObject><!--Lets Get SID History and other info for Forensics, this is created on logon-->
-			<!--Windows COM-->
-			<TargetObject name="Level=0,Desc=InProcServer32 Default Key" condition="end with">\InprocServer32\(Default)</TargetObject> <!--Microsoft:Windows:COM Object Hijacking [ https://blog.gdatasoftware.com/2014/10/23941-com-object-hijacking-the-discreet-way-of-persistence ] | Credit @ion-storm -->
 			<!--Windows shell hijack-->
 			<TargetObject name="Level=0,Desc=AllFileSystemObjects Classes" condition="contains">\Classes\AllFilesystemObjects\</TargetObject> <!--Microsoft:Windows:Explorer: [ http://www.silentrunners.org/launchpoints.html ] -->
 			<TargetObject name="Level=0,Desc=Asterisk Classes" condition="contains">\Classes\*\</TargetObject> <!--Microsoft:Windows:Explorer: [ http://www.silentrunners.org/launchpoints.html ] -->
@@ -5109,16 +5150,8 @@
 			<TargetObject name="Level=0,Desc=Crypto Trust Providers" condition="begin with">HKLM\SOFTWARE\WOW6432Node\Microsoft\Cryptography\Providers\Trust</TargetObject><!--Mitre T1198-->
 			<TargetObject name="Level=0,Desc=Cryptography OID Key" condition="begin with">HKLM\SOFTWARE\Microsoft\Cryptography\OID</TargetObject> <!--Mitre T1198-->
 			<TargetObject name="Level=0,Desc=Cryptography OID Key" condition="begin with">HKLM\SOFTWARE\WOW6432Node\Microsoft\Cryptography\OID</TargetObject><!--Mitre T1198-->
-			<TargetObject name="Level=0,Desc=Detect: COMObject Hijacking" condition="contains">\InprocServer32</TargetObject>
 			<TargetObject name="Level=0,Desc=Detect: Dns Server dll injection" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\DNS\Parameters\ServerLevelPluginDll</TargetObject>
-			<TargetObject name="Level=0,Desc=Detect: Open Command Hijacks" condition="contains">\batfile\shell\open\command</TargetObject>
-			<TargetObject name="Level=0,Desc=Detect: Open Command Hijacks" condition="contains">\comfile\shell\open\command</TargetObject>
-			<TargetObject name="Level=0,Desc=Detect: Open Command Hijacks" condition="contains">\exefile\shell\open\command</TargetObject>
-			<TargetObject name="Level=0,Desc=Detect: Open Command Hijacks" condition="contains">\htafile\shell\open\command</TargetObject>
-			<TargetObject name="Level=0,Desc=Detect: Open Command Hijacks" condition="contains">\piffile\shell\open\command</TargetObject>
-			<TargetObject name="Level=0,Desc=Detect: Open Command Hijacks" condition="contains">\piffile\shell\open\command</TargetObject>
 			<TargetObject name="Level=0,Desc=Detect: UAC Bypass" condition="contains">Classes\exefile\shell\runas\command\isolatedCommand</TargetObject> 
-			<TargetObject name="Level=0,Desc=Detect: UAC Bypass" condition="contains">\mscfile\shell\open\command</TargetObject>
 			<TargetObject name="Level=0,Desc=New Device Connected" condition="end with">\FriendlyName</TargetObject>
 			<TargetObject name="Level=0,Desc=Providers notified by Winlogon" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Winlogon\</TargetObject> <!--Microsoft:Windows: Providers notified by WinLogon-->
 			<TargetObject name="Level=0,Desc=Proxy Autoconfig URL" condition="contains">\Software\Microsoft\Windows\CurrentVersion\Internet Settings\AutoConfigURL</TargetObject>
@@ -5259,7 +5292,10 @@
 			-->
 			<PipeName name="Level=0,Desc=Remote Registry access and enumeration" condition="contains">\winreg</PipeName> <!-- useful for lateral movement and users enumeration, psloggedon use this technique -->
 			<PipeName name="Level=0,Desc=Anonymous Named Pipe Detected" condition="contains">Anonymous Pipe</PipeName><!--Include Everything else to mark above rules-->
-			<PipeName name="Level=0,Desc=Uncategorized Events" condition="contains">\</PipeName><!--Include Everything else to mark above rules-->
+			<!--Include Everything else to mark above rules-->
+			<!-- Disabled for now
+			<PipeName name="Level=0,Desc=Uncategorized Events" condition="contains">\</PipeName>
+			-->
 		</PipeEvent>
 	</RuleGroup>
 	<RuleGroup name="RG=PipeEvent Exclude Group" groupRelation="or">
