@@ -209,6 +209,10 @@
 				<CommandLine condition="contains any">call set priority;call terminate;product get name;bios, get serialNumber;BIOS GET SERIALNUMBER;onboarddevice get;useraccount where name;useraccount get;path win32_networkadapter where index=;process list;useraccount get /ALL;useraccount list;qfe get description,installedOn /format:csv;process get caption,executablepath,commandline;service get name,displayname,pathname,startmode;share list;win32_share</CommandLine>
 			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: Command and Scripting Interpreter-->
+			<Rule name="Attack=T1059,Technique=Command and Scripting Interpreter,Tactic=Execution,Level=3,Alert=Suspicious Console Host Parents,Risk=30" groupRelation="and">
+				<ParentImage condition="contains any">svchost.exe;lsass.exe;services.exe;smss.exe;winlogon.exe;explorer.exe;dllhost.exe;rundll32.exe;regsvr32.exe;userinit.exe;winit.exe;spoolsv.exe;wermgr.exe;csrss.exe;ctfmon.exe;werfault.exe</ParentImage>
+				<Image condition="image">conhost.exe</Image>
+			</Rule>
 			<!-- Disabled for now
 			<Rule name="Attack=T1204,Technique=User Execution,Tactic=Execution,UEBA=Execution Command Line tools by user,Risk=45" groupRelation="and">
 				<Image condition="contains any">\cmd.exe;WindowsTerminal;powershell</Image>
@@ -2688,7 +2692,7 @@
 		<ProcessTerminate onmatch="include">
 			<Rule name="Level=0,Desc=Process Termination Events in Windows Directory" groupRelation="and">
 				<Image condition="begin with">C:\Windows\</Image>
-				<Image condition="excludes">\System32\;Syswow64;sysmon.exe;sysmon64.exe;C:\Windows\System32\conhost.exe</Image>
+				<Image condition="excludes">\System32\;Syswow64;sysmon.exe;sysmon64.exe</Image>
 			</Rule>
 			<Rule name="Level=0,Desc=Process Termination Events in System32" groupRelation="and">
 				<Image condition="begin with">C:\Windows\system32\</Image>
