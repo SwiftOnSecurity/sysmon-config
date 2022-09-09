@@ -548,6 +548,10 @@
 			<Image name="Attack=T1136,Technique=Create Account,Tactic=Persistence,Level=3,Alert=Account Creation via command line,Alert=Account creation with dsadd,Risk=100" condition="image">dsadd.exe</Image>
 			<!--MITRE ATT&CK TECHNIQUE: Create or Modify System Process-->
 			<!--MITRE ATT&CK TECHNIQUE: Event Triggered Execution-->
+			<Rule name="Attack=T1183,Technique=Image File Execution Options Injection,Tactic=Defense Evasion/Execution,Level=0,Alert=SilentProcessExit Execution from werfault S-Flag,Risk=75" groupRelation="and">
+				<ParentImage condition="image">WerFault.exe</ParentImage>
+				<ParentCommandLine condition="contains any">-s;/s</ParentCommandLine>
+			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: External Remote Services-->
 			<!--MITRE ATT&CK TECHNIQUE: Hijack Execution Flow-->
 			<!--MITRE ATT&CK TECHNIQUE: Implant Internal Image-->
@@ -4510,13 +4514,27 @@
 				<TargetObject condition="contains any">\ProgID\(Default);\TreatAs\(Default)</TargetObject>
 			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: Event Triggered Execution: Image File Execution Options Injection-->
-			<Rule name="Attack=T1183,Technique=Image File Execution Options Injection,Tactic=Defense Evasion,Level=0,Desc=IFEO,Risk=30" groupRelation="and">
-				<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\</TargetObject>
-				<TargetObject condition="contains any">Debugger;ReportingMode;GlobalFlag;MonitorProcess</TargetObject>
+			<Rule name="Attack=T1183,Technique=Image File Execution Options Injection,Tactic=Defense Evasion,Level=1,Alert=Image File Execution Options,Risk=30" groupRelation="and">
+				<TargetObject condition="contains">\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\</TargetObject>
+				<TargetObject condition="contains any">Debugger;ReportingMode;MonitorProcess</TargetObject>
 			</Rule>
-			<Rule name="Attack=T1183,Technique=Image File Execution Options Injection,Tactic=Privilege Escalation/Persistence/Defense Evasion,Level=0,Desc=Wow64 IFEO,Risk=30" groupRelation="and">
-				<TargetObject condition="begin with">HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Image File Execution Options</TargetObject>
-				<TargetObject condition="contains any">Debugger;ReportingMode;GlobalFlag;MonitorProcess</TargetObject>
+			<Rule name="Attack=T1183,Technique=Image File Execution Options Injection,Tactic=Defense Evasion,Level=0,Alert=SilentProcessExit Globalflag Set,Risk=75" groupRelation="and">
+				<TargetObject condition="contains">\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\</TargetObject>
+				<TargetObject condition="contains">GlobalFlag</TargetObject>
+				<Details condition="contains">DWORD (0x00000200)</Details> <!--SilentProcessExit Dword Value-->
+			</Rule>
+			<Rule name="Attack=T1183,Technique=Image File Execution Options Injection,Tactic=Privilege Escalation/Persistence/Defense Evasion,Level=0,Alert=SilentProcessExit Process Execution entry,Risk=100" groupRelation="and">
+				<TargetObject condition="contains">\Microsoft\Windows NT\CurrentVersion\SilentProcessExit\</TargetObject>
+				<TargetObject condition="contains">MonitorProcess</TargetObject> <!--SilentProcessExit Monitor Process from werfault-->
+			</Rule>
+			<Rule name="Attack=T1183,Technique=Image File Execution Options Injection,Tactic=Privilege Escalation/Persistence/Defense Evasion,Level=0,Alert=SilentProcessExit Reporting Mode Enabled - Check for Child processes of werfault.exe,Risk=100" groupRelation="and">
+				<TargetObject condition="contains">\Microsoft\Windows NT\CurrentVersion\SilentProcessExit\</TargetObject>
+				<TargetObject condition="contains">ReportingMode</TargetObject>
+				<Details condition="contains">DWORD (0x00000001)</Details> <!--SilentProcessExit Reporting Mode Enabled-->
+			</Rule>
+			<Rule name="Attack=T1183,Technique=Image File Execution Options Injection,Tactic=Privilege Escalation/Persistence/Defense Evasion,Level=0,Alert=SilentProcessExit Process Added,Risk=100" groupRelation="and">
+				<TargetObject condition="contains">\Microsoft\Windows NT\CurrentVersion\SilentProcessExit</TargetObject>
+				<EventType condition="is">CreateKey</EventType>
 			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: Exploitation for Privilege Escalation-->
 			<!--MITRE ATT&CK TECHNIQUE: Hijack Execution Flow-->
@@ -4991,7 +5009,6 @@
 			<TargetObject name="Attack=T1562.006,Technique=Impair Defenses: Indicator Blocking,Tactic=Defense Evasion,Level=0,Desc=ETW Tampering,Risk=70" condition="end with">SOFTWARE\Microsoft\.NETFramework\ETWEnabled</TargetObject>
 			<TargetObject condition="contains">\Group Policy\Scripts</TargetObject>
 			<TargetObject name="Attack=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Level=2,Alert=AutoRun Keys,Risk=70" condition="contains">Terminal Server\Wds\rdpwd\StartupPrograms</TargetObject>
-			<TargetObject name="Attack=T1183,Technique=Image File Execution Options Injection,Tactic=Privilege Escalation/Persistence/Defense Evasion,Level=0,Desc=Silent Process Exit execution" condition="contains">SOFTWARE\Microsoft\Windows NT\CurrentVersion\SilentProcessExit</TargetObject>
 			<TargetObject name="Level=0,Desc=Alternate Shell AvailableShells Hijack" condition="contains">Winlogon\AlternateShells\AvailableShells</TargetObject>
 			<TargetObject name="Level=0,Desc=Alternative Shell Policy" condition="contains">Policies\System\Shell</TargetObject>
 			<TargetObject name="Level=0,Desc=AutoStart on Connect" condition="contains">Windows CE Services\AutoStartOnConnect</TargetObject>
