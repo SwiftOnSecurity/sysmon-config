@@ -4536,6 +4536,9 @@
 				<TargetObject condition="contains">\Microsoft\Windows NT\CurrentVersion\SilentProcessExit</TargetObject>
 				<EventType condition="is">CreateKey</EventType>
 			</Rule>
+			<Rule name="Attack=T1546,Technique=Event Triggered Execution,Tactic=Persistence,Level=3,Alert=Monitor Runtime Exeption Handler execution on crash,Risk=100" groupRelation="and">
+				<TargetObject condition="contains">\Microsoft\Windows\Windows Error Reporting\RuntimeExceptionHelperModules</TargetObject>
+			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: Exploitation for Privilege Escalation-->
 			<!--MITRE ATT&CK TECHNIQUE: Hijack Execution Flow-->
 			<!--MITRE ATT&CK TECHNIQUE: Process Injection-->
