@@ -213,6 +213,10 @@
 				<ParentImage condition="contains any">svchost.exe;lsass.exe;services.exe;smss.exe;winlogon.exe;explorer.exe;dllhost.exe;rundll32.exe;regsvr32.exe;userinit.exe;winit.exe;spoolsv.exe;wermgr.exe;csrss.exe;ctfmon.exe;werfault.exe</ParentImage>
 				<Image condition="image">conhost.exe</Image>
 			</Rule>
+			<Rule name="Attack=T1059,Technique=Command and Scripting Interpreter,Tactic=Execution,Level=3,Alert=Suspicious Console Host children,Risk=30" groupRelation="and">
+				<ParentImage condition="image">conhost.exe</ParentImage>
+				<Image condition="excludes any">:\Windows\splwow64.exe;:\Windows\System32\WerFault.exe;:\Windows\System32\conhost.exe</Image>
+			</Rule>
 			<!-- Disabled for now
 			<Rule name="Attack=T1204,Technique=User Execution,Tactic=Execution,UEBA=Execution Command Line tools by user,Risk=45" groupRelation="and">
 				<Image condition="contains any">\cmd.exe;WindowsTerminal;powershell</Image>
@@ -892,6 +896,95 @@
 			<!--MITRE ATT&CK TECHNIQUE: Plist File Modification-->
 			<!--MITRE ATT&CK TECHNIQUE: Pre-OS Boot-->
 			<!--MITRE ATT&CK TECHNIQUE: Process Injection-->
+			<Rule name="Attack=T1055,Technique=Process Injection,Tactic=Privilege Escalation,Level=3,Alert=Suspicious Parent process of Autochk,Risk=30" groupRelation="and">
+				<Image condition="image">autochk.exe</Image>
+				<ParentImage condition="excludes any">\smss.exe;\fontdrvhost.exe;\dwm.exe</ParentImage>
+			</Rule>
+			<Rule name="Attack=T1055,Technique=Process Injection,Tactic=Privilege Escalation,Level=3,Alert=Suspicious Parent process of SMSS,Risk=30" groupRelation="and">
+				<Image condition="contains any">\consent.exe;\Runtimebroker.exe;\TiWorker.exe</Image>
+				<ParentImage condition="excludes">\svchost.exe</ParentImage>
+			</Rule>
+			<Rule name="Attack=T1055,Technique=Process Injection,Tactic=Privilege Escalation,Level=3,Alert=Suspicious Parent process of consent/runtimebroke/tiworker,Risk=30" groupRelation="and">
+				<Image condition="contains any">\consent.exe;\Runtimebroker.exe;\TiWorker.exe</Image>
+				<ParentImage condition="excludes any">svchost.exe</ParentImage>
+			</Rule>
+			<Rule name="Attack=T1055,Technique=Process Injection,Tactic=Privilege Escalation,Level=3,Alert=Suspicious Parent process of searchindexer,Risk=30" groupRelation="and">
+				<Image condition="image">SearchProtocolHost.exe</Image>
+				<ParentImage condition="excludes any">\SearchIndexer.exe;\dllhost.exe</ParentImage>
+			</Rule>
+			<Rule name="Attack=T1055,Technique=Process Injection,Tactic=Privilege Escalation,Level=3,Alert=Suspicious Parent process of dllhost,Risk=30" groupRelation="and">
+				<Image condition="image">dllhost.exe</Image>
+				<ParentImage condition="excludes any">\services.exe;\svchost.exe</ParentImage>
+			</Rule>
+			<Rule name="Attack=T1055,Technique=Process Injection,Tactic=Privilege Escalation,Level=3,Alert=Suspicious Parent process of smss,Risk=30" groupRelation="and">
+				<Image condition="image">smss.exe</Image>
+				<ParentImage condition="excludes">\smss.exe</ParentImage>
+				<ParentImage condition="is not">System</ParentImage>
+			</Rule>
+			<Rule name="Attack=T1055,Technique=Process Injection,Tactic=Privilege Escalation,Level=3,Alert=Suspicious Parent process of csrss,Risk=30" groupRelation="and">
+				<Image condition="image">csrss.exe</Image>
+				<ParentImage condition="excludes any">\smss.exe;svchost.exe</ParentImage>
+			</Rule>
+			<Rule name="Attack=T1055,Technique=Process Injection,Tactic=Privilege Escalation,Level=3,Alert=Suspicious Parent process of wininit,Risk=30" groupRelation="and">
+				<Image condition="image">wininit.exe</Image>
+				<ParentImage condition="excludes">\smss.exe</ParentImage>
+			</Rule>
+			<Rule name="Attack=T1055,Technique=Process Injection,Tactic=Privilege Escalation,Level=3,Alert=Suspicious Parent process of winlogon,Risk=30" groupRelation="and">
+				<Image condition="image">winlogon.exe</Image>
+				<ParentImage condition="excludes">\smss.exe</ParentImage>
+			</Rule>
+			<Rule name="Attack=T1055,Technique=Process Injection,Tactic=Privilege Escalation,Level=3,Alert=Suspicious Parent process of lsass/LsaIso,Risk=30" groupRelation="and">
+				<Image condition="contains any">\lsass.exe;LsaIso.exe</Image>
+				<ParentImage condition="excludes">\wininit.exe</ParentImage>
+			</Rule>
+			<Rule name="Attack=T1055,Technique=Process Injection,Tactic=Privilege Escalation,Level=3,Alert=Suspicious Parent process of LogonUI,Risk=30" groupRelation="and">
+				<Image condition="image">LogonUI.exe</Image>
+				<ParentImage condition="excludes any">\wininit.exe;\winlogon.exe</ParentImage>
+			</Rule>
+			<Rule name="Attack=T1055,Technique=Process Injection,Tactic=Privilege Escalation,Level=3,Alert=Suspicious Parent process of services,Risk=30" groupRelation="and">
+				<Image condition="image">services.exe</Image>
+				<ParentImage condition="excludes">\wininit.exe</ParentImage>
+			</Rule>
+			<Rule name="Attack=T1055,Technique=Process Injection,Tactic=Privilege Escalation,Level=3,Alert=Suspicious Parent process of svchost,Risk=30" groupRelation="and">
+				<Image condition="image">svchost.exe</Image>
+				<ParentImage condition="excludes any">\MsMpEng.exe;\services.exe</ParentImage>
+			</Rule>
+			<Rule name="Attack=T1055,Technique=Process Injection,Tactic=Privilege Escalation,Level=3,Alert=Suspicious Parent process of spoolsv,Risk=30" groupRelation="and">
+				<Image condition="image">spoolsv.exe</Image>
+				<ParentImage condition="excludes">\services.exe</ParentImage>
+			</Rule>
+			<Rule name="Attack=T1055,Technique=Process Injection,Tactic=Privilege Escalation,Level=3,Alert=Suspicious Parent process of taskhost,Risk=30" groupRelation="and">
+				<Image condition="image">taskhost.exe</Image>
+				<ParentImage condition="excludes any">\services.exe;\svchost.exe</ParentImage>
+			</Rule>
+			<Rule name="Attack=T1055,Technique=Process Injection,Tactic=Privilege Escalation,Level=3,Alert=Suspicious Parent process of userinit,Risk=30" groupRelation="and">
+				<Image condition="image">userinit.exe</Image>
+				<ParentImage condition="excludes any">\dwm.exe;\winlogon.exe</ParentImage>
+			</Rule>
+			<Rule name="Attack=T1055,Technique=Process Injection,Tactic=Privilege Escalation,Level=3,Alert=Suspicious Parent process of wmiprvse/wsmprovhost/winrshost,Risk=30" groupRelation="and">
+				<Image condition="contains any">\wmiprvse.exe;\wsmprovhost.exe;\winrshost.exe</Image>
+				<ParentImage condition="excludes any">\svchost.exe</ParentImage>
+			</Rule>
+			<Rule name="Attack=T1055,Technique=Process Injection,Tactic=Privilege Escalation,Level=3,Alert=Suspicious Child process of SearchProtocolHost/taskhost/csrss,Risk=30" groupRelation="and">
+				<ParentImage condition="contains any">\SearchProtocolHost.exe;\taskhost.exe;\csrss.exe</ParentImage>
+				<Image condition="excludes any">\werfault.exe;\wermgr.exe;\WerFaultSecure.exe</Image>
+			</Rule>
+			<Rule name="Attack=T1055,Technique=Process Injection,Tactic=Privilege Escalation,Level=3,Alert=Suspicious Child process of SearchProtocolHost/taskhost/csrss,Risk=30" groupRelation="and">
+				<ParentImage condition="image">autochk.exe</ParentImage>
+				<Image condition="excludes any">\chkdsk.exe;\doskey.exe;\WerFault.exe</Image>
+			</Rule>
+			<Rule name="Attack=T1055,Technique=Process Injection,Tactic=Privilege Escalation,Level=3,Alert=Suspicious Child process of smss,Risk=30" groupRelation="and">
+				<ParentImage condition="image">smss.exe</ParentImage>
+				<Image condition="excludes any">\autochk.exe;\smss.exe;\csrss.exe;\wininit.exe;\winlogon.exe;\setupcl.exe;\WerFault.exe</Image>
+			</Rule>
+			<Rule name="Attack=T1055,Technique=Process Injection,Tactic=Privilege Escalation,Level=3,Alert=Suspicious Child process of wermgr,Risk=30" groupRelation="and">
+				<ParentImage condition="image">wermgr.exe</ParentImage>
+				<Image condition="excludes any">\WerFaultSecure.exe;\wermgr.exe;\WerFault.exe</Image>
+			</Rule>
+			<Rule name="Attack=T1055,Technique=Process Injection,Tactic=Privilege Escalation,Level=3,Alert=Suspicious Child process of conhost,Risk=30" groupRelation="and">
+				<ParentImage condition="image">conhost.exe</ParentImage>
+				<Image condition="excludes any">\mscorsvw.exe;\wermgr.exe;\WerFault.exe;\WerFaultSecure.exe</Image>
+			</Rule>
 			<CommandLine name="Attack=T1055,Technique=Powershell Injection Persistence Bypass - Execution, Lateral Movement,Tactic=Defense Evasion,Level=4,Alert=Powershell Injection persistence bypass,Risk=50" condition="contains">System.Management.Automation</CommandLine>
 			<!--MITRE ATT&CK TECHNIQUE: Reflective Code Loading-->
 			<!--MITRE ATT&CK TECHNIQUE: Rogue Domain Controller-->
@@ -926,9 +1019,9 @@
 				<OriginalFileName condition="is">CMSTP.exe</OriginalFileName>
 				<CommandLine condition="contains all">-ns;-s</CommandLine>
 			</Rule>
-			<Rule name="Attack=T1218.002,Technique=Control Panel,Tactic=Execution,Level=3,Alert=Control_Rundll Detected,Risk=50" groupRelation="or">
-				<CommandLine condition="contains all">control;name</CommandLine>
-				<CommandLine condition="contains all">rundll32.exe;shell32.dll;Control_RunDLL</CommandLine>
+			<Rule name="Attack=T1218.002,Technique=Control Panel,Tactic=Execution,Level=3,Alert=Control_Rundll Detected,Risk=50" groupRelation="and">
+				<CommandLine condition="contains all">rundll32.exe;shell32.dll;_RunDLL</CommandLine>
+				<Image condition="is not">C:\Windows\ImmersiveControlPanel\SystemSettings.exe</Image>
 			</Rule>
 			<Rule name="Attack=T1218.008,Technique=Signed Binary Proxy Execution,Tactic=Execution,Level=3,Alert=Odbcconf Signed Binary Proxy Execution,Risk=50" groupRelation="and">
 				<Image condition="image">odbcconf.exe</Image>
@@ -3286,6 +3379,7 @@
 				<CallTrace condition="contains">|C:\WINDOWS\System32\KERNELBASE.dll+</CallTrace>
 				<CallTrace condition="end with">)</CallTrace>
 				<GrantedAccess condition="contains any">0x1028;0x1fffff</GrantedAccess>
+				<Image condition="excludes any">C:\Program Files\SmartGit\bin\;C:\Program Files (x86)\ASUS\Update\;C:\Program Files (x86)\Razer\Synapse3\Service\Razer Synapse Service.exe;C:\Program Files (x86)\Citrix\ICA Client\Receiver\UpdaterService.exe;C:\WINDOWS\SysWOW64\config\systemprofile\Citrix\UpdaterBinaries\</Image>
 			</Rule>
 			<Rule name="Level=3,Alert=Potential MalDoc Behavior" groupRelation="and">
 				<SourceImage condition="contains any">winword.exe;excel.exe;powerpnt.exe</SourceImage>
@@ -4343,7 +4437,8 @@
 			<!--MITRE ATT&CK TECHNIQUE: Boot or Logon Autostart Execution-->
 			<TargetObject name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion/Privilege Escalation,Alert=Process Injection: injecting a 64-bit DLL into a 32-bit process" condition="contains">SOFTWARE\Microsoft\Wow64\x86\</TargetObject> <!-- http://www.hexacorn.com/blog/2019/07/11/beyond-good-ol-run-key-part-108-2/ -->
 			<Rule name="Attack=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=AutoRun Reg Keys,Risk=70" groupRelation="and">
-				<TargetObject condition="contains">\CurrentVersion\Run</TargetObject>
+				<EventType condition="is">SetValue</EventType>
+				<TargetObject condition="contains">\CurrentVersion\Run\</TargetObject>
 				<Image condition="excludes">Add_exclusions_here</Image>
 			</Rule>
 			<TargetObject name="Attack=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Level=0,Desc=Logon Logoff Shutdown Scripts" condition="contains">\Microsoft\System\Scripts</TargetObject>
@@ -4577,6 +4672,10 @@
 			<!--MITRE ATT&CK TECHNIQUE: Valid Accounts-->
 
 			<!--MITRE ATT&CK TACTIC: Defense Evasion-->
+			<Rule name="Attack=T0000,Technique=Environment Value Modification,Tactic=Defense Evasion/Privilege Escalation,Level=0,Desc=Environment Value Modification" groupRelation="and">
+				<EventType condition="is">SetValue</EventType>
+				<TargetObject condition="contains">\Environment\</TargetObject>
+			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: Abuse Elevation Control Mechanism-->
 			<!--MITRE ATT&CK TECHNIQUE: Abuse Elevation Control Mechanism: Bypass User Account Control-->
 			<Rule name="Attack=T1548.002,Technique=Abuse Elevation Control Mechanism: Bypass User Account Control,Tactic=Defense Evasion,Level=4,Alert=UAC Disablement Detected" groupRelation="and">
@@ -4984,6 +5083,7 @@
 			</Rule>
 			<Rule name="Level=0,Desc=IPv6 Changes detected" groupRelation="and">
 				<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\Tcpip6\Linkage\Bind</TargetObject>
+				<Details condition="excludes">Binary Data</Details>
 			</Rule>
 			<Rule name="Level=0,Desc=Network Card Changes detected" groupRelation="and">
 				<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkCards</TargetObject>
@@ -5198,7 +5298,10 @@
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}</TargetObject>
 			-->
 			<TargetObject name="Attack=T1090,Technique=Connection Proxy,Tactic=Defense Evasion,Level=0,Desc=NetSH PortProxy Detected" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\PortProxy\v4tov4</TargetObject>
-			<TargetObject name="Attack=T1112,Technique=Modify Registry,Tactic=Defense Evasion,Alert=Possible Ursniff Malware Detected,FP=1" condition="contains">\Software\AppDataLow\Software\Microsoft\</TargetObject>
+			<Rule name="Attack=T1112,Technique=Modify Registry,Tactic=Defense Evasion,Alert=Possible Ursniff Malware Detected,FP=1" groupRelation="and">
+				<TargetObject condition="contains">\Software\AppDataLow\Software\Microsoft\</TargetObject>
+				<Details condition="contains any">.exe;.dll;powershell;wmic</Details>
+			</Rule>
 			<TargetObject name="Attack=T1137,Technique=Office Application Startup,Tactic=Persistence,Level=4,Alert=Office Persistence Location,Risk=70" condition="end with">Software\Microsoft\Office test\Special\Perf</TargetObject>
 			<TargetObject name="Attack=T1177,Technique=LSASS Driver,Tactic=Execution/Persistence,Level=0,Desc=Undocumented LSASS DLL Loading" condition="contains">\CurrentControlSet\Services\NTDS\LsaDbExtPt</TargetObject>
 			<TargetObject name="Attack=T1177,Technique=LSASS Driver,Tactic=Execution/Persistence,Level=0,Desc=Undocumented LSASS DLL Loading" condition="contains">\Services\NTDS\DirectoryServiceExtPt</TargetObject>
@@ -5218,7 +5321,6 @@
 			<TargetObject name="Attack=T1219,Technique=Remote Access Tools,Tactic=Command And Control,Level=0,Desc=Teamviewer persistence Key modification" condition="contains">Always_Online</TargetObject>
 			<TargetObject name="Attack=T1486,Technique=Data Encrypted for Impact,Tactic=Impact,Level=4,Alert=Potential Ransomware Indicator: EnableLinkedConnections Registry key,Risk=100" condition="begin with">HKLM\SOFTWARE\Microsoft\CurrentVersion\Policies\System\EnableLinkedConnections</TargetObject>
 			<TargetObject name="Attack=T1486,Technique=Data Encrypted for Impact,Tactic=Impact,Level=4,Alert=Potential Ransomware Indicator: REvil Sodinokibi Sodin Ransomware,Risk=100" condition="contains">Software\recfg</TargetObject>
-			<TargetObject name="Attack=T0000,Technique=Environment Value Modification,Tactic=Defense Evasion/Privilege Escalation,Level=0,Desc=Environment Value Modification" condition="end with">\Environment</TargetObject>
 			<TargetObject name="Attack=T0000,Technique=Keyboard Layout,Tactic=N/A,Level=0,Desc=Suspicious Keyboard Layout Load" condition="contains">\Keyboard Layout\Preload\</TargetObject>
 			<TargetObject name="Attack=T0000,Technique=Keyboard Layout,Tactic=N/A,Level=0,Desc=Suspicious Keyboard Layout Load" condition="contains">\Keyboard Layout\Substitutes\</TargetObject>
 			<TargetObject name="Level=0,Desc=IIS Crypto Keys" condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Cryptography\Configuration\SSL\00010002</TargetObject>
