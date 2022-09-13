@@ -3103,9 +3103,6 @@
 				<Image condition="excludes">C:\Windows\explorer.exe</Image>
 			</Rule>
 			<ImageLoaded name="Level=0,Desc=Global Assembly Cache Load" condition="begin with">C:\Windows\Microsoft.NET\assembly\GAC_MSIL</ImageLoaded>
-			<Rule name="Alert=TEST" groupRelation="and">
-				<ImageLoaded condition="contains all">cmd.exe;cmd.exe.mui</ImageLoaded>
-			</Rule>
 		</ImageLoad>
 	</RuleGroup>
 	<RuleGroup name="RG=Image Load Excludes" groupRelation="or">
