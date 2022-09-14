@@ -5554,7 +5554,6 @@
 			<Image condition="image">C:\Windows\system32\wbem\wmiprvse.exe</Image> <!-- Rediculous amount of spam, likely spikes cpu if logged -->
 			<Image condition="image">C:\Windows\System32\LxRun.exe</Image> <!--WSL-->
 			<Image condition="image">C:\Windows\System32\SearchIndexer.exe</Image>
-			<Image condition="image">C:\Windows\System32\services.exe</Image>
 			<Image condition="image">C:\Windows\System32\smss.exe</Image>
 			<Image condition="image">C:\Windows\System32\spoolsv.exe</Image>
 			<Image condition="image">C:\Windows\System32\wininit.exe</Image>
