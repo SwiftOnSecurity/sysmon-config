@@ -5322,25 +5322,48 @@
 			<TargetObject name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,Level=3,Alert=Office Homepage Attack,Risk=70" condition="contains">Outlook\Today\UserDefinedUrl</TargetObject>
 			<TargetObject name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,Level=3,Alert=Office Calendar Homepage Attack,Risk=70" condition="contains">Outlook\WebView\Calendar</TargetObject>
 			<TargetObject name="Forensic=Office History" condition="contains">\Place MRU</TargetObject>
-			<TargetObject name="Level=0,Desc=AmCache InvDB-CompileTimeClaim" condition="end with">\LinkDate</TargetObject>
-			<TargetObject name="Level=0,Desc=AmCache InvDB-DriverVer" condition="end with">\DriverVerVersion</TargetObject>
-			<TargetObject name="Level=0,Desc=AmCache InvDB-DriverVer" condition="end with">\DriverVersion</TargetObject>
-			<TargetObject name="Level=0,Desc=AmCache InvDB-Path" condition="end with">\LowerCaseLongPath</TargetObject>
-			<TargetObject name="Level=0,Desc=AmCache InvDB-Pub" condition="end with">\Publisher</TargetObject>
-			<TargetObject name="Level=0,Desc=AmCache InvDB-Store" condition="contains">Compatibility Assistant\Store\</TargetObject>
-			<TargetObject name="Level=0,Desc=AmCache InvDB-Ver" condition="end with">\BinProductVersion</TargetObject>
+			<TargetObject name="Level=0,Forensic=AmCache InvDB-CompileTimeClaim" condition="end with">\LinkDate</TargetObject>
+			<TargetObject name="Level=0,Forensic=AmCache InvDB-DriverVer" condition="end with">\DriverVerVersion</TargetObject>
+			<TargetObject name="Level=0,Forensic=AmCache InvDB-DriverVer" condition="end with">\DriverVersion</TargetObject>
+			<TargetObject name="Level=0,Forensic=AmCache InvDB-Path" condition="end with">\LowerCaseLongPath</TargetObject>
+			<TargetObject name="Level=0,Forensic=AmCache InvDB-Pub" condition="end with">\Publisher</TargetObject>
+			<TargetObject name="Level=0,Forensic=AmCache InvDB-Store" condition="contains">Compatibility Assistant\Store\</TargetObject>
+			<TargetObject name="Level=0,Forensic=AmCache InvDB-Ver" condition="end with">\BinProductVersion</TargetObject>
+			<TargetObject name="Level=0,Forensic=AmCache Application Shortcuts" condition="contains">Root\InventoryApplicationShortcut\</TargetObject>
+			<TargetObject name="Level=0,Forensic=AmCache Driver Binary Info" condition="contains">Root\InventoryDriverBinary\</TargetObject>
+			<TargetObject name="Level=0,Forensic=AmCache Device Info" condition="contains">Root\InventoryDeviceContainer\</TargetObject>
+			<Rule name="Level=0,Forensic=AmCache Application Installation Info" groupRelation="and">
+				<TargetObject condition="contains">Root\InventoryApplication\</TargetObject>
+				<TargetObject condition="contains any">ProgramID;Name;Version;Publisher;Language;InstallDate;Source;RootDirPath;HiddenArp;UninstallString;RegistryKeyPath;UserSID;sha256</TargetObject>
+			</Rule>			
+			<Rule name="Level=0,Forensic=AmCache Application File Info" groupRelation="and">
+				<TargetObject condition="contains">Root\InventoryApplicationFile\</TargetObject>
+				<TargetObject condition="contains any">ProgramId;FileId;LowerCaseLongPath;Name;OriginalFileName;Publisher;Version;binfileversion;LinkDate;Size;Language;USN;IsPeFile;IsOsComponent;sha256;AppxPackageFullName</TargetObject>
+			</Rule>
+			<Rule name="Level=0,Forensic=AmCache AppV Application Inventory" groupRelation="and">
+				<TargetObject condition="contains">Root\InventoryApplicationAppV\</TargetObject>
+			</Rule>
+			<Rule name="Level=0,Forensic=AmCache Office Information" groupRelation="and">
+				<TargetObject condition="contains any">Root\InventoryMiscellaneousOfficeAddIn;Root\InventoryMiscellaneousOfficeIdentifiers;Root\InventoryMiscellaneousOfficeIESettings;Root\InventoryMiscellaneousOfficeInsights;Root\InventoryMiscellaneousOfficeProducts;Root\InventoryMiscellaneousOfficeSettings;Root\InventoryMiscellaneousOfficeVBA;Root\InventoryMiscellaneousOfficeVBARuleViolations</TargetObject>
+			</Rule>
 			<TargetObject name="Level=0,Desc=User Mount Points" condition="end with">\Explorer\MountPoints2</TargetObject>
+			<TargetObject name="Level=0,Desc=Monitor DOS Devices Virtual Registry Paths" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\DOS Devices</TargetObject>
+			<Rule name="Attack=T1489,Technique=Service Stop,Tactic=Impact,Level=1,Desc=Service Set for Deletion" groupRelation="and">
+				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
+				<TargetObject condition="end with">\DeleteFlag</TargetObject>
+				<Details condition="contains">DWORD (0x00000001)</Details>
+			</Rule>
 			<!--Detect User Activity-->
-			<TargetObject name="Level=0,Desc=Detect Bluetooth Audio Capture" condition="contains">\ConsentStore\bluetooth</TargetObject>
-			<TargetObject name="Level=0,Desc=Detect Contacts Accesses" condition="contains">\ConsentStore\contacts</TargetObject>
-			<TargetObject name="Level=0,Desc=Detect Input Capture Accesses/Keyloggers" condition="contains">\ConsentStore\hunmanInterfaceDevice</TargetObject>
-			<TargetObject name="Level=0,Desc=Detect Location Accesses" condition="contains">\ConsentStore\location</TargetObject>
-			<TargetObject name="Level=0,Desc=Detect Microphone Accesses" condition="contains">\ConsentStore\microphone</TargetObject>
-			<TargetObject name="Level=0,Desc=Detect USB Accesses" condition="contains">\ConsentStore\usb\</TargetObject>
-			<TargetObject name="Level=0,Desc=Detect Webcam Accesses" condition="contains">\ConsentStore\webcam</TargetObject>
-			<TargetObject name="Level=0,Desc=Detect humanInterfaceDevice Accesses" condition="contains">\ConsentStore\humanInterfaceDevice</TargetObject>
-			<TargetObject name="Level=0,Desc=Explorer Last Visited MRU" condition="contains">LastVisitedMRU</TargetObject>
-			<TargetObject name="Level=0,Desc=Regedit Applets" condition="contains">SOFTWARE\Microsoft\Windows\CurrentVersion\Applets\RegEdit</TargetObject>
+			<TargetObject name="Level=0,Forensic=Detect Bluetooth Audio Capture" condition="contains">\ConsentStore\bluetooth</TargetObject>
+			<TargetObject name="Level=0,Forensic=Detect Contacts Accesses" condition="contains">\ConsentStore\contacts</TargetObject>
+			<TargetObject name="Level=0,Forensic=Detect Input Capture Accesses/Keyloggers" condition="contains">\ConsentStore\hunmanInterfaceDevice</TargetObject>
+			<TargetObject name="Level=0,Forensic=Detect Location Accesses" condition="contains">\ConsentStore\location</TargetObject>
+			<TargetObject name="Level=0,Forensic=Detect Microphone Accesses" condition="contains">\ConsentStore\microphone</TargetObject>
+			<TargetObject name="Level=0,Forensic=Detect USB Accesses" condition="contains">\ConsentStore\usb\</TargetObject>
+			<TargetObject name="Level=0,Forensic=Detect Webcam Accesses" condition="contains">\ConsentStore\webcam</TargetObject>
+			<TargetObject name="Level=0,Forensic=Detect humanInterfaceDevice Accesses" condition="contains">\ConsentStore\humanInterfaceDevice</TargetObject>
+			<TargetObject name="Level=0,Forensic=Explorer Last Visited MRU" condition="contains">LastVisitedMRU</TargetObject>
+			<TargetObject name="Level=0,Forensic=Regedit Applets" condition="contains">SOFTWARE\Microsoft\Windows\CurrentVersion\Applets\RegEdit</TargetObject>
 			<TargetObject name="Forensic=Run MRU" condition="contains">\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU</TargetObject>
 			<TargetObject name="Level=0,Desc=USBStor USB Device History" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Enum\USBSTOR</TargetObject>
 			<TargetObject name="Attack=T1112,Technique=Modify Registry,Tactic=Defense Evasion,Level=4,Alert=Safeboot Service Added" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Safeboot\</TargetObject> <!--Microsoft:Windows: Services approved to load in safe mode-->
@@ -5350,14 +5373,14 @@
 			<TargetObject name="Level=0,Desc=Cryptography OID Key" condition="begin with">HKLM\SOFTWARE\WOW6432Node\Microsoft\Cryptography\OID</TargetObject><!--Mitre T1198-->
 			<TargetObject name="Level=0,Desc=Detect: Dns Server dll injection" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\DNS\Parameters\ServerLevelPluginDll</TargetObject>
 			<TargetObject name="Level=0,Desc=Detect: UAC Bypass" condition="contains">Classes\exefile\shell\runas\command\isolatedCommand</TargetObject> 
-			<TargetObject name="Level=0,Desc=New Device Connected" condition="end with">\FriendlyName</TargetObject>
+			<TargetObject name="Level=0,Forensic=New Device Connected" condition="end with">\FriendlyName</TargetObject>
 			<TargetObject name="Level=0,Desc=Providers notified by Winlogon" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Winlogon\</TargetObject> <!--Microsoft:Windows: Providers notified by WinLogon-->
 			<TargetObject name="Level=0,Desc=Proxy Autoconfig URL" condition="contains">\Software\Microsoft\Windows\CurrentVersion\Internet Settings\AutoConfigURL</TargetObject>
 			<TargetObject name="Level=0,Desc=Shell Service Object Delay Load" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\ShellServiceObjectDelayLoad</TargetObject>
 			<TargetObject name="Level=0,Desc=Windows Installer Engaged" condition="is">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\InProgress\(Default)</TargetObject>
 			<!--Windows application compatibility shims-->
-			<TargetObject name="Level=0,Desc=AppCompat Shims" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom</TargetObject> <!--Microsoft:Windows: AppCompat [ https://www.fireeye.com/blog/threat-research/2017/05/fin7-shim-databases-persistence.html ] -->
-			<TargetObject name="Level=0,Desc=AppCompat Shims" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB</TargetObject> <!--Microsoft:Windows: AppCompat [ https://www.fireeye.com/blog/threat-research/2017/05/fin7-shim-databases-persistence.html ] -->
+			<TargetObject name="Level=0,Forensic=AppCompat Shims" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom</TargetObject> <!--Microsoft:Windows: AppCompat [ https://www.fireeye.com/blog/threat-research/2017/05/fin7-shim-databases-persistence.html ] -->
+			<TargetObject name="Level=0,Forensic=AppCompat Shims" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB</TargetObject> <!--Microsoft:Windows: AppCompat [ https://www.fireeye.com/blog/threat-research/2017/05/fin7-shim-databases-persistence.html ] -->
 			<TargetObject name="Level=0,Desc=Process Tracing Modifications,,Risk=30" condition="begin with">HKLM\SOFTWARE\Microsoft\Tracing\</TargetObject> <!--Microsoft:Windows: Malware sometimes disables tracing to obfuscate tracks-->
 			<!-- NOTICE: Detect New USB Network Devices: Poison Tap: Creates lots of noise, disabled for now
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}</TargetObject>
@@ -5469,6 +5492,12 @@
 				<PipeName condition="end with">-stdin</PipeName>
 				<PipeName condition="end with">-stdout</PipeName>
 			</Rule>
+			<Rule name="Attack=T1021,Technique=Remote Services,Tactic=Lateral Movement,Level=3,Alert=MS-SCMR Execution" groupRelation="or">
+				<PipeName condition="contains">\svcctl</PipeName>
+			</Rule>
+			<Rule name="Attack=T1021,Technique=Remote Services,Tactic=Lateral Movement,Level=3,Alert=NTSVCS Execution" groupRelation="or">
+				<PipeName condition="contains">\ntsvcs</PipeName>
+			</Rule>
 			<PipeName name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion/Privilege Escalation,Level=4,Alert=9f81f59bc58452127884ce513865ed20 Named Pipe Detection,Risk=100" condition="contains">\9f81f59bc58452127884ce513865ed20</PipeName><!-- Credits @Cyb3rops & @olafhartong -->
 			<PipeName name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion/Privilege Escalation,Level=4,Alert=46a676ab7f179e511e30dd2dc41bd388 Named Pipe Detection,Risk=100" condition="contains">\46a676ab7f179e511e30dd2dc41bd388</PipeName><!-- Credits @Cyb3rops & @olafhartong -->
 			<PipeName name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion/Privilege Escalation,Level=4,Alert=Kekeo Named Pipe Detection,Risk=100" condition="contains">tssmp_endpoint</PipeName><!-- Credits @Cyb3rops & @olafhartong -->
@@ -5492,7 +5521,7 @@
 			<PipeName name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion/Privilege Escalation,Level=4,Alert=winsession Named Pipe Detection,Risk=100" condition="contains">\winsession</PipeName><!-- Credits @Cyb3rops & @olafhartong -->
 			<PipeName name="Attack=T1077,Technique=Windows Admin Shares,Tactic=Lateral Movement,Alert=lateral movement -meterpreter named pipe detected,Risk=100" condition="contains">msf-pipe</PipeName>
 			<PipeName name="Level=0,Desc=LM or EXEC over atsvc named pipe" condition="contains">\atsvc</PipeName> <!-- useful for lm or exec over atsvc namedpipe -->
-			<PipeName name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion/Privilege Escalation,Level=4,Alert=Malicious Named Pipe Detection 1" condition="contains any">\isapi_http;\isapi_dg;\isapi_dg2;\sdlrpc;\ahexec;\winsession;\lsassw;\46a676ab7f179e511e30dd2dc41bd388;\9f81f59bc58452127884ce513865ed20;\e710f28d59aa529d6792ca6ff0ca1b34;\rpchlp_3;\NamePipe_MoreWindows;\pcheap_reuse;\gruntsvc;\583da945-62af-10e8-4902-a8f205c72b2e;\bizkaz;\svcctl;\Posh;\jaccdpqnvbrrxlaf;\csexecsvc</PipeName>
+			<PipeName name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion/Privilege Escalation,Level=4,Alert=Malicious Named Pipe Detection 1" condition="contains any">\isapi_http;\isapi_dg;\isapi_dg2;\sdlrpc;\ahexec;\winsession;\lsassw;\46a676ab7f179e511e30dd2dc41bd388;\9f81f59bc58452127884ce513865ed20;\e710f28d59aa529d6792ca6ff0ca1b34;\rpchlp_3;\NamePipe_MoreWindows;\pcheap_reuse;\gruntsvc;\583da945-62af-10e8-4902-a8f205c72b2e;\bizkaz;\Posh;\jaccdpqnvbrrxlaf;\csexecsvc</PipeName>
 			<PipeName name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion/Privilege Escalation,Level=4,Alert=Malicious Named Pipe Detection 2" condition="contains any">\atctl;\userpipe;\iehelper;\sdlrpc;\comnap</PipeName>
 			<PipeName name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion/Privilege Escalation,Level=4,Alert=Malicious Named Pipe Detection 2" condition="contains any">\DserNamedPipe;\mypipe-;\windows.update.manager;\ntsvcs_;scerpc_;\demoagent;\PGMessagePipe;\MsFTeWds;\f4c3;\fullduplex_;\msrpc_;\f53f;\rpc_;\spoolss_;\win_svc;\SearchTextHarvester</PipeName>
 			<Rule name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion/Privilege Escalation,Level=4,Alert=EFSPotato Named Pipe Detection" groupRelation="and">
@@ -5562,7 +5591,6 @@
 			<PipeName condition="is">\browser</PipeName>
 			<PipeName condition="is">\epmapper</PipeName>
 			<PipeName condition="is">\eventlog</PipeName>
-			<PipeName condition="is">\ntsvcs</PipeName>
 			<PipeName condition="is">\scerpc</PipeName>
 			<PipeName condition="is">\wkssvc</PipeName>
 			<PipeName condition="is">\ntapvsrq</PipeName>
