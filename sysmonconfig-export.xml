@@ -214,6 +214,11 @@
 				<CommandLine condition="contains any">call set priority;call terminate;product get name;bios, get serialNumber;BIOS GET SERIALNUMBER;onboarddevice get;useraccount where name;useraccount get;path win32_networkadapter where index=;process list;useraccount get /ALL;useraccount list;qfe get description,installedOn /format:csv;process get caption,executablepath,commandline;service get name,displayname,pathname,startmode;share list;win32_share</CommandLine>
 			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: Command and Scripting Interpreter-->
+			<Rule name="Attack=T1059,Technique=Command and Scripting Interpreter,Tactic=Execution,Level=3,Alert=Suspicious Console Host Execution Locations,Risk=30" groupRelation="and">
+				<ParentImage condition="contains any">C:\Users\;$Recycle;\Temp\;\Downloads\</ParentImage>
+				<CommandLine condition="is">\??\C:\WINDOWS\system32\conhost.exe 0xffffffff -ForceV1</CommandLine>
+				<Image condition="image">conhost.exe</Image>
+			</Rule>
 			<Rule name="Attack=T1059,Technique=Command and Scripting Interpreter,Tactic=Execution,Level=3,Alert=Suspicious Console Host Parents,Risk=30" groupRelation="and">
 				<ParentImage condition="contains any">svchost.exe;lsass.exe;services.exe;smss.exe;winlogon.exe;explorer.exe;dllhost.exe;rundll32.exe;regsvr32.exe;userinit.exe;winit.exe;spoolsv.exe;wermgr.exe;csrss.exe;ctfmon.exe;werfault.exe</ParentImage>
 				<Image condition="image">conhost.exe</Image>
@@ -1915,7 +1920,7 @@
 			<CommandLine name="Level=0,Desc=vShadow Commands! https://bohops.com/2018/02/10/vshadow-abusing-the-volume-shadow-service-for-evasion-persistence-and-active-directory-database-extraction/" condition="contains">-p -nw</CommandLine><!-- vshadow -->
 			<Image name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,Level=4,Alert=Data Destruction with shred Detected,Risk=100" condition="contains">shred</Image>
 			<ParentImage name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,Level=4,Alert=Diskshadow Execution,Risk=70" condition="contains">diskshadow</ParentImage>
-			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,Level=3,Alert=File Deletion,Risk=100" groupRelation="or">
+			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,Level=3,Alert=Command Line File Deletion,Risk=100" groupRelation="or">
 				<CommandLine condition="contains all"> del ; /f </CommandLine>
 				<CommandLine condition="contains all"> del ; -f </CommandLine>
 				<CommandLine condition="contains all"> rmdir ; /s ; /q </CommandLine>
@@ -3202,6 +3207,7 @@
 				<SourceImage condition="excludes">C:\Windows\System32\igfxEM.exe</SourceImage>
 				<SourceImage condition="excludes">C:\Windows\System32\igfxHK.exe</SourceImage>
 				<SourceImage condition="excludes">Enterprise\Common7\IDE\devenv.exe</SourceImage>
+				<TargetImage condition="excludes">C:\Program Files (x86)\ASUS\ROG Live Service\FileOperator.exe</TargetImage>
 				<SourceImage condition="excludes all">C:\ProgramData\Microsoft\Windows Defender\Platform\;\MsMpEng.exe</SourceImage>
 			</Rule>
 			<Rule name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion,Level=0,Desc=CreateFileMapping,Risk=70" groupRelation="and">
@@ -3423,6 +3429,9 @@
 			</Rule>
 			<Rule name="Attack=T1562.002,Technique=Impair Defenses: Disable Windows Event Logging,Tactic=Defense Evasion,Level=4,Alert=SysmonEnte Detection,Level=4,Risk=100" groupRelation="and">
 				<TargetImage condition="contains any">C:\Windows\Sysmon64.exe;C:\Windows\Sysmon.exe</TargetImage>
+				<SourceImage condition="is not">C:\WINDOWS\system32\wbem\wmiprvse.exe</SourceImage>
+				<SourceImage condition="is not">C:\Program Files (x86)\ASUS\Update\AsusUpdate.exe</SourceImage>
+				<SourceImage condition="excludes all">C:\ProgramData\Microsoft\Windows Defender\Platform\;\MsMpEng.exe</SourceImage>
 				<GrantedAccess condition="contains">0x1400</GrantedAccess>
 			</Rule>
 			<!-- PROCESS_SUSPEND_RESUME + PROCESS_VM_WRITE: possible memory injection -->
@@ -3513,6 +3522,7 @@
 			</Rule>
 			<Rule name="Attack=T1195,Technique=Supply Chain Compromise,Tactic=Initial Access,Level=4,Alert=Dark Halo Software location,Risk=100" groupRelation="and">
 				<TargetFilename condition="begin with">C:\Windows\SoftwareDistribution</TargetFilename>
+				<TargetFilename name="Defender AntiMalware Delta Patch" condition="excludes all">C:\Windows\SoftwareDistribution\Download\Install\AM_Delta_Patch_;.exe</TargetFilename>
 				<TargetFilename condition="end with">.exe</TargetFilename>
 			</Rule>
 			<Rule name="Attack=T1195,Technique=Supply Chain Compromise,Tactic=Initial Access,Level=0,Desc=MSBuild Source Files created" groupRelation="or">
@@ -4791,6 +4801,7 @@
 			<Rule name="Attack=T1562.001,Technique=Impair Defenses: Disable or Modify Tools,Tactic=Defense Evasion,Level=4,Alert=Driver Altitude Change Detected - Causes Driver load failure on boot" groupRelation="and">
 				<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\</TargetObject>
 				<TargetObject condition="contains all">\Instances\;Altitude</TargetObject>
+				<TargetObject condition="is not">HKLM\System\CurrentControlSet\Services\CldFlt\Instances\CldFlt\Altitude</TargetObject>
 				<EventType condition="is">SetValue</EventType>
 			</Rule>
 			<!--Detect Malware & Unauthorized Changes to Outlook, Excel, Powerpoint, and Access Security to enable execution of scripts/Macros -->
