@@ -5382,9 +5382,11 @@
 			<TargetObject name="Level=0,Forensic=AppCompat Shims" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom</TargetObject> <!--Microsoft:Windows: AppCompat [ https://www.fireeye.com/blog/threat-research/2017/05/fin7-shim-databases-persistence.html ] -->
 			<TargetObject name="Level=0,Forensic=AppCompat Shims" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB</TargetObject> <!--Microsoft:Windows: AppCompat [ https://www.fireeye.com/blog/threat-research/2017/05/fin7-shim-databases-persistence.html ] -->
 			<TargetObject name="Level=0,Desc=Process Tracing Modifications,,Risk=30" condition="begin with">HKLM\SOFTWARE\Microsoft\Tracing\</TargetObject> <!--Microsoft:Windows: Malware sometimes disables tracing to obfuscate tracks-->
-			<!-- NOTICE: Detect New USB Network Devices: Poison Tap: Creates lots of noise, disabled for now
-			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}</TargetObject>
-			-->
+			<!-- NOTICE: Detect New USB Network Devices: Poison Tap: Creates lots of noise, disabled for now-->
+			<Rule name="Alert=Detect PoisonTap,FP=2,Comment=May be noisy" groupRelation="and">
+				<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}</TargetObject>
+				<Details condition="contains any">ndis;rndis</Details>
+			</Rule>
 			<TargetObject name="Attack=T1090,Technique=Connection Proxy,Tactic=Defense Evasion,Level=0,Desc=NetSH PortProxy Detected" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\PortProxy\v4tov4</TargetObject>
 			<Rule name="Attack=T1112,Technique=Modify Registry,Tactic=Defense Evasion,Alert=Possible Ursniff Malware Detected,FP=1" groupRelation="and">
 				<TargetObject condition="contains">\Software\AppDataLow\Software\Microsoft\</TargetObject>
@@ -5552,6 +5554,7 @@
 			<Image condition="image">C:\Windows\system32\wbem\wmiprvse.exe</Image> <!-- Rediculous amount of spam, likely spikes cpu if logged -->
 			<Image condition="image">C:\Windows\System32\LxRun.exe</Image> <!--WSL-->
 			<Image condition="image">C:\Windows\System32\SearchIndexer.exe</Image>
+			<Image condition="image">C:\Windows\System32\services.exe</Image>
 			<Image condition="image">C:\Windows\System32\smss.exe</Image>
 			<Image condition="image">C:\Windows\System32\spoolsv.exe</Image>
 			<Image condition="image">C:\Windows\System32\wininit.exe</Image>
