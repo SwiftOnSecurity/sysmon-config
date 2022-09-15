@@ -1453,7 +1453,9 @@
 			<Hashes condition="contains">IMPHASH=E57401FBDADCD4571FF385AB82BD5D6D</Hashes> <!-- Dumpert -->
 			<Hashes condition="contains">IMPHASH=84B763C45C0E4A3E7CA5548C710DB4EE</Hashes> <!-- SysmonEnte -->
 			<Hashes condition="contains">IMPHASH=19584675D94829987952432E018D5056</Hashes> <!-- SysmonQuiet -->
-			<Hashes condition="contains">IMPHASH=330768A4F172E10ACB6287B87289D83B</Hashes> <!-- ShaprEvtMute Hook -->
+			<Hashes condition="contains">MD5=7B17F15713FCF13C764535AA2BDF52AA</Hashes>													<!-- ShaprEvtMute -->
+			<Hashes condition="contains">SHA1=4E18320493042BCD7D21B53E258974BC460ACC78</Hashes>										<!-- ShaprEvtMute -->
+			<Hashes condition="contains">SHA256=477DFE485F5BD9540CC83E88FC04AAFB6DE49CF1ADC6BD857D5D6F4C1730A6D1</Hashes>	<!-- ShaprEvtMute -->
 			
 			<!-- Microsoft Office Programs Dropping Executables -->
 			<Image condition="image">winword.exe</Image>
