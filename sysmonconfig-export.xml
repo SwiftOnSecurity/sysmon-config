@@ -781,6 +781,18 @@
 				<CommandLine condition="contains all">DontLog;True</CommandLine>
 				<Image condition="excludes">iisetup.exe</Image>
 			</Rule>
+			<Rule name="Attack=T1070,Technique=Impair Defenses: Indicator Removal on Host,Tactic=Defense Evasion,Level=3,Alert=Usagelog Env Tampering,Risk=70" groupRelation="or">
+				<CommandLine condition="contains all">set;NGenAssemblyUsageLog</CommandLine>
+				<CommandLine condition="contains all">New-ItemProperty;NGenAssemblyUsageLog</CommandLine>
+				<CommandLine condition="contains all">reg;add;dword;NGenAssemblyUsageLog</CommandLine>
+				<CommandLine condition="contains all">$env;NGenAssemblyUsageLog</CommandLine>
+			</Rule>
+			<Rule name="Attack=T1070,Technique=Impair Defenses: Indicator Removal on Host,Tactic=Defense Evasion,Level=3,Alert=COMPlus_ETWEnabled Env Tampering,Risk=70" groupRelation="or">
+				<CommandLine condition="contains all">set;COMPlus_ETWEnabled</CommandLine>
+				<CommandLine condition="contains all">New-ItemProperty;COMPlus_ETWEnabled</CommandLine>
+				<CommandLine condition="contains all">reg;add;dword;COMPlus_ETWEnabled</CommandLine>
+				<CommandLine condition="contains all">$env;COMPlus_ETWEnabled</CommandLine>
+			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: Indirect Command Execution-->
 			<Rule name="Attack=T1202,Technique=Indirect Command Execution,Tactic=Execution,Level=0,Desc=Windows Subsystem For Linux exec,Risk=100" groupRelation="and">
 				<OriginalFileName condition="contains any">bash.exe;wsl.exe;ubuntu.exe;kali.exe</OriginalFileName>
@@ -3227,6 +3239,10 @@
 			<StartAddress name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion,Level=4,Alert=Cobalt Strike Detected 2,Risk=100" condition="end with">0C7C</StartAddress>
 			<StartAddress name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion,Level=4,Alert=Cobalt Strike Detected 3,Risk=100" condition="end with">0C88</StartAddress>
 			<TargetImage name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion,Level=0,Desc=Remote Desktop injection,Risk=30" condition="image">c:\windows\system32\mstsc.exe</TargetImage>
+			<Rule name="Alert=Potentially Detect EtwEventWrite Tampering with remote threads" groupRelation="and">
+				<StartModule condition="is">C:\WINDOWS\SYSTEM32\ntdll.dll</StartModule>
+				<StartFunction condition="contains">EtwEventWrite</StartFunction>
+			</Rule>
 		</CreateRemoteThread>
 	</RuleGroup>
 	<RuleGroup name="RG=CreateRemoteThread Exclude Group" groupRelation="or">
@@ -3273,7 +3289,7 @@
 			<Rule name="Level=0,Desc=Dotnet Debugging detected,Risk=30" groupRelation="and">
 				<CallTrace condition="contains">ntdll.dll+a0044</CallTrace>
 			</Rule>
-			<Rule name="Level=0,Desc=DInvoke detected,Risk=100" groupRelation="and">
+			<Rule name="Level=0,Alert=DInvoke detected,Risk=100" groupRelation="and">
 				<CallTrace condition="contains any">clr.dll+6c23;clr.dll+6b38</CallTrace>
 			</Rule>
 			<Rule name="Attack=T1055,Tactic=Defense Evasion,Technique=Process Injection,Level=0,Desc=Suspicious In-Memory Module Execution 1,Risk=30" groupRelation="and">
@@ -3417,7 +3433,7 @@
 				<CallTrace condition="contains">|C:\WINDOWS\System32\KERNELBASE.dll+</CallTrace>
 				<CallTrace condition="end with">)</CallTrace>
 				<GrantedAccess condition="contains any">0x1028;0x1fffff</GrantedAccess>
-				<SourceImage condition="excludes any">C:\Program Files\SmartGit\bin\;C:\Program Files (x86)\ASUS\Update\;C:\Program Files (x86)\Razer\Synapse3\Service\Razer Synapse Service.exe;C:\Program Files (x86)\Citrix\ICA Client\Receiver\UpdaterService.exe;C:\WINDOWS\SysWOW64\config\systemprofile\Citrix\UpdaterBinaries\</SourceImage>
+				<SourceImage condition="excludes any">C:\Program Files\SmartGit\bin\;C:\Program Files (x86)\ASUS\Update\;C:\Program Files (x86)\Razer\Synapse3\Service\Razer Synapse Service.exe;C:\Program Files (x86)\Citrix\ICA Client\Receiver\UpdaterService.exe;C:\WINDOWS\SysWOW64\config\systemprofile\Citrix\UpdaterBinaries\;C:\Program Files\Mozilla Firefox\firefox.exe;C:\Program Files\SmartGit\git\</SourceImage>
 			</Rule>
 			<Rule name="Level=3,Alert=Potential MalDoc Behavior" groupRelation="and">
 				<SourceImage condition="contains any">winword.exe;excel.exe;powerpnt.exe</SourceImage>
@@ -3431,7 +3447,7 @@
 				<TargetImage condition="contains any">C:\Windows\Sysmon64.exe;C:\Windows\Sysmon.exe</TargetImage>
 				<SourceImage condition="is not">C:\WINDOWS\system32\wbem\wmiprvse.exe</SourceImage>
 				<SourceImage condition="is not">C:\Program Files (x86)\ASUS\Update\AsusUpdate.exe</SourceImage>
-				<SourceImage condition="excludes all">C:\ProgramData\Microsoft\Windows Defender\Platform\;\MsMpEng.exe</SourceImage>
+				<SourceImage condition="excludes all">C:\ProgramData\Microsoft\Windows Defender\Platform\;\MsMpEng.exe;C:\Program Files (x86)\Microsoft\EdgeUpdate\MicrosoftEdgeUpdate.exe;C:\Program Files (x86)\Google\Update\GoogleUpdate.exe</SourceImage>
 				<GrantedAccess condition="contains">0x1400</GrantedAccess>
 			</Rule>
 			<!-- PROCESS_SUSPEND_RESUME + PROCESS_VM_WRITE: possible memory injection -->
@@ -4689,7 +4705,7 @@
 				<EventType condition="is">CreateKey</EventType>
 			</Rule>
 			<Rule name="Attack=T1546,Technique=Event Triggered Execution,Tactic=Persistence,Level=3,Alert=Monitor Runtime Exeption Handler execution on crash,Risk=100" groupRelation="and">
-				<TargetObject condition="contains">\Microsoft\Windows\Windows Error Reporting\RuntimeExceptionHelperModules</TargetObject>
+				<TargetObject condition="contains">\Microsoft\Windows\Windows Error Reporting\RuntimeExceptionHelperModules\</TargetObject>
 				<Image condition="excludes all">C:\Program Files (x86)\Microsoft\EdgeUpdate\Install\{;}\EDGEMITMP_;.tmp\setup.exe</Image>
 			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: Exploitation for Privilege Escalation-->
@@ -4899,6 +4915,21 @@
 			<TargetObject name="Level=0,Desc=App added to Firewall Auth list" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\AuthorizedApplications\List</TargetObject>
 
 			<!--MITRE ATT&CK TECHNIQUE: Indicator Removal on Host-->
+			<Rule name="Attack=T1070,Technique=Impair Defenses: Indicator Removal on Host,Tactic=Defense Evasion,Level=3,Alert=ETWEnabled Env Tampering,Risk=70" groupRelation="and">
+				<TargetObject condition="contains">\Microsoft\.NETFramework\ETWEnabled</TargetObject>
+				<Details condition="contains">DWORD (0x00000000)</Details>
+			</Rule>
+			<Rule name="Attack=T1070,Technique=Impair Defenses: Indicator Removal on Host,Tactic=Defense Evasion,Level=3,Alert=Usagelog Tampering,Risk=70" groupRelation="and">
+				<TargetObject condition="contains">\Microsoft\.NETFramework\NGenAssemblyUsageLog</TargetObject>
+			</Rule>
+			<Rule name="Attack=T1070,Technique=Impair Defenses: Indicator Removal on Host,Tactic=Defense Evasion,Level=3,Alert=Usagelog Env Tampering,Risk=70" groupRelation="and">
+				<EventType condition="is">SetValue</EventType>
+				<TargetObject condition="contains">\Environment\NGenAssemblyUsageLog</TargetObject>
+			</Rule>
+			<Rule name="Attack=T1070,Technique=Impair Defenses: Indicator Removal on Host,Tactic=Defense Evasion,Level=3,Alert=COMPlus_ETWEnabled Env Tampering,Risk=70" groupRelation="and">
+				<EventType condition="is">SetValue</EventType>
+				<TargetObject condition="contains">\Environment\COMPlus_ETWEnabled</TargetObject>
+			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: Indirect Command Execution-->
 			<!--MITRE ATT&CK TECHNIQUE: Masquerading-->
 			<!--MITRE ATT&CK TECHNIQUE: Modify Authentication Process-->
