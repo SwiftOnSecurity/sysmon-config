@@ -5525,6 +5525,10 @@
 				<PipeName condition="end with">-stdin</PipeName>
 				<PipeName condition="end with">-stdout</PipeName>
 			</Rule>
+			<Rule name="Attack=T1077,Technique=Windows Admin Shares,Tactic=Lateral Movement,Level=4,Alert=Impacket PSExec.py Named Pipe Detected" groupRelation="and">
+				<PipeName condition="contains">RemCom_</PipeName>
+				<PipeName condition="contains any">stdin;stdout;stderr;communication</PipeName>
+			</Rule>
 			<Rule name="Attack=T1021,Technique=Remote Services,Tactic=Lateral Movement,Level=3,Alert=MS-SCMR Execution" groupRelation="or">
 				<PipeName condition="contains">\svcctl</PipeName>
 			</Rule>
