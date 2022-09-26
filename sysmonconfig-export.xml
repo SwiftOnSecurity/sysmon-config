@@ -390,7 +390,6 @@
 				<Image condition="is">msdt.exe</Image>
 				<ParentImage condition="is not">pcwrun.exe</ParentImage>
 				<CommandLine condition="contains">PCWDiagnostic</CommandLine>
-				<CommandLine condition="contains any">/af;-af</CommandLine>
 			</Rule>
 			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,Level=4,Alert=msdt via diagcab file,Risk=100,CVE=CVE-2022-30190" groupRelation="and">
 				<Image condition="is">msdt.exe</Image>
