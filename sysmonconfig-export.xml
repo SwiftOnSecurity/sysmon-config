@@ -5560,7 +5560,20 @@
 			<PipeName name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=LM or EXEC over atsvc named pipe" condition="contains">\atsvc</PipeName> <!-- useful for lm or exec over atsvc namedpipe -->
 			<PipeName name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion/Privilege Escalation,Level=4,Alert=Malicious Named Pipe Detection 1" condition="contains any">\isapi_http;\isapi_dg;\isapi_dg2;\sdlrpc;\ahexec;\winsession;\lsassw;\46a676ab7f179e511e30dd2dc41bd388;\9f81f59bc58452127884ce513865ed20;\e710f28d59aa529d6792ca6ff0ca1b34;\rpchlp_3;\NamePipe_MoreWindows;\pcheap_reuse;\gruntsvc;\583da945-62af-10e8-4902-a8f205c72b2e;\bizkaz;\Posh;\jaccdpqnvbrrxlaf;\csexecsvc</PipeName>
 			<PipeName name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion/Privilege Escalation,Level=4,Alert=Malicious Named Pipe Detection 2" condition="contains any">\atctl;\userpipe;\iehelper;\sdlrpc;\comnap</PipeName>
-			<PipeName name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion/Privilege Escalation,Level=4,Alert=Malicious Named Pipe Detection 2" condition="contains any">\DserNamedPipe;\mypipe-;\windows.update.manager;\ntsvcs_;scerpc_;\demoagent;\PGMessagePipe;\MsFTeWds;\f4c3;\fullduplex_;\msrpc_;\f53f;\rpc_;\spoolss_;\win_svc;\SearchTextHarvester</PipeName>
+			<Rule name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion,Level=4,Alert=Cobalt Strike Named Pipe Detection 1" groupRelation="and">
+				<PipeName condition="contains any">\DserNamedPipe;\mypipe-;\windows.update.manager;\ntsvcs_;scerpc_;\demoagent;\PGMessagePipe;\MsFTeWds;\f4c3;\fullduplex_;\msrpc_;\f53f;\rpc_;\spoolss_;\win_svc;\SearchTextHarvester;demoagent_</PipeName>
+				<PipeName condition="is not">\wkssvc</PipeName>
+				<PipeName condition="is not">\spoolss</PipeName>
+				<PipeName condition="is not">\scerpc</PipeName>
+				<PipeName condition="is not">\ntsvcs</PipeName>
+				<PipeName condition="is not">\SearchTextHarvester</PipeName>
+				<PipeName condition="is not">\PGMessagePipe</PipeName>
+				<PipeName condition="is not">\MsFteWds</PipeName>
+			</Rule>
+			<Rule name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion,Level=4,Alert=Cobalt Strike Named Pipe Detection 2" groupRelation="and">
+				<PipeName condition="begin with">\Winsock2\CatalogChangeListener-</PipeName>
+				<PipeName condition="end with">-0,</PipeName>
+			</Rule>
 			<Rule name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion/Privilege Escalation,Level=4,Alert=EFSPotato Named Pipe Detection" groupRelation="and">
 				<PipeName condition="contains any">\pipe\</PipeName>
 				<PipeName condition="excludes">CtxSharefilepipe0</PipeName>
