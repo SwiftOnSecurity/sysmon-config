@@ -1025,6 +1025,15 @@
 				<ParentImage condition="image">wermgr.exe</ParentImage>
 				<Image condition="excludes any">\WerFaultSecure.exe;\wermgr.exe;\WerFault.exe</Image>
 			</Rule>
+			<Rule name="Attack=T1055,Technique=Process Injection,Tactic=Privilege Escalation,Level=3,Alert=Possible wermgr injection,Risk=30" groupRelation="and">
+				<Image condition="image">wermgr.exe</Image>
+				<CommandLine condition="end with">wermgr.exe</CommandLine>
+			</Rule>
+			<Rule name="Attack=T1055,Technique=Process Injection,Tactic=Privilege Escalation,Level=3,Alert=Possible qbot injection,Risk=30" groupRelation="and">
+				<ParentImage condition="contains any">\rundll32.exe;\regsvr32.exe</ParentImage>
+				<Image condition="contains any">\explorer.exe;\wermgr.exe;\msra.exe</Image>
+				<CommandLine condition="end with">.exe</CommandLine>
+			</Rule>
 			<Rule name="Attack=T1055,Technique=Process Injection,Tactic=Privilege Escalation,Level=3,Alert=Suspicious Child process of conhost,Risk=30" groupRelation="and">
 				<ParentImage condition="image">conhost.exe</ParentImage>
 				<Image condition="excludes any">\mscorsvw.exe;\wermgr.exe;\WerFault.exe;\WerFaultSecure.exe</Image>
@@ -2976,31 +2985,35 @@
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=Office taskschd.dll Load" groupRelation="and">
 				<Image condition="contains any">WINWORD.exe;EXCEL.EXE</Image>
-				<ImageLoaded condition="is">taskschd.dll</ImageLoaded>
+				<ImageLoaded condition="end with">taskschd.dll</ImageLoaded>
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=WScript taskschd.dll Load" groupRelation="and">
 				<Image condition="contains any">wscript.exe;cscript.exe</Image>
-				<ImageLoaded condition="is">taskschd.dll</ImageLoaded>
+				<ImageLoaded condition="end with">taskschd.dll</ImageLoaded>
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=WMI taskschd.dll Load" groupRelation="and">
 				<Image condition="image">wmiprvse.exe</Image>
-				<ImageLoaded condition="is">taskschd.dll</ImageLoaded>
+				<ImageLoaded condition="end with">taskschd.dll</ImageLoaded>
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=Powershell Loading MSI.dll" groupRelation="and">
 				<Image condition="image">powershell.exe</Image>
-				<ImageLoaded condition="is">msi.dll</ImageLoaded>
+				<ImageLoaded condition="end with">msi.dll</ImageLoaded>
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=Powershell Loading AMSI.dll" groupRelation="and">
 				<Image condition="contains">powershell</Image>
-				<ImageLoaded condition="is">amsi.dll</ImageLoaded>
+				<ImageLoaded condition="end with">amsi.dll</ImageLoaded>
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=Powershell Not Loading AMSI.dll" groupRelation="and">
 				<Image condition="excludes">powershell</Image>
-				<ImageLoaded condition="is">amsi.dll</ImageLoaded>
+				<ImageLoaded condition="end with">amsi.dll</ImageLoaded>
+			</Rule>
+			<Rule name="Attack=None,Technique=None,Tactic=None,Level=1,Desc=Monitor logoncli.dll dll loads for injection - potential qbot activity" groupRelation="and">
+				<ImageLoaded condition="end with">logoncli.dll</ImageLoaded>
+				<Image condition="is not">C:\Windows\System32\wbem\WmiPrvSE.exe</Image>
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=Office clr.dll Load" groupRelation="and">
 				<Image condition="contains any">WINWORD.exe;EXCEL.EXE</Image>
-				<ImageLoaded condition="is">clr.dll</ImageLoaded>
+				<ImageLoaded condition="end with">clr.dll</ImageLoaded>
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=Suspicious clr windows management dll Load" groupRelation="and">
 				<ImageLoaded condition="contains all">clr.dll;System.Management.ni.dll;Microsoft.Build.Utilities</ImageLoaded>
@@ -3179,10 +3192,10 @@
 			<ImageLoaded condition="is">C:\Program Files\Microsoft Office\Office15\Library\Analysis\ANALYS32.XLL</ImageLoaded>
 			<ImageLoaded condition="is">C:\Program Files\Microsoft Office\Office16\Library\Analysis\ANALYS32.XLL</ImageLoaded>
 			<ImageLoaded condition="is">C:\Windows\SysWOW64\sppc.dll</ImageLoaded>
-			<ImageLoaded condition="is">Microsoft.Office.Interop.VisOcx.dll</ImageLoaded>
-			<ImageLoaded condition="is">Microsoft.Office.Interop.Word.dll</ImageLoaded>
-			<ImageLoaded condition="is">Microsoft.Vbe.Interop.dll</ImageLoaded>
-			<ImageLoaded condition="is">OFFICE.DLL</ImageLoaded>
+			<ImageLoaded condition="end with">Microsoft.Office.Interop.VisOcx.dll</ImageLoaded>
+			<ImageLoaded condition="end with">Microsoft.Office.Interop.Word.dll</ImageLoaded>
+			<ImageLoaded condition="end with">Microsoft.Vbe.Interop.dll</ImageLoaded>
+			<ImageLoaded condition="end with">OFFICE.DLL</ImageLoaded>
 		</ImageLoad>
 	</RuleGroup>
 	<!--SYSMON EVENT ID 8 : REMOTE THREAD CREATED [CreateRemoteThread]-->
