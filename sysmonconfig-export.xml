@@ -6302,7 +6302,7 @@
 				<Image condition="is any">C:\WINDOWS\system32\wuauclt.exe;C:\$WINDOWS.~BT\Sources\SetupHost.Exe</Image>
 			</Rule>
 			<Rule name="safe paths - be careful" groupRelation="and">
-				<Image condition="contains any">C:\Windows\SoftwareDistribution\;C:\$WINDOWS.~BT\NewOS\</Image>
+				<TargetFilename condition="contains any">C:\Windows\SoftwareDistribution\;C:\$WINDOWS.~BT\NewOS\</TargetFilename>
 			</Rule>
 			<Rule name="safe users - be careful" groupRelation="or">
 				<!--<User condition="is">SYSTEM</User>
