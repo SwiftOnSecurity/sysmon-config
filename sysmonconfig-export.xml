@@ -4927,14 +4927,20 @@
 				<TargetObject condition="end with">\Enabled</TargetObject>
 				<Details condition="contains">DWORD (0x00000000)</Details>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=Enabling of Windows Event Log Source" groupRelation="and">
+			<Rule name="Attack=T1562.002,Technique=Impair Defenses: Disable Windows Event Logging,Tactic=Defense Evasion,Level=0,Desc=Enabling of Windows Event Log Source" groupRelation="and">
 				<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\</TargetObject>
 				<TargetObject condition="end with">\Enabled</TargetObject>
 				<Details condition="contains">DWORD (0x00000001)</Details>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=Detect Event log system integrity and ACL Modifications" groupRelation="and">
+			<Rule name="Attack=T1562.002,Technique=Impair Defenses: Disable Windows Event Logging,Tactic=Defense Evasion,Level=0,Desc=Detect Event log system integrity and ACL Modifications" groupRelation="and">
 				<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\</TargetObject>
 				<TargetObject condition="excludes">\Enabled</TargetObject>
+			</Rule>
+			<Rule name="Attack=T1562.002,Technique=Impair Defenses: Disable Windows Event Logging,Tactic=Defense Evasion,Level=4,Alert=Change Winevt Event Access Permission Via Registry,Author=frack113" groupRelation="and">
+				<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Channels\</TargetObject>
+				<TargetObject condition="end with">\ChannelAccess</TargetObject>
+				<Details condition="contains any">(A;;0x1;;;SY);(A;;0x5;;;BA);(A;;0x1;;;LA)</Details>
+				<Image condition="excludes any">C:\Windows\servicing\TrustedInstaller.exe;\TiWorker.exe</Image>
 			</Rule>
 			<Rule name="Attack=T1070.001,Technique=Impair Defenses: Disable Windows Event Logging,Tactic=Defense Evasion,Level=4,Alert=Disabling of Powershell Event Logging,Risk=100" groupRelation="and">
 				<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows\Powershell\ScriptBlockLogging</TargetObject>
