@@ -263,6 +263,16 @@
 				<CommandLine condition="contains">.vba</CommandLine>
 				<CommandLine condition="contains">.vbe</CommandLine>
 			</Rule>
+			<Rule name="Attack=T1059,Technique=Scripting,Tactic=Execution,Level=3,Alert=Suspicious scripting to dll commands,Risk=70" groupRelation="and">
+				<ParentImage condition="contains any">\wscript.exe;\cscript.exe</ParentImage>
+				<Image condition="contains any">\rundll32.exe;regsvr32.exe</Image>
+			</Rule>
+			<Rule name="Attack=T1059,Technique=Scripting,Tactic=Execution,Level=3,Alert=Suspicious rundll32 commands,Risk=70" groupRelation="and">
+				<Image condition="contains any">\rundll32.exe;regsvr32.exe</Image>
+				<CommandLine condition="excludes any">.dll;.cpl;.ocx;localserver;enable-speech-input;auto-scan-plugin;enable-media-stream;CastMediaRouteProvider;-eoim;/eoim</CommandLine><!--Already have localserver com detection-->
+				<CommandLine condition="excludes all">setupapi;InstallHinfSection;DefaultInstall;SplunkUniversalForwarder\bin\spl;rundll32.exe "C:\Windows\Installer\MSI</CommandLine>
+				<CommandLine condition="excludes all">\MSI;.tmp",zzzInvokeManagerCustomActionOutOfProc</CommandLine>
+			</Rule>
 			<Rule name="Attack=T1059,Technique=Scripting,Tactic=Execution,Level=2,Alert=cscript execution,Risk=60" groupRelation="and">
 				<Image condition="image">cscript.exe</Image>
 				<CommandLine condition="contains">.js</CommandLine>
@@ -488,8 +498,21 @@
 			<ParentImage name="Attack=T1035,Technique=Service Execution,Tactic=Execution/Lateral Movement,Level=4,Alert=PSexec Child Process,Risk=100" condition="image">psexec.exe</ParentImage>
 			<ParentImage name="Attack=T1035,Technique=Service Execution,Tactic=Execution/Lateral Movement,Level=2,Alert=PSKill Execution,Risk=100" condition="image">pskill.exe</ParentImage>
 			<Image name="Attack=T1035,Technique=Service Execution,Tactic=Execution,Level=2,Alert=PsKill Command" condition="contains">pskill</Image><!--Detect pskill-->
+			<Rule name="Attack=T1569.002,Technique=System Services,Tactic=Execution,Level=3,Alert=Suspicious Network Service Child Processes,Risk=75" groupRelation="and">
+				<ParentCommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k NetworkService -p</ParentCommandLine>
+			</Rule>
+			<Rule name="Attack=T1569.002,Technique=System Services,Tactic=Execution,Level=3,Alert=Suspicious LanmanWorkstation Child Processes,Risk=75" groupRelation="and">
+				<ParentCommandLine condition="is">C:\WINDOWS\System32\svchost.exe -k NetworkService -p -s LanmanWorkstation</ParentCommandLine>
+			</Rule>
+			<Rule name="Attack=T1569.002,Technique=System Services,Tactic=Execution,Level=3,Alert=Suspicious Network List Service Child Processes,Risk=75" groupRelation="and">
+				<ParentCommandLine condition="is">C:\WINDOWS\System32\svchost.exe -k netprofm -p -s netprofm</ParentCommandLine>
+			</Rule>
 			<Rule name="Attack=T1569.002,Technique=System Services,Tactic=Execution,Level=3,Alert=Remote Procedure Call Service Anomaly,Risk=75" groupRelation="and">
 				<ParentCommandLine condition="contains all">C:\WINDOWS\system32\svchost.exe;RPCSS</ParentCommandLine>
+			</Rule>
+			<Rule name="Attack=T1569.002,Technique=System Services,Tactic=Execution,Level=3,Alert=Remote Procedure Call Service Crash detected,Risk=75" groupRelation="and">
+				<ParentCommandLine condition="contains all">C:\WINDOWS\system32\svchost.exe;RPCSS</ParentCommandLine>
+				<Image condition="image">werfault.exe</Image>
 			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: User Execution-->
 			<Rule name="Attack=T1027,Technique=Obfuscated Files or Information,Tactic=Defense Evasion,Level=3,Alert=AstraRoth Command Line detection" groupRelation="and">
@@ -1173,6 +1196,10 @@
 			<Rule name="Attack=T1218.011,Technique=Rundll32,Tactic=Defense Evasion,Level=3,Alert=Rundll32 Single Threaded Apartment Switch - check for com hijacks,Risk=75" groupRelation="and">
 				<OriginalFileName condition="is">RUNDLL32.EXE</OriginalFileName>
 				<CommandLine condition="contains any">-sta;/sta</CommandLine>
+			</Rule>
+			<Rule name="Attack=T1218.011,Technique=Rundll32,Tactic=Defense Evasion,Level=3,Alert=Rundll32 localserver Switch - check for com hijacks,Risk=75" groupRelation="and">
+				<OriginalFileName condition="is">RUNDLL32.EXE</OriginalFileName>
+				<CommandLine condition="contains any">-localserver;/localserver</CommandLine>
 			</Rule>
 			<Rule name="Attack=T1218.011,Technique=Rundll32,Tactic=Defense Evasion,Level=0,Desc=Suspicious OpenAs_RunDLL,Risk=30" groupRelation="and">
 				<OriginalFileName condition="is">RUNDLL32.EXE</OriginalFileName>
@@ -2087,6 +2114,7 @@
 			<Image name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=Acrobat Reader Launches" condition="image">acrord32.exe</Image>
 			<Image name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=Gpupdate Launched" condition="image">gpupdate.exe</Image>
 			<ParentImage name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=.Net Framework executables" condition="contains">:\Windows\Microsoft.NET\</ParentImage>
+			<ParentImage name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=System Child Processes" condition="is">System</ParentImage>
 			<!-- Log other command line events, this sometimes conflicts with rules, add to exclusions as necessary-->
 			<!-- <ParentCommandLine name="Information=Uncategorized Events" condition="contains any">/;\;-;unknown;</ParentCommandLine>-->
 		</ProcessCreate>
@@ -6118,9 +6146,21 @@
 				<Image condition="contains any">powershell.exe;powershell_ise.exe</Image>
 				<TargetFilename condition="excludes any">whitelist_me_here</TargetFilename>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=Block double extensions" groupRelation="and">
-				<TargetFilename condition="end with">.exe</TargetFilename>
-				<TargetFilename condition="contains any">.pdf;.doc;.xls;.doc;.ppt;.txt;.rtf;.htm;.iso;.zip;.rar;.7z</TargetFilename>
+			<Rule name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=Block double extensions" groupRelation="or">
+				<TargetFilename condition="end with">.pdf.exe</TargetFilename>
+				<TargetFilename condition="end with">.doc.exe</TargetFilename>
+				<TargetFilename condition="end with">.docx.exe</TargetFilename>
+				<TargetFilename condition="end with">.xls.exe</TargetFilename>
+				<TargetFilename condition="end with">.xlsx.exe</TargetFilename>
+				<TargetFilename condition="end with">.ppt.exe</TargetFilename>
+				<TargetFilename condition="end with">.txt.exe</TargetFilename>
+				<TargetFilename condition="end with">.rtf.exe</TargetFilename>
+				<TargetFilename condition="end with">.iso.exe</TargetFilename>
+				<TargetFilename condition="end with">.zip.exe</TargetFilename>
+				<TargetFilename condition="end with">.rar.exe</TargetFilename>
+				<TargetFilename condition="end with">.7z.exe</TargetFilename>
+				<TargetFilename condition="end with">.ico.exe</TargetFilename>
+				<TargetFilename condition="end with">.lnk.exe</TargetFilename>
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=Block PSexec and PSEXESVC from Dropping binaries" groupRelation="or">
 				<Image condition="contains any">psexesvc</Image>
@@ -6247,6 +6287,31 @@
 			</Rule>
 			<Rule name="Attack=T1562.002,Technique=Impair Defenses: Disable Windows Event Logging,Tactic=Defense Evasion,Level=4,Alert=Tools that tamper with Sysmon,Author=Florian Roth" groupRelation="and">
 				<TargetFilename condition="contains any">\EntenLoader.exe;\SysmonQuiet.exe;\SharpEvtMute.exe;\EvtMuteHook.dll</TargetFilename>
+			</Rule>
+		</FileBlockExecutable>
+	</RuleGroup>
+	<RuleGroup name="RG=FileBlockExecutable Exclude Group" groupRelation="or">
+		<FileBlockExecutable onmatch="exclude">
+			<Rule name="safe executables - be careful" groupRelation="and">
+				<Image condition="is any">C:\WINDOWS\system32\wuauclt.exe;C:\$WINDOWS.~BT\Sources\SetupHost.Exe</Image>
+			</Rule>
+			<Rule name="safe paths - be careful" groupRelation="and">
+				<Image condition="contains any">C:\Windows\SoftwareDistribution\;C:\$WINDOWS.~BT\NewOS\</Image>
+			</Rule>
+			<Rule name="safe users - be careful" groupRelation="or">
+				<!--<User condition="is">SYSTEM</User>
+				<User condition="is">NT AUTHORITY\SYSTEM</User>
+				<User condition="is">TrustedInstaller</User>
+				<User condition="is">NT AUTHORITY\TrustedInstaller</User>
+				<User condition="is">NT AUTHORITY\NETWORK SERVICE</User>
+				<User condition="end with">ERVICE RÉSEAU</User>
+				<User condition="end with">NETZWERKDIENST</User>
+				<User condition="is">NT AUTHORITY\LOCAL SERVICE</User>
+				<User condition="end with">SERVICE LOCAL</User>
+				<User condition="end with">LOKALER DIENST</User>
+				<User condition="end with">СИСТЕМА</User>
+				<User condition="is">NT-AUTORITÄT\SYSTEM</User>
+				<User condition="is">AUTORITE NT\SYSTEM</User>-->
 			</Rule>
 		</FileBlockExecutable>
 	</RuleGroup>
