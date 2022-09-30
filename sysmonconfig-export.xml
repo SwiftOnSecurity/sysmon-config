@@ -2161,6 +2161,12 @@
 			<DestinationHostname name="Attack=T1595,Technique=Network Service Scanning/Reconnaissance,Tactic=Discovery,Level=0,Desc=Scanhub Network Connection,Risk=70" condition="contains">scanhub</DestinationHostname>
 			<DestinationHostname name="Attack=T1595,Technique=Network Service Scanning/Reconnaissance,Tactic=Discovery,Level=0,Desc=Shadow Network Connection,Risk=50" condition="contains">shadow</DestinationHostname>
 			<DestinationHostname name="Attack=T1595,Technique=Network Service Scanning/Reconnaissance,Tactic=Discovery,Level=0,Desc=Shodan Network Connection,Risk=50" condition="contains">shodan</DestinationHostname>
+			<Rule name="Attack=T1595,Technique=Network Service Scanning/Reconnaissance,Tactic=Discovery,Level=4,Alert=Exchange 0day Attackers from September 2022,Risk=100" groupRelation="or">
+				<DestinationIp condition="is any">137.184.67.33;206.188.196.77;125.212.220.48;5.180.61.17;47.242.39.92;61.244.94.85;86.48.6.69;86.48.12.64;94.140.8.48;94.140.8.113;103.9.76.208;103.9.76.211;104.244.79.6;112.118.48.186;122.155.174.188;125.212.241.134;185.220.101.182;194.150.167.88;212.119.34.11</DestinationIp>
+				<DestinationIp condition="begin with">137.184.67.</DestinationIp>
+				<DestinationHostname condition="is any">httpbin.org</DestinationHostname>
+			</Rule>
+			<DestinationHostname condition="contains">shodan</DestinationHostname>
 			<!--MITRE ATT&CK TECHNIQUE: Gather Victim Host Information-->
 			<!--MITRE ATT&CK TECHNIQUE: Gather Victim Identity Information-->
 			<!--MITRE ATT&CK TECHNIQUE: Gather Victim Network Information-->
@@ -3129,6 +3135,14 @@
 			<Rule name="Attack=T1195,Technique=Supply Chain Compromise,Tactic=Initial Access,Level=4,Alert=Solarwinds/FireEye sunburst image hashes,Risk=100" groupRelation="and">
 				<Hashes condition="contains any">56ceb6d0011d87b6e4d7023d7ef85676;4f2eb62fa529c0283b28d05ddd311fae;b91ce2fa41029f6955bff20079468448;b91ce2fa41029f6955bff20079468448;846e27a652a5e1bfbd0ddd38a16dc865;2c4a910a1299cdae2a4e55988a2f102e</Hashes><!-- exclude non executable files -->
 			</Rule>
+			<Rule name="Attack=T1195,Technique=Supply Chain Compromise,Tactic=Initial Access,Level=4,Alert=October 2022 Exchange 0day DLL detection,Risk=100" groupRelation="or">
+				<Hashes condition="contains">SHA256=074eb0e75bb2d8f59f1fd571a8c5b76f9c899834893da6f7591b68531f2b5d82</Hashes><!--Exchange Zero Day Dropped DLL-->
+				<Hashes condition="contains">SHA256=45c8233236a69a081ee390d4faa253177180b2bd45d8ed08369e07429ffbe0a9</Hashes><!--Exchange Zero Day Dropped DLL-->
+				<Hashes condition="contains">SHA256=9ceca98c2b24ee30d64184d9d2470f6f2509ed914dafb87604123057a14c57c0</Hashes><!--Exchange Zero Day Dropped DLL-->
+				<Hashes condition="contains">SHA256=29b75f0db3006440651c6342dc3c0672210cfb339141c75e12f6c84d990931c3</Hashes><!--Exchange Zero Day Dropped DLL-->
+				<Hashes condition="contains">SHA256=c8c907a67955bcdf07dd11d35f2a23498fb5ffe5c6b5d7f36870cf07da47bff2</Hashes><!--Exchange Zero Day Dropped DLL-->
+				<Hashes condition="contains">SHA256=76a2f2644cb372f540e179ca2baa110b71de3370bb560aca65dcddbd7da3701e</Hashes><!--Exchange Zero Day Dropped DLL-->
+			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=SVCHost loading Unsigned DLL" groupRelation="and">
 				<Image condition="image">C:\Windows\System32\svchost.exe</Image>
 				<Signed condition="is">false</Signed>
@@ -3733,10 +3747,12 @@
 			<!--MITRE ATT&CK TECHNIQUE: Scheduled Task/Job-->
 			<TargetFilename name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=Scheduled Task Modified" condition="begin with">C:\Windows\Tasks\</TargetFilename> <!--Microsoft:ScheduledTasks -->
 			<!--MITRE ATT&CK TECHNIQUE: Server Software Component-->
+			<Rule name="Attack=T1505.003,Technique=Server Software Component: Web Shell,Tactic=Persistence,Level=3,Alert=Exchange 0day from September 2022 overwriting legit file,Risk=80" groupRelation="and">
+				<TargetFilename condition="end with">RedirSuiteServiceProxy.aspx</TargetFilename>
+			</Rule>
 			<Rule name="Attack=T1505.003,Technique=Server Software Component: Web Shell,Tactic=Persistence,Level=3,Alert=HAFNIUM APT: IIS Creating ASPX files outside of wwwwroot,Risk=80" groupRelation="and">
 				<Image condition="image">w3wp.exe</Image>
 				<TargetFilename condition="end with">.aspx</TargetFilename>
-				<TargetFilename condition="excludes">\wwwroot\aspnet_client\</TargetFilename>
 			</Rule>
 			<Rule name="Attack=T1505.003,Technique=Server Software Component: Web Shell,Tactic=Persistence,Level=0,Desc=HAFNIUM APT: IIS Creating PHP files,Risk=80" groupRelation="and">
 				<Image condition="image">w3wp.exe</Image>
@@ -3747,8 +3763,8 @@
 				<TargetFilename condition="end with">.aaa</TargetFilename>
 			</Rule>
 			<Rule name="Attack=T1505.003,Technique=Server Software Component: Web Shell,Tactic=Persistence,Level=3,Alert=HAFNIUM Web Shells Dropped,Risk=100" groupRelation="and">
-				<TargetFilename condition="contains any">\wwwroot\aspnet_client\</TargetFilename>
-				<TargetFilename condition="contains any">.aspx;.php</TargetFilename>
+				<TargetFilename condition="contains any">\wwwroot\aspnet_client\;\FrontEnd\HttpProxy\owa\auth</TargetFilename>
+				<TargetFilename condition="contains any">.aspx;.php;.ashx</TargetFilename>
 			</Rule>
 			<Rule name="Attack=T1505.003,Technique=Server Software Component: Web Shell,Tactic=Persistence,Level=0,Desc=Files dropped in wwwroot directory,Risk=40" groupRelation="and">
 				<TargetFilename condition="contains any">\wwwroot\</TargetFilename>
@@ -5540,6 +5556,14 @@
 			<Rule name="Attack=T1195,Technique=Supply Chain Compromise,Tactic=Initial Access,Level=4,Alert=FireEye sunburst file hashes,Risk=100" groupRelation="and">
 				<Hash condition="contains any">56ceb6d0011d87b6e4d7023d7ef85676;4f2eb62fa529c0283b28d05ddd311fae;b91ce2fa41029f6955bff20079468448;b91ce2fa41029f6955bff20079468448;846e27a652a5e1bfbd0ddd38a16dc865;2c4a910a1299cdae2a4e55988a2f102e</Hash><!-- exclude non executable files -->
 			</Rule>
+			<Rule name="Attack=T1195,Technique=Supply Chain Compromise,Tactic=Initial Access,Level=4,Alert=October 2022 Exchange 0day DLL detection,Risk=100" groupRelation="or">
+				<Hash condition="contains">SHA256=074eb0e75bb2d8f59f1fd571a8c5b76f9c899834893da6f7591b68531f2b5d82</Hash><!--Exchange Zero Day Dropped DLL-->
+				<Hash condition="contains">SHA256=45c8233236a69a081ee390d4faa253177180b2bd45d8ed08369e07429ffbe0a9</Hash><!--Exchange Zero Day Dropped DLL-->
+				<Hash condition="contains">SHA256=9ceca98c2b24ee30d64184d9d2470f6f2509ed914dafb87604123057a14c57c0</Hash><!--Exchange Zero Day Dropped DLL-->
+				<Hash condition="contains">SHA256=29b75f0db3006440651c6342dc3c0672210cfb339141c75e12f6c84d990931c3</Hash><!--Exchange Zero Day Dropped DLL-->
+				<Hash condition="contains">SHA256=c8c907a67955bcdf07dd11d35f2a23498fb5ffe5c6b5d7f36870cf07da47bff2</Hash><!--Exchange Zero Day Dropped DLL-->
+				<Hash condition="contains">SHA256=76a2f2644cb372f540e179ca2baa110b71de3370bb560aca65dcddbd7da3701e</Hash><!--Exchange Zero Day Dropped DLL-->
+			</Rule>
 			<Rule name="Attack=T1096,Technique=Alternate Data Streams,Tactic=Defense Evasion,Level=0,Desc=Alternate Data Streams,Risk=10" groupRelation="and">
 				<TargetFilename condition="contains any">Content.Outlook;Downloads;Recycle;\Users\;\ProgramData\;\Windows\;Temp\7z;Temp\;Startup;.vb;.vbe;.vbs;.application;.appref-ms;.bat;.cmd;.cmdline;.docm;.exe;.lnk;.eml;.dll;.sys;.hta;.pptm;.ps1;.sys;.reg;.docm;.xlsm;.xlam;.pptm;.potm;.pptm;.sldm;.scf;.appref-ms;.rdp;.vbs;.js;.pem;.crt;.ca-bundle;.cer;.csr;.der;.p7b;.p7r;.p7s;.pfx;.sto;.p12;.crl;.sst;.key;:bin;.mht;.manifest;.cpl;.scr;.inf</TargetFilename>
 			</Rule>
@@ -6183,7 +6207,7 @@
 			<Rule name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=Block LOLbins that drop files" groupRelation="and">
 				<Image condition="contains any">AcroRd32.exe;notepad.exe;mshta.exe;hh.exe;certutil.exe;certoc.exe;certreq.exe;desktopimgdownldr.exe;esentutl.exe;finger.exe;presentationhost.exe;cscript.exe;wscript.exe;mspaint.exe;RdrCEF.exe</Image>
 			</Rule>
-			<Rule name="Attack=T1311,Technique=User Execution: Malicious File,Tactic=Execution,Level=4,Alert=Malicious File Detection,Author=Florian Roth" groupRelation="or">
+			<Rule name="Attack=T1311,Technique=User Execution: Malicious File,Tactic=Execution,Level=4,Alert=Malicious File Detection,Author=Florian Roth/ionstorm" groupRelation="or">
 				<Hashes condition="contains">IMPHASH=BCCA3C247B619DCD13C8CDFF5F123932</Hashes> <!-- PetitPotam -->
 				<Hashes condition="contains">IMPHASH=3A19059BD7688CB88E70005F18EFC439</Hashes> <!-- PetitPotam -->
 				<Hashes condition="contains">IMPHASH=bf6223a49e45d99094406777eb6004ba</Hashes> <!-- PetitPotam -->
@@ -6270,6 +6294,15 @@
 				<Hashes condition="contains">IMPHASH=84B763C45C0E4A3E7CA5548C710DB4EE</Hashes> <!-- SysmonEnte -->
 				<Hashes condition="contains">IMPHASH=19584675D94829987952432E018D5056</Hashes> <!-- SysmonQuiet -->
 				<Hashes condition="contains">IMPHASH=330768A4F172E10ACB6287B87289D83B</Hashes> <!-- ShaprEvtMute Hook -->
+				<Hashes condition="contains">SHA256=074eb0e75bb2d8f59f1fd571a8c5b76f9c899834893da6f7591b68531f2b5d82</Hashes><!--Exchange Zero Day Dropped DLL-->
+				<Hashes condition="contains">SHA256=45c8233236a69a081ee390d4faa253177180b2bd45d8ed08369e07429ffbe0a9</Hashes><!--Exchange Zero Day Dropped DLL-->
+				<Hashes condition="contains">SHA256=9ceca98c2b24ee30d64184d9d2470f6f2509ed914dafb87604123057a14c57c0</Hashes><!--Exchange Zero Day Dropped DLL-->
+				<Hashes condition="contains">SHA256=29b75f0db3006440651c6342dc3c0672210cfb339141c75e12f6c84d990931c3</Hashes><!--Exchange Zero Day Dropped DLL-->
+				<Hashes condition="contains">SHA256=c8c907a67955bcdf07dd11d35f2a23498fb5ffe5c6b5d7f36870cf07da47bff2</Hashes><!--Exchange Zero Day Dropped DLL-->
+				<Hashes condition="contains">SHA256=76a2f2644cb372f540e179ca2baa110b71de3370bb560aca65dcddbd7da3701e</Hashes><!--Exchange Zero Day Dropped DLL-->
+			</Rule>
+			<Rule name="Attack=T1311,Technique=User Execution: Malicious File,Tactic=Execution,Level=4,Alert=Exchange 0day Malicious File Detection,Author=ionstorm" groupRelation="and">
+				<TargetFilename condition="contains any">\DrSDKCaller.exe;C:\Users\Public\all.exe;C:\Users\Public\dump.dll;C:\Users\Public\ad.exe;C:\PerfLogs\gpg-error.exe;C:\PerfLogs\cm.exe;C:\Program Files\Common Files\system\ado\msado32.tlb</TargetFilename>
 			</Rule>
 			<Rule name="Attack=T1562.002,Technique=Impair Defenses: Disable Windows Event Logging,Tactic=Defense Evasion,Level=4,Alert=Tools that tamper with Sysmon,Author=Florian Roth" groupRelation="and">
 				<TargetFilename condition="contains any">\EntenLoader.exe;\SysmonQuiet.exe;\SharpEvtMute.exe;\EvtMuteHook.dll</TargetFilename>
