@@ -383,8 +383,8 @@
 				<!--<Image condition="contains any">arp.exe;at.exe;cscript.exe;wscript.exe;cmd.exe;powershell.exe;bash.exe;scrcons.exe;schtasks.exe;hh.exe;regsvr32.exe;sh.exe;ping.exe;whoami.exe;net.exe;net1.exe;systeminfo.exe;bitsadmin.exe;dsget.exe;dsquery.exe;find.exe;findstr.exe;fsutil.exe;hostname.exe;ipconfig.exe;nbtstat.exe;net.exe;net1.exe;netdom.exe;netsh.exe;netstat.exe;nltest.exe;nslookup.exe;ntdutil.exe;pathping.exe;qprocess.exe;query.exe;qwinsta.exe;reg.exe;rundll32.exe;sc.exe;schtasks.exe;systeminfo.exe;tasklist.exe;tracert.exe;ver.exe;vssadmin.exe;wevtutil.exe;whoami.exe;wmic.exe;wusa.exe;certutil.exe</Image>-->
 			</Rule>
 			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,Level=4,Alert=Suspicious IIS Module Registration,Risk=100,Author=Florian Roth/@ionstorm" groupRelation="and">
-				<ParentImage condition="contains any">\w3wp.exe</ParentImage>
-				<Image condition="contains">\appcmd.exe</Image>
+				<ParentImage condition="image">w3wp.exe</ParentImage>
+				<Image condition="image">appcmd.exe</Image>
 				<CommandLine condition="contains any">appcmd.exe add module;system.enterpriseservices.internal.publish;\gacutil.exe /I;gacutil.exe -I</CommandLine>
 			</Rule>
 			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,Level=4,Alert=Web Server Spawned cmd shell,Risk=100" groupRelation="and">
