@@ -398,33 +398,33 @@
 			</Rule>
 			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,Level=3,Alert=Office MSHTML Exploit,Risk=100,CVE=CVE-2021-40444" groupRelation="and">
 				<ParentImage condition="contains any">winword.exe;powerpnt.exe;excel.exe</ParentImage>
-				<Image condition="is">control.exe</Image>
+				<Image condition="image">control.exe</Image>
 				<CommandLine condition="excludes any">input.dll</CommandLine>
 			</Rule>
 			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,Level=4,Alert=Follina msdt Exploit,Risk=100,CVE=CVE-2022-30190" groupRelation="and">
-				<Image condition="is">msdt.exe</Image>
+				<Image condition="image">msdt.exe</Image>
 				<OriginalFileName condition="is">msdt.exe</OriginalFileName>
 				<CommandLine condition="contains all">BrowseForFile=;PCWDiagnostic</CommandLine>
 				<CommandLine condition="contains any">/af;-af</CommandLine>
 			</Rule>
 			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,Level=4,Alert=msdt via answer file,Risk=100,CVE=CVE-2022-30190" groupRelation="and">
-				<Image condition="is">msdt.exe</Image>
+				<Image condition="image">msdt.exe</Image>
 				<ParentImage condition="is not">pcwrun.exe</ParentImage>
 				<CommandLine condition="contains">PCWDiagnostic</CommandLine>
 			</Rule>
 			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,Level=4,Alert=msdt via diagcab file,Risk=100,CVE=CVE-2022-30190" groupRelation="and">
-				<Image condition="is">msdt.exe</Image>
+				<Image condition="image">msdt.exe</Image>
 				<CommandLine condition="contains any">/cab;-cab</CommandLine>
 				<CommandLine condition="contains">.diagcab</CommandLine>
 			</Rule>
 			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,Level=4,Alert=MSDT Executed with Suspicious Parent,Risk=100,CVE=CVE-2022-30190" groupRelation="and">
 				<ParentImage condition="contains any">powershell.exe;pwsh.exe;cmd.exe;mshta.exe;cscript.exe;wscript.exe;wsl.exe;rundll32.exe;regsvr32.exe</ParentImage>
-				<Image condition="is">msdt.exe</Image>
+				<Image condition="image">msdt.exe</Image>
 			</Rule>
 			<ParentImage condition="image" name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,Level=3,Alert=Exploit - Equation Editor starts application,CVE=CVE-2017-11882">EQNEDT32.EXE</ParentImage> <!-- https://app.any.run/tasks/dfea0112-6fbe-4091-9161-1e8f25f611b0/-->
 			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,Level=3,Alert=EPS Processing 0day,Risk=100,CVE=CVE-2017-0261" groupRelation="and">
 				<ParentImage condition="contains any">winword.exe;excel.exe;powerpnt.exe</ParentImage>
-				<Image condition="is">FLTLDR.EXE</Image>
+				<Image condition="image">FLTLDR.EXE</Image>
 			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: Inter-Process Communication-->
 			<CommandLine name="Attack=T1559.002,Technique=Dynamic Data Exchange,Tactic=Execution" condition="contains any">/dde;-dde</CommandLine>
@@ -666,7 +666,7 @@
 			<CommandLine name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Powerup Command Line events" condition="contains">PowerUp</CommandLine>
 			<OriginalFileName name="Attack=T1548.002,Technique=Bypass User Account Control,Tactic=Defense Evasion" condition="is">computerdefaults.exe</OriginalFileName>
 			<OriginalFileName name="Attack=T1548.002,Technique=Bypass User Account Control,Tactic=Defense Evasion" condition="is">dism.exe</OriginalFileName>
-			<ParentImage name="Attack=T1548.002,Technique=Bypass User Account Control,Tactic=Defense Evasion" condition="is">fodhelper.exe</ParentImage>
+			<ParentImage name="Attack=T1548.002,Technique=Bypass User Account Control,Tactic=Defense Evasion" condition="image">fodhelper.exe</ParentImage>
 			<!--MITRE ATT&CK TECHNIQUE: Access Token Manipulation-->
 			<Rule name="Attack=T1088,Technique=Access Token Manipulation,Tactic=Privilege Escalation,Risk=90,Level=3,Alert=Priv Escalation to System" groupRelation="and">
 				<ParentUser condition="contains any">NT AUTHORITY\NETWORK SERVICE;NT AUTHORITY\LOCAL SERVICE;SERVICE LOCAL;ERVICE RÉSEAU;NETZWERKDIENST;LOKALER DIENST;NETZWERKDIENST;SERVICIO DE RED;ERVICIO LOC</ParentUser>
@@ -958,7 +958,7 @@
 				<ParentImage condition="excludes">msiexec.exe</ParentImage>
 			</Rule>
 			<Rule name="Attack=T1027.004,Technique=Compile After Delivery,Tactic=Defense Evasion,Level=3,Alert=CSC Compilation,Risk=80" groupRelation="and">
-				<ParentImage condition="is">csc.exe</ParentImage>
+				<ParentImage condition="image">csc.exe</ParentImage>
 				<CommandLine condition="contains any">out:;target:library</CommandLine>
 			</Rule>
 			<Image name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=Workflow Compiler https://posts.specterops.io/arbitrary-unsigned-code-execution-vector-in-microsoft-workflow-compiler-exe-3d9294bc5efb" condition="contains">Microsoft.Workflow.Compiler.exe</Image>
@@ -1145,9 +1145,9 @@
 			<ParentCommandLine name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="contains">csi.exe</ParentCommandLine>
 			<ParentCommandLine name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="contains">devtoolslauncher.exe LaunchForDeploy</ParentCommandLine>
 			<ParentCommandLine name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="is">bginfo</ParentCommandLine>
-			<ParentImage name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="is">devtoolslauncher.exe</ParentImage>
-			<ParentImage name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="is">wab.exe</ParentImage>
-			<ParentImage name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="is">wsreset.exe</ParentImage>
+			<ParentImage name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="image">devtoolslauncher.exe</ParentImage>
+			<ParentImage name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="image">wab.exe</ParentImage>
+			<ParentImage name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="image">wsreset.exe</ParentImage>
 			<!--MITRE ATT&CK TECHNIQUE: System Binary Proxy Execution: CMSTP-->
 			<CommandLine name="Attack=T1218.003,Technique=System Binary Proxy Execution,Tactic=Defense Evasion" condition="contains any">cmstp.exe /ni /s;cmstp.exe -ni -s</CommandLine>
 			<CommandLine name="Attack=T1218.003,Technique=System Binary Proxy Execution,Tactic=Defense Evasion,Level=0,Desc=cmstp" condition="contains any">cmstp /ni /s;cmstp -ni -s</CommandLine>
@@ -1776,7 +1776,7 @@
 			<!--MITRE ATT&CK TECHNIQUE: Automated Collection-->
 			<!--MITRE ATT&CK TECHNIQUE: Browser Session Hijacking-->
 			<!--MITRE ATT&CK TECHNIQUE: Clipboard Data-->
-			<Image name="Attack=T1115,Technique=Clipboard Data,Tactic=Collection,Level=3,Alert=Data injected into clipboard,Risk=30" condition="is">clip.exe</Image>
+			<Image name="Attack=T1115,Technique=Clipboard Data,Tactic=Collection,Level=3,Alert=Data injected into clipboard,Risk=30" condition="image">clip.exe</Image>
 			<CommandLine name="Attack=T1115,Technique=Clipboard Data,Tactic=Collection,Level=3,Alert=Data pulled from clipboard,Risk=40" condition="contains">get-clipboard</CommandLine>
 			<!--MITRE ATT&CK TECHNIQUE: Data from Cloud Storage Object-->
 			<!--MITRE ATT&CK TECHNIQUE: Data from Configuration Repository-->
@@ -2986,7 +2986,7 @@
 	<RuleGroup name="RG=Image Load Includes" groupRelation="or">
 		<ImageLoad onmatch="include">
 			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,Level=4,Alert=MSDT Loading diagnostic library: Dogwalk/follina,Risk=100,CVE=CVE-2022-30190" groupRelation="and">
-				<Image condition="is">msdt.exe</Image>
+				<Image condition="image">msdt.exe</Image>
 				<ImageLoaded condition="contains">sdiageng.dll</ImageLoaded>
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=VBE7 Macro Image Loads with wshom,Risk=70" groupRelation="and">
@@ -4033,16 +4033,16 @@
 			<!--MITRE ATT&CK TECHNIQUE: Encrypted Channel-->
 			<!--MITRE ATT&CK TECHNIQUE: Fallback Channels-->
 			<!--MITRE ATT&CK TECHNIQUE: Ingress Tool Transfer-->
-			<Image name="Attack=T1105,Technique=Ingress Tool Transfer,Tactic=Command and Control,Level=0,Desc=File Created by Teamviewer" condition="is">Teamviewer.exe</Image>
-			<Image name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=File Created by rundll32" condition="is">rundll32.exe</Image>
-			<Image name="Attack=T1105,Technique=Ingress Tool Transfer,Tactic=Command and Control,Level=0,Desc=File Created with Remote Desktop Client" condition="is">mstsc.exe</Image>
-			<Image name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=File Created with command shell,Risk=30" condition="is">cmd.exe</Image>
-			<Image name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=File Dropped with IronPython.exe,Risk=50" condition="is">ipy.exe</Image>
-			<Image name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=File Dropped with WScript.exe,Risk=30" condition="is">WScript.exe</Image>
-			<Image name="Attack=T1105,Technique=Ingress Tool Transfer,Tactic=Command and Control,Level=0,Desc=File Dropped with cscript.exe,Risk=30" condition="is">cscript.exe</Image>
-			<Image name="Attack=T1105,Technique=Ingress Tool Transfer,Tactic=Command and Control,Level=0,Desc=File Dropped with mshta.exe,Risk=100" condition="is">mshta.exe</Image>
-			<Image name="Attack=T1105,Technique=Ingress Tool Transfer,Tactic=Command and Control,Level=0,Desc=File Dropped with python.exe,Risk=30" condition="is">python.exe</Image>
-			<Image name="Attack=T1105,Technique=Ingress Tool Transfer,Tactic=Command and Control,Level=0,Desc=File Dropped with wmic.exe,Risk=30" condition="is">wmic.exe</Image>
+			<Image name="Attack=T1105,Technique=Ingress Tool Transfer,Tactic=Command and Control,Level=0,Desc=File Created by Teamviewer" condition="image">Teamviewer.exe</Image>
+			<Image name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=File Created by rundll32" condition="image">rundll32.exe</Image>
+			<Image name="Attack=T1105,Technique=Ingress Tool Transfer,Tactic=Command and Control,Level=0,Desc=File Created with Remote Desktop Client" condition="image">mstsc.exe</Image>
+			<Image name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=File Created with command shell,Risk=30" condition="image">cmd.exe</Image>
+			<Image name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=File Dropped with IronPython.exe,Risk=50" condition="image">ipy.exe</Image>
+			<Image name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=File Dropped with WScript.exe,Risk=30" condition="image">WScript.exe</Image>
+			<Image name="Attack=T1105,Technique=Ingress Tool Transfer,Tactic=Command and Control,Level=0,Desc=File Dropped with cscript.exe,Risk=30" condition="image">cscript.exe</Image>
+			<Image name="Attack=T1105,Technique=Ingress Tool Transfer,Tactic=Command and Control,Level=0,Desc=File Dropped with mshta.exe,Risk=100" condition="image">mshta.exe</Image>
+			<Image name="Attack=T1105,Technique=Ingress Tool Transfer,Tactic=Command and Control,Level=0,Desc=File Dropped with python.exe,Risk=30" condition="image">python.exe</Image>
+			<Image name="Attack=T1105,Technique=Ingress Tool Transfer,Tactic=Command and Control,Level=0,Desc=File Dropped with wmic.exe,Risk=30" condition="image">wmic.exe</Image>
 			<!--MITRE ATT&CK TECHNIQUE: Multi-Stage Channels-->
 			<!--MITRE ATT&CK TECHNIQUE: Non-Application Layer Protocol-->
 			<!--MITRE ATT&CK TECHNIQUE: Non-Standard Port-->
@@ -6221,7 +6221,7 @@
 				<Image condition="contains any">psexec</Image>
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=Block wmiprvse.exe from Dropping binaries" groupRelation="or">
-				<Image condition="is">wmiprvse.exe</Image>
+				<Image condition="image">wmiprvse.exe</Image>
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=Block executables from writing to Users\Public" groupRelation="and">
 				<TargetFilename condition="begin with">C:\Users\Public\</TargetFilename>
