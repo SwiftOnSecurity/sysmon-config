@@ -1072,7 +1072,10 @@
 				<ParentImage condition="image">conhost.exe</ParentImage>
 				<Image condition="excludes any">\mscorsvw.exe;\wermgr.exe;\WerFault.exe;\WerFaultSecure.exe</Image>
 			</Rule>
-			<CommandLine name="Attack=T1055,Technique=Powershell Injection Persistence Bypass - Execution - Lateral Movement - Tactic=Defense Evasion,Level=4,Alert=Powershell Injection persistence bypass,Risk=50" condition="contains">System.Management.Automation</CommandLine>
+			<Rule name="Attack=T1055,Technique=Powershell Injection Persistence Bypass - Execution - Lateral Movement - Tactic=Defense Evasion,Level=4,Alert=Powershell Injection persistence bypass,Risk=50" groupRelation="and">
+				<CommandLine condition="contains">System.Management.Automation</CommandLine>
+				<CommandLine condition="excludes all">"C:\Windows\Microsoft.NET\Framework\;\ngen.exe;install</CommandLine>
+			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: Reflective Code Loading-->
 			<!--MITRE ATT&CK TECHNIQUE: Rogue Domain Controller-->
 			<!--MITRE ATT&CK TECHNIQUE: Rootkit-->
