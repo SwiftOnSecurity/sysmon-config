@@ -2889,6 +2889,8 @@
 			<Rule name="Antivirus Exclusions" groupRelation="or">
 				<Image condition="begin with">C:\Program Files (x86)\Kaspersky Lab</Image> 
 				<Image condition="begin with">C:\Program Files\Kaspersky Lab</Image>
+				<Image condition="begin with">C:\Program Files (x86)\ESET</Image>
+				<Image condition="begin with">C:\Program Files\ESET</Image>
 			</Rule>
 		</NetworkConnect>
 	</RuleGroup>
@@ -3568,6 +3570,8 @@
 			<Rule name="Antivirus Exclusions" groupRelation="or"> 
 				<SourceImage condition="begin with">C:\Program Files (x86)\Kaspersky Lab</SourceImage> 
 				<SourceImage condition="begin with">C:\Program Files\Kaspersky Lab</SourceImage>
+				<SourceImage condition="begin with">C:\Program Files (x86)\ESET</SourceImage>
+				<SourceImage condition="begin with">C:\Program Files\ESET</SourceImage>
 			</Rule>
 		</ProcessAccess>
 	</RuleGroup>
@@ -5583,6 +5587,8 @@
 			<Rule name="Antivirus" groupRelation="or">
 				<Image condition="begin with">C:\Program Files (x86)\Kaspersky Lab</Image> 
 				<Image condition="begin with">C:\Program Files\Kaspersky Lab</Image>
+				<Image condition="begin with">C:\Program Files (x86)\ESET</Image>
+				<Image condition="begin with">C:\Program Files\ESET</Image>
 			</Rule>
 		</RegistryEvent>
 	</RuleGroup>
