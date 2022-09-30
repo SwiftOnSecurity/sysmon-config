@@ -373,8 +373,19 @@
 				<Image condition="contains any">tracert.exe;csc.exe;cscript.exe;wscript.exe;cmd.exe;powershell.exe;bash.exe;scrcons.exe;schtasks.exe;hh.exe;regsvr32.exe;regsvcs.exe;sh.exe;wmic.exe;mshta.exe;rundll32.exe;msiexec.exe;forfiles.exe;scriptrunner.exe;mftrace.exe;AppVLP.exe;svchost.exe;MicroScMgmt.exe;FLTLDR.exe;wmic.exe;Microsoft.Workflow.Compiler.exe;atbroker.exe;bginfo.exe;certutil.exe;csi.exe;dnx.exe;cdb.exe;bitsadmin.exe;forfiles.exe;fsi.exe;ftp.exe;hostname.exe;gpresult.exe;ipconfig.exe;nbtstat.exe;ping.exe;pwsh.exe;qprocess.exe;quser.exe;qwinsta.exe;reg.exe;svchost.exe;installutil.exe;pwsh.exe;msxsl.exe;ieexec.exe;msdt.exe;verclsid.exe</Image>
 			</Rule>
 			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,Level=4,Alert=Web Server Exploitation Detected,Risk=100" groupRelation="and">
-				<ParentImage condition="contains any">apache;w3wp.exe;php-cgi.exe;nginx.exe;httpd.exe;tomcat;php.exe</ParentImage>
+				<ParentImage condition="contains any">apache;php-cgi.exe;nginx.exe;httpd.exe;tomcat;php.exe</ParentImage>
 				<Image condition="contains any">arp.exe;at.exe;cscript.exe;wscript.exe;cmd.exe;powershell.exe;bash.exe;scrcons.exe;schtasks.exe;hh.exe;regsvr32.exe;sh.exe;ping.exe;whoami.exe;net.exe;net1.exe;systeminfo.exe;bitsadmin.exe;dsget.exe;dsquery.exe;find.exe;findstr.exe;fsutil.exe;hostname.exe;ipconfig.exe;nbtstat.exe;net.exe;net1.exe;netdom.exe;netsh.exe;netstat.exe;nltest.exe;nslookup.exe;ntdutil.exe;pathping.exe;qprocess.exe;query.exe;qwinsta.exe;reg.exe;rundll32.exe;sc.exe;schtasks.exe;systeminfo.exe;tasklist.exe;tracert.exe;ver.exe;vssadmin.exe;wevtutil.exe;whoami.exe;wmic.exe;wusa.exe;certutil.exe</Image>
+			</Rule>
+			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,Level=4,Alert=IIS Web Server Exploitation Detected,Risk=100" groupRelation="and">
+				<ParentImage condition="image">w3wp.exe</ParentImage>
+				<Image condition="excludes any">\csc.exe;\TranscodingService.exe;\werfault.exe;\appcmd.exe</Image>
+				<!--Add wider coverage than specific lolbins, add exclusions above carefully, could be noisy, if too noisy comment above and uncomment below and add more lolbins-->
+				<!--<Image condition="contains any">arp.exe;at.exe;cscript.exe;wscript.exe;cmd.exe;powershell.exe;bash.exe;scrcons.exe;schtasks.exe;hh.exe;regsvr32.exe;sh.exe;ping.exe;whoami.exe;net.exe;net1.exe;systeminfo.exe;bitsadmin.exe;dsget.exe;dsquery.exe;find.exe;findstr.exe;fsutil.exe;hostname.exe;ipconfig.exe;nbtstat.exe;net.exe;net1.exe;netdom.exe;netsh.exe;netstat.exe;nltest.exe;nslookup.exe;ntdutil.exe;pathping.exe;qprocess.exe;query.exe;qwinsta.exe;reg.exe;rundll32.exe;sc.exe;schtasks.exe;systeminfo.exe;tasklist.exe;tracert.exe;ver.exe;vssadmin.exe;wevtutil.exe;whoami.exe;wmic.exe;wusa.exe;certutil.exe</Image>-->
+			</Rule>
+			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,Level=4,Alert=Suspicious IIS Module Registration,Risk=100,Author=Florian Roth/@ionstorm" groupRelation="and">
+				<ParentImage condition="contains any">\w3wp.exe</ParentImage>
+				<Image condition="contains">\appcmd.exe</Image>
+				<CommandLine condition="contains any">appcmd.exe add module;system.enterpriseservices.internal.publish;\gacutil.exe /I;gacutil.exe -I</CommandLine>
 			</Rule>
 			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,Level=4,Alert=Web Server Spawned cmd shell,Risk=100" groupRelation="and">
 				<Image condition="image">cmd.exe</Image>				
