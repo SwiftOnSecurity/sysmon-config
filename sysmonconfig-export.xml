@@ -3135,7 +3135,7 @@
 			<Rule name="Attack=T1195,Technique=Supply Chain Compromise,Tactic=Initial Access,Level=4,Alert=Solarwinds/FireEye sunburst image hashes,Risk=100" groupRelation="and">
 				<Hashes condition="contains any">56ceb6d0011d87b6e4d7023d7ef85676;4f2eb62fa529c0283b28d05ddd311fae;b91ce2fa41029f6955bff20079468448;b91ce2fa41029f6955bff20079468448;846e27a652a5e1bfbd0ddd38a16dc865;2c4a910a1299cdae2a4e55988a2f102e</Hashes><!-- exclude non executable files -->
 			</Rule>
-			<Rule name="Attack=T1195,Technique=Supply Chain Compromise,Tactic=Initial Access,Level=4,Alert=October 2022 Exchange 0day DLL detection,Risk=100" groupRelation="or">
+			<Rule name="Attack=T1195,Technique=Supply Chain Compromise,Tactic=Initial Access,Level=4,Alert=Sept 2022 Exchange 0day DLL detection,Risk=100" groupRelation="or">
 				<Hashes condition="contains">SHA256=074eb0e75bb2d8f59f1fd571a8c5b76f9c899834893da6f7591b68531f2b5d82</Hashes><!--Exchange Zero Day Dropped DLL-->
 				<Hashes condition="contains">SHA256=45c8233236a69a081ee390d4faa253177180b2bd45d8ed08369e07429ffbe0a9</Hashes><!--Exchange Zero Day Dropped DLL-->
 				<Hashes condition="contains">SHA256=9ceca98c2b24ee30d64184d9d2470f6f2509ed914dafb87604123057a14c57c0</Hashes><!--Exchange Zero Day Dropped DLL-->
@@ -5556,7 +5556,7 @@
 			<Rule name="Attack=T1195,Technique=Supply Chain Compromise,Tactic=Initial Access,Level=4,Alert=FireEye sunburst file hashes,Risk=100" groupRelation="and">
 				<Hash condition="contains any">56ceb6d0011d87b6e4d7023d7ef85676;4f2eb62fa529c0283b28d05ddd311fae;b91ce2fa41029f6955bff20079468448;b91ce2fa41029f6955bff20079468448;846e27a652a5e1bfbd0ddd38a16dc865;2c4a910a1299cdae2a4e55988a2f102e</Hash><!-- exclude non executable files -->
 			</Rule>
-			<Rule name="Attack=T1195,Technique=Supply Chain Compromise,Tactic=Initial Access,Level=4,Alert=October 2022 Exchange 0day DLL detection,Risk=100" groupRelation="or">
+			<Rule name="Attack=T1195,Technique=Supply Chain Compromise,Tactic=Initial Access,Level=4,Alert=Sept 2022 Exchange 0day DLL detection,Risk=100" groupRelation="or">
 				<Hash condition="contains">SHA256=074eb0e75bb2d8f59f1fd571a8c5b76f9c899834893da6f7591b68531f2b5d82</Hash><!--Exchange Zero Day Dropped DLL-->
 				<Hash condition="contains">SHA256=45c8233236a69a081ee390d4faa253177180b2bd45d8ed08369e07429ffbe0a9</Hash><!--Exchange Zero Day Dropped DLL-->
 				<Hash condition="contains">SHA256=9ceca98c2b24ee30d64184d9d2470f6f2509ed914dafb87604123057a14c57c0</Hash><!--Exchange Zero Day Dropped DLL-->
