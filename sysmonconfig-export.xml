@@ -1296,7 +1296,7 @@
 			</Rule>
 			<Rule name="Attack=T1127.001,Technique=Trusted Developer Utilities,Tactic=Defense Evasion,Level=4,Alert=MSBuild Calling RegAsm" groupRelation="and">
 				<ParentImage condition="image">msbuild.exe</ParentImage>
-				<Image condition="contains">regasm</Image>
+				<Image condition="image">regasm.exe</Image>
 			</Rule>
 			<Rule name="Attack=T1127.001,Technique=Trusted Developer Utilities,Tactic=Defense Evasion,Level=4,Alert=MSBuild Calling useinit" groupRelation="and">
 				<ParentImage condition="image">msbuild.exe</ParentImage>
@@ -1407,7 +1407,7 @@
 			<CommandLine name="Attack=T1214,Technique=Credentials in Registry,Tactic=Credential Access,Level=4,Alert=Credentials in Registry" condition="contains any">HKCU /f password;HKCU -f password</CommandLine>
 			<CommandLine name="Attack=T1214,Technique=Credentials in Registry,Tactic=Credential Access,Level=4,Alert=Credentials in Registry" condition="contains any">HKLM /f password;HKLM -f password</CommandLine>
 			<Image name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping Command nltest,Risk=60" condition="image">nltest.exe</Image>
-			<Image name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping Command" condition="contains">ProcDump.exe</Image>
+			<Image name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping Command" condition="image">ProcDump.exe</Image>
 			<OriginalFileName name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping Command" condition="contains">ProcDump</OriginalFileName>
 			<!--MITRE ATT&CK TECHNIQUE: Steal Application Access Token-->
 			<!--MITRE ATT&CK TECHNIQUE: Steal or Forge Kerberos Tickets-->
@@ -2103,8 +2103,8 @@
 			<Rule  name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=SVCHost Processes" groupRelation="and">
 				<Image condition="image">C:\Windows\system32\svchost.exe</Image>
 			</Rule>
-			<Image name="Attack=T1222,Technique=File Permissions Modification,Tactic=Defense Evasion,Level=0,Desc=Permission Modifications with icacls or cacls" condition="contains">cacls</Image>
-			<Image name="Attack=T1222,Technique=File Permissions Modification,Tactic=Defense Evasion,Level=0,Desc=Ownership Permission Modifications with takeown" condition="contains">takeown</Image>
+			<Image name="Attack=T1222,Technique=File Permissions Modification,Tactic=Defense Evasion,Level=0,Desc=Permission Modifications with icacls or cacls" condition="image">cacls.exe</Image>
+			<Image name="Attack=T1222,Technique=File Permissions Modification,Tactic=Defense Evasion,Level=0,Desc=Ownership Permission Modifications with takeown" condition="image">takeown.exe</Image>
 			<CommandLine condition="contains" name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=Suspicious Cmdline: MsAccess MACRO Exec">/x Macro</CommandLine>
 			<Rule  name="Attack=None,Technique=None,Tactic=None,Level=3,Desc=Suspicious pipe via commandline" groupRelation="and">
 				<CommandLine condition="contains">\pipe\</CommandLine>
@@ -2399,7 +2399,7 @@
 			<!--MITRE ATT&CK TECHNIQUE: System Information Discovery-->
 			<!--MITRE ATT&CK TECHNIQUE: System Location Discovery-->
 			<!--MITRE ATT&CK TECHNIQUE: System Network Configuration Discovery-->
-			<Image name="Attack=T1016,Technique=System Network Configuration Discovery,Tactic=Discovery,Level=4,Alert=NBTSTAT Query,Risk=30" condition="contains">nbtstat</Image>
+			<Image name="Attack=T1016,Technique=System Network Configuration Discovery,Tactic=Discovery,Level=4,Alert=NBTSTAT Query,Risk=30" condition="image">nbtstat.exe</Image>
 			<!--MITRE ATT&CK TECHNIQUE: System Network Connections Discovery-->
 			<Image name="Attack=T1021,Technique=System Network Configuration Discovery,Tactic=Discovery,Level=0,Desc=net.exe nework connection,Risk=30" condition="image">net.exe</Image>
 			<Image name="Attack=T1021,Technique=System Network Configuration Discovery,Tactic=Discovery,Level=0,Desc=net.exe nework connection,Risk=30" condition="image">net1.exe</Image>
@@ -2687,7 +2687,7 @@
 				<Image condition="contains">unknown process</Image>
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=Windows Explorer Network Connection" groupRelation="and">
-				<Image condition="contains">explorer.exe</Image>
+				<Image condition="image">explorer.exe</Image>
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=Windows SMTP Server" groupRelation="and">
 				<Image condition="image">inetinfo.exe</Image>
@@ -3570,7 +3570,7 @@
 			</Rule>
 			<!-- These binaries appear to access lsass legitimately -->
 			<Rule name="legitimate lsass access" groupRelation="and">
-				<TargetImage condition="contains">lsass.exe</TargetImage>
+				<TargetImage condition="image">lsass.exe</TargetImage>
 				<SourceImage condition="excludes any">C:\Windows\system32\w32tm.exe;C:\Windows\System32\ping.exe;C:\Windows\System32\net.exe;C:\Windows\System32\net1.exe;C:\Windows\SYSTEM32\HOSTNAME.EXE;C:\Programdata\sysmon\sysmon.exe;C:\Programdata\sysmon\sysmon64.exe;C:\Program Files\Windows Defender\MsMpEng.exe;C:\Program Files (x86)\BeAnywhere Support Express\;C:\Program Files (x86)\CheckPoint\;C:\Program Files (x86)\Common Files\Intuit\QuickBooks\;C:\Program Files (x86)\Fortinet\;C:\Program Files (x86)\Trend Micro\;C:\Program Files\Adobe\Adobe Creative Cloud Experience\;C:\Program Files\CheckPoint\;C:\Program Files\Fortinet\;C:\Program Files\Realtek;C:\Program Files\Trend Micro\;C:\ProgramData\Microsoft\Windows Defender\platform\;C:\Program Files (x86)\Lenovo\;snmpd.exe;taskmgr;:\Windows\System32\smss.exe;:\Windows\system32\wininit.exe;\Bin\FMS.exe; <!-- Exchange Process -->\EMET_GUI.exe;\EMET_Service.exe;\Google\Update\GoogleUpdate.exe;\RAAGTAPP.EXE;\controls\cef\ConnectWise.exe;C:\Program Files (x86)\Sophos\Sophos Anti-Virus\SavService.exe;C:\Program Files\Hewlett-Packard\AMS\service\hpqams.exe;C:\Program Files\Intel\SUR\WILLAMETTE\ESRV\esrv_svc.exe;C:\Program Files\VMware\VMware Tools\vmtoolsd.exe;C:\Program Files\Windows Defender\MsMpEng.exe;C:\WINDOWS\system32\WerFault.exe;C:\WINDOWS\system32\taskkill.exe;C:\Windows\SysWOW64\WerFault.exe;C:\Windows\System32\snmp.exe;C:\Windows\system32\msiexec.exe;C:\Windows\system32\spoolsv.exe;C:\Windows\system32\svchost.exe</SourceImage>
 			</Rule>
 			<!-- These binaries get or access processes running .NET -->
