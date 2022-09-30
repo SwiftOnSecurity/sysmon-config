@@ -1703,7 +1703,7 @@
 			<Image name="Attack=T1021.006,Technique=Windows Remote Management,Tactic=Lateral Movement,Level=3,Alert=WINRS remote shell execution,Risk=100" condition="image">winrshost.exe</Image>
 			<Image name="Attack=T1021.006,Technique=Windows Remote Management,Tactic=Lateral Movement,Level=2,Alert=Waitfor.exe Execution bypass" condition="image">waitfor.exe</Image>
 			<Image name="Attack=T1021.006,Technique=Windows Remote Management,Tactic=Lateral Movement,Level=0,Desc=Windows Remote Management execution" condition="image">wsmprovhost.exe</Image>
-			<ParentImage name="Attack=T1021.006,Technique=Windows Remote Management,Tactic=Lateral Movement,Level=3,Alert=WINRS remote shell execution,Risk=100" condition="end with">winrshost.exe</ParentImage>
+			<ParentImage name="Attack=T1021.006,Technique=Windows Remote Management,Tactic=Lateral Movement,Level=3,Alert=WINRS remote shell execution,Risk=100" condition="image">winrshost.exe</ParentImage>
 			<ParentImage name="Attack=T1021.006,Technique=Windows Remote Management,Tactic=Lateral Movement,Level=0,Desc=Windows Remote Management execution" condition="image">wsmprovhost.exe</ParentImage>
 			<Rule name="Attack=T1021.006,Technique=Remote WMIC/Execution,Tactic=Lateral Movement,Level=4,Alert=Potential Malicious Document Execution,Risk=90" groupRelation="and">
 				<ParentImage condition="image">wmiprvse.exe</ParentImage>
@@ -5720,11 +5720,11 @@
 			<Image condition="begin with">C:\Windows\SystemApps\Microsoft.Windows</Image>
 			<Rule name="ngen excludes" groupRelation="and">
 				<Image condition="begin with">C:\Windows\Microsoft.NET\Framework</Image>
-				<Image condition="end with">\ngen.exe</Image>
+				<Image condition="image">ngen.exe</Image>
 			</Rule>
 			<Rule name="ShellExperienceHost excludes" groupRelation="and">
 				<Image condition="begin with">C:\Windows\SystemApps\ShellExperienceHost_</Image>
-				<Image condition="end with">\ShellExperienceHost.exe</Image>
+				<Image condition="image">ShellExperienceHost.exe</Image>
 			</Rule>
 			<Image condition="image">C:\Windows\system32\SearchProtocolHost.exe</Image>
 			<Image condition="image">\System</Image>
@@ -5901,9 +5901,9 @@
 			<Image condition="begin with">C:\Program Files (x86)\Veeam\</Image>
 			<Image condition="begin with">C:\Program Files\CheckPoint\</Image>
 			<Image condition="begin with">C:\Program Files\Trend Micro\</Image>
-			<Image condition="end with">Slack.exe</Image>
-			<Image condition="end with">\controls\cef\ConnectWise.exe</Image>
-			<Image condition="end with">git-remote-https.exe</Image>
+			<Image condition="image">Slack.exe</Image>
+			<Image condition="image">ConnectWise.exe</Image>
+			<Image condition="image">git-remote-https.exe</Image>
 			<Image condition="image">C:\Program Files (x86)\Enpass\Enpass.exe</Image>
 			<Image condition="image">C:\Program Files (x86)\Fiserv\Vision\VisionGUI.NET.exe</Image>
 			<Image condition="image">C:\Program Files (x86)\Fortinet\FortiClient\update_task.exe</Image>
