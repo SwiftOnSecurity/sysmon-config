@@ -298,9 +298,9 @@
 			</Rule>
 			-->
 			<Rule name="Attack=None,Technique=None,Tactic=None,UEBA=Unusual Child Process,Risk=30" groupRelation="and">
-				<Image condition="is any">svchost.exe;taskhostw.exe;userinit.exe;smss.exe;csrss.exe;wininit.exe;winlogon.exe;lsass.exe;logonui.exe;services.exe</Image>
+				<Image condition="contains any">\svchost.exe;\taskhostw.exe;\userinit.exe;\smss.exe;\csrss.exe;\wininit.exe;\winlogon.exe;\lsass.exe;\logonui.exe;\services.exe</Image>
 				<Image condition="contains any">C:\windows\System32\;C:\windows\syswow64\</Image>
-				<ParentImage condition="excludes any">wininit.exe;winlogon.exe;services.exe;dwm.exe;System;smss.exe;svchost.exe</ParentImage>
+				<ParentImage condition="excludes any">\wininit.exe;\winlogon.exe;\services.exe;\dwm.exe;System;\smss.exe;\svchost.exe</ParentImage>
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,UEBA=Unusual Print Spooler Child Process,Risk=30" groupRelation="and">
 				<ParentImage condition="contains any">\spoolsv.exe;\PrintIsolationHost.exe</ParentImage>
