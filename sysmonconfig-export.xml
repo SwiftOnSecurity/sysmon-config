@@ -2876,6 +2876,11 @@
 			<Image condition="image">MSExchangeHMWorker.exe</Image>
 			<Image condition="image">MSExchangeSubmission.exe</Image>
 			<Image name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=UNC Path Network Connections" condition="begin with">\</Image>
+			<!--SECTION: Antivirus Exclusions -->
+			<Rule name="Antivirus Exclusions" groupRelation="or">
+				<Image condition="begin with">C:\Program Files (x86)\Kaspersky Lab</Image> 
+				<Image condition="begin with">C:\Program Files\Kaspersky Lab</Image>
+			</Rule>
 		</NetworkConnect>
 	</RuleGroup>
 	<!--SYSMON EVENT ID 4 : RESERVED FOR SYSMON STATUS MESSAGES-->
@@ -3547,6 +3552,10 @@
 			<CallTrace name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping from Memory indicator,Risk=100" condition="contains">dump</CallTrace>
 			<CallTrace name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping from Memory indicator,Risk=100" condition="contains">mimikatz</CallTrace>
 			<CallTrace name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=ProcessAccess with CorperfmontExt.dll,Risk=70" condition="contains">CorperfmontExt.dll</CallTrace>
+			<Rule name="Antivirus Exclusions" groupRelation="or"> 
+				<SourceImage condition="begin with">C:\Program Files (x86)\Kaspersky Lab</SourceImage> 
+				<SourceImage condition="begin with">C:\Program Files\Kaspersky Lab</SourceImage>
+			</Rule>
 		</ProcessAccess>
 	</RuleGroup>
 	<RuleGroup name="RG=ProcessAccess Exclude Group" groupRelation="or">
@@ -5550,6 +5559,10 @@
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=RDP History,Risk=10" condition="contains">Terminal Server Client\Servers</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=WINSCP Sessions,Risk=30" condition="contains">WinSCP 2\Sessions</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=WINSCP Sessions,Risk=30" condition="contains">WinSCP 2\Sessions</TargetObject>
+			<Rule name="Antivirus" groupRelation="or">
+				<Image condition="begin with">C:\Program Files (x86)\Kaspersky Lab</Image> 
+				<Image condition="begin with">C:\Program Files\Kaspersky Lab</Image>
+			</Rule>
 		</RegistryEvent>
 	</RuleGroup>
 	<!--SYSMON EVENT ID 15 : ALTERNATE DATA STREAM CREATED [FileCreateStreamHash]-->
