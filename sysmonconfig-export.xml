@@ -2653,12 +2653,12 @@
 			<DestinationHostname name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=Connection to Github,Risk=30" condition="contains">github</DestinationHostname> 
 			<DestinationHostname name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=Connection to Github,Risk=30" condition="contains">githubusercontent.com</DestinationHostname>
 			<Rule name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=Web Browser HTTP Connections" groupRelation="and">
-				<Image condition="contains any">\iexplore.exe;\chrome.exe;\firefox.exe;\MicrosoftEdge;browser_broker.exe;\vivaldi.exe;\brave.exe</Image>
+				<Image condition="contains any">\iexplore.exe;\chrome.exe;\firefox.exe;\MicrosoftEdge;browser_broker.exe;\vivaldi.exe;\brave.exe;\opera.exe</Image>
 				<DestinationPort condition="is">80</DestinationPort>
 				<Initiated>true</Initiated>
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=Web Browser HTTPS Connections" groupRelation="and">
-				<Image condition="contains any">\iexplore.exe;\chrome.exe;\firefox.exe;\MicrosoftEdge;browser_broker.exe;\vivaldi.exe;\brave.exe</Image>
+				<Image condition="contains any">\iexplore.exe;\chrome.exe;\firefox.exe;\MicrosoftEdge;browser_broker.exe;\vivaldi.exe;\brave.exe;\opera.exe</Image>
 				<DestinationPort condition="is">443</DestinationPort>
 				<Initiated>true</Initiated>
 			</Rule>
@@ -3268,7 +3268,7 @@
 				<SourceImage condition="contains any">msiexec.exe</SourceImage>
 			</Rule>
 			<Rule name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion,Level=0,Desc=Remote Thread Injection Targetting Web Browser,Risk=70" groupRelation="and">
-				<TargetImage condition="contains any">chrome.exe;firefox.exe;edge.exe;browser_broker.exe;iexplore.exe</TargetImage>
+				<TargetImage condition="contains any">chrome.exe;firefox.exe;edge.exe;browser_broker.exe;iexplore.exe;opera.exe</TargetImage>
 			</Rule>
 			<Rule name="Attack=T1003,Tactic=Credential Access,Technique=OS Credential Dumping,Level=0,Desc=LSASS Credential dumping,Risk=70" groupRelation="and">
 				<StartAddress condition="is">0x001A0000</StartAddress>
