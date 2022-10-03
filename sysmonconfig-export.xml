@@ -154,6 +154,24 @@
 				<Image condition="image">gbb.exe</Image>
 			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: Drive-by Compromise-->
+			<Rule name="Attack=T1189,Technique=Drive-by Compromise,Tactic=Initial Access,Level=4,Alert=Browser Exploitation Detected,Risk=100" groupRelation="and">
+				<ParentImage condition="contains any">iexplore.exe;chrome.exe;firefox.exe;browser_broker.exe;vivaldi.exe;microsoftedge.exe;microsoftedgecp.exe;brave.exe;vivaldi.exe</ParentImage>
+				<Image condition="contains any">tracert.exe;csc.exe;cscript.exe;wscript.exe;cmd.exe;powershell.exe;bash.exe;scrcons.exe;schtasks.exe;hh.exe;regsvr32.exe;regsvcs.exe;sh.exe;wmic.exe;mshta.exe;rundll32.exe;msiexec.exe;forfiles.exe;scriptrunner.exe;mftrace.exe;AppVLP.exe;svchost.exe;MicroScMgmt.exe;FLTLDR.exe;wmic.exe;Microsoft.Workflow.Compiler.exe;atbroker.exe;bginfo.exe;certutil.exe;csi.exe;dnx.exe;cdb.exe;bitsadmin.exe;forfiles.exe;fsi.exe;ftp.exe;hostname.exe;gpresult.exe;ipconfig.exe;nbtstat.exe;ping.exe;pwsh.exe;qprocess.exe;quser.exe;qwinsta.exe;reg.exe;svchost.exe;installutil.exe;pwsh.exe;msxsl.exe;ieexec.exe;msdt.exe;verclsid.exe</Image>
+				<ParentCommandLine condition="excludes any">apt-config</ParentCommandLine>
+			</Rule>
+			<Rule name="Attack=T1189,Technique=Drive-by Compromise,Tactic=Initial Access,Level=3,Alert=Exploiting SetupComplete.cmd,CVE=CVE-2019-1378,Risk=70" groupRelation="and">
+				<CommandLine condition="contains any">cmd.exe /c C:\Windows\Setup\Scripts\SetupComplete.cmd;cmd.exe /c C:\Windows\Setup\Scripts\PartnerSetupComplete.cmd</CommandLine>
+				<Image condition="excludes">C:\Windows\Setup</Image>
+				<Image condition="excludes">C:\Windows\SysWOW64</Image>
+				<Image condition="excludes">C:\Windows\System32</Image>
+				<Image condition="excludes">C:\Windows\WinSxS</Image>
+			</Rule>
+			<Rule name="Attack=T1189,Technique=Drive-by Compromise,Tactic=Initial Access,Level=3,Alert=IE Exploitation CVE-2019-1388,Risk=70" groupRelation="and">
+				<ParentImage condition="image">consent.exe</ParentImage>
+				<CommandLine condition="contains">http</CommandLine>
+				<Image condition="image">iexplore.exe</Image>
+				<User condition="contains">SYSTEM</User>
+			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: Exploit Public-Facing Application-->
 			<Rule name="Attack=T1190,Technique=Exploit Public-Facing Application,Tactic=Initial Access,CVE=CVE-2020-1350,Level=4,Alert=DNS Remote Code Execution,Risk=100" groupRelation="and">
 				<ParentCommandLine condition="contains all">svchost.exe;termsvcs</ParentCommandLine>
@@ -330,11 +348,6 @@
 			<!--MITRE ATT&CK TECHNIQUE: Container Administration Command-->
 			<!--MITRE ATT&CK TECHNIQUE: Deploy Container-->
 			<!--MITRE ATT&CK TECHNIQUE: Exploitation for Client Execution-->
-			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,Level=4,Alert=Browser Exploitation Detected,Risk=90" groupRelation="and">
-				<ParentImage condition="contains any">iexplore.exe;chrome.exe;firefox.exe;browser_broker.exe;vivaldi.exe;microsoftedge.exe;microsoftedgecp.exe;brave.exe;vivaldi.exe</ParentImage>
-				<Image condition="contains any">tracert.exe;csc.exe;cscript.exe;wscript.exe;cmd.exe;powershell.exe;bash.exe;scrcons.exe;schtasks.exe;hh.exe;regsvr32.exe;regsvcs.exe;sh.exe;wmic.exe;mshta.exe;rundll32.exe;msiexec.exe;forfiles.exe;scriptrunner.exe;mftrace.exe;AppVLP.exe;svchost.exe;MicroScMgmt.exe;FLTLDR.exe;wmic.exe;Microsoft.Workflow.Compiler.exe;atbroker.exe;bginfo.exe;certutil.exe;csi.exe;dnx.exe;cdb.exe;bitsadmin.exe;forfiles.exe;fsi.exe;ftp.exe;hostname.exe;gpresult.exe;ipconfig.exe;nbtstat.exe;ping.exe;pwsh.exe;qprocess.exe;quser.exe;qwinsta.exe;reg.exe;svchost.exe;installutil.exe;pwsh.exe;msxsl.exe;ieexec.exe;msdt.exe;verclsid.exe</Image>
-				<ParentCommandLine condition="excludes any">apt-config</ParentCommandLine>
-			</Rule>
 			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,Level=4,Alert=Office Exploitation Detection,Risk=100" groupRelation="and">
 				<ParentImage condition="contains any">winword.exe;excel.exe;powerpnt.exe;outlook.exe;msaccess.exe;mspub.exe;visio.exe;notepad.exe;wordpad.exe;eqnedt32.exe</ParentImage>
 				<Image condition="contains any">tracert.exe;csc.exe;cscript.exe;wscript.exe;cmd.exe;powershell.exe;bash.exe;scrcons.exe;schtasks.exe;hh.exe;regsvr32.exe;regsvcs.exe;sh.exe;wmic.exe;mshta.exe;rundll32.exe;msiexec.exe;forfiles.exe;scriptrunner.exe;mftrace.exe;AppVLP.exe;svchost.exe;MicroScMgmt.exe;FLTLDR.exe;wmic.exe;Microsoft.Workflow.Compiler.exe;atbroker.exe;bginfo.exe;certutil.exe;csi.exe;dnx.exe;cdb.exe;bitsadmin.exe;forfiles.exe;fsi.exe;ftp.exe;hostname.exe;gpresult.exe;ipconfig.exe;nbtstat.exe;ping.exe;pwsh.exe;qprocess.exe;quser.exe;qwinsta.exe;reg.exe;svchost.exe;installutil.exe;pwsh.exe;msxsl.exe;ieexec.exe;msdt.exe;verclsid.exe</Image>
@@ -430,26 +443,26 @@
 			<CommandLine name="Attack=T1559.002,Technique=Dynamic Data Exchange,Tactic=Execution" condition="contains any">/dde;-dde</CommandLine>
 			<!--MITRE ATT&CK TECHNIQUE: Native API-->
 			<!--MITRE ATT&CK TECHNIQUE: Scheduled Task/Job-->
-			<Rule name="Attack=T1053,Technique=Scheduled Task,Tactic=Execution,Level=2,Alert=Scheduled Task Created,Risk=100" groupRelation="and">
+			<Rule name="Attack=T1053.005,Technique=Scheduled Task/Job: Scheduled Task,Tactic=Execution,Level=2,Alert=Scheduled Task Created,Risk=100" groupRelation="and">
 				<Image condition="image">schtasks.exe</Image>
 				<CommandLine condition="contains any">/create;-create;/change;-change</CommandLine>
 				<CurrentDirectory condition="excludes">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\</CurrentDirectory>
 			</Rule>
-			<OriginalFileName name="Attack=T1053,Technique=Scheduled Task,Tactic=Execution,Level=2,Alert=Scheduled Task Created,Risk=1" condition="is">taskeng.exe</OriginalFileName>
-			<Rule name="Attack=T1053,Technique=Scheduled Task,Tactic=Execution,Level=0,Desc=Schtasks task Run,Risk=60" groupRelation="and">
+			<OriginalFileName name="Attack=T1053.005,Technique=Scheduled Task/Job: Scheduled Task,Tactic=Execution,Level=2,Alert=Scheduled Task Created,Risk=1" condition="is">taskeng.exe</OriginalFileName>
+			<Rule name="Attack=T1053.005,Technique=Scheduled Task,Tactic=Execution,Level=0,Desc=Schtasks task Run,Risk=60" groupRelation="and">
 				<Image condition="image">schtasks.exe</Image>
 				<CommandLine condition="contains any">/Run;-run</CommandLine>
 				<CommandLine condition="excludes">Sentinel\AutoRepair</CommandLine>
 				<CurrentDirectory condition="excludes">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\</CurrentDirectory>
 			</Rule>
-			<Rule name="Attack=T1053,Technique=Scheduled Task,Tactic=Persistence,Level=2,Alert=Child process from schtasks" groupRelation="and">
+			<Rule name="Attack=T1053.005,Technique=Scheduled Task/Job: Scheduled Task,Tactic=Persistence,Level=2,Alert=Child process from schtasks" groupRelation="and">
 				<ParentImage condition="image">schtasks.exe</ParentImage>
 				<ParentCommandLine condition="excludes">schtasks /TN RtkAudUService64_BG</ParentCommandLine>
 				<ParentCommandLine condition="excludes any">-change;/change;-delete;/delete;-create;/create</ParentCommandLine>
 			</Rule>
-			<Image name="Attack=T1053,Technique=Scheduled Task,Tactic=Persistence,Level=2,Alert=at.exe Task scheduler execution" condition="image">at.exe</Image>
-			<ParentImage name="Attack=T1053,Technique=Scheduled Task,Tactic=Execution/Persistence/Privledge Escalation,Level=2,Alert=at.exe Task scheduler execution" condition="image">at.exe</ParentImage>
-			<Rule name="Attack=T1053,Technique=Scheduled Task,Tactic=Execution,Level=0,Desc=Scheduled Task Started,Risk=0" groupRelation="and">
+			<Image name="Attack=T1053.002,Technique=Scheduled Task/Job: At,Tactic=Persistence,Level=2,Alert=at.exe Task scheduler execution" condition="image">at.exe</Image>
+			<ParentImage name="Attack=T1053.002,Technique=Scheduled Task/Job: At,Tactic=Execution/Persistence/Privledge Escalation,Level=2,Alert=at.exe Task scheduler execution" condition="image">at.exe</ParentImage>
+			<Rule name="Attack=T1053.005,Technique=Scheduled Task/Job: Scheduled Task,Tactic=Execution,Level=0,Desc=Scheduled Task Started,Risk=0" groupRelation="and">
 				<ParentImage condition="image">C:\Windows\System32\svchost.exe</ParentImage>
 				<ParentCommandLine condition="contains all">netsvcs;-p;-s;Schedule</ParentCommandLine>
 				<CommandLine condition="excludes all">netsvcs;-p;-s;Schedule</CommandLine>
@@ -509,19 +522,19 @@
 			<ParentImage name="Attack=T1035,Technique=Service Execution,Tactic=Execution/Lateral Movement,Level=4,Alert=PSexec Child Process,Risk=100" condition="image">psexec.exe</ParentImage>
 			<ParentImage name="Attack=T1035,Technique=Service Execution,Tactic=Execution/Lateral Movement,Level=2,Alert=PSKill Execution,Risk=100" condition="image">pskill.exe</ParentImage>
 			<Image name="Attack=T1035,Technique=Service Execution,Tactic=Execution,Level=2,Alert=PsKill Command" condition="contains">pskill</Image>
-			<Rule name="Attack=T1569.002,Technique=System Services,Tactic=Execution,Level=3,Alert=Suspicious Network Service Child Processes,Risk=75" groupRelation="and">
+			<Rule name="Attack=T1569.002,Technique=System Services: Service Execution,Tactic=Execution,Level=3,Alert=Suspicious Network Service Child Processes,Risk=75" groupRelation="and">
 				<ParentCommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k NetworkService -p</ParentCommandLine>
 			</Rule>
-			<Rule name="Attack=T1569.002,Technique=System Services,Tactic=Execution,Level=3,Alert=Suspicious LanmanWorkstation Child Processes,Risk=75" groupRelation="and">
+			<Rule name="Attack=T1569.002,Technique=System Services: Service Execution,Tactic=Execution,Level=3,Alert=Suspicious LanmanWorkstation Child Processes,Risk=75" groupRelation="and">
 				<ParentCommandLine condition="is">C:\WINDOWS\System32\svchost.exe -k NetworkService -p -s LanmanWorkstation</ParentCommandLine>
 			</Rule>
-			<Rule name="Attack=T1569.002,Technique=System Services,Tactic=Execution,Level=3,Alert=Suspicious Network List Service Child Processes,Risk=75" groupRelation="and">
+			<Rule name="Attack=T1569.002,Technique=System Services: Service Execution,Tactic=Execution,Level=3,Alert=Suspicious Network List Service Child Processes,Risk=75" groupRelation="and">
 				<ParentCommandLine condition="is">C:\WINDOWS\System32\svchost.exe -k netprofm -p -s netprofm</ParentCommandLine>
 			</Rule>
-			<Rule name="Attack=T1569.002,Technique=System Services,Tactic=Execution,Level=3,Alert=Remote Procedure Call Service Anomaly,Risk=75" groupRelation="and">
+			<Rule name="Attack=T1569.002,Technique=System Services: Service Execution,Tactic=Execution,Level=3,Alert=Remote Procedure Call Service Anomaly,Risk=75" groupRelation="and">
 				<ParentCommandLine condition="contains all">C:\WINDOWS\system32\svchost.exe;RPCSS</ParentCommandLine>
 			</Rule>
-			<Rule name="Attack=T1569.002,Technique=System Services,Tactic=Execution,Level=3,Alert=Remote Procedure Call Service Crash detected,Risk=75" groupRelation="and">
+			<Rule name="Attack=T1569.002,Technique=System Services: Service Execution,Tactic=Execution,Level=3,Alert=Remote Procedure Call Service Crash detected,Risk=75" groupRelation="and">
 				<ParentCommandLine condition="contains all">C:\WINDOWS\system32\svchost.exe;RPCSS</ParentCommandLine>
 				<Image condition="image">werfault.exe</Image>
 			</Rule>
@@ -654,24 +667,24 @@
 				<CommandLine condition="excludes any">route ; ADD </CommandLine>
 			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: Abuse Elevation Control Mechanism: Bypass User Account Control-->
-			<Rule name="Attack=T1088,Technique=UAC Bypass,Tactic=Defense Evasion/Privilege Escalation,Risk=20" groupRelation="and">
+			<Rule name="Attack=T1548.002,Technique=Abuse Elevation Control Mechanism: Bypass User Account Control,Tactic=Defense Evasion/Privilege Escalation,Risk=20" groupRelation="and">
 				<ParentImage condition="image">eventvwr.exe</ParentImage>
 				<Image condition="is not">c:\windows\system32\mmc.exe</Image>
 			</Rule>
-			<ParentImage name="Attack=T1088,Technique=UAC Bypass,Tactic=Defense Evasion/Privilege Escalation" condition="image">fodhelper.exe</ParentImage>
+			<ParentImage name="Attack=T1548.002,Technique=Abuse Elevation Control Mechanism: Bypass User Account Control,Tactic=Defense Evasion/Privilege Escalation" condition="image">fodhelper.exe</ParentImage>
 			<Image name="Attack=T1118,Technique=InstallUtil,Tactic=Execution,Level=0,Desc=InstallUtil" condition="image">InstallUtil.exe</Image>
-			<CommandLine name="Attack=T1088,Technique=Bypass User Account Control,Tactic=Defense Evasion/Privilege Escalation,Level=4,Alert=UAC Bypass" condition="contains">Invoke-PsUaCme</CommandLine>
-			<CommandLine name="Attack=T1088,Technique=Bypass User Account Control,Tactic=Defense Evasion/Privilege Escalation,Level=4,Alert=UAC Bypass" condition="contains">BypassUAC</CommandLine>
-			<CommandLine name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Powerup Command Line events" condition="contains">PowerUp</CommandLine>
+			<CommandLine name="Attack=T1548.002,Technique=Abuse Elevation Control Mechanism: Bypass User Account Control,Tactic=Defense Evasion/Privilege Escalation,Level=4,Alert=UAC Bypass" condition="contains">Invoke-PsUaCme</CommandLine>
+			<CommandLine name="Attack=T1548.002,Technique=Abuse Elevation Control Mechanism: Bypass User Account Control,Tactic=Defense Evasion/Privilege Escalation,Level=4,Alert=UAC Bypass" condition="contains">BypassUAC</CommandLine>
+			<CommandLine name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=Powerup Command Line events" condition="contains">PowerUp</CommandLine>
 			<OriginalFileName name="Attack=T1548.002,Technique=Bypass User Account Control,Tactic=Defense Evasion" condition="is">computerdefaults.exe</OriginalFileName>
 			<OriginalFileName name="Attack=T1548.002,Technique=Bypass User Account Control,Tactic=Defense Evasion" condition="is">dism.exe</OriginalFileName>
 			<ParentImage name="Attack=T1548.002,Technique=Bypass User Account Control,Tactic=Defense Evasion" condition="image">fodhelper.exe</ParentImage>
 			<!--MITRE ATT&CK TECHNIQUE: Access Token Manipulation-->
-			<Rule name="Attack=T1088,Technique=Access Token Manipulation,Tactic=Privilege Escalation,Risk=90,Level=3,Alert=Priv Escalation to System" groupRelation="and">
+			<Rule name="Attack=T1134.001,Technique=Access Token Manipulation: Token Impersonation/Theft,Tactic=Privilege Escalation,Risk=90,Level=3,Alert=Priv Escalation to System" groupRelation="and">
 				<ParentUser condition="contains any">NT AUTHORITY\NETWORK SERVICE;NT AUTHORITY\LOCAL SERVICE;SERVICE LOCAL;ERVICE RÉSEAU;NETZWERKDIENST;LOKALER DIENST;NETZWERKDIENST;SERVICIO DE RED;ERVICIO LOC</ParentUser>
 				<User condition="contains any">NT AUTHORITY\SYSTEM;СИСТЕМА;NT-AUTORITÄT\SYSTEM;AUTORITE NT\SYSTEM</User>
 			</Rule>
-			<ParentCommandLine name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=Possible Token manipulation" condition="begin with">c:\windows\system32\svchost.exe -k netsvcs -s Appinfo</ParentCommandLine>
+			<ParentCommandLine name="Attack=T1134.001,Technique=Access Token Manipulation: Token Impersonation/Theft,Tactic=Privilege Escalation,Level=1,Desc=Possible Token manipulation" condition="begin with">c:\windows\system32\svchost.exe -k netsvcs -s Appinfo</ParentCommandLine>
 			<Image name="Attack=T1134,Technique=Access Token Manipulation,Tactic=NA,Level=2,Alert=Token Manipulation with runas.exe,Risk=70" condition="image">runas.exe</Image> 
 			<!--MITRE ATT&CK TECHNIQUE: Boot or Logon Autostart Execution-->
 			<!--MITRE ATT&CK TECHNIQUE: Boot or Logon Initialization Scripts-->
@@ -702,19 +715,6 @@
 			<!--MITRE ATT&CK TECHNIQUE: Event Triggered Execution: Application Shimming-->
 			<Image name="Attack=T1138,Technique=Application Shimming,Tactic=Persistence/Privilege Escalation,Level=3,Alert=Application Shimming" condition="image">sdbinst.exe</Image>
 			<!--MITRE ATT&CK TECHNIQUE: Exploitation for Privilege Escalation-->
-			<Rule name="Attack=T1068,Technique=Exploitation for Privilege Escalation,Tactic=Privilege Escalation,Level=3,Alert=Exploiting SetupComplete.cmd,CVE=CVE-2019-1378,Risk=70" groupRelation="and">
-				<CommandLine condition="contains any">cmd.exe /c C:\Windows\Setup\Scripts\SetupComplete.cmd;cmd.exe /c C:\Windows\Setup\Scripts\PartnerSetupComplete.cmd</CommandLine>
-				<Image condition="excludes">C:\Windows\Setup</Image>
-				<Image condition="excludes">C:\Windows\SysWOW64</Image>
-				<Image condition="excludes">C:\Windows\System32</Image>
-				<Image condition="excludes">C:\Windows\WinSxS</Image>
-			</Rule>
-			<Rule name="Attack=T1068,Technique=Exploitation for Privilege Escalation,Tactic=Privilege Escalation,Level=3,Alert=IE Exploitation CVE-2019-1388,Risk=70" groupRelation="and">
-				<ParentImage condition="image">consent.exe</ParentImage>
-				<CommandLine condition="contains">http</CommandLine>
-				<Image condition="image">iexplore.exe</Image>
-				<User condition="contains">SYSTEM</User>
-			</Rule>
 			<Rule name="Attack=T1546.008,Technique=Exploitation for Privilege Escalation,Tactic=Privilege Escalation,Level=0,Desc=Dwm Exploitation" groupRelation="and">
 				<ParentImage condition="image">dwm.exe</ParentImage>
 			</Rule>
@@ -1355,65 +1355,65 @@
 				<CommandLine condition="contains all">netsh;trace;start;capture=yes</CommandLine>
 			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: OS Credential Dumping-->
-			<Rule name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Access with vss shadow copy,Risk=100" groupRelation="and">
+			<Rule name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Access with vss shadow copy,Risk=100" groupRelation="and">
 				<Image condition="image">vssadmin.exe</Image>
 				<CommandLine condition="contains any">create;shadow</CommandLine>
 			</Rule>
-			<Rule name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential access with wmic shadow copy creation,Risk=100" groupRelation="and">
+			<Rule name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential access with wmic shadow copy creation,Risk=100" groupRelation="and">
 				<OriginalFileName condition="contains">wmic.exe</OriginalFileName>
 				<CommandLine condition="contains all">shadowcopy;call;create</CommandLine>
 			</Rule>
-			<Rule name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential access with wmic esentutl,Risk=100" groupRelation="and">
+			<Rule name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential access with wmic esentutl,Risk=100" groupRelation="and">
 				<OriginalFileName condition="contains">wmic.exe</OriginalFileName>
 				<CommandLine condition="contains all">call;create;esentutl;vss</CommandLine>
 			</Rule>
-			<Rule name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Powershell shadow copy creation,Risk=100" groupRelation="and">
+			<Rule name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=Powershell shadow copy creation,Risk=100" groupRelation="and">
 				<CommandLine condition="contains all">win32_shadowcopy;create;clientaccessible</CommandLine>
 			</Rule>
-			<Rule name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Symlink to Shadowcopy,Risk=100" groupRelation="and">
+			<Rule name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=Symlink to Shadowcopy,Risk=100" groupRelation="and">
 				<CommandLine condition="contains all">mklink;GLOBALROOT;Shadow</CommandLine>
 			</Rule>
-			<Rule name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Copy of NTDS.dit from vss shadow copy,Risk=100" groupRelation="or">
+			<Rule name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=Copy of NTDS.dit from vss shadow copy,Risk=100" groupRelation="or">
 				<CommandLine condition="contains all">copy;NTDS\ntds.dit</CommandLine>
 			</Rule>
-			<Rule name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=ntdsutil credential dumping,Risk=100" groupRelation="or">
+			<Rule name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=ntdsutil credential dumping,Risk=100" groupRelation="or">
 				<Image condition="image">ntdsutil.exe</Image>
 			</Rule>
-			<Rule name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Copy of SYSTEM Registry from vss shadow copy,Risk=100" groupRelation="or">
+			<Rule name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=Copy of SYSTEM Registry from vss shadow copy,Risk=100" groupRelation="or">
 				<CommandLine condition="contains all">copy;System32\config\SYSTEM</CommandLine>
 			</Rule>
-			<Rule name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Malicious Reg Save Credential Dumping,Risk=100" groupRelation="or">
+			<Rule name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=Malicious Reg Save Credential Dumping,Risk=100" groupRelation="or">
 				<CommandLine condition="contains all">reg;save;HKLM</CommandLine>
 			</Rule>
-			<Rule name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping Command Mimikatz,Risk=100" groupRelation="and">
+			<Rule name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping Command Mimikatz,Risk=100" groupRelation="and">
 				<CommandLine condition="contains any">mimikatz;mimidrv;mimilove;mimilib;sekurlsa;lsadump;dumpcreds;privilege::;token::;logonpasswords;mimikittenz;mimiauth;::;kerberos::;misc::skeleton;privilege::debug;dpapi::cred;vault::cred;lsadump;misc::;Krbtgt;TOKEN::;invoke-mimi</CommandLine>
 			</Rule>
-			<Rule name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=3,Alert=Possible credential modification or disclosure with cmdkey,Risk=30" groupRelation="and">
+			<Rule name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=3,Alert=Possible credential modification or disclosure with cmdkey,Risk=30" groupRelation="and">
 				<OriginalFileName condition="contains">cmdkey</OriginalFileName>
 			</Rule>
-			<OriginalFileName name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=3,Alert=Credential Dumping Command rpcping,Risk=100" condition="is">rpcping.exe</OriginalFileName>
-			<CommandLine name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping Command nltest,Risk=100" condition="contains">nltest.exe</CommandLine>
-			<Rule name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Suspicious Cred Dumping Commands,Risk=60" groupRelation="and">
+			<OriginalFileName name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=3,Alert=Credential Dumping Command rpcping,Risk=100" condition="is">rpcping.exe</OriginalFileName>
+			<CommandLine name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping Command nltest,Risk=100" condition="contains">nltest.exe</CommandLine>
+			<Rule name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=Suspicious Cred Dumping Commands,Risk=60" groupRelation="and">
 				<CommandLine condition="contains any">-ma lsass.exe;Do-Exfiltration;Powersploit;GPPPassword;gpprefdecrypt;gsecdump;hashdump;laZagne;ntds.dit;ppldump;pwdump;pwdumpx;secretsdump;/listcreds:;-listcreds:</CommandLine>
 			</Rule>
-			<CommandLine name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping Via vaultcli.dll" condition="contains">VaultCloseVault</CommandLine>
-			<CommandLine name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping Via vaultcli.dll" condition="contains">VaultEnumerateItem</CommandLine>
-			<CommandLine name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping Via vaultcli.dll" condition="contains">VaultFree</CommandLine>
-			<CommandLine name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping Via vaultcli.dll" condition="contains">VaultGetItem</CommandLine>
-			<CommandLine name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping Via vaultcli.dll" condition="contains">VaultOpenVault</CommandLine>
-			<CommandLine name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping Via vaultcli.dll" condition="contains">Vaultcmd</CommandLine>
-			<CommandLine name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping Via vaultcli.dll" condition="contains">vaultcli.dll</CommandLine>
-			<CommandLine name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping from firefox" condition="contains">select * from moz_login</CommandLine>
-			<CommandLine name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping" condition="contains">Invoke-WinEnum</CommandLine>
-			<CommandLine name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Dumping Cached Credentials,Risk=100" condition="contains">System.Net.CredentialCache</CommandLine>
-			<CommandLine name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=0,Desc=VSS Shadow file Created" condition="contains">create shadow</CommandLine>
+			<CommandLine name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping Via vaultcli.dll" condition="contains">VaultCloseVault</CommandLine>
+			<CommandLine name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping Via vaultcli.dll" condition="contains">VaultEnumerateItem</CommandLine>
+			<CommandLine name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping Via vaultcli.dll" condition="contains">VaultFree</CommandLine>
+			<CommandLine name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping Via vaultcli.dll" condition="contains">VaultGetItem</CommandLine>
+			<CommandLine name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping Via vaultcli.dll" condition="contains">VaultOpenVault</CommandLine>
+			<CommandLine name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping Via vaultcli.dll" condition="contains">Vaultcmd</CommandLine>
+			<CommandLine name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping Via vaultcli.dll" condition="contains">vaultcli.dll</CommandLine>
+			<CommandLine name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping from firefox" condition="contains">select * from moz_login</CommandLine>
+			<CommandLine name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping" condition="contains">Invoke-WinEnum</CommandLine>
+			<CommandLine name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=Dumping Cached Credentials,Risk=100" condition="contains">System.Net.CredentialCache</CommandLine>
+			<CommandLine name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=0,Desc=VSS Shadow file Created" condition="contains">create shadow</CommandLine>
 			<CommandLine name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Dumping,Level=4,Alert=Credential Theft: netsh wlan password export in cleartext,Risk=100" condition="contains all">wlan;export;profile;key=clear</CommandLine>
 			<CommandLine name="Attack=T1003.006,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping Command DCsync,Risk=100" condition="contains">dcsync</CommandLine>
 			<CommandLine name="Attack=T1214,Technique=Credentials in Registry,Tactic=Credential Access,Level=4,Alert=Credentials in Registry" condition="contains any">HKCU /f password;HKCU -f password</CommandLine>
 			<CommandLine name="Attack=T1214,Technique=Credentials in Registry,Tactic=Credential Access,Level=4,Alert=Credentials in Registry" condition="contains any">HKLM /f password;HKLM -f password</CommandLine>
-			<Image name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping Command nltest,Risk=60" condition="image">nltest.exe</Image>
-			<Image name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping Command" condition="image">ProcDump.exe</Image>
-			<OriginalFileName name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping Command" condition="contains">ProcDump</OriginalFileName>
+			<Image name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping Command nltest,Risk=60" condition="image">nltest.exe</Image>
+			<Image name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping Command" condition="image">ProcDump.exe</Image>
+			<OriginalFileName name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping Command" condition="contains">ProcDump</OriginalFileName>
 			<!--MITRE ATT&CK TECHNIQUE: Steal Application Access Token-->
 			<!--MITRE ATT&CK TECHNIQUE: Steal or Forge Kerberos Tickets-->
 			<CommandLine name="Attack=T1558,Technique=Steal or Forge Kerberos Tickets,Tactic=Credential Access,Level=4,Alert=Steal or Forge Kerberos Tickets,Risk=70" condition="contains any">asktgt;asktgs</CommandLine>
@@ -3120,10 +3120,10 @@
 			<Rule name="Attack=T1090.003,Technique=Proxy: Multi-hop Proxy,Tactic=Defense Evasion,Level=4,Alert=Ransomware detected tor library,Risk=100" groupRelation="and">
 				<ImageLoaded condition="contains">tor-lib.dll</ImageLoaded>
 			</Rule>
-			<Rule name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=0,Desc=Cred Dumping,Risk=90" groupRelation="and">
+			<Rule name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=0,Desc=Cred Dumping,Risk=90" groupRelation="and">
 				<ImageLoaded condition="is any">C:\Windows\System32\WinSCard.dll;C:\Windows\System32\cryptdll.dll;C:\Windows\System32\hid.dll;C:\Windows\System32\samlib.dll;C:\Windows\System32\vaultcli.dll</ImageLoaded>
 			</Rule>
-			<Rule name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=0,Desc=Mimikatz Cred Dumping,Risk=100" groupRelation="and">
+			<Rule name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=0,Desc=Mimikatz Cred Dumping,Risk=100" groupRelation="and">
 				<Image condition="image">rundll32.exe</Image>
 				<ImageLoaded condition="contains all">vaultcli.dll;wlanapi.dll</ImageLoaded>
 				<ImageLoaded condition="excludes">combase.dll</ImageLoaded>
@@ -3188,7 +3188,7 @@
 			</Rule>
 			<ImageLoaded condition="end with">scrobj.dll</ImageLoaded>
 			<ImageLoaded condition="end with">crypt0.dll</ImageLoaded>
-			<Rule name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=0,Desc=Wireless Credential Dumping" groupRelation="and">
+			<Rule name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=0,Desc=Wireless Credential Dumping" groupRelation="and">
 				<ImageLoaded condition="end with">C:\Windows\System32\wlanapi.dll</ImageLoaded>
 				<Image condition="excludes">C:\Program Files\NVIDIA Corporation\NVIDIA GeForce Experience\NVIDIA Share.exe</Image>
 				<Image condition="excludes">C:\Program Files\NVIDIA Corporation\NVIDIA GeForce Experience\NVIDIA Share.exe</Image>
@@ -3273,7 +3273,7 @@
 	<RuleGroup name="RG=CreateRemoteThread Include Group" groupRelation="or">
 		<CreateRemoteThread onmatch="include">
 			<!--Custom Rules-->
-			<Rule name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping from lsass,Risk=100" groupRelation="and">
+			<Rule name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping from lsass,Risk=100" groupRelation="and">
 				<StartAddress condition="is">0x001A0000</StartAddress>
 				<TargetImage condition="image">c:\windows\system32\lsass.exe</TargetImage>
 			</Rule>
@@ -3406,27 +3406,27 @@
 				<CallTrace condition="contains">\Microsoft Shared\VBA</CallTrace>
 				<TargetImage condition="excludes">C:\Program Files (x86)\Intuit\</TargetImage>
 			</Rule>
-			<Rule name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=0,Desc=LSASS Credential Access,Risk=70" groupRelation="and">
+			<Rule name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=0,Desc=LSASS Credential Access,Risk=70" groupRelation="and">
 				<TargetImage condition="image">C:\Windows\system32\lsass.exe</TargetImage>
 				<GrantedAccess>0x1FFFFF</GrantedAccess>
 				<CallTrace condition="contains">UNKNOWN</CallTrace>
 				<CallTrace condition="excludes">WmiPerfClass.dll</CallTrace>
 				<SourceImage condition="excludes any">C:\Windows\sysWOW64\wbem\wmiprvse.exe;C:\Windows\system32\wbem\wmiprvse.exe;C:\Program Files\VMware\VMware Tools\vmtoolsd.exe;C:\Program Files (x86)\VMware\VMware Tools\vmtoolsd.exe;WmiPerfClass.dll;C:\Program Files (x86)\Adobe\Adobe Sync\CoreSync\customhook\CoreSyncCustomHook.exe;C:\Program Files\Adobe\Adobe Sync\CoreSync\customhook\CoreSyncCustomHook.exe;C:\Program Files (x86)\Common Files\Adobe</SourceImage>
 			</Rule>
-			<Rule name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=0,Desc=Mimikatz through Windows Remote Management,Risk=100" groupRelation="and">
+			<Rule name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=0,Desc=Mimikatz through Windows Remote Management,Risk=100" groupRelation="and">
 				<TargetImage condition="image">C:\Windows\system32\lsass.exe</TargetImage>
 				<SourceImage condition="image">C:\Windows\system32\wsmprovhost.exe</SourceImage>
 			</Rule>
-			<Rule name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=0,Desc=LSASS process access by LaZagne,Risk=100" groupRelation="and">
+			<Rule name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=0,Desc=LSASS process access by LaZagne,Risk=100" groupRelation="and">
 				<TargetImage condition="image">C:\Windows\system32\lsass.exe</TargetImage>
 				<GrantedAccess>0x1FFFFF</GrantedAccess>
 				<CallTrace condition="contains all">python27.dll;_ctypes.pyd;KERNELBASE.dll;ntdll.dll</CallTrace>
 			</Rule>
-			<Rule name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=0,Desc=LSASS process access by Mimikatz,Risk=100" groupRelation="and">
+			<Rule name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=0,Desc=LSASS process access by Mimikatz,Risk=100" groupRelation="and">
 				<TargetImage condition="image">C:\Windows\system32\lsass.exe</TargetImage>
 				<CallTrace condition="begin with">C:\Windows\SYSTEM32\ntdll.dll+4595c|C:\Windows\system32\KERNELBASE.dll+8185</CallTrace>
 			</Rule>
-			<Rule name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=0,Desc=LSASS Cobalt Strike Monitor,Risk=70" groupRelation="and">
+			<Rule name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=0,Desc=LSASS Cobalt Strike Monitor,Risk=70" groupRelation="and">
 				<TargetImage condition="image">C:\Windows\system32\lsass.exe</TargetImage>
 				<CallTrace condition="begin with">C:\WINDOWS\SYSTEM32\ntdll.dll+</CallTrace>
 				<CallTrace condition="end with">)</CallTrace>
@@ -3434,7 +3434,7 @@
 				<CallTrace condition="excludes any">wow64.dll;)|C;Exchange.Diagnostics;Microsoft.Exchange</CallTrace>
 				<SourceImage condition="excludes any">C:\Program Files\Bitdefender\Endpoint Security\EPSecurityService.exe;c:\windows\system32\inetsrv\w3wp.exe;MSExchangeHMHost.exe;C:\Windows\sysWOW64\wbem\wmiprvse.exe</SourceImage>
 			</Rule>
-			<Rule name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Rubeus Mimikatz Like Detection,Risk=70" groupRelation="and">
+			<Rule name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=Rubeus Mimikatz Like Detection,Risk=70" groupRelation="and">
 				<TargetImage condition="image">C:\Windows\system32\winlogon.exe</TargetImage>
 				<GrantedAccess>0x1F3FFF</GrantedAccess>
 				<CallTrace condition="contains any">C:\Windows\Microsoft.NET;UNKNOWN</CallTrace>
@@ -3444,27 +3444,27 @@
 				<TargetImage condition="contains any">C:\Windows\sysmon64.exe;C:\Windows\sysmon64.exe</TargetImage>
 				<GrantedAccess>0x1C00</GrantedAccess>
 			</Rule>
-			<Rule name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=0,Desc=LSASS Access,Risk=20" groupRelation="and">
+			<Rule name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=0,Desc=LSASS Access,Risk=20" groupRelation="and">
 				<TargetImage condition="image">C:\Windows\system32\lsass.exe</TargetImage>
 				<GrantedAccess>0x1F1FFF</GrantedAccess>
 				<CallTrace condition="contains">UNKNOWN</CallTrace>
 			</Rule>
-			<Rule name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=0,Desc=LSASS Access 2,Risk=20" groupRelation="and">
+			<Rule name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=0,Desc=LSASS Access 2,Risk=20" groupRelation="and">
 				<TargetImage condition="image">C:\Windows\system32\lsass.exe</TargetImage>
 				<GrantedAccess>0x1010</GrantedAccess>
 				<CallTrace condition="contains">UNKNOWN</CallTrace>
 			</Rule>
-			<Rule name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=0,Desc=LSASS Access 3,Risk=20" groupRelation="and">
+			<Rule name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=0,Desc=LSASS Access 3,Risk=20" groupRelation="and">
 				<TargetImage condition="image">C:\Windows\system32\lsass.exe</TargetImage>
 				<GrantedAccess>0x143A</GrantedAccess>
 				<CallTrace condition="contains">UNKNOWN</CallTrace>
 			</Rule>
-			<Rule name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=LSASS Memory Dump,Risk=100" groupRelation="and">
+			<Rule name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=LSASS Memory Dump,Risk=100" groupRelation="and">
 				<TargetImage condition="image">C:\Windows\system32\lsass.exe</TargetImage>
 				<GrantedAccess>0x1fffff</GrantedAccess>
 				<CallTrace condition="contains any">dbghelp.dll;dbgcore.dll</CallTrace>
 			</Rule>
-			<Rule name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=0,Desc=Process access with dbghelp,Risk=30" groupRelation="and">
+			<Rule name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=0,Desc=Process access with dbghelp,Risk=30" groupRelation="and">
 				<CallTrace condition="contains any">dbghelp.dll;dbgcore.dll</CallTrace>
 				<TargetImage condition="excludes">C:\Windows\system32\lsass.exe</TargetImage>
 				<SourceImage condition="excludes">C:\wfx32\</SourceImage>
@@ -3476,7 +3476,7 @@
 			<Rule name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=Potential Keylogger detected,Risk=100" groupRelation="and">
 				<CallTrace condition="contains">getasynckeystate</CallTrace>
 			</Rule>
-			<Rule name="Attack=T1088,Technique=UAC Bypass,Tactic=Defense Evasion/Privilege Escalation,Level=0,Desc=CMSTP UAC Bypass" groupRelation="and">
+			<Rule name="Attack=T1548.002,Technique=Abuse Elevation Control Mechanism: Bypass User Account Control,Tactic=Defense Evasion/Privilege Escalation,Level=0,Desc=CMSTP UAC Bypass" groupRelation="and">
 				<CallTrace condition="contains">cmlua.dll</CallTrace>
 			</Rule>
 			<Rule name="Attack=T1086,Technique=PowerShell,Tactic=Execution,Level=3,Alert=Powershell without Powershell,Risk=30" groupRelation="and">
@@ -3497,7 +3497,7 @@
 				<TargetImage condition="is not">C:\Windows\system32\query.exe</TargetImage>
 				<TargetImage condition="is not">MsMpEng.exe</TargetImage>
 			</Rule>
-			<Rule name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=3,Alert=Kaodic credential access detected,Risk=100" groupRelation="and">
+			<Rule name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=3,Alert=Kaodic credential access detected,Risk=100" groupRelation="and">
 				<TargetImage condition="image">C:\Windows\system32\lsass.exe</TargetImage>
 				<CallTrace condition="contains">comsvcs.dll</CallTrace>
 			</Rule>
@@ -3554,18 +3554,18 @@
 			<!-- PROCESS_SUSPEND_RESUME + PROCESS_VM_WRITE: possible memory injection -->
 			<GrantedAccess name="Attack=T1093,Technique=Process Hollowing,Tactic=Defense Evasion,Level=4,Alert=Process Hollowing Detected,Risk=100">0x0800</GrantedAccess>
 			<!-- PROCESS_SUSPEND_RESUME -->
-			<GrantedAccess name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping from Memory indicator">0x0810</GrantedAccess>
+			<GrantedAccess name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping from Memory indicator">0x0810</GrantedAccess>
 			<!-- PROCESS_SUSPEND_RESUME + PROCESS_VM_READ: possible memory dump to extract sensitive information -->
 			<GrantedAccess name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion/Privilege Escalation,Level=0,Desc=Possible Memory Dump,Risk=70">0x0820</GrantedAccess>
 			<!-- PROCESS_SUSPEND_RESUME -->
-			<GrantedAccess name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping from Memory indicator,Risk=70">0x810</GrantedAccess>
+			<GrantedAccess name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping from Memory indicator,Risk=70">0x810</GrantedAccess>
 			<!-- PROCESS_SUSPEND_RESUME + PROCESS_VM_READ: possible memory dump to extract sensitive information -->
 			<GrantedAccess name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion/Privilege Escalation,Risk=70">0x820</GrantedAccess>
 			<SourceImage name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=CScript accessing another process memory,Risk=30" condition="end with">cscript.exe</SourceImage>
 			<SourceImage name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=WScript accessing another process memory,Risk=30" condition="end with">wscript.exe</SourceImage>
 			<SourceImage condition="end with">jjs.exe</SourceImage>
-			<CallTrace name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping from Memory indicator,Risk=100" condition="contains">dump</CallTrace>
-			<CallTrace name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping from Memory indicator,Risk=100" condition="contains">mimikatz</CallTrace>
+			<CallTrace name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping from Memory indicator,Risk=100" condition="contains">dump</CallTrace>
+			<CallTrace name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping from Memory indicator,Risk=100" condition="contains">mimikatz</CallTrace>
 			<CallTrace name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=ProcessAccess with CorperfmontExt.dll,Risk=70" condition="contains">CorperfmontExt.dll</CallTrace>
 			<Rule name="Antivirus Exclusions" groupRelation="or"> 
 				<SourceImage condition="begin with">C:\Program Files (x86)\Kaspersky Lab</SourceImage> 
@@ -4892,8 +4892,8 @@
 				<Details condition="contains">DWORD (0x00000000)</Details>
 			</Rule>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=Detect UAC Tampering" condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\LocalAccountTokenFilterPolicy</TargetObject>
-			<TargetObject name="Attack=T1088,Technique=Bypass User Account Control,Tactic=Defense Evasion/Privilege Escalation,Level=4,Alert=UAC Bypass,Risk=70" condition="end with">\Software\Microsoft\Windows\CurrentVersion\App Paths\control.exe</TargetObject>
-			<TargetObject name="Attack=T1088,Technique=Bypass User Account Control,Tactic=Defense Evasion/Privilege Escalation,Level=4,Alert=UAC Bypass,Risk=70" condition="end with">exefile\shell\runas\command\isolatedCommand</TargetObject>			
+			<TargetObject name="Attack=T1548.002,Technique=Abuse Elevation Control Mechanism: Bypass User Account Control,Tactic=Defense Evasion/Privilege Escalation,Level=4,Alert=UAC Bypass,Risk=70" condition="end with">\Software\Microsoft\Windows\CurrentVersion\App Paths\control.exe</TargetObject>
+			<TargetObject name="Attack=T1548.002,Technique=Abuse Elevation Control Mechanism: Bypass User Account Control,Tactic=Defense Evasion/Privilege Escalation,Level=4,Alert=UAC Bypass,Risk=70" condition="end with">exefile\shell\runas\command\isolatedCommand</TargetObject>			
 			<!--MITRE ATT&CK TECHNIQUE: Access Token Manipulation-->
 			<!--MITRE ATT&CK TECHNIQUE: BITS Jobs-->
 			<!--MITRE ATT&CK TECHNIQUE: Build Image on Host-->
@@ -5683,7 +5683,7 @@
 				<PipeName condition="contains">\ntsvcs</PipeName>
 				<EventType condition="is">ConnectPipe</EventType>
 			</Rule>
-			<PipeName name="Attack=T1003,Technique=Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping Command Mimikatz,Risk=100" condition="contains any">\lsadump;\cachedump;\wceservicepipe</PipeName>
+			<PipeName name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,Level=4,Alert=Credential Dumping Command Mimikatz,Risk=100" condition="contains any">\lsadump;\cachedump;\wceservicepipe</PipeName>
 			<PipeName name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion/Privilege Escalation,Level=4,Alert=9f81f59bc58452127884ce513865ed20 Named Pipe Detection,Risk=100" condition="contains">\9f81f59bc58452127884ce513865ed20</PipeName>
 			<PipeName name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion/Privilege Escalation,Level=4,Alert=46a676ab7f179e511e30dd2dc41bd388 Named Pipe Detection,Risk=100" condition="contains">\46a676ab7f179e511e30dd2dc41bd388</PipeName>
 			<PipeName name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion/Privilege Escalation,Level=4,Alert=Kekeo Named Pipe Detection,Risk=100,Author=@Cyb3rops/@olafhartong" condition="contains">tssmp_endpoint</PipeName>
