@@ -75,6 +75,17 @@
 				 Other Notes:
 				 The Rulename field has a hard limit of 255 characters, make the best of the size available, shorten tags and descriptions as needed.
 				 Add exclusions in line enclosed within a Compound rule rather than a global exclusion list.
+				 
+				 Contribution Guidelines:
+				 Always submit new rule requests/pull requests in this format where possible, if the rule is highly accurate and should fire off a SIEM Alert replace Desc= with Alert=, 
+				 See Risk ratings and levels above for guidance.  
+				 Example Rule:
+				<Rule name="Attack=None,Technique=None,Tactic=None,DS=None,Level=0,Risk=10,Desc=Your Description Here,Author=YourTwitter/Github" groupRelation="and">
+					<Your Rule Here/>
+				</Rule>
+			-->
+			<Image name="Attack=None,Technique=None,Tactic=None,DS=None,Information=Uncategorized Events" condition="contains any">System;svchost.exe;services.exe;unknown process;\;;</Image>
+				 
 -->
 <Sysmon schemaversion="4.82">
 	<HashAlgorithms>md5,sha256,imphash</HashAlgorithms>
