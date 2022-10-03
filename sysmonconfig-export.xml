@@ -82,10 +82,7 @@
 				 Example Rule:
 				<Rule name="Attack=None,Technique=None,Tactic=None,DS=None,Level=0,Risk=10,Desc=Your Description Here,Author=YourTwitter/Github" groupRelation="and">
 					<Your Rule Here/>
-				</Rule>
-			-->
-			<Image name="Attack=None,Technique=None,Tactic=None,DS=None,Information=Uncategorized Events" condition="contains any">System;svchost.exe;services.exe;unknown process;\;;</Image>
-				 
+				</Rule> 
 -->
 <Sysmon schemaversion="4.82">
 	<HashAlgorithms>md5,sha256,imphash</HashAlgorithms>
