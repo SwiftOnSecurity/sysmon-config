@@ -217,6 +217,10 @@
 				<ParentImage condition="end with">\Atlassian\Confluence\jre\bin\java.exe</ParentImage>
 				<CommandLine condition="contains any">cmd;powershell;certutil;curl;whoami;ipconfig;mshta;wscript;cscript;rundll32;bitsadmin</CommandLine>
 			</Rule>
+			<Rule name="Attack=T1190,Technique=Exploit Public-Facing Application,Tactic=Initial Access,Level=4,Alert=Desktop Central Remote Exploit,Risk=100,CVE=CVE-2020-10189,Author=Florian Roth" groupRelation="and">
+				<ParentImage condition="end with">DesktopCentral_Server\jre\bin\java.exe</ParentImage>
+				<CommandLine condition="contains any">cmd;powershell;certutil;curl;whoami;ipconfig;mshta;wscript;cscript;rundll32;bitsadmin</CommandLine>
+			</Rule>
 			<Rule name="Attack=T1190,Technique=Exploit Public-Facing Application,Tactic=Initial Access,Level=4,Alert=Generic Java Webapp Remote Exploit,Risk=100" groupRelation="and">
 				<ParentImage condition="image">\jre\bin\java.exe</ParentImage>
 				<Image condition="contains any">cmd;powershell;pwsh;certutil;curl;whoami;ipconfig;mshta;wscript;cscript;rundll32;bitsadmin;pwsh.exe;bitsadmin;hh.exe;wmic.exe;rundll32.exe;forfiles.exe;scriptrunner.exe;mftrace.exe;AppVLP.exe;curl.exe</Image>
@@ -1686,7 +1690,7 @@
 				<Image condition="excludes">g2mupdate.exe</Image>
 				<Image condition="excludes">slack.exe</Image>
 			</Rule>
-			<Rule name="Attack=T1021.006,Technique=Remote Services: Windows Remote Management,Tactic=Lateral Movement,Level=3,AlertSuspicious Processes Spawned by WinRM,Risk=100" groupRelation="and">
+			<Rule name="Attack=T1021.006,Technique=Remote Services: Windows Remote Management,Tactic=Lateral Movement,Level=3,Alert=Suspicious Processes Spawned by WinRM,Risk=100" groupRelation="and">
 				<ParentImage condition="image">wsmprovhost.exe</ParentImage>
 				<Image condition="image">cmd.exe</Image>
 				<Image condition="image">sh.exe</Image>
