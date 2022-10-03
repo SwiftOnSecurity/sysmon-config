@@ -110,7 +110,7 @@
 			<!--MITRE ATT&CK TECHNIQUE: Search Victim-Owned Websites-->
 
 			<!--MITRE ATT&CK TACTIC: Resource Development-->
-			<Rule name="Attack=T1587,Technique=Develop Capabilities,Tactic=Resource Development,Alert=PurpleSharp Indicator,Risk=40" groupRelation="or">
+			<Rule name="Attack=T1587,Technique=Develop Capabilities,Tactic=Resource Development,Level=3,DS=Process: Process Creation,Alert=PurpleSharp Indicator,Risk=40" groupRelation="or">
 				<CommandLine condition="contains any">PurpleSharp;xyz123456</CommandLine> 
 				<OriginalFileName condition="contains any">PurpleSharp</OriginalFileName> 
 			</Rule>
@@ -119,7 +119,7 @@
 			<!--MITRE ATT&CK TECHNIQUE: Compromise Infrastructure-->
 			<CommandLine name="Attack=T1584.002,Technique=Compromise Infrastructure: DNS Server,Tactic=Resource Development,DS=Process: Process Creation,Level=4,Alert=DNSCMD DLL exec" condition="contains">/serverlevelplugindll</CommandLine>
 			<!--MITRE ATT&CK TECHNIQUE: Develop Capabilities-->
-			<Rule name="Attack=T1587.003,Technique=Develop Capabilities: Digital Certificates,Tactic=Resource Development,Alert=netsh adding SSL Certificate,Risk=40" groupRelation="and">
+			<Rule name="Attack=T1587.003,Technique=Develop Capabilities: Digital Certificates,Tactic=Resource Development,Level=3,DS=Process: Process Creation,Alert=netsh adding SSL Certificate,Risk=40" groupRelation="and">
 				<CommandLine condition="contains all">add;sslcert;http</CommandLine> 
 			</Rule>
 			<CommandLine name="Attack=T1016,Technique=System Network Connections Discovery,Tactic=Discovery,DS=Process: Process Creation,Level=3,Alert=netsh removing SSL Certificate,Risk=40" condition="contains">http del sslcert</CommandLine>
@@ -270,17 +270,17 @@
 				<ParentImage condition="contains any">svchost.exe;lsass.exe;services.exe;smss.exe;winlogon.exe;explorer.exe;dllhost.exe;rundll32.exe;regsvr32.exe;userinit.exe;winit.exe;spoolsv.exe;wermgr.exe;csrss.exe;ctfmon.exe;werfault.exe</ParentImage>
 				<Image condition="image">conhost.exe</Image>
 			</Rule>
-			<Rule name="Attack=T1059,Technique=Command and Scripting Interpreter,Tactic=Execution,DS=Process: Process Creation,Level=3,Alert=Suspicious Console Host children,Risk=30" groupRelation="and">
+			<Rule name="Attack=T1059,Technique=Command and Scripting Interpreter,Tactic=Execution,DS=Process: Process Creation,Level=3,DS=Process: Process Creation,Alert=Suspicious Console Host children,Risk=30" groupRelation="and">
 				<ParentImage condition="image">conhost.exe</ParentImage>
 				<Image condition="excludes any">:\Windows\splwow64.exe;:\Windows\System32\WerFault.exe;:\Windows\System32\conhost.exe</Image>
 			</Rule>
 			<!-- Disabled for now
-			<Rule name="Attack=T1204,Technique=User Execution,Tactic=Execution,UEBA=Execution Command Line tools by user,Risk=45" groupRelation="and">
+			<Rule name="Attack=T1204,Technique=User Execution,Tactic=Execution,DS=Process: Process Creation,UEBA=Execution Command Line tools by user,Risk=45" groupRelation="and">
 				<Image condition="contains any">\cmd.exe;WindowsTerminal;powershell</Image>
 				<ParentImage condition="image">explorer.exe</ParentImage>
 			</Rule>
 			-->
-			<Rule name="Attack=T1059.001,Technique=Powershell,Tactic=Execution,UEBA=Powershell as cmd.exe child process,Risk=39" groupRelation="and">
+			<Rule name="Attack=T1059.001,Technique=Powershell,Tactic=Execution,DS=Process: Process Creation,UEBA=Powershell as cmd.exe child process,Risk=39" groupRelation="and">
 				<ParentImage condition="image">cmd.exe</ParentImage>
 				<Image condition="contains any">powershell.exe;powershell_ise.exe</Image>
 				<CommandLine condition="excludes">Get-ItemProperty HKLM:\software\wow6432node\microsoft\windows\currentversion\uninstall\</CommandLine>
@@ -299,7 +299,7 @@
 				<Image condition="contains any">powershell.exe;powershell_ise.exe</Image>
 				<ParentImage condition="image">mshta.exe</ParentImage>
 			</Rule>
-			<Rule name="Attack=T1059,Technique=Visual Basic,Tactic=Execution,UEBA=Suspicious WSCRIPT Command Line,Risk=50" groupRelation="and">
+			<Rule name="Attack=T1059,Technique=Visual Basic,Tactic=Execution,DS=Process: Process Creation,UEBA=Suspicious WSCRIPT Command Line,Risk=50" groupRelation="and">
 				<Image condition="contains any">wscript.exe;cscript.exe</Image>
 				<CommandLine condition="excludes any">IEX;Net.WebClient;ospp.vbs;powershell;slmgr.vbs;spiceworks_upload</CommandLine>
 			</Rule>
@@ -335,7 +335,7 @@
 				<ParentImage condition="contains any">C:\Windows\Temp\hpqhvind.exe;C:\ProgramData\DRM\;Test.exe</ParentImage>
 				<Image condition="contains any">C:\ProgramData\DRM;wmplayer.exe;C:\ProgramData\DRM\CLR\CLR.EXE</Image>
 			</Rule>
-			<Rule name="Attack=T1204,Technique=User Execution,Tactic=Execution,UEBA=Registry Editor Opened by user,Risk=70" groupRelation="and">
+			<Rule name="Attack=T1204,Technique=User Execution,DS=Process: Process Creation,Tactic=Execution,UEBA=Registry Editor Opened by user,Risk=70" groupRelation="and">
 				<Image condition="image">regedit.exe</Image>
 				<ParentImage condition="image">explorer.exe</ParentImage>
 			</Rule>
@@ -344,12 +344,12 @@
 				<ParentImage condition="image">explorer.exe</ParentImage>
 			</Rule>
 			-->
-			<Rule name="Attack=None,Technique=None,Tactic=None,UEBA=Unusual Child Process,Risk=30" groupRelation="and">
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Process: Process Creation,UEBA=Unusual Child Process,Risk=30" groupRelation="and">
 				<Image condition="contains any">\svchost.exe;\taskhostw.exe;\userinit.exe;\smss.exe;\csrss.exe;\wininit.exe;\winlogon.exe;\lsass.exe;\logonui.exe;\services.exe</Image>
 				<Image condition="contains any">C:\windows\System32\;C:\windows\syswow64\</Image>
 				<ParentImage condition="excludes any">\wininit.exe;\winlogon.exe;\services.exe;\dwm.exe;System;\smss.exe;\svchost.exe</ParentImage>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,UEBA=Unusual Print Spooler Child Process,Risk=30" groupRelation="and">
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Process: Process Creation,UEBA=Unusual Print Spooler Child Process,Risk=30" groupRelation="and">
 				<ParentImage condition="contains any">\spoolsv.exe;\PrintIsolationHost.exe</ParentImage>
 				<Image condition="excludes any">C:\Windows\System32\spoolsv.exe;\GPLGS\gswin32c.exe;C:\Windows\System32\spool\drivers\;\bin\gswin64c.exe;C:\PROGRA~2\CUTEPD~1\;C:\Windows\EEFPrinter.exe</Image>
 				<CommandLine condition="excludes any">C:\Windows\system32\spool\DRIVERS</CommandLine>
@@ -384,7 +384,7 @@
 				<CommandLine condition="excludes">C:\Windows\system32\spool\DRIVERS\</CommandLine>
 				<CommandLine condition="excludes">PhotoViewer.dll</CommandLine>
 			</Rule>
-			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,Alert=Office Spawning exe within: User Home Dirs,Risk=80" groupRelation="and">
+			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,DS=Process: Process Creation,Alert=Office Spawning exe within: User Home Dirs,Risk=80" groupRelation="and">
 				<ParentImage condition="contains any">winword.exe;excel.exe;powerpnt.exe;outlook.exe;msaccess.exe;mspub.exe;visio.exe;notepad.exe;wordpad.exe;eqnedt32.exe</ParentImage>
 				<Image condition="begin with">C:\Users\</Image>
 				<Image condition="end with">.exe</Image>
@@ -402,7 +402,7 @@
 				<Image condition="excludes">iexplore.exe</Image>
 				<Image condition="excludes">vivaldi.exe</Image>
 			</Rule>
-			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,Info=Office Spawning exe within: ProgramData,Risk=70" groupRelation="and">
+			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,DS=Process: Process Creation,Info=Office Spawning exe within: ProgramData,Risk=70" groupRelation="and">
 				<ParentImage condition="contains any">winword.exe;excel.exe;powerpnt.exe;outlook.exe;msaccess.exe;mspub.exe;visio.exe;notepad.exe;wordpad.exe</ParentImage>
 				<Image condition="begin with">C:\ProgramData\</Image>
 				<Product condition="excludes">Firefox</Product>
@@ -445,7 +445,7 @@
 				<Image condition="image">FLTLDR.EXE</Image>
 			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: Inter-Process Communication-->
-			<CommandLine name="Attack=T1559.002,Technique=Dynamic Data Exchange,Tactic=Execution" condition="contains any">/dde;-dde</CommandLine>
+			<CommandLine name="Attack=T1559.002,Technique=Dynamic Data Exchange,Tactic=Execution,DS=Process: Process Creation," condition="contains any">/dde;-dde</CommandLine>
 			<!--MITRE ATT&CK TECHNIQUE: Native API-->
 			<!--MITRE ATT&CK TECHNIQUE: Scheduled Task/Job-->
 			<Rule name="Attack=T1053.005,Technique=Scheduled Task/Job: Scheduled Task,Tactic=Execution,DS=Process: Process Creation,Level=2,Alert=Scheduled Task Created,Risk=100" groupRelation="and">
@@ -672,18 +672,18 @@
 				<CommandLine condition="excludes any">route ; ADD </CommandLine>
 			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: Abuse Elevation Control Mechanism: Bypass User Account Control-->
-			<Rule name="Attack=T1548.002,Technique=Abuse Elevation Control Mechanism: Bypass User Account Control,Tactic=Defense Evasion/Privilege Escalation,Risk=20" groupRelation="and">
+			<Rule name="Attack=T1548.002,Technique=Abuse Elevation Control Mechanism: Bypass User Account Control,Tactic=Defense Evasion/Privilege Escalation,DS=Process: Process Creation,Risk=20" groupRelation="and">
 				<ParentImage condition="image">eventvwr.exe</ParentImage>
 				<Image condition="is not">c:\windows\system32\mmc.exe</Image>
 			</Rule>
-			<ParentImage name="Attack=T1548.002,Technique=Abuse Elevation Control Mechanism: Bypass User Account Control,Tactic=Defense Evasion/Privilege Escalation" condition="image">fodhelper.exe</ParentImage>
+			<ParentImage name="Attack=T1548.002,Technique=Abuse Elevation Control Mechanism: Bypass User Account Control,Tactic=Defense Evasion/Privilege Escalation,DS=Process: Process Creation," condition="image">fodhelper.exe</ParentImage>
 			<Image name="Attack=T1118,Technique=InstallUtil,Tactic=Execution,DS=Process: Process Creation,Level=0,Desc=InstallUtil" condition="image">InstallUtil.exe</Image>
 			<CommandLine name="Attack=T1548.002,Technique=Abuse Elevation Control Mechanism: Bypass User Account Control,Tactic=Defense Evasion/Privilege Escalation,DS=Process: Process Creation,Level=4,Alert=UAC Bypass" condition="contains">Invoke-PsUaCme</CommandLine>
 			<CommandLine name="Attack=T1548.002,Technique=Abuse Elevation Control Mechanism: Bypass User Account Control,Tactic=Defense Evasion/Privilege Escalation,DS=Process: Process Creation,Level=4,Alert=UAC Bypass" condition="contains">BypassUAC</CommandLine>
 			<CommandLine name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,DS=Process: Process Creation,Level=4,Alert=Powerup Command Line events" condition="contains">PowerUp</CommandLine>
-			<OriginalFileName name="Attack=T1548.002,Technique=Bypass User Account Control,Tactic=Defense Evasion" condition="is">computerdefaults.exe</OriginalFileName>
-			<OriginalFileName name="Attack=T1548.002,Technique=Bypass User Account Control,Tactic=Defense Evasion" condition="is">dism.exe</OriginalFileName>
-			<ParentImage name="Attack=T1548.002,Technique=Bypass User Account Control,Tactic=Defense Evasion" condition="image">fodhelper.exe</ParentImage>
+			<OriginalFileName name="Attack=T1548.002,Technique=Bypass User Account Control,Tactic=Defense Evasion,DS=Process: Process Creation" condition="is">computerdefaults.exe</OriginalFileName>
+			<OriginalFileName name="Attack=T1548.002,Technique=Bypass User Account Control,Tactic=Defense Evasion,DS=Process: Process Creation" condition="is">dism.exe</OriginalFileName>
+			<ParentImage name="Attack=T1548.002,Technique=Bypass User Account Control,Tactic=Defense Evasion,DS=Process: Process Creation" condition="image">fodhelper.exe</ParentImage>
 			<!--MITRE ATT&CK TECHNIQUE: Access Token Manipulation-->
 			<Rule name="Attack=T1134.001,Technique=Access Token Manipulation: Token Impersonation/Theft,Tactic=Privilege Escalation,Risk=90,DS=Process: Process Creation,Level=3,Alert=Priv Escalation to System" groupRelation="and">
 				<ParentUser condition="contains any">NT AUTHORITY\NETWORK SERVICE;NT AUTHORITY\LOCAL SERVICE;SERVICE LOCAL;ERVICE RÉSEAU;NETZWERKDIENST;LOKALER DIENST;NETZWERKDIENST;SERVICIO DE RED;ERVICIO LOC</ParentUser>
@@ -712,11 +712,11 @@
 				<Image condition="excludes any">C:\Windows\System32\ATBroker.exe;Magnify.exe;C:\Windows\System32\osk.exe</Image>
 			</Rule>
 			<ParentImage name="Attack=T1015,Technique=Accessibility Features,Tactic=Persistence Privilege Escalation,DS=Process: Process Creation,Level=0,Desc=SETHC Priv Escalation" condition="image">sethc.exe</ParentImage>
-			<ParentImage name="Attack=T1015,Technique=Accessibility Features,Tactic=Persistence/Privilege Escalation" condition="image">osk.exe</ParentImage>
-			<ParentImage name="Attack=T1015,Technique=Accessibility Features,Tactic=Persistence/Privilege Escalation" condition="image">Magnify.exe</ParentImage>
-			<ParentImage name="Attack=T1015,Technique=Accessibility Features,Tactic=Persistence/Privilege Escalation" condition="image">DisplaySwitch.exe</ParentImage>
-			<ParentImage name="Attack=T1015,Technique=Accessibility Features,Tactic=Persistence/Privilege Escalation" condition="image">Narrator.exe</ParentImage>
-			<ParentImage name="Attack=T1015,Technique=Accessibility Features,Tactic=Persistence/Privilege Escalation" condition="image">AtBroker.exe</ParentImage>
+			<ParentImage name="Attack=T1015,Technique=Accessibility Features,Tactic=Persistence/Privilege Escalation,DS=Process: Process Creation" condition="image">osk.exe</ParentImage>
+			<ParentImage name="Attack=T1015,Technique=Accessibility Features,Tactic=Persistence/Privilege Escalation,DS=Process: Process Creation" condition="image">Magnify.exe</ParentImage>
+			<ParentImage name="Attack=T1015,Technique=Accessibility Features,Tactic=Persistence/Privilege Escalation,DS=Process: Process Creation" condition="image">DisplaySwitch.exe</ParentImage>
+			<ParentImage name="Attack=T1015,Technique=Accessibility Features,Tactic=Persistence/Privilege Escalation,DS=Process: Process Creation" condition="image">Narrator.exe</ParentImage>
+			<ParentImage name="Attack=T1015,Technique=Accessibility Features,Tactic=Persistence/Privilege Escalation,DS=Process: Process Creation" condition="image">AtBroker.exe</ParentImage>
 			<!--MITRE ATT&CK TECHNIQUE: Event Triggered Execution: Application Shimming-->
 			<Image name="Attack=T1138,Technique=Application Shimming,Tactic=Persistence/Privilege Escalation,DS=Process: Process Creation,Level=3,Alert=Application Shimming" condition="image">sdbinst.exe</Image>
 			<!--MITRE ATT&CK TECHNIQUE: Exploitation for Privilege Escalation-->
@@ -852,7 +852,7 @@
 			<ParentImage name="Attack=T1202,Technique=Indirect Command Execution,Tactic=Execution,DS=Process: Process Creation,Level=0,Desc=Bash on windows execution,Risk=30" condition="image">bash.exe</ParentImage>
 			<Image name="Attack=T1202,Technique=Indirect Command Execution,Tactic=Execution,DS=Process: Process Creation,Level=0,Desc=Indirect Command Execution with forfiles" condition="image">forfiles.exe</Image>
 			<ParentImage name="Attack=T1202,Technique=Indirect Command Execution,Tactic=Execution,DS=Process: Process Creation,Level=0,Desc=Indirect command execution forfiles child process" condition="image">forfiles.exe</ParentImage>
-			<Image name="Attack=T1059,Technique=Command-Line Interface,Tactic=Execution" condition="end with">.com</Image>
+			<Image name="Attack=T1059,Technique=Command-Line Interface,Tactic=Execution,DS=Process: Process Creation" condition="end with">.com</Image>
 			<CommandLine name="Attack=T1202,Technique=Indirect Command Execution,Tactic=Execution,DS=Process: Process Creation,Level=2,Alert=Scriptrunner exec" condition="contains">-appvscript</CommandLine>
 
 			<!--MITRE ATT&CK TECHNIQUE: Masquerading-->
@@ -928,7 +928,7 @@
 				<CommandLine condition="contains any">C^om^S^pEc;^c^o^m^S^p^E^c^;Wscript.Shell;-ComObject;MsXml2.ServerXmlHttp;Remove.ToString;System.Convert;-UseB;[Byte[];^h^t^t^p;h"t"t"p</CommandLine>
 			</Rule>
 			<CommandLine name="Attack=T1001,Technique=Obfuscated Files or Information with IwAjACMAd,Tactic=Defense Evasion,DS=Process: Process Creation,Level=4,Alert=Common Base 64 encoded cmds" condition="contains any">IwAjACMAd;IyM=;SUVYI;aWV4I;SQBFAFgA;aQBlAHgA;TW96aWxsYS;1vemlsbGEv;Nb3ppbGxhL;TQBvAHoAaQBsAGwAYQAv;0AbwB6AGkAbABsAGEAL;BNAG8AegBpAGwAbABhAC</CommandLine>
-			<CommandLine name="Attack=T1001,Technique=Obfuscated Files or Information,Tactic=Defense Evasion,Alert=Obfuscated Hidden Powershell,Risk=70" condition="contains any">WindowStyle Hidden function;WindowStyle Hidden;windowstyle h;windowstyl h;windowsty h;windowst h;windows h;window h;windo h;wind h;win h;wi h;-w h;/w h;win hi;win hid;win hidd;win hidde;win hidden</CommandLine>
+			<CommandLine name="Attack=T1001,Technique=Obfuscated Files or Information,Tactic=Defense Evasion,DS=Process: Process Creation,Alert=Obfuscated Hidden Powershell,Risk=70" condition="contains any">WindowStyle Hidden function;WindowStyle Hidden;windowstyle h;windowstyl h;windowsty h;windowst h;windows h;window h;windo h;wind h;win h;wi h;-w h;/w h;win hi;win hid;win hidd;win hidde;win hidden</CommandLine>
 			<CommandLine name="Attack=T1001,Technique=Obfuscated Files or Information,Tactic=Defense Evasion,DS=Process: Process Creation,Level=3,Alert=Command Line Obfuscation,Risk=75" condition="contains">^</CommandLine>
 			<CommandLine name="Attack=T1001,Technique=Obfuscated Files or Information,Tactic=Defense Evasion,DS=Process: Process Creation,Level=0,Desc=Type CON Command Line Redirection" condition="contains">TYPE CON ></CommandLine>
 			<CommandLine name="Attack=T1001,Technique=Obfuscated Files or Information,Tactic=Defense Evasion,DS=Process: Process Creation,Level=0,Desc=Copy CON Command Line Redirection" condition="contains">copy CON ></CommandLine>
@@ -1089,11 +1089,11 @@
 			<!--MITRE ATT&CK TECHNIQUE: Subvert Trust Controls-->
 			<!--MITRE ATT&CK TECHNIQUE: System Binary Proxy Execution-->
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Process: Process Creation,Level=0,Desc=InstallUtil 1" groupRelation="and">
-				<OriginalFileName name="Attack=T1218,Technique=Signed Binary Proxy Execution,Tactic=Execution,Risk=50" condition="is">InstallUtil.exe</OriginalFileName>
+				<OriginalFileName name="Attack=T1218,Technique=Signed Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation,Risk=50" condition="is">InstallUtil.exe</OriginalFileName>
 				<CommandLine condition="contains all">/logfile=;/LogToConsole=false;/U</CommandLine>
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Process: Process Creation,Level=0,Desc=InstallUtil 2" groupRelation="and">
-				<OriginalFileName name="Attack=T1218,Technique=Signed Binary Proxy Execution,Tactic=Execution,Risk=50" condition="is">InstallUtil.exe</OriginalFileName>
+				<OriginalFileName name="Attack=T1218,Technique=Signed Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation,Risk=50" condition="is">InstallUtil.exe</OriginalFileName>
 				<CommandLine condition="contains all">-logfile=;-LogToConsole=false;-U</CommandLine>
 			</Rule>
 			<Rule name="Attack=T1218.013,Technique=Mavinject,Tactic=Execution,DS=Process: Process Creation,Level=3,Alert=Mavinject Detected,Risk=100" groupRelation="and">
@@ -1126,40 +1126,40 @@
 			</Rule>
 			<CommandLine name="Attack=T1218,Technique=Signed Script Proxy Execution,Tactic=Execution,DS=Process: Process Creation,Level=3,Alert=Script:http Detected,Risk=75" condition="contains">script:http</CommandLine>
 			<CommandLine name="Attack=T1218,Technique=Signed Script Proxy Execution,Tactic=Execution,DS=Process: Process Creation,Level=3,Alert=Register-cimprovider exec,Risk=100" condition="contains">Register-cimprovider</CommandLine>
-			<CommandLine name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="contains">Scriptrunner.exe -appvscript</CommandLine>
-			<CommandLine name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="contains">bginfo</CommandLine>
-			<CommandLine name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="contains">cbd</CommandLine>
+			<CommandLine name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation" condition="contains">Scriptrunner.exe -appvscript</CommandLine>
+			<CommandLine name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation" condition="contains">bginfo</CommandLine>
+			<CommandLine name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation" condition="contains">cbd</CommandLine>
 			<CommandLine name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation,Level=3,Alert=runscripthelper LOLBAS,Risk=40" condition="contains">runscripthelper.exe surfacecheck</CommandLine>
 			<CommandLine name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation,Level=3,Alert=xwizard LOLBAS,Risk=40" condition="contains">xwizard RunWizard</CommandLine>
 			<CommandLine name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation,Level=3,Alert=PresentationHost exec,Risk=100" condition="contains">PresentationHost</CommandLine>
 			<CommandLine name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation,Level=3,Alert=VBoxDrvInst.exe exec,Risk=100" condition="contains">driver executeinf</CommandLine>
 			<CommandLine name="Attack=T1218.002,Technique=Control Panel Items,Tactic=Execution,DS=Process: Process Creation,Level=3,Alert=Control Panel Execution,Risk=75" condition="contains any">control.exe /name;control.exe -name</CommandLine>
 			<CommandLine name="Attack=T1218.002,Technique=Control Panel Items,Tactic=Execution,DS=Process: Process Creation,Level=3,Alert=Control Panel Execution,Risk=75" condition="contains">Control_RunDLL</CommandLine>
-			<Image name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="image">SyncAppvPublishingServer.exe</Image>
-			<OriginalFileName name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="contains">Scriptrunner.exe</OriginalFileName>
-			<OriginalFileName name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="is">ATBroker.exe</OriginalFileName>
-			<OriginalFileName name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="is">Appvlp.exe</OriginalFileName>
-			<OriginalFileName name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="is">InfDefaultInstall.EXE</OriginalFileName>
-			<OriginalFileName name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="is">PresentationHost.exe</OriginalFileName>
-			<OriginalFileName name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="is">RegisterCimProvider2.exe</OriginalFileName>
-			<OriginalFileName name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="is">RegisterCimProvider.exe</OriginalFileName>
-			<OriginalFileName name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="is">ScriptRunner.exe</OriginalFileName>
-			<OriginalFileName name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="is">csi.exe</OriginalFileName>
-			<OriginalFileName name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="is">extexport.exe</OriginalFileName>
-			<OriginalFileName name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="is">msconfig.EXE</OriginalFileName>
-			<OriginalFileName name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="is">rasdlui.exe</OriginalFileName>
-			<OriginalFileName name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="is">tttracer.exe</OriginalFileName>
-			<OriginalFileName name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="is">verclsid.exe</OriginalFileName>
-			<OriginalFileName name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="is">wab.exe</OriginalFileName>
+			<Image name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation" condition="image">SyncAppvPublishingServer.exe</Image>
+			<OriginalFileName name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation" condition="contains">Scriptrunner.exe</OriginalFileName>
+			<OriginalFileName name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation" condition="is">ATBroker.exe</OriginalFileName>
+			<OriginalFileName name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation" condition="is">Appvlp.exe</OriginalFileName>
+			<OriginalFileName name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation" condition="is">InfDefaultInstall.EXE</OriginalFileName>
+			<OriginalFileName name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation" condition="is">PresentationHost.exe</OriginalFileName>
+			<OriginalFileName name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation" condition="is">RegisterCimProvider2.exe</OriginalFileName>
+			<OriginalFileName name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation" condition="is">RegisterCimProvider.exe</OriginalFileName>
+			<OriginalFileName name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation" condition="is">ScriptRunner.exe</OriginalFileName>
+			<OriginalFileName name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation" condition="is">csi.exe</OriginalFileName>
+			<OriginalFileName name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation" condition="is">extexport.exe</OriginalFileName>
+			<OriginalFileName name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation" condition="is">msconfig.EXE</OriginalFileName>
+			<OriginalFileName name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation" condition="is">rasdlui.exe</OriginalFileName>
+			<OriginalFileName name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation" condition="is">tttracer.exe</OriginalFileName>
+			<OriginalFileName name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation" condition="is">verclsid.exe</OriginalFileName>
+			<OriginalFileName name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation" condition="is">wab.exe</OriginalFileName>
 			<OriginalFileName name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation,Level=3,Alert=Register-cimprovider.exe,Risk=100" condition="contains">Register-cimprovider.exe</OriginalFileName>
-			<ParentCommandLine name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="contains">csi.exe</ParentCommandLine>
-			<ParentCommandLine name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="contains">devtoolslauncher.exe LaunchForDeploy</ParentCommandLine>
-			<ParentCommandLine name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="is">bginfo</ParentCommandLine>
-			<ParentImage name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="image">devtoolslauncher.exe</ParentImage>
-			<ParentImage name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="image">wab.exe</ParentImage>
-			<ParentImage name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution" condition="image">wsreset.exe</ParentImage>
+			<ParentCommandLine name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation" condition="contains">csi.exe</ParentCommandLine>
+			<ParentCommandLine name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation" condition="contains">devtoolslauncher.exe LaunchForDeploy</ParentCommandLine>
+			<ParentCommandLine name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation" condition="is">bginfo</ParentCommandLine>
+			<ParentImage name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation" condition="image">devtoolslauncher.exe</ParentImage>
+			<ParentImage name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation" condition="image">wab.exe</ParentImage>
+			<ParentImage name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation" condition="image">wsreset.exe</ParentImage>
 			<!--MITRE ATT&CK TECHNIQUE: System Binary Proxy Execution: CMSTP-->
-			<CommandLine name="Attack=T1218.003,Technique=System Binary Proxy Execution,Tactic=Defense Evasion" condition="contains any">cmstp.exe /ni /s;cmstp.exe -ni -s</CommandLine>
+			<CommandLine name="Attack=T1218.003,Technique=System Binary Proxy Execution,Tactic=Defense Evasion,DS=Process: Process Creation" condition="contains any">cmstp.exe /ni /s;cmstp.exe -ni -s</CommandLine>
 			<CommandLine name="Attack=T1218.003,Technique=System Binary Proxy Execution,Tactic=Defense Evasion,DS=Process: Process Creation,Level=0,Desc=cmstp" condition="contains any">cmstp /ni /s;cmstp -ni -s</CommandLine>
 			<!--MITRE ATT&CK TECHNIQUE: System Binary Proxy Execution: Mavinject-->
 			<Image name="Attack=T1218,Technique=Mavinject,Tactic=Defense Evasion,DS=Process: Process Creation,Level=3,Alert=Mavinject Process Injection" condition="image">Mavinject.exe</Image>
@@ -1178,7 +1178,7 @@
 				<Image condition="image">regsvr32.exe</Image> 
 				<CommandLine condition="contains all">C:\Users;Public</CommandLine> 
 			</Rule>
-			<Description name="Attack=T1117,Technique=Regsvr32,Tactic=Execution" condition="contains">Microsoft(C) Register Server</Description>
+			<Description name="Attack=T1117,Technique=Regsvr32,Tactic=Execution,DS=Process: Process Creation" condition="contains">Microsoft(C) Register Server</Description>
 			<Image name="Attack=T1218,Technique=Signed Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation,Level=0,Desc=SyncAppvPublishingServer Applocker Bypass" condition="image">SyncAppvPublishingServer.exe</Image>
 			<Image name="Attack=T1218,Technique=Signed Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation,Level=0,Desc=control panel execution" condition="image">control.exe</Image>
 			<Image name="Attack=T1218,Technique=Signed Binary Proxy Execution,Tactic=Execution,DS=Process: Process Creation,Level=0,Desc=rasautou execution" condition="image">rasautou.exe</Image>
@@ -1507,11 +1507,11 @@
 			<Image name="Attack=T1018,Technique=Remote System Discovery,Tactic=Discovery,DS=Process: Process Creation,Level=2,Alert=Pathping Remote System Discovery,MitreURL=https://attack.mitre.org/techniques/T1018/,Risk=30" condition="image">pathping.exe</Image>
 			<!--MITRE ATT&CK TECHNIQUE: Software Discovery-->
 			<!--MITRE ATT&CK TECHNIQUE: Software Discovery: Security Software Discovery-->
-			<Rule name="Attack=T1063,Technique=Security Software Discovery,Tactic=Discovery,Alert=Sysmon Detection with driver altitude " groupRelation="or">
+			<Rule name="Attack=T1063,Technique=Security Software Discovery,Tactic=Discovery,DS=Process: Process Creation,Alert=Sysmon Detection with driver altitude" groupRelation="or">
 				<CommandLine condition="contains all">find;385201</CommandLine>
 				<CommandLine condition="contains all">select-string;385201</CommandLine>
 			</Rule>
-			<Rule name="Attack=T1063,Technique=Security Software Discovery,Tactic=Discovery,Alert=Antivirus/edr/siem Discovery" groupRelation="or">
+			<Rule name="Attack=T1063,Technique=Security Software Discovery,Tactic=Discovery,DS=Process: Process Creation,Alert=Antivirus/edr/siem Discovery" groupRelation="or">
 				<CommandLine condition="contains all">find;virus</CommandLine>
 				<CommandLine condition="contains all">select-string;virus</CommandLine>
 				<CommandLine condition="contains all">process;Description;virus</CommandLine>
@@ -1555,9 +1555,9 @@
 				<CommandLine condition="contains all">select-string;sidecar</CommandLine>
 				<CommandLine condition="contains all">process;Description;sidecar</CommandLine>
 			</Rule>
-			<Rule name="Attack=T1063,Technique=Security Software Discovery,Tactic=Discovery" groupRelation="or">
-				<OriginalFileName name="Attack=T1063,Technique=Security Software Discovery,Tactic=Discovery" condition="is">fltMC.exe</OriginalFileName>
-				<CommandLine name="Attack=T1063,Technique=Security Software Discovery,Tactic=Discovery" condition="contains">misc::mflt</CommandLine>
+			<Rule name="Attack=T1063,Technique=Security Software Discovery,Tactic=Discovery,DS=Process: Process Creation" groupRelation="or">
+				<OriginalFileName name="Attack=T1063,Technique=Security Software Discovery,Tactic=Discover,DS=Process: Process Creationy" condition="is">fltMC.exe</OriginalFileName>
+				<CommandLine name="Attack=T1063,Technique=Security Software Discovery,Tactic=Discovery,DS=Process: Process Creation" condition="contains">misc::mflt</CommandLine>
 			</Rule>
 			<CommandLine name="Attack=T1016,Technique=Security Software Discovery,Tactic=Discovery,DS=Process: Process Creation,Level=3,Alert=AV Product detection via WMI,Risk=30" condition="contains">AntiVirusProduct</CommandLine>
 			<CommandLine name="Attack=T1016,Technique=Security Software Discovery,Tactic=Discovery,DS=Process: Process Creation,Level=3,Alert=Security Settings via WMI,Risk=30" condition="contains">root\SecurityCenter2</CommandLine>
@@ -1745,7 +1745,7 @@
 			<Image name="Attack=None,Technique=None,Tactic=None,DS=Process: Process Creation,Level=3,Alert=TFTP Execution" condition="image">tftp.exe</Image>
 			<CommandLine name="Attack=T1021,Technique=Remote Services,Tactic=Lateral Movement,DS=Process: Process Creation,Level=3,Alert=IIS powershellcustomhost exec" condition="contains">powershellcustomhost</CommandLine>
 			<!--MITRE ATT&CK TECHNIQUE: Remote Services: Distributed Component Object Model-->
-			<Rule name="Attack=T1021.003,Technique=Distributed Component Object Model,Tactic=Lateral Movement" groupRelation="and">
+			<Rule name="Attack=T1021.003,Technique=Distributed Component Object Model,Tactic=Lateral Movement,DS=Process: Process Creation" groupRelation="and">
 				<ParentCommandLine condition="contains">-Embedding</ParentCommandLine>
 				<ParentImage condition="is">c:\windows\system32\mmc.exe</ParentImage>
 			</Rule>
@@ -2141,7 +2141,7 @@
 			<ParentImage name="Attack=None,Technique=None,Tactic=None,DS=Process: Process Creation,Level=0,Desc=.Net Framework executables" condition="contains">:\Windows\Microsoft.NET\</ParentImage>
 			<ParentImage name="Attack=None,Technique=None,Tactic=None,DS=Process: Process Creation,Level=0,Desc=System Child Processes" condition="is">System</ParentImage>
 			<!-- Log other command line events, this sometimes conflicts with rules, add to exclusions as necessary-->
-			<!-- <ParentCommandLine name="Information=Uncategorized Events" condition="contains any">/;\;-;unknown;</ParentCommandLine>-->
+			<!-- <ParentCommandLine name="Information=Uncategorized Events,DS=Process: Process Creation" condition="contains any">/;\;-;unknown;</ParentCommandLine>-->
 		</ProcessCreate>
 	</RuleGroup>
 	<RuleGroup name="RG=Process Create Exclude Group" groupRelation="or">
@@ -2155,12 +2155,12 @@
 	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM [FileCreateTime]-->
 	<RuleGroup name="RG=FileCreateTime Include Group" groupRelation="or">
 		<FileCreateTime onmatch="include">
-			<Image name="Attack=T1070.006,Technique=Timestomp,Tactic=Defense Evasion" condition="begin with">C:\Users</Image>
-			<Image name="Attack=T1070.006,Technique=Timestomp,Tactic=Defense Evasion" condition="begin with">C:\ProgramData</Image>
-			<Image name="Attack=T1070.006,Technique=Timestomp,Tactic=Defense Evasion" condition="contains">\Temp\</Image>
-			<Image name="Attack=T1070.006,Technique=Timestomp,Tactic=Defense Evasion" condition="contains">\tmp\</Image>
-			<Image name="Attack=T1070.006,Technique=Timestomp,Tactic=Defense Evasion" condition="contains">\drivers\</Image>
-			<Image name="Attack=T1070.006,Technique=Timestomp,Tactic=Defense Evasion" condition="contains">\Download</Image>
+			<Image name="Attack=T1070.006,Technique=Timestomp,Tactic=Defense Evasion,DS=File: File Metadata" condition="begin with">C:\Users</Image>
+			<Image name="Attack=T1070.006,Technique=Timestomp,Tactic=Defense Evasion,DS=File: File Metadata" condition="begin with">C:\ProgramData</Image>
+			<Image name="Attack=T1070.006,Technique=Timestomp,Tactic=Defense Evasion,DS=File: File Metadata" condition="contains">\Temp\</Image>
+			<Image name="Attack=T1070.006,Technique=Timestomp,Tactic=Defense Evasion,DS=File: File Metadata" condition="contains">\tmp\</Image>
+			<Image name="Attack=T1070.006,Technique=Timestomp,Tactic=Defense Evasion,DS=File: File Metadata" condition="contains">\drivers\</Image>
+			<Image name="Attack=T1070.006,Technique=Timestomp,Tactic=Defense Evasion,DS=File: File Metadata" condition="contains">\Download</Image>
 		</FileCreateTime>
 	</RuleGroup>
 	<RuleGroup name="RG=FileCreateTime Exclude Group" groupRelation="or">
@@ -2522,8 +2522,8 @@
 			<Image name="Attack=T1021,Technique=Remote Services,Tactic=Lateral Movement,DS=Network Traffic: Network Connection Creation,Level=3,Alert=VNC" condition="image">vnc.exe</Image>
 			<Image name="Attack=T1021,Technique=Remote Services,Tactic=Lateral Movement,DS=Network Traffic: Network Connection Creation,Level=3,Alert=VNC Viewer" condition="image">vncviewer.exe</Image>
 			<Image name="Attack=T1021,Technique=Remote Services,Tactic=Lateral Movement,DS=Network Traffic: Network Connection Creation,Level=3,Alert=VNC Service" condition="image">vncservice.exe</Image>
-			<Image name="Attack=T1021,Technique=Remote Services,Tactic=Lateral Movement" condition="image">omniinet.exe</Image>
-			<Image name="Attack=T1021,Technique=Remote Services,Tactic=Lateral Movement" condition="image">hpsmhd.exe</Image>
+			<Image name="Attack=T1021,Technique=Remote Services,Tactic=Lateral Movement,DS=Network Traffic: Network Connection Creation" condition="image">omniinet.exe</Image>
+			<Image name="Attack=T1021,Technique=Remote Services,Tactic=Lateral Movement,DS=Network Traffic: Network Connection Creation" condition="image">hpsmhd.exe</Image>
 			<!--MITRE ATT&CK TECHNIQUE: Replication Through Removable Media-->
 			<!--MITRE ATT&CK TECHNIQUE: Software Deployment Tools-->
 			<!--MITRE ATT&CK TECHNIQUE: Taint Shared Content-->
@@ -3340,8 +3340,8 @@
 			<StartAddress name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion,DS=Process: Process Modification,Level=4,Alert=Cobalt Strike Detected 1,Risk=100" condition="end with">0B80</StartAddress>
 			<StartAddress name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion,DS=Process: Process Modification,Level=4,Alert=Cobalt Strike Detected 2,Risk=100" condition="end with">0C7C</StartAddress>
 			<StartAddress name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion,DS=Process: Process Modification,Level=4,Alert=Cobalt Strike Detected 3,Risk=100" condition="end with">0C88</StartAddress>
-			<TargetImage name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion,Level=0,Desc=Remote Desktop injection,Risk=30" condition="image">c:\windows\system32\mstsc.exe</TargetImage>
-			<Rule name="Alert=Potentially Detect EtwEventWrite Tampering with remote threads" groupRelation="and">
+			<TargetImage name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion,DS=Process: Process Modification,Level=0,Desc=Remote Desktop injection,Risk=30" condition="image">c:\windows\system32\mstsc.exe</TargetImage>
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Process: Process Modification,Alert=Potentially Detect EtwEventWrite Tampering with remote threads" groupRelation="and">
 				<StartModule condition="is">C:\WINDOWS\SYSTEM32\ntdll.dll</StartModule>
 				<StartFunction condition="contains">EtwEventWrite</StartFunction>
 			</Rule>
@@ -3565,7 +3565,7 @@
 			<!-- PROCESS_SUSPEND_RESUME -->
 			<GrantedAccess name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,DS=Process: Process Access,Level=4,Alert=Credential Dumping from Memory indicator,Risk=70">0x810</GrantedAccess>
 			<!-- PROCESS_SUSPEND_RESUME + PROCESS_VM_READ: possible memory dump to extract sensitive information -->
-			<GrantedAccess name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion/Privilege Escalation,Risk=70">0x820</GrantedAccess>
+			<GrantedAccess name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion/Privilege Escalation,DS=Process: Process Modification,Risk=70">0x820</GrantedAccess>
 			<SourceImage name="Attack=None,Technique=None,Tactic=None,DS=Process: Process Access,Level=0,Desc=CScript accessing another process memory,Risk=30" condition="end with">cscript.exe</SourceImage>
 			<SourceImage name="Attack=None,Technique=None,Tactic=None,DS=Process: Process Access,Level=0,Desc=WScript accessing another process memory,Risk=30" condition="end with">wscript.exe</SourceImage>
 			<SourceImage condition="end with">jjs.exe</SourceImage>
@@ -3761,9 +3761,9 @@
 			<TargetFilename name="Attack=T1204.002,Technique=Malicious File,Tactic=Execution,DS=File: File Creation,Level=4,Alert=RDP Wrapper,Risk=100" condition="end with">rdpwrap.dll</TargetFilename>
 			<TargetFilename name="Attack=T1204.002,Technique=Malicious File,Tactic=Execution,DS=File: File Creation,Level=4,Alert=winspool.drv dropped" condition="end with">winspool.drv</TargetFilename>
 			<!--MITRE ATT&CK TECHNIQUE: Windows Management Instrumentation-->
-			<TargetFilename name="Attack=T1047,Technique=Windows Management Instrumentation,Tactic=Execution" condition="begin with">C:\Windows\System32\Wbem</TargetFilename>
-			<TargetFilename name="Attack=T1047,Technique=Windows Management Instrumentation,Tactic=Execution" condition="begin with">C:\Windows\SysWOW64\Wbem</TargetFilename>
-			<Image name="Attack=T1047,Technique=Windows Management Instrumentation,Tactic=Execution" condition="begin with">C:\WINDOWS\system32\wbem\scrcons.exe</Image>
+			<TargetFilename name="Attack=T1047,Technique=Windows Management Instrumentation,Tactic=Execution,DS=File: File Creation" condition="begin with">C:\Windows\System32\Wbem</TargetFilename>
+			<TargetFilename name="Attack=T1047,Technique=Windows Management Instrumentation,Tactic=Execution,DS=File: File Creation" condition="begin with">C:\Windows\SysWOW64\Wbem</TargetFilename>
+			<Image name="Attack=T1047,Technique=Windows Management Instrumentation,Tactic=Execution,DS=File: File Creation" condition="begin with">C:\WINDOWS\system32\wbem\scrcons.exe</Image>
 			<!--MITRE ATT&CK TACTIC: Persistence-->
 			<!--MITRE ATT&CK TECHNIQUE: Account Manipulation-->
 			<!--MITRE ATT&CK TECHNIQUE: BITS Jobs-->
@@ -3784,8 +3784,8 @@
 			<TargetFilename name="Attack=T1137,Technique=Office Application Startup,Tactic=Persistence,DS=File: File Creation,Level=0,Desc=Office Application Startup modification" condition="contains">\Word\STARTUP\</TargetFilename>
 			<TargetFilename name="Attack=T1137,Technique=Office Application Startup,Tactic=Persistence,DS=File: File Creation,Level=0,Desc=Office Application Startup modification" condition="contains">\Microsoft\Templates\</TargetFilename>
 			<TargetFilename name="Attack=T1137,Technique=Office Application Startup,Tactic=Persistence,DS=File: File Creation,Level=0,Desc=Office Application Startup modification" condition="contains">\Excel\XLSTART\</TargetFilename>
-			<TargetFilename name="Attack=T1137,Technique=Office Application Startup,Tactic=Persistence" condition="end with">.dotm</TargetFilename>
-			<TargetFilename name="Attack=T1137,Technique=Office Application Startup,Tactic=Persistence" condition="end with">.XLSB</TargetFilename>
+			<TargetFilename name="Attack=T1137,Technique=Office Application Startup,Tactic=Persistence,DS=File: File Creation" condition="end with">.dotm</TargetFilename>
+			<TargetFilename name="Attack=T1137,Technique=Office Application Startup,Tactic=Persistence,DS=File: File Creation" condition="end with">.XLSB</TargetFilename>
 			<!--MITRE ATT&CK TECHNIQUE: Pre-OS Boot-->
 			<!--MITRE ATT&CK TECHNIQUE: Scheduled Task/Job-->
 			<TargetFilename name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Desc=Scheduled Task Modified" condition="begin with">C:\Windows\Tasks\</TargetFilename>
@@ -3914,15 +3914,15 @@
 			<!--MITRE ATT&CK TECHNIQUE: Subvert Trust Controls-->
 			<!--MITRE ATT&CK TECHNIQUE: System Binary Proxy Execution-->
 			<!--MITRE ATT&CK TECHNIQUE: System Binary Proxy Execution: Compiled HTML File-->
-			<TargetFilename name="Attack=T1223,Technique=Compiled HTML File,Tactic=Defense Evasion" condition="end with">.chm</TargetFilename>
+			<TargetFilename name="Attack=T1223,Technique=Compiled HTML File,Tactic=Defense Evasion,DS=File: File Creation" condition="end with">.chm</TargetFilename>
 			<!--MITRE ATT&CK TECHNIQUE: System Binary Proxy Execution: Regsvr32-->
 			<!--MITRE ATT&CK TECHNIQUE: System Binary Proxy Execution: MsiExec-->
 			<!--MITRE ATT&CK TECHNIQUE: System Script Proxy Execution-->
 			<!--MITRE ATT&CK TECHNIQUE: Template Injection-->
 			<!--MITRE ATT&CK TECHNIQUE: Traffic Signaling-->
 			<!--MITRE ATT&CK TECHNIQUE: Trusted Developer Utilities Proxy Execution-->
-			<TargetFilename name="Attack=T1127,Technique=Trusted Developer Utilities Proxy Execution,Tactic=Defense Evasion" condition="end with">proj</TargetFilename>
-			<TargetFilename name="Attack=T1127,Technique=Trusted Developer Utilities Proxy Execution,Tactic=Defense Evasion" condition="end with">.sln</TargetFilename>
+			<TargetFilename name="Attack=T1127,Technique=Trusted Developer Utilities Proxy Execution,Tactic=Defense Evasion,DS=File: File Creation" condition="end with">proj</TargetFilename>
+			<TargetFilename name="Attack=T1127,Technique=Trusted Developer Utilities Proxy Execution,Tactic=Defense Evasion,DS=File: File Creation" condition="end with">.sln</TargetFilename>
 			<!--MITRE ATT&CK TECHNIQUE: Unused/Unsupported Cloud Regions-->
 			<!--MITRE ATT&CK TECHNIQUE: Use Alternate Authentication Material-->
 			<!--MITRE ATT&CK TECHNIQUE: Valid Accounts-->
@@ -4255,8 +4255,8 @@
 			<TargetFilename name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Desc=Powerpoint Macro,Risk=30" condition="end with">.pptm</TargetFilename>
 			<TargetFilename name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Desc=Powerpoint OpenXML Filetype" condition="end with">.sldm</TargetFilename>
 			<TargetFilename name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Desc=Recent Office Files" condition="contains">\Microsoft\Office\Recent</TargetFilename>
-			<TargetFilename name="Attack=None,Technique=None,Tactic=None,Forensic=Recent Office History" condition="contains">oleObject</TargetFilename>
-			<TargetFilename name="Attack=None,Technique=None,Tactic=None,Forensic=Recent Jumplist Custom Destinations" condition="contains">\Recent\CustomDestinations\</TargetFilename>
+			<TargetFilename name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Forensic=Recent Office History" condition="contains">oleObject</TargetFilename>
+			<TargetFilename name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Forensic=Recent Jumplist Custom Destinations" condition="contains">\Recent\CustomDestinations\</TargetFilename>
 			<TargetFilename name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Desc=User Downloaded Files" condition="contains">\Downloads\</TargetFilename>
 			<TargetFilename name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Desc=User Outlook Attachments" condition="contains">\Content.Outlook\</TargetFilename>
 			<TargetFilename name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Desc=Word Macro,Risk=30" condition="end with">.docb</TargetFilename>
@@ -4402,7 +4402,7 @@
 			<TargetFilename name="Attack=T1574.002,Technique=Hijack Execution Flow: DLL Side-Loading,Tactic=Defense Evasion,DS=File: File Creation,Level=0,Desc=Finfisher Sideload Detection" condition="end with">ftllib.dll</TargetFilename>
 			<TargetFilename name="Attack=T1574.002,Technique=Hijack Execution Flow: DLL Side-Loading,Tactic=Defense Evasion,DS=File: File Creation,Level=0,Desc=Finfisher Sideload Detection" condition="end with">userenv.dll</TargetFilename>
 			<TargetFilename name="Attack=T1021.001,Technique=Remote Services: Remote Desktop Protocol,Tactic=Lateral Movement,DS=File: File Creation,Level=0,Desc=RDP Bitmap Cache" condition="contains">\Terminal Server Client\Cache\</TargetFilename>
-			<TargetFilename name="Attack=T1204,Technique=User Execution,Tactic=Execution,Forensic=Windows Prefetch Exec History" condition="begin with">C:\Windows\Prefetch</TargetFilename>
+			<TargetFilename name="Attack=T1204,Technique=User Execution,Tactic=Execution,DS=File: File Creation,Forensic=Windows Prefetch Exec History" condition="begin with">C:\Windows\Prefetch</TargetFilename>
 			<TargetFilename name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Desc=Suspicious TSClient share file creation,Risk=30" condition="begin with">\\tsclient</TargetFilename>
 			<TargetFilename name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Desc=WebDav Cache Files Created" condition="begin with">C:\Windows\ServiceProfiles\LocalService\AppData\Local\Temp\TfsStore\</TargetFilename>
 			<TargetFilename name="Attack=T1087,Technique=Account Discovery,Tactic=Discovery,DS=File: File Creation,Level=4,Alert=SharpDump bin,Risk=100" condition="end with">\Temp\debug.bin</TargetFilename>
@@ -4454,7 +4454,7 @@
 			<TargetFilename name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Desc=Windows Registry Database" condition="end with">.sdb</TargetFilename>
 			<TargetFilename name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Desc=Windows Script File Component File" condition="end with">.SCT</TargetFilename>
 			<TargetFilename name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Desc=Windows Shell Scrap Object Handler File" condition="end with">.SHB</TargetFilename>
-			<TargetFilename name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=Zip File Extraction from explorer" condition="contains">Temp\Temp1_</TargetFilename>
+			<TargetFilename name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Desc=Zip File Extraction from explorer" condition="contains">Temp\Temp1_</TargetFilename>
 			<!--Uncategorized-->
 			<TargetFilename condition="contains all">\Microsoft\;CLR_v;\UsageLogs\</TargetFilename>
 			<TargetFilename condition="end with">.ade</TargetFilename>
@@ -4512,7 +4512,7 @@
 			<!--MITRE ATT&CK TECHNIQUE: Drive-by Compromise-->
 			<!--MITRE ATT&CK TECHNIQUE: Exploit Public-Facing Application-->
 			<!--MITRE ATT&CK TECHNIQUE: External Remote Services-->
-			<Rule name="Attack=None,Technique=None,Tactic=None,Forensic=RDP Connection History Tracking" groupRelation="and">
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Forensic=RDP Connection History Tracking" groupRelation="and">
 				<TargetObject condition="contains">\Software\Microsoft\Terminal Server Client</TargetObject>
 				<TargetObject condition="excludes">DefaultPrinter</TargetObject>
 			</Rule>
@@ -4627,8 +4627,8 @@
 			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: BITS Jobs-->
 			<!--MITRE ATT&CK TECHNIQUE: Boot or Logon Autostart Execution-->
-			<TargetObject name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion/Privilege Escalation,Alert=Process Injection: injecting a 64-bit DLL into a 32-bit process" condition="contains">SOFTWARE\Microsoft\Wow64\x86\</TargetObject>
-			<Rule name="Attack=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,Alert=AutoRun Reg Keys,Risk=70" groupRelation="and">
+			<TargetObject name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion,DS=Windows Registry: Windows Registry Key Modification,Alert=Process Injection: injecting a 64-bit DLL into a 32-bit process" condition="contains">SOFTWARE\Microsoft\Wow64\x86\</TargetObject>
+			<Rule name="Attack=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Alert=AutoRun Reg Keys,Risk=70" groupRelation="and">
 				<EventType condition="is">SetValue</EventType>
 				<TargetObject condition="contains">\CurrentVersion\Run\</TargetObject>
 				<Image condition="excludes">Add_exclusions_here</Image>
@@ -4659,14 +4659,14 @@
 			<TargetObject name="Attack=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Services and autoruns imagepath" condition="end with">\ImagePath</TargetObject>
 			<TargetObject name="Attack=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Windows Service DLL changes" condition="end with">\ServiceDll</TargetObject>
 			<TargetObject name="Attack=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Manifest pointing to service's DLL" condition="end with">\ServiceManifest</TargetObject>
-			<TargetObject name="Attack=T1060,Technique=Registry Run Keys,Tactic=Persistence" condition="begin with">hkcu\software\microsoft\windows nt\currentversion\windows\run\</TargetObject>
-			<TargetObject name="Attack=T1060,Technique=Registry Run Keys,Tactic=Persistence" condition="begin with">hkcu\software\microsoft\windows\currentversion\explorer\shell folders\common startup</TargetObject>
-			<TargetObject name="Attack=T1060,Technique=Registry Run Keys,Tactic=Persistence" condition="begin with">hkcu\software\microsoft\windows\currentversion\explorer\shell folders\startup</TargetObject>
-			<TargetObject name="Attack=T1060,Technique=Registry Run Keys,Tactic=Persistence" condition="begin with">hklm\software\microsoft\command processor\autorun</TargetObject>
-			<TargetObject name="Attack=T1060,Technique=Registry Run Keys,Tactic=Persistence" condition="contains all">hkcu\software\microsoft\windows nt\currentversion\accessibility\ATs\\*(1)\StartExe</TargetObject>
-			<TargetObject name="Attack=T1060,Technique=Registry Run Keys,Tactic=Persistence" condition="contains">Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders\Startup</TargetObject>
+			<TargetObject name="Attack=T1060,Technique=Registry Run Keys,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification" condition="begin with">hkcu\software\microsoft\windows nt\currentversion\windows\run\</TargetObject>
+			<TargetObject name="Attack=T1060,Technique=Registry Run Keys,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification" condition="begin with">hkcu\software\microsoft\windows\currentversion\explorer\shell folders\common startup</TargetObject>
+			<TargetObject name="Attack=T1060,Technique=Registry Run Keys,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification" condition="begin with">hkcu\software\microsoft\windows\currentversion\explorer\shell folders\startup</TargetObject>
+			<TargetObject name="Attack=T1060,Technique=Registry Run Keys,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification" condition="begin with">hklm\software\microsoft\command processor\autorun</TargetObject>
+			<TargetObject name="Attack=T1060,Technique=Registry Run Keys,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification" condition="contains all">hkcu\software\microsoft\windows nt\currentversion\accessibility\ATs\\*(1)\StartExe</TargetObject>
+			<TargetObject name="Attack=T1060,Technique=Registry Run Keys,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification" condition="contains">Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders\Startup</TargetObject>
 			<!--MITRE ATT&CK TECHNIQUE: Boot or Logon Autostart Execution: Print Processors-->
-			<TargetObject name="Attack=T1013,Technique=Port Monitors,Tactic=Persistence/Privilege Escalation" condition="contains">\Print\Monitors</TargetObject>
+			<TargetObject name="Attack=T1013,Technique=Port Monitors,Tactic=Persistence/Privilege Escalation,DS=Windows Registry: Windows Registry Key Modification" condition="contains">\Print\Monitors</TargetObject>
 			<!--<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Printer Registry Locations" condition="contains">\Printers\Connections</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Printer Registry Locations" condition="contains">\Print\Environments\</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Printer Registry Locations" condition="contains">\Servers\Printers\</TargetObject>
@@ -4677,7 +4677,7 @@
 			<!--MITRE ATT&CK TECHNIQUE: Browser Extensions-->
 			<!--MITRE ATT&CK TECHNIQUE: Compromise Client Software Binary-->
 			<!--MITRE ATT&CK TECHNIQUE: Create Account-->
-			<Rule name="Attack=T1136,Technique=Create Account,Tactic=Persistence,Level=0,Desc=New user created,Risk=40" groupRelation="and">
+			<Rule name="Attack=T1136,Technique=Create Account,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=New user created,Risk=40" groupRelation="and">
 				<TargetObject condition="begin with">HKLM\SAM\SAM\DOMAINS\Account\Users\Names\</TargetObject>
 				<TargetObject condition="excludes">$</TargetObject>
 				<EventType condition="is">CreateKey</EventType>
@@ -5077,7 +5077,7 @@
 			<!--MITRE ATT&CK TECHNIQUE: Modify Authentication Process-->
 			<!--MITRE ATT&CK TECHNIQUE: Modify Cloud Compute Infrastructure-->
 			<!--MITRE ATT&CK TECHNIQUE: Modify Registry-->
-			<Rule name="Attack=None,Technique=None,Tactic=None,Forensic=Regedit history Detection,Risk=30" groupRelation="and">
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Forensic=Regedit history Detection,Risk=30" groupRelation="and">
 				<TargetObject condition="end with">\LastKey</TargetObject>
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Symbolic Registry Link Created" groupRelation="and">
@@ -5304,7 +5304,7 @@
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Lanmanworkstation Parameters Registry Change Detected" groupRelation="and">
 				<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\Lanmanworkstation\Parameters</TargetObject>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,Forensic=Regedit history Detection,Risk=30" groupRelation="and">
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Forensic=Regedit history Detection,Risk=30" groupRelation="and">
 				<TargetObject condition="end with">\LastKey</TargetObject>
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=TS Farm Disable RDP Detection" groupRelation="and">
@@ -5313,7 +5313,7 @@
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=TS Farm Drain Mode Modification Detection" groupRelation="and">
 				<TargetObject condition="end with">\TSServerDrainMode</TargetObject>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,Forensic=IE history Detection" groupRelation="and">
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Forensic=IE history Detection" groupRelation="and">
 				<TargetObject condition="end with">\TypedURLs</TargetObject>
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=IPv6 Changes detected: Disabled Components" groupRelation="and">
@@ -5329,11 +5329,11 @@
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Service Listening Ports with URL ACL INFO" groupRelation="and">
 				<TargetObject condition="contains">services\http\parameters\urlaclinf</TargetObject>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,Forensic=Adobe Recent File List History" groupRelation="and">
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Forensic=Adobe Recent File List History" groupRelation="and">
 				<TargetObject condition="contains">cRecentFiles\c1\</TargetObject>
 				<TargetObject condition="end with">tDIText</TargetObject>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,Forensic=Office History MRU" groupRelation="and">
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Forensic=Office History MRU" groupRelation="and">
 				<TargetObject condition="end with">\File MRU\Item 1</TargetObject>
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Sysmon Config Hash Modification Monitoring" groupRelation="and">
@@ -5378,7 +5378,7 @@
 			<!--CLSID launch commands and file association changes-->
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=File Extension Mapping" condition="contains">\Explorer\FileExts\</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Command Shell install Key" condition="contains">\shell\install\command\</TargetObject>
-			<TargetObject name="Attack=None,Technique=None,Tactic=None,Forensic=User SID History for Forensics" condition="end with">\ProfileImagePath</TargetObject>
+			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Forensic=User SID History for Forensics" condition="end with">\ProfileImagePath</TargetObject>
 			<!--Windows shell hijack-->
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=AllFileSystemObjects Classes" condition="contains">\Classes\AllFilesystemObjects\</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Asterisk Classes" condition="contains">\Classes\*\</TargetObject>
@@ -5435,7 +5435,7 @@
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Detect Security Provider Changes" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SecurityProviders\</TargetObject>
 			<!--Networking-->
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Monitor Network Interface Priority ordering" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\NetworkProvider\Order\</TargetObject>
-			<TargetObject name="Attack=None,Technique=None,Tactic=None,Forensic=Monitor Network History" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Profiles</TargetObject>
+			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Forensic=Monitor Network History" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Profiles</TargetObject>
 			<!--DLLs that get injected into every process launch-->
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=AppInitDLL Moninitoring: DLLs that get injected into every process launch" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=AppInitDLL Moninitoring: DLLs that get injected into every process launch" condition="begin with">HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject>
@@ -5487,13 +5487,13 @@
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Office Keys: Monitor Disabling of Internet files in Protected View" condition="end with">Security\ProtectedView\DisableInternetFilesInPV</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Office Keys: Monitor Disabling of attackments in Protected View" condition="end with">Security\ProtectedView\DisableAttachmentsInPV</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Office Keys: Monitor Disabling of Unsafe Locations in Protected View" condition="end with">Security\ProtectedView\DisableUnsafeLocationsInPV</TargetObject>
-			<TargetObject name="Attack=None,Technique=None,Tactic=None,Forensic=WinRAR History" condition="contains">Software\WinRAR\ArcHistory</TargetObject>
-			<TargetObject name="Attack=None,Technique=None,Tactic=None,Forensic=Winzip History" condition="contains">WinZip\mru\</TargetObject>
-			<TargetObject name="Attack=None,Technique=None,Tactic=None,Forensic=Misc Recent File List History" condition="contains">Recent File List</TargetObject>
+			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Forensic=WinRAR History" condition="contains">Software\WinRAR\ArcHistory</TargetObject>
+			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Forensic=Winzip History" condition="contains">WinZip\mru\</TargetObject>
+			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Forensic=Misc Recent File List History" condition="contains">Recent File List</TargetObject>
 			<TargetObject name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,DS=Windows Registry: Windows Registry Key Modification,Level=3,Alert=Office Homepage Attack,Risk=70" condition="contains">Outlook\WebView\Inbox</TargetObject>
 			<TargetObject name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,DS=Windows Registry: Windows Registry Key Modification,Level=3,Alert=Office Homepage Attack,Risk=70" condition="contains">Outlook\Today\UserDefinedUrl</TargetObject>
 			<TargetObject name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,DS=Windows Registry: Windows Registry Key Modification,Level=3,Alert=Office Calendar Homepage Attack,Risk=70" condition="contains">Outlook\WebView\Calendar</TargetObject>
-			<TargetObject name="Attack=None,Technique=None,Tactic=None,Forensic=Office History" condition="contains">\Place MRU</TargetObject>
+			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Forensic=Office History" condition="contains">\Place MRU</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache InvDB-CompileTimeClaim" condition="end with">\LinkDate</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache InvDB-DriverVer" condition="end with">\DriverVerVersion</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache InvDB-DriverVer" condition="end with">\DriverVersion</TargetObject>
@@ -5536,7 +5536,7 @@
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=Detect humanInterfaceDevice Accesses" condition="contains">\ConsentStore\humanInterfaceDevice</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=Explorer Last Visited MRU" condition="contains">LastVisitedMRU</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=Regedit Applets" condition="contains">SOFTWARE\Microsoft\Windows\CurrentVersion\Applets\RegEdit</TargetObject>
-			<TargetObject name="Attack=None,Technique=None,Tactic=None,Forensic=Run MRU" condition="contains">\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU</TargetObject>
+			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Forensic=Run MRU" condition="contains">\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=USBStor USB Device History" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Enum\USBSTOR</TargetObject>
 			<TargetObject name="Attack=T1112,Technique=Modify Registry,Tactic=Defense Evasion,DS=Windows Registry: Windows Registry Key Modification,Level=4,Alert=Safeboot Service Added" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Safeboot\</TargetObject>
 			<TargetObject name="Attack=T1198,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Crypto Trust Providers" condition="begin with">HKLM\SOFTWARE\Microsoft\Cryptography\Providers\Trust</TargetObject>
@@ -5559,20 +5559,20 @@
 				<Details condition="contains any">ndis;rndis</Details>
 			</Rule>
 			<TargetObject name="Attack=T1090,Technique=Connection Proxy,Tactic=Defense Evasion,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=NetSH PortProxy Detected" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\PortProxy\v4tov4</TargetObject>
-			<Rule name="Attack=T1112,Technique=Modify Registry,Tactic=Defense Evasion,Alert=Possible Ursniff Malware Detected,FP=1" groupRelation="and">
+			<Rule name="Attack=T1112,Technique=Modify Registry,Tactic=Defense Evasion,DS=Windows Registry: Windows Registry Key Modification,Alert=Possible Ursniff Malware Detected,FP=1" groupRelation="and">
 				<TargetObject condition="contains">\Software\AppDataLow\Software\Microsoft\</TargetObject>
 				<Details condition="contains any">.exe;.dll;powershell;wmic</Details>
 			</Rule>
 			<TargetObject name="Attack=T1137,Technique=Office Application Startup,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=4,Alert=Office Persistence Location,Risk=70" condition="end with">Software\Microsoft\Office test\Special\Perf</TargetObject>
 			<TargetObject name="Attack=T1177,Technique=LSASS Driver,Tactic=Execution/Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Undocumented LSASS DLL Loading" condition="contains">\CurrentControlSet\Services\NTDS\LsaDbExtPt</TargetObject>
 			<TargetObject name="Attack=T1177,Technique=LSASS Driver,Tactic=Execution/Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Undocumented LSASS DLL Loading" condition="contains">\Services\NTDS\DirectoryServiceExtPt</TargetObject>
-			<TargetObject name="Attack=T1219,Technique=Remote Access Tools,Tactic=Command And Control,Forensic=GoToMyPC File Transfer History,Risk=70" condition="contains">GoToMyPc\FileTransfer\history</TargetObject>
-			<TargetObject name="Attack=T1219,Technique=Remote Access Tools,Tactic=Command And Control,Forensic=GoToMyPC Guest Invite,Risk=70" condition="contains">GoToMyPc\GuestInvite</TargetObject>
-			<TargetObject name="Attack=T1219,Technique=Remote Access Tools,Tactic=Command And Control,Forensic=LogMeIn File Transfer Recipient" condition="contains">Filesharing</TargetObject>
-			<TargetObject name="Attack=T1219,Technique=Remote Access Tools,Tactic=Command And Control,Forensic=LogMeIn Guest Recipient" condition="contains">DesktopSharing</TargetObject>
-			<TargetObject name="Attack=T1219,Technique=Remote Access Tools,Tactic=Command And Control,Forensic=Teamviewer LogIncomingConnections Registry Key modification" condition="contains">LogIncomingConnections</TargetObject>
-			<TargetObject name="Attack=T1219,Technique=Remote Access Tools,Tactic=Command And Control,Forensic=Teamviewer LogOutgoingConnection Registry Key modification" condition="contains">LogOutgoingConnections</TargetObject>
-			<TargetObject name="Attack=T1219,Technique=Remote Access Tools,Tactic=Command And Control,Forensic=Teamviewer Password Registry Key date" condition="contains">PermanentPasswordDate</TargetObject>
+			<TargetObject name="Attack=T1219,Technique=Remote Access Tools,Tactic=Command And Control,DS=Windows Registry: Windows Registry Key Modification,Forensic=GoToMyPC File Transfer History,Risk=70" condition="contains">GoToMyPc\FileTransfer\history</TargetObject>
+			<TargetObject name="Attack=T1219,Technique=Remote Access Tools,Tactic=Command And Control,DS=Windows Registry: Windows Registry Key Modification,Forensic=GoToMyPC Guest Invite,Risk=70" condition="contains">GoToMyPc\GuestInvite</TargetObject>
+			<TargetObject name="Attack=T1219,Technique=Remote Access Tools,Tactic=Command And Control,DS=Windows Registry: Windows Registry Key Modification,Forensic=LogMeIn File Transfer Recipient" condition="contains">Filesharing</TargetObject>
+			<TargetObject name="Attack=T1219,Technique=Remote Access Tools,Tactic=Command And Control,DS=Windows Registry: Windows Registry Key Modification,Forensic=LogMeIn Guest Recipient" condition="contains">DesktopSharing</TargetObject>
+			<TargetObject name="Attack=T1219,Technique=Remote Access Tools,Tactic=Command And Control,DS=Windows Registry: Windows Registry Key Modification,Forensic=Teamviewer LogIncomingConnections Registry Key modification" condition="contains">LogIncomingConnections</TargetObject>
+			<TargetObject name="Attack=T1219,Technique=Remote Access Tools,Tactic=Command And Control,DS=Windows Registry: Windows Registry Key Modification,Forensic=Teamviewer LogOutgoingConnection Registry Key modification" condition="contains">LogOutgoingConnections</TargetObject>
+			<TargetObject name="Attack=T1219,Technique=Remote Access Tools,Tactic=Command And Control,DS=Windows Registry: Windows Registry Key Modification,Forensic=Teamviewer Password Registry Key date" condition="contains">PermanentPasswordDate</TargetObject>
 			<TargetObject name="Attack=T1219,Technique=Remote Access Tools,Tactic=Command And Control,DS=Windows Registry: Windows Registry Key Modification,Level=4,Alert=Teamviewer adminrights Key modification,Risk=70" condition="contains">Security_Adminrights</TargetObject>
 			<TargetObject name="Attack=T1219,Technique=Remote Access Tools,Tactic=Command And Control,DS=Windows Registry: Windows Registry Key Modification,Level=3,Alert=VNC Incoming Connection History,Risk=70" condition="contains">vncviewer\MRU</TargetObject>
 			<TargetObject name="Attack=T1219,Technique=Remote Access Tools,Tactic=Command And Control,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Teamviewer Autostart Key modification" condition="contains">Autostart_GUI</TargetObject>
@@ -5592,11 +5592,11 @@
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=IIS Crypto Keys" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=IIS Crypto Keys" condition="end with">\Client\Enabled</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=IIS Crypto Keys" condition="end with">\Server\Enabled</TargetObject>
-			<TargetObject name="Attack=None,Technique=None,Tactic=None,Forensic=Kitty Sessions,Risk=30" condition="contains">Kitty\Sessions</TargetObject>
+			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Forensic=Kitty Sessions,Risk=30" condition="contains">Kitty\Sessions</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=NetNTLM downgrade attack" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\NtlmMinClientSec</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=NetNTLM downgrade attack" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\RestrictSendingNTLMTraffic</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=NetNTLM downgrade attack" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\lmcompatibilitylevel</TargetObject>
-			<TargetObject name="Attack=None,Technique=None,Tactic=None,Forensic=Putty Sessions,Risk=30" condition="contains">PuTTY\Sessions</TargetObject>
+			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Forensic=Putty Sessions,Risk=30" condition="contains">PuTTY\Sessions</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=RDP History,Risk=10" condition="contains">Terminal Server Client\Servers</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=WINSCP Sessions,Risk=30" condition="contains">WinSCP 2\Sessions</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=WINSCP Sessions,Risk=30" condition="contains">WinSCP 2\Sessions</TargetObject>
@@ -5717,7 +5717,7 @@
 			<PipeName name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion/Privilege Escalation,DS=Named Pipe: Named Pipe Metadata,Level=4,Alert=Pacifier Named Pipe Detection,Risk=100,Author=@Cyb3rops/@olafhartong" condition="begin with">\bc367</PipeName>
 			<PipeName name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion/Privilege Escalation,DS=Named Pipe: Named Pipe Metadata,Level=4,Alert=Pacifier Named Pipe Detection,Risk=100,Author=@Cyb3rops/@olafhartong" condition="begin with">\bc31a7</PipeName>
 			<PipeName name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion/Privilege Escalation,DS=Named Pipe: Named Pipe Metadata,Level=4,Alert=Emissary Panda Hyerbri Named Pipe Detection,Risk=100,Author=@Cyb3rops/@olafhartong" condition="begin with">\testPipe</PipeName>
-			<PipeName name="Attack=T1077,Technique=Windows Admin Shares,Tactic=Lateral Movement,Alert=lateral movement -meterpreter named pipe detected,Risk=100" condition="contains">msf-pipe</PipeName>
+			<PipeName name="Attack=T1077,Technique=Windows Admin Shares,Tactic=Lateral Movement,DS=Named Pipe: Named Pipe Metadata,Alert=lateral movement -meterpreter named pipe detected,Risk=100" condition="contains">msf-pipe</PipeName>
 			<PipeName name="Attack=None,Technique=None,Tactic=None,DS=Named Pipe: Named Pipe Metadata,Level=0,Desc=LM or EXEC over atsvc named pipe" condition="contains">\atsvc</PipeName>
 			<PipeName name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion/Privilege Escalation,DS=Named Pipe: Named Pipe Metadata,Level=4,Alert=Malicious Named Pipe Detection 1" condition="contains any">\isapi_http;\isapi_dg;\isapi_dg2;\sdlrpc;\ahexec;\winsession;\lsassw;\46a676ab7f179e511e30dd2dc41bd388;\9f81f59bc58452127884ce513865ed20;\e710f28d59aa529d6792ca6ff0ca1b34;\rpchlp_3;\NamePipe_MoreWindows;\pcheap_reuse;\gruntsvc;\583da945-62af-10e8-4902-a8f205c72b2e;\bizkaz;\Posh;\jaccdpqnvbrrxlaf;\csexecsvc</PipeName>
 			<PipeName name="Attack=T1055,Technique=Process Injection,Tactic=Defense Evasion/Privilege Escalation,DS=Named Pipe: Named Pipe Metadata,Level=4,Alert=Malicious Named Pipe Detection 2" condition="contains any">\atctl;\userpipe;\iehelper;\sdlrpc;\comnap</PipeName>
@@ -5818,7 +5818,7 @@
 	<!--DATA: EventType, UtcTime, Operation, User, Name, Type, Destination, Consumer, Filter-->
 	<RuleGroup name="RG=WmiEvent Include Group" groupRelation="or">
 		<WmiEvent onmatch="include">
-			<Operation name="Attack=T1047,Technique=Windows Management Instrumentation,Tactic=Execution" condition="is">Created</Operation>
+			<Operation name="Attack=T1047,Technique=Windows Management Instrumentation,Tactic=Execution,DS=WMI: WMI Creation" condition="is">Created</Operation>
 		</WmiEvent>
 	</RuleGroup>
 	<!-- SYSMON EVENT ID 22 : DNS Queries-->
@@ -5877,7 +5877,7 @@
 			<QueryName name="Attack=None,Technique=None,Tactic=None,DS=Network Traffic: Network Traffic Content,Level=0,Desc=Screenconnect Hostname Lookup" condition="contains">Screenconnect</QueryName>
 			<!--Public Port Scan Detection-->
 			<!--MITRE ATT&CK TECHNIQUE: Active Scanning-->
-			<QueryName name="Attack=T1595,Technique=Active Scanning,Tactic=Discovery" condition="contains">census</QueryName>
+			<QueryName name="Attack=T1595,Technique=Active Scanning,Tactic=Discovery,DS=Network Traffic: Network Traffic Content" condition="contains">census</QueryName>
 			<QueryName name="Attack=T1595,Technique=Active Scanning,Tactic=Discovery,DS=Network Traffic: Network Traffic Content,Level=0,Desc=ResearchScan DNS Query" condition="contains">researchscan</QueryName>
 			<QueryName name="Attack=T1595,Technique=Active Scanning,Tactic=Discovery,DS=Network Traffic: Network Traffic Content,Level=0,Desc=ScanHub DNS Query" condition="contains">scanhub</QueryName>
 			<QueryName name="Attack=T1595,Technique=Active Scanning,Tactic=Discovery,DS=Network Traffic: Network Traffic Content,Level=0,Desc=Shadow DNS Query,Risk=20" condition="contains">shadow</QueryName>
@@ -5939,7 +5939,7 @@
 			<QueryResults name="Attack=None,Technique=None,Tactic=None,DS=Network Traffic: Network Traffic Content,Level=0,Desc=SPF Lookup" condition="begin with">type:  99</QueryResults>
 			<QueryResults name="Attack=None,Technique=None,Tactic=None,DS=Network Traffic: Network Traffic Content,Level=0,Desc=SRV Lookup" condition="begin with">type:  33</QueryResults>
 			-->
-			<Image name="Information=Uncategorized Events" condition="contains any">System;svchost.exe;services.exe;unknown process;\;;</Image>
+			<Image name="Attack=None,Technique=None,Tactic=None,DS=None,Information=Uncategorized Events" condition="contains any">System;svchost.exe;services.exe;unknown process;\;;</Image>
 		</DnsQuery>
 	</RuleGroup>
 	<RuleGroup name="RG=DNS Query Excludes" groupRelation="or">
@@ -6222,7 +6222,7 @@
 	</RuleGroup>
 	<RuleGroup name="RG=Process Tampering Excludes" groupRelation="or">
 		<ProcessTampering onmatch="exclude">
-			<Rule name="Attack=None,Technique=None,Tactic=None,Level=0,Desc=exclude common noise" groupRelation="and">
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Network Traffic: Network Traffic Content,Level=0,Desc=exclude common noise" groupRelation="and">
 				<Image condition="contains any">\BHO\ie_to_edge_stub.exe;\Microsoft\Teams\;\Vivaldi\Application\;Google\Chrome\;Google\Update;BraveSoftware\Brave-Browser\;Edge\Application\;EdgeUpdate\Install\;Program Files\SmartGit\</Image>
 			</Rule>
 		</ProcessTampering>
