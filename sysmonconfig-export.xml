@@ -6694,14 +6694,17 @@
 	<RuleGroup name="RG=FileBlockShredding Exclude Group" groupRelation="or">
 		<FileBlockShredding onmatch="exclude">
 			<Rule name="safe images - be careful" groupRelation="or">
-				<Image condition="image">C:\WINDOWS\System32\svchost.exe</Image>
-				<Image condition="image">C:\WINDOWS\System32\services.exe</Image>
-				<Image condition="image">C:\WINDOWS\system32\consent.exe</Image>
+				<Image condition="begin with">C:\WINDOWS\</Image>
+				<Image condition="begin with">C:\Program Files\WindowsApps\</Image>
+				<Image condition="image">C:\PROGRA~2\Citrix\ICACLI~1\WFICA32.EXE</Image>
+				<Image condition="contains all">C:\Program Files;\Microsoft\EdgeWebView\Application\;\msedgewebview2.exe</Image>
+				<Image condition="contains all">C:\Program Files;\Citrix\;\WFICA32.EXE</Image>
 				<Image condition="contains all">C:\Program Files\Google\Drive File Stream\;\GoogleDriveFS.exe</Image>
 				<Image condition="contains all">C:\Program Files (x86)\Microsoft\EdgeWebView\Application\;msedgewebview2.exe</Image>
 			</Rule>
-			<Rule name="safe paths - be careful" groupRelation="and">
+			<Rule name="safe paths - be careful" groupRelation="or">
 				<TargetFilename condition="contains any">C:\Safe-shred-location</TargetFilename>
+				<TargetFilename condition="end with">.lock</TargetFilename>
 			</Rule>
 			<Rule name="safe users - be careful" groupRelation="or">
 				<!--<User condition="is">SYSTEM</User>
