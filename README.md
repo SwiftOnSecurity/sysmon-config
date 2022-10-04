@@ -3,11 +3,25 @@ The file provided should function as a great starting point for system monitorin
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**[sysmonconfig-export.xml](https://github.com/ion-storm/sysmon-config/blob/master/sysmonconfig-export.xml)**
 
-Because virtually every line is commented and sections are marked with explanations, it should also function as a tutorial for Sysmon and a guide to critical monitoring areas in Windows systems. It demonstrates a lot of what I wish I knew when I began with Sysmon in 2014.
+Pull requests and issue tickets are welcome, and new additions will be credited in-line or on Git, tag your naame with Author=YourName within the rulename field.
 
-Pull requests and issue tickets are welcome, and new additions will be credited in-line or on Git.
+This Sysmon ATT&CK Configuration is designed "Explicitely" to enrich your SIEM for threat intelligence, forensics, UEBA, use cases.  You'll want to create a key-value parser for the
+rulename field to create field names per event within your SIEM.  
+Ideally this is best used with an Alerting Repository/Index where the "Alert=" field is marked and a non-alerting visibility index/repository where threat hunting, investigations can be done 
+that contains added context and story line information of user behavior and activity leading up to an attack.  Non-Alerting Visibility rules are tagged with Desc=, and Forensic= and should
+are meant to provide contextual information for analysts to build cases and identify what is happening with SIEM enrichments.  Some of these non-alerting visibility rules can be graduated 
+to the Alerting rules or can be used with correlation rules within a SIEM/SOAR/XDR.  
 
-Note: Exact syntax and filtering choices are deliberate to catch appropriate entries and to have as little performance impact as possible. Sysmon's filtering abilities are different than the built-in Windows auditing features, so often a different approach is taken than the normal static listing of every possible important area.
+The goal with this configuration is a "Control" configuration that provides ultimate visibility that should be ran in conjunction with an EDR.  
+As we know, allot of EDR's today provide little contextual information, forensic information that is tagged, categorized, risk rated, some alerts EDR vendors choose to not alert
+on due to the differences between each environment and how hard it is to baseline some detections.  There is many use cases where EDR's fall short, they are not the greatest at 
+identifying suspicious activity that may fall short of being labeled as malicious.  The goal here is to detect all common user activity that would lead to exfiltration, infiltration, 
+malware, malicious activity, questionable activity.  If a user is poking around the registry, sending data to cloud storage, downloading and executing random attachments and files,
+copying files, we want to know.  We also want to leave an audit trail by monitoring the registry, artifact locations and provide our forensic analysts as much detail as possible.
+
+If you have forensic registry keys, file locations, artifacts, behavior detections and anything that may be beneficial here, feel free to put in a pull request.  
+The goal here is as much visibility as possible, with accurate alerts that are not noisy.  
+
 
 This now has an Auto Updater script to update to the latest Sysmon config hourly.  This is great for mass deployments without having to manually update thousands of systems.
 
