@@ -6562,6 +6562,7 @@
 				<TargetFilename condition="end with">.tar</TargetFilename>
 				<TargetFilename condition="end with">.tgz</TargetFilename>
 				<TargetFilename condition="end with">.ace</TargetFilename>
+				<TargetFilename condition="end with">.7z</TargetFilename>
 			</Rule>
 			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Common Script File Data Destruction Detected,Author=@ionstorm" groupRelation="or">
 				<TargetFilename condition="end with">.cdxml</TargetFilename>
@@ -6575,6 +6576,46 @@
 				<TargetFilename condition="end with">.com</TargetFilename>
 				<TargetFilename condition="end with">.hta</TargetFilename>
 				<TargetFilename condition="end with">.vbs</TargetFilename>
+			</Rule>
+			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Virtual Disk Image File Data Destruction Detected,Author=@ionstorm" groupRelation="or">
+				<TargetFilename condition="end with">.vmdk</TargetFilename>
+				<TargetFilename condition="end with">.vhd</TargetFilename>
+				<TargetFilename condition="end with">.vhdx</TargetFilename>
+				<TargetFilename condition="end with">.avhd</TargetFilename>
+				<TargetFilename condition="end with">.vdi</TargetFilename>
+				<TargetFilename condition="end with">.dvd</TargetFilename>
+				<TargetFilename condition="end with">.mdf</TargetFilename>
+				<TargetFilename condition="end with">.dsk</TargetFilename>
+				<TargetFilename condition="end with">.D01</TargetFilename>
+				<TargetFilename condition="end with">.D02</TargetFilename>
+				<TargetFilename condition="end with">.vmwarevm</TargetFilename>
+				<TargetFilename condition="end with">.vmwarevm</TargetFilename>
+				<TargetFilename condition="end with">.HDS</TargetFilename>
+				<TargetFilename condition="end with">.WIM</TargetFilename>
+				<TargetFilename condition="end with">.WIM</TargetFilename>
+				<TargetFilename condition="end with">.XVA</TargetFilename>
+				<TargetFilename condition="end with">.IMG</TargetFilename>
+				<TargetFilename condition="end with">.ISO</TargetFilename>
+				<TargetFilename condition="end with">.DD</TargetFilename>
+				<TargetFilename condition="end with">.DISK</TargetFilename>
+				<TargetFilename condition="end with">.WMT</TargetFilename>
+				<TargetFilename condition="end with">.LZ01</TargetFilename>
+				<TargetFilename condition="end with">.E01</TargetFilename>
+				<TargetFilename condition="end with">.EX01</TargetFilename>
+				<TargetFilename condition="end with">.L01</TargetFilename>
+				<TargetFilename condition="end with">.L01</TargetFilename>
+				<TargetFilename condition="end with">.TIB</TargetFilename>
+				<TargetFilename condition="end with">.HC</TargetFilename>
+				<TargetFilename condition="end with">.IMD</TargetFilename>
+				<TargetFilename condition="end with">.IMAGE</TargetFilename>
+				<TargetFilename condition="end with">.SPARSEIMAGE</TargetFilename>
+				<TargetFilename condition="end with">.PARTIMG</TargetFilename>
+				<TargetFilename condition="end with">.PGD</TargetFilename>
+				<TargetFilename condition="end with">.HDD</TargetFilename>
+				<TargetFilename condition="end with">.VBK</TargetFilename>
+				<TargetFilename condition="end with">.VIB</TargetFilename>
+				<TargetFilename condition="end with">.VIB</TargetFilename>
+				<TargetFilename condition="end with">.VBM</TargetFilename>
 			</Rule>
 		</FileBlockShredding>		
 	</RuleGroup>
