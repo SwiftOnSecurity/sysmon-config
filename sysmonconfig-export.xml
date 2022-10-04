@@ -6462,17 +6462,119 @@
 			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Data Destruction Detected in Pagefile,Author=@ionstorm" groupRelation="and">
 				<TargetFilename condition="end with">Pagefile.sys</TargetFilename>
 			</Rule>
-			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert==Data Destruction Detected in System Profile and registry backups,Author=@ionstorm" groupRelation="and">
+			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Data Destruction Detected in System Profile and registry backups,Author=@ionstorm" groupRelation="and">
 				<TargetFilename condition="begin with">C:\Windows\System32\config</TargetFilename>
 			</Rule>
-			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert==Data Destruction Detected in Database Files,Author=@ionstorm" groupRelation="and">
+			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Data Destruction Detected in Database Files,Author=@ionstorm" groupRelation="and">
 				<TargetFilename condition="end with">.db</TargetFilename>
 			</Rule>
-			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert==Data Destruction Detected in Key files,Author=@ionstorm" groupRelation="and">
+			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Data Destruction Detected in encryption/certificate files,Author=@ionstorm" groupRelation="or">
+				<TargetFilename condition="end with">.asc</TargetFilename>
+				<TargetFilename condition="end with">.ca-bundle</TargetFilename>
+				<TargetFilename condition="end with">.cer</TargetFilename>
+				<TargetFilename condition="end with">.cer</TargetFilename>
+				<TargetFilename condition="end with">.crl</TargetFilename>
+				<TargetFilename condition="end with">.crt</TargetFilename>
+				<TargetFilename condition="end with">.csr</TargetFilename>
+				<TargetFilename condition="end with">.der</TargetFilename>
+				<TargetFilename condition="end with">.gpg</TargetFilename>
 				<TargetFilename condition="end with">.key</TargetFilename>
+				<TargetFilename condition="end with">.p7b</TargetFilename>
+				<TargetFilename condition="end with">.p7r</TargetFilename>
+				<TargetFilename condition="end with">.p7s</TargetFilename>
+				<TargetFilename condition="end with">.p12</TargetFilename>
+				<TargetFilename condition="end with">.pem</TargetFilename>
+				<TargetFilename condition="end with">.pfx</TargetFilename>
+				<TargetFilename condition="end with">.pgp</TargetFilename>
+				<TargetFilename condition="end with">.ppk</TargetFilename>
+				<TargetFilename condition="end with">.sst</TargetFilename>
+				<TargetFilename condition="end with">.sto</TargetFilename>
 			</Rule>
-			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert==Data Destruction Detected in Recyclebin,Author=@ionstorm" groupRelation="and">
+			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Data Destruction Detected in Log files,Author=@ionstorm" groupRelation="or">
+				<TargetFilename condition="end with">.log</TargetFilename>
+				<TargetFilename condition="end with">ConsoleHost_history.txt</TargetFilename>
+			</Rule>
+			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Data Destruction Detected in evtx files,Author=@ionstorm" groupRelation="and">
+				<TargetFilename condition="end with">.evtx</TargetFilename>
+			</Rule>
+			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Data Destruction Detected in Recyclebin,Author=@ionstorm" groupRelation="and">
 				<TargetFilename condition="contains">$Recycle</TargetFilename>
+			</Rule>
+			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Executable Data Destruction Detected,Author=@ionstorm" groupRelation="and">
+				<TargetFilename condition="end with">.exe</TargetFilename>
+			</Rule>
+			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=DLL Data Destruction Detected,Author=@ionstorm" groupRelation="and">
+				<TargetFilename condition="end with">.dll</TargetFilename>
+			</Rule>
+			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Office File Data Destruction Detected,Author=@ionstorm" groupRelation="or">
+				<TargetFilename condition="contains">\Content.Outlook\</TargetFilename>
+				<TargetFilename condition="contains">\Microsoft\Office\Recent</TargetFilename>
+				<TargetFilename condition="contains">\Microsoft\Templates\</TargetFilename>
+				<TargetFilename condition="contains">\Recent\CustomDestinations\</TargetFilename>
+				<TargetFilename condition="contains">oleObject</TargetFilename>
+				<TargetFilename condition="end with">.accdb</TargetFilename>
+				<TargetFilename condition="end with">.accde</TargetFilename>
+				<TargetFilename condition="end with">.accdr</TargetFilename>
+				<TargetFilename condition="end with">.accdt</TargetFilename>
+				<TargetFilename condition="end with">.doc</TargetFilename>
+				<TargetFilename condition="end with">.docb</TargetFilename>
+				<TargetFilename condition="end with">.docm</TargetFilename>
+				<TargetFilename condition="end with">.docx</TargetFilename>
+				<TargetFilename condition="end with">.dot</TargetFilename>
+				<TargetFilename condition="end with">.dotx</TargetFilename>
+				<TargetFilename condition="end with">.eml</TargetFilename>
+				<TargetFilename condition="end with">.mdb</TargetFilename>
+				<TargetFilename condition="end with">.mde</TargetFilename>
+				<TargetFilename condition="end with">.msc</TargetFilename>
+				<TargetFilename condition="end with">.msg</TargetFilename>
+				<TargetFilename condition="end with">.mst</TargetFilename>
+				<TargetFilename condition="end with">.ped</TargetFilename>
+				<TargetFilename condition="end with">.potm</TargetFilename>
+				<TargetFilename condition="end with">.potx</TargetFilename>
+				<TargetFilename condition="end with">.ppam</TargetFilename>
+				<TargetFilename condition="end with">.ppsm</TargetFilename>
+				<TargetFilename condition="end with">.ppsx</TargetFilename>
+				<TargetFilename condition="end with">.ppt</TargetFilename>
+				<TargetFilename condition="end with">.pptm</TargetFilename>
+				<TargetFilename condition="end with">.pptx</TargetFilename>
+				<TargetFilename condition="end with">.pub</TargetFilename>
+				<TargetFilename condition="end with">.sldm</TargetFilename>
+				<TargetFilename condition="end with">.sldx</TargetFilename>
+				<TargetFilename condition="end with">.wbk</TargetFilename>
+				<TargetFilename condition="end with">.xla</TargetFilename>
+				<TargetFilename condition="end with">.xlam</TargetFilename>
+				<TargetFilename condition="end with">.xll</TargetFilename>
+				<TargetFilename condition="end with">.xls</TargetFilename>
+				<TargetFilename condition="end with">.xlsb</TargetFilename>
+				<TargetFilename condition="end with">.xlsm</TargetFilename>
+				<TargetFilename condition="end with">.xlsx</TargetFilename>
+				<TargetFilename condition="end with">.xlt</TargetFilename>
+				<TargetFilename condition="end with">.xltm</TargetFilename>
+				<TargetFilename condition="end with">.xlw</TargetFilename>
+				<TargetFilename condition="end with">.xps</TargetFilename>
+			</Rule>
+			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=PDF File Data Destruction Detected,Author=@ionstorm" groupRelation="or">
+				<TargetFilename condition="end with">.pdf</TargetFilename>
+			</Rule>
+			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Common Archive File Data Destruction Detected,Author=@ionstorm" groupRelation="or">
+				<TargetFilename condition="end with">.zip</TargetFilename>
+				<TargetFilename condition="end with">.rar</TargetFilename>
+				<TargetFilename condition="end with">.tar</TargetFilename>
+				<TargetFilename condition="end with">.tgz</TargetFilename>
+				<TargetFilename condition="end with">.ace</TargetFilename>
+			</Rule>
+			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Common Script File Data Destruction Detected,Author=@ionstorm" groupRelation="or">
+				<TargetFilename condition="end with">.cdxml</TargetFilename>
+				<TargetFilename condition="end with">.ps1</TargetFilename>
+				<TargetFilename condition="end with">.ps1xml</TargetFilename>
+				<TargetFilename condition="end with">.psc1</TargetFilename>
+				<TargetFilename condition="end with">.psd1</TargetFilename>
+				<TargetFilename condition="end with">.psm1</TargetFilename>
+				<TargetFilename condition="end with">.pssc</TargetFilename>
+				<TargetFilename condition="end with">.bat</TargetFilename>
+				<TargetFilename condition="end with">.com</TargetFilename>
+				<TargetFilename condition="end with">.hta</TargetFilename>
+				<TargetFilename condition="end with">.vbs</TargetFilename>
 			</Rule>
 		</FileBlockShredding>		
 	</RuleGroup>
