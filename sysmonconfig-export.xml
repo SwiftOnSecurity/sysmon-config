@@ -2143,6 +2143,7 @@
 			<ParentImage name="Attack=None,Technique=None,Tactic=None,DS=Process: Process Creation,Level=0,Desc=System Child Processes" condition="is">System</ParentImage>
 			<Rule name="Attack=T1204,Technique=User Execution,Tactic=Execution,DS=Process: Process Creation,Level=0,Desc=Generic User Execution,Risk=0" groupRelation="and">
 				<ParentImage condition="image">explorer.exe</ParentImage>
+				<Image name="Allow other rules to fire" condition="excludes any">\regedit.exe;\cmd.exe;terminal;\powershell</Image>
 			</Rule>
 			<!-- Log other command line events, this sometimes conflicts with rules, add to exclusions as necessary-->
 			<!-- <ParentCommandLine name="Information=Uncategorized Events,DS=Process: Process Creation" condition="contains any">/;\;-;unknown;</ParentCommandLine>-->
