@@ -6315,19 +6315,21 @@
 	<!--SYSMON EVENT ID 27 : FILE BLOCK [FileBlockExecutable]-->
 	<RuleGroup name="RG=ImageBlock Include Group" groupRelation="or">
 		<FileBlockExecutable onmatch="include">
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Desc=Block Office from Creating Executables" groupRelation="and">
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Alert=Block Office from Creating Executables" groupRelation="and">
 				<Image condition="contains any">OUTLOOK.exe;WINWORD.exe;EXCEL.EXE;powerpnt.exe;msaccess.exe;mspub.exe;eqnedt32.exe;visio.exe;wordpad.exe;wordview.exe;msohtmed.exe;lync.exe;teams.exe</Image>
 				<TargetFilename condition="excludes any">:\Program Files\Microsoft Office\;:\Program Files (x86)\Microsoft Office\</TargetFilename>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Desc=Block Web Servers from creating binary files" groupRelation="and">
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Alert=Block Web Servers from creating binary files" groupRelation="and">
 				<Image condition="contains any">w3wp.exe;tomcat;apache;nginx;httpd</Image>
 				<TargetFilename condition="excludes any">whitelist_me_here</TargetFilename>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Desc=Block Powershell from downloading EXE" groupRelation="and">
+			<!--Be Careful with this one, it blocks powershell file copies as well, target specific directories or comment out the rule-->
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Alert=Block Powershell from downloading EXE" groupRelation="and">
 				<Image condition="contains any">powershell.exe;powershell_ise.exe</Image>
+				<TargetFilename condition="contains any">\Temp\;\AppData\;C:\Users\Public</TargetFilename>
 				<TargetFilename condition="excludes any">whitelist_me_here</TargetFilename>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Desc=Block double extensions" groupRelation="or">
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Alert=Block double extensions" groupRelation="or">
 				<TargetFilename condition="end with">.pdf.exe</TargetFilename>
 				<TargetFilename condition="end with">.doc.exe</TargetFilename>
 				<TargetFilename condition="end with">.docx.exe</TargetFilename>
@@ -6343,19 +6345,19 @@
 				<TargetFilename condition="end with">.ico.exe</TargetFilename>
 				<TargetFilename condition="end with">.lnk.exe</TargetFilename>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Desc=Block PSexec and PSEXESVC from Dropping binaries" groupRelation="or">
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Alert=Block PSexec and PSEXESVC from Dropping binaries" groupRelation="or">
 				<Image condition="contains any">psexesvc</Image>
 				<Image condition="contains any">psexec</Image>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Desc=Block wmiprvse.exe from Dropping binaries" groupRelation="or">
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Alert=Block wmiprvse.exe from Dropping binaries" groupRelation="or">
 				<Image condition="image">wmiprvse.exe</Image>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Desc=Block executables from writing to Users\Public" groupRelation="and">
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Alert=Block executables from writing to Users\Public" groupRelation="and">
 				<TargetFilename condition="begin with">C:\Users\Public\</TargetFilename>
 				<TargetFilename condition="excludes any">amdsfhdcd.bin</TargetFilename>
 				<Image condition="excludes any">intuit</Image>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Desc=Block LOLbins that drop files" groupRelation="and">
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Alert=Block LOLbins that drop files" groupRelation="and">
 				<Image condition="contains any">AcroRd32.exe;notepad.exe;mshta.exe;hh.exe;certutil.exe;certoc.exe;certreq.exe;desktopimgdownldr.exe;esentutl.exe;finger.exe;presentationhost.exe;cscript.exe;wscript.exe;mspaint.exe;RdrCEF.exe</Image>
 			</Rule>
 			<Rule name="Attack=T1311,Technique=User Execution: Malicious File,Tactic=Execution,DS=File: File Creation,Level=4,Alert=Malicious File Detection,Author=Florian Roth/ionstorm" groupRelation="or">
@@ -6458,7 +6460,7 @@
 			<Rule name="Attack=T1562.002,Technique=Impair Defenses: Disable Windows Event Logging,Tactic=Defense Evasion,DS=File: File Creation,Level=4,Alert=Tools that tamper with Sysmon,Author=Florian Roth" groupRelation="and">
 				<TargetFilename condition="contains any">\EntenLoader.exe;\SysmonQuiet.exe;\SharpEvtMute.exe;\EvtMuteHook.dll</TargetFilename>
 			</Rule>
-			<Rule name="Attack=T1105,Technique=Ingress Tool Transfer,Tactic=Command and Control,DS=File: File Creation,Level=4,Desc=Lolbins dropping binaries,Author=Florian Roth" groupRelation="or">
+			<Rule name="Attack=T1105,Technique=Ingress Tool Transfer,Tactic=Command and Control,DS=File: File Creation,Level=4,Alert=Lolbins dropping binaries,Author=Florian Roth" groupRelation="or">
 				<Image condition="image">certutil.exe</Image>
 				<Image condition="image">certoc.exe</Image>
 				<Image condition="image">CertReq.exe</Image>
@@ -6469,7 +6471,7 @@
 				<Image condition="image">finger.exe</Image>
 				<Image condition="image">presentationhost.exe</Image>
 			</Rule>
-			<Rule name="Attack=T1105,Technique=Ingress Tool Transfer,Tactic=Command and Control,DS=File: File Creation,Level=4,Desc=Suspicious Bitsadmin Usage from Non System accounts,Author=@ionstorm" groupRelation="and">
+			<Rule name="Attack=T1105,Technique=Ingress Tool Transfer,Tactic=Command and Control,DS=File: File Creation,Level=4,Alert=Suspicious Bitsadmin Usage from Non System accounts,Author=@ionstorm" groupRelation="and">
 				<Image condition="image">bitsadmin.exe</Image>
 				<TargetFilename condition="excludes any">C:\Windows;$WINDOWS.;\SoftwareDistribution\</TargetFilename>
 				<User condition="is not">System</User>
