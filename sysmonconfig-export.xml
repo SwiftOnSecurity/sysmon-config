@@ -6515,12 +6515,14 @@
 				<TargetFilename condition="begin with">C:\Users</TargetFilename>
 				<Image condition="excludes any">C:\Program Files\WindowsApps\;AppData</Image>
 			</Rule>
+			<!-- Unsure how this runs with Enterprise Software Like Exchange, Uncomment and provide feedback of any issues/things to whitelist
 			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Data Destruction Detected in ProgramFiles,Author=@ionstorm" groupRelation="and">
 				<TargetFilename condition="begin with">C:\Program Files</TargetFilename>
 			</Rule>
 			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Data Destruction Detected in ProgramData,Author=@ionstorm" groupRelation="and">
 				<TargetFilename condition="begin with">C:\ProgramData</TargetFilename>
 			</Rule>
+			-->
 			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Data Destruction Detected in $mft,Author=@ionstorm" groupRelation="and">
 				<TargetFilename condition="begin with">C:\$mft</TargetFilename>
 			</Rule>
