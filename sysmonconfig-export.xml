@@ -6450,7 +6450,7 @@
 			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Data Destruction Detected in ProgramData,Author=@ionstorm" groupRelation="and">
 				<TargetFilename condition="begin with">C:\ProgramData</TargetFilename>
 			</Rule>
-			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Data Destruction Detected in ProgramFiles,Author=@ionstorm" groupRelation="and">
+			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Data Destruction Detected in $mft,Author=@ionstorm" groupRelation="and">
 				<TargetFilename condition="begin with">C:\$mft</TargetFilename>
 			</Rule>
 			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Data Destruction Detected in Windows Event Logs,Author=@ionstorm" groupRelation="and">
