@@ -6441,37 +6441,37 @@
 	<!--SYSMON EVENT ID 28 : FILE BLOCK SHREDDING [FileBlockShredding]-->
 	<RuleGroup name="RG=FileBlockShredding Include Group" groupRelation="or">
 		<FileBlockShredding onmatch="include">
-			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=None,Level=4,Risk=100,Alert=Data Destruction Detected in C:\Users,Author=@ionstorm" groupRelation="and">
+			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Data Destruction Detected in C:\Users,Author=@ionstorm" groupRelation="and">
 				<TargetFilename condition="begin with">C:\Users</TargetFilename>
 			</Rule>
-			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=None,Level=4,Risk=100,Alert=Data Destruction Detected in ProgramFiles,Author=@ionstorm" groupRelation="and">
+			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Data Destruction Detected in ProgramFiles,Author=@ionstorm" groupRelation="and">
 				<TargetFilename condition="begin with">C:\Program Files</TargetFilename>
 			</Rule>
-			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=None,Level=4,Risk=100,Alert=Data Destruction Detected in ProgramData,Author=@ionstorm" groupRelation="and">
+			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Data Destruction Detected in ProgramData,Author=@ionstorm" groupRelation="and">
 				<TargetFilename condition="begin with">C:\ProgramData</TargetFilename>
 			</Rule>
-			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=None,Level=4,Risk=100,Alert=Data Destruction Detected in ProgramFiles,Author=@ionstorm" groupRelation="and">
+			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Data Destruction Detected in ProgramFiles,Author=@ionstorm" groupRelation="and">
 				<TargetFilename condition="begin with">C:\$mft</TargetFilename>
 			</Rule>
-			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=None,Level=4,Risk=100,Alert=Data Destruction Detected in Windows Event Logs,Author=@ionstorm" groupRelation="and">
+			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Data Destruction Detected in Windows Event Logs,Author=@ionstorm" groupRelation="and">
 				<TargetFilename condition="begin with">C:\Windows\System32\winevt\Logs</TargetFilename>
 			</Rule>
-			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=None,Level=4,Risk=100,Alert=Data Destruction Detected in ntuser.dat artifacts,Author=@ionstorm" groupRelation="and">
+			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Data Destruction Detected in ntuser.dat artifacts,Author=@ionstorm" groupRelation="and">
 				<TargetFilename condition="end with">ntuser.dat</TargetFilename>
 			</Rule>
-			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=None,Level=4,Risk=100,Alert=Data Destruction Detected in Pagefile,Author=@ionstorm" groupRelation="and">
+			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Data Destruction Detected in Pagefile,Author=@ionstorm" groupRelation="and">
 				<TargetFilename condition="end with">Pagefile.sys</TargetFilename>
 			</Rule>
-			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=None,Level=4,Risk=100,Alert==Data Destruction Detected in System Profile and registry backups,Author=@ionstorm" groupRelation="and">
+			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert==Data Destruction Detected in System Profile and registry backups,Author=@ionstorm" groupRelation="and">
 				<TargetFilename condition="begin with">C:\Windows\System32\config</TargetFilename>
 			</Rule>
-			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=None,Level=4,Risk=100,Alert==Data Destruction Detected in Database Files,Author=@ionstorm" groupRelation="and">
+			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert==Data Destruction Detected in Database Files,Author=@ionstorm" groupRelation="and">
 				<TargetFilename condition="end with">.db</TargetFilename>
 			</Rule>
-			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=None,Level=4,Risk=100,Alert==Data Destruction Detected in Key files,Author=@ionstorm" groupRelation="and">
+			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert==Data Destruction Detected in Key files,Author=@ionstorm" groupRelation="and">
 				<TargetFilename condition="end with">.key</TargetFilename>
 			</Rule>
-			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=None,Level=4,Risk=100,Alert==Data Destruction Detected in Recyclebin,Author=@ionstorm" groupRelation="and">
+			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert==Data Destruction Detected in Recyclebin,Author=@ionstorm" groupRelation="and">
 				<TargetFilename condition="contains">$Recycle</TargetFilename>
 			</Rule>
 		</FileBlockShredding>		
