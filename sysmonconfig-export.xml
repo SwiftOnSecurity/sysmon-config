@@ -379,14 +379,14 @@
 			<!--MITRE ATT&CK TECHNIQUE: Deploy Container-->
 			<!--MITRE ATT&CK TECHNIQUE: Exploitation for Client Execution-->
 			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,DS=Process: Process Creation,Level=4,Alert=Office Exploitation Detection,Risk=100" groupRelation="and">
-				<ParentImage condition="contains any">winword.exe;excel.exe;powerpnt.exe;outlook.exe;msaccess.exe;mspub.exe;visio.exe;notepad.exe;wordpad.exe;eqnedt32.exe</ParentImage>
-				<Image condition="contains any">tracert.exe;csc.exe;cscript.exe;wscript.exe;cmd.exe;powershell.exe;bash.exe;scrcons.exe;schtasks.exe;hh.exe;regsvr32.exe;regsvcs.exe;sh.exe;wmic.exe;mshta.exe;rundll32.exe;msiexec.exe;forfiles.exe;scriptrunner.exe;mftrace.exe;AppVLP.exe;svchost.exe;MicroScMgmt.exe;FLTLDR.exe;wmic.exe;Microsoft.Workflow.Compiler.exe;atbroker.exe;bginfo.exe;certutil.exe;csi.exe;dnx.exe;cdb.exe;bitsadmin.exe;forfiles.exe;fsi.exe;ftp.exe;hostname.exe;gpresult.exe;ipconfig.exe;nbtstat.exe;ping.exe;pwsh.exe;qprocess.exe;quser.exe;qwinsta.exe;reg.exe;svchost.exe;installutil.exe;pwsh.exe;msxsl.exe;ieexec.exe;msdt.exe;verclsid.exe</Image>
+				<ParentImage condition="contains any">winword.exe;excel.exe;powerpnt.exe;outlook.exe;msaccess.exe;mspub.exe;visio.exe;notepad.exe;wordpad.exe;eqnedt32.exe;wordview.exe</ParentImage>
+				<Image condition="contains any">tracert.exe;csc.exe;cscript.exe;wscript.exe;cmd.exe;powershell.exe;bash.exe;scrcons.exe;schtasks.exe;hh.exe;regsvr32.exe;regsvcs.exe;sh.exe;wmic.exe;mshta.exe;rundll32.exe;msiexec.exe;forfiles.exe;scriptrunner.exe;mftrace.exe;AppVLP.exe;svchost.exe;MicroScMgmt.exe;FLTLDR.exe;wmic.exe;Microsoft.Workflow.Compiler.exe;atbroker.exe;bginfo.exe;certutil.exe;csi.exe;dnx.exe;cdb.exe;bitsadmin.exe;forfiles.exe;fsi.exe;ftp.exe;hostname.exe;gpresult.exe;ipconfig.exe;nbtstat.exe;ping.exe;pwsh.exe;qprocess.exe;quser.exe;qwinsta.exe;reg.exe;svchost.exe;installutil.exe;pwsh.exe;msxsl.exe;ieexec.exe;msdt.exe;verclsid.exe;msidb.exe</Image>
 				<CommandLine condition="excludes all">.cmd;-</CommandLine>
 				<CommandLine condition="excludes">C:\Windows\system32\spool\DRIVERS\</CommandLine>
 				<CommandLine condition="excludes">PhotoViewer.dll</CommandLine>
 			</Rule>
 			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,DS=Process: Process Creation,Alert=Office Spawning exe within: User Home Dirs,Risk=80" groupRelation="and">
-				<ParentImage condition="contains any">winword.exe;excel.exe;powerpnt.exe;outlook.exe;msaccess.exe;mspub.exe;visio.exe;notepad.exe;wordpad.exe;eqnedt32.exe</ParentImage>
+				<ParentImage condition="contains any">winword.exe;excel.exe;powerpnt.exe;outlook.exe;msaccess.exe;mspub.exe;visio.exe;notepad.exe;wordpad.exe;eqnedt32.exe;wordview.exe</ParentImage>
 				<Image condition="begin with">C:\Users\</Image>
 				<Image condition="end with">.exe</Image>
 				<Product condition="excludes">Zoom Video</Product>
@@ -551,7 +551,7 @@
 				<CommandLine condition="contains">cmd.exe" /c cd</CommandLine>
 			</Rule>
 			<Rule  name="Attack=T1204.002,Technique=Malicious File,Tactic=Execution,DS=Process: Process Creation,Level=3,Alert=Suspicious or Malicious Command Line events" groupRelation="and">
-				<CommandLine condition="contains any">ntdsutil;/set {default} recoveryenabled no;telnet ;-dumpcr;putty;bash.exe;pssh;shareenum;sekurlsa;reg save;reg  save;psscan;shellexec;vbscript:createobject;/output:clipboard;root\\default;root\\subscription;Wmiclass;WmiCl'+'as'+'s</CommandLine>
+				<CommandLine condition="contains any">ntdsutil;/set {default} recoveryenabled no;telnet ;-dumpcr;putty;bash.exe;pssh;shareenum;sekurlsa;reg save;reg  save;psscan;shellexec;vbscript:createobject;/output:clipboard;root\\default;root\\subscription;Wmiclass;WmiCl'+'as'+'s;export-mft;ApplicationImpersonation</CommandLine>
 			</Rule>
 			<Rule  name="Attack=T1204.002,Technique=Malicious File,Tactic=Execution,DS=Process: Process Creation,Level=4,Alert=Powershell Suspicious or Malicious events" groupRelation="or">
 				<CommandLine condition="contains any">ERROR kuhl;windows/meterpreter;InjectDLL;ReflectiveLoader;Koadic.;@subtee;-donate-level=;stratum+tcp;Win32_TaskService;FilterToConsumerBinding;Invoke-Stager;Invoke-FruityC2;smbscanner;Invoke-ReverseDNSLookup;Invoke-ARPScan;Invoke-Paranoia;Find-TrustedDocuments;Find-Fruit;Get-RickAstley;PowerView;Invoke-Tater;Get-System;Get-SiteListPassword;PowerBreach;Invoke-BackdoorLNK;Install-SSP;Get-SecurityPackages;Invoke-SSHCommand;Invoke-PsExec;Invoke-InveighRelay;Set-Wallpaper;Invoke-VoiceTroll;Invoke-ThunderStruck;Exploit-Jboss;Invoke-PowerDump;Invoke-DCSync;Get-VaultCredential;Set-MacAttribute;New-HoneyHash;MailRaider;Invoke-RunAs;Invoke-PSInject;Invoke-EgressCheck;Invoke-NetRipper;Invoke-Inveigh;Get-Screenshot;Get-IndexedItem;Get-FoxDump'Get-Clipboard;Get-ChromeDump;Start-CaptureServer;Add-Persistence;Add-Exfiltration;Invoke-PowerShellWMI;Invoke-PowerShellTCP;Invoke-PoshRatHttp;Show-TargetScreen;Get-PassHashes;Get-LSASecret;Check-VM;Remove-Update;Enabled-DuplicateToken;Invoke-ADSBackdoor;Gupt-Backdoor;Add-ScrnSaveBackdoor;Add-RegBackdoor;Get-Unconstrained;Get-RegAlwaysInstallElevated;Get-ApplicationHost;Get-WebConfig;Get-UnattendedInstallFile;Get-VulnAutoRun;Get-RegAutoLogon;Install-ServiceBinary;Invoke-ServiceAbuse;Get-ServicePermission;Get-ServiceFilePermission;Get-ServiceUnquoted;Invoke-DowngradeAccount;Invoke-ACLScanner;Find-GPOLocation;Invoke-UserHunter;Invoke-ReflectivePEInjectionInvoke-ReflectivePEInjection;Invoke-ReflectivePEInjection;VolumeShadowCopyTools;Out-Minidump;Invoke-TokenManipulation;Invoke-DllInjection;Invoke-SessionGopher;Invoke-Shellcode;Invoke-WmiCommand;Get-GPPPassword;Get-Keystrokes;Get-TimedScreenshot;Get-VaultCredential;Invoke-CredentialInjection;Invoke-NinjaCopy</CommandLine>
@@ -741,8 +741,8 @@
 
 			<!--MITRE ATT&CK TACTIC: Defense Evasion-->
 			<Image condition="contains">unknown process</Image>
-			<Image name="Attack=None,Technique=None,Tactic=None,DS=Process: Process Creation,Level=0,Desc=WSL Execution" condition="contains">\LocalState\rootfs\</Image>
-			<ParentImage name="Attack=None,Technique=None,Tactic=None,DS=Process: Process Creation,Level=0,Desc=WSL Execution" condition="contains">\LocalState\rootfs\</ParentImage>			
+			<Image name="Attack=None,Technique=None,Tactic=None,DS=Process: Process Creation,Level=0,Alert=WSL Execution" condition="contains">\LocalState\rootfs\</Image>
+			<ParentImage name="Attack=None,Technique=None,Tactic=None,DS=Process: Process Creation,Level=0,Alert=WSL Execution" condition="contains">\LocalState\rootfs\</ParentImage>			
 			<!--MITRE ATT&CK TECHNIQUE: Abuse Elevation Control Mechanism-->
 			<!--MITRE ATT&CK TECHNIQUE: Access Token Manipulation-->
 			<!--MITRE ATT&CK TECHNIQUE: BITS Jobs-->
@@ -836,16 +836,17 @@
 			<!--MITRE ATT&CK TECHNIQUE: Indirect Command Execution-->
 			<Rule name="Attack=T1202,Technique=Indirect Command Execution,Tactic=Execution,DS=Process: Process Creation,Level=0,Desc=Windows Subsystem For Linux exec,Risk=100" groupRelation="and">
 				<OriginalFileName condition="contains any">bash.exe;wsl.exe;ubuntu.exe;kali.exe</OriginalFileName>
-				<CommandLine condition="contains any">-e;/e;-u root;--exec bash;dev/tcp</CommandLine>
+				<CommandLine condition="contains any">-e;/e;-u root;--exec bash;dev/tcp;~ -d;~ /d</CommandLine>
 			</Rule>
 			<Image name="Attack=T1202,Technique=Indirect Command Execution,Tactic=Execution,DS=Process: Process Creation,Level=0,Desc=Windows Subsystem For Linux,Risk=20" condition="image">wsl.exe</Image>
 			<ParentImage name="Attack=T1202,Technique=Indirect Command Execution,Tactic=Execution,DS=Process: Process Creation,Level=0,Desc=Windows Subsystem For Linux,Risk=20" condition="image">wsl.exe</ParentImage>
-			<Image name="Attack=T1202,Technique=Indirect Command Execution,Tactic=Execution,DS=Process: Process Creation,Level=0,Desc=Windows Subsystem For Linux,Risk=20" condition="image">wslhost.exe</Image>
-			<ParentImage name="Attack=T1202,Technique=Indirect Command Execution,Tactic=Execution,DS=Process: Process Creation,Level=0,Desc=Windows Subsystem For Linux,Risk=20" condition="image">wslhost.exe</ParentImage>
-			<Image name="Attack=T1202,Technique=Indirect Command Execution,Tactic=Execution,DS=Process: Process Creation,Level=0,Desc=Ubuntu Windows Subsystem For Linux,Risk=20" condition="image">ubuntu.exe</Image>
-			<ParentImage name="Attack=T1202,Technique=Indirect Command Execution,Tactic=Execution,DS=Process: Process Creation,Level=0,Desc=Ubuntu Windows Subsystem For Linux,Risk=20" condition="image">ubuntu.exe</ParentImage>
+			<Image name="Attack=T1202,Technique=Indirect Command Execution,Tactic=Execution,DS=Process: Process Creation,Level=0,Alert=Windows Subsystem For Linux,Risk=20" condition="image">wslhost.exe</Image>
+			<ParentImage name="Attack=T1202,Technique=Indirect Command Execution,Tactic=Execution,DS=Process: Process Creation,Level=0,Alert=Windows Subsystem For Linux,Risk=20" condition="image">wslhost.exe</ParentImage>
+			<Image name="Attack=T1202,Technique=Indirect Command Execution,Tactic=Execution,DS=Process: Process Creation,Level=0,Alert=Ubuntu Windows Subsystem For Linux,Risk=20" condition="image">ubuntu.exe</Image>
+			<ParentImage name="Attack=T1202,Technique=Indirect Command Execution,Tactic=Execution,DS=Process: Process Creation,Level=0,Alert=Ubuntu Windows Subsystem For Linux,Risk=20" condition="image">ubuntu.exe</ParentImage>
 			<Image name="Attack=T1202,Technique=Indirect Command Execution,Tactic=Execution,DS=Process: Process Creation,Level=4,Alert=Kali Windows Subsystem For Linux,Risk=100" condition="image">kali.exe</Image>
 			<ParentImage name="Attack=T1202,Technique=Indirect Command Execution,Tactic=Execution,DS=Process: Process Creation,Level=4,Alert=Kali Windows Subsystem For Linux,Risk=100" condition="image">kali.exe</ParentImage>
+			<CommandLine name="Attack=T1202,Technique=Indirect Command Execution,Tactic=Execution,DS=Process: Process Creation,Level=4,Alert=Windows Subsystem For Linux,Risk=100" condition="contains any">distro-id;vm-id</CommandLine>
 
 			<Image name="Attack=T1202,Technique=Indirect Command Execution,Tactic=Execution,DS=Process: Process Creation,Level=2,Alert=Indirect Command Execution" condition="image">pcalua.exe</Image>
 			<ParentImage name="Attack=T1202,Technique=Indirect Command Execution,Tactic=Execution,DS=Process: Process Creation,Level=2,Alert=Indirect Command Execution" condition="image">pcalua.exe</ParentImage>
@@ -1781,6 +1782,25 @@
 				<Image condition="image">7z.exe</Image>
 				<CommandLine condition="contains any">a -mx9 -r0 -p;a -v500m -mx9 -r0 -p</CommandLine>
 			</Rule>
+			<Rule name="Attack=T1195,Technique=Archive Collected Data,Tactic=Collection,DS=Process: Process Creation,Level=4,Alert=7z Renamed,Risk=100" groupRelation="and">
+				<OriginalFileName condition="contains">7z</OriginalFileName>
+				<Image condition="excludes">7z</Image>
+			</Rule>
+			<Rule name="Attack=T1195,Technique=Archive Collected Data,Tactic=Collection,DS=Process: Process Creation,Level=4,Alert=Winrar Renamed,Risk=100" groupRelation="and">
+				<OriginalFileName condition="contains">winrar</OriginalFileName>
+				<Image condition="excludes">winrar</Image>
+			</Rule>
+			<Rule name="Attack=T1195,Technique=Archive Collected Data,Tactic=Collection,DS=Process: Process Creation,Level=4,Alert=Winrar Renamed,Risk=100" groupRelation="and">
+				<Product condition="contains">winrar</Product>
+				<Image condition="excludes">winrar</Image>
+			</Rule>
+			<Rule name="Attack=T1195,Technique=Archive Collected Data,Tactic=Collection,DS=Process: Process Creation,Level=4,Alert=Winzip Renamed,Risk=100" groupRelation="and">
+				<OriginalFileName condition="contains">winzip</OriginalFileName>
+				<Image condition="excludes">winzip</Image>
+			</Rule>
+			<Rule name="Attack=T1195,Technique=Archive Collected Data,Tactic=Collection,DS=Process: Process Creation,Level=4,Alert=Powershell Compress-Archive,Risk=100" groupRelation="and">
+				<CommandLine condition="contains">Compress-Archive</CommandLine>
+			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: Audio Capture-->
 			<CommandLine name="Attack=T1123,Technique=Audio Capture,Tactic=Collection,DS=Process: Process Creation,Level=4,Alert=Audio Capture Detected,Risk=100" condition="contains">WindowsAudioDevice-Powershell-Cmdlet</CommandLine>
 			<CommandLine name="Attack=T1123,Technique=Audio Capture,Tactic=Collection,DS=Process: Process Creation,Level=4,Alert=Audio Capture Detected,Risk=100" condition="contains">SoundRecorder.exe</CommandLine>
@@ -1799,6 +1819,9 @@
 			<!--MITRE ATT&CK TECHNIQUE: Email Collection-->
 			<Rule name="Attack=T1114,Technique=Email Collection,Tactic=Collection,DS=Process: Process Creation,Level=4,Alert=Possible Email Collection/Exfiltration,Risk=70" groupRelation="and">
 				<CommandLine condition="contains">New-MailboxExportRequest</CommandLine>
+			</Rule>
+			<Rule name="Attack=T1114,Technique=Email Collection,Tactic=Collection,DS=Process: Process Creation,Level=4,Alert=New Exchange Management Role could be used for email exfiltration,Risk=70" groupRelation="and">
+				<CommandLine condition="contains all">add-pssnapin;exchange;new-managementroleassignment;applicationimpersonation</CommandLine>
 			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: Input Capture-->
 			<!--MITRE ATT&CK TECHNIQUE: Screen Capture-->
@@ -2195,6 +2218,12 @@
 				<DestinationIp condition="is any">137.184.67.33;206.188.196.77;125.212.220.48;5.180.61.17;47.242.39.92;61.244.94.85;86.48.6.69;86.48.12.64;94.140.8.48;94.140.8.113;103.9.76.208;103.9.76.211;104.244.79.6;112.118.48.186;122.155.174.188;125.212.241.134;185.220.101.182;194.150.167.88;212.119.34.11</DestinationIp>
 				<DestinationIp condition="begin with">137.184.67.</DestinationIp>
 				<DestinationHostname condition="is any">httpbin.org</DestinationHostname>
+			</Rule>
+			<Rule name="Attack=T1595,Technique=Active Scanning,Tactic=Reconnaissance,DS=Network Traffic: Network Connection Creation,Level=4,Alert=Advanced IP scanner Detected,Risk=90"  groupRelation="or">
+				<DestinationHostname condition="contains any">advanced-ip-scanner.com</DestinationHostname>
+			</Rule>
+			<Rule name="Attack=T1595,Technique=Active Scanning,Tactic=Reconnaissance,DS=Network Traffic: Network Connection Creation,Level=4,Alert=Kali Linux Distribution Download/Apt URL,Risk=90"  groupRelation="or">
+				<DestinationHostname condition="contains any">kali.download</DestinationHostname>
 			</Rule>
 			<DestinationHostname condition="contains">shodan</DestinationHostname>
 			<!--MITRE ATT&CK TECHNIQUE: Gather Victim Host Information-->
@@ -3798,21 +3827,49 @@
 			<Rule name="Attack=T1505.003,Technique=Server Software Component: Web Shell,Tactic=Persistence,DS=File: File Creation,Level=3,Alert=Exchange 0day from September 2022 overwriting legit file,Risk=80" groupRelation="and">
 				<TargetFilename condition="end with">RedirSuiteServiceProxy.aspx</TargetFilename>
 			</Rule>
-			<Rule name="Attack=T1505.003,Technique=Server Software Component: Web Shell,Tactic=Persistence,DS=File: File Creation,Level=3,Alert=HAFNIUM APT: IIS Creating ASPX files outside of wwwwroot,Risk=80" groupRelation="and">
+			<Rule name="Attack=T1505.003,Technique=Server Software Component: Web Shell,Tactic=Persistence,DS=File: File Creation,Level=3,Alert=Web Shells Dropped 1,Risk=80" groupRelation="and">
 				<Image condition="image">w3wp.exe</Image>
 				<TargetFilename condition="end with">.aspx</TargetFilename>
 			</Rule>
-			<Rule name="Attack=T1505.003,Technique=Server Software Component: Web Shell,Tactic=Persistence,DS=File: File Creation,Level=0,Desc=HAFNIUM APT: IIS Creating PHP files,Risk=80" groupRelation="and">
+			<Rule name="Attack=T1505.003,Technique=Server Software Component: Web Shell,Tactic=Persistence,DS=File: File Creation,Level=3,Alert=Web Shells Dropped 2,Risk=80" groupRelation="and">
+				<Image condition="image">w3wp.exe</Image>
+				<TargetFilename condition="end with">.asp</TargetFilename>
+			</Rule>
+			<Rule name="Attack=T1505.003,Technique=Server Software Component: Web Shell,Tactic=Persistence,DS=File: File Creation,Level=3,Alert=Web Shells Dropped 3,Risk=80" groupRelation="and">
+				<Image condition="image">w3wp.exe</Image>
+				<TargetFilename condition="end with">.ashx</TargetFilename>
+			</Rule>
+			<Rule name="Attack=T1505.003,Technique=Server Software Component: Web Shell,Tactic=Persistence,DS=File: File Creation,Level=0,Alert=Web Shells Dropped 4,Risk=80" groupRelation="and">
 				<Image condition="image">w3wp.exe</Image>
 				<TargetFilename condition="end with">.php</TargetFilename>
 			</Rule>
-			<Rule name="Attack=T1505.003,Technique=Server Software Component: Web Shell,Tactic=Persistence,DS=File: File Creation,Level=0,Desc=HAFNIUM APT: IIS Creating AAA files,Risk=80" groupRelation="and">
+			<Rule name="Attack=T1505.003,Technique=Server Software Component: Web Shell,Tactic=Persistence,DS=File: File Creation,Level=0,Alert=Web Shells Dropped 5,Risk=80" groupRelation="and">
 				<Image condition="image">w3wp.exe</Image>
 				<TargetFilename condition="end with">.aaa</TargetFilename>
 			</Rule>
-			<Rule name="Attack=T1505.003,Technique=Server Software Component: Web Shell,Tactic=Persistence,DS=File: File Creation,Level=3,Alert=HAFNIUM Web Shells Dropped,Risk=100" groupRelation="and">
+			<Rule name="Attack=T1505.003,Technique=Server Software Component: Web Shell,Tactic=Persistence,DS=File: File Creation,Level=3,Alert=Web Shells Dropped 6,Risk=100" groupRelation="and">
 				<TargetFilename condition="contains any">\wwwroot\aspnet_client\;\FrontEnd\HttpProxy\owa\auth</TargetFilename>
 				<TargetFilename condition="contains any">.aspx;.php;.ashx</TargetFilename>
+			</Rule>
+			<Rule name="Attack=T1190,Technique=Server Software Component: Web Shell,Tactic=Persistence,DS=File: File Creation,Level=3,Alert=IIS Dropping Ps1 file,Risk=100" groupRelation="and">
+				<Image condition="image">w3wp.exe</Image>
+				<TargetFilename condition="end with">.ps1</TargetFilename>
+			</Rule>
+			<Rule name="Attack=T1505.003,Technique=Exploit Public-Facing Application,Tactic=Initial Access,DS=File: File Creation,Level=3,Alert=IIS Dropping Bat file,Risk=100" groupRelation="and">
+				<Image condition="image">w3wp.exe</Image>
+				<TargetFilename condition="end with">.bat</TargetFilename>
+			</Rule>
+			<Rule name="Attack=T1505.003,Technique=Exploit Public-Facing Application,Tactic=Initial Access,DS=File: File Creation,Level=3,Alert=IIS Dropping DLL file,Risk=100" groupRelation="and">
+				<Image condition="image">w3wp.exe</Image>
+				<TargetFilename condition="end with">.dll</TargetFilename>
+			</Rule>
+			<Rule name="Attack=T1505.003,Technique=Exploit Public-Facing Application,Tactic=Initial Access,DS=File: File Creation,Level=3,Alert=IIS Dropping VBS file,Risk=100" groupRelation="and">
+				<Image condition="image">w3wp.exe</Image>
+				<TargetFilename condition="end with">.vbs</TargetFilename>
+			</Rule>
+			<Rule name="Attack=T1505.003,Technique=Exploit Public-Facing Application,Tactic=Initial Access,DS=File: File Creation,Level=3,Alert=IIS Dropping HTA file,Risk=100" groupRelation="and">
+				<Image condition="image">w3wp.exe</Image>
+				<TargetFilename condition="end with">.hta</TargetFilename>
 			</Rule>
 			<Rule name="Attack=T1505.003,Technique=Server Software Component: Web Shell,Tactic=Persistence,DS=File: File Creation,Level=0,Desc=Files dropped in wwwroot directory,Risk=40" groupRelation="and">
 				<TargetFilename condition="contains any">\wwwroot\</TargetFilename>
@@ -4027,6 +4084,7 @@
 			<TargetFilename name="Attack=T1560,Technique=Archive Collected Data,Tactic=Collection,DS=File: File Creation,Level=0,Desc=SZ Archive" condition="end with">.sz</TargetFilename>
 			<TargetFilename name="Attack=T1560,Technique=Archive Collected Data,Tactic=Collection,DS=File: File Creation,Level=0,Desc=TAR Archive" condition="end with">.tar</TargetFilename>
 			<TargetFilename name="Attack=T1560,Technique=Archive Collected Data,Tactic=Collection,DS=File: File Creation,Level=0,Desc=TAR.GZ Archive" condition="end with">.tar.gz</TargetFilename>
+			<TargetFilename name="Attack=T1560,Technique=Archive Collected Data,Tactic=Collection,DS=File: File Creation,Level=0,Desc=TAR.GZ Archive" condition="end with">.tgz</TargetFilename>
 			<TargetFilename name="Attack=T1560,Technique=Archive Collected Data,Tactic=Collection,DS=File: File Creation,Level=0,Desc=XZ Archive" condition="end with">.xz</TargetFilename>
 			<TargetFilename name="Attack=T1560,Technique=Archive Collected Data,Tactic=Collection,DS=File: File Creation,Level=0,Desc=ZIP Archive" condition="end with">.zip</TargetFilename>
 			<!--MITRE ATT&CK TECHNIQUE: Audio Capture-->
@@ -4494,6 +4552,11 @@
 		<RegistryEvent onmatch="include">
 			<!--MITRE ATT&CK TACTIC: Reconnaissance-->
 			<!--MITRE ATT&CK TECHNIQUE: Active Scanning-->
+			<Rule name="ttack=T1595,Technique=Active Scanning,Tactic=Reconnaissance,DS=indows Registry: Windows Registry Key Modification,Level=4,Alert=Advanced IP Scanner Scan Detected" groupRelation="and">
+				<TargetObject condition="contains">Software\Famatech\advanced_ip_scanner\State</TargetObject>
+				<TargetObject condition="end with">LastRangeUsed</TargetObject>
+				<EventType condition="is">SetValue</EventType>
+			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: Gather Victim Host Information-->
 			<!--MITRE ATT&CK TECHNIQUE: Gather Victim Identity Information-->
 			<!--MITRE ATT&CK TECHNIQUE: Gather Victim Network Information-->
@@ -5869,8 +5932,14 @@
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Network Traffic: Network Traffic Content,Level=0,Desc=Internet Chat,Risk=20" groupRelation="and">
 				<QueryName condition="contains any">.slack.com;discord.;telegram.;rocketchat.;mattermost.;flock.com</QueryName>
 			</Rule>
+			<Rule name="Attack=T1595,Technique=Active Scanning,Tactic=Reconnaissance,DS=Network Traffic: Network Traffic Content,Level=4,Alert=Advanced IP scanner Detected,Risk=90"  groupRelation="or">
+				<QueryName condition="contains any">advanced-ip-scanner.com</QueryName>
+			</Rule>
+			<Rule name="Attack=T1595,Technique=Active Scanning,Tactic=Reconnaissance,DS=Network Traffic: Network Traffic Content,Level=4,Alert=Kali Linux Distribution Download/Apt URL,Risk=90"  groupRelation="or">
+				<QueryName condition="contains any">kali.download</QueryName>
+			</Rule>
 			<!--Crypto Currency Mining pools-->
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Network Traffic: Network Traffic Content,Level=4,Alert=Crypto Currency Miner Detected,Attack=T1496,Technique=Resource Hijacking,Tactic=Impact,Risk=10"  groupRelation="or">
+			<Rule name="Attack=T1496,Technique=Resource Hijacking,Tactic=Impact,DS=Network Traffic: Network Traffic Content,Level=4,Alert=Crypto Currency Miner Detected,Risk=85"  groupRelation="or">
 				<QueryName condition="contains any">0x1f4b0.com;1q2w3.life;1q2w3.website;31.187.64.216;185.193.38.148;aalbbh84.info;adfreetv.ch;adless.io;adplusplus.fr;adrenali.gq;ajcryptominer.com;ajplugins.com;allfontshere.press;altavista.ovh;amhixwqagiz.ru;appelamule.com;arizona-miner.tk;aster18cdn.nl;aster18prx.nl;avero.xyz;averoconnector.com;bauersagtnein.myeffect.net;bhzejltg.info;blazepool;blockmasters;blockmasterscoins;bmnr.pw;bmst.pw;bohemianpool;carry.myeffect.net;cashbeet.com;cdn-code.host;cfceu.duckdns.org;cfcnet.gdn;cfcnet.top;cfcs1.duckdns.org;chainblock.science;cieh.mx;coin-hive.com;coin-service.com;coin-services.info;coiner.site;coinpirate.cf;coinrail.io;coinwebmining.com;cpu2cash.link;cryptaloot.pro;cryptmonero;crypto-loot.com;crypto-pool;crypto-webminer.com;cryptoloot.pro;d-ns.ga;dataservices.download;directprimal.com;dwarfpool;encoding.ovh;eth-pocket.com;eth-pocket.de;eth-pocket.eu;ethereum-pocket.de;ethereum-pocket.eu;ethtrader.de;eu.nimpool.io;eu.sushipool.com;f1tbit.com;flnqmin.org;freecontent.bid;freecontent.date;freecontent.loan;freecontent.racing;freecontent.stream;freecontent.win;gnrdomimplementation.com;graftpool.ovh;greenindex.dynamic-dns.net;gustaver.ddns.net;hashrefinery;hashvault.pro;herphemiste.com;hide.ovh;hk.rs;hlpidkr.ru;hodlers.party;hodling.faith;hostingcloud.win;hrfziiddxa.ru;ihdvilappuxpgiv.ru;imhvlhaelvvbrq.ru;insdrbot.com;irrrymucwxjl.ru;istlandoll.com;ivuovhsn.ru;iwanttoearn.money;ixvenhgwukn.ru;jqassets.download;jqr-cdn.download;jqrcdn.download;jquerrycdn.download;jqwww.download;jqxrrygqnagn.ru;jscoinminer.com;jwduahujge.ru;ksimdw.ru;l33tsite.info;laferia.cr;ledhenone.com;ltstyov.ru;mepirtedic.com;mine.bz;minercircle.com;minercry.pt;minergate;minero.cc;miners.pro;minescripts.info;mininghub.club;miningpoolhubcoins;minr.pw;mixpools.org;mmc.center;mollnia.com;monerise.com;monero.lindon-pool.win;monero;moriaxmr.com;munero.me;mxcdn1.now.sh;mxcdn2.now.sh;myadstats.com;mypool.online;nablabee.com;nanopool.org;nathetsof.com;nicehash;nimiqpool.com;node.philpool.com;npcdn1.now.sh;nunu-001.now.sh;ogondkskyahxa.ru;ogrid.org;oinkinns.tk;olecintri.com;omine.org;onvid.club;open-hive-server-1.pp.ua;oxwwoeukjispema.ru;pcejuyhjucmkiny.ru;pool.nimiq.watch;pool.nimiqchain.info;pool.porkypool.com;pool.xmr;poolto.be;prohash.net;prohash;proj2018.xyz;pzoifaum.info;ratchetmining.com;realnetwrk.com;reauthenticator.com;rove.cl;ruvuryua.ru;s7ven.com;scaleway.ovh;sentemanactri.com;sickrage.ca/ch;sighash.info;slushpool;soodatmish.com;sparechange.io;statdynamic.com;stati.bid;staticsfs.host;streamplay.to;suprnova.cc;svivqrhrh.ru;sxcdn02.now.sh;sxcdn3.now.sh;sxcdn4.now.sh;sxcdn6.now.sh;synconnector.com;teracycle.net;tercabilis.info;thelifeisbinary.ddns.net;thersprens.com;torrent.pw;ulnawoyyzbljc.ru;unrummaged.com;uoldid.ru;usxmrpool;viaxmr.com;vpzccwpyilvoyg.ru;vzzexalcirfgrf.ru;wbmwss.beetv.net;webmine.cz;webmine.pro;webminepool.tk;webminerpool.com;webwidgetz.duckdns.org;wmemsnhgldd.ru;wmtech.website;wmwmwwfmkvucbln.ru;wrxgandsfcz.ru;xmrm.pw;xmrminingproxy.com;xmrpool;yiimp;yuyyio.com;zavzlen.ru;zergpool;zergpoolcoins;ziykrgc.ru;zlx.com.br;zpool;analytics.blue;estream.to</QueryName>
 			</Rule>
 			<QueryName name="Attack=None,Technique=None,Tactic=None,DS=Network Traffic: Network Traffic Content,Level=0,Desc=Microsoft Graph API Lookup" condition="is">graph.microsoft.com</QueryName>
