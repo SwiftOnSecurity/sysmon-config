@@ -282,12 +282,10 @@
 				<ParentImage condition="image">conhost.exe</ParentImage>
 				<Image condition="excludes any">:\Windows\splwow64.exe;:\Windows\System32\WerFault.exe;:\Windows\System32\conhost.exe</Image>
 			</Rule>
-			<!-- Disabled for now
 			<Rule name="Attack=T1204,Technique=User Execution,Tactic=Execution,DS=Process: Process Creation,UEBA=Execution Command Line tools by user,Risk=45" groupRelation="and">
 				<Image condition="contains any">\cmd.exe;WindowsTerminal;powershell</Image>
 				<ParentImage condition="image">explorer.exe</ParentImage>
 			</Rule>
-			-->
 			<Rule name="Attack=T1059.001,Technique=Powershell,Tactic=Execution,DS=Process: Process Creation,UEBA=Powershell as cmd.exe child process,Risk=39" groupRelation="and">
 				<ParentImage condition="image">cmd.exe</ParentImage>
 				<Image condition="contains any">powershell.exe;powershell_ise.exe</Image>
@@ -347,11 +345,6 @@
 				<Image condition="image">regedit.exe</Image>
 				<ParentImage condition="image">explorer.exe</ParentImage>
 			</Rule>
-			<!-- Disabled for now
-			<Rule name="Attack=T1204,Technique=User Execution,Tactic=Execution,DS=Process: Process Creation,Level=0,Desc=Generic User Execution,Risk=1" groupRelation="and">
-				<ParentImage condition="image">explorer.exe</ParentImage>
-			</Rule>
-			-->
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Process: Process Creation,UEBA=Unusual Child Process,Risk=30" groupRelation="and">
 				<Image condition="contains any">\svchost.exe;\taskhostw.exe;\userinit.exe;\smss.exe;\csrss.exe;\wininit.exe;\winlogon.exe;\lsass.exe;\logonui.exe;\services.exe</Image>
 				<Image condition="contains any">C:\windows\System32\;C:\windows\syswow64\</Image>
@@ -2148,6 +2141,9 @@
 			<Image name="Attack=None,Technique=None,Tactic=None,DS=Process: Process Creation,Level=0,Desc=Gpupdate Launched" condition="image">gpupdate.exe</Image>
 			<ParentImage name="Attack=None,Technique=None,Tactic=None,DS=Process: Process Creation,Level=0,Desc=.Net Framework executables" condition="contains">:\Windows\Microsoft.NET\</ParentImage>
 			<ParentImage name="Attack=None,Technique=None,Tactic=None,DS=Process: Process Creation,Level=0,Desc=System Child Processes" condition="is">System</ParentImage>
+			<Rule name="Attack=T1204,Technique=User Execution,Tactic=Execution,DS=Process: Process Creation,Level=0,Desc=Generic User Execution,Risk=0" groupRelation="and">
+				<ParentImage condition="image">explorer.exe</ParentImage>
+			</Rule>
 			<!-- Log other command line events, this sometimes conflicts with rules, add to exclusions as necessary-->
 			<!-- <ParentCommandLine name="Information=Uncategorized Events,DS=Process: Process Creation" condition="contains any">/;\;-;unknown;</ParentCommandLine>-->
 		</ProcessCreate>
@@ -5561,7 +5557,6 @@
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AppCompat Shims" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AppCompat Shims" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Process Tracing Modifications,,Risk=30" condition="begin with">HKLM\SOFTWARE\Microsoft\Tracing\</TargetObject>
-			<!-- NOTICE: Detect New USB Network Devices: Poison Tap: Creates lots of noise, disabled for now-->
 			<Rule name="Alert=Detect PoisonTap,FP=2,Comment=May be noisy" groupRelation="and">
 				<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}</TargetObject>
 				<Details condition="contains any">ndis;rndis</Details>
