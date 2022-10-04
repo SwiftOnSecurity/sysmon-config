@@ -6513,6 +6513,7 @@
 		<FileBlockShredding onmatch="include">
 			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Data Destruction Detected in C:\Users,Author=@ionstorm" groupRelation="and">
 				<TargetFilename condition="begin with">C:\Users</TargetFilename>
+				<Image condition="excludes any">C:\Program Files\WindowsApps\</Image>
 			</Rule>
 			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Data Destruction Detected in ProgramFiles,Author=@ionstorm" groupRelation="and">
 				<TargetFilename condition="begin with">C:\Program Files</TargetFilename>
@@ -6534,6 +6535,7 @@
 			</Rule>
 			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Data Destruction Detected in System Profile and registry backups,Author=@ionstorm" groupRelation="and">
 				<TargetFilename condition="begin with">C:\Windows\System32\config</TargetFilename>
+				<Image condition="excludes">C:\WINDOWS\system32\consent.exe</Image>
 			</Rule>
 			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Data Destruction Detected in Database Files,Author=@ionstorm" groupRelation="and">
 				<TargetFilename condition="end with">.db</TargetFilename>
@@ -6560,8 +6562,11 @@
 				<TargetFilename condition="end with">.sst</TargetFilename>
 				<TargetFilename condition="end with">.sto</TargetFilename>
 			</Rule>
-			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Data Destruction Detected in Log files,Author=@ionstorm" groupRelation="or">
+			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Data Destruction Detected in Log files,Author=@ionstorm" groupRelation="and">
 				<TargetFilename condition="end with">.log</TargetFilename>
+				<TargetFilename condition="excludes">C:\Windows\System32\sru\</TargetFilename>
+			</Rule>
+			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Data Destruction Detected in Log files 2,Author=@ionstorm" groupRelation="and">
 				<TargetFilename condition="end with">ConsoleHost_history.txt</TargetFilename>
 			</Rule>
 			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Data Destruction Detected in evtx files,Author=@ionstorm" groupRelation="and">
@@ -6688,6 +6693,13 @@
 	</RuleGroup>
 	<RuleGroup name="RG=FileBlockShredding Exclude Group" groupRelation="or">
 		<FileBlockShredding onmatch="exclude">
+			<Rule name="safe images - be careful" groupRelation="or">
+				<Image condition="image">C:\WINDOWS\System32\svchost.exe</Image>
+				<Image condition="image">C:\WINDOWS\System32\services.exe</Image>
+				<Image condition="image">C:\WINDOWS\system32\consent.exe</Image>
+				<Image condition="contains all">C:\Program Files\Google\Drive File Stream\;\GoogleDriveFS.exe</Image>
+				<Image condition="contains all">C:\Program Files (x86)\Microsoft\EdgeWebView\Application\;msedgewebview2.exe</Image>
+			</Rule>
 			<Rule name="safe paths - be careful" groupRelation="and">
 				<TargetFilename condition="contains any">C:\Safe-shred-location</TargetFilename>
 			</Rule>
