@@ -6513,7 +6513,7 @@
 		<FileBlockShredding onmatch="include">
 			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Data Destruction Detected in C:\Users,Author=@ionstorm" groupRelation="and">
 				<TargetFilename condition="begin with">C:\Users</TargetFilename>
-				<Image condition="excludes any">C:\Program Files\WindowsApps\</Image>
+				<Image condition="excludes any">C:\Program Files\WindowsApps\;AppData</Image>
 			</Rule>
 			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=File: File Modification,Level=4,Risk=100,Alert=Data Destruction Detected in ProgramFiles,Author=@ionstorm" groupRelation="and">
 				<TargetFilename condition="begin with">C:\Program Files</TargetFilename>
@@ -6704,10 +6704,13 @@
 			</Rule>
 			<Rule name="safe paths - be careful" groupRelation="or">
 				<TargetFilename condition="contains any">C:\Safe-shred-location</TargetFilename>
+				<TargetFilename condition="contains any">C:\$WINDOWS.~BT\NewOS\</TargetFilename>
+				<TargetFilename condition="contains all">:\Users\;\AppData\;\D3DSCache</TargetFilename>
 				<TargetFilename condition="end with">.lock</TargetFilename>
 			</Rule>
 			<Rule name="safe users - be careful" groupRelation="or">
-				<!--<User condition="is">SYSTEM</User>
+				<!--<User condition="is">NT AUTHORITY\TrustedInstaller</User>
+				<User condition="is">SYSTEM</User>
 				<User condition="is">NT AUTHORITY\SYSTEM</User>
 				<User condition="is">TrustedInstaller</User>
 				<User condition="is">NT AUTHORITY\TrustedInstaller</User>
