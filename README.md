@@ -8,8 +8,8 @@ Pull requests and issue tickets are welcome, and new additions will be credited 
 This Sysmon ATT&CK Configuration is designed "Explicitly" to enrich your SIEM for threat intelligence, forensics, UEBA, use cases.  You'll want to create a key-value parser for the
 rulename field to create field names per event within your SIEM.  
 Ideally this is best used with an Alerting Repository/Index where the "Alert=" field is marked and a non-alerting visibility index/repository where threat hunting, investigations can be done 
-that contains added context and story line information of user behavior and activity leading up to an attack.  Non-Alerting Visibility rules are tagged with Desc=, and Forensic= and should
-are meant to provide contextual information for analysts to build cases and identify what is happening with SIEM enrichments.  Some of these non-alerting visibility rules can be graduated 
+that contains added context and story line information of user behavior and activity leading up to an attack.  Non-Alerting Visibility rules are tagged with Desc=, and Forensic= and are
+meant to provide contextual information for analysts to build cases and identify what is happening with SIEM enrichments.  Some of these non-alerting visibility rules can be graduated 
 to the Alerting rules or can be used with correlation rules within a SIEM/SOAR/XDR.  
 
 The goal with this configuration is a "Control" configuration that provides ultimate visibility that should be ran in conjunction with an EDR.  
