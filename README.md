@@ -3,7 +3,7 @@ The file provided should function as a great starting point for system monitorin
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**[sysmonconfig-export.xml](https://github.com/ion-storm/sysmon-config/blob/master/sysmonconfig-export.xml)**
 
-Pull requests and issue tickets are welcome, and new additions will be credited in-line or on Git, tag your naame with Author=YourName within the rulename field.
+Pull requests and issue tickets are welcome, and new additions will be credited in-line or on Git, tag your name with Author=YourName within the rulename field.
 
 This Sysmon ATT&CK Configuration is designed "Explicitely" to enrich your SIEM for threat intelligence, forensics, UEBA, use cases.  You'll want to create a key-value parser for the
 rulename field to create field names per event within your SIEM.  
