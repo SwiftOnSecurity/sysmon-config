@@ -5,7 +5,7 @@ The file provided should function as a great starting point for system monitorin
 
 Pull requests and issue tickets are welcome, and new additions will be credited in-line or on Git, tag your name with Author=YourName within the rulename field.
 
-This Sysmon ATT&CK Configuration is designed "Explicitely" to enrich your SIEM for threat intelligence, forensics, UEBA, use cases.  You'll want to create a key-value parser for the
+This Sysmon ATT&CK Configuration is designed "Explicitly" to enrich your SIEM for threat intelligence, forensics, UEBA, use cases.  You'll want to create a key-value parser for the
 rulename field to create field names per event within your SIEM.  
 Ideally this is best used with an Alerting Repository/Index where the "Alert=" field is marked and a non-alerting visibility index/repository where threat hunting, investigations can be done 
 that contains added context and story line information of user behavior and activity leading up to an attack.  Non-Alerting Visibility rules are tagged with Desc=, and Forensic= and should
