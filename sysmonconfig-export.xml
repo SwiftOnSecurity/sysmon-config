@@ -5570,8 +5570,10 @@
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache InvDB-Store" condition="contains">Compatibility Assistant\Store\</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache InvDB-Ver" condition="end with">\BinProductVersion</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache Application Shortcuts" condition="contains">Root\InventoryApplicationShortcut\</TargetObject>
-			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache Driver Binary Info" condition="contains">Root\InventoryDriverBinary\</TargetObject>
-			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache Device Info" condition="contains">Root\InventoryDeviceContainer\</TargetObject>
+			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache Driver Binary Info" condition="contains">Root\InventoryDriverBinary</TargetObject>
+			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache Driver Package Info" condition="contains">Root\InventoryDriverPackage</TargetObject>
+			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache PNP Device Info" condition="contains">Root\InventoryDevicePnp</TargetObject>
+			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache Device Info" condition="contains">Root\InventoryDeviceContainer</TargetObject>
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache Application Installation Info" groupRelation="and">
 				<TargetObject condition="contains">Root\InventoryApplication\</TargetObject>
 				<TargetObject condition="contains any">ProgramID;Name;Version;Publisher;Language;InstallDate;Source;RootDirPath;HiddenArp;UninstallString;RegistryKeyPath;UserSID;sha256</TargetObject>
