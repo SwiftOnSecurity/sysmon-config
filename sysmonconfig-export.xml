@@ -2692,22 +2692,38 @@
 				<DestinationIp condition="excludes">127.0.0.1</DestinationIp>
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Network Traffic: Network Connection Creation,Level=0,Desc=Browsers accessing non-standard ports" groupRelation="and">
-				<Image condition="contains any">\iexplore.exe;\chrome.exe;\firefox.exe;\MicrosoftEdge;browser_broker.exe;\vivaldi.exe;\brave.exe</Image>
+				<Image condition="contains any">\iexplore.exe;\chrome.exe;\firefox.exe;\MicrosoftEdge;browser_broker.exe;\vivaldi.exe;\brave.exe;\opera.exe</Image>
 				<DestinationPort condition="is not">80</DestinationPort>
 				<DestinationPort condition="is not">443</DestinationPort>
 				<Initiated>true</Initiated>
 			</Rule>
 			<DestinationHostname name="Attack=None,Technique=None,Tactic=None,DS=Network Traffic: Network Connection Creation,Level=0,Desc=Connection to Github,Risk=30" condition="contains">github</DestinationHostname> 
 			<DestinationHostname name="Attack=None,Technique=None,Tactic=None,DS=Network Traffic: Network Connection Creation,Level=0,Desc=Connection to Github,Risk=30" condition="contains">githubusercontent.com</DestinationHostname>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Network Traffic: Network Connection Creation,Level=0,Desc=Web Browser HTTP Connections" groupRelation="and">
-				<Image condition="contains any">\iexplore.exe;\chrome.exe;\firefox.exe;\MicrosoftEdge;browser_broker.exe;\vivaldi.exe;\brave.exe;\opera.exe</Image>
-				<DestinationPort condition="is">80</DestinationPort>
-				<Initiated>true</Initiated>
+			<Rule name="Attack=T1567.002,Technique=Exfiltration Over Web Service: Exfiltration to Cloud Storage,Tactic=Exfiltration,DS=Network Traffic: Network Connection Creation,Level=0,Alert=Dropbox Cloud Exfiltration" groupRelation="and">
+				<DestinationHostname condition="end with">dropboxapi.com</DestinationHostname>
+				<Image condition="excludes any">\Dropbox\Client\Dropbox.exe;\Dropbox\bin\Dropbox.exe;\Oracle\Java\</Image>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Network Traffic: Network Connection Creation,Level=0,Desc=Web Browser HTTPS Connections" groupRelation="and">
-				<Image condition="contains any">\iexplore.exe;\chrome.exe;\firefox.exe;\MicrosoftEdge;browser_broker.exe;\vivaldi.exe;\brave.exe;\opera.exe</Image>
-				<DestinationPort condition="is">443</DestinationPort>
-				<Initiated>true</Initiated>
+			<Rule name="Attack=T1567.002,Technique=Exfiltration Over Web Service: Exfiltration to Cloud Storage,Tactic=Exfiltration,DS=Network Traffic: Network Connection Creation,Level=0,Alert=OneDrive Cloud Exfiltration" groupRelation="and">
+				<DestinationHostname condition="contains">1drv</DestinationHostname>
+				<Image condition="excludes any">\AppData\Local\Microsoft\OneDrive\OneDrive.exe;C:\Program Files (x86)\Google\Chrome\Application\chrome.exe;\Internet Explorer\iexplore.exe;C:\Windows\System32\AppHostRegistrationVerifier.exe;C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe;C:\Program Files (x86)\BraveSoftware\Brave-Browser\Application\brave.exe;C:\Program Files (x86)\Microsoft OneDrive\OneDrive.exe;C:\Program Files\Mozilla Firefox\firefox.exe</Image>
+			</Rule>
+			<Rule name="Attack=T1567.002,Technique=Exfiltration Over Web Service: Exfiltration to Cloud Storage,Tactic=Exfiltration,DS=Network Traffic: Network Connection Creation,Level=0,Alert=Box.com Cloud Exfiltration" groupRelation="and">
+				<DestinationHostname condition="contains all">.box.com;upload</DestinationHostname>
+			</Rule>
+			<Rule name="Attack=T1567.002,Technique=Exfiltration Over Web Service: Exfiltration to Cloud Storage,Tactic=Exfiltration,DS=Network Traffic: Network Connection Creation,Level=4,Alert=Mega.co.nz Cloud Exfiltration" groupRelation="and">
+				<DestinationHostname condition="contains any">mega.nz;mega.co.nz</DestinationHostname>
+			</Rule>
+			<Rule name="Attack=T1567.002,Technique=Exfiltration Over Web Service: Exfiltration to Cloud Storage,Tactic=Exfiltration,DS=Network Traffic: Network Connection Creation,Level=4,Alert=Privatlab Cloud Exfiltration" groupRelation="and">
+				<DestinationHostname condition="contains any">privatlab.com</DestinationHostname>
+			</Rule>
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Network Traffic: Network Connection Creation,Level=0,Desc=Social Networking" groupRelation="or">
+				<DestinationHostname condition="contains any">tiktok;parler.com;gab.com;mewe.com;4chan;8chan;facebook;fbcdn;twitter;instagram;snapchat</DestinationHostname>
+			</Rule>
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Network Traffic: Network Connection Creation,Level=0,Desc=Internet Relay Chat,Risk=70" groupRelation="or">
+				<DestinationHostname condition="contains any">efnet;undernet;freenode;ircnet;.rizon;quakenet;oftc.net;dalnet</DestinationHostname>
+			</Rule>
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Network Traffic: Network Connection Creation,Level=0,Desc=Internet Chat,Risk=20" groupRelation="and">
+				<DestinationHostname condition="contains any">.slack.com;discord.;telegram.;rocketchat.;mattermost.;flock.com</DestinationHostname>
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Network Traffic: Network Connection Creation,Level=0,Desc=Apache Webserver" groupRelation="and">
 				<Image condition="image">apache.exe</Image>
@@ -2769,21 +2785,31 @@
 			<DestinationPort name="Attack=None,Technique=None,Tactic=None,DS=Network Traffic: Network Connection Creation,Level=0,Desc=VNC,Risk=50" condition="is">5800</DestinationPort>
 			<!--Source Ports to Monitor-->
 			<SourcePort name="Attack=None,Technique=None,Tactic=None,DS=Network Traffic: Network Connection Creation,Level=0,Desc=Port: 0" condition="is">0</SourcePort>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Network Traffic: Network Connection Creation,Level=0,Desc=Non-Browsers Accessing HTTPS" groupRelation="and">
-				<Image condition="excludes any">\iexplore.exe;\chrome.exe;\firefox.exe;\MicrosoftEdge;browser_broker.exe;\vivaldi.exe;\brave.exe</Image>
-				<DestinationPort condition="is">443</DestinationPort>
-				<Initiated>true</Initiated>
-			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Network Traffic: Network Connection Creation,Level=0,Desc=Non-Browsers Accessing HTTP" groupRelation="and">
-				<Image condition="excludes any">\iexplore.exe;\chrome.exe;\firefox.exe;\MicrosoftEdge;browser_broker.exe;\vivaldi.exe;\brave.exe</Image>
-				<DestinationPort condition="is">80</DestinationPort>
-				<Initiated>true</Initiated>
-			</Rule>
 			<SourcePort name="Attack=None,Technique=None,Tactic=None,DS=Network Traffic: Network Connection Creation,Level=0,Desc=HTTP" condition="is">80</SourcePort>
 			<SourcePort name="Attack=None,Technique=None,Tactic=None,DS=Network Traffic: Network Connection Creation,Level=0,Desc=HTTPS" condition="is">443</SourcePort>
 			<SourcePort name="Attack=None,Technique=None,Tactic=None,DS=Network Traffic: Network Connection Creation,Level=0,Desc=LDAPS" condition="is">636</SourcePort>
 			<SourcePort name="Attack=None,Technique=None,Tactic=None,DS=Network Traffic: Network Connection Creation,Level=0,Desc=VNC" condition="is">5900</SourcePort>
 			<SourcePort name="Attack=None,Technique=None,Tactic=None,DS=Network Traffic: Network Connection Creation,Level=0,Desc=HTTPS" condition="is">443</SourcePort>
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Network Traffic: Network Connection Creation,Level=0,Desc=Web Browser HTTP Connections" groupRelation="and">
+				<Image condition="contains any">\iexplore.exe;\chrome.exe;\firefox.exe;\MicrosoftEdge;browser_broker.exe;\vivaldi.exe;\brave.exe;\opera.exe</Image>
+				<DestinationPort condition="is">80</DestinationPort>
+				<Initiated>true</Initiated>
+			</Rule>
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Network Traffic: Network Connection Creation,Level=0,Desc=Non-Browsers Accessing HTTPS" groupRelation="and">
+				<Image condition="excludes any">\iexplore.exe;\chrome.exe;\firefox.exe;\MicrosoftEdge;browser_broker.exe;\vivaldi.exe;\brave.exe</Image>
+				<DestinationPortName condition="is">https</DestinationPortName>
+				<Initiated>true</Initiated>
+			</Rule>
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Network Traffic: Network Connection Creation,Level=0,Desc=Non-Browsers Accessing HTTP" groupRelation="and">
+				<Image condition="excludes any">\iexplore.exe;\chrome.exe;\firefox.exe;\MicrosoftEdge;browser_broker.exe;\vivaldi.exe;\brave.exe</Image>
+				<DestinationPortName condition="is">http</DestinationPortName>
+				<Initiated>true</Initiated>
+			</Rule>
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Network Traffic: Network Connection Creation,Level=0,Desc=Web Browser HTTPS Connections" groupRelation="and">
+				<Image condition="contains any">\iexplore.exe;\chrome.exe;\firefox.exe;\MicrosoftEdge;browser_broker.exe;\vivaldi.exe;\brave.exe;\opera.exe</Image>
+				<DestinationPort condition="is">443</DestinationPort>
+				<Initiated>true</Initiated>
+			</Rule>
 			<!--Suspicious network connections-->
 			<DestinationHostname name="Attack=T1311,Technique=Dynamic DNS,Tactic=Adversary Opsec,DS=Network Traffic: Network Connection Creation,Level=4,Alert=Dynamic DNS Connection" condition="contains any">afraid.org;duckdns.org;changeip.com;ddns.net;hopto.org;zapto.org;servehttp.com;sytes.net;whoer.net;bravica.net;ip.webmasterhome.cn;whatsmyip.us;myip.kz;ip-addr.es;curlmyip;anysrc.net;anysrc.net;dlinkddns.com;no-ip.com;no-ip.org;no-ip.biz;no-ip.info;noip.com</DestinationHostname>
 		</NetworkConnect>
@@ -3723,7 +3749,7 @@
 			<TargetFilename name="Attack=T1059.006,Technique=Command and Scripting Interpreter: Python,Tactic=Execution,DS=File: File Creation,Level=0,Desc=Python" condition="end with">.pyc</TargetFilename>
 			<TargetFilename name="Attack=T1059.006,Technique=Command and Scripting Interpreter: Python,Tactic=Execution,DS=File: File Creation,Level=0,Desc=Python" condition="end with">.pyd</TargetFilename>
 			<!--MITRE ATT&CK TECHNIQUE: Command and Scripting Interpreter: Powershell-->
-			<Rule name="Attack=T1059.001,Technique=Command and Scripting Interpreter: PowerShell,Tactic=Execution,DS=File: File Creation,Level=2,Alert=Powershell file types,Risk=100" groupRelation="or">
+			<Rule name="Attack=T1059.001,Technique=Command and Scripting Interpreter: PowerShell,Tactic=Execution,DS=File: File Creation,Level=2,Desc=Powershell file types,Risk=100" groupRelation="or">
 				<TargetFilename condition="end with">.cdxml</TargetFilename>
 				<TargetFilename condition="end with">.ps1</TargetFilename>
 				<TargetFilename condition="end with">.ps1xml</TargetFilename>
@@ -3732,7 +3758,7 @@
 				<TargetFilename condition="end with">.psm1</TargetFilename>
 				<TargetFilename condition="end with">.pssc</TargetFilename>
 			</Rule>
-			<Rule name="Attack=T1059.001,Technique=Command and Scripting Interpreter: PowerShell,Tactic=Execution,DS=File: File Creation,Level=2,Alert=Powershell file creations,Risk=10" groupRelation="and">
+			<Rule name="Attack=T1059.001,Technique=Command and Scripting Interpreter: PowerShell,Tactic=Execution,DS=File: File Creation,Level=2,Desc=Powershell Creating Files,Risk=10" groupRelation="and">
 				<Image condition="contains any">powershell.exe;powershell_ise.exe</Image>
 				<TargetFilename condition="excludes">\Recent\CustomDestinations\</TargetFilename>
 			</Rule>
@@ -3779,7 +3805,7 @@
 			<Rule name="Attack=T1204.002,Technique=Malicious File,Tactic=Execution,DS=File: File Creation,Level=4,Alert=Generic Ransomware Detection" groupRelation="and">
 				<TargetFilename condition="contains any">!!!-WARNING-!!!.html;!!!-WARNING-!!!.txt;!!! HOW TO DECRYPT FILES !!!;!!!README!!!;!!!READ_TO_UNLOCK!!!.TXT;!!!_READ_ME_;!Recovery_;!Where_are_my_files!.html;!_HOW_TO_RESTORE_;!_RECOVERY_HELP_!.txt;!recover!;# DECRYPT MY FILES #.html;# DECRYPT MY FILES #.txt;# DECRYPT MY FILES #.vbs;# SATAN CRYPTOR #;+recover+;.8lock8;.31392E30362E32303136_;.ABCDEF;.CIop;.CR1;.CRAB;.CRYPTOSHIELD;.Cl0p;.Contact_Here_To_Recover_Your_Files.txt;.CryptoTorLocker2015!;.HERMES;.HakunaMatata;.How_To_Decrypt.txt;.How_To_Get_Back.txt;.KEYZ.KEYH0LES;.L0CKED;.LOL!;.MATRIX;.OMG!;.R.i.P;.RMCM1;.RSplited;.SUPERCRYPT;.SecureCrypted;.TheTrumpLocker;.VBRANSOM;.VforVendetta;.Where_my_files.txt;.XBTL;._AiraCropEncrypted!;.airacropencrypted!;.areyoulovemyrans;.berkshire;.bitpy;.bitx;.blocatto;.bomber;.braincrypt;.breakingbad;.breeding123;.cerber;.cifgksaffsfyghd;.country82000;.crypt;.crypted;.crypton;.cryptotorlocker;.decrypt2017;.deria;.dglnl;.disposed2017;.doomed;.encrypted.locked;.encrypted;.encryptedyourfiles;.enjey;.evillock;.filegofprencrp;.fileiscryptedhard;.firecrypt;.fuckyourdata;.gangbang;.gefickt;.googl;.happydayzz;.hceem;.helpdecrypt;.helpmeencedfiles;.hnumkhotep;.hydracrypt_ID;.iaufkakfhsaraf;.info.txt;.jimm;.kharma;.killedXXX;.lambda_l0cked;.letmetrydecfiles;.locked;.locker16;.loveransisgood;.lovewindows;.magic_software_syndicate;.mention9823;.moments2900;.myrandsext2017;.newlock;.no_more_ransom;.nochance;.noproblemwedecfiles;.notfoundrans;.ohwqg;.one-we_can-help_you;.oops;.osiris;.otherinformation;.paytounlock;.powerfulldecrypt;.powned;.pr0lock;.prolock;.prosperous666;.pwnd;.ransom;.readme2unlock;.righ;.roger;.ryk;.satan;.savethequeen;.sigaint.org;.skjdthghh;.skynet;.snatch;.stubbin;.supported2017;.suppose666;.theworldisyours;.txd0t;.warn_wallet;.weapologize;.weareyourfriends;.weencedufiles;.wowreadfordecryp;.wowwhereismyfiles;.wvtr0;.yourransom;.zzzzz ;.{CRYPTENDBLACKDC};-DECRYPT.txt;000-IF-YOU-WANT-DEC-FILES;000-No-PROBLEM-WE-DEC-FILES;000-PLEASE-READ-WE-HELP;001-READ-FOR-DECRYPT-FILES;1025-7152.exe;:\windows\update_collector.exe;=READ=THIS=PLEASE=;@cock.li;@countermail.com;@firemail.cc;@india.com;@mail.ru;@ukr.net;ASSISTANCE_IN_RECOVERY;ATTENTION!!!.txt;ATTENTION.url;Aescrypt.exe;AllFilesAreLocked;BTC_DECRYPT_FILES;BUYUNLOCKCODE.txt;BUYUNLOCKCODE;BitCryptorFileList.txt;C:\ProgramData\dtb.dat;C:\Programdata\WinMgr;C:\Programdata\clean.bat;C:\Programdata\run.bat;C:\Windows\svchost.exe;CEBER3;CHECK-IT-HELP-FILES;COME_RIPRISTINARE_I_FILE.;COMO_ABRIR_ARQUIVOS.txt;COMO_RESTAURAR_ARCHIVOS;Coin.Locker.txt;Comment débloquer mes fichiers.txt;Como descriptografar seus arquivos.txt;Corona-virus-Map;Corona.bat;Corona.sfx;CryptoRansomware;Crytp0l0cker;Cyber SpLiTTer Vbs.exe;Cyborg_DECRYPT;DALE_FILES.TXT;DECRYPT-FILES;DECRYPTION INSTRUCTIONS.;DECRYPTION_HOWTO.Notepad;DECRYPT_INFORMATION;DECRYPT_INSTRUCTION.HTML;DECRYPT_INSTRUCTION.URL;DECRYPT_INSTRUCTIONS.html;DECRYPT_INSTRUCTIONS;DECRYPT_ReadMe1.TXT;DECRYPT_Readme.TXT.ReadMe;DECRYPT_YOUR_FILES;DESIFROVANI_POKYNY.html;Decrypt All Files;DecryptAllFiles;DecryptFile;Decrypt_readme.txt;DesktopOsiris;ENTSCHLUSSELN_HINWEISE.html;EdgeLocker;FILESAREGONE.txt;FILES_BACK.txt;File Decrypt Help.html;GJENOPPRETTING_AV_FILER;GetYouFiles.txt;HAPPEN-ENCED-FILES;HELLOTHERE.TXT;HELP-ME-ENCED-FILES;HELPDECRYPT_YOUR_FILES.HTML;HELP_DECRYPT.HTML;HELP_DECRYPT.PNG;HELP_DECRYPT.URL;HELP_DECRYPT.lnk;HELP_ME_PLEASE.txt;HELP_RESTORE_FILES_;HELP_TO_SAVE_FILES.bmp;HELP_TO_SAVE_FILES;HELP_YOURFILES.HTML;HELP_YOUR_FILES.PNG;HELP_YOUR_FILES.html;HELP_YOUR_FILES;HOW-TO-DECRYPT-FILES.HTML;HOW-TO-RESTORE-FILES;HOW TO BACK YOUR FILES;HOW TO DECRYPT FILES.HTML;HOW TO DECRYPT FILES.txt;HOW TO RECOVER;HOWTO_RECOVER_FILES_;HOWTO_RESTORE_FILES;HOWTO_RESTORE_FILES_;HOW_DECRYPT.HTML;HOW_DECRYPT.TXT;HOW_DECRYPT.URL;HOW_OPEN_FILES;HOW_TO_DECRYPT.HTML;HOW_TO_DECRYPT_;HOW_TO_PAY_THE_RANSOM;HOW_TO_RESTORE_FILES.html;HOW_TO_RESTORE_FILES;HOW_TO_RESTORE_YOUR_DATA;HOW_TO_UNLOCK_FILES_README_;HWID Lock.exe;Hacked_Read_me_to_decrypt_files.html;Help Decrypt.html;How decrypt files.hta;How to decrypt LeChiffre files.html;How to decrypt your data.txt;HowDecrypt.gif;HowDecrypt.txt;How_to_decrypt_your_files.jpg;How_to_restore_files.hta;HowtoRestore_File;HowtoRestore_Files;Howto_RESTORE_FILES.html;Howto_Restore_FILES.TXT;IAMREADYTOPAY.TXT;IF-YOU-WANT-DEC-FILES;IF_WANT_FILES_BACK_PLS_READ.html;IHAVEYOURSECRET.KEY;IMPORTANT READ ME.txt;IMPORTANT.README;INSTALL_TOR.URL;INSTRUCCIONES;INSTRUCCIONES_DESCIFRADO.html;INSTRUCTION RESTORE FILE;INSTRUCTIONS_DE_DECRYPTAGE.html;INSTUCCIONES_DESCRIFRADO;ISTRUZIONI_DECRITTAZIONE.html;Important!.txt;Instructionaga.txt;KryptoLocker_README.txt;LEER_INMEDIATAMENTE;LET-ME-TRY-DEC-FILES;Locked-by-Mafia;MENSAGEM.txt;MERRY_I_LOVE_YOU_BRUCE.hta;No-PROBLEM-WE-DEC-FILES;OKSOWATHAPPENDTOYOURFILES.TXT;ONTSLEUTELINGS_INSTRUCTIES.html;OSIRIS-;PAYLOADBIN;PINGY@INDIA.COM;PLEASE-READ-WE-HELP.;PLEASE-READIT-IF_YOU-WANT.html;PLEASE-READIT-IF_YOU-WANT;PLEASE-README-AFFECTED-FILES;PLS-DEC-MY-FILES;PURELOCKER;Payment_Instructions.jpg;Please Read Me!!!;READ-FOR-DECCCC-FILESSS;READ-FOR-DECRYPT-FILES;READ-READ-READ;READ IF YOU WANT YOUR FILES BACK.html;READ ME FOR DECRYPT.txt;README HOW TO DECRYPT YOUR FILES.HTML;README!!!;README_DECRYPT_HYDRA_ID_;README_DECRYPT_HYRDA_ID_;README_DECRYPT_UMBRE_ID_;README_DONT_DELETE;README_HOW_TO_UNLOCK.HTML;README_HOW_TO_UNLOCK.TXT;README_RECOVER_FILES_;README_TO_RECURE_YOUR_FILES;READTHISNOW!!!.txt;READ_IT.txt;READ_ME_!.txt;READ_ME_TO_DECRYPT_YOU_INFORMA;READ_THIS_TO_DECRYPT.html;RECOVER-FILES;RECOVERY_FILE.;RECOVERY_FILES.TXT;RECOVER_MY_FILE;RESTORE_CORUPTED_FILES;RESTORE_FILES_;RETURN FILES.txt;RETURN YOUR FILES;RETURNFILES_.txt;RETURN_FILES.txt;RETURN_FILES_.txt;Rans0m_N0te_Read_ME;Read Me (How Decrypt) !!!!.txt;ReadDecryptFilesHere;Read_this_file.txt;Receipt.exe;RecoveryManual.html;Recovery_File_;Recovery_file_;Rooster865qq;SECRET.KEY;SECRETIDHERE.KEY;SHTODELATVAM.txt;SIFRE_COZME_TALIMATI.html;SORRY-FOR-FILES;Survey Locker.exe;TRY-READ-ME-TO-DEC;Temp\satan\satan;ThxForYurTyme;UNLOCK_FILES_INSTRUCTIONS.html;UNLOCK_FILES_INSTRUCTIONS.txt;UnblockFiles.vbs;VIP72.exe;Vape Launcher.exe;WANT_FILES_BACK;WE-MUST-DEC-FILES;WHERE-YOUR-FILES;WORMKILLER@INDIA.COM.XTBL;What happen to my files.txt;Whereisyourfiles;WindowsApplication1.exe;YOUGOTHACKED.TXT;YOUR_FILES.txt;YOUR_FILES.url;YOUR_FILES_ARE_DEAD;YOUR_FILES_ARE_ENCRYPTED.HTML;YOUR_FILES_ARE_ENCRYPTED.TXT;YOUR_FILES_ARE_LOCKED.txt;Your files are locked !!!!.txt;Your files are locked !!!.txt;Your files are locked !!.txt;Your files are locked !.txt;Your files encrypted by our friends !!! txt;Your files encrypted by our friends !!!.txt;[KASISKI];_Adatok_visszaallitasahoz_utasitasok;_DECRYPT_ASSISTANCE_;_DECRYPT_INFO_;_DECRYPT_INFO_szesnl;_DEC_FILES.;_FILES_WERE_ENCRYPTED_@.TXT;_HELP_HELP_HELP_;_HELP_Recover_Files_;_HELP_instructions.bmp;_HELP_instructions.txt;_HOWDO_text.bmp;_HOWDO_text.html;_HOW_TO_Decrypt;_H_e_l_p_RECOVER_INSTRUCTIONS+;_H_e_l_p_RECOVER_INSTRUCTIONS;_Locky_recover;_Locky_recover_instructions.bmp;_Locky_recover_instructions.txt;_README.hta;_README.jpg;_READ_ME!;_RECOVER_INSTRUCTIONS;_ReCoVeRy_+;_USE_TO_FIX_;_WHAT_is.html;_help_instruct;_how_recover.txt;_how_recover;_how_recover_;_recover_;_secret_code.txt;_steaveiwalker@india.com_;aeroware;confirmation.key;contains(to_string($message.file_created), "howrecover+;crjoker.html;cryptinfo.txt;cryptolocker.;cryptopp;de_crypt_readme.;de_crypt_readme.bmp;de_crypt_readme.html;de_crypt_readme.txt;decipher_ne;decrypt-instruct;decrypt explanations.;decrypt my file;decrypt your file;decrypt_Globe;decrypt_instruct;decrypted_files.dat;decryptional;decryptmyfiles;decypt_your_files.html;default32643264.bmp;default432643264.jpg;email-salazar_slytherin10;enc_files.txt;encryptor_raas_readme_liesmich;enigma.hta;enigma_encr.txt;exit.hhr.obleep;fattura_;file0locked;files_are_encrypted.;-filesencrypted;firemail.cc;firstransomware.exe;gmx.de;hacks.at.sigaint.org;help-file-decrypt.enc;help_decrypt;help_file_;help_instructions.;help_my_files;help_recover;help_recover_instructions;help_restore;help_restore_files;help_your_file;helpmeencedfiles;how to decrypt aes files.lnk;how to decrypt;how to get data.txt;how_decrypt.gif;how_recover;how_to_decrypt;how_to_recover;howrecover+ recoveryfile_;howrecover+;howto_recover_file;howto_restore;howtodecrypt;howtodecryptaesfiles.txt;inbox.ru;info@kraken.cc_worldcza@email.cz;install_tor;iran.ir;last_chance.txt;maestro@pizzacrypts.info;maxcrypt.bmp;only-we_can-help_you;openforyou@india.com;opensourcemail.org;padcrypt;paycrypt.bmp;popcorn_time.exe;powerfulldecrypt;protonmail.ch;qbmail.biz;randomname;readme_decrypt;readme_for_decrypt;readme_liesmich_encryptor_raas;recover_file;recover_file_;recover_instruction;recoverfile;recoverfile_;recovery+;recovery_file.txt;recovery_key.txt;recoveryfile;recover}-;restore_files.txt;restorefiles;restorefiles_;ryukreadme.html;tuta.io;tutanota.com;tutanota.de;unCrypte;vault.hta;vault.key;vault.txt;want your files back.;warning-!!;wie_zum_Wiederherstellen_von_Dateien.txt;wowreadfordecryp;wowwhereismyfiles;zXz.html;zycrypt.;zzzzzzzzzzzzzzzzzyyy</TargetFilename>
 				<TargetFilename condition="excludes all">C:\Users\;\Google\Chrome Beta\User Data\;\IndexedDB\</TargetFilename>
-				<TargetFilename condition="excludes any">C:\Program Files\WindowsApps\Microsoft.YourPhone_;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\</TargetFilename>
+				<TargetFilename condition="excludes any">C:\Program Files\WindowsApps\Microsoft.YourPhone_;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\;\Microsoft.NET\assembly\GAC_MSIL</TargetFilename>
 			</Rule>
 			<TargetFilename name="Attack=T1204.002,Technique=Malicious File,Tactic=Execution,DS=File: File Creation,Level=4,Alert=Common Files of CrackMapExec,Risk=100" condition="contains">crackmapexec</TargetFilename>
 			<TargetFilename name="Attack=T1204.002,Technique=Malicious File,Tactic=Execution,DS=File: File Creation,Level=4,Alert=Common Files of CrackMapExec,Risk=100" condition="end with">\Crypto.Cipher._AES.pyd</TargetFilename>
@@ -5905,21 +5931,21 @@
 				<Image condition="contains any">powershell;cscript.exe;wscript.exe;mshta.exe;bitsadmin.exe;\cmd.exe</Image>
 				<QueryName condition="contains">.</QueryName>
 			</Rule>
-			<Rule name="Attack=T1048,Technique=Exfiltration Over Alternative Protocol,Tactic=Exfiltration,DS=Network Traffic: Network Traffic Content,Level=0,Desc=Dropbox Cloud Exfiltration" groupRelation="and">
+			<Rule name="Attack=T1567.002,Technique=Exfiltration Over Web Service: Exfiltration to Cloud Storage,Tactic=Exfiltration,DS=Network Traffic: Network Traffic Content,Level=0,Desc=Dropbox Cloud Exfiltration" groupRelation="and">
 				<QueryName condition="end with">dropboxapi.com</QueryName>
 				<Image condition="excludes any">\Dropbox\Client\Dropbox.exe;\Dropbox\bin\Dropbox.exe;\Oracle\Java\</Image>
 			</Rule>
-			<Rule name="Attack=T1048,Technique=Exfiltration Over Alternative Protocol,Tactic=Exfiltration,DS=Network Traffic: Network Traffic Content,Level=0,Desc=OneDrive Cloud Exfiltration" groupRelation="and">
+			<Rule name="Attack=T1567.002,Technique=Exfiltration Over Web Service: Exfiltration to Cloud Storage,Tactic=Exfiltration,DS=Network Traffic: Network Traffic Content,Level=0,Desc=OneDrive Cloud Exfiltration" groupRelation="and">
 				<QueryName condition="contains">1drv</QueryName>
 				<Image condition="excludes any">\AppData\Local\Microsoft\OneDrive\OneDrive.exe;C:\Program Files (x86)\Google\Chrome\Application\chrome.exe;\Internet Explorer\iexplore.exe;C:\Windows\System32\AppHostRegistrationVerifier.exe;C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe;C:\Program Files (x86)\BraveSoftware\Brave-Browser\Application\brave.exe;C:\Program Files (x86)\Microsoft OneDrive\OneDrive.exe;C:\Program Files\Mozilla Firefox\firefox.exe</Image>
 			</Rule>
-			<Rule name="Attack=T1048,Technique=Exfiltration Over Alternative Protocol,Tactic=Exfiltration,DS=Network Traffic: Network Traffic Content,Level=0,Desc=Box.com Cloud Exfiltration" groupRelation="and">
+			<Rule name="Attack=T1567.002,Technique=Exfiltration Over Web Service: Exfiltration to Cloud Storage,Tactic=Exfiltration,DS=Network Traffic: Network Traffic Content,Level=0,Desc=Box.com Cloud Exfiltration" groupRelation="and">
 				<QueryName condition="contains all">.box.com;upload</QueryName>
 			</Rule>
-			<Rule name="Attack=T1048,Technique=Exfiltration Over Alternative Protocol,Tactic=Exfiltration,DS=Network Traffic: Network Traffic Content,Level=4,Alert=Mega.co.nz Cloud Exfiltration" groupRelation="and">
+			<Rule name="Attack=T1567.002,Technique=Exfiltration Over Web Service: Exfiltration to Cloud Storage,Tactic=Exfiltration,DS=Network Traffic: Network Traffic Content,Level=4,Alert=Mega.co.nz Cloud Exfiltration" groupRelation="and">
 				<QueryName condition="contains any">mega.nz;mega.co.nz</QueryName>
 			</Rule>
-			<Rule name="Attack=T1048,Technique=Exfiltration Over Alternative Protocol,Tactic=Exfiltration,DS=Network Traffic: Network Traffic Content,Level=4,Alert=Privatlab Cloud Exfiltration" groupRelation="and">
+			<Rule name="Attack=T1567.002,Technique=Exfiltration Over Web Service: Exfiltration to Cloud Storage,Tactic=Exfiltration,DS=Network Traffic: Network Traffic Content,Level=4,Alert=Privatlab Cloud Exfiltration" groupRelation="and">
 				<QueryName condition="contains any">privatlab.com</QueryName>
 			</Rule>
 			<Rule name="Attack=T1195,Technique=Supply Chain Compromise,Tactic=Initial Access,DS=Network Traffic: Network Traffic Content,Level=4,Alert=Solarwinds/FireEye sunburst domains,Risk=100" groupRelation="or">
