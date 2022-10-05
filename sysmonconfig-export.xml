@@ -1074,7 +1074,7 @@
 			</Rule>
 			<Rule name="Attack=T1055,Technique=Process Injection,Tactic=Privilege Escalation,DS=Process: Process Creation,Level=3,Alert=Possible qbot injection,Risk=30" groupRelation="and">
 				<ParentImage condition="contains any">\rundll32.exe;\regsvr32.exe</ParentImage>
-				<Image condition="contains any">\explorer.exe;\wermgr.exe;\msra.exe</Image>
+				<Image condition="contains any">\explorer.exe;\wermgr.exe;\msra.exe;\OneDriveSetup.exe;\mobsync.exe;\xwizard.exe</Image>
 				<CommandLine condition="end with">.exe</CommandLine>
 			</Rule>
 			<Rule name="Attack=T1055,Technique=Process Injection,Tactic=Privilege Escalation,DS=Process: Process Creation,Level=3,Alert=Suspicious Child process of conhost,Risk=30" groupRelation="and">
@@ -2705,7 +2705,8 @@
 			</Rule>
 			<Rule name="Attack=T1567.002,Technique=Exfiltration Over Web Service: Exfiltration to Cloud Storage,Tactic=Exfiltration,DS=Network Traffic: Network Connection Creation,Level=0,Alert=OneDrive Cloud Exfiltration" groupRelation="and">
 				<DestinationHostname condition="contains">1drv</DestinationHostname>
-				<Image condition="excludes any">\AppData\Local\Microsoft\OneDrive\OneDrive.exe;C:\Program Files (x86)\Google\Chrome\Application\chrome.exe;\Internet Explorer\iexplore.exe;C:\Windows\System32\AppHostRegistrationVerifier.exe;C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe;C:\Program Files (x86)\BraveSoftware\Brave-Browser\Application\brave.exe;C:\Program Files (x86)\Microsoft OneDrive\OneDrive.exe;C:\Program Files\Mozilla Firefox\firefox.exe</Image>
+				<!--We're looking for alternative Programs accessing Onedrive, If Onedrive is not allowed, uncomment onedrive exe exclusions-->
+				<Image condition="excludes any">C:\Program Files\Microsoft OneDrive\OneDrive.exe;\AppData\Local\Microsoft\OneDrive\OneDrive.exe;C:\Program Files (x86)\Google\Chrome\Application\chrome.exe;\Internet Explorer\iexplore.exe;C:\Windows\System32\AppHostRegistrationVerifier.exe;C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe;C:\Program Files (x86)\BraveSoftware\Brave-Browser\Application\brave.exe;C:\Program Files (x86)\Microsoft OneDrive\OneDrive.exe;C:\Program Files\Mozilla Firefox\firefox.exe</Image>
 			</Rule>
 			<Rule name="Attack=T1567.002,Technique=Exfiltration Over Web Service: Exfiltration to Cloud Storage,Tactic=Exfiltration,DS=Network Traffic: Network Connection Creation,Level=0,Alert=Box.com Cloud Exfiltration" groupRelation="and">
 				<DestinationHostname condition="contains all">.box.com;upload</DestinationHostname>
@@ -3274,6 +3275,9 @@
 				<Image condition="excludes">C:\Windows\WinSxS\amd64_microsoft-windows-servicingstack_</Image>
 				<Image condition="excludes">C:\Windows\explorer.exe</Image>
 			</Rule>
+			<Rule name="Attack=T1059.006,Technique=Command and Scripting Interpreter: Python,Tactic=Execution,DS=Module: Module Load,Level=2,Desc=Python DLL Loaded,Risk=30" groupRelation="and">
+				<ImageLoaded condition="contains any">python</ImageLoaded>
+			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Module: Module Load,Level=1,Desc=Unsigned Global Assembly Cache Load" groupRelation="and">
 				<ImageLoaded condition="begin with">C:\Windows\Microsoft.NET\assembly\GAC_MSIL</ImageLoaded>
 				<Signed condition="is">false</Signed>
@@ -3537,6 +3541,7 @@
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Process: Process Access,Level=0,Desc=Powershell accessing another process memory" groupRelation="and">
 				<SourceImage condition="image">powershell.exe</SourceImage>
 				<TargetImage condition="excludes any">C:\Programdata\sysmon\sysmon64.exe;C:\Programdata\sysmon\sysmon.exe;C:\Windows\sysmon.exe;C:\Windows\sysmon64.exe;\dismhost.exe</TargetImage>
+				<CallTrace condition="excludes all">C:\WINDOWS\SYSTEM32\ntdll.dll+;|C:\WINDOWS\System32\KERNELBASE.dll+;|C:\ProgramData\Microsoft\Windows Defender\Platform\;\MPCLIENT.DLL;\MpOav.dll+;|C:\WINDOWS\SYSTEM32\amsi.dll</CallTrace>
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Process: Process Access,Level=0,Desc=Potential Keylogger detected,Risk=100" groupRelation="and">
 				<CallTrace condition="contains">getasynckeystate</CallTrace>
@@ -5658,6 +5663,10 @@
 				<TargetObject condition="contains">\Software\AppDataLow\Software\Microsoft\</TargetObject>
 				<Details condition="contains any">.exe;.dll;powershell;wmic</Details>
 			</Rule>
+			<Rule name="Attack=T1562.010,Technique=Impair Defenses: Downgrade Attack,Tactic=Defense Evasion,DS=Windows Registry: Windows Registry Key Modification,Level=0,Alert=NetNTLM downgrade attack" groupRelation="and">
+				<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\lmcompatibilitylevel</TargetObject>
+				<Details name="You should have this set to 5" condition="excludes">DWORD (0x00000005)</Details>
+			</Rule>
 			<TargetObject name="Attack=T1137,Technique=Office Application Startup,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=4,Alert=Office Persistence Location,Risk=70" condition="end with">Software\Microsoft\Office test\Special\Perf</TargetObject>
 			<TargetObject name="Attack=T1177,Technique=LSASS Driver,Tactic=Execution/Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Undocumented LSASS DLL Loading" condition="contains">\CurrentControlSet\Services\NTDS\LsaDbExtPt</TargetObject>
 			<TargetObject name="Attack=T1177,Technique=LSASS Driver,Tactic=Execution/Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Undocumented LSASS DLL Loading" condition="contains">\Services\NTDS\DirectoryServiceExtPt</TargetObject>
@@ -5688,12 +5697,10 @@
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=IIS Crypto Keys" condition="end with">\Client\Enabled</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=IIS Crypto Keys" condition="end with">\Server\Enabled</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Forensic=Kitty Sessions,Risk=30" condition="contains">Kitty\Sessions</TargetObject>
-			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=NetNTLM downgrade attack" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\NtlmMinClientSec</TargetObject>
-			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=NetNTLM downgrade attack" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\RestrictSendingNTLMTraffic</TargetObject>
-			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=NetNTLM downgrade attack" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\lmcompatibilitylevel</TargetObject>
+			<TargetObject name="Attack=T1562.010,Technique=Impair Defenses: Downgrade Attack,Tactic=Defense Evasion,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=NetNTLM downgrade attack" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\NtlmMinClientSec</TargetObject>
+			<TargetObject name="Attack=T1562.010,Technique=Impair Defenses: Downgrade Attack,Tactic=Defense Evasion,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=NetNTLM downgrade attack" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\RestrictSendingNTLMTraffic</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Forensic=Putty Sessions,Risk=30" condition="contains">PuTTY\Sessions</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=RDP History,Risk=10" condition="contains">Terminal Server Client\Servers</TargetObject>
-			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=WINSCP Sessions,Risk=30" condition="contains">WinSCP 2\Sessions</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=WINSCP Sessions,Risk=30" condition="contains">WinSCP 2\Sessions</TargetObject>
 			<Rule name="Antivirus" groupRelation="or">
 				<Image condition="begin with">C:\Program Files (x86)\Kaspersky Lab</Image> 
