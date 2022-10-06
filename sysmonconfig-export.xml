@@ -4735,27 +4735,27 @@
 			<TargetObject name="Attack=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Logon Logoff Shutdown Scripts" condition="contains">\Microsoft\System\Scripts</TargetObject>
 			<TargetObject name="Attack=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Logon Logoff Shutdown Scripts" condition="contains">\Windows\System\Scripts</TargetObject>
 			<TargetObject name="Attack=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Service Command Line parameters" condition="begin with">HKLM\SYSTEM\Setup\CmdLine</TargetObject>
-			<Rule name="Attack=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Service Start Mode Changed to: Boot" groupRelation="and">
+			<Rule name="Attack=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Services: Service Start Mode Changed to: Boot" groupRelation="and">
 				<TargetObject condition="end with">\Start</TargetObject>
 				<Details condition="contains">DWORD (0x00000000)</Details>
 			</Rule>
-			<Rule name="Attack=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Service Start Mode Changed to: System" groupRelation="and">
+			<Rule name="Attack=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Services: Service Start Mode Changed to: System" groupRelation="and">
 				<TargetObject condition="end with">\Start</TargetObject>
 				<Details condition="contains">DWORD (0x00000001)</Details>
 			</Rule>
-			<Rule name="Attack=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Service Start Mode Changed to: Automatic" groupRelation="and">
+			<Rule name="Attack=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Services: Service Start Mode Changed to: Automatic" groupRelation="and">
 				<TargetObject condition="end with">\Start</TargetObject>
 				<Details condition="contains">DWORD (0x00000002)</Details>
 			</Rule>
-			<Rule name="Attack=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Service Start Mode Changed to: Manual" groupRelation="and">
+			<Rule name="Attack=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Services: Service Start Mode Changed to: Manual" groupRelation="and">
 				<TargetObject condition="end with">\Start</TargetObject>
 				<Details condition="contains">DWORD (0x00000003)</Details>
 			</Rule>
-			<Rule name="Attack=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Service Start Mode Changed to: Disabled" groupRelation="and">
+			<Rule name="Attack=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Services: Service Start Mode Changed to: Disabled" groupRelation="and">
 				<TargetObject condition="end with">\Start</TargetObject>
 				<Details condition="contains">DWORD (0x00000004)</Details>
 			</Rule>
-			<TargetObject name="Attack=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Services and autoruns imagepath" condition="end with">\ImagePath</TargetObject>
+			<TargetObject name="Attack=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Services: Services and autoruns imagepath" condition="end with">\ImagePath</TargetObject>
 			<TargetObject name="Attack=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Windows Service DLL changes" condition="end with">\ServiceDll</TargetObject>
 			<TargetObject name="Attack=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Manifest pointing to service's DLL" condition="end with">\ServiceManifest</TargetObject>
 			<TargetObject name="Attack=T1060,Technique=Registry Run Keys,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification" condition="begin with">hkcu\software\microsoft\windows nt\currentversion\windows\run\</TargetObject>
@@ -5597,17 +5597,17 @@
 			<TargetObject name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,DS=Windows Registry: Windows Registry Key Modification,Level=3,Alert=Office Calendar Homepage Attack,Risk=70" condition="contains">Outlook\WebView\Calendar</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Forensic=Office History" condition="contains">\Place MRU</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache InvDB-CompileTimeClaim" condition="end with">\LinkDate</TargetObject>
-			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache InvDB-DriverVer" condition="end with">\DriverVerVersion</TargetObject>
-			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache InvDB-DriverVer" condition="end with">\DriverVersion</TargetObject>
+			<TargetObject name="Attack=T1543.003,Technique=Create or Modify System Process: Windows Service,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache InvDB-DriverVer" condition="end with">\DriverVerVersion</TargetObject>
+			<TargetObject name="Attack=T1543.003,Technique=Create or Modify System Process: Windows Service,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache InvDB-DriverVer" condition="end with">\DriverVersion</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache InvDB-Path" condition="end with">\LowerCaseLongPath</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache InvDB-Pub" condition="end with">\Publisher</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache InvDB-Store" condition="contains">Compatibility Assistant\Store\</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache InvDB-Ver" condition="end with">\BinProductVersion</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache Application Shortcuts" condition="contains">Root\InventoryApplicationShortcut\</TargetObject>
-			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache Driver Binary Info" condition="contains">Root\InventoryDriverBinary</TargetObject>
-			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache Driver Package Info" condition="contains">Root\InventoryDriverPackage</TargetObject>
-			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache PNP Device Info" condition="contains">Root\InventoryDevicePnp</TargetObject>
-			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache Device Info" condition="contains">Root\InventoryDeviceContainer</TargetObject>
+			<TargetObject name="Attack=T1543.003,Technique=Create or Modify System Process: Windows Service,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache Driver Binary Info" condition="contains">Root\InventoryDriverBinary</TargetObject>
+			<TargetObject name="Attack=T1543.003,Technique=Create or Modify System Process: Windows Service,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache Driver Package Info" condition="contains">Root\InventoryDriverPackage</TargetObject>
+			<TargetObject name="Attack=T1543.003,Technique=Create or Modify System Process: Windows Service,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache PNP Device Info,Desc=Services: New or Updated Drivers" condition="contains">Root\InventoryDevicePnp</TargetObject>
+			<TargetObject name="Attack=T1543.003,Technique=Create or Modify System Process: Windows Service,Tactic=Persistence,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache Device Info" condition="contains">Root\InventoryDeviceContainer</TargetObject>
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache Application Installation Info" groupRelation="and">
 				<TargetObject condition="contains">Root\InventoryApplication\</TargetObject>
 				<TargetObject condition="contains any">ProgramID;Name;Version;Publisher;Language;InstallDate;Source;RootDirPath;HiddenArp;UninstallString;RegistryKeyPath;UserSID;sha256</TargetObject>
@@ -5624,70 +5624,70 @@
 			</Rule>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=User Mount Points" condition="end with">\Explorer\MountPoints2</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Monitor DOS Devices Virtual Registry Paths" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\DOS Devices</TargetObject>
-			<Rule name="Attack=T1489,Technique=Service Stop,Tactic=Impact,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Service Set for Deletion" groupRelation="and">
+			<Rule name="Attack=T1489,Technique=Service Stop,Tactic=Impact,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Services: Service Set for Deletion" groupRelation="and">
 				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
 				<TargetObject condition="end with">\DeleteFlag</TargetObject>
 				<Details condition="contains">DWORD (0x00000001)</Details>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=New Kernel Device Driver" groupRelation="and">
+			<Rule name="Attack=Attack=T1543.003,Technique=Create or Modify System Process: Windows Service,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Services: New Kernel Device Driver" groupRelation="and">
 				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
 				<TargetObject condition="end with">\Type</TargetObject>
 				<Details condition="contains">DWORD (0x00000001)</Details>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=New File System Driver" groupRelation="and">
+			<Rule name="Attack=T1543.003,Technique=Create or Modify System Process: Windows Service,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Services: New File System Driver" groupRelation="and">
 				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
 				<TargetObject condition="end with">\Type</TargetObject>
 				<Details condition="contains">DWORD (0x00000002)</Details>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=New Adapter Driver" groupRelation="and">
+			<Rule name="Attack=Attack=T1543.003,Technique=Create or Modify System Process: Windows Service,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Services: New Adapter Driver" groupRelation="and">
 				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
 				<TargetObject condition="end with">\Type</TargetObject>
 				<Details condition="contains">DWORD (0x00000004)</Details>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=New System Service: Own Process" groupRelation="and">
+			<Rule name="Attack=T1543.003,Technique=Create or Modify System Process: Windows Service,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=1,Alert=Services: New System Service: Own Process" groupRelation="and">
 				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
 				<TargetObject condition="end with">\Type</TargetObject>
 				<Details condition="contains">DWORD (0x00000020)</Details>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=New System Service: Share Process" groupRelation="and">
+			<Rule name="Attack=T1543.003,Technique=Create or Modify System Process: Windows Service,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=1,Alert=Services: New System Service: Share Process" groupRelation="and">
 				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
 				<TargetObject condition="end with">\Type</TargetObject>
 				<Details condition="contains">DWORD (0x00000020)</Details>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=New System Service: Interactive" groupRelation="and">
+			<Rule name="Attack=T1543.003,Technique=Create or Modify System Process: Windows Service,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=1,Alert=Services: New System Service: Interactive" groupRelation="and">
 				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
 				<TargetObject condition="end with">\Type</TargetObject>
 				<Details condition="contains">DWORD (0x00000100)</Details>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Monitor Driver Group" groupRelation="and">
+			<Rule name="Attack=T1543.003,Technique=Create or Modify System Process: Windows Service,Tactic=Persistence,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Services: Monitor Driver Group" groupRelation="and">
 				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
 				<TargetObject condition="end with">\Group</TargetObject>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Monitor Driver DependOnService" groupRelation="and">
+			<Rule name="Attack=T1543.003,Technique=Create or Modify System Process: Windows Service,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Services: Monitor Driver DependOnService" groupRelation="and">
 				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
 				<TargetObject condition="end with">\DependOnService</TargetObject>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Monitor Driver BinaryPathName" groupRelation="and">
+			<Rule name="Attack=T1543.003,Technique=Create or Modify System Process: Windows Service,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Services: Monitor Driver BinaryPathName" groupRelation="and">
 				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
 				<TargetObject condition="end with">\BinaryPathName</TargetObject>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Monitor Driver RequiredPrivileges" groupRelation="and">
+			<Rule name="Attack=T1543.003,Technique=Create or Modify System Process: Windows Service,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Services: Monitor Driver RequiredPrivileges" groupRelation="and">
 				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
 				<TargetObject condition="end with">\RequiredPrivileges</TargetObject>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Monitor Driver Owners: Correlation to Amcache" groupRelation="and">
+			<Rule name="Attack=T1543.003,Technique=Create or Modify System Process: Windows Service,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Services: Monitor Driver Owners: Correlation to Amcache" groupRelation="and">
 				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
 				<TargetObject condition="end with">\Owners</TargetObject>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Monitor Driver ObjectName: User Service Runs as specified in ServiceStartName" groupRelation="and">
+			<Rule name="Attack=T1543.003,Technique=Create or Modify System Process: Windows Service,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Services: Monitor Driver ObjectName: User Service Runs as specified in ServiceStartName" groupRelation="and">
 				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
 				<TargetObject condition="end with">\ObjectName</TargetObject>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Monitor Driver ObjectName: User Service Runs as" groupRelation="and">
+			<Rule name="Attack=T1543.003,Technique=Create or Modify System Process: Windows Service,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Services: Monitor Driver ObjectName: User Service Runs as" groupRelation="and">
 				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
 				<TargetObject condition="end with">\ServiceStartName</TargetObject>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Monitor Driver ErrorControl" groupRelation="and">
+			<Rule name="Attack=T1543.003,Technique=Create or Modify System Process: Windows Service,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Services: Monitor Driver ErrorControl" groupRelation="and">
 				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
 				<TargetObject condition="end with">\ErrorControl</TargetObject>
 				<!--<Details name="Critical if lastknown good fails bugcheck" condition="contains">DWORD (0x00000003)</Details>
@@ -5696,19 +5696,19 @@
 				<Details name="Ignore Failure"condition="contains">DWORD (0x00000000)</Details>
 				<Details condition="contains">DWORD (0x00000001)</Details>-->
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Monitor Driver DependOnGroup" groupRelation="and">
+			<Rule name="Attack=T1543.003,Technique=Create or Modify System Process: Windows Service,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Services: Monitor Driver DependOnGroup" groupRelation="and">
 				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
 				<TargetObject condition="end with">\DependOnGroup</TargetObject>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Monitor Driver DisplayName" groupRelation="and">
+			<Rule name="Attack=T1543.003,Technique=Create or Modify System Process: Windows Service,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Services: Monitor Driver DisplayName" groupRelation="and">
 				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
 				<TargetObject condition="end with">\DisplayName</TargetObject>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Service Group Order Modifications" groupRelation="and">
+			<Rule name="Attack=T1543.003,Technique=Create or Modify System Process: Windows Service,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Services: Service Group Order Modifications" groupRelation="and">
 				<TargetObject condition="contains">HKLM\SYSTEM\CurrentControlSet\Control\ServiceGroupOrder</TargetObject>
 				<TargetObject condition="end with">\List</TargetObject>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Service Set for Deletion" groupRelation="and">
+			<Rule name="Attack=T1543.003,Technique=Create or Modify System Process: Windows Service,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Services: Service Set for Deletion" groupRelation="and">
 				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
 				<TargetObject condition="end with">\Type</TargetObject>
 				<Details condition="contains">DWORD (0x00000001)</Details>
