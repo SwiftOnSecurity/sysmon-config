@@ -5629,6 +5629,90 @@
 				<TargetObject condition="end with">\DeleteFlag</TargetObject>
 				<Details condition="contains">DWORD (0x00000001)</Details>
 			</Rule>
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=New Kernel Device Driver" groupRelation="and">
+				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
+				<TargetObject condition="end with">\Type</TargetObject>
+				<Details condition="contains">DWORD (0x00000001)</Details>
+			</Rule>
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=New File System Driver" groupRelation="and">
+				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
+				<TargetObject condition="end with">\Type</TargetObject>
+				<Details condition="contains">DWORD (0x00000002)</Details>
+			</Rule>
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=New Adapter Driver" groupRelation="and">
+				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
+				<TargetObject condition="end with">\Type</TargetObject>
+				<Details condition="contains">DWORD (0x00000004)</Details>
+			</Rule>
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=New System Service: Own Process" groupRelation="and">
+				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
+				<TargetObject condition="end with">\Type</TargetObject>
+				<Details condition="contains">DWORD (0x00000020)</Details>
+			</Rule>
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=New System Service: Share Process" groupRelation="and">
+				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
+				<TargetObject condition="end with">\Type</TargetObject>
+				<Details condition="contains">DWORD (0x00000020)</Details>
+			</Rule>
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=New System Service: Interactive" groupRelation="and">
+				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
+				<TargetObject condition="end with">\Type</TargetObject>
+				<Details condition="contains">DWORD (0x00000100)</Details>
+			</Rule>
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Monitor Driver Group" groupRelation="and">
+				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
+				<TargetObject condition="end with">\Group</TargetObject>
+			</Rule>
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Monitor Driver DependOnService" groupRelation="and">
+				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
+				<TargetObject condition="end with">\DependOnService</TargetObject>
+			</Rule>
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Monitor Driver BinaryPathName" groupRelation="and">
+				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
+				<TargetObject condition="end with">\BinaryPathName</TargetObject>
+			</Rule>
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Monitor Driver RequiredPrivileges" groupRelation="and">
+				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
+				<TargetObject condition="end with">\RequiredPrivileges</TargetObject>
+			</Rule>
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Monitor Driver Owners: Correlation to Amcache" groupRelation="and">
+				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
+				<TargetObject condition="end with">\Owners</TargetObject>
+			</Rule>
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Monitor Driver ObjectName: User Service Runs as specified in ServiceStartName" groupRelation="and">
+				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
+				<TargetObject condition="end with">\ObjectName</TargetObject>
+			</Rule>
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Monitor Driver ObjectName: User Service Runs as" groupRelation="and">
+				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
+				<TargetObject condition="end with">\ServiceStartName</TargetObject>
+			</Rule>
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Monitor Driver ErrorControl" groupRelation="and">
+				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
+				<TargetObject condition="end with">\ErrorControl</TargetObject>
+				<!--<Details name="Critical if lastknown good fails bugcheck" condition="contains">DWORD (0x00000003)</Details>
+				<Details name="Severe last known good" condition="contains">DWORD (0x00000002)</Details>
+				<Details name="Normal Boot on failure" condition="contains">DWORD (0x00000001)</Details>
+				<Details name="Ignore Failure"condition="contains">DWORD (0x00000000)</Details>
+				<Details condition="contains">DWORD (0x00000001)</Details>-->
+			</Rule>
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Monitor Driver DependOnGroup" groupRelation="and">
+				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
+				<TargetObject condition="end with">\DependOnGroup</TargetObject>
+			</Rule>
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Monitor Driver DisplayName" groupRelation="and">
+				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
+				<TargetObject condition="end with">\DisplayName</TargetObject>
+			</Rule>
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Service Group Order Modifications" groupRelation="and">
+				<TargetObject condition="contains">HKLM\SYSTEM\CurrentControlSet\Control\ServiceGroupOrder</TargetObject>
+				<TargetObject condition="end with">\List</TargetObject>
+			</Rule>
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Service Set for Deletion" groupRelation="and">
+				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
+				<TargetObject condition="end with">\Type</TargetObject>
+				<Details condition="contains">DWORD (0x00000001)</Details>
+			</Rule>
 			<!--Detect User Activity-->
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=Detect Bluetooth Audio Capture" condition="contains">\ConsentStore\bluetooth</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=Detect Contacts Accesses" condition="contains">\ConsentStore\contacts</TargetObject>
