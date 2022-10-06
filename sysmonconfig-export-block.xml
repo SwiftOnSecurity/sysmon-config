@@ -1400,6 +1400,7 @@
 			<Hashes condition="contains">IMPHASH=FCC251CCEAE90D22C392215CC9A2D5D6</Hashes> <!-- Mimikatz -->
 			<Hashes condition="contains">IMPHASH=23867A89C2B8FC733BE6CF5EF902F2D1</Hashes> <!-- JuicyPotato  -->
 			<Hashes condition="contains">IMPHASH=A37FF327F8D48E8A4D2F757E1B6E70BC</Hashes> <!-- JuicyPotato  -->
+			<Hashes condition="contains">IMPHASH=F9A28C458284584A93B14216308D31BD</Hashes> <!-- JuicyPotatoNG  -->
 			<Hashes condition="contains">IMPHASH=6118619783FC175BC7EBECFF0769B46E</Hashes> <!-- RoguePotato -->
 			<Hashes condition="contains">IMPHASH=959A83047E80AB68B368FDB3F4C6E4EA</Hashes> <!-- RoguePotato -->
 			<Hashes condition="contains">IMPHASH=563233BFA169ACC7892451F71AD5850A</Hashes> <!-- RoguePotato -->
