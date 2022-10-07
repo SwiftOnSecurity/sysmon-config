@@ -4737,6 +4737,10 @@
 				<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Class\{53D29EF7-377C-4D14-864B-EB3A85769359}</TargetObject>
 				<EventType condition="is">SetValue</EventType>
 			</Rule>
+			<Rule name="Attack=T1200,Technique=Hardware Additions,Tactic=Initial Access,DS=Windows Registry: Windows Registry Key Modification,Level=0,Alert=Virtual DVD-ROM Drive Mounted,Forensic=Virtual DVD-ROM Drive Mounted" groupRelation="and">
+				<TargetObject condition="contains all">Root\InventoryDevicePnp;prod_virtual_dvd-rom</TargetObject>
+				<EventType condition="is">SetValue</EventType>
+			</Rule>
 			<TargetObject name="T1200,Technique=Hardware Additions,Tactic=Initial Access,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Mounted Device Detection" condition="contains">MountedDevices</TargetObject>
 			<TargetObject name="T1200,Technique=Hardware Additions,Tactic=Initial Access,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Mountpoints2 Mounted Device Detection" condition="contains">Mountpoints2</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Active Setup Installed Components" condition="contains">Active Setup\Installed Components</TargetObject>
