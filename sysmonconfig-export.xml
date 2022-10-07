@@ -390,7 +390,7 @@
 				<Image condition="excludes">vivaldi.exe</Image>
 			</Rule>
 			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,DS=Process: Process Creation,Info=Office Spawning exe within: ProgramData,Risk=70" groupRelation="and">
-				<ParentImage condition="contains any">winword.exe;excel.exe;powerpnt.exe;outlook.exe;msaccess.exe;mspub.exe;visio.exe;notepad.exe;wordpad.exe</ParentImage>
+				<ParentImage condition="contains any">winword.exe;excel.exe;powerpnt.exe;outlook.exe;msaccess.exe;mspub.exe;visio.exe;notepad.exe;wordpad.exe;eqnedt32.exe;wordview.exe</ParentImage>
 				<Image condition="begin with">C:\ProgramData\</Image>
 				<Product condition="excludes">Firefox</Product>
 				<Product condition="excludes">Microsoft Edge</Product>
@@ -3811,12 +3811,12 @@
 				<Image condition="image">C:\Windows\system32\wermgr.exe</Image>
 			</Rule>
 			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,DS=File: File Creation,Level=0,Desc=Office App Creating Exe File,Risk=70" groupRelation="and">
-				<Image condition="contains any">winword.exe;excel.exe;powerpnt.exe;outlook.exe;msaccess.exe;mspub.exe;visio.exe;notepad.exe;wordpad.exe</Image>
+				<Image condition="contains any">winword.exe;excel.exe;powerpnt.exe;outlook.exe;msaccess.exe;mspub.exe;visio.exe;notepad.exe;wordpad.exe;eqnedt32.exe;wordview.exe</Image>
 				<TargetFilename condition="end with">.exe</TargetFilename>
 				<TargetFilename condition="begin with">C:\Users</TargetFilename>
 			</Rule>
 			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,DS=File: File Creation,Level=0,Desc=Office App Creating DLL File,Risk=70" groupRelation="and">
-				<Image condition="contains any">winword.exe;excel.exe;powerpnt.exe;outlook.exe;msaccess.exe;mspub.exe;visio.exe;notepad.exe;wordpad.exe</Image>
+				<Image condition="contains any">winword.exe;excel.exe;powerpnt.exe;outlook.exe;msaccess.exe;mspub.exe;visio.exe;notepad.exe;wordpad.exe;eqnedt32.exe;wordview.exe</Image>
 				<TargetFilename condition="end with">.dll</TargetFilename>
 				<TargetFilename condition="begin with">C:\Users</TargetFilename>
 			</Rule>
