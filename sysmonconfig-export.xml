@@ -344,9 +344,9 @@
 			</Rule>
 			<ParentCommandLine name="Attack=T1059.001,Technique=Command and Scripting Interpreter,Tactic=Execution,DS=Process: Process Creation,Level=4,Alert=Metasploit Detection,Risk=90" condition="contains">COMSPEC</ParentCommandLine>
 			<CommandLine name="Attack=None,Technique=None,Tactic=None,DS=Process: Process Creation,Level=0,Desc=ScriptFile execution" condition="contains">ScriptFile</CommandLine>
-			<CommandLine name="Attack=T1204,Technique=User Execution,Tactic=Execution,DS=Process: Process Creation,Level=0,Desc=Execution from Archive File,Risk=50" condition="contains">AppData\Local\Temp\7z</CommandLine><!-- exec from 7zip -->
-			<CommandLine name="Attack=T1204,Technique=User Execution,Tactic=Execution,DS=Process: Process Creation,Level=0,Desc=Execution from Archive File,Risk=50" condition="contains">AppData\Local\Temp\Temp1_</CommandLine><!-- exec from explorer -->
-			<CommandLine name="Attack=T1204,Technique=User Execution,Tactic=Execution,DS=Process: Process Creation,Level=0,Desc=Execution from Archive File,Risk=50" condition="contains">\AppData\Local\Temp\Rar$</CommandLine><!-- exec from winrar -->
+			<CommandLine name="Attack=T1204,Technique=User Execution,Tactic=Execution,DS=Process: Process Creation,Level=0,Desc=Execution from Archive File,Risk=50" condition="contains">\Temp\7z</CommandLine><!-- exec from 7zip -->
+			<CommandLine name="Attack=T1204,Technique=User Execution,Tactic=Execution,DS=Process: Process Creation,Level=0,Desc=Execution from Archive File,Risk=50" condition="contains">\Temp\Temp1_</CommandLine><!-- exec from explorer -->
+			<CommandLine name="Attack=T1204,Technique=User Execution,Tactic=Execution,DS=Process: Process Creation,Level=0,Desc=Execution from Archive File,Risk=50" condition="contains">\Temp\Rar$</CommandLine><!-- exec from winrar -->
 			<!--MITRE ATT&CK TECHNIQUE: Command and Scripting Interpreter: Powershell-->
 			<Rule name="Attack=T1059.001,Technique=Scripting,Tactic=Execution,DS=Process: Process Creation,Level=3,Alert=Powershell Launched from users folder,Risk=60" groupRelation="and">
 				<Image condition="contains any">powershell.exe;powershell_ise.exe</Image>
@@ -371,6 +371,51 @@
 				<CommandLine condition="excludes">C:\Windows\system32\spool\DRIVERS\</CommandLine>
 				<CommandLine condition="excludes">PhotoViewer.dll</CommandLine>
 			</Rule>
+			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,DS=Process: Process Creation,Level=4,Desc=Outlook Attachments Executed suspicious html attachment,Risk=50" groupRelation="and">
+				<ParentImage condition="image">outlook.exe</ParentImage>
+				<CommandLine condition="excludes any">http:;https:;ftp:;mailto:;tel:</CommandLine>
+				<CommandLine condition="end with">.html</CommandLine>
+			</Rule>
+			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,DS=Process: Process Creation,Level=4,Desc=Outlook Attachments Executed suspicious html attachment 2,Risk=50" groupRelation="and">
+				<ParentImage condition="image">outlook.exe</ParentImage>
+				<CommandLine condition="excludes any">http:;https:;ftp:;mailto:;tel:</CommandLine>
+				<CommandLine condition="end with">.html"</CommandLine>
+			</Rule>
+			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,DS=Process: Process Creation,Level=4,Desc=Outlook Attachments Executed suspicious html attachment 2,Risk=50" groupRelation="and">
+				<ParentImage condition="image">outlook.exe</ParentImage>
+				<CommandLine condition="excludes any">http:;https:;ftp:;mailto:;tel:</CommandLine>
+				<CommandLine condition="end with">.html"</CommandLine>
+			</Rule>
+			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,DS=Process: Process Creation,Level=4,Desc=Outlook Attachments Executed pfd attachment,Risk=50" groupRelation="and">
+				<ParentImage condition="image">outlook.exe</ParentImage>
+				<CommandLine condition="end with">.pdf"</CommandLine>
+			</Rule>
+			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,DS=Process: Process Creation,Level=4,Desc=Outlook Attachments Executed pfd attachment 2,Risk=50" groupRelation="and">
+				<ParentImage condition="image">outlook.exe</ParentImage>
+				<CommandLine condition="end with">.pdf</CommandLine>
+			</Rule>
+			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,DS=Process: Process Creation,Level=4,Desc=Outlook Attachments Executed iso attachment,Risk=50" groupRelation="and">
+				<ParentImage condition="image">outlook.exe</ParentImage>
+				<CommandLine condition="end with">.iso"</CommandLine>
+			</Rule>
+			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,DS=Process: Process Creation,Level=4,Desc=Outlook Attachments Executed iso attachment 2,Risk=50" groupRelation="and">
+				<ParentImage condition="image">outlook.exe</ParentImage>
+				<CommandLine condition="end with">.iso</CommandLine>
+			</Rule>
+			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,DS=Process: Process Creation,Level=4,Desc=Outlook Link Clicks,Risk=50" groupRelation="and">
+				<ParentImage condition="image">outlook.exe</ParentImage>
+				<Image condition="contains any">\iexplore.exe;\chrome.exe;\firefox.exe;\MicrosoftEdge;browser_broker.exe;\vivaldi.exe;\brave.exe;\opera.exe;BrowserAssist.exe;\msedgewebview;\msedge.exe</Image>
+				<CommandLine condition="contains any">http:;https:;ftp:;mailto:;tel:</CommandLine>
+			</Rule>
+			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,DS=Process: Process Creation,Level=4,Desc=Outlook Attachments Executed to Common Download locations,Risk=50" groupRelation="and">
+				<ParentImage condition="image">outlook.exe</ParentImage>
+				<CommandLine condition="excludes any">http:;https:;ftp:;mailto:;tel:</CommandLine>
+				<CommandLine condition="contains any">\Content.Outlook\;\Downloads\;\Documents\;:\Users\Public\;\Desktop\</CommandLine>
+			</Rule>
+			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,DS=Process: Process Creation,Level=4,Desc=Outlook Execution to UNC File Path,Risk=50" groupRelation="and">
+				<ParentImage condition="image">outlook.exe</ParentImage>
+				<CommandLine condition="contains any">\\</CommandLine>
+			</Rule>
 			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,DS=Process: Process Creation,Alert=Office Spawning exe within: User Home Dirs,Risk=80" groupRelation="and">
 				<ParentImage condition="contains any">winword.exe;excel.exe;powerpnt.exe;outlook.exe;msaccess.exe;mspub.exe;visio.exe;notepad.exe;wordpad.exe;eqnedt32.exe;wordview.exe</ParentImage>
 				<Image condition="begin with">C:\Users\</Image>
@@ -389,13 +434,16 @@
 				<Image condition="excludes">iexplore.exe</Image>
 				<Image condition="excludes">vivaldi.exe</Image>
 			</Rule>
-			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,DS=Process: Process Creation,Info=Office Spawning exe within: ProgramData,Risk=70" groupRelation="and">
+			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,DS=Process: Process Creation,Desc=Office Spawning exe within: ProgramData,Risk=70" groupRelation="and">
 				<ParentImage condition="contains any">winword.exe;excel.exe;powerpnt.exe;outlook.exe;msaccess.exe;mspub.exe;visio.exe;notepad.exe;wordpad.exe;eqnedt32.exe;wordview.exe</ParentImage>
 				<Image condition="begin with">C:\ProgramData\</Image>
 				<Product condition="excludes">Firefox</Product>
 				<Product condition="excludes">Microsoft Edge</Product>
 				<Product condition="excludes">Microsoft Teams</Product>
 				<Product condition="excludes">Zoom Video</Product>
+			</Rule>
+			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,DS=Process: Process Creation,Desc=Execution from within Zip File,Risk=70" groupRelation="and">
+				<CommandLine condition="contains">.zip\</CommandLine>
 			</Rule>
 			<Rule name="Attack=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,DS=Process: Process Creation,Level=3,Alert=Adobe Exploitation Detection,Risk=80" groupRelation="and">
 				<ParentImage condition="contains any">acrobat.exe;acrord32.exe</ParentImage>
