@@ -3303,6 +3303,13 @@
 				<Signed condition="is">true</Signed>
 			</Rule>
 			<!--Universal Exclusions: Be Careful-->
+			<Rule name="Antivirus Exclusions" groupRelation="or"> 
+				<Image condition="begin with">C:\Program Files (x86)\Kaspersky Lab</Image> 
+				<Image condition="begin with">C:\Program Files\Kaspersky Lab</Image>
+				<Image condition="begin with">C:\Program Files (x86)\ESET</Image>
+				<Image condition="begin with">C:\Program Files\ESET</Image>
+				<Image condition="begin with">C:\ProgramData\Microsoft\Windows Defender\</Image>
+			</Rule>
 			<Company condition="contains">Fortinet</Company>
 			<Company condition="contains">Lenovo</Company>
 			<Company condition="contains">Sophos</Company>
@@ -3637,12 +3644,6 @@
 			<CallTrace name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,DS=Process: Process Access,Level=4,Alert=Credential Dumping from Memory indicator,Risk=100" condition="contains">dump</CallTrace>
 			<CallTrace name="Attack=T1003,Technique=OS Credential Dumping,Tactic=Credential Access,DS=Process: Process Access,Level=4,Alert=Credential Dumping from Memory indicator,Risk=100" condition="contains">mimikatz</CallTrace>
 			<CallTrace name="Attack=None,Technique=None,Tactic=None,DS=Process: Process Access,Level=0,Desc=ProcessAccess with CorperfmontExt.dll,Risk=70" condition="contains">CorperfmontExt.dll</CallTrace>
-			<Rule name="Antivirus Exclusions" groupRelation="or"> 
-				<SourceImage condition="begin with">C:\Program Files (x86)\Kaspersky Lab</SourceImage> 
-				<SourceImage condition="begin with">C:\Program Files\Kaspersky Lab</SourceImage>
-				<SourceImage condition="begin with">C:\Program Files (x86)\ESET</SourceImage>
-				<SourceImage condition="begin with">C:\Program Files\ESET</SourceImage>
-			</Rule>
 		</ProcessAccess>
 	</RuleGroup>
 	<RuleGroup name="RG=ProcessAccess Exclude Group" groupRelation="or">
@@ -3669,6 +3670,13 @@
 				<CallTrace condition="not begin with">C:\Windows\SYSTEM32\ntdll.dll</CallTrace>  
 				<CallTrace condition="not begin with">C:\Windows\SYSTEM32\win32u.dll</CallTrace>
 				<CallTrace condition="not begin with">C:\Windows\SYSTEM32\wow64win.dll</CallTrace>
+			</Rule>
+			<Rule name="Antivirus Exclusions" groupRelation="or"> 
+				<SourceImage condition="begin with">C:\Program Files (x86)\Kaspersky Lab</SourceImage> 
+				<SourceImage condition="begin with">C:\Program Files\Kaspersky Lab</SourceImage>
+				<SourceImage condition="begin with">C:\Program Files (x86)\ESET</SourceImage>
+				<SourceImage condition="begin with">C:\Program Files\ESET</SourceImage>
+				<SourceImage condition="begin with">C:\ProgramData\Microsoft\Windows Defender\</SourceImage>
 			</Rule>
 		</ProcessAccess>
 	</RuleGroup>
@@ -6857,6 +6865,13 @@
 				<TargetFilename condition="contains any">C:\$WINDOWS.~BT\NewOS\</TargetFilename>
 				<TargetFilename condition="contains all">:\Users\;\AppData\;\D3DSCache</TargetFilename>
 				<TargetFilename condition="end with">.lock</TargetFilename>
+			</Rule>
+			<Rule name="Antivirus Exclusions" groupRelation="or"> 
+				<Image condition="begin with">C:\Program Files (x86)\Kaspersky Lab</Image> 
+				<Image condition="begin with">C:\Program Files\Kaspersky Lab</Image>
+				<Image condition="begin with">C:\Program Files (x86)\ESET</Image>
+				<Image condition="begin with">C:\Program Files\ESET</Image>
+				<Image condition="begin with">C:\ProgramData\Microsoft\Windows Defender\</Image>
 			</Rule>
 			<Rule name="safe users - be careful" groupRelation="or">
 				<!--<User condition="is">NT AUTHORITY\TrustedInstaller</User>
