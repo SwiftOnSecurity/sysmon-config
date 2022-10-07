@@ -344,9 +344,9 @@
 			</Rule>
 			<ParentCommandLine name="Attack=T1059.001,Technique=Command and Scripting Interpreter,Tactic=Execution,DS=Process: Process Creation,Level=4,Alert=Metasploit Detection,Risk=90" condition="contains">COMSPEC</ParentCommandLine>
 			<CommandLine name="Attack=None,Technique=None,Tactic=None,DS=Process: Process Creation,Level=0,Desc=ScriptFile execution" condition="contains">ScriptFile</CommandLine>
-			<CommandLine name="Attack=T1204,Technique=User Execution,Tactic=Execution,DS=Process: Process Creation,Level=0,Desc=Execution from Archive File,Risk=50" condition="contains">\Temp\7z</CommandLine><!-- exec from 7zip -->
-			<CommandLine name="Attack=T1204,Technique=User Execution,Tactic=Execution,DS=Process: Process Creation,Level=0,Desc=Execution from Archive File,Risk=50" condition="contains">\Temp\Temp1_</CommandLine><!-- exec from explorer -->
-			<CommandLine name="Attack=T1204,Technique=User Execution,Tactic=Execution,DS=Process: Process Creation,Level=0,Desc=Execution from Archive File,Risk=50" condition="contains">\Temp\Rar$</CommandLine><!-- exec from winrar -->
+			<CommandLine name="Attack=T1204,Technique=User Execution,Tactic=Execution,DS=Process: Process Creation,Level=0,Desc=Execution from 7z Archive File,Risk=50" condition="contains">\Temp\7z</CommandLine><!-- exec from 7zip -->
+			<CommandLine name="Attack=T1204,Technique=User Execution,Tactic=Execution,DS=Process: Process Creation,Level=0,Desc=Execution from Explorer Archive File,Risk=50" condition="contains">\Temp\Temp1_</CommandLine><!-- exec from explorer -->
+			<CommandLine name="Attack=T1204,Technique=User Execution,Tactic=Execution,DS=Process: Process Creation,Level=0,Desc=Execution from winrar Archive File,Risk=50" condition="contains">\Temp\Rar$</CommandLine><!-- exec from winrar -->
 			<!--MITRE ATT&CK TECHNIQUE: Command and Scripting Interpreter: Powershell-->
 			<Rule name="Attack=T1059.001,Technique=Scripting,Tactic=Execution,DS=Process: Process Creation,Level=3,Alert=Powershell Launched from users folder,Risk=60" groupRelation="and">
 				<Image condition="contains any">powershell.exe;powershell_ise.exe</Image>
@@ -5735,7 +5735,12 @@
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache Office Information" groupRelation="and">
 				<TargetObject condition="contains any">Root\InventoryMiscellaneousOfficeAddIn;Root\InventoryMiscellaneousOfficeIdentifiers;Root\InventoryMiscellaneousOfficeIESettings;Root\InventoryMiscellaneousOfficeInsights;Root\InventoryMiscellaneousOfficeProducts;Root\InventoryMiscellaneousOfficeSettings;Root\InventoryMiscellaneousOfficeVBA;Root\InventoryMiscellaneousOfficeVBARuleViolations</TargetObject>
 			</Rule>
-			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=User Mount Points" condition="end with">\Explorer\MountPoints2</TargetObject>
+			<Rule name="Attack=T1200,Technique=Hardware Additions,Tactic=Initial Access,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=ISO Drive Mounted" groupRelation="and">
+				<TargetObject condition="contains">\Software\Microsoft\Windows\CurrentVersion\Explorer\CD Burning\Drives\Volume</TargetObject>
+				<TargetObject condition="end with">Drive Type</TargetObject>
+				<Details condition="contains">DWORD (0x00000011)</Details>
+			</Rule>
+			<TargetObject name="Attack=T1200,Technique=Hardware Additions,Tactic=Initial Access,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=User Mount Points" condition="end with">\Explorer\MountPoints2</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Monitor DOS Devices Virtual Registry Paths" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\DOS Devices</TargetObject>
 			<Rule name="Attack=T1489,Technique=Service Stop,Tactic=Impact,DS=Windows Registry: Windows Registry Key Modification,Level=1,Desc=Services: Service Set for Deletion" groupRelation="and">
 				<TargetObject condition="contains">HKLM\System\CurrentControlSet\services\</TargetObject>
