@@ -144,18 +144,24 @@
 				<CommandLine condition="contains">.SettingContent-ms</CommandLine>
 				<CommandLine condition="excludes">immersivecontrolpanel</CommandLine>
 			</Rule>
-			<Rule name="Attack=T1566.001,Technique=Phishing: Spear Phishing Attachment,Tactic=Initial Access,DS=Process: Process Creation,Level=0,Alert=Double File Extension,Risk=100" groupRelation="or">
+			<Rule name="Attack=T1036.007,Technique=Masquerading: Double File Extension,Tactic=Defense Evasion,DS=Process: Process Creation,Level=0,Alert=Double File Extension,Risk=100" groupRelation="or">
+				<Image condition="end with">      .exe</Image>
+				<Image condition="end with">.7z.exe</Image>
+				<Image condition="end with">.doc.exe</Image>
 				<Image condition="end with">.doc.exe</Image>
 				<Image condition="end with">.docx.exe</Image>
-				<Image condition="end with">.docx.exe</Image>
-				<Image condition="end with">.xls.exe</Image>
-				<Image condition="end with">.xlsx.exe</Image>
+				<Image condition="end with">.ico.exe</Image>
+				<Image condition="end with">.iso.exe</Image>
+				<Image condition="end with">.lnk.exe</Image>
+				<Image condition="end with">.pdf.exe</Image>
 				<Image condition="end with">.ppt.exe</Image>
 				<Image condition="end with">.pptx.exe</Image>
+				<Image condition="end with">.rar.exe</Image>
 				<Image condition="end with">.rtf.exe</Image>
-				<Image condition="end with">.pdf.exe</Image>
 				<Image condition="end with">.txt.exe</Image>
-				<Image condition="end with">      .exe</Image>
+				<Image condition="end with">.xls.exe</Image>
+				<Image condition="end with">.xlsx.exe</Image>
+				<Image condition="end with">.zip.exe</Image>
 				<Image condition="end with">______.exe</Image>
 			</Rule>
 			<Rule name="Attack=T1566.001,Technique=Phishing: Spear Phishing Attachment,Tactic=Initial Access,DS=Process: Process Creation,Level=0,Alert=Suspicious HWP Sub Processes,Risk=70" groupRelation="and">
@@ -2096,6 +2102,13 @@
 			<Rule name="Attack=T1204,Technique=User Execution,Tactic=Execution,DS=Process: Process Creation,Level=0,Desc=Linux tools installed on windows,Risk=30" groupRelation="and">
 				<Image condition="contains any">\awk.exe;\sed.exe</Image>
 			</Rule>
+			<Rule name="Attack=T1204,Technique=User Execution,Tactic=Execution,DS=Process: Process Creation,Level=3,Alert=Suspicious Execution Locations,Risk=30" groupRelation="and">
+				<Image condition="contains any">C:\Users\Public\;$Recyclebin;\Desktop\;\Content.Outlook\</Image>
+			</Rule>
+			<Rule name="Attack=T1204,Technique=User Execution,Tactic=Execution,DS=Process: Process Creation,Level=3,Desc=Suspicious Execution extensions,Risk=30" groupRelation="and">
+				<Image condition="contains any">C:\Users\Public\;$Recyclebin;\Desktop\;\Content.Outlook\;\Downloads\</Image>
+				<CommandLine condition="contains any">.html;.hta;.iso;.js;.bat;.cmd;.cmdline;.vbs;.vb;.vbe;.reg;.com</CommandLine>
+			</Rule>
 			<CommandLine condition="contains">listena</CommandLine>
 			<CommandLine name="Attack=T1059,Technique=Command and Scripting Interpreter,Tactic=Execution,DS=Process: Process Creation,Level=3,Alert=LOLBins" condition="contains any">-s -n -u -i:http:</CommandLine>
 			<CommandLine name="Attack=T1059,Technique=Command and Scripting Interpreter,Tactic=Execution,DS=Process: Process Creation,Level=3,Alert=LOLBins" condition="contains any">/s /n /u /i:http:</CommandLine>
@@ -3999,6 +4012,26 @@
 			<Rule name="Attack=T1036,Technique=Masquerading,Tactic=Defense Evasion,Risk=20,DS=File: File Creation,Level=0,Desc=Files Created from System Profile executable" groupRelation="and">
 				<Image condition="begin with">C:\Windows\</Image>
 				<Image condition="contains">\config\systemprofile\</Image>
+			</Rule>
+			<Rule name="Attack=T1036.007,Technique=Masquerading: Double File Extension,Tactic=Defense Evasion,DS=File: File Creation,Level=0,Alert=Block double extensions" groupRelation="or">
+				<TargetFilename condition="end with">      .exe</TargetFilename>
+				<TargetFilename condition="end with">.7z.exe</TargetFilename>
+				<TargetFilename condition="end with">.doc.exe</TargetFilename>
+				<TargetFilename condition="end with">.doc.exe</TargetFilename>
+				<TargetFilename condition="end with">.docx.exe</TargetFilename>
+				<TargetFilename condition="end with">.ico.exe</TargetFilename>
+				<TargetFilename condition="end with">.iso.exe</TargetFilename>
+				<TargetFilename condition="end with">.lnk.exe</TargetFilename>
+				<TargetFilename condition="end with">.pdf.exe</TargetFilename>
+				<TargetFilename condition="end with">.ppt.exe</TargetFilename>
+				<TargetFilename condition="end with">.pptx.exe</TargetFilename>
+				<TargetFilename condition="end with">.rar.exe</TargetFilename>
+				<TargetFilename condition="end with">.rtf.exe</TargetFilename>
+				<TargetFilename condition="end with">.txt.exe</TargetFilename>
+				<TargetFilename condition="end with">.xls.exe</TargetFilename>
+				<TargetFilename condition="end with">.xlsx.exe</TargetFilename>
+				<TargetFilename condition="end with">.zip.exe</TargetFilename>
+				<TargetFilename condition="end with">______.exe</TargetFilename>
 			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: Modify Authentication Process-->
 			<!--MITRE ATT&CK TECHNIQUE: Modify Cloud Compute Infrastructure-->
@@ -6483,21 +6516,25 @@
 				<TargetFilename condition="contains any">\Temp\;\AppData\;C:\Users\Public</TargetFilename>
 				<TargetFilename condition="excludes any">whitelist_me_here</TargetFilename>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Alert=Block double extensions" groupRelation="or">
-				<TargetFilename condition="end with">.pdf.exe</TargetFilename>
+			<Rule name="Attack=T1036.007,Technique=Masquerading: Double File Extension,Tactic=Defense Evasion,DS=File: File Creation,Level=0,Alert=Block double extensions" groupRelation="or">
+				<TargetFilename condition="end with">      .exe</TargetFilename>
+				<TargetFilename condition="end with">.7z.exe</TargetFilename>
+				<TargetFilename condition="end with">.doc.exe</TargetFilename>
 				<TargetFilename condition="end with">.doc.exe</TargetFilename>
 				<TargetFilename condition="end with">.docx.exe</TargetFilename>
+				<TargetFilename condition="end with">.ico.exe</TargetFilename>
+				<TargetFilename condition="end with">.iso.exe</TargetFilename>
+				<TargetFilename condition="end with">.lnk.exe</TargetFilename>
+				<TargetFilename condition="end with">.pdf.exe</TargetFilename>
+				<TargetFilename condition="end with">.ppt.exe</TargetFilename>
+				<TargetFilename condition="end with">.pptx.exe</TargetFilename>
+				<TargetFilename condition="end with">.rar.exe</TargetFilename>
+				<TargetFilename condition="end with">.rtf.exe</TargetFilename>
+				<TargetFilename condition="end with">.txt.exe</TargetFilename>
 				<TargetFilename condition="end with">.xls.exe</TargetFilename>
 				<TargetFilename condition="end with">.xlsx.exe</TargetFilename>
-				<TargetFilename condition="end with">.ppt.exe</TargetFilename>
-				<TargetFilename condition="end with">.txt.exe</TargetFilename>
-				<TargetFilename condition="end with">.rtf.exe</TargetFilename>
-				<TargetFilename condition="end with">.iso.exe</TargetFilename>
 				<TargetFilename condition="end with">.zip.exe</TargetFilename>
-				<TargetFilename condition="end with">.rar.exe</TargetFilename>
-				<TargetFilename condition="end with">.7z.exe</TargetFilename>
-				<TargetFilename condition="end with">.ico.exe</TargetFilename>
-				<TargetFilename condition="end with">.lnk.exe</TargetFilename>
+				<TargetFilename condition="end with">______.exe</TargetFilename>
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Alert=Block PSexec and PSEXESVC from Dropping binaries" groupRelation="or">
 				<Image condition="contains any">psexesvc</Image>
