@@ -4620,36 +4620,36 @@
 				<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e96b-e325-11ce-bfc1-08002be10318}</TargetObject>
 				<EventType condition="is">SetValue</EventType>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Detect USB Input Devices" groupRelation="and">
+			<Rule name="Attack=T1200,Technique=Hardware Additions,Tactic=Initial Access,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Detect USB Input Devices" groupRelation="and">
 				<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Class\{745a17a0-74d3-11d0-b6fe-00a0c90f57da}</TargetObject>
 				<EventType condition="is">SetValue</EventType>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Detect New Mice" groupRelation="and">
+			<Rule name="Attack=T1200,Technique=Hardware Additions,Tactic=Initial Access,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Detect New Mice" groupRelation="and">
 				<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e96f-e325-11ce-bfc1-08002be10318}</TargetObject>
 				<EventType condition="is">SetValue</EventType>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Detect New Composite Device" groupRelation="and">
+			<Rule name="T1200,Technique=Hardware Additions,Tactic=Initial Access,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Detect New Composite Device" groupRelation="and">
 				<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Class\{36fc9e60-c465-11cf-8056-444553540000}</TargetObject>
 				<EventType condition="is">SetValue</EventType>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Detect New Bluetooth Device" groupRelation="and">
+			<Rule name="Attack=T1200,Technique=Hardware Additions,Tactic=Initial Access,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Detect New Bluetooth Device" groupRelation="and">
 				<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Class\{e0cbf06c-cd8b-4647-bb8a-263b43f0f974</TargetObject>
 				<EventType condition="is">SetValue</EventType>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Detect New Disk Drive" groupRelation="and">
+			<Rule name="T1200,Technique=Hardware Additions,Tactic=Initial Access,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Detect New Disk Drive" groupRelation="and">
 				<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e967-e325-11ce-bfc1-08002be10318}</TargetObject>
 				<EventType condition="is">SetValue</EventType>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Detect New WPD Devices" groupRelation="and">
+			<Rule name="T1200,Technique=Hardware Additions,Tactic=Initial Access,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Detect New WPD Devices" groupRelation="and">
 				<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Class\{eec5ad98-8080-425f-922a-dabf3de3f69a}</TargetObject>
 				<EventType condition="is">SetValue</EventType>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Detect New Biometric Devices" groupRelation="and">
+			<Rule name="T1200,Technique=Hardware Additions,Tactic=Initial Access,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Detect New Biometric Devices" groupRelation="and">
 				<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Class\{53D29EF7-377C-4D14-864B-EB3A85769359}</TargetObject>
 				<EventType condition="is">SetValue</EventType>
 			</Rule>
-			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Mounted Device Detection" condition="contains">MountedDevices</TargetObject>
-			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Mountpoints2 Mounted Device Detection" condition="contains">Mountpoints2</TargetObject>
+			<TargetObject name="T1200,Technique=Hardware Additions,Tactic=Initial Access,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Mounted Device Detection" condition="contains">MountedDevices</TargetObject>
+			<TargetObject name="T1200,Technique=Hardware Additions,Tactic=Initial Access,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Mountpoints2 Mounted Device Detection" condition="contains">Mountpoints2</TargetObject>
 			<TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Active Setup Installed Components" condition="contains">Active Setup\Installed Components</TargetObject>
 			<!--MITRE ATT&CK TECHNIQUE: Phishing-->
 			<!--MITRE ATT&CK TECHNIQUE: Replication Through Removable Media-->
