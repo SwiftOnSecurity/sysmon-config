@@ -5499,6 +5499,14 @@
 				<EventType condition="is">DeleteKey</EventType>
 			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: Data Destruction-->
+			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=Process: Process Creation,Level=0,Desc=Bitlocker Drive Encryption Enabled on System Drive" groupRelation="and">
+				<TargetObject condition="begin with">SYSTEM\CurrentControlSet\Control\BitlockerStatus\BootStatus</TargetObject>
+				<Details condition="contains">DWORD (0x00000001)</Details>
+			</Rule>
+			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=Process: Process Creation,Level=0,Alert=Bitlocker Drive Encryption Disabled on System Drive" groupRelation="and">
+				<TargetObject condition="begin with">SYSTEM\CurrentControlSet\Control\BitlockerStatus\BootStatus</TargetObject>
+				<Details condition="contains">DWORD (0x00000000)</Details>
+			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: Data Encrypted for Impact-->
 			<!--MITRE ATT&CK TECHNIQUE: Data Manipulation-->
 			<!--MITRE ATT&CK TECHNIQUE: Defacement-->
