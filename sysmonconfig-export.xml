@@ -144,26 +144,6 @@
 				<CommandLine condition="contains">.SettingContent-ms</CommandLine>
 				<CommandLine condition="excludes">immersivecontrolpanel</CommandLine>
 			</Rule>
-			<Rule name="Attack=T1036.007,Technique=Masquerading: Double File Extension,Tactic=Defense Evasion,DS=Process: Process Creation,Level=0,Alert=Double File Extension,Risk=100" groupRelation="or">
-				<Image condition="end with">      .exe</Image>
-				<Image condition="end with">.7z.exe</Image>
-				<Image condition="end with">.doc.exe</Image>
-				<Image condition="end with">.doc.exe</Image>
-				<Image condition="end with">.docx.exe</Image>
-				<Image condition="end with">.ico.exe</Image>
-				<Image condition="end with">.iso.exe</Image>
-				<Image condition="end with">.lnk.exe</Image>
-				<Image condition="end with">.pdf.exe</Image>
-				<Image condition="end with">.ppt.exe</Image>
-				<Image condition="end with">.pptx.exe</Image>
-				<Image condition="end with">.rar.exe</Image>
-				<Image condition="end with">.rtf.exe</Image>
-				<Image condition="end with">.txt.exe</Image>
-				<Image condition="end with">.xls.exe</Image>
-				<Image condition="end with">.xlsx.exe</Image>
-				<Image condition="end with">.zip.exe</Image>
-				<Image condition="end with">______.exe</Image>
-			</Rule>
 			<Rule name="Attack=T1566.001,Technique=Phishing: Spear Phishing Attachment,Tactic=Initial Access,DS=Process: Process Creation,Level=0,Alert=Suspicious HWP Sub Processes,Risk=70" groupRelation="and">
 				<ParentImage condition="image">Hwp.exe</ParentImage>
 				<Image condition="image">gbb.exe</Image>
@@ -866,7 +846,27 @@
 			<!--MITRE ATT&CK TECHNIQUE: Masquerading-->
 			<Rule name="Attack=T1036,Technique=Masquerading,Tactic=Defense Evasion,DS=Process: Process Creation,Level=3,Alert=suspicious execution path,Risk=30" groupRelation="and">
 				<Image condition="contains any">C:\Users\NetworkService\;C:\Users\NetworkService\;HarddiskVolumeShadowCopy;C:\Users\Default\;C:\Users\Public;C:\Users\Guest\;\administrateur\;C:\Windows\Media\;C:\Windows\addins\;tsclient\;\htdocs\;\config\systemprofile\;C:\PerfLogs\;c:\windows\ServiceProfiles\;C:\Intel\Logs\;C:\Windows\repair\;C:\Windows\Help\;$Recycle;C:\Windows\Debug\;C:\Windows\Security\;C:\Windows\Fonts\;\wwwroot\;\Contacts;C:\Windows\vss\</Image>
-			</Rule>		
+			</Rule>
+			<Rule name="Attack=T1036.007,Technique=Masquerading: Double File Extension,Tactic=Defense Evasion,DS=Process: Process Creation,Level=0,Alert=Double File Extension,Risk=100" groupRelation="or">
+				<Image condition="end with">      .exe</Image>
+				<Image condition="end with">.7z.exe</Image>
+				<Image condition="end with">.doc.exe</Image>
+				<Image condition="end with">.doc.exe</Image>
+				<Image condition="end with">.docx.exe</Image>
+				<Image condition="end with">.ico.exe</Image>
+				<Image condition="end with">.iso.exe</Image>
+				<Image condition="end with">.lnk.exe</Image>
+				<Image condition="end with">.pdf.exe</Image>
+				<Image condition="end with">.ppt.exe</Image>
+				<Image condition="end with">.pptx.exe</Image>
+				<Image condition="end with">.rar.exe</Image>
+				<Image condition="end with">.rtf.exe</Image>
+				<Image condition="end with">.txt.exe</Image>
+				<Image condition="end with">.xls.exe</Image>
+				<Image condition="end with">.xlsx.exe</Image>
+				<Image condition="end with">.zip.exe</Image>
+				<Image condition="end with">______.exe</Image>
+			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: Modify Authentication Process-->
 			<!--MITRE ATT&CK TECHNIQUE: Modify Cloud Compute Infrastructure-->
 			<!--MITRE ATT&CK TECHNIQUE: Modify Registry-->
