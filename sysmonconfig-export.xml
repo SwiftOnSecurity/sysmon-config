@@ -3108,7 +3108,7 @@
 			<SignatureStatus condition="contains">Unavailable</SignatureStatus>
 			<SignatureStatus condition="contains">Valid</SignatureStatus>
 			<Signed name="Attack=None,Technique=None,Tactic=None,DS=Driver: Driver Load,Level=0,Desc=Unsigned Driver loaded into Kernel" condition="contains">false</Signed>
-			<Rule name="Attack=T1543.003,Technique=Create or Modify System Process: Windows Service,Tactic=Persistence,DS=Driver: Driver Load,Level=4,Alert=Vulnerable Driver Loaded,Risk=100,Author=Nasreddine Bencherchali" groupRelation="or">
+			<Rule name="Attack=T1543.003,Technique=Create or Modify System Process: Windows Service,Tactic=Persistence,DS=Driver: Driver Load,Level=4,Alert=Vulnerable Driver Loaded,Risk=100,Author=Nasreddine Bencherchali,Risk=75" groupRelation="or">
 				<!--# List below is from https://github.com/namazso/physmem_drivers and the SHA1 are from VT-->
 				<Hashes condition="contains">SHA1=2261198385d62d2117f50f631652eded0ecc71db</Hashes>
 				<Hashes condition="contains">SHA1=8db869c0674221a2d3280143cbb0807fac08e0cc</Hashes>
