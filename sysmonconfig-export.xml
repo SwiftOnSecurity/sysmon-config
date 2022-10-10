@@ -1050,9 +1050,10 @@
 
 		<!--OPERATIONS:	Most DNS traffic is web advertising. To significantly reduce DNS queries and malware ads, enable client-side advertising filtering via Group Policy. This is easy.
 				Internet Explorer: https://decentsecurity.com/adblocking-for-internet-explorer-deployment/
-				Chrome: https://decentsecurity.com/ublock-for-google-chrome-deployment/
-				Firefox: ToDo
-						Also note, this configuration is designed for United States computers. Your country's users will may need customization to reduce noise.
+				Chrome: https://support.google.com/chrome/a/answer/187202?hl=en#zippy=%2Cwindows
+						https://decentsecurity.com/ublockorigin-deployment-enterprise/
+				Firefox: https://github.com/mozilla/policy-templates/blob/master/windows/en-US/firefox.adml
+				Also note, this configuration is designed for United States computers. Your country's users will may need customization to reduce noise.
 			-->
 
 		<!--CONFIG:	DNS poisoning is an issue during threat investigations. Try to only exclude ROUTINE system-level queries you know are strongly validated with HTTPS or code signing.-->
@@ -1082,6 +1083,7 @@
 			<QueryName condition="is">localhost</QueryName>
 			<!--Microsoft-->
 			<QueryName condition="end with">-pushp.svc.ms</QueryName> <!--Microsoft: Doesn't appear to host customer content or subdomains-->
+			<QueryName condition="end with">.a-msedge.net</QueryName> <!--Microsoft: Doesn't appear to host customer content or subdomains-->
 			<QueryName condition="end with">.b-msedge.net</QueryName> <!--Microsoft: Doesn't appear to host customer content or subdomains-->
 			<QueryName condition="end with">.bing.com</QueryName> <!-- Microsoft | Microsoft default exclusion -->
 			<QueryName condition="end with">.hotmail.com</QueryName> <!--Microsoft | Microsoft default exclusion-->
@@ -1095,6 +1097,7 @@
 			<QueryName condition="end with">.msedge.net</QueryName> <!--Microsoft: Doesn't appear to host customer content or subdomains-->
 			<QueryName condition="end with">.msn.com</QueryName> <!--Microsoft | Microsoft default exclusion-->
 			<QueryName condition="end with">.msocdn.com</QueryName> <!--Microsoft-->
+			<QueryName condition="end with">.msftncsi.com</QueryName> <!--Microsoft: Network Connectivity Indicator-->
 			<QueryName condition="end with">.skype.com</QueryName> <!--Microsoft | Microsoft default exclusion-->
 			<QueryName condition="end with">.skype.net</QueryName> <!--Microsoft | Microsoft default exclusion-->
 			<QueryName condition="end with">.windows.com</QueryName> <!--Microsoft-->
