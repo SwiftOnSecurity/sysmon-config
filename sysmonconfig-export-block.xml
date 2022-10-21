@@ -893,7 +893,6 @@
 		<!--DATA: UtcTime, Configuration, ConfigurationFileHash-->
 		<!--Cannot be filtered.-->
 
-
 	<!--SYSMON EVENT ID 17 & 18 : PIPE CREATED / PIPE CONNECTED [PipeEvent]-->
 		<!--EVENT 17: "Pipe Created"-->
 		<!--EVENT 18: "Pipe Connected"-->
@@ -964,9 +963,6 @@
 				<Rule groupRelation="and"> <!-- Some interesting ConnectPipe events that we want to include -->
 					<EventType condition="is">ConnectPipe</EventType>
 					<PipeName condition="is">\MICROSOFT##WID\tsql\query</PipeName> <!-- https://github.com/SigmaHQ/sigma/pull/2128 -->
-				</Rule>
-				<Rule groupRelation="and"> <!-- Some interesting ConnectPipe events that we want to include -->
-					<PipeName condition="is not">\MsFteWds</PipeName> <!-- otherwise too many FPs with Explorer and SearchIndexer -->
 				</Rule>
 			</PipeEvent>
 		</RuleGroup>
