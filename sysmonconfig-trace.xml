@@ -280,17 +280,13 @@
 				<Image condition="is">C:\Program Files (x86)\nxlog\nxlog.exe</Image>
 			</DnsQuery>
 		</RuleGroup>
-        <RuleGroup name="" groupRelation="or">
-			<!--Event ID 23 == File Delete-->
-			<FileDelete onmatch="include">
-            </FileDelete>
-		</RuleGroup>
 		<RuleGroup name="" groupRelation="or">
 			<!--Event ID 23 == File Delete-->
-			<FileDelete onmatch="exclude">
-				<Image condition="is">C:\windows\system32\mmc.exe</Image>
-            </FileDelete>
+			<FileDelete onmatch="include">
+				<!-- disabled in favor of ID 26 FileDeleteDetected -->
+			</FileDelete>
 		</RuleGroup>
+
 		<RuleGroup name="" groupRelation="or">
 			<!--Event ID 24 == Clipboard -->
 			<ClipboardChange onmatch="exclude" />
