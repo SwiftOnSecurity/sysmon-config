@@ -918,13 +918,13 @@
 				<PipeName condition="begin with">\status_</PipeName>
 				<PipeName condition="begin with">\msagent_</PipeName>
 				<!-- more named pipe names https://redcanary.com/threat-detection-report/threats/cobalt-strike/ -->
-				<PipeName condition="begin with">mojo_</PipeName>
-				<PipeName condition="begin with">interprocess_</PipeName>
-				<PipeName condition="begin with">samr_</PipeName>
-				<PipeName condition="begin with">netlogon_</PipeName>
-				<PipeName condition="begin with">srvsvc_</PipeName>
-				<PipeName condition="begin with">lsarpc_</PipeName>
-				<PipeName condition="begin with">wkssvc_</PipeName>
+				<PipeName condition="begin with">\mojo_</PipeName>
+				<PipeName condition="begin with">\interprocess_</PipeName>
+				<PipeName condition="begin with">\samr_</PipeName>
+				<PipeName condition="begin with">\netlogon_</PipeName>
+				<PipeName condition="begin with">\srvsvc_</PipeName>
+				<PipeName condition="begin with">\lsarpc_</PipeName>
+				<PipeName condition="begin with">\wkssvc_</PipeName>
 				<!-- Malleable C2 profiles https://svch0st.medium.com/guide-to-named-pipes-and-hunting-for-cobalt-strike-pipes-dc46b2c5f575 -->
 				<!-- some of these are not exact matches, but the corresponding Sigma rules use Regexp to match exactly -->
 				<PipeName condition="begin with">\mojo.5688.8052.183894939787088877</PipeName>
