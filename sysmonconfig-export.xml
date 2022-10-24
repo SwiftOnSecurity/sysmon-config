@@ -969,7 +969,6 @@
 				<PipeName condition="begin with">\wkssvc_</PipeName>
 				<!-- Havoc C2 default -->
 				<PipeName condition="begin with">\demon_pipe</PipeName>
-				<PipeName condition="begin with">\mojo.</PipeName>
 				<!-- Malleable C2 profiles https://svch0st.medium.com/guide-to-named-pipes-and-hunting-for-cobalt-strike-pipes-dc46b2c5f575 -->
 				<!-- some of these are not exact matches, but the corresponding Sigma rules use Regexp to match exactly -->
 				<PipeName condition="begin with">\mojo.5688.8052.183894939787088877</PipeName>
