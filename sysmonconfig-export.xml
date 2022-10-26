@@ -769,7 +769,13 @@
 			<TargetObject name="T1089,Tamper-Defender" condition="end with">\DisableAntiSpyware</TargetObject> <!--Windows:Defender: State modified via registry-->
 			<TargetObject name="T1089,Tamper-Defender" condition="end with">\DisableAntiVirus</TargetObject> <!--Windows:Defender: State modified via registry-->
 			<TargetObject name="T1089,Tamper-Defender" condition="end with">\SpynetReporting</TargetObject> <!--Windows:Defender: State modified via registry-->
-			<TargetObject name="T1089,Tamper-Defender" condition="end with">DisableRealtimeMonitoring</TargetObject> <!--Windows:Defender: State modified via registry-->
+			<TargetObject name="T1089,Tamper-Defender" condition="end with">\DisableRealtimeMonitoring</TargetObject> <!--Windows:Defender: State modified via registry-->
+			<TargetObject name="T1089,Tamper-Defender" condition="end with">\DisableBehaviorMonitoring</TargetObject> <!--Windows:Defender: State modified via registry-->
+			<TargetObject name="T1089,Tamper-Defender" condition="end with">\DisableIOAVProtection</TargetObject> <!--Windows:Defender: State modified via registry-->
+			<TargetObject name="T1089,Tamper-Defender" condition="end with">\DisableOnAccessProtection</TargetObject> <!--Windows:Defender: State modified via registry-->
+			<TargetObject name="T1089,Tamper-Defender" condition="end with">\DisableScanOnRealtimeEnable</TargetObject> <!--Windows:Defender: State modified via registry-->
+			<TargetObject name="T1089,Tamper-Defender" condition="end with">\Reporting\DisableEnhancedNotifications</TargetObject> <!--Windows:Defender: State modified via registry-->
+			<TargetObject name="T1089,Tamper-Defender" condition="end with">\SpyNet\DisableBlockAtFirstSeen</TargetObject> <!--Windows:Defender: State modified via registry-->
 			<TargetObject name="T1089,Tamper-Defender" condition="end with">\SubmitSamplesConsent</TargetObject> <!--Windows:Defender: State modified via registry-->
 			<TargetObject name="T1089,Tamper-Defender" condition="begin with">HKLM\Software\Microsoft\Windows Defender\Exclusions</TargetObject> <!--Windows:Defender: State modified via registry-->
 			<TargetObject name="T1562,Tamper-Defender" condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows Defender</TargetObject> <!--Windows:Defender: Monitor any modified via registry-->
