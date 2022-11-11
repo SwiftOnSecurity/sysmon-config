@@ -251,8 +251,8 @@
 			<Image condition="contains">install</Image> <!--Ignore setups-->
 			<Image condition="contains">Update\</Image> <!--Ignore setups-->
 			<Image condition="end with">redist.exe</Image> <!--Ignore setups-->
-			<Image condition="is">msiexec.exe</Image> <!--Ignore setups-->
-			<Image condition="is">TrustedInstaller.exe</Image> <!--Ignore setups-->
+			<Image condition="image">msiexec.exe</Image> <!--Ignore setups-->
+			<Image condition="image">TrustedInstaller.exe</Image> <!--Ignore setups-->
 			<TargetFilename condition="contains">\NVIDIA\NvBackend\ApplicationOntology\</TargetFilename> <!--NVIDIA GeForce Experience Application Ontology, 1000's of events in user profile-->
 		</FileCreateTime>
 	</RuleGroup>
@@ -304,7 +304,6 @@
 			<Image condition="image">powershell.exe</Image> <!--Windows: PowerShell interface-->
 			<Image condition="image">powershell_ise.exe</Image> <!--Windows: PowerShell interface-->
 			<Image condition="image">qprocess.exe</Image> <!--Windows: [ https://www.first.org/resources/papers/conf2017/APT-Log-Analysis-Tracking-Attack-Tools-by-Audit-Policy-and-Sysmon.pdf ] -->
-			<Image condition="image">qwinsta.exe</Image> <!--Windows: Query remote sessions | Credit @ion-storm -->
 			<Image condition="image">qwinsta.exe</Image> <!--Windows: Remotely query login sessions on a server or workstation | Credit @ion-storm -->
 			<Image condition="image">reg.exe</Image> <!--Windows: Remote Registry editing ability | Credit @ion-storm -->
 			<Image condition="image">regsvcs.exe</Image> <!--Windows: [ https://www.hybrid-analysis.com/sample/3f94d7080e6c5b8f59eeecc3d44f7e817b31562caeba21d02ad705a0bfc63d67?environmentId=100 ] -->
