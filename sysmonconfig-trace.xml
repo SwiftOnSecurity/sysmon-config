@@ -102,6 +102,9 @@
 				<Image condition="is">C:\Program Files\VMware\VMware Tools\TPAutoConnect.exe</Image>
 				<Image condition="is">C:\Program Files\Windows Defender\NisSrv.exe</Image>
 				<Image condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</Image>
+				<Image condition="is">C:\Program Files\Aurora-Agent\aurora-agent-64.exe</Image>
+				<Image condition="is">C:\Program Files\Git\mingw64\bin\git.exe</Image>
+				<Image condition="is">C:\Program Files\Git\cmd\git.exe</Image>
 				<Image condition="end with">\onedrivesetup.exe</Image>
 				<Image condition="end with">\onedrive.exe</Image>
 				<Image condition="end with">\skypeapp.exe</Image>
@@ -158,6 +161,7 @@
 				<TargetImage condition="begin with">C:\Packages\Plugins\</TargetImage> <!--Azure ARM Extensions -->
 				<TargetImage condition="begin with">C:\WindowsAzure\</TargetImage> <!--Azure -->
 				<TargetImage condition="begin with">C:\Program Files\WindowsApps\</TargetImage>
+				<SourceImage condition="begin with">C:\Program Files\WindowsApps\</SourceImage>
 				<TargetImage condition="begin with">C:\Program Files\Windows Defender Advanced Threat Protection\</TargetImage>
 				<SourceImage condition="begin with">C:\Program Files\Windows Defender Advanced Threat Protection\</SourceImage>
 				<SourceImage condition="begin with">C:\ProgramData\Microsoft\Windows Defender\platform\</SourceImage>
@@ -170,6 +174,8 @@
 				<TargetImage condition="end with">\mmc.exe</TargetImage>
 				<TargetImage condition="end with">\Microsoft.Tri.Sensor.exe</TargetImage> <!-- Microsoft Defender for Identity Sensor -->
 				<TargetImage condition="end with">\Microsoft.Tri.Sensor.Updater.exe</TargetImage> <!-- Microsoft Defender for Identity Sensor -->
+				<SourceImage condition="end with">\AppData\Local\Programs\Microsoft VS Code\Code.exe</SourceImage>
+				<TargetImage condition="end with">\AppData\Local\Programs\Microsoft VS Code\Code.exe</TargetImage>
 				<Rule name="RuntimeBroker" groupRelation="and">
 					<SourceImage condition="is">C:\Windows\System32\RuntimeBroker.exe</SourceImage>
 					<TargetImage condition="is">C:\windows\Explorer.EXE</TargetImage>
@@ -229,7 +235,6 @@
 				<Image condition="end with">\Microsoft.Tri.Sensor.Updater.exe</Image> <!-- Microsoft Defender for Identity Sensor -->
 				<Image condition="end with">\TiWorker.exe</Image>
 				<Image condition="is">C:\Windows\system32\compattelrunner.exe</Image>
-				<Image condition="is">C:\Windows\Sysmon64.exe</Image>
 				<TargetObject condition="is">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Print\Printers\Microsoft Print to PDF\PrinterDriverData</TargetObject>
 				<TargetObject condition="end with">\LanguageList</TargetObject>
 				<TargetObject condition="end with">\Windows.UI.SettingsAppThreshold.pri</TargetObject>
@@ -280,17 +285,13 @@
 				<Image condition="is">C:\Program Files (x86)\nxlog\nxlog.exe</Image>
 			</DnsQuery>
 		</RuleGroup>
-        <RuleGroup name="" groupRelation="or">
-			<!--Event ID 23 == File Delete-->
-			<FileDelete onmatch="include">
-            </FileDelete>
-		</RuleGroup>
 		<RuleGroup name="" groupRelation="or">
 			<!--Event ID 23 == File Delete-->
-			<FileDelete onmatch="exclude">
-				<Image condition="is">C:\windows\system32\mmc.exe</Image>
-            </FileDelete>
+			<FileDelete onmatch="include">
+				<!-- disabled in favor of ID 26 FileDeleteDetected -->
+			</FileDelete>
 		</RuleGroup>
+
 		<RuleGroup name="" groupRelation="or">
 			<!--Event ID 24 == Clipboard -->
 			<ClipboardChange onmatch="exclude" />
