@@ -4,10 +4,10 @@
   Source project:	https://github.com/SwiftOnSecurity/sysmon-config
   Source license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
 
-  Fork version:	<N/A>
-  Fork author:	<N/A>
-  Fork project:	<N/A>
-  Fork license:	<N/A>
+  Fork version:	74f
+  Fork author:	bytew0lf
+  Fork project:	https://github.com/bytew0lf/sysmon-config
+  Fork license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
 
   REQUIRED: Sysmon version 13 or higher (due to changes in syntax and bug-fixes)
 	https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon
@@ -62,7 +62,7 @@
 
 <Sysmon schemaversion="4.50">
 	<!--SYSMON META CONFIG-->
-	<HashAlgorithms>md5,sha256,IMPHASH</HashAlgorithms> <!-- Both MD5 and SHA256 are the industry-standard algorithms. Remove IMPHASH if you do not use DLL import fingerprinting. -->
+	<HashAlgorithms>*</HashAlgorithms> <!-- Both MD5 and SHA256 are the industry-standard algorithms. Remove IMPHASH if you do not use DLL import fingerprinting. -->
 	<CheckRevocation/> <!-- Check loaded drivers, log if their code-signing certificate has been revoked, in case malware stole one to sign a kernel driver -->
 
 	<!-- <ImageLoad/> --> <!-- Would manually force-on ImageLoad monitoring, even without configuration below. Included only documentation. -->
@@ -80,8 +80,24 @@
 			code signatures to validate, but Sysmon does not support that. Look into AppLocker/WindowsDeviceGuard for whitelisting support. -->
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessID, Image, FileVersion, Description, Product, Company, CommandLine, CurrentDirectory, User, LogonGuid, LogonId, TerminalSessionId, IntegrityLevel, Hashes, ParentProcessGuid, ParentProcessId, ParentImage, ParentCommandLine, RuleName-->
+	
+	<RuleGroup name="" groupRelation="and">
+		<ProcessCreate onmatch="exclude">
+			<!--SECTION: Windows Defender-->
+			<!--  -->
+			<Image condition="is">C:\Windows\system32\svchost.exe</Image>
+			<ParentImage condition="begin with">C:\ProgramData\Microsoft\Windows Defender\platform\</ParentImage>
+			<ParentImage condition="end with">MsMpEng.exe</ParentImage>
+
+			<ParentCommandLine condition="begin with">C:\ProgramData\Microsoft\Windows Defender\Platform\</ParentCommandLine>
+			<ParentCommandLine condition="end with">MsMpEng.exe</ParentCommandLine>
+		</ProcessCreate>
+	</RuleGroup>
+
 	<RuleGroup name="" groupRelation="or">
 		<ProcessCreate onmatch="exclude">
+			<CommandLine condition="contains">\Machine\Scripts\Startup\ipamprovisioning.ps1</CommandLine> <!-- Windows IP Address Management (IPAM) -->
+			
 			<!--SECTION: Microsoft Windows-->
 			<CommandLine condition="begin with"> "C:\Windows\system32\wermgr.exe" "-queuereporting_svc" </CommandLine> <!--Windows:Windows error reporting/telemetry-->
 			<CommandLine condition="begin with">C:\Windows\system32\DllHost.exe /Processid</CommandLine> <!--Windows-->
@@ -115,6 +131,7 @@
 			<CommandLine condition="is">C:\WINDOWS\system32\devicecensus.exe UserCxt</CommandLine>
 			<CommandLine condition="is">C:\Windows\System32\usocoreworker.exe -Embedding</CommandLine>
 			<ParentImage condition="is">C:\Windows\system32\SearchIndexer.exe</ParentImage> <!--Windows:Search: Launches many uninteresting sub-processes-->
+			
 			<!--SECTION: Windows:svchost-->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k appmodel -s StateRepository</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k appmodel -p -s camsvc</CommandLine>
@@ -131,7 +148,7 @@
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k LocalService -p -s BthAvctpSvc</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localService -s nsi</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localService -s w32Time</CommandLine>
-      <CommandLine condition="is">C:\Windows\system32\svchost.exe -k localServiceAndNoImpersonation</CommandLine> <!--Windows: Network services-->
+      		<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localServiceAndNoImpersonation</CommandLine> <!--Windows: Network services-->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localServiceAndNoImpersonation -p</CommandLine> <!--Windows: Network services-->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localServiceNetworkRestricted -s Dhcp</CommandLine> <!--Windows: Network services-->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localServiceNetworkRestricted -s EventLog</CommandLine>
@@ -251,8 +268,8 @@
 			<Image condition="contains">install</Image> <!--Ignore setups-->
 			<Image condition="contains">Update\</Image> <!--Ignore setups-->
 			<Image condition="end with">redist.exe</Image> <!--Ignore setups-->
-			<Image condition="is">msiexec.exe</Image> <!--Ignore setups-->
-			<Image condition="is">TrustedInstaller.exe</Image> <!--Ignore setups-->
+			<Image condition="image">msiexec.exe</Image> <!--Ignore setups-->
+			<Image condition="image">TrustedInstaller.exe</Image> <!--Ignore setups-->
 			<TargetFilename condition="contains">\NVIDIA\NvBackend\ApplicationOntology\</TargetFilename> <!--NVIDIA GeForce Experience Application Ontology, 1000's of events in user profile-->
 		</FileCreateTime>
 	</RuleGroup>
@@ -274,11 +291,13 @@
 			<Image name="Caution" condition="begin with">C:\Recycle</Image> <!--Nothing should operate from the RecycleBin locations.-->
 			<Image condition="begin with">C:\ProgramData</Image> <!--Normally, network communications should be sourced from "Program Files" not from ProgramData, something to look at-->
 			<Image condition="begin with">C:\Windows\Temp</Image> <!--Suspicious anything would communicate from the system-level temp directory-->
+			<Image condition="begin with">C:\Temp</Image> <!--Suspicious anything would communicate from the temp directory-->
 			<Image name="Caution" condition="begin with">\</Image> <!--Devices and VSC shouldn't be executing changes | Credit: @SBousseaden @ionstorm @neu5ron @PerchedSystems [ https://twitter.com/SwiftOnSecurity/status/1133167323991486464 ] -->
 			<Image name="Caution" condition="begin with">C:\perflogs</Image> <!-- Credit @blu3_team [ https://blu3-team.blogspot.com/2019/05/netconn-from-suspicious-directories.html ] -->
 			<Image name="Caution" condition="begin with">C:\intel</Image> <!-- Credit @blu3_team [ https://blu3-team.blogspot.com/2019/05/netconn-from-suspicious-directories.html ] -->
 			<Image name="Caution" condition="begin with">C:\Windows\fonts</Image> <!-- Credit @blu3_team [ https://blu3-team.blogspot.com/2019/05/netconn-from-suspicious-directories.html ] -->
 			<Image name="Caution" condition="begin with">C:\Windows\system32\config</Image> <!-- Credit @blu3_team [ https://blu3-team.blogspot.com/2019/05/netconn-from-suspicious-directories.html ] -->
+			
 			<!--Suspicious Windows tools-->
 			<Image condition="image">at.exe</Image> <!--Windows: Remote task scheduling, removed in Win10 | Credit @ion-storm -->
 			<Image condition="image">certutil.exe</Image> <!--Windows: Certificate tool can contact outbound | Credit @ion-storm @FVT [ https://twitter.com/FVT/status/834433734602530817 ] -->
@@ -304,7 +323,6 @@
 			<Image condition="image">powershell.exe</Image> <!--Windows: PowerShell interface-->
 			<Image condition="image">powershell_ise.exe</Image> <!--Windows: PowerShell interface-->
 			<Image condition="image">qprocess.exe</Image> <!--Windows: [ https://www.first.org/resources/papers/conf2017/APT-Log-Analysis-Tracking-Attack-Tools-by-Audit-Policy-and-Sysmon.pdf ] -->
-			<Image condition="image">qwinsta.exe</Image> <!--Windows: Query remote sessions | Credit @ion-storm -->
 			<Image condition="image">qwinsta.exe</Image> <!--Windows: Remotely query login sessions on a server or workstation | Credit @ion-storm -->
 			<Image condition="image">reg.exe</Image> <!--Windows: Remote Registry editing ability | Credit @ion-storm -->
 			<Image condition="image">regsvcs.exe</Image> <!--Windows: [ https://www.hybrid-analysis.com/sample/3f94d7080e6c5b8f59eeecc3d44f7e817b31562caeba21d02ad705a0bfc63d67?environmentId=100 ] -->
@@ -317,6 +335,7 @@
 			<Image condition="image">tasklist.exe</Image> <!--Windows: List processes, has remote ability -->
 			<Image condition="image">wmic.exe</Image> <!--WindowsManagementInstrumentation: Credit @Cyb3rOps [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
 			<Image condition="image">wscript.exe</Image> <!--WindowsScriptingHost: | Credit @arekfurt -->
+			
 			<!--Live of the Land Binaries and scripts (LOLBAS) -->
 			<Image condition="image">bitsadmin.exe</Image> <!-- Windows: Background Intelligent Transfer Service - Can download from URLs -->
 			<Image condition="image">esentutl.exe</Image> <!-- Windows: Database utilities for the ESE - Can fetch from UNC paths -->
@@ -331,10 +350,16 @@
 			<Image condition="image">Powerpnt.exe</Image> <!-- Windows Office: PowerPoint - Can download from URLs -->
 			<Image condition="image">Winword.exe</Image> <!-- Windows Office: Word - Can download from URLs -->
 			<Image condition="image">squirrel.exe</Image> <!-- Windows: Update the Nuget/Squirrel packages. Part of Teams. - Can download from URLs -->
+			
 			<!--Relevant 3rd Party Tools-->
+			<Image condition="image">netcat.exe</Image> <!-- Compiled netcat.c file if naming convention is kept https://github.com/DarrenRainey/netcat -->
 			<Image condition="image">nc.exe</Image> <!-- Nmap's modern version of netcat [ https://nmap.org/ncat/guide/index.html#ncat-overview ] [ https://securityblog.gr/1517/create-backdoor-in-windows-with-ncat/ ] -->
+			<Image condition="image">nc64.exe</Image> <!-- 64-bit version of nc that can be used on 64-bit Windows Architectures https://github.com/DarrenRainey/netcat-->
 			<Image condition="image">ncat.exe</Image> <!-- Nmap's modern version of netcat [ https://nmap.org/ncat/guide/index.html#ncat-overview ] [ https://securityblog.gr/1517/create-backdoor-in-windows-with-ncat/ ] -->
+			<Image condition="image">procdump.exe</Image> <!-- Sysinternals Suite client side that can be used to dump clear text passwords from memory -->
+   			<Image condition="image">procdump64.exe</Image> <!-- Sysinternals Suite client side 64-bit version that can be used to dump clear text passwords from memory -->
 			<Image condition="image">psexec.exe</Image> <!--Sysinternals:PsExec client side | Credit @Cyb3rOps -->
+			<Image condition="image">psexec64.exe</Image> <!-- Sysinernals:PsExec64 client side | 64-bit version of psexec.exe -->
 			<Image condition="image">psexesvc.exe</Image> <!--Sysinternals:PsExec server side | Credit @Cyb3rOps -->
 			<Image condition="image">tor.exe</Image> <!--Tor [ https://www.hybrid-analysis.com/sample/800bf028a23440134fc834efc5c1e02cc70f05b2e800bbc285d7c92a4b126b1c?environmentId=100 ] -->
 			<Image condition="image">vnc.exe</Image> <!-- VNC client | Credit @Cyb3rOps -->
@@ -343,23 +368,36 @@
 			<Image condition="image">winexesvc.exe</Image> <!-- Winexe service executable | Credit @Cyb3rOps -->
 			<Image condition="image">nmap.exe</Image>
 			<Image condition="image">psinfo.exe</Image>
+
+			<!--Microsoft App-V Components-->
+			<Image name="T1218" condition="image">SyncAppvPublishingServer.exe</Image> <!--Microsoft App-V (Application Virtualization publishing) | Credit: Moti Bani (Moti.Ba@hotmail.com)-->
+	  		<Image name="T1218" condition="image">Mavinject.exe</Image> <!--Microsoft App-V (Application Virtualization Injector) | Credit: Moti Bani (Moti.Ba@hotmail.com)-->
+			
 			<!--Ports: Suspicious-->
 			<DestinationPort name="SSH" condition="is">22</DestinationPort> <!--SSH protocol, monitor admin connections-->
 			<DestinationPort name="Telnet" condition="is">23</DestinationPort> <!--Telnet protocol, monitor admin connections, insecure-->
 			<DestinationPort name="SMTP" condition="is">25</DestinationPort> <!--SMTP mail protocol port, insecure, used by threats-->
 			<DestinationPort name="IMAP" condition="is">143</DestinationPort> <!--IMAP mail protocol port, insecure, used by threats-->
 			<DestinationPort name="RDP" condition="is">3389</DestinationPort> <!--Windows:RDP: Monitor admin connections-->
-			<DestinationPort name="VNC" condition="is">5800</DestinationPort> <!--VNC protocol: Monitor admin connections, often insecure, using hard-coded admin password-->
-			<DestinationPort name="VNC" condition="is">5900</DestinationPort> <!--VNC protocol Monitor admin connections, often insecure, using hard-coded admin password-->
+			<DestinationPort name="VNC,T1021,T1133,T1219" condition="is">5800</DestinationPort> <!--VNC protocol: Monitor admin connections, often insecure, using hard-coded admin password-->
+			<DestinationPort name="VNC,T1021,T1133,T1219" condition="is">5900</DestinationPort> <!--VNC protocol Monitor admin connections, often insecure, using hard-coded admin password-->
 			<DestinationPort name="Alert,Metasploit" condition="is">4444</DestinationPort>
+			<DestinationPort name="WinRM,T1047,T1021.006" condition="is">5985</DestinationPort> <!-- WinRM protocol used for remote connections to execute commands -->
+			<DestinationPort name="WinRM over HTTPS,T1047,T1021.006" condition="is">5986</DestinationPort> <!-- WinRM over HTTPS when set up in an environment can be used for remote connections to execute commands -->
+			
 			<!--Ports: Proxy-->
 			<DestinationPort name="Proxy" condition="is">1080</DestinationPort> <!--Socks proxy port | Credit @ion-storm-->
 			<DestinationPort name="Proxy" condition="is">3128</DestinationPort> <!--Socks proxy port | Credit @ion-storm-->
 			<DestinationPort name="Proxy" condition="is">8080</DestinationPort> <!--Socks proxy port | Credit @ion-storm-->
+			
 			<!--Ports: Tor-->
-			<DestinationPort name="Tor" condition="is">1723</DestinationPort> <!--Tor protocol [ https://attack.mitre.org/wiki/Technique/T1090 ] | Credit @ion-storm-->
-			<DestinationPort name="Tor" condition="is">9001</DestinationPort> <!--Tor protocol [ http://www.computerworlduk.com/tutorial/security/tor-enterprise-2016-blocking-malware-darknet-use-rogue-nodes-3633907/ ] -->
-			<DestinationPort name="Tor" condition="is">9030</DestinationPort> <!--Tor protocol [ http://www.computerworlduk.com/tutorial/security/tor-enterprise-2016-blocking-malware-darknet-use-rogue-nodes-3633907/ ] -->
+			<DestinationPort name="Tor,T1090.003" condition="is">1723</DestinationPort> <!--Tor protocol [ https://attack.mitre.org/wiki/Technique/T1090 ] | Credit @ion-storm-->
+			<DestinationPort name="Tor,T1090.003" condition="is">9001</DestinationPort> <!--Tor protocol [ http://www.computerworlduk.com/tutorial/security/tor-enterprise-2016-blocking-malware-darknet-use-rogue-nodes-3633907/ ] -->
+			<DestinationPort name="Tor,T1090.003" condition="is">9030</DestinationPort> <!--Tor protocol [ http://www.computerworlduk.com/tutorial/security/tor-enterprise-2016-blocking-malware-darknet-use-rogue-nodes-3633907/ ] -->
+			<DestinationPort name="Tor,T1090.003" condition="is">9040</DestinationPort> <!--Tor protocol [https://www.cisa.gov/uscert/sites/default/files/publications/AA20-183A_Defending_Against_Malicious_Cyber_Activity_Originating_from_Tor_S508C.pdf ] -->
+			<DestinationPort name="Tor,T1090.003" condition="is">9050</DestinationPort> <!--Tor protocol [https://www.cisa.gov/uscert/sites/default/files/publications/AA20-183A_Defending_Against_Malicious_Cyber_Activity_Originating_from_Tor_S508C.pdf ] -->
+			<DestinationPort name="Tor,T1090.003" condition="is">9051</DestinationPort> <!--Tor protocol [https://www.cisa.gov/uscert/sites/default/files/publications/AA20-183A_Defending_Against_Malicious_Cyber_Activity_Originating_from_Tor_S508C.pdf ] -->
+			<DestinationPort name="Tor,T1090.003" condition="is">9150</DestinationPort> <!--Tor protocol [https://www.cisa.gov/uscert/sites/default/files/publications/AA20-183A_Defending_Against_Malicious_Cyber_Activity_Originating_from_Tor_S508C.pdf ] -->
 		</NetworkConnect>
 	</RuleGroup>
 
@@ -368,12 +406,14 @@
 			<!--SECTION: Microsoft-->
 			<Image condition="begin with">C:\ProgramData\Microsoft\Windows Defender\Platform\</Image>
 			<Image condition="end with">AppData\Local\Microsoft\Teams\current\Teams.exe</Image> <!--Microsoft: Teams-->
+			<DestinationHostname condition="is">microsoft.com</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">.microsoft.com</DestinationHostname> <!--Microsoft:Update delivery-->
-			<DestinationHostname condition="end with">microsoft.com.akadns.net</DestinationHostname> <!--Microsoft:Update delivery-->
-			<DestinationHostname condition="end with">microsoft.com.nsatc.net</DestinationHostname> <!--Microsoft:Update delivery-->
+			
 			<!--OCSP known addresses-->
 			<DestinationIp condition="is">23.4.43.27</DestinationIp> <!--Digicert [ https://otx.alienvault.com/indicator/ip/23.4.43.27 ] -->
 			<DestinationIp condition="is">72.21.91.29</DestinationIp> <!--Digicert [ https://otx.alienvault.com/indicator/ip/72.21.91.29 ] -->
+			<DestinationHostname condition="is">microsoft.com.akadns.net</DestinationHostname> <!--Microsoft:Update delivery-->
+			<DestinationHostname condition="end with">.microsoft.com.nsatc.net</DestinationHostname> <!--Microsoft:Update delivery-->
 			<!--Section: Loopback Addresses-->
 			<DestinationIp condition="is">127.0.0.1</DestinationIp> <!--Credit @ITProPaul-->
 			<DestinationIp condition="begin with">fe80:0:0:0</DestinationIp> <!--Credit @ITProPaul-->
@@ -501,7 +541,10 @@
 			<TargetFilename condition="end with">.jar</TargetFilename> <!--Java applets-->
 			<TargetFilename condition="end with">.jnlp</TargetFilename> <!--Java applets-->
 			<TargetFilename condition="end with">.jse</TargetFilename> <!--Scripting [ Example: https://www.sophos.com/en-us/threat-center/threat-analyses/viruses-and-spyware/Mal~Phires-C/detailed-analysis.aspx ] -->
+			<TargetFilename condition="end with">.js</TargetFilename> <!-- Microsoft JScript -->
 			<TargetFilename condition="end with">.hta</TargetFilename> <!--Scripting-->
+			<TargetFilename condition="end with">.aspx</TargetFilename> <!--Scripting-->
+			<TargetFilename condition="end with">.asp</TargetFilename> <!--Scripting-->
 			<TargetFilename condition="end with">.job</TargetFilename> <!--Scheduled task-->
 			<TargetFilename condition="end with">.pptm</TargetFilename> <!--Microsoft:Office:Word: Macro-->
 			<TargetFilename condition="end with">.ps1</TargetFilename> <!--PowerShell [ More information: http://www.hexacorn.com/blog/2014/08/27/beyond-good-ol-run-key-part-16/ ] -->
@@ -537,13 +580,507 @@
 			<TargetFilename condition="end with">.xls</TargetFilename> <!--Legacy Office files are often used for attacks-->
 			<TargetFilename condition="end with">.ppt</TargetFilename> <!--Legacy Office files are often used for attacks-->
 			<TargetFilename condition="end with">.rtf</TargetFilename> <!--RTF files often 0day malware vectors when opened by Office-->
+			<!-- Possible dropped webshells -->
+			<TargetFilename condition="end with">.php</TargetFilename> <!-- possible dropped webshell -->
+			<TargetFilename condition="end with">.asp</TargetFilename> <!-- possible dropped webshell -->
+			<TargetFilename condition="end with">.aspx</TargetFilename> <!-- possible dropped webshell -->
+			<TargetFilename condition="end with">.ashx</TargetFilename> <!-- possible dropped webshell -->
+			<TargetFilename condition="end with">.jsp</TargetFilename> <!-- possible dropped webshell -->
+			<TargetFilename condition="end with">.pl</TargetFilename> <!-- possible dropped webshell -->
+			
+			<TargetFilename condition="contains">\SAM-20</TargetFilename> <!-- Default output of HiveNightmare / SeriousSAM tools -->
+			<TargetFilename condition="contains">\SAM-haxx</TargetFilename> <!-- Default output of HiveNightmare / SeriousSAM tools -->
+			<TargetFilename condition="contains">\Sam.save</TargetFilename> <!-- Default output of HiveNightmare / SeriousSAM tools -->
+			<TargetFilename condition="contains">\hive_sam_</TargetFilename> <!-- Default output of HiveNightmare / SeriousSAM tools -->
+			<TargetFilename condition="is">C:\windows\temp\sam</TargetFilename> <!-- Default output of HiveNightmare / SeriousSAM tools -->
+			<TargetFilename condition="begin with">C:\Windows\System32\spool\drivers\x64</TargetFilename> <!-- PrinterNight -->
+			
+			<!-- Ransomare can leave notes on the filesystem, explaining their recovery process | Credit: @sduff -->
+			<TargetFilename condition="contains">decrypt all files</TargetFilename>
+			<TargetFilename condition="contains">_h_e_l_p_recover_instructions</TargetFilename>
+			<TargetFilename condition="contains">help_recover_instructions</TargetFilename>
+			<TargetFilename condition="contains">how_recover</TargetFilename>
+			<TargetFilename condition="contains">@please_read_me@</TargetFilename>
+			<TargetFilename condition="contains">-read-for-hellpp.html</TargetFilename>
+			<TargetFilename condition="contains">readme_decrypt_hydra_id_</TargetFilename>
+			<TargetFilename condition="contains">readme_decrypt_umbre_id_</TargetFilename>
+			<TargetFilename condition="contains">recover_files_</TargetFilename>
+			<TargetFilename condition="contains">recover_file_</TargetFilename>
+			<TargetFilename condition="contains">recovery_file_</TargetFilename>
+			<TargetFilename condition="contains">recovery</TargetFilename>
+			<TargetFilename condition="contains">-sorry-for-files.html</TargetFilename>
+			<TargetFilename condition="contains">@wanadecryptor@.exe</TargetFilename>
+			<TargetFilename condition="end with">about_files.txt</TargetFilename>
+			<TargetFilename condition="end with">allfilesarelocked_.bmp</TargetFilename>
+			<TargetFilename condition="end with">attention.rtf</TargetFilename>
+			<TargetFilename condition="end with">bitcryptorfilelist.txt</TargetFilename>
+			<TargetFilename condition="end with">bleepedfiles.txt</TargetFilename>
+			<TargetFilename condition="end with">buyunlockcode</TargetFilename>
+			<TargetFilename condition="end with">coin.locker.txt</TargetFilename>
+			<TargetFilename condition="end with">cryptinfo.txt</TargetFilename>
+			<TargetFilename condition="end with">cryptlogfile.txt</TargetFilename>
+			<TargetFilename condition="end with">decrypt all files *.bmp</TargetFilename>
+			<TargetFilename condition="end with">decryptallfiles.txt</TargetFilename>
+			<TargetFilename condition="end with">decryptallfiles_.txt</TargetFilename>
+			<TargetFilename condition="end with">decrypt_instructions.html</TargetFilename>
+			<TargetFilename condition="end with">decrypt_instructions.txt</TargetFilename>
+			<TargetFilename condition="end with">decrypt_instruction.txt</TargetFilename>
+			<TargetFilename condition="end with"># decrypt my files #.html</TargetFilename>
+			<TargetFilename condition="end with"># decrypt my files #.txt</TargetFilename>
+			<TargetFilename condition="end with"># decrypt my files #.vbs</TargetFilename>
+			<TargetFilename condition="end with">decrypt_readme.txt.readme</TargetFilename>
+			<TargetFilename condition="end with">decrypt_readme.txt</TargetFilename>
+			<TargetFilename condition="end with">decrypt_your_files.html</TargetFilename>
+			<TargetFilename condition="end with">encryptor_raas_readme_liesmich.txt</TargetFilename>
+			<TargetFilename condition="end with">exit.hhr.obleep</TargetFilename>
+			<TargetFilename condition="end with">filesaregone.txt</TargetFilename>
+			<TargetFilename condition="end with">getyoufiles.txt</TargetFilename>
+			<TargetFilename condition="end with">hellothere.txt</TargetFilename>
+			<TargetFilename condition="end with">help_decrypt.txt</TargetFilename>
+			<TargetFilename condition="end with">help_decrypt_your_files.html</TargetFilename>
+			<TargetFilename condition="end with">help_decyprt_your_files.html</TargetFilename>
+			<TargetFilename condition="end with">*-help_for_decrypt_file.html</TargetFilename>
+			<TargetFilename condition="end with">help recover files.txt</TargetFilename>
+			<TargetFilename condition="end with">help_recover_files.txt</TargetFilename>
+			<TargetFilename condition="end with">help_restore_files.txt</TargetFilename>
+			<TargetFilename condition="end with">help_to_decrypt_your_files.txt</TargetFilename>
+			<TargetFilename condition="end with">help_to_save_files.txt</TargetFilename>
+			<TargetFilename condition="end with">help_yourfiles.html</TargetFilename>
+			<TargetFilename condition="end with">help_your_files.txt</TargetFilename>
+			<TargetFilename condition="end with">howdecrypt.gif</TargetFilename>
+			<TargetFilename condition="end with">how_decrypt.txt</TargetFilename>
+			<TargetFilename condition="end with">_how_recover_.txt</TargetFilename>
+			<TargetFilename condition="end with">how to decrypt files.html</TargetFilename>
+			<TargetFilename condition="end with">how-to-decrypt-files.html</TargetFilename>
+			<TargetFilename condition="end with">how to decrypt files.txt</TargetFilename>
+			<TargetFilename condition="end with">how_to_decrypt_files.txt</TargetFilename>
+			<TargetFilename condition="end with">how_to_decrypt.html</TargetFilename>
+			<TargetFilename condition="end with">how to get data.txt</TargetFilename>
+			<TargetFilename condition="end with">how_to_recover_files.txt</TargetFilename>
+			<TargetFilename condition="end with">howto_recover_file_.txt</TargetFilename>
+			<TargetFilename condition="end with">how_to_restore_files.txt</TargetFilename>
+			<TargetFilename condition="end with">howto_restore_files.txt</TargetFilename>
+			<TargetFilename condition="end with">howto_restore_files_.txt</TargetFilename>
+			<TargetFilename condition="end with">iamreadytopay.txt</TargetFilename>
+			<TargetFilename condition="end with">ihaveyoursecret.key</TargetFilename>
+			<TargetFilename condition="end with">important read me.txt</TargetFilename>
+			<TargetFilename condition="end with">kryptolocker_readme.txt</TargetFilename>
+			<TargetFilename condition="end with">_locky_recover_instructions.txt</TargetFilename>
+			<TargetFilename condition="end with">nefilim-decrypt.txt</TargetFilename>
+			<TargetFilename condition="end with">qwer2.html</TargetFilename>
+			<TargetFilename condition="end with">qwer.html</TargetFilename>
+			<TargetFilename condition="end with">readdecryptfileshere.txt</TargetFilename>
+			<TargetFilename condition="end with">read if you want your files back.html</TargetFilename>
+			<TargetFilename condition="end with">readme10.txt</TargetFilename>
+			<TargetFilename condition="end with">readme1.txt</TargetFilename>
+			<TargetFilename condition="end with">readme2.txt</TargetFilename>
+			<TargetFilename condition="end with">readme3.txt</TargetFilename>
+			<TargetFilename condition="end with">readme4.txt</TargetFilename>
+			<TargetFilename condition="end with">readme5.txt</TargetFilename>
+			<TargetFilename condition="end with">readme6.txt</TargetFilename>
+			<TargetFilename condition="end with">readme7.txt</TargetFilename>
+			<TargetFilename condition="end with">readme8.txt</TargetFilename>
+			<TargetFilename condition="end with">readme9.txt</TargetFilename>
+			<TargetFilename condition="end with">readme.txt</TargetFilename>
+			<TargetFilename condition="end with">readthisnow!!!.txt</TargetFilename>
+			<TargetFilename condition="end with">read.txt</TargetFilename>
+			<TargetFilename condition="end with">recovery_files.txt</TargetFilename>
+			<TargetFilename condition="end with">recovery_file.txt</TargetFilename>
+			<TargetFilename condition="end with">recovery_key.txt</TargetFilename>
+			<TargetFilename condition="end with">restore_files_.txt</TargetFilename>
+			<TargetFilename condition="end with">ryukreadme.html</TargetFilename>
+			<TargetFilename condition="end with">_secret_code.txt</TargetFilename>
+			<TargetFilename condition="end with">secretidhere.key</TargetFilename>
+			<TargetFilename condition="end with">secret.key</TargetFilename>
+			<TargetFilename condition="end with">unblockfiles.vbs</TargetFilename>
+			<TargetFilename condition="end with">your_files_are_encrypted.html</TargetFilename>
+			<TargetFilename condition="end with">your_files.html</TargetFilename>
+			<TargetFilename condition="end with">your_files.url</TargetFilename>
+			<!-- Ransomware can encrypt files, often renaming them in the process. These are common ransomware extensions | Credit: @sduff -->
+			<TargetFilename condition="contains">cpyt</TargetFilename>
+			<TargetFilename condition="contains">crypt</TargetFilename>
+			<TargetFilename condition="contains">darkness</TargetFilename>
+			<TargetFilename condition="contains">decipher</TargetFilename>
+			<TargetFilename condition="contains">enc</TargetFilename>
+			<TargetFilename condition="contains">exx</TargetFilename>
+			<TargetFilename condition="contains">@gmail_com_</TargetFilename>
+			<TargetFilename condition="contains">help_restore</TargetFilename>
+			<TargetFilename condition="contains">help_your_files</TargetFilename>
+			<TargetFilename condition="contains">how_to_recover</TargetFilename>
+			<TargetFilename condition="contains">.hydracrypt_id_</TargetFilename>
+			<TargetFilename condition="contains">@india.com</TargetFilename>
+			<TargetFilename condition="contains">install_tor</TargetFilename>
+			<TargetFilename condition="contains">keemail.me</TargetFilename>
+			<TargetFilename condition="contains">qq_com</TargetFilename>
+			<TargetFilename condition="contains">restore_fi</TargetFilename>
+			<TargetFilename condition="contains">ukr.net</TargetFilename>
+			<TargetFilename condition="contains">.unbrecrypt_id_</TargetFilename>
+			<TargetFilename condition="contains">want your files back</TargetFilename>
+			<TargetFilename condition="end with">.0x0</TargetFilename>
+			<TargetFilename condition="end with">.1999</TargetFilename>
+			<TargetFilename condition="end with">.1cbu1</TargetFilename>
+			<TargetFilename condition="end with">.1txt</TargetFilename>
+			<TargetFilename condition="end with">.73i87a</TargetFilename>
+			<TargetFilename condition="end with">.777</TargetFilename>
+			<TargetFilename condition="end with">.7h9r</TargetFilename>
+			<TargetFilename condition="end with">.8lock8</TargetFilename>
+			<TargetFilename condition="end with">.a5zfn</TargetFilename>
+			<TargetFilename condition="end with">.aaa</TargetFilename>
+			<TargetFilename condition="end with">.abc</TargetFilename>
+			<TargetFilename condition="end with">.adk</TargetFilename>
+			<TargetFilename condition="end with">.adr</TargetFilename>
+			<TargetFilename condition="end with">.aes256</TargetFilename>
+			<TargetFilename condition="end with">aes256</TargetFilename>
+			<TargetFilename condition="end with">.aesir</TargetFilename>
+			<TargetFilename condition="end with">.afd</TargetFilename>
+			<TargetFilename condition="end with">.aga</TargetFilename>
+			<TargetFilename condition="end with">._airacropencrypted</TargetFilename>
+			<TargetFilename condition="end with">.alcatraz</TargetFilename>
+			<TargetFilename condition="end with">.amba</TargetFilename>
+			<TargetFilename condition="end with">.angelamerkel</TargetFilename>
+			<TargetFilename condition="end with">.angleware</TargetFilename>
+			<TargetFilename condition="end with">.antihacker2017</TargetFilename>
+			<TargetFilename condition="end with">.areyoulovemyransfile</TargetFilename>
+			<TargetFilename condition="end with">.areyoulovemyrans</TargetFilename>
+			<TargetFilename condition="end with">.asier</TargetFilename>
+			<TargetFilename condition="end with">.atlas</TargetFilename>
+			<TargetFilename condition="end with">.axx</TargetFilename>
+			<TargetFilename condition="end with">.barrax</TargetFilename>
+			<TargetFilename condition="end with">.bart</TargetFilename>
+			<TargetFilename condition="end with">.bart.zip</TargetFilename>
+			<TargetFilename condition="end with">.better_call_saul</TargetFilename>
+			<TargetFilename condition="end with">.bin</TargetFilename>
+			<TargetFilename condition="end with">.bitstak</TargetFilename>
+			<TargetFilename condition="end with">.bleep</TargetFilename>
+			<TargetFilename condition="end with">.bleepyourfiles</TargetFilename>
+			<TargetFilename condition="end with">.blocatto</TargetFilename>
+			<TargetFilename condition="end with">.bloc</TargetFilename>
+			<TargetFilename condition="end with">.braincrypt</TargetFilename>
+			<TargetFilename condition="end with">.breaking_bad</TargetFilename>
+			<TargetFilename condition="end with">.breeding123</TargetFilename>
+			<TargetFilename condition="end with">.bript</TargetFilename>
+			<TargetFilename condition="end with">.btcbtcbtc</TargetFilename>
+			<TargetFilename condition="end with">.btc-help-you</TargetFilename>
+			<TargetFilename condition="end with">.btc</TargetFilename>
+			<TargetFilename condition="end with">.canihelpyou</TargetFilename>
+			<TargetFilename condition="end with">.cbf</TargetFilename>
+			<TargetFilename condition="end with">.cccrrrppp</TargetFilename>
+			<TargetFilename condition="end with">.ccc</TargetFilename>
+			<TargetFilename condition="end with">.cerber2</TargetFilename>
+			<TargetFilename condition="end with">.cerber3</TargetFilename>
+			<TargetFilename condition="end with">.cerber</TargetFilename>
+			<TargetFilename condition="end with">.checkdiskenced</TargetFilename>
+			<TargetFilename condition="end with">.chifrator@qq_com</TargetFilename>
+			<TargetFilename condition="end with">.cifgksaffsfyghd</TargetFilename>
+			<TargetFilename condition="end with">.clf</TargetFilename>
+			<TargetFilename condition="end with">.coded</TargetFilename>
+			<TargetFilename condition="end with">.code</TargetFilename>
+			<TargetFilename condition="end with">.comrade</TargetFilename>
+			<TargetFilename condition="end with">.conficker</TargetFilename>
+			<TargetFilename condition="end with">.confirmation.key</TargetFilename>
+			<TargetFilename condition="end with">.country82000</TargetFilename>
+			<TargetFilename condition="end with">.coverton</TargetFilename>
+			<TargetFilename condition="end with">.crab</TargetFilename>
+			<TargetFilename condition="end with">.crashed</TargetFilename>
+			<TargetFilename condition="end with">.crime</TargetFilename>
+			<TargetFilename condition="end with">.crinf</TargetFilename>
+			<TargetFilename condition="end with">.criptiko</TargetFilename>
+			<TargetFilename condition="end with">.criptokod</TargetFilename>
+			<TargetFilename condition="end with">.criptoko</TargetFilename>
+			<TargetFilename condition="end with">.cripttt</TargetFilename>
+			<TargetFilename condition="end with">.crjocker</TargetFilename>
+			<TargetFilename condition="end with">.crjoker</TargetFilename>
+			<TargetFilename condition="end with">.crptrgr</TargetFilename>
+			<TargetFilename condition="end with">.crrrt</TargetFilename>
+			<TargetFilename condition="end with">.cryeye</TargetFilename>
+			<TargetFilename condition="end with">.cryp1</TargetFilename>
+			<TargetFilename condition="end with">.crypt38</TargetFilename>
+			<TargetFilename condition="end with">.crypted</TargetFilename>
+			<TargetFilename condition="end with">.crypte</TargetFilename>
+			<TargetFilename condition="end with">.cryptolocker</TargetFilename>
+			<TargetFilename condition="end with">.crypto</TargetFilename>
+			<TargetFilename condition="end with">crypto</TargetFilename>
+			<TargetFilename condition="end with">.cryptotorlocker2015!</TargetFilename>
+			<TargetFilename condition="end with">.cryptowall</TargetFilename>
+			<TargetFilename condition="end with">._crypt</TargetFilename>
+			<TargetFilename condition="end with">.crypt</TargetFilename>
+			<TargetFilename condition="end with">.cryptz</TargetFilename>
+			<TargetFilename condition="end with">.crypz</TargetFilename>
+			<TargetFilename condition="end with">.crysis</TargetFilename>
+			<TargetFilename condition="end with">.cry</TargetFilename>
+			<TargetFilename condition="end with">cry</TargetFilename>
+			<TargetFilename condition="end with">.ctb2</TargetFilename>
+			<TargetFilename condition="end with">.ctbl2</TargetFilename>
+			<TargetFilename condition="end with">.ctbl</TargetFilename>
+			<TargetFilename condition="end with">.czvxce</TargetFilename>
+			<TargetFilename condition="end with">.d4nk</TargetFilename>
+			<TargetFilename condition="end with">.dale</TargetFilename>
+			<TargetFilename condition="end with">.damage</TargetFilename>
+			<TargetFilename condition="end with">.darkness</TargetFilename>
+			<TargetFilename condition="end with">.da_vinci_code</TargetFilename>
+			<TargetFilename condition="end with">.dcrypt</TargetFilename>
+			<TargetFilename condition="end with">.decrypt2017</TargetFilename>
+			<TargetFilename condition="end with">.ded</TargetFilename>
+			<TargetFilename condition="end with">.dexter</TargetFilename>
+			<TargetFilename condition="end with">.dharma</TargetFilename>
+			<TargetFilename condition="end with">.disposed2017</TargetFilename>
+			<TargetFilename condition="end with">.dll</TargetFilename>
+			<TargetFilename condition="end with">.domino</TargetFilename>
+			<TargetFilename condition="end with">.dxxd</TargetFilename>
+			<TargetFilename condition="end with">.dyatel@qq_com</TargetFilename>
+			<TargetFilename condition="end with">.ecc</TargetFilename>
+			<TargetFilename condition="end with">.edgel</TargetFilename>
+			<TargetFilename condition="end with">.encedrsa</TargetFilename>
+			<TargetFilename condition="end with">.enc_files.txt</TargetFilename>
+			<TargetFilename condition="end with">.enciphered</TargetFilename>
+			<TargetFilename condition="end with">.encmywork</TargetFilename>
+			<TargetFilename condition="end with">.encoderpass</TargetFilename>
+			<TargetFilename condition="end with">.encr</TargetFilename>
+			<TargetFilename condition="end with">.encryptedaes</TargetFilename>
+			<TargetFilename condition="end with">.encryptedrsa</TargetFilename>
+			<TargetFilename condition="end with">.encrypted </TargetFilename>
+			<TargetFilename condition="end with">.encrypted</TargetFilename>
+			<TargetFilename condition="end with">.encryptedyourfiles</TargetFilename>
+			<TargetFilename condition="end with">.encrypt</TargetFilename>
+			<TargetFilename condition="end with">.enc</TargetFilename>
+			<TargetFilename condition="end with">.enigma</TargetFilename>
+			<TargetFilename condition="end with">.epic</TargetFilename>
+			<TargetFilename condition="end with">.evillock</TargetFilename>
+			<TargetFilename condition="end with">.exotic</TargetFilename>
+			<TargetFilename condition="end with">.exx</TargetFilename>
+			<TargetFilename condition="end with">.ezz</TargetFilename>
+			<TargetFilename condition="end with">.fantom</TargetFilename>
+			<TargetFilename condition="end with">.file0locked</TargetFilename>
+			<TargetFilename condition="end with">.filegofprencrp</TargetFilename>
+			<TargetFilename condition="end with">.fileiscryptedhard</TargetFilename>
+			<TargetFilename condition="end with">.filock</TargetFilename>
+			<TargetFilename condition="end with">.frtrss</TargetFilename>
+			<TargetFilename condition="end with">.fucked</TargetFilename>
+			<TargetFilename condition="end with">.fuck</TargetFilename>
+			<TargetFilename condition="end with">.fucku</TargetFilename>
+			<TargetFilename condition="end with">.fuckyourdata</TargetFilename>
+			<TargetFilename condition="end with">.fun</TargetFilename>
+			<TargetFilename condition="end with">.gefickt</TargetFilename>
+			<TargetFilename condition="end with">.globe</TargetFilename>
+			<TargetFilename condition="end with">.goforhelp</TargetFilename>
+			<TargetFilename condition="end with">.good</TargetFilename>
+			<TargetFilename condition="end with">.grt</TargetFilename>
+			<TargetFilename condition="end with">.gruzin@qq_com</TargetFilename>
+			<TargetFilename condition="end with">.gws</TargetFilename>
+			<TargetFilename condition="end with">.h3ll</TargetFilename>
+			<TargetFilename condition="end with">.ha3</TargetFilename>
+			<TargetFilename condition="end with">.happenencedfiles</TargetFilename>
+			<TargetFilename condition="end with">.hb15</TargetFilename>
+			<TargetFilename condition="end with">.helpdecrypt@ukr.net</TargetFilename>
+			<TargetFilename condition="end with">.helpmeencedfiles</TargetFilename>
+			<TargetFilename condition="end with">.herbst</TargetFilename>
+			<TargetFilename condition="end with">.hnumkhotep</TargetFilename>
+			<TargetFilename condition="end with">.howcanihelpusir</TargetFilename>
+			<TargetFilename condition="end with">.hush</TargetFilename>
+			<TargetFilename condition="end with">.iaufkakfhsaraf</TargetFilename>
+			<TargetFilename condition="end with">.ifuckedyou</TargetFilename>
+			<TargetFilename condition="end with">.iloveworld</TargetFilename>
+			<TargetFilename condition="end with">.infected</TargetFilename>
+			<TargetFilename condition="end with">.info</TargetFilename>
+			<TargetFilename condition="end with">-instruction.html</TargetFilename>
+			<TargetFilename condition="end with">.isis</TargetFilename>
+			<TargetFilename condition="end with">.iwanthelpuuu</TargetFilename>
+			<TargetFilename condition="end with">.iwishiyou</TargetFilename>
+			<TargetFilename condition="end with">.justbtcwillhelpyou</TargetFilename>
+			<TargetFilename condition="end with">kb15</TargetFilename>
+			<TargetFilename condition="end with">.kernel_complete</TargetFilename>
+			<TargetFilename condition="end with">.kernel_pid</TargetFilename>
+			<TargetFilename condition="end with">.kernel_time</TargetFilename>
+			<TargetFilename condition="end with">.keybtc@inbox_com</TargetFilename>
+			<TargetFilename condition="end with">.keyh0les</TargetFilename>
+			<TargetFilename condition="end with">.keyz</TargetFilename>
+			<TargetFilename condition="end with">.kimcilware</TargetFilename>
+			<TargetFilename condition="end with">.kkk</TargetFilename>
+			<TargetFilename condition="end with">.korrektor</TargetFilename>
+			<TargetFilename condition="end with">.kostya</TargetFilename>
+			<TargetFilename condition="end with">.kraken</TargetFilename>
+			<TargetFilename condition="end with">kraken</TargetFilename>
+			<TargetFilename condition="end with">.kratos</TargetFilename>
+			<TargetFilename condition="end with">.kyra</TargetFilename>
+			<TargetFilename condition="end with">.last_chance.txt</TargetFilename>
+			<TargetFilename condition="end with">.lcked</TargetFilename>
+			<TargetFilename condition="end with">.lechiffre</TargetFilename>
+			<TargetFilename condition="end with">.legion</TargetFilename>
+			<TargetFilename condition="end with">.lesli</TargetFilename>
+			<TargetFilename condition="end with">.letmetrydecfiles</TargetFilename>
+			<TargetFilename condition="end with">.lock93</TargetFilename>
+			<TargetFilename condition="end with">.locked</TargetFilename>
+			<TargetFilename condition="end with">locked</TargetFilename>
+			<TargetFilename condition="end with">.locklock</TargetFilename>
+			<TargetFilename condition="end with">.lock</TargetFilename>
+			<TargetFilename condition="end with">.locky</TargetFilename>
+			<TargetFilename condition="end with">.loli</TargetFilename>
+			<TargetFilename condition="end with">.lol!</TargetFilename>
+			<TargetFilename condition="end with">.loveransisgood</TargetFilename>
+			<TargetFilename condition="end with">.lovewindows</TargetFilename>
+			<TargetFilename condition="end with">.madebyadam</TargetFilename>
+			<TargetFilename condition="end with">.magic</TargetFilename>
+			<TargetFilename condition="end with">.maya</TargetFilename>
+			<TargetFilename condition="end with">.mention9823</TargetFilename>
+			<TargetFilename condition="end with">.merry</TargetFilename>
+			<TargetFilename condition="end with">.message.txt</TargetFilename>
+			<TargetFilename condition="end with">.micro</TargetFilename>
+			<TargetFilename condition="end with">.mole</TargetFilename>
+			<TargetFilename condition="end with">.moments2900</TargetFilename>
+			<TargetFilename condition="end with">.mp3</TargetFilename>
+			<TargetFilename condition="end with">.mrcr1</TargetFilename>
+			<TargetFilename condition="end with">.myransext2017</TargetFilename>
+			<TargetFilename condition="end with">.nalog@qq_com</TargetFilename>
+			<TargetFilename condition="end with">.nefilim</TargetFilename>
+			<TargetFilename condition="end with">.nochance</TargetFilename>
+			<TargetFilename condition="end with">nochance</TargetFilename>
+			<TargetFilename condition="end with">.noproblemwedecfiles</TargetFilename>
+			<TargetFilename condition="end with">.notfoundrans</TargetFilename>
+			<TargetFilename condition="end with">.nuclear55</TargetFilename>
+			<TargetFilename condition="end with">.odcodc</TargetFilename>
+			<TargetFilename condition="end with">.odin</TargetFilename>
+			<TargetFilename condition="end with">.omg!</TargetFilename>
+			<TargetFilename condition="end with">.onion</TargetFilename>
+			<TargetFilename condition="end with">.only-we_can-help_you</TargetFilename>
+			<TargetFilename condition="end with">.oops</TargetFilename>
+			<TargetFilename condition="end with">.oor</TargetFilename>
+			<TargetFilename condition="end with">.oplata@qq_com</TargetFilename>
+			<TargetFilename condition="end with">.oshit</TargetFilename>
+			<TargetFilename condition="end with">oshit</TargetFilename>
+			<TargetFilename condition="end with">.osiris</TargetFilename>
+			<TargetFilename condition="end with">.otherinformation</TargetFilename>
+			<TargetFilename condition="end with">.p5tkjw</TargetFilename>
+			<TargetFilename condition="end with">.padcrypt</TargetFilename>
+			<TargetFilename condition="end with">.paybtcs</TargetFilename>
+			<TargetFilename condition="end with">.paymrss</TargetFilename>
+			<TargetFilename condition="end with">.payms</TargetFilename>
+			<TargetFilename condition="end with">.paymst</TargetFilename>
+			<TargetFilename condition="end with">.paym</TargetFilename>
+			<TargetFilename condition="end with">.paymts</TargetFilename>
+			<TargetFilename condition="end with">.payransom</TargetFilename>
+			<TargetFilename condition="end with">.payrms</TargetFilename>
+			<TargetFilename condition="end with">.pays</TargetFilename>
+			<TargetFilename condition="end with">.pdcr</TargetFilename>
+			<TargetFilename condition="end with">.pec</TargetFilename>
+			<TargetFilename condition="end with">.pegs1</TargetFilename>
+			<TargetFilename condition="end with">.perl</TargetFilename>
+			<TargetFilename condition="end with">.pizda@qq_com</TargetFilename>
+			<TargetFilename condition="end with">.poar2w</TargetFilename>
+			<TargetFilename condition="end with">.porno</TargetFilename>
+			<TargetFilename condition="end with">.poshkoder</TargetFilename>
+			<TargetFilename condition="end with">.potato</TargetFilename>
+			<TargetFilename condition="end with">.powerfulldecryp</TargetFilename>
+			<TargetFilename condition="end with">.powerfulldecrypt</TargetFilename>
+			<TargetFilename condition="end with">.prosperous666</TargetFilename>
+			<TargetFilename condition="end with">.pubg</TargetFilename>
+			<TargetFilename condition="end with">.purge</TargetFilename>
+			<TargetFilename condition="end with">.pzdc</TargetFilename>
+			<TargetFilename condition="end with">.r16m01d05</TargetFilename>
+			<TargetFilename condition="end with">.r4a</TargetFilename>
+			<TargetFilename condition="end with">.r5a</TargetFilename>
+			<TargetFilename condition="end with">.radamant</TargetFilename>
+			<TargetFilename condition="end with">.rad</TargetFilename>
+			<TargetFilename condition="end with">.raid10</TargetFilename>
+			<TargetFilename condition="end with">.rare1</TargetFilename>
+			<TargetFilename condition="end with">.razy</TargetFilename>
+			<TargetFilename condition="end with">.rdm</TargetFilename>
+			<TargetFilename condition="end with">.realfs0ciety@sigaint.org.fs0ciety</TargetFilename>
+			<TargetFilename condition="end with">.recovery_file.txt</TargetFilename>
+			<TargetFilename condition="end with">.recovery_key.txt</TargetFilename>
+			<TargetFilename condition="end with">.rekt</TargetFilename>
+			<TargetFilename condition="end with">.relock@qq_com</TargetFilename>
+			<TargetFilename condition="end with">.remind</TargetFilename>
+			<TargetFilename condition="end with">.rip</TargetFilename>
+			<TargetFilename condition="end with">.rmcm1</TargetFilename>
+			<TargetFilename condition="end with">.rmd</TargetFilename>
+			<TargetFilename condition="end with">.rnsmwr</TargetFilename>
+			<TargetFilename condition="end with">.rokku</TargetFilename>
+			<TargetFilename condition="end with">.rrk</TargetFilename>
+			<TargetFilename condition="end with">.rsnslocked</TargetFilename>
+			<TargetFilename condition="end with">.rsplited</TargetFilename>
+			<TargetFilename condition="end with">.ruby</TargetFilename>
+			<TargetFilename condition="end with">.ryk</TargetFilename>
+			<TargetFilename condition="end with">._ryp</TargetFilename>
+			<TargetFilename condition="end with">.sage</TargetFilename>
+			<TargetFilename condition="end with">.sanctioned</TargetFilename>
+			<TargetFilename condition="end with">.sanction</TargetFilename>
+			<TargetFilename condition="end with">.scl</TargetFilename>
+			<TargetFilename condition="end with">.securecrypted</TargetFilename>
+			<TargetFilename condition="end with">.serpent</TargetFilename>
+			<TargetFilename condition="end with">.serp</TargetFilename>
+			<TargetFilename condition="end with">.sexy</TargetFilename>
+			<TargetFilename condition="end with">.shino</TargetFilename>
+			<TargetFilename condition="end with">.shit</TargetFilename>
+			<TargetFilename condition="end with">.silent</TargetFilename>
+			<TargetFilename condition="end with">.skjdthghh</TargetFilename>
+			<TargetFilename condition="end with">.spora</TargetFilename>
+			<TargetFilename condition="end with">.sport</TargetFilename>
+			<TargetFilename condition="end with">.stn</TargetFilename>
+			<TargetFilename condition="end with">.stubbin</TargetFilename>
+			<TargetFilename condition="end with">.supercrypt</TargetFilename>
+			<TargetFilename condition="end with">.supported2017</TargetFilename>
+			<TargetFilename condition="end with">.suppose665</TargetFilename>
+			<TargetFilename condition="end with">.suppose666</TargetFilename>
+			<TargetFilename condition="end with">.surprise</TargetFilename>
+			<TargetFilename condition="end with">.szf</TargetFilename>
+			<TargetFilename condition="end with">.theworldisyours</TargetFilename>
+			<TargetFilename condition="end with">.thor</TargetFilename>
+			<TargetFilename condition="end with">.toxcrypt</TargetFilename>
+			<TargetFilename condition="end with">.troyancoder@qq_com</TargetFilename>
+			<TargetFilename condition="end with">.trun</TargetFilename>
+			<TargetFilename condition="end with">.ttt</TargetFilename>
+			<TargetFilename condition="end with">.tzu</TargetFilename>
+			<TargetFilename condition="end with">.unavailable</TargetFilename>
+			<TargetFilename condition="end with">.vault.hta</TargetFilename>
+			<TargetFilename condition="end with">.vault.key</TargetFilename>
+			<TargetFilename condition="end with">.vault</TargetFilename>
+			<TargetFilename condition="end with">.vault.txt</TargetFilename>
+			<TargetFilename condition="end with">.vbransom</TargetFilename>
+			<TargetFilename condition="end with">.vekanhelpu</TargetFilename>
+			<TargetFilename condition="end with">.venusf</TargetFilename>
+			<TargetFilename condition="end with">.venusp</TargetFilename>
+			<TargetFilename condition="end with">.vforvendetta</TargetFilename>
+			<TargetFilename condition="end with">.vindows</TargetFilename>
+			<TargetFilename condition="end with">.vscrypt</TargetFilename>
+			<TargetFilename condition="end with">.vvv</TargetFilename>
+			<TargetFilename condition="end with">.vxlock</TargetFilename>
+			<TargetFilename condition="end with">.wallet</TargetFilename>
+			<TargetFilename condition="end with">.wcry</TargetFilename>
+			<TargetFilename condition="end with">.weapologize</TargetFilename>
+			<TargetFilename condition="end with">.weareyourfriends</TargetFilename>
+			<TargetFilename condition="end with">.weencedufiles</TargetFilename>
+			<TargetFilename condition="end with">.wflx</TargetFilename>
+			<TargetFilename condition="end with">.whereisyourfiles</TargetFilename>
+			<TargetFilename condition="end with">.where_my_files.txt</TargetFilename>
+			<TargetFilename condition="end with">.windows10</TargetFilename>
+			<TargetFilename condition="end with">.wncry</TargetFilename>
+			<TargetFilename condition="end with">.wncryt</TargetFilename>
+			<TargetFilename condition="end with">.wnry</TargetFilename>
+			<TargetFilename condition="end with">.wowreadfordecryp</TargetFilename>
+			<TargetFilename condition="end with">.wowwhereismyfiles</TargetFilename>
+			<TargetFilename condition="end with">.xcri</TargetFilename>
+			<TargetFilename condition="end with">.xort</TargetFilename>
+			<TargetFilename condition="end with">.xrnt</TargetFilename>
+			<TargetFilename condition="end with">.xrtn</TargetFilename>
+			<TargetFilename condition="end with">.xtbl</TargetFilename>
+			<TargetFilename condition="end with">.xxx</TargetFilename>
+			<TargetFilename condition="end with">.xyz</TargetFilename>
+			<TargetFilename condition="end with">.ytbl</TargetFilename>
+			<TargetFilename condition="end with">.z81928819</TargetFilename>
+			<TargetFilename condition="end with">.zc3791</TargetFilename>
+			<TargetFilename condition="end with">.zcrypt</TargetFilename>
+			<TargetFilename condition="end with">.zepto</TargetFilename>
+			<TargetFilename condition="end with">.zorro</TargetFilename>
+			<TargetFilename condition="end with">.zyklon</TargetFilename>
+			<TargetFilename condition="end with">.zzz</TargetFilename>
+			<TargetFilename condition="end with">.zzzzz</TargetFilename>
 		</FileCreate>
 	</RuleGroup>
 
 	<RuleGroup name="" groupRelation="or">
 		<FileCreate onmatch="exclude">
 			<!--SECTION: Microsoft-->
-			<Image condition="is">C:\Program Files (x86)\EMET 5.5\EMET_Service.exe</Image> <!--Microsoft:EMET: Writes to C:\Windows\AppPatch\-->
+			<Image condition="is">C:\Program Files (x86)\EMET 5.5\EMET_Service.exe</Image> <!--Microsoft:EMET: Writes to C:\Windows\AppPatch\-->			
 			<!--SECTION: Microsoft:Office:Click2Run-->
 			<Image condition="is">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeC2RClient.exe</Image> <!-- Microsoft:Office Click2Run-->
 			<!--SECTION: Windows-->
@@ -551,12 +1088,34 @@
 			<Image condition="is">C:\Windows\system32\CompatTelRunner.exe</Image> <!-- Windows: Windows 10 app, creates tons of cache files-->
 			<Image condition="is">\\?\C:\Windows\system32\wbem\WMIADAP.EXE</Image> <!-- Windows: WMI Performance updates-->
 			<Image condition="is">C:\Windows\system32\mobsync.exe</Image> <!--Windows: Network file syncing-->
+			<Image condition="is">C:\Windows\System32\WUDFHost.exe</Image> <!--Windows: Windows User-Mode Driver Framework Host. Safe as long as in the correct path. -->
 			<TargetFilename condition="begin with">C:\Windows\system32\DriverStore\Temp\</TargetFilename> <!-- Windows: Temp files by DrvInst.exe-->
 			<TargetFilename condition="begin with">C:\Windows\system32\wbem\Performance\</TargetFilename> <!-- Windows: Created in wbem by WMIADAP.exe-->
 			<TargetFilename condition="begin with">C:\Windows\Installer\</TargetFilename> <!--Windows:Installer: Ignore MSI installer files caching-->
+
+			<Image condition="is">C:\Windows\system32\cleanmgr.exe</Image> <!--Microsoft: Automating Disk Cleanup tool -->
 			<!--SECTION: Windows:Updates-->
 			<TargetFilename condition="begin with">C:\$WINDOWS.~BT\Sources\</TargetFilename> <!-- Windows: Feature updates containing lots of .exe and .sys-->
 			<Image condition="begin with">C:\Windows\winsxs\amd64_microsoft-windows</Image> <!-- Windows: Windows update-->
+			
+		</FileCreate>
+	</RuleGroup>
+
+	<RuleGroup name="" groupRelation="and">
+		<!-- Firefox Preferences -->
+		<FileCreate onmatch="exclude">
+			<Image condition="is">C:\Program Files\Mozilla Firefox\firefox.exe</Image> <!-- Only if FireFox creates the File -->
+			<TargetFilename condition="contains">backgroundupdate\prefs</TargetFilename> <!-- Exclude the Firefox preferences Files -->
+			<TargetFilename condition="end with">.js</TargetFilename>
+		</FileCreate>
+	</RuleGroup>
+
+	<RuleGroup name="" groupRelation="and">
+		<!-- Exchange PolicyTest -->
+		<FileCreate onmatch="exclude">
+			<Image condition="is">C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe</Image> <!-- Only if powershell.exe creates the File -->
+			<TargetFilename condition="contains">AppData\Local\Temp\__PSScriptPolicyTest</TargetFilename> <!-- Exclude the PolicyTest Script -->
+			<TargetFilename condition="end with">.ps1</TargetFilename>
 		</FileCreate>
 	</RuleGroup>
 
@@ -589,6 +1148,7 @@
 				<!--ADDITIONAL REFERENCE: [ http://www.silentrunners.org/launchpoints.html ] -->
 				<!--ADDITIONAL REFERENCE: [ https://www.microsoftpressstore.com/articles/article.aspx?p=2762082&seqNum=2 ] -->
 				<!--ADDITIONAL REFERENCE: [ https://web.archive.org/web/20200116001643/http://scholarworks.rit.edu/cgi/viewcontent.cgi?article=1533&context=theses | Understanding malware autostart techniques - Matthew Gottlieb ] -->
+			<TargetObject name="T1562.002" condition="end with">\MiniNT</TargetObject> <!--Windows: Disable eventlog by acting like WinPE [https://twitter.com/0gtweet/status/1182516740955226112]  -->
 			<TargetObject name="T1060,RunKey" condition="contains">CurrentVersion\Run</TargetObject> <!--Windows: Wildcard for Run keys, including RunOnce, RunOnceEx, RunServices, RunServicesOnce [Also covers terminal server] -->
 			<TargetObject name="T1060,RunPolicy" condition="contains">Policies\Explorer\Run</TargetObject> <!--Windows: Alternate runs keys | Credit @ion-storm-->
 			<TargetObject name="T1484" condition="contains">Group Policy\Scripts</TargetObject> <!--Windows: Group policy scripts-->
@@ -669,6 +1229,7 @@
 			<!--Office-->
 			<TargetObject name="T1137" condition="contains">Microsoft\Office\Outlook\Addins\</TargetObject> <!--Microsoft:Office: Outlook add-ins, access to sensitive data and often cause issues-->
 			<TargetObject name="T1137" condition="contains">Office Test\</TargetObject> <!-- Microsoft:Office: Persistence method [ http://www.hexacorn.com/blog/2014/04/16/beyond-good-ol-run-key-part-10/ ] | Credit @Hexacorn -->
+			<TargetObject name="Suspicious,ChangedURLOutlook" condition="contains all">\Software\Microsoft\Office\;\Outlook\WebView\;URL</TargetObject> <!-- The URL shouldn't be changed all that often and could enable persistance for hackers | @humpelpum [ https://speakerdeck.com/heirhabarov/hunting-for-persistence-via-microsoft-exchange-server-or-outlook?slide=70 ]-->
 			<TargetObject name="Context,ProtectedModeExitOrMacrosUsed" condition="contains">Security\Trusted Documents\TrustRecords</TargetObject> <!--Microsoft:Office: Monitor when "Enable editing" or "Enable macros" is used | Credit @OutflankNL | [ https://outflank.nl/blog/2018/01/16/hunting-for-evil-detect-macros-being-executed/ ] -->
 			<TargetObject name="Context,ContactedDomain" condition="end with">\EnableBHO</TargetObject> <!--Microsoft:Office: Contacted domains stored here 'HKEY_CURRENT_USER\<SID>\SOFTWARE\Microsoft\Office\16.0\Common\Internet\Server Cache\<domain>\EnableBHO' -->
 			<!--IE-->
@@ -694,10 +1255,15 @@
 			<TargetObject name="T1089,Tamper-Defender" condition="end with">\SpynetReporting</TargetObject> <!--Windows:Defender: State modified via registry-->
 			<TargetObject name="T1089,Tamper-Defender" condition="end with">DisableRealtimeMonitoring</TargetObject> <!--Windows:Defender: State modified via registry-->
 			<TargetObject name="T1089,Tamper-Defender" condition="end with">\SubmitSamplesConsent</TargetObject> <!--Windows:Defender: State modified via registry-->
-			<TargetObject name="T1562,Tamper-Defender" condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Exclusions\</TargetObject> <!--Windows:Defender: Exclusions in policy key-->
+			<TargetObject name="T1562,Tamper-Defender" condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows Defender</TargetObject> <!--Windows:Defender: Monitor any modified via registry-->
+			<TargetObject name="T1089" condition="begin with">HKLM\SOFTWARE\Microsoft\Security Center\AntiVirusDisableNotify</TargetObject> <!--Detect: UAC Tampering | Credit Moti Bani (Moti.Ba@hotmail.com) -->
+
 			<!--Windows UAC tampering-->
 			<TargetObject name="T1088" condition="end with">HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\EnableLUA</TargetObject> <!--Detect: UAC Tampering | Credit @ion-storm -->
 			<TargetObject name="T1088" condition="end with">HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\LocalAccountTokenFilterPolicy</TargetObject> <!--Detect: UAC Tampering | Credit @ion-storm -->
+			<TargetObject name="T1089" condition="begin with">HKLM\SOFTWARE\Microsoft\Security Center\UacDisableNotify</TargetObject> <!--Detect: UAC Tampering | Credit Moti Bani (Moti.Ba@hotmail.com) -->
+			<TargetObject name="T1089" condition="begin with">HKLM\SOFTWARE\Microsoft\Security Center\UpdatesDisableNotify</TargetObject> <!--Detect: UAC Tampering | Credit Moti Bani (Moti.Ba@hotmail.com) -->
+
 			<!--Microsoft Security Center tampering | Credit @ion-storm -->
 			<TargetObject name="T1089,Tamper-SecCenter" condition="end with">HKLM\Software\Microsoft\Security Center\</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
 			<TargetObject name="T1089,Tamper-SecCenter" condition="end with">SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\HideSCAHealth</TargetObject> <!--Windows:Security Center: Malware sometimes disables [ https://blog.avast.com/2013/08/12/your-documents-are-corrupted-from-image-to-an-information-stealing-trojan/ ] -->
@@ -712,6 +1278,14 @@
 			<TargetObject name="Tamper-Winlogon" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Winlogon\</TargetObject> <!--Windows: Providers notified by WinLogon-->
 			<TargetObject name="Context,DeviceConnectedOrUpdated" condition="end with">\FriendlyName</TargetObject> <!--Windows: New devices connected and remembered-->
 			<TargetObject name="Context,MsiInstallerStarted" condition="is">HKLM\Software\Microsoft\Windows\CurrentVersion\Installer\InProgress\(Default)</TargetObject> <!--Windows: See when WindowsInstaller is engaged, useful for timeline matching with other events-->
+			
+			<!--Windows trust architecture monitoring | Credit: @mattifestation-->
+				<!--ADDITIONAL REFERENCE: https://specterops.io/assets/resources/SpecterOps_Subverting_Trust_in_Windows.pdf-->
+			<TargetObject condition="contains">Microsoft\Cryptography\OID\</TargetObject> <!-- Important trust registry values to monitor -->
+			<TargetObject condition="contains">WOW6432Node\Microsoft\Cryptography\OID\</TargetObject> <!-- Important trust registry values to monitor -->
+			<TargetObject condition="contains">Microsoft\Cryptography\Providers\Trust\</TargetObject> <!-- Important trust registry values to monitor -->
+			<TargetObject condition="contains">WOW6432Node\Microsoft\Cryptography\Providers\Trust\</TargetObject> <!-- Important trust registry values to monitor -->
+			
 			<TargetObject name="Tamper-Tracing" condition="begin with">HKLM\Software\Microsoft\Tracing\RASAPI32</TargetObject> <!--Windows: Malware sometimes disables tracing to obfuscate tracks-->
 			<TargetObject name="Context,ProcessAccessedPrivateResource" condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\</TargetObject> <!-- Windows: Win10 tracks when and what process uses webcam/microphone/location etc [ https://medium.com/@7a616368/can-you-track-processes-accessing-the-camera-and-microphone-7e6885b37072 ] -->
 			<TargetObject condition="contains">\Keyboard Layout\Preload</TargetObject> <!--Microsoft:Windows: Keyboard layout loaded into user session [ https://renenyffenegger.ch/notes/Windows/registry/tree/HKEY_CURRENT_USER/Keyboard-Layout/Preload/index ] | Credit @cyb3rops -->
@@ -724,9 +1298,21 @@
 			<TargetObject name="InvDB-DriverVer" condition="end with">\DriverVerVersion</TargetObject> <!-- [ https://df-stream.com/2015/02/leveraging-devicecontainers-key/ ] -->
 			<TargetObject name="InvDB-CompileTimeClaim" condition="end with">\LinkDate</TargetObject> <!-- Compile time of EXE, may not be reliable [ https://en.wikipedia.org/wiki/Link_time ] -->
 			<TargetObject name="InvDB" condition="contains">Compatibility Assistant\Store\</TargetObject> <!-- Inventory -->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Ports</TargetObject> <!--Microsoft:Windows: Printer port changes as used in CVE-2020-1048 [ https://windows-internals.com/printdemon-cve-2020-1048/ ] -->
+			<TargetObject condition="contains">\Keyboard Layout\Preload</TargetObject> <!--Microsoft:Windows: Keyboard layout loaded into user session [ https://renenyffenegger.ch/notes/Windows/registry/tree/HKEY_CURRENT_USER/Keyboard-Layout/Preload/index ] -->
+			<TargetObject condition="contains">\Keyboard Layout\Substitutes</TargetObject> <!--Microsoft:Windows: Keyboard layout loaded into user session [ https://renenyffenegger.ch/notes/Windows/registry/tree/HKEY_CURRENT_USER/Keyboard-Layout/Preload/index ] -->
 			<!--Suspicious sources-->
 			<Image name="Suspicious,ImageBeginWithBackslash" condition="end with">regedit.exe</Image> <!--Users and helpdesk staff making system modifications -->
 			<Image name="Suspicious,ImageBeginWithBackslash" condition="begin with">\</Image> <!--Devices and VSC shouldn't be executing changes | Credit: @SBousseaden @ionstorm @neu5ron @PerchedSystems [ https://twitter.com/SwiftOnSecurity/status/1133167323991486464 ] -->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\</TargetObject> <!--Microsoft:Windows:UAC: Detect malware changes to UAC prompt level-->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\</TargetObject> <!--Microsoft:Defender: Detect changes to Defender administrative settings to monitor for disablement-->
+			<!--Windows trust architecture monitoring | Credit: @mattifestation-->
+			<!--ADDITIONAL REFERENCE: https://specterops.io/assets/resources/SpecterOps_Subverting_Trust_in_Windows.pdf-->
+			<TargetObject condition="contains">Microsoft\Cryptography\OID\</TargetObject> <!-- Important trust registry values to monitor -->
+			<TargetObject condition="contains">WOW6432Node\Microsoft\Cryptography\OID\</TargetObject> <!-- Important trust registry values to monitor -->
+			<TargetObject condition="contains">Microsoft\Cryptography\Providers\Trust\</TargetObject> <!-- Important trust registry values to monitor -->
+			<TargetObject condition="contains">WOW6432Node\Microsoft\Cryptography\Providers\Trust\</TargetObject> <!-- Important trust registry values to monitor -->
+			<TargetObject condition="contains">Control\Print\Environments\Windows x64\Drivers</TargetObject> <!-- PrinterNightmare coverage -->
 		</RegistryEvent>
 	</RuleGroup>
 
@@ -737,8 +1323,10 @@
 			<TargetObject condition="contains">\{CAFEEFAC-</TargetObject>
 			<EventType condition="is">CreateKey</EventType>
 			<TargetObject condition="begin with">HKLM\COMPONENTS</TargetObject>
+			
 			<!--Inventory noise-->
 			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\AppModel\StateRepository\Cache</TargetObject>
+			
 			<!--Misc-->
 			<TargetObject condition="end with">Toolbar\WebBrowser</TargetObject> <!--Microsoft:IE: Extraneous activity-->
 			<TargetObject condition="end with">Browser\ITBar7Height</TargetObject> <!--Microsoft:IE: Extraneous activity, covers ShellBrowser and WebBrowser-->
@@ -752,10 +1340,12 @@
 			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\</TargetObject> <!--Windows: Remove noise monitoring installations run as system-->
 			<TargetObject condition="contains">_Classes\AppX</TargetObject> <!--Windows: Remove noise monitoring "Shell\open\command"--> <!--Win8+-->
 			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\WINEVT\Publishers\</TargetObject> <!--Windows: SvcHost Noise-->
+			
 			<!--Bootup Control noise-->
 			<TargetObject condition="end with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\LsaPid</TargetObject> <!--Windows:lsass.exe: Boot noise-->
 			<TargetObject condition="end with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\SspiCache</TargetObject> <!--Windows:lsass.exe: Boot noise--> <!--Win8+-->
 			<TargetObject condition="end with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\Kerberos\Domains</TargetObject> <!--Windows:lsass.exe: Boot noise--> <!--Win8+-->
+			
 			<!--Services startup settings noise, some low-risk services routinely change it and this can be ignored-->
 			<TargetObject condition="end with">\Services\BITS\Start</TargetObject> <!--Windows: Remove noise from monitoring "\Start"-->
 			<TargetObject condition="end with">\services\clr_optimization_v2.0.50727_32\Start</TargetObject> <!--Microsoft:dotNet: Windows 7-->
@@ -768,11 +1358,13 @@
 			<TargetObject condition="end with">\services\trustedInstaller\Start</TargetObject> <!--Windows: Remove noise from monitoring "\Start"-->
 			<TargetObject condition="end with">\services\tunnel\Start</TargetObject> <!--Windows: Remove noise from monitoring "\Start"-->
 			<TargetObject condition="end with">\services\usoSvc\Start</TargetObject> <!--Windows: Remove noise from monitoring "\Start"-->
+			
 			<!--FileExts noise filtering-->
 			<TargetObject condition="end with">\UserChoice\ProgId</TargetObject> <!--Windows: Remove noise from monitoring "FileExts"--> <!--Win8+-->
 			<TargetObject condition="end with">\UserChoice\Hash</TargetObject> <!--Windows: Remove noise from monitoring "FileExts"--> <!--Win8+-->
 			<TargetObject condition="end with">\OpenWithList\MRUList</TargetObject> <!--Windows: Remove noise from monitoring "FileExts"-->
 			<TargetObject condition="contains">Shell Extentions\Cached</TargetObject> <!--Windows: Remove noise generated by explorer.exe on monitored ShellCached binary keys--> <!--Win8+-->
+			
 			<!--Group Policy noise-->
 			<TargetObject condition="end with">HKLM\System\CurrentControlSet\Control\Lsa\Audit\SpecialGroups</TargetObject> <!--Windows: Routinely set through Group Policy, not especially important to log-->
 			<TargetObject condition="end with">SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Startup\0\PSScriptOrder</TargetObject> <!--Windows:Group Policy: Noise below the actual key while building-->
@@ -786,13 +1378,16 @@
 			<TargetObject condition="end with">SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Shutdown\0\0\IsPowershell</TargetObject> <!--Windows:Group Policy: Noise below the actual key while building-->
 			<TargetObject condition="end with">SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Shutdown\0\0\ExecTime</TargetObject> <!--Windows:Group Policy: Noise below the actual key while building-->
 			<TargetObject condition="contains">\safer\codeidentifiers\0\HASHES\{</TargetObject> <!--Windows: Software Restriction Policies. Can be used to disable security tools, but very noisy to monitor if you use it-->
+			
 			<!--SECTION: Office C2R-->
 			<TargetObject condition="contains">VirtualStore\MACHINE\SOFTWARE\Microsoft\Office\ClickToRun\</TargetObject> <!--Microsoft: SearchProtocolHost writes to OfficeC2R registry for Outlook, seemingly regarding mail indexing-->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Office\ClickToRun\</TargetObject> <!--Microsoft: Virtual registry for Office-->
+			
 			<!--SECTION: 3rd party-->
 			<Image condition="is">C:\Program Files\WIDCOMM\Bluetooth Software\btwdins.exe</Image> <!--Constantly writes to HKLM-->
 			<TargetObject condition="begin with">HKCR\VLC.</TargetObject> <!--VLC update noise-->
 			<TargetObject condition="begin with">HKCR\iTunes.</TargetObject> <!--Apple: iTunes update noise-->
+			
 			<!--WINEVT publishers noise-->
 			<TargetObject condition="is">HKLM\Software\Microsoft\Windows\CurrentVersion\WINEVT\Publishers\{945a8954-c147-4acd-923f-40c45405a658}</TargetObject> <!--Windows update-->
 		</RegistryEvent>
@@ -821,12 +1416,24 @@
 			<TargetFilename condition="end with">.ps1</TargetFilename> <!--PowerShell-->
 			<TargetFilename condition="end with">.ps2</TargetFilename> <!--PowerShell-->
 			<TargetFilename condition="end with">.reg</TargetFilename> <!--Registry File-->
+			<TargetFilename condition="end with">.js</TargetFilename> <!-- Microsoft JScript -->
 			<TargetFilename condition="end with">.sct</TargetFilename> <!--Scripting | Credit @bartblaze -->
 			<TargetFilename condition="end with">.vb</TargetFilename> <!--VisualBasicScripting files-->
 			<TargetFilename condition="end with">.vbe</TargetFilename> <!--VisualBasicScripting files-->
 			<TargetFilename condition="end with">.vbs</TargetFilename> <!--VisualBasicScripting files-->
 			<TargetFilename condition="end with">.wsc</TargetFilename> <!--Scripting | Credit @bartblaze -->
 			<TargetFilename condition="end with">.wsf</TargetFilename> <!--Scripting | Credit @bartblaze -->
+			<TargetFilename condition="end with">.docm</TargetFilename> <!--Office Word potentially with macro -->
+			<TargetFilename condition="end with">.docx</TargetFilename> <!--Office Word potentially with macro -->
+			<TargetFilename condition="end with">.xls</TargetFilename> <!--Office Excel potentially with macro -->
+			<TargetFilename condition="end with">.xlsm</TargetFilename> <!--Office Excel potentially with macro -->
+			<TargetFilename condition="end with">.xlsx</TargetFilename> <!--Office Excel potentially with macro -->
+			<TargetFilename condition="end with">.pptm</TargetFilename> <!--Office PowerPoint potentially with macro -->
+			<TargetFilename condition="end with">.pptx</TargetFilename> <!--Office PowerPoint potentially with macro -->
+			<TargetFilename condition="end with">.rtf</TargetFilename> <!--RTF file potentially with exploitation -->
+			<TargetFilename condition="end with">.pdf</TargetFilename> <!--PDF file potentially with exploitation -->
+			<TargetFilename condition="end with">.zip</TargetFilename> <!--ZIP file potentially with delivering malicious files -->
+			<TargetFilename condition="end with">.7z</TargetFilename> <!--7-ZIP file potentially with delivering malicious files -->
 		</FileCreateStreamHash>
 
 	<RuleGroup name="" groupRelation="or">
@@ -847,17 +1454,21 @@
 
 		<!--ADDITIONAL REFERENCE: [ https://www.cobaltstrike.com/help-smb-beacon ] -->
 		<!--ADDITIONAL REFERENCE: [ https://blog.cobaltstrike.com/2015/10/07/named-pipe-pivoting/ ] -->
+		<!--ADDITIONAL REFERENCE: [ https://blog.cobaltstrike.com/2021/02/09/learn-pipe-fitting-for-all-of-your-offense-projects/ ] -->
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, PipeName, Image-->
 		<RuleGroup name="" groupRelation="or">
 			<PipeEvent onmatch="include">
 				<!-- Remote Command Execution Tools -->
 				<PipeName condition="contains any">paexec;remcom;csexec</PipeName>
+				
 				<!-- Password or Credential Dumpers -->
 				<PipeName condition="contains any">\lsadump;\cachedump;\wceservicepipe</PipeName>
+				
 				<!-- Malware -->
 				<PipeName condition="contains any">\isapi_http;\isapi_dg;\isapi_dg2;\sdlrpc;\ahexec;\winsession;\lsassw;\46a676ab7f179e511e30dd2dc41bd388;\9f81f59bc58452127884ce513865ed20;\e710f28d59aa529d6792ca6ff0ca1b34;\rpchlp_3;\NamePipe_MoreWindows;\pcheap_reuse;\gruntsvc;\583da945-62af-10e8-4902-a8f205c72b2e;\bizkaz;\svcctl;\Posh;\jaccdpqnvbrrxlaf;\csexecsvc</PipeName>
 				<PipeName condition="contains any">\atctl;\userpipe;\iehelper;\sdlrpc;\comnap</PipeName>
+				
 				<!-- Cobalt Strike Pipe Names -->
 				<PipeName condition="contains all">MSSE-;-server</PipeName>
 				<PipeName condition="begin with">\postex_</PipeName>
@@ -926,6 +1537,7 @@
 			<QueryName condition="end with">.msftncsi.com</QueryName> <!--Microsoft proxy detection | Microsoft default exclusion-->
 			<QueryName condition="is">..localmachine</QueryName>
 			<QueryName condition="is">localhost</QueryName>
+			
 			<!--Microsoft-->
 			<QueryName condition="end with">-pushp.svc.ms</QueryName> <!--Microsoft: Doesn't appear to host customer content or subdomains-->
 			<QueryName condition="end with">.b-msedge.net</QueryName> <!--Microsoft: Doesn't appear to host customer content or subdomains-->
@@ -949,6 +1561,7 @@
 			<QueryName condition="end with">.xboxlive.com</QueryName> <!--Microsoft-->
 			<QueryName condition="is">login.windows.net</QueryName> <!--Microsoft-->
 			<Image condition="begin with">C:\ProgramData\Microsoft\Windows Defender\Platform\</Image> <!--Microsoft: https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/network-protection -->
+			
 			<!--Microsoft:Office365/AzureAD-->
 			<QueryName condition="end with">.activedirectory.windowsazure.com</QueryName> <!--Microsoft: AzureAD-->
 			<QueryName condition="end with">.aria.microsoft.com</QueryName> <!--Microsoft: OneDrive/SharePoint-->
@@ -967,6 +1580,7 @@
 			<QueryName condition="is">protection.outlook.com</QueryName> <!--Microsoft: Office-->
 			<QueryName condition="is">substrate.office.com</QueryName> <!--Microsoft: Office-->
 			<QueryName condition="end with">.measure.office.com</QueryName> <!--Microsoft: Office-->
+			
 			<!--3rd-party applications-->
 			<QueryName condition="end with">.adobe.com</QueryName> <!--Adobe-->
 			<QueryName condition="end with">.adobe.io</QueryName> <!--Adobe-->
@@ -985,10 +1599,12 @@
 			<QueryName condition="is">clients5.google.com</QueryName> <!--Google-->
 			<QueryName condition="is">clients6.google.com</QueryName> <!--Google-->
 			<QueryName condition="is">safebrowsing.googleapis.com</QueryName> <!--Google-->
+			
 			<!--Goodlist CDN-->
 			<QueryName condition="end with">.akadns.net</QueryName> <!--AkamaiCDN, extensively used by Microsoft | Microsoft default exclusion-->
 			<QueryName condition="end with">.netflix.com</QueryName>
-			<QueryName condition="end with">aspnetcdn.com</QueryName> <!--Microsoft [ https://docs.microsoft.com/en-us/aspnet/ajax/cdn/overview ]-->
+			<QueryName condition="is">aspnetcdn.com</QueryName> <!--Microsoft [ https://docs.microsoft.com/en-us/aspnet/ajax/cdn/overview ]-->
+			<QueryName condition="end with">.aspnetcdn.com</QueryName> <!--Microsoft [ https://docs.microsoft.com/en-us/aspnet/ajax/cdn/overview ]-->
 			<QueryName condition="is">ajax.googleapis.com</QueryName>
 			<QueryName condition="is">cdnjs.cloudflare.com</QueryName> <!--Cloudflare: Hosts popular javascript libraries-->
 			<QueryName condition="is">fonts.googleapis.com</QueryName> <!--Google fonts-->
@@ -998,10 +1614,12 @@
 			<QueryName condition="end with">.steamcontent.com</QueryName>
 			<QueryName condition="is">play.google.com</QueryName>
 			<QueryName condition="is">content-autofill.googleapis.com</QueryName>
+			
 			<!--Web resources-->
 			<QueryName condition="end with">.disqus.com</QueryName> <!--Microsoft default exclusion-->
 			<QueryName condition="end with">.fontawesome.com</QueryName>
 			<QueryName condition="is">disqus.com</QueryName> <!--Microsoft default exclusion-->
+			
 			<!--Ads-->
 			<QueryName condition="end with">.1rx.io</QueryName> <!--Ads-->
 			<QueryName condition="end with">.2mdn.net</QueryName> <!--Ads: Google | Microsoft default exclusion-->
@@ -1104,8 +1722,10 @@
 			<QueryName condition="is">mtalk.google.com</QueryName> <!--Google-->
 			<QueryName condition="is">update.googleapis.com</QueryName> <!--Google-->
 			<QueryName condition="is">www.googletagservices.com</QueryName> <!--Google-->
+			
 			<!--SocialNet-->
 			<QueryName condition="end with">.pscp.tv</QueryName> <!--Twitter:Periscope-->
+			
 			<!--OSCP/CRL Common-->
 			<QueryName condition="end with">.amazontrust.com</QueryName>
 			<QueryName condition="end with">.digicert.com</QueryName>
@@ -1118,6 +1738,7 @@
 			<QueryName condition="end with">.usertrust.com</QueryName>
 			<QueryName condition="end with">.verisign.com</QueryName>
 			<QueryName condition="end with">ocsp.identrust.com</QueryName>
+			<QueryName condition="is">pki.goog</QueryName>
 			<QueryName condition="end with">pki.goog</QueryName>
 			<QueryName condition="is">msocsp.com</QueryName> <!--Microsoft:OCSP-->
 			<QueryName condition="is">ocsp.comodoca.com</QueryName>
@@ -1127,6 +1748,7 @@
 			<QueryName condition="is">ocsp.msocsp.com</QueryName> <!--Microsoft:OCSP-->
 			<QueryName condition="end with">pki.goog</QueryName>
 			<QueryName condition="is">ocsp.godaddy.com</QueryName>
+			<QueryName condition="is">amazontrust.com</QueryName>
 			<QueryName condition="end with">amazontrust.com</QueryName>
 			<QueryName condition="is">ocsp.sectigo.com</QueryName>
 			<QueryName condition="is">pki-goog.l.google.com</QueryName>
@@ -1134,7 +1756,8 @@
 			<QueryName condition="is">ocsp.comodoca.com</QueryName>
 			<QueryName condition="is">ocsp.verisign.com</QueryName>
 			<QueryName condition="is">ocsp.entrust.net</QueryName>
-			<QueryName condition="end with">ocsp.identrust.com</QueryName>
+			<QueryName condition="is">ocsp.identrust.com</QueryName>
+			<QueryName condition="end with">.ocsp.identrust.com</QueryName>
 			<QueryName condition="is">status.rapidssl.com</QueryName>
 			<QueryName condition="is">status.thawte.com</QueryName>
 			<QueryName condition="is">ocsp.int-x3.letsencrypt.org</QueryName>
@@ -1153,6 +1776,8 @@
 	<RuleGroup name="" groupRelation="or">
 		<ClipboardChange onmatch="include">
 		</ClipboardChange>
+		<FileDelete onmatch="include">
+		</FileDelete>
 	</RuleGroup>
 	-->
 
