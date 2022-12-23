@@ -1,4 +1,4 @@
-# sysmon-config | A Sysmon configuration file for everybody to fork #
+# sysmon-config | A Sysmon configuration file fork #
 
 This is a Microsoft Sysinternals Sysmon configuration file template.
 It contains multiple pull-requests from the SwiftOnSecurity repository as well as some modifications from the environment where it's deployed.
