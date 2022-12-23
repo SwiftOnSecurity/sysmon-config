@@ -20,6 +20,20 @@ Note: Exact syntax and filtering choices in the configuration are highly deliber
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**[See other forks of this configuration](https://github.com/SwiftOnSecurity/sysmon-config/network)**
 
 ## Use ##
+
+### Install / Update / Uninstall - via Script ###
+Run with administrator rights
+
+#### Install / Update ####
+~~~~
+install_update.cmd
+~~~~
+
+#### Uninstall ####
+~~~~
+install_update.cmd u
+~~~~
+
 ### Install ###
 Run with administrator rights
 ~~~~
