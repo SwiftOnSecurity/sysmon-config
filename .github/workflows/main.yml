@@ -15,8 +15,8 @@ jobs:
   msbuild:
     runs-on: 'windows-latest'
     steps:
-    - name: Checkout open-sysmon-conf
-      uses: actions/checkout@v2
+    - name: Checkout sysmon-config
+      uses: actions/checkout@v3
 
     - name: Download Sysmon
       run: Invoke-WebRequest http://live.sysinternals.com/tools/sysmon.exe -OutFile .\sysmon.exe
@@ -33,8 +33,8 @@ jobs:
   msbuild-trace:
     runs-on: 'windows-latest'
     steps:
-    - name: Checkout open-sysmon-conf
-      uses: actions/checkout@v2
+    - name: Checkout sysmon-config
+      uses: actions/checkout@v3
 
     - name: Download Sysmon
       run: Invoke-WebRequest http://live.sysinternals.com/tools/sysmon.exe -OutFile .\sysmon.exe
@@ -51,8 +51,8 @@ jobs:
   msbuild-block:
     runs-on: 'windows-latest'
     steps:
-    - name: Checkout open-sysmon-conf
-      uses: actions/checkout@v2
+    - name: Checkout sysmon-config
+      uses: actions/checkout@v3
 
     - name: Download Sysmon
       run: Invoke-WebRequest http://live.sysinternals.com/tools/sysmon.exe -OutFile .\sysmon.exe
@@ -69,8 +69,8 @@ jobs:
   busySystem:
     runs-on: 'windows-latest'
     steps:
-    - name: Checkout open-sysmon-conf
-      uses: actions/checkout@v2
+    - name: Checkout sysmon-config
+      uses: actions/checkout@v3
 
     - name: Download Sysmon
       run: Invoke-WebRequest http://live.sysinternals.com/tools/sysmon.exe -OutFile .\sysmon.exe
