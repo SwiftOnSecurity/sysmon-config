@@ -474,6 +474,7 @@
 
 	<RuleGroup name="" groupRelation="or">
 		<ProcessAccess onmatch="exclude">
+			<SourceImage condition="contains any">aurora-agent.exe;aurora-agent-64.exe</SourceImage>
 			<!-- NOTE: Potentially noisy ProcessAccess Events in your environment can be excluded here -->
 		</ProcessAccess>
 	</RuleGroup>
