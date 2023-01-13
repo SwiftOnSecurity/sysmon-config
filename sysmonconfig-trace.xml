@@ -190,6 +190,7 @@
 				<SourceImage condition="end with">\Ninite.exe</SourceImage>
 				<TargetImage condition="end with">\Ninite.exe</TargetImage>
 				<GrantedAccess condition="is">0x1000</GrantedAccess>
+				<SourceImage condition="contains any">aurora-agent.exe;aurora-agent-64.exe</SourceImage>
 			</ProcessAccess>
 		</RuleGroup>
 		<RuleGroup name="" groupRelation="or">
