@@ -84,7 +84,7 @@ jobs:
       run: Get-WinEvent -ListLog Microsoft-Windows-Sysmon*
 
     - name: Install some Choco Packages
-      run: choco install ninja adobereader googlechrome firefox python3
+      run: choco install ninja adobereader googlechrome firefox nodejs
 
     - name: Download User Sim
       run: Invoke-WebRequest https://github.com/humpalum/sim-user/releases/download/latest/5minuser.exe  -OutFile .\5minuser.exe
