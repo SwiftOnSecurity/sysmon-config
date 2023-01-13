@@ -518,7 +518,6 @@
 		<ProcessAccess onmatch="exclude">
 			<SourceImage condition="image">C:\Program Files\Aurora-Agent\aurora-agent.exe</SourceImage>
 			<SourceImage condition="image">C:\Program Files\Aurora-Agent\aurora-agent-64.exe</SourceImage>
-			<!-- NOTE: Potentially noisy ProcessAccess Events in your environment can be excluded here -->
 		</ProcessAccess>
 	</RuleGroup>
 
