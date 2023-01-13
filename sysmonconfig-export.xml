@@ -516,8 +516,8 @@
 
 	<RuleGroup name="" groupRelation="or">
 		<ProcessAccess onmatch="exclude">
-			<SourceImage condition="image">C:\Program Files\Aurora-Agent\aurora-agent.exe</SourceImage>
-			<SourceImage condition="image">C:\Program Files\Aurora-Agent\aurora-agent-64.exe</SourceImage>
+			<SourceImage condition="is">C:\Program Files\Aurora-Agent\aurora-agent.exe</SourceImage>
+			<SourceImage condition="is">C:\Program Files\Aurora-Agent\aurora-agent-64.exe</SourceImage>
 		</ProcessAccess>
 	</RuleGroup>
 
