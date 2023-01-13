@@ -138,6 +138,7 @@
 				<SourceImage condition="image">Sysmon64.exe</SourceImage>
 				<SourceImage condition="image">GoogleUpdate.exe</SourceImage>
 				<SourceImage condition="image">aurora-agent-64.exe</SourceImage>
+				<SourceImage condition="image">aurora-agent.exe</SourceImage>
 				<SourceImage condition="end with">\Google\Chrome\Application\chrome.exe</SourceImage>
 				<SourceImage condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</SourceImage>
 				<Rule name="MsMpEngVersion" groupRelation="and">

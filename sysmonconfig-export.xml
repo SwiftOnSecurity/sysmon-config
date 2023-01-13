@@ -516,7 +516,8 @@
 
 	<RuleGroup name="" groupRelation="or">
 		<ProcessAccess onmatch="exclude">
-			<!-- NOTE: Potentially noisy ProcessAccess Events in your environment can be excluded here -->
+			<SourceImage condition="is">C:\Program Files\Aurora-Agent\aurora-agent.exe</SourceImage>
+			<SourceImage condition="is">C:\Program Files\Aurora-Agent\aurora-agent-64.exe</SourceImage>
 		</ProcessAccess>
 	</RuleGroup>
 
