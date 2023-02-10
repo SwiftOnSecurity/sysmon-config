@@ -1493,6 +1493,11 @@
 			<Image condition="image">wordview.exe</Image>
 			<Image condition="image">msohtmed.exe</Image>
 			
+			<!-- OneNote Application Dropping Executables -->
+			<Image condition="image">onenote.exe</Image>
+			<Image condition="image">onenotem.exe</Image>
+			<Image condition="image">onenoteim.exe</Image>
+			
 			<!-- LOLBINs that can be used to download executables -->
 			<Image condition="image">certutil.exe</Image>
 			<Image condition="image">certoc.exe</Image>
