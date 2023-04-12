@@ -290,6 +290,8 @@
 			<!--Suspicious Windows tools-->
 			<Image condition="image">at.exe</Image> <!--Windows: Remote task scheduling, removed in Win10 | Credit @ion-storm -->
 			<Image condition="image">certutil.exe</Image> <!--Windows: Certificate tool can contact outbound | Credit @ion-storm @FVT [ https://twitter.com/FVT/status/834433734602530817 ] -->
+			<Image condition="image">calc.exe</Image>
+			<Image condition="image">CalculatorApp.exe</Image>
 			<Image condition="image">cmd.exe</Image> <!--Windows: Remote command prompt-->
 			<Image condition="image">cmstp.exe</Image> <!--Windows: Connection manager profiles can launch executables from WebDAV [ https://twitter.com/NickTyrer/status/958450014111633408 ] | Credit @NickTyrer @Oddvarmoe @KyleHanslovan @subTee -->
 			<Image condition="image">cscript.exe</Image> <!--WindowsScriptingHost: | Credit @Cyb3rOps [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
@@ -309,6 +311,7 @@
 			<Image condition="image">net1.exe</Image> <!--Windows: Launched by "net.exe", but it may not detect connections either -->
 			<Image condition="image">notepad.exe</Image> <!--Windows: [ https://secrary.com/ReversingMalware/CoinMiner/ ] [ https://blog.cobaltstrike.com/2013/08/08/why-is-notepad-exe-connecting-to-the-internet/ ] -->
 			<Image condition="image">nslookup.exe</Image> <!--Windows: Retrieve data over DNS -->
+			<Image condition="image">pwsh.exe</Image> <!--Windows: PowerShell 7 -->
 			<Image condition="image">powershell.exe</Image> <!--Windows: PowerShell interface-->
 			<Image condition="image">powershell_ise.exe</Image> <!--Windows: PowerShell interface-->
 			<Image condition="image">qprocess.exe</Image> <!--Windows: [ https://www.first.org/resources/papers/conf2017/APT-Log-Analysis-Tracking-Attack-Tools-by-Audit-Policy-and-Sysmon.pdf ] -->
@@ -533,6 +536,7 @@
 			<TargetFilename name="T1165" condition="contains">\Startup\</TargetFilename> <!--Microsoft:Changes to user's auto-launched files and shortcuts-->
 			<TargetFilename name="OutlookAttachment" condition="contains">\Content.Outlook\</TargetFilename> <!--Microsoft:Outlook: attachments-->
 			<TargetFilename name="Downloads" condition="contains">\Downloads\</TargetFilename> <!--Downloaded files. Does not include "Run" files in IE-->
+			<TargetFilename name="Public" condition="contains">C:\Users\Public\</TargetFilename>
 			<TargetFilename name="T1176" condition="end with">.crx</TargetFilename> <!--Chrome extension-->
 			<TargetFilename condition="end with">.application</TargetFilename> <!--Microsoft:ClickOnce: [ https://blog.netspi.com/all-you-need-is-one-a-clickonce-love-story/ ] -->
 			<TargetFilename condition="end with">.appref-ms</TargetFilename> <!--Microsoft:ClickOnce application | Credit @ion-storm -->
@@ -546,6 +550,7 @@
 			<TargetFilename condition="end with">.dll</TargetFilename> <!--Microsoft:Office:Word: Macro-->
 			<TargetFilename condition="end with">.dmg</TargetFilename> <!--Phishing-->
 			<TargetFilename condition="end with">.dmp</TargetFilename> <!--Process dumps [ (fr) http://blog.gentilkiwi.com/securite/mimikatz/minidump ] -->
+			<TargetFilename condition="end with">.dump</TargetFilename>
 			<TargetFilename condition="end with">.docm</TargetFilename> <!--Microsoft:Office:Word: Macro-->
 			<TargetFilename condition="end with">.exe.log</TargetFilename> <!-- [ https://github.com/bitsadmin/nopowershell ] | Credit: @SBousseaden [ https://twitter.com/SBousseaden/status/1137493597769687040 ] -->
 			<TargetFilename condition="end with">.exe</TargetFilename> <!--Executable-->
@@ -593,6 +598,7 @@
 			<TargetFilename condition="begin with">C:\Windows\SysWOW64\Wbem</TargetFilename> <!--Microsoft:WMI: [ More information: http://2014.hackitoergosum.org/slides/day1_WMI_Shell_Andrei_Dumitrescu.pdf ] -->
 			<TargetFilename condition="begin with">C:\Windows\system32\WindowsPowerShell</TargetFilename> <!--Microsoft:Powershell: Look for modifications for persistence [ https://www.malwarearchaeology.com/cheat-sheets ] -->
 			<TargetFilename condition="begin with">C:\Windows\SysWOW64\WindowsPowerShell</TargetFilename> <!--Microsoft:Powershell: Look for modifications for persistence [ https://www.malwarearchaeology.com/cheat-sheets ] -->
+			<TargetFilename condition="begin with">C:\Program Files\PowerShell\7\</TargetFilename>
 			<TargetFilename name="T1053" condition="begin with">C:\Windows\Tasks\</TargetFilename> <!--Microsoft:ScheduledTasks [ https://attack.mitre.org/wiki/Technique/T1053 ] -->
 			<TargetFilename name="T1053" condition="begin with">C:\Windows\system32\Tasks</TargetFilename> <!--Microsoft:ScheduledTasks [ https://attack.mitre.org/wiki/Technique/T1053 ] -->
 			<TargetFilename name="T1053" condition="begin with">C:\Windows\SysWOW64\Tasks</TargetFilename> <!--Microsoft:ScheduledTasks [ https://attack.mitre.org/wiki/Technique/T1053 ] -->
@@ -911,6 +917,7 @@
 			<TargetFilename condition="contains">Startup</TargetFilename> <!--ADS startup | Example: [ https://www.hybrid-analysis.com/sample/a314f6106633fba4b70f9d6ddbee452e8f8f44a72117749c21243dc93c7ed3ac?environmentId=100 ] -->
 			<TargetFilename condition="end with">.bat</TargetFilename> <!--Batch scripting-->
 			<TargetFilename condition="end with">.cmd</TargetFilename> <!--Batch scripting | Credit @ion-storm -->
+			<TargetFilename condition="end with">.chm</TargetFilename> <!--Batch scripting | Credit @ion-storm -->
 			<TargetFilename condition="end with">.doc</TargetFilename> <!--Office doc potentially with macro -->
 			<TargetFilename condition="end with">.hta</TargetFilename> <!--Scripting-->
 			<TargetFilename condition="end with">.jse</TargetFilename> <!--Registry File-->
