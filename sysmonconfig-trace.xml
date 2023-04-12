@@ -12,7 +12,7 @@
    <!-- Capture all hashes -->
    <HashAlgorithms>*</HashAlgorithms>
    <DnsLookup>False</DnsLookup>
-   <ArchiveDirectory>Archive</ArchiveDirectory>
+   <!-- <ArchiveDirectory>Archive</ArchiveDirectory> -->
    <CaptureClipboard/>
    <EventFiltering>
    		<RuleGroup name="" groupRelation="or">
