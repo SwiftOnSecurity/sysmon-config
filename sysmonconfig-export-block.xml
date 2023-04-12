@@ -1512,7 +1512,7 @@
 			<!-- Executables that should never drop an executable to disk (but may after a previous process injection or if it's malware that uses a legitimate name)-->
 			<Image condition="image">notepad.exe</Image>
 			<Image condition="image">AcroRd32.exe</Image>
-			<Image condition="image">RdrCEF.exe</Image>
+			<Image condition="image">RdrCEF.exe</Image> <!-- RdrCEF was seen dropping a DLL in temp (Example: \AppData\Local\Temp\acrocef_low\4616_1623006624_platform_specific\win_x86\widevinecdm.dll). Comment out this entry if you experience issues (https://github.com/Neo23x0/sysmon-config/issues/43) -->
 			<Image condition="image">mshta.exe</Image>
 			<Image condition="image">hh.exe</Image>
 			<Image condition="image">calc.exe</Image>
