@@ -284,6 +284,12 @@
 			<Image condition="image">tasklist.exe</Image> <!--Windows: List processes, has remote ability -->
 			<Image condition="image">wmic.exe</Image> <!--WindowsManagementInstrumentation: Credit @Cyb3rOps [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
 			<Image condition="image">wscript.exe</Image> <!--WindowsScriptingHost: | Credit @arekfurt -->
+			<Image condition="image">mstsc.exe</Image>
+			<Image condition="image">wsl.exe</Image>
+			<Image condition="image">winget.exe</Image>
+			<Image condition="image">WindowsTerminal.exe</Image>
+			<Image condition="image">wt.exe</Image>
+			<Image condition="image">winlogon.exe</Image>
 			<!--Live of the Land Binaries and scripts (LOLBAS) -->
 			<Image condition="image">bitsadmin.exe</Image> <!-- Windows: Background Intelligent Transfer Service - Can download from URLs -->
 			<Image condition="image">esentutl.exe</Image> <!-- Windows: Database utilities for the ESE - Can fetch from UNC paths -->
@@ -315,6 +321,7 @@
 			<Image condition="image">winexesvc.exe</Image> <!-- Winexe service executable | Credit @Cyb3rOps -->
 			<Image condition="image">nmap.exe</Image>
 			<Image condition="image">psinfo.exe</Image>
+			<Image condition="image">RDCMan.exe</Image>
 			<!--Ports: Suspicious-->
 			<DestinationPort name="SSH" condition="is">22</DestinationPort> <!--SSH protocol, monitor admin connections-->
 			<DestinationPort name="Telnet" condition="is">23</DestinationPort> <!--Telnet protocol, monitor admin connections, insecure-->
@@ -405,8 +412,11 @@
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, ImageLoaded, Hashes, Signed, Signature, SignatureStatus-->
 	<RuleGroup name="" groupRelation="or">
 		<ImageLoad onmatch="include">
-			<ImageLoaded condition="begin with">C:\Users\Public\</ImageLoaded>
 			<ImageLoaded condition="begin with">C:\PerfLogs\</ImageLoaded>
+			<ImageLoaded condition="begin with">C:\Users\Public\</ImageLoaded>
+			<ImageLoaded condition="is">C:\Windows\System32\WLBSCTRL.dll</ImageLoaded> <!-- SCM DLL sideloading -->
+			<ImageLoaded condition="is">C:\Windows\System32\TSMSISrv.dll</ImageLoaded> <!-- SCM DLL sideloading -->
+			<ImageLoaded condition="is">C:\Windows\System32\TSVIPSrv.dll</ImageLoaded> <!-- SCM DLL sideloading -->
 			<!--NOTE: Using "include" with no rules means nothing in this section will be logged-->
 		</ImageLoad>
 	</RuleGroup>
@@ -510,6 +520,7 @@
 			<TargetFilename condition="end with">.dmp</TargetFilename> <!--Process dumps [ (fr) http://blog.gentilkiwi.com/securite/mimikatz/minidump ] -->
 			<TargetFilename condition="end with">.dump</TargetFilename>
 			<TargetFilename condition="end with">.docm</TargetFilename> <!--Microsoft:Office:Word: Macro-->
+			<TargetFilename condition="end with">.evtx</TargetFilename> <!--Eventlog-->
 			<TargetFilename condition="end with">.exe.log</TargetFilename> <!-- [ https://github.com/bitsadmin/nopowershell ] | Credit: @SBousseaden [ https://twitter.com/SBousseaden/status/1137493597769687040 ] -->
 			<TargetFilename condition="end with">.exe</TargetFilename> <!--Executable-->
 			<TargetFilename condition="end with">.hta</TargetFilename> <!--Scripting-->
@@ -538,11 +549,12 @@
 			<TargetFilename condition="end with">.sys</TargetFilename> <!--System driver files-->
 			<TargetFilename condition="end with">.vbe</TargetFilename> <!--VisualBasicScripting-->
 			<TargetFilename condition="end with">.vbs</TargetFilename> <!--VisualBasicScripting-->
+			<TargetFilename condition="end with">.vhd</TargetFilename>
+			<TargetFilename condition="end with">.vhdx</TargetFilename>
 			<TargetFilename condition="end with">.war</TargetFilename>
 			<TargetFilename condition="end with">.wsc</TargetFilename> <!--Scripting | Credit @bartblaze -->
 			<TargetFilename condition="end with">.wsf</TargetFilename> <!--Scripting | Credit @bartblaze -->
 			<TargetFilename condition="end with">.wsh</TargetFilename>
-			<TargetFilename condition="end with">.xls</TargetFilename> <!--Legacy Office files are often used for attacks-->
 			<TargetFilename condition="end with">.xls</TargetFilename><!--Microsoft [ https://medium.com/@threathuntingteam/msxsl-exe-and-wmic-exe-a-way-to-proxy-code-execution-8d524f642b75 ] -->
 			<TargetFilename condition="end with">.xlsm</TargetFilename> <!--Microsoft:Office:Word: Macro-->
 			<TargetFilename name="DefaultUserModified" condition="begin with">C:\Users\Default</TargetFilename> <!--Windows: Changes to default user profile-->
