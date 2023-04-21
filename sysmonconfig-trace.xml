@@ -82,11 +82,6 @@
 		<RuleGroup name="" groupRelation="or">
 			<!-- Event ID 6 == Driver Loaded. Log all drivers except those with the following signatures -->
 			<DriverLoad onmatch="exclude">
-				<Signature condition="contains">microsoft</Signature>
-				<Signature condition="contains">windows</Signature>
-				<Signature condition="contains">symantec</Signature>
-				<Signature condition="is">VMware</Signature>
-				<Signature condition="begin with">Intel </Signature>
 			</DriverLoad>
 		</RuleGroup>
 		<RuleGroup name="" groupRelation="or">
