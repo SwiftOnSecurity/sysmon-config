@@ -442,6 +442,9 @@
 		<!--DATA: UtcTime, ImageLoaded, Hashes, Signed, Signature, SignatureStatus-->
 	<RuleGroup name="" groupRelation="or">
 		<DriverLoad onmatch="exclude">
+			<!-- include if needed <Signature condition="contains">microsoft</Signature> Exclude signed Microsoft drivers-->
+			<!-- include if needed <Signature condition="contains">windows</Signature> Exclude signed Microsoft drivers-->
+			<!-- include if needed <Signature condition="begin with">Intel </Signature> Exclude signed Intel drivers-->
 		</DriverLoad>
 	</RuleGroup>
 
