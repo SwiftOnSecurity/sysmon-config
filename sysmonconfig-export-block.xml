@@ -1409,7 +1409,7 @@
 			<Hashes condition="contains">IMPHASH=FCC251CCEAE90D22C392215CC9A2D5D6</Hashes> <!-- Mimikatz -->
 			<Hashes condition="contains">IMPHASH=23867A89C2B8FC733BE6CF5EF902F2D1</Hashes> <!-- JuicyPotato  -->
 			<Hashes condition="contains">IMPHASH=A37FF327F8D48E8A4D2F757E1B6E70BC</Hashes> <!-- JuicyPotato  -->
-			<Hashes condition="contains">IMPHASH=F9A28C458284584A93B14216308D31BD</Hashes> <!-- JuicyPotatoNG  -->
+			<Hashes condition="contains">IMPHASH=F9A28C458284584A93B14216308D31BD</Hashes> <!-- JuicyPotatoNG -->
 			<Hashes condition="contains">IMPHASH=6118619783FC175BC7EBECFF0769B46E</Hashes> <!-- RoguePotato -->
 			<Hashes condition="contains">IMPHASH=959A83047E80AB68B368FDB3F4C6E4EA</Hashes> <!-- RoguePotato -->
 			<Hashes condition="contains">IMPHASH=563233BFA169ACC7892451F71AD5850A</Hashes> <!-- RoguePotato -->
@@ -1471,12 +1471,15 @@
 			<Hashes condition="contains">IMPHASH=E96A73C7BF33A464C510EDE582318BF2</Hashes> <!-- WCE -->
 			<Hashes condition="contains">IMPHASH=32089B8851BBF8BC2D014E9F37288C83</Hashes> <!-- Sliver Stagers -->
 			<Hashes condition="contains">IMPHASH=09D278F9DE118EF09163C6140255C690</Hashes> <!-- Dumpert -->
-			<Hashes condition="contains">IMPHASH=03866661686829D806989E2FC5A72606</Hashes> <!-- Dumpert -->
-			<Hashes condition="contains">IMPHASH=E57401FBDADCD4571FF385AB82BD5D6D</Hashes> <!-- Dumpert -->
+			<Hashes condition="contains">IMPHASH=03866661686829d806989e2fc5a72606</Hashes> <!-- Dumpert -->
+			<Hashes condition="contains">IMPHASH=e57401fbdadcd4571ff385ab82bd5d6d</Hashes> <!-- Dumpert -->
 			<Hashes condition="contains">IMPHASH=84B763C45C0E4A3E7CA5548C710DB4EE</Hashes> <!-- SysmonEnte -->
 			<Hashes condition="contains">IMPHASH=19584675D94829987952432E018D5056</Hashes> <!-- SysmonQuiet -->
-			<Hashes condition="contains">IMPHASH=22F4089EB8ABA31E1BB162C6D9BF72E5</Hashes> <!-- SysmonEOP exploiting CVE-2022-41120 -->
-			<Hashes condition="contains">IMPHASH=5123FA4C4384D431CD0D893EEB49BBEC</Hashes> <!-- SysmonEOP exploiting CVE-2022-41120 -->
+			<Hashes condition="contains">IMPHASH=330768A4F172E10ACB6287B87289D83B</Hashes> <!-- ShaprEvtMute Hook -->
+			<Hashes condition="contains">IMPHASH=885C99CCFBE77D1CBFCB9C4E7C1A3313</Hashes> <!-- Forkatz -->
+			<Hashes condition="contains">IMPHASH=22A22BC9E4E0D2F189F1EA01748816AC</Hashes> <!-- PPLKiller -->
+			<Hashes condition="contains">IMPHASH=7FA30E6BB7E8E8A69155636E50BF1B28</Hashes> <!-- PPLKiller -->
+			<Hashes condition="contains">IMPHASH=96DF3A3731912449521F6F8D183279B1</Hashes> <!-- Backstab -->
 			<Hashes condition="contains">MD5=7B17F15713FCF13C764535AA2BDF52AA</Hashes>													<!-- ShaprEvtMute -->
 			<Hashes condition="contains">SHA1=4E18320493042BCD7D21B53E258974BC460ACC78</Hashes>										<!-- ShaprEvtMute -->
 			<Hashes condition="contains">SHA256=477DFE485F5BD9540CC83E88FC04AAFB6DE49CF1ADC6BD857D5D6F4C1730A6D1</Hashes>	<!-- ShaprEvtMute -->
