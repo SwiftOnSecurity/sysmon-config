@@ -12,7 +12,7 @@
    <!-- Capture all hashes -->
    <HashAlgorithms>*</HashAlgorithms>
    <DnsLookup>False</DnsLookup>
-   <ArchiveDirectory>Archive</ArchiveDirectory>
+   <!-- <ArchiveDirectory>Archive</ArchiveDirectory> -->
    <CaptureClipboard/>
    <EventFiltering>
    		<RuleGroup name="" groupRelation="or">
@@ -82,11 +82,6 @@
 		<RuleGroup name="" groupRelation="or">
 			<!-- Event ID 6 == Driver Loaded. Log all drivers except those with the following signatures -->
 			<DriverLoad onmatch="exclude">
-				<Signature condition="contains">microsoft</Signature>
-				<Signature condition="contains">windows</Signature>
-				<Signature condition="contains">symantec</Signature>
-				<Signature condition="is">VMware</Signature>
-				<Signature condition="begin with">Intel </Signature>
 			</DriverLoad>
 		</RuleGroup>
 		<RuleGroup name="" groupRelation="or">
@@ -236,7 +231,7 @@
 				<Image condition="end with">\Microsoft.Tri.Sensor.Updater.exe</Image> <!-- Microsoft Defender for Identity Sensor -->
 				<Image condition="end with">\TiWorker.exe</Image>
 				<Image condition="is">C:\Windows\system32\compattelrunner.exe</Image>
-				<TargetObject condition="is">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Print\Printers\Microsoft Print to PDF\PrinterDriverData</TargetObject>
+				<TargetObject condition="end with">\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Print\Printers\Microsoft Print to PDF\PrinterDriverData</TargetObject>
 				<TargetObject condition="end with">\LanguageList</TargetObject>
 				<TargetObject condition="end with">\Windows.UI.SettingsAppThreshold.pri</TargetObject>
 				<TargetObject condition="end with">\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications</TargetObject>
