@@ -20,7 +20,8 @@ Note: Exact syntax and filtering choices in the configuration are highly deliber
 ### Install ###
 Run with administrator rights
 ~~~~
-sysmon.exe -accepteula -i sysmonconfig-export.xml
+sysmon.exe -accepteula 
+sysmon.exe -i sysmonconfig-export.xml
 ~~~~
 
 ### Update existing configuration ###
