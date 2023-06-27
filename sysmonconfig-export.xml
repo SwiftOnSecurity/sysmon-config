@@ -9633,6 +9633,22 @@
 				<TargetFilename condition="begin with">C:\Users\</TargetFilename>
 				<TargetFilename condition="contains">\Downloads</TargetFilename>
 			</Rule>
+			<Rule name="Attack=T1036.008,Technique=Masquerading: Masquerade File Type,Tactic=Defense Evasion,DS=File: File Creation,Level=4,Desc=Exe created within Downloads Folder,Risk=10" groupRelation="or">
+				<TargetFilename condition="not end with">.exe</TargetFilename>
+				<TargetFilename condition="not end with">.dll</TargetFilename>
+				<TargetFilename condition="not end with">.sys</TargetFilename>
+				<TargetFilename condition="not end with">.ocx</TargetFilename>
+				<TargetFilename condition="not end with">.scr</TargetFilename>
+				<TargetFilename condition="not end with">.cpl</TargetFilename>
+				<TargetFilename condition="not end with">.efi</TargetFilename>
+				<TargetFilename condition="not end with">.drv</TargetFilename>
+				<TargetFilename condition="not end with">.ax</TargetFilename>
+				<TargetFilename condition="not end with">.com</TargetFilename>
+				<TargetFilename condition="not end with">.acm</TargetFilename>
+				<TargetFilename condition="not end with">.mui</TargetFilename>
+				<TargetFilename condition="not end with">.ime</TargetFilename>
+				<TargetFilename condition="not end with">.tsp</TargetFilename>
+			</Rule>
 		</FileExecutableDetected>
 	</RuleGroup>
 	<RuleGroup name="RG=FileExecutable Excludes" groupRelation="or">
