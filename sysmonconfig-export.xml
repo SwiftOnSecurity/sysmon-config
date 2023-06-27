@@ -85,7 +85,7 @@
 					<Your Rule Here/>
 				</Rule> 
 -->
-<Sysmon schemaversion="4.83">
+<Sysmon schemaversion="4.90">
 	<HashAlgorithms>md5,sha1,sha256,imphash</HashAlgorithms>
 	<CheckRevocation/>
 	<EventFiltering>
@@ -9624,6 +9624,20 @@
 			<Image condition="is">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Image>
 			<User condition="contains any">NETWORK SERVICE; LOCAL SERVICE</User>
 		</FileDeleteDetected>
+	</RuleGroup>
+	<!-- SYSMON EVENT ID 29 : File Executable Detected -->
+	<!--Fields: ProcessGuid, ProcessId, User, Image, TargetFilename, Hashes -->
+	<RuleGroup name="RG=FileExecutable Includes" groupRelation="or">
+		<FileExecutableDetected onmatch="include">
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Desc=Exe created within Downloads Folder,Risk=10" groupRelation="and">
+				<TargetFilename condition="begin with">C:\Users\</TargetFilename>
+				<TargetFilename condition="contains">\Downloads</TargetFilename>
+			</Rule>
+		</FileExecutableDetected>
+	</RuleGroup>
+	<RuleGroup name="RG=FileExecutable Excludes" groupRelation="or">
+		<FileExecutableDetected onmatch="exclude">
+		</FileExecutableDetected>
 	</RuleGroup>
 	</EventFiltering>
 </Sysmon>
