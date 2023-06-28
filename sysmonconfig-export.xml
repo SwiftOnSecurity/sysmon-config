@@ -314,7 +314,6 @@
 			<Image condition="image">powershell.exe</Image> <!--Windows: PowerShell interface-->
 			<Image condition="image">powershell_ise.exe</Image> <!--Windows: PowerShell interface-->
 			<Image condition="image">qprocess.exe</Image> <!--Windows: [ https://www.first.org/resources/papers/conf2017/APT-Log-Analysis-Tracking-Attack-Tools-by-Audit-Policy-and-Sysmon.pdf ] -->
-			<Image condition="image">qwinsta.exe</Image> <!--Windows: Query remote sessions | Credit @ion-storm -->
 			<Image condition="image">qwinsta.exe</Image> <!--Windows: Remotely query login sessions on a server or workstation | Credit @ion-storm -->
 			<Image condition="image">reg.exe</Image> <!--Windows: Remote Registry editing ability | Credit @ion-storm -->
 			<Image condition="image">regsvcs.exe</Image> <!--Windows: [ https://www.hybrid-analysis.com/sample/3f94d7080e6c5b8f59eeecc3d44f7e817b31562caeba21d02ad705a0bfc63d67?environmentId=100 ] -->
@@ -829,8 +828,6 @@
 			<TargetObject name="InvDB-CompileTimeClaim" condition="end with">\LinkDate</TargetObject> <!-- Compile time of EXE, may not be reliable [ https://en.wikipedia.org/wiki/Link_time ] -->
 			<TargetObject name="InvDB" condition="contains">Compatibility Assistant\Store\</TargetObject> <!-- Inventory -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Ports</TargetObject> <!--Microsoft:Windows: Printer port changes as used in CVE-2020-1048 [ https://windows-internals.com/printdemon-cve-2020-1048/ ] -->
-			<TargetObject condition="contains">\Keyboard Layout\Preload</TargetObject> <!--Microsoft:Windows: Keyboard layout loaded into user session [ https://renenyffenegger.ch/notes/Windows/registry/tree/HKEY_CURRENT_USER/Keyboard-Layout/Preload/index ] -->
-			<TargetObject condition="contains">\Keyboard Layout\Substitutes</TargetObject> <!--Microsoft:Windows: Keyboard layout loaded into user session [ https://renenyffenegger.ch/notes/Windows/registry/tree/HKEY_CURRENT_USER/Keyboard-Layout/Preload/index ] -->
 			<!--Suspicious sources-->
 			<Image name="Suspicious,ImageBeginWithBackslash" condition="end with">\regedit.exe</Image> <!--Users and helpdesk staff making system modifications -->
 			<Image name="Suspicious,ImageBeginWithBackslash" condition="begin with">\</Image> <!--Devices and VSC shouldn't be executing changes | Credit: @SBousseaden @ionstorm @neu5ron @PerchedSystems [ https://twitter.com/SwiftOnSecurity/status/1133167323991486464 ] -->
@@ -843,7 +840,6 @@
 			<TargetObject condition="contains">Microsoft\Cryptography\Providers\Trust\</TargetObject> <!-- Important trust registry values to monitor -->
 			<TargetObject condition="contains">WOW6432Node\Microsoft\Cryptography\Providers\Trust\</TargetObject> <!-- Important trust registry values to monitor -->
 			<TargetObject condition="contains">Control\Print\Environments\Windows x64\Drivers</TargetObject> <!-- PrinterNightmare coverage -->
-			<TargetObject name="Context,ContactedDomain" condition="end with">\EnableBHO</TargetObject> <!--Microsoft:Office: Contacted domains stored here 'HKEY_CURRENT_USER\<SID>\SOFTWARE\Microsoft\Office\16.0\Common\Internet\Server Cache\<domain>\EnableBHO' -->
 		</RegistryEvent>
 	</RuleGroup>
 
@@ -1177,7 +1173,6 @@
 			<QueryName condition="is">cdnjs.cloudflare.com</QueryName> <!--Cloudflare: Hosts popular javascript libraries-->
 			<QueryName condition="is">fonts.googleapis.com</QueryName> <!--Google fonts-->
 			<QueryName condition="end with">.typekit.net</QueryName> <!--Adobe fonts-->
-			<QueryName condition="is">cdnjs.cloudflare.com</QueryName>
 			<QueryName condition="end with">.stackassets.com</QueryName> <!--Stack Overflow-->
 			<QueryName condition="end with">.steamcontent.com</QueryName>
 			<QueryName condition="is">play.google.com</QueryName>
@@ -1202,7 +1197,6 @@
 			<QueryName condition="end with">.adsymptotic.com</QueryName> <!--Ads-->
 			<QueryName condition="end with">.advertising.com</QueryName> <!--Ads | Microsoft default exclusion-->
 			<QueryName condition="end with">.agkn.com</QueryName> <!--Ads | [ https://www.home.neustar/privacy ] -->
-			<QueryName condition="end with">.amazon-adsystem.com</QueryName> <!--Ads-->
 			<QueryName condition="end with">.amazon-adsystem.com</QueryName> <!--Ads-->
 			<QueryName condition="end with">.analytics.yahoo.com</QueryName> <!--Ads:Yahoo-->
 			<QueryName condition="end with">.aol.com</QueryName> <!--Ads | Microsoft default exclusion -->
@@ -1291,7 +1285,6 @@
 			<!--SocialNet-->
 			<QueryName condition="end with">.pscp.tv</QueryName> <!--Twitter:Periscope-->
 			<!--OSCP/CRL Common-->
-			<QueryName condition="end with">.amazontrust.com</QueryName>
 			<QueryName condition="end with">.digicert.com</QueryName>
 			<QueryName condition="end with">.globalsign.com</QueryName>
 			<QueryName condition="end with">.globalsign.net</QueryName>
@@ -1311,20 +1304,15 @@
 			<QueryName condition="is">ocsp.msocsp.com</QueryName> <!--Microsoft:OCSP-->
 			<QueryName condition="is">pki.goog</QueryName>
 			<QueryName condition="end with">.pki.goog</QueryName>
-			<QueryName condition="is">ocsp.godaddy.com</QueryName>
 			<QueryName condition="is">amazontrust.com</QueryName>
 			<QueryName condition="end with">.amazontrust.com</QueryName>
 			<QueryName condition="is">ocsp.sectigo.com</QueryName>
 			<QueryName condition="is">pki-goog.l.google.com</QueryName>
-			<QueryName condition="end with">.usertrust.com</QueryName>
-			<QueryName condition="is">ocsp.comodoca.com</QueryName>
 			<QueryName condition="is">ocsp.verisign.com</QueryName>
-			<QueryName condition="is">ocsp.entrust.net</QueryName>
 			<QueryName condition="is">ocsp.identrust.com</QueryName>
 			<QueryName condition="end with">.ocsp.identrust.com</QueryName>
 			<QueryName condition="is">status.rapidssl.com</QueryName>
 			<QueryName condition="is">status.thawte.com</QueryName>
-			<QueryName condition="is">ocsp.int-x3.letsencrypt.org</QueryName>
 			<!-- SECTION: PRTG -->
 			<Image condition="is">C:\Program Files (x86)\PRTG Network Monitor\PRTG Probe.exe</Image>
 		</DnsQuery>
