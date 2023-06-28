@@ -1580,6 +1580,12 @@
 
 			Note: We use only the SHA256 hash of the drivers for performance reasons, since this config generates MD5 and SHA256 hashes (see <HashAlgorithms>)
 
+			What happens: 
+				- Malicious driver load > report only
+				- Malicious driver drop > report only (if you want to block things, check the *-block.xml config)
+				- Vulnerable driver load > report only
+				- Vulnerable driver drop > report only
+
 			Syncronisation date: 28.06.2023
 			[ https://github.com/magicsword-io/LOLDrivers/tree/main/detections/sysmon ]
 		-->
