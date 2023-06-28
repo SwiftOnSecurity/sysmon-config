@@ -1410,10 +1410,7 @@
 			<TargetFilename condition="contains all">C:\Users\;\Pictures\</TargetFilename> <!-- often used staging directories in User folders --> 
 			<TargetFilename condition="contains all">C:\Users\;\Videos\</TargetFilename> <!-- often used staging directories in User folders --> 
 			<TargetFilename condition="contains all">C:\Users\;\Contacts\</TargetFilename> <!-- often used staging directories in User folders -->
-			<!-- Executables dropped to disk : softer matches -->
-			<TargetFilename condition="contains">\Appdata\Local\Temp\</TargetFilename> <!--User Temp folder-->
-			<TargetFilename condition="contains">\Appdata\Local\Microsoft\Windows\INetCache\Content.Outlook\</TargetFilename> <!--Microsoft Outlook Temp folder-->
-			
+
 			<!-- Executables double extensions -->
 			<TargetFilename condition="end with">.pdf.exe</TargetFilename>
 			<TargetFilename condition="end with">.doc.exe</TargetFilename>
