@@ -8305,10 +8305,10 @@
 				<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Profiles</TargetObject>
 			</Rule>
 			<!--DLLs that get injected into every process launch-->
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=AppInitDLL Moninitoring: DLLs that get injected into every process launch" groupRelation="and">
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=AppInitDLL Monitoring: DLLs that get injected into every process launch" groupRelation="and">
 				<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=AppInitDLL Moninitoring: DLLs that get injected into every process launch" groupRelation="and">
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=AppInitDLL Monitoring: DLLs that get injected into every process launch" groupRelation="and">
 				<TargetObject condition="begin with">HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject>
 			</Rule>
 			<!--Office-->
@@ -8774,10 +8774,10 @@
 			<Rule name="Attack=T1486,Technique=Data Encrypted for Impact,Tactic=Impact,DS=Windows Registry: Windows Registry Key Modification,Level=4,Alert=Potential Ransomware Indicator: REvil Sodinokibi Sodin Ransomware,Risk=100" groupRelation="and">
 				<TargetObject condition="contains">Software\recfg</TargetObject>
 			</Rule>
-			<Rule name="Attack=T0000,Technique=Keyboard Layout,Tactic=N/A,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Suspicious Keyboard Layout Load" groupRelation="and">
+			<Rule name="Attack=T0000,Technique=Keyboard Layout,Tactic=N/A,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=Suspicious Keyboard Layout Load" groupRelation="and">
 				<TargetObject condition="contains">\Keyboard Layout\Preload\</TargetObject>
 			</Rule>
-			<Rule name="Attack=T0000,Technique=Keyboard Layout,Tactic=N/A,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Suspicious Keyboard Layout Load" groupRelation="and">
+			<Rule name="Attack=T0000,Technique=Keyboard Layout,Tactic=N/A,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=Suspicious Keyboard Layout Load" groupRelation="and">
 				<TargetObject condition="contains">\Keyboard Layout\Substitutes\</TargetObject>
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=IIS Crypto Keys" groupRelation="and">
@@ -8828,6 +8828,15 @@
 				<Image condition="begin with">C:\Program Files (x86)\ESET</Image>
 				<Image condition="begin with">C:\Program Files\ESET</Image>
 			</Rule>
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=Browser Helper Object Contacted Domains" groupRelation="and">
+				<TargetObject condition="end with">\EnableBHO</TargetObject>
+			</Rule>
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=Printer Port Changes,CVE=CVE-2020-1048" groupRelation="and">
+				<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Ports</TargetObject> <!--Microsoft:Windows: Printer port changes as used in CVE-2020-1048 [ https://windows-internals.com/printdemon-cve-2020-1048/ ] -->
+			</Rule>
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=PrintNightmare Coverage,Author=Florian Roth" groupRelation="and">
+				<TargetObject condition="contains">Control\Print\Environments\Windows x64\Drivers</TargetObject> <!-- PrinterNightmare coverage -->
+			</Rule>
 		</RegistryEvent>
 	</RuleGroup>
 	<!--SYSMON EVENT ID 15 : ALTERNATE DATA STREAM CREATED [FileCreateStreamHash]-->
@@ -8854,7 +8863,7 @@
 				<Hash condition="contains">SHA256=76a2f2644cb372f540e179ca2baa110b71de3370bb560aca65dcddbd7da3701e</Hash><!--Exchange Zero Day Dropped DLL-->
 			</Rule>
 			<Rule name="Attack=T1096,Technique=Alternate Data Streams,Tactic=Defense Evasion,DS=File: File Metadata,Level=0,Desc=Alternate Data Streams,Risk=10" groupRelation="and">
-				<TargetFilename condition="contains any">Content.Outlook;Downloads;Recycle;\Users\;\ProgramData\;\Windows\;Temp\7z;Temp\;Startup;.vb;.vbe;.vbs;.application;.appref-ms;.bat;.cmd;.cmdline;.docm;.exe;.lnk;.eml;.dll;.sys;.hta;.pptm;.ps1;.sys;.reg;.docm;.xlsm;.xlam;.pptm;.potm;.pptm;.sldm;.scf;.appref-ms;.rdp;.vbs;.js;.pem;.crt;.ca-bundle;.cer;.csr;.der;.p7b;.p7r;.p7s;.pfx;.sto;.p12;.crl;.sst;.key;:bin;.mht;.manifest;.cpl;.scr;.inf</TargetFilename>
+				<TargetFilename condition="contains any">Startup;Content.Outlook;Downloads;Recycle;\Users\;\ProgramData\;\Windows\;Temp\7z;Temp\;Startup;.vb;.vbe;.vbs;.application;.appref-ms;.bat;.cmd;.cmdline;.docm;.exe;.lnk;.eml;.dll;.sys;.hta;.pptm;.ps1;.sys;.reg;.docm;.xlsm;.xlam;.pptm;.potm;.pptm;.sldm;.scf;.appref-ms;.rdp;.vbs;.js;.pem;.crt;.ca-bundle;.cer;.csr;.der;.p7b;.p7r;.p7s;.pfx;.sto;.p12;.crl;.sst;.key;:bin;.mht;.manifest;.cpl;.scr;.inf</TargetFilename>
 			</Rule>
 			<Rule name="Attack=T1562.002,Technique=Impair Defenses: Disable Windows Event Logging,Tactic=Defense Evasion,DS=File: File Metadata,Level=4,Alert=SysmonEnte Detection,DS=File: File Metadata,Level=4,Risk=100" groupRelation="and">
 				<Hash condition="contains">IMPHASH=84B763C45C0E4A3E7CA5548C710DB4EE</Hash>
