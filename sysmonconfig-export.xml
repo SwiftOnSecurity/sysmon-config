@@ -4,8 +4,8 @@
 	 _\ \/ // (_-</  ' \/ _ \/ _ \  / __ |/ /   / /  > _/_ _/ /__/ ,<   
 	/___/\_, /___/_/_/_/\___/_//_/ /_/ |_/_/   /_/  |_____/ \___/_/|_|  
 		/___/                                                           
-	Author:	ionstorm
-	Contributors: NerbalOne
+	Author:	@ionstorm
+	Contributors: @NerbalOne
 	Project:	https://github.com/ion-storm/sysmon-config
 	License:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
 	Methodology: Detect the most Techniques per data source in MITRE ATT&CK.
@@ -9642,6 +9642,10 @@
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Desc=Exe created within Downloads Folder,Risk=10" groupRelation="and">
 				<TargetFilename condition="begin with">C:\Users\</TargetFilename>
 				<TargetFilename condition="contains">\Downloads</TargetFilename>
+			</Rule>
+			<Rule name="Attack=T1566.001,Technique=Phishing: Spear Phishing Attachment,Tactic=Initial Access,DS=Process: Process Creation,Level=0,Alert=Executed files within Outlook Attachments,Risk=30" groupRelation="and">
+				<Image condition="begin with">C:\Users\</Image>
+				<Image condition="contains">Content.Outlook</Image>
 			</Rule>
 			<Rule name="Attack=T1036.008,Technique=Masquerading: Masquerade File Type,Tactic=Defense Evasion,DS=File: File Creation,Level=4,Alert=Pe File Detected under Unusual File extension,Risk=10" groupRelation="or">
 				<TargetFilename condition="not end with">.exe</TargetFilename>
