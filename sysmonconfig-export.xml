@@ -9659,6 +9659,12 @@
 				<TargetFilename condition="not end with">.ime</TargetFilename>
 				<TargetFilename condition="not end with">.tsp</TargetFilename>
 			</Rule>
+			<Rule name="Attack=T1059.001,Technique=Command and Scripting Interpreter: PowerShell,Tactic=Execution,DS=File: File Creation,Level=0,Desc=,Risk=10,Alert=Powershell Creating Executables" groupRelation="and">
+				<Image condition="is any">powershell.exe;powershell_ise.exe;pwsh.exe;Sqlps.exe</Image>
+			</Rule>
+			<Rule name="Attack=T1059.003,Technique=Command and Scripting Interpreter: Windows Command Shell,Tactic=Execution,DS=File: File Creation,Level=0,Alert=Command or consolehost Anomaly,Risk=10" groupRelation="and">
+				<Image condition="is any">cmd.exe;conhost.exe</Image>
+			</Rule>
 			<Rule name="Attack=T1036,Technique=Masquerading,Tactic=Defense Evasion,DS=File: File Creation,Level=4,Alert=Pe File Detected within Unusual Location,Risk=10,Author=Florian Roth" groupRelation="or">
 				<TargetFilename condition="begin with">C:\Users\Public\</TargetFilename> <!-- often used staging directories; could cause false positives --> 
 				<TargetFilename condition="begin with">C:\Perflogs\</TargetFilename> <!-- often used staging directories --> 
@@ -9671,6 +9677,16 @@
 				<TargetFilename condition="begin with">C:\Windows\System32\spool\SERVERS\</TargetFilename> <!-- often used in exploits against print spooler --> 
 				<TargetFilename condition="begin with">C:\Windows\System32\spool\PRINTERS\</TargetFilename> <!-- often used in exploits against print spooler --> 
 				<TargetFilename condition="begin with">C:\Windows\Help\</TargetFilename> <!-- often used staging directories --> 
+				<TargetFilename condition="begin with">C:\Windows\SysWOW64\Tasks</TargetFilename>
+				<TargetFilename condition="begin with">C:\ProgramData\Intel</TargetFilename>
+				<TargetFilename condition="begin with">C:\ProgramData\Mozilla</TargetFilename>
+				<TargetFilename condition="begin with">C:\ProgramData\chocolatey\</TargetFilename>
+				<TargetFilename condition="begin with">C:\ProgramData\Microsoft\DeviceSync</TargetFilename>
+				<TargetFilename condition="begin with">C:\ProgramData\Microsoft\PlayReady</TargetFilename>
+				<TargetFilename condition="begin with">C:\ProgramData\Microsoft\User Account Pictures</TargetFilename>
+				<TargetFilename condition="begin with">C:\ProgramData\Microsoft\Office\Heartbeat</TargetFilename>
+				<TargetFilename condition="begin with">C:\ProgramData\Microsoft\Windows\WER</TargetFilename>
+				<TargetFilename condition="contains all">C:\Users\All Users\</TargetFilename> <!-- often used staging directories in User folders --> 
 				<TargetFilename condition="contains all">C:\Users\;\Music\</TargetFilename> <!-- often used staging directories in User folders --> 
 				<TargetFilename condition="contains all">C:\Users\;\Pictures\</TargetFilename> <!-- often used staging directories in User folders --> 
 				<TargetFilename condition="contains all">C:\Users\;\Videos\</TargetFilename> <!-- often used staging directories in User folders --> 
@@ -9829,16 +9845,54 @@
 				<Image condition="image">esentutl.exe</Image>
 				<!-- <Image condition="image">expand.exe</Image> (depends on the environment; comment in if you're sure that expand doesn't do that in your env) -->
 				<Image condition="image">finger.exe</Image>
-				<Image condition="image">presentationhost.exe</Image>
-
 				<!-- Executables that should never drop an executable to disk (but may after a previous process injection or if it's malware that uses a legitimate name)-->
 				<Image condition="image">notepad.exe</Image>
 				<Image condition="image">AcroRd32.exe</Image>
 				<Image condition="image">RdrCEF.exe</Image> <!-- RdrCEF was seen dropping a DLL in temp (Example: \AppData\Local\Temp\acrocef_low\4616_1623006624_platform_specific\win_x86\widevinecdm.dll). Comment out this entry if you experience issues (https://github.com/Neo23x0/sysmon-config/issues/43) -->
-				<Image condition="image">mshta.exe</Image>
-				<Image condition="image">hh.exe</Image>
 				<Image condition="image">calc.exe</Image>
 				<Image condition="image">mspaint.exe</Image>
+			</Rule>
+			<Rule name="Attack=T1218.01,Technique=System Binary Proxy Execution,Tactic=Defense Evasion,DS=File: File Creation,Level=4,Alert=Compiled HTML File Dropping Executables,Risk=10" groupRelation="and">
+				<Image condition="image">hh.exe</Image>
+			</Rule>
+			<Rule name="Attack=T1218.002,Technique=System Binary Proxy Execution: Control Panel,Tactic=Defense Evasion,DS=File: File Creation,Level=4,Alert=Control Panel Dropping Executables,Risk=10" groupRelation="and">
+				<Image condition="image">control.exe</Image>
+			</Rule>
+			<Rule name="Attack=T1218.003,Technique=System Binary Proxy Execution: CMSTP,Tactic=Defense Evasion,DS=File: File Creation,Level=4,Alert=CMSTP Dropping Executables,Risk=10" groupRelation="and">
+				<Image condition="image">CMSTP.exe</Image>
+			</Rule>
+			<Rule name="Attack=T1218.004,Technique=System Binary Proxy Execution: InstallUtil,Tactic=Defense Evasion,DS=File: File Creation,Level=4,Alert=InstallUtil Dropping Executables,Risk=10" groupRelation="and">
+				<Image condition="image">installutil.exe</Image>
+			</Rule>
+			<Rule name="Attack=T1218.005,Technique=System Binary Proxy Execution: Mshta,Tactic=Defense Evasion,DS=File: File Creation,Level=4,Alert=MSHTA Dropping Executables,Risk=10" groupRelation="and">
+				<Image condition="image">mshta.exe</Image>
+			</Rule>
+			<Rule name="Attack=T1218.007,Technique=System Binary Proxy Execution: MSIExec,Tactic=Defense Evasion,DS=File: File Creation,Level=0,Desc=MSIExec Dropping Executables,Risk=10" groupRelation="and">
+				<Image condition="image">msiexec.exe</Image>
+			</Rule>
+			<Rule name="Attack=T1218.008,Technique=System Binary Proxy Execution: Odbcconf,Tactic=Defense Evasion,DS=File: File Creation,Level=4,Alert=Odbcconf Dropping Executables,Risk=10" groupRelation="and">
+				<Image condition="image">Odbcconf.exe</Image>
+			</Rule>
+			<Rule name="Attack=T1218.009,Technique=System Binary Proxy Execution: Regsvcs/Regasm,Tactic=Defense Evasion,DS=File: File Creation,Level=4,Alert=Regsvcs/Regasm Dropping Executables,Risk=10" groupRelation="and">
+				<Image condition="contains any">Regsvcs.exe;Regasm.exe</Image>
+			</Rule>
+			<Rule name="Attack=T1218.010,Technique=System Binary Proxy Execution: Regsvr32,Tactic=Defense Evasion,DS=File: File Creation,Level=4,Alert=Regsvr32 Dropping Executables,Risk=10" groupRelation="and">
+				<Image condition="image">regsvr32.exe</Image>
+			</Rule>
+			<Rule name="Attack=T1218.011,Technique=System Binary Proxy Execution: Rundll32,Tactic=Defense Evasion,DS=File: File Creation,Level=4,Alert=Rundll32 Dropping Executables,Risk=10" groupRelation="and">
+				<Image condition="image">Rundll32.exe</Image>
+			</Rule>
+			<Rule name="Attack=T1218.012,Technique=System Binary Proxy Execution: Verclsid,Tactic=Defense Evasion,DS=File: File Creation,Level=4,Alert=Verclsid Dropping Executables,Risk=10" groupRelation="and">
+				<Image condition="image">Verclsid.exe</Image>
+			</Rule>
+			<Rule name="Attack=T1218.013,Technique=System Binary Proxy Execution: mavinject,Tactic=Defense Evasion,DS=File: File Creation,Level=4,Alert=Mavinject Dropping Executables,Risk=10" groupRelation="and">
+				<Image condition="contains any">mavinject.exe;mavinject64.exe</Image>
+			</Rule>
+			<Rule name="Attack=T1218.014,Technique=System Binary Proxy Execution: MMC,Tactic=Defense Evasion,DS=File: File Creation,Level=4,Alert=MMC Dropping Executables,Risk=10" groupRelation="and">
+				<Image condition="image">mmc.exe</Image>
+			</Rule>
+			<Rule name="Attack=T1218,Technique=System Binary Proxy Execution,Tactic=Defense Evasion,DS=File: File Creation,Level=4,Alert=Other LOLBins Dropping Executables,Risk=10" groupRelation="or">
+				<Image condition="contains any">Appvlp.exe;InfDefaultInstall.EXE;PresentationHost.exe;Register-cimprovider.exe;RegisterCimProvider2.exe;RegisterCimProvider.exe;ScriptRunner.exe;appcmd.exe;csi.exe;devtoolslauncher.exe;diskshadow.exe;extexport.exe;jjs.exe;msconfig.EXE;msdt.exe;rasautou.exe;rasdlui.exe;replace.exe;tttracer.exe;wab.exe;wsreset.exe</Image>
 			</Rule>
 			<Rule name="Attack=T1068,Technique=Exploitation for Privilege Escalation,Tactic=Privilege Escalation,DS=File: File Creation,Level=4,Alert=Vulnerable Driver Detected,Risk=10,Author=Florian Roth" groupRelation="or">
 			    <Hashes condition="contains">SHA256=7ad0ab23023bc500c3b46f414a8b363c5f8700861bc4745cecc14dd34bcee9ed</Hashes>
