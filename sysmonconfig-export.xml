@@ -5302,6 +5302,7 @@
 			</Rule>
 			<Rule name="Attack=T1059,Technique=Command and Scripting Interpreter,Tactic=Execution,DS=File: File Creation,Level=0,Desc=BIN file created" groupRelation="and">
 				<TargetFilename condition="end with">.bin</TargetFilename>
+				<Image condition="excludes any">C:\Windows\System32\WUDFHost.exe</Image>
 			</Rule>
 			<Rule name="Attack=T1059,Technique=Command and Scripting Interpreter,Tactic=Execution,DS=File: File Creation,Level=0,Desc=WMI Shell artifacts" groupRelation="and">
 				<TargetFilename condition="begin with">C:\Windows\SysWOW64\Wbem</TargetFilename>
@@ -5677,6 +5678,7 @@
 			</Rule>
 			<Rule name="Attack=T1036,Technique=Masquerading,Tactic=Defense Evasion,Risk=20,DS=File: File Creation,Level=0,Desc=Monitor Common Masquarading Locations" groupRelation="and">
 				<TargetFilename condition="begin with">C:\Users\Public\</TargetFilename>
+				<Image condition="excludes any">C:\Windows\System32\WUDFHost.exe</Image>
 			</Rule>
 			<Rule name="Attack=T1036,Technique=Masquerading,Tactic=Defense Evasion,Risk=20,DS=File: File Creation,Level=0,Desc=Monitor Common Masquarading Locations" groupRelation="and">
 				<TargetFilename condition="begin with">C:\Windows\Temp\</TargetFilename>
@@ -5886,6 +5888,7 @@
 			</Rule>
 			<Rule name="Attack=T1560,Technique=Archive Collected Data,Tactic=Collection,DS=File: File Creation,Level=0,Desc=BIN" groupRelation="and">
 				<TargetFilename condition="end with">.bin</TargetFilename>
+				<Image condition="excludes any">C:\Windows\System32\WUDFHost.exe</Image>
 			</Rule>
 			<Rule name="Attack=T1560,Technique=Archive Collected Data,Tactic=Collection,DS=File: File Creation,Level=0,Desc=CAB Archive" groupRelation="and">
 				<TargetFilename condition="end with">.cab</TargetFilename>
