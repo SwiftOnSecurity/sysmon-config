@@ -265,7 +265,7 @@
 				<ParentImage condition="contains any">C:\Users\;$Recycle;\Temp\;\Downloads\</ParentImage>
 				<CommandLine condition="is">\??\C:\WINDOWS\system32\conhost.exe 0xffffffff -ForceV1</CommandLine>
 				<Image condition="image">conhost.exe</Image>
-				<ParentImage condition="excludes any">C:\Program Files (x86)\N-able Technologies\Windows Agent\Temp\Msp.Ecosystem.Discovery.exe;TCIntegratorCommHelper.exe</ParentImage>
+				<ParentImage condition="excludes any">C:\Program Files (x86)\N-able Technologies\Windows Agent\Temp\Msp.Ecosystem.Discovery.exe;TCIntegratorCommHelper.exe;\NVIDIA\NvBackend\ApplicationOntology\OAWrapper.exe</ParentImage>
 			</Rule>
 			<Rule name="Attack=T1059,Technique=Command and Scripting Interpreter,Tactic=Execution,DS=Process: Process Creation,Level=3,Alert=Suspicious Console Host Parents,Risk=30" groupRelation="and">
 				<ParentImage condition="contains any">svchost.exe;lsass.exe;services.exe;smss.exe;winlogon.exe;explorer.exe;dllhost.exe;rundll32.exe;regsvr32.exe;userinit.exe;winit.exe;spoolsv.exe;wermgr.exe;csrss.exe;ctfmon.exe;werfault.exe</ParentImage>
@@ -521,6 +521,7 @@
 				<ParentImage condition="excludes">C:\Program Files\Common Files\microsoft shared\ClickToRun\officesvcmgr.exe</ParentImage>
 				<CommandLine condition="excludes">Sentinel\AutoRepair</CommandLine>
 				<CommandLine condition="excludes">Update_Sysmon_Rules</CommandLine>
+				<ParentImage condition="excludes">C:\Program Files\AMD\CIM\Bin64\InstallManagerApp.exe</ParentImage>
 			</Rule>
 			<Rule name="Attack=T1053.005,Technique=Scheduled Task/Job: Scheduled Task,Tactic=Execution,DS=Process: Process Creation,Level=2,Alert=Scheduled Task Created,Risk=100" groupRelation="and">
 				<OriginalFileName condition="is">taskeng.exe</OriginalFileName>
@@ -535,7 +536,7 @@
 			<Rule name="Attack=T1053.005,Technique=Scheduled Task/Job: Scheduled Task,Tactic=Persistence,DS=Process: Process Creation,Level=2,Alert=Child process from schtasks" groupRelation="and">
 				<ParentImage condition="image">schtasks.exe</ParentImage>
 				<ParentCommandLine condition="excludes">schtasks /TN RtkAudUService64_BG</ParentCommandLine>
-				<ParentCommandLine condition="excludes any">-change;/change;-delete;/delete;-create;/create;Update_Sysmon_Rules</ParentCommandLine>
+				<ParentCommandLine condition="excludes any">-change;/change;-delete;/delete;-create;/create;Update_Sysmon_Rules;AMDRyzenMasterSDKTask</ParentCommandLine>
 			</Rule>
 			<Rule name="Attack=T1053.002,Technique=Scheduled Task/Job: At,Tactic=Persistence,DS=Process: Process Creation,Level=2,Alert=at.exe Task scheduler execution" groupRelation="and">
 				<Image condition="image">at.exe</Image>
@@ -689,6 +690,8 @@
 			</Rule>
 			<Rule name="Attack=T1027,Technique=Obfuscated Files or Information,Tactic=Defense Evasion,DS=Process: Process Creation,Level=3,Alert=Suspicious Directory Traversal" groupRelation="and">
 				<CommandLine condition="contains any">..\;\..</CommandLine>
+				<ParentImage condition="excludes all">C:\Program Files;\Razer\Synapse3\Service\Razer Synapse Service.exe</ParentImage>
+				<Image condition="excludes all">C:\Program Files;\Razer\;\UserProcess\Razer Synapse Service Process.exe</Image>
 			</Rule>
 			<Rule name="Attack=T1027,Technique=Obfuscated Files or Information,Tactic=Defense Evasion,DS=Process: Process Creation,Level=3,Alert=Formbook detections" groupRelation="and">
 				<CommandLine condition="contains any">\cmd.exe /c del "C:\Users\*\AppData\Local\Temp\*.exe;\cmd.exe /c del "C:\Users\*\Desktop\*.exe;\cmd.exe -c del "C:\Users\*\AppData\Local\Temp\*.exe;\cmd.exe -c del "C:\Users\*\Desktop\*.exe</CommandLine>
@@ -960,9 +963,13 @@
 			<!--MITRE ATT&CK TECHNIQUE: Impair Defenses: Disable or Modify System Firewall-->
 			<Rule name="Attack=T1562.004,Technique=Disable or Modify System Firewall,Tactic=Defense Evasion,DS=Process: Process Creation,Level=3,Alert=netsh Firewall Rule Deletion,Risk=40" groupRelation="and">
 				<CommandLine condition="contains">firewall delete</CommandLine>
+				<ParentCommandLine condition="excludes all">ROGLiveService;C:\Program Files\ASUS\ROG Live Service\ROGLiveService.exe</ParentCommandLine>
+				<ParentImage condition="excludes">C:\Program Files\ASUS\ROG Live Service\RLSInstallAction.exe</ParentImage>
 			</Rule>
 			<Rule name="Attack=T1562.004,Technique=Disable or Modify System Firewall,Tactic=Defense Evasion,DS=Process: Process Creation,Level=2,Alert=netsh Firewall Rule Creation,Risk=40" groupRelation="and">
 				<CommandLine condition="contains">firewall add</CommandLine>
+				<ParentCommandLine condition="excludes all">cmd.exe;ROGLiveService;C:\Program Files\ASUS\ROG Live Service\ROGLiveService.exe;enable=yes</ParentCommandLine>
+				<ParentImage condition="excludes">C:\Program Files\ASUS\ROG Live Service\RLSInstallAction.exe</ParentImage>
 			</Rule>
 			<Rule name="Attack=T1562.004,Technique=Disable or Modify System Firewall,Tactic=Defense Evasion,DS=Process: Process Creation,Level=4,Alert=netsh firewall disablement,Risk=40" groupRelation="and">
 				<CommandLine condition="contains">firewall set opmode disable</CommandLine>
@@ -1050,6 +1057,7 @@
 			<!--MITRE ATT&CK TECHNIQUE: Masquerading-->
 			<Rule name="Attack=T1036,Technique=Masquerading,Tactic=Defense Evasion,DS=Process: Process Creation,Level=3,Alert=suspicious execution path,Risk=30" groupRelation="and">
 				<Image condition="contains any">C:\Users\NetworkService\;C:\Users\NetworkService\;HarddiskVolumeShadowCopy;C:\Users\Default\;C:\Users\Public;C:\Users\Guest\;\administrateur\;C:\Windows\Media\;C:\Windows\addins\;tsclient\;\htdocs\;\config\systemprofile\;C:\PerfLogs\;c:\windows\ServiceProfiles\;C:\Intel\Logs\;C:\Windows\repair\;C:\Windows\Help\;$Recycle;C:\Windows\Debug\;C:\Windows\Security\;C:\Windows\Fonts\;\wwwroot\;\Contacts;C:\Windows\vss\</Image>
+				<ParentImage condition="excludes all">C:\Windows\SysWOW64\config\systemprofile\Citrix\UpdaterBinaries\;\CitrixReceiverUpdater.exe</ParentImage>
 			</Rule>
 			<Rule name="Attack=T1036.007,Technique=Masquerading: Double File Extension,Tactic=Defense Evasion,DS=Process: Process Creation,Level=0,Alert=Double File Extension,Risk=100" groupRelation="or">
 				<Image condition="end with">      .exe</Image>
@@ -2681,7 +2689,8 @@
 			<!--MITRE ATT&CK TECHNIQUE: Service Stop-->
 			<!--MITRE ATT&CK TECHNIQUE: System Shutdown/Reboot-->
 			<Rule name="Attack=T1059,Technique=Command-Line Interface,Tactic=Execution,DS=Process: Process Creation,Level=4,Alert=Malicious Keywords from Exploitation Frameworks,Author=Florian Roth" groupRelation="and">
-			<CommandLine condition="contains any">AdjustTokenPrivileges;IMAGE_NT_OPTIONAL_HDR64_MAGIC;LSA_UNICODE_STRING;Management.Automation.RuntimeException;Metasploit;Microsoft.Win32.UnsafeNativeMethods;Mimikatz;MiniDumpWriteDump;Net.Sockets.SocketFlags;PAGE_EXECUTE_READ;ReadProcessMemory.Invoke;Reflection.Assembly;Runtime.InteropServices;SECURITY_DELEGATION;SE_PRIVILEGE_ENABLED;System.Runtime.InteropServices;System.Security.Cryptography;TOKEN_ADJUST_PRIVILEGES;TOKEN_ALL_ACCESS;TOKEN_ASSIGN_PRIMARY;TOKEN_DUPLICATE;TOKEN_ELEVATION;TOKEN_IMPERSONATE;TOKEN_INFORMATION_CLASS;TOKEN_PRIVILEGES;TOKEN_QUERY;powerkatz</CommandLine>
+				<CommandLine condition="contains any">AdjustTokenPrivileges;IMAGE_NT_OPTIONAL_HDR64_MAGIC;LSA_UNICODE_STRING;Management.Automation.RuntimeException;Metasploit;Microsoft.Win32.UnsafeNativeMethods;Mimikatz;MiniDumpWriteDump;Net.Sockets.SocketFlags;PAGE_EXECUTE_READ;ReadProcessMemory.Invoke;Reflection.Assembly;Runtime.InteropServices;SECURITY_DELEGATION;SE_PRIVILEGE_ENABLED;System.Runtime.InteropServices;System.Security.Cryptography;TOKEN_ADJUST_PRIVILEGES;TOKEN_ALL_ACCESS;TOKEN_ASSIGN_PRIMARY;TOKEN_DUPLICATE;TOKEN_ELEVATION;TOKEN_IMPERSONATE;TOKEN_INFORMATION_CLASS;TOKEN_PRIVILEGES;TOKEN_QUERY;powerkatz</CommandLine>
+				<Image condition="excludes all">C:\Program Files;\LightingService\AsusInstallVerifier.exe</Image>
 			</Rule>
 			<!--Crypto Currency Miner Detections-->
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Process: Process Creation,Level=4,Alert=Crypto Currency Miner Detected,Attack=T1496,Technique=Resource Hijacking,Tactic=Impact" groupRelation="or">
@@ -2939,6 +2948,9 @@
 			<Rule name="exclude werfault from wmi" groupRelation="and">
 				<Image condition="image">C:\Windows\System32\WerFault.exe</Image>
 				<ParentImage condition="image">C:\Windows\System32\wbem\WmiPrvSE.exe</ParentImage>
+			</Rule>
+			<Rule name="exclude armoury Crate from cmdline file deletion rule" groupRelation="and">
+				<ParentImage condition="excludes">C:\Program Files\ASUS\ARMOURY CRATE Service\ArmouryCrate.Service.exe</ParentImage>
 			</Rule>
 		</ProcessCreate>
 	</RuleGroup>
@@ -5127,6 +5139,7 @@
 				<SourceImage condition="excludes any">C:\Program Files\SmartGit\bin\;C:\Program Files (x86)\ASUS\Update\;C:\Program Files (x86)\Razer\Synapse3\Service\Razer Synapse Service.exe;C:\Program Files (x86)\Citrix\ICA Client\Receiver\UpdaterService.exe;C:\WINDOWS\SysWOW64\config\systemprofile\Citrix\UpdaterBinaries\;C:\Program Files\Mozilla Firefox\firefox.exe;C:\Program Files\SmartGit\git;\Intel\Driver and Support Assistant\DSAService.exe;C:\Program Files (x86)\N-able Technologies\AutomationManagerAgent\;C:\Program Files (x86)\MspPlatform\RequestHandlerAgent\RequestHandlerAgent.exe;C:\Program Files (x86)\N-able Technologies\Windows Agent\bin\agent.exe;C:\ProgramData\Cavelo\jre\bin\java.exe;C:\Program Files (x86)\N-able Technologies\Windows Software Probe\bin\wsp.exe;C:\Program Files\Cavelo\Cavelo Agent\parser.exe</SourceImage>
 				<SourceImage condition="excludes all">C:\Windows\Microsoft.NET\Framework\;\NGenTask.exe</SourceImage>
 				<TargetImage condition="excludes any">\Intel\Driver and Support Assistant\</TargetImage>
+				<TargetImage condition="excludes any">C:\Program Files\AMD\CNext\CNext\Radeonsoftware.exe;C:\Program Files\ASUS\ARMOURY CRATE Service\ArmouryCrate.UserSessionHelper.exe</TargetImage>
 				<TargetImage condition="excludes all">C:\Windows\Microsoft.NET\Framework\;\ngen.exe</TargetImage>
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Process: Process Access,Level=3,Alert=Potential MalDoc Behavior" groupRelation="and">
@@ -5267,6 +5280,7 @@
 				<TargetFilename condition="begin with">C:\Windows\SoftwareDistribution</TargetFilename>
 				<TargetFilename condition="not begin with">C:\Windows\SoftwareDistribution\Download\Install\AM_Delta_Patch</TargetFilename>
 				<TargetFilename condition="end with">.exe</TargetFilename>
+				<TargetFilename condition="excludes">C:\Windows\SoftwareDistribution\Download\Install\AM_Delta.exe</TargetFilename>
 			</Rule>
 			<Rule name="Attack=T1195,Technique=Supply Chain Compromise,Tactic=Initial Access,DS=File: File Creation,Level=0,Desc=MSBuild Source Files created" groupRelation="or">
 				<TargetFilename condition="end with">proj</TargetFilename>
@@ -5440,6 +5454,8 @@
 				<TargetFilename condition="contains any">!!!-WARNING-!!!.html;!!!-WARNING-!!!.txt;!!! HOW TO DECRYPT FILES !!!;!!!README!!!;!!!READ_TO_UNLOCK!!!.TXT;!!!_READ_ME_;!Recovery_;!Where_are_my_files!.html;!_HOW_TO_RESTORE_;!_RECOVERY_HELP_!.txt;!recover!;# DECRYPT MY FILES #.html;# DECRYPT MY FILES #.txt;# DECRYPT MY FILES #.vbs;# SATAN CRYPTOR #;+recover+;.8lock8;.31392E30362E32303136_;.ABCDEF;.CIop;.CR1;.CRAB;.CRYPTOSHIELD;.Cl0p;.Contact_Here_To_Recover_Your_Files.txt;.CryptoTorLocker2015!;.HERMES;.HakunaMatata;.How_To_Decrypt.txt;.How_To_Get_Back.txt;.KEYZ.KEYH0LES;.L0CKED;.LOL!;.MATRIX;.OMG!;.R.i.P;.RMCM1;.RSplited;.SUPERCRYPT;.SecureCrypted;.TheTrumpLocker;.VBRANSOM;.VforVendetta;.Where_my_files.txt;.XBTL;._AiraCropEncrypted!;.airacropencrypted!;.areyoulovemyrans;.berkshire;.bitpy;.bitx;.blocatto;.bomber;.braincrypt;.breakingbad;.breeding123;.cerber;.cifgksaffsfyghd;.country82000;.crypt;.crypted;.crypton;.cryptotorlocker;.decrypt2017;.deria;.dglnl;.disposed2017;.doomed;.encrypted.locked;.encrypted;.encryptedyourfiles;.enjey;.evillock;.filegofprencrp;.fileiscryptedhard;.firecrypt;.fuckyourdata;.gangbang;.gefickt;.googl;.happydayzz;.hceem;.helpdecrypt;.helpmeencedfiles;.hnumkhotep;.hydracrypt_ID;.iaufkakfhsaraf;.info.txt;.jimm;.kharma;.killedXXX;.lambda_l0cked;.letmetrydecfiles;.locked;.locker16;.loveransisgood;.lovewindows;.magic_software_syndicate;.mention9823;.moments2900;.myrandsext2017;.newlock;.no_more_ransom;.nochance;.noproblemwedecfiles;.notfoundrans;.ohwqg;.one-we_can-help_you;.oops;.osiris;.otherinformation;.paytounlock;.powerfulldecrypt;.powned;.pr0lock;.prolock;.prosperous666;.pwnd;.ransom;.readme2unlock;.righ;.roger;.ryk;.satan;.savethequeen;.sigaint.org;.skjdthghh;.skynet;.snatch;.stubbin;.supported2017;.suppose666;.theworldisyours;.txd0t;.warn_wallet;.weapologize;.weareyourfriends;.weencedufiles;.wowreadfordecryp;.wowwhereismyfiles;.wvtr0;.yourransom;.zzzzz ;.{CRYPTENDBLACKDC};-DECRYPT.txt;000-IF-YOU-WANT-DEC-FILES;000-No-PROBLEM-WE-DEC-FILES;000-PLEASE-READ-WE-HELP;001-READ-FOR-DECRYPT-FILES;1025-7152.exe;:\windows\update_collector.exe;=READ=THIS=PLEASE=;@cock.li;@countermail.com;@firemail.cc;@india.com;@mail.ru;@ukr.net;ASSISTANCE_IN_RECOVERY;ATTENTION!!!.txt;ATTENTION.url;Aescrypt.exe;AllFilesAreLocked;BTC_DECRYPT_FILES;BUYUNLOCKCODE.txt;BUYUNLOCKCODE;BitCryptorFileList.txt;C:\ProgramData\dtb.dat;C:\Programdata\WinMgr;C:\Programdata\clean.bat;C:\Programdata\run.bat;C:\Windows\svchost.exe;CEBER3;CHECK-IT-HELP-FILES;COME_RIPRISTINARE_I_FILE.;COMO_ABRIR_ARQUIVOS.txt;COMO_RESTAURAR_ARCHIVOS;Coin.Locker.txt;Comment débloquer mes fichiers.txt;Como descriptografar seus arquivos.txt;Corona-virus-Map;Corona.bat;Corona.sfx;CryptoRansomware;Crytp0l0cker;Cyber SpLiTTer Vbs.exe;Cyborg_DECRYPT;DALE_FILES.TXT;DECRYPT-FILES;DECRYPTION INSTRUCTIONS.;DECRYPTION_HOWTO.Notepad;DECRYPT_INFORMATION;DECRYPT_INSTRUCTION.HTML;DECRYPT_INSTRUCTION.URL;DECRYPT_INSTRUCTIONS.html;DECRYPT_INSTRUCTIONS;DECRYPT_ReadMe1.TXT;DECRYPT_Readme.TXT.ReadMe;DECRYPT_YOUR_FILES;DESIFROVANI_POKYNY.html;Decrypt All Files;DecryptAllFiles;DecryptFile;Decrypt_readme.txt;DesktopOsiris;ENTSCHLUSSELN_HINWEISE.html;EdgeLocker;FILESAREGONE.txt;FILES_BACK.txt;File Decrypt Help.html;GJENOPPRETTING_AV_FILER;GetYouFiles.txt;HAPPEN-ENCED-FILES;HELLOTHERE.TXT;HELP-ME-ENCED-FILES;HELPDECRYPT_YOUR_FILES.HTML;HELP_DECRYPT.HTML;HELP_DECRYPT.PNG;HELP_DECRYPT.URL;HELP_DECRYPT.lnk;HELP_ME_PLEASE.txt;HELP_RESTORE_FILES_;HELP_TO_SAVE_FILES.bmp;HELP_TO_SAVE_FILES;HELP_YOURFILES.HTML;HELP_YOUR_FILES.PNG;HELP_YOUR_FILES.html;HELP_YOUR_FILES;HOW-TO-DECRYPT-FILES.HTML;HOW-TO-RESTORE-FILES;HOW TO BACK YOUR FILES;HOW TO DECRYPT FILES.HTML;HOW TO DECRYPT FILES.txt;HOW TO RECOVER;HOWTO_RECOVER_FILES_;HOWTO_RESTORE_FILES;HOWTO_RESTORE_FILES_;HOW_DECRYPT.HTML;HOW_DECRYPT.TXT;HOW_DECRYPT.URL;HOW_OPEN_FILES;HOW_TO_DECRYPT.HTML;HOW_TO_DECRYPT_;HOW_TO_PAY_THE_RANSOM;HOW_TO_RESTORE_FILES.html;HOW_TO_RESTORE_FILES;HOW_TO_RESTORE_YOUR_DATA;HOW_TO_UNLOCK_FILES_README_;HWID Lock.exe;Hacked_Read_me_to_decrypt_files.html;Help Decrypt.html;How decrypt files.hta;How to decrypt LeChiffre files.html;How to decrypt your data.txt;HowDecrypt.gif;HowDecrypt.txt;How_to_decrypt_your_files.jpg;How_to_restore_files.hta;HowtoRestore_File;HowtoRestore_Files;Howto_RESTORE_FILES.html;Howto_Restore_FILES.TXT;IAMREADYTOPAY.TXT;IF-YOU-WANT-DEC-FILES;IF_WANT_FILES_BACK_PLS_READ.html;IHAVEYOURSECRET.KEY;IMPORTANT READ ME.txt;IMPORTANT.README;INSTALL_TOR.URL;INSTRUCCIONES;INSTRUCCIONES_DESCIFRADO.html;INSTRUCTION RESTORE FILE;INSTRUCTIONS_DE_DECRYPTAGE.html;INSTUCCIONES_DESCRIFRADO;ISTRUZIONI_DECRITTAZIONE.html;Important!.txt;Instructionaga.txt;KryptoLocker_README.txt;LEER_INMEDIATAMENTE;LET-ME-TRY-DEC-FILES;Locked-by-Mafia;MENSAGEM.txt;MERRY_I_LOVE_YOU_BRUCE.hta;No-PROBLEM-WE-DEC-FILES;OKSOWATHAPPENDTOYOURFILES.TXT;ONTSLEUTELINGS_INSTRUCTIES.html;OSIRIS-;PAYLOADBIN;PINGY@INDIA.COM;PLEASE-READ-WE-HELP.;PLEASE-READIT-IF_YOU-WANT.html;PLEASE-READIT-IF_YOU-WANT;PLEASE-README-AFFECTED-FILES;PLS-DEC-MY-FILES;PURELOCKER;Payment_Instructions.jpg;Please Read Me!!!;READ-FOR-DECCCC-FILESSS;READ-FOR-DECRYPT-FILES;READ-READ-READ;READ IF YOU WANT YOUR FILES BACK.html;READ ME FOR DECRYPT.txt;README HOW TO DECRYPT YOUR FILES.HTML;README!!!;README_DECRYPT_HYDRA_ID_;README_DECRYPT_HYRDA_ID_;README_DECRYPT_UMBRE_ID_;README_DONT_DELETE;README_HOW_TO_UNLOCK.HTML;README_HOW_TO_UNLOCK.TXT;README_RECOVER_FILES_;README_TO_RECURE_YOUR_FILES;READTHISNOW!!!.txt;READ_IT.txt;READ_ME_!.txt;READ_ME_TO_DECRYPT_YOU_INFORMA;READ_THIS_TO_DECRYPT.html;RECOVER-FILES;RECOVERY_FILE.;RECOVERY_FILES.TXT;RECOVER_MY_FILE;RESTORE_CORUPTED_FILES;RESTORE_FILES_;RETURN FILES.txt;RETURN YOUR FILES;RETURNFILES_.txt;RETURN_FILES.txt;RETURN_FILES_.txt;Rans0m_N0te_Read_ME;Read Me (How Decrypt) !!!!.txt;ReadDecryptFilesHere;Read_this_file.txt;Receipt.exe;RecoveryManual.html;Recovery_File_;Recovery_file_;Rooster865qq;SECRET.KEY;SECRETIDHERE.KEY;SHTODELATVAM.txt;SIFRE_COZME_TALIMATI.html;SORRY-FOR-FILES;Survey Locker.exe;TRY-READ-ME-TO-DEC;Temp\satan\satan;ThxForYurTyme;UNLOCK_FILES_INSTRUCTIONS.html;UNLOCK_FILES_INSTRUCTIONS.txt;UnblockFiles.vbs;VIP72.exe;Vape Launcher.exe;WANT_FILES_BACK;WE-MUST-DEC-FILES;WHERE-YOUR-FILES;WORMKILLER@INDIA.COM.XTBL;What happen to my files.txt;Whereisyourfiles;WindowsApplication1.exe;YOUGOTHACKED.TXT;YOUR_FILES.txt;YOUR_FILES.url;YOUR_FILES_ARE_DEAD;YOUR_FILES_ARE_ENCRYPTED.HTML;YOUR_FILES_ARE_ENCRYPTED.TXT;YOUR_FILES_ARE_LOCKED.txt;Your files are locked !!!!.txt;Your files are locked !!!.txt;Your files are locked !!.txt;Your files are locked !.txt;Your files encrypted by our friends !!! txt;Your files encrypted by our friends !!!.txt;[KASISKI];_Adatok_visszaallitasahoz_utasitasok;_DECRYPT_ASSISTANCE_;_DECRYPT_INFO_;_DECRYPT_INFO_szesnl;_DEC_FILES.;_FILES_WERE_ENCRYPTED_@.TXT;_HELP_HELP_HELP_;_HELP_Recover_Files_;_HELP_instructions.bmp;_HELP_instructions.txt;_HOWDO_text.bmp;_HOWDO_text.html;_HOW_TO_Decrypt;_H_e_l_p_RECOVER_INSTRUCTIONS+;_H_e_l_p_RECOVER_INSTRUCTIONS;_Locky_recover;_Locky_recover_instructions.bmp;_Locky_recover_instructions.txt;_README.hta;_README.jpg;_READ_ME!;_RECOVER_INSTRUCTIONS;_ReCoVeRy_+;_USE_TO_FIX_;_WHAT_is.html;_help_instruct;_how_recover.txt;_how_recover;_how_recover_;_recover_;_secret_code.txt;_steaveiwalker@india.com_;aeroware;confirmation.key;contains(to_string($message.file_created), "howrecover+;crjoker.html;cryptinfo.txt;cryptolocker.;cryptopp;de_crypt_readme.;de_crypt_readme.bmp;de_crypt_readme.html;de_crypt_readme.txt;decipher_ne;decrypt-instruct;decrypt explanations.;decrypt my file;decrypt your file;decrypt_Globe;decrypt_instruct;decrypted_files.dat;decryptional;decryptmyfiles;decypt_your_files.html;default32643264.bmp;default432643264.jpg;email-salazar_slytherin10;enc_files.txt;encryptor_raas_readme_liesmich;enigma.hta;enigma_encr.txt;exit.hhr.obleep;fattura_;file0locked;files_are_encrypted.;-filesencrypted;firemail.cc;firstransomware.exe;gmx.de;hacks.at.sigaint.org;help-file-decrypt.enc;help_decrypt;help_file_;help_instructions.;help_my_files;help_recover;help_recover_instructions;help_restore;help_restore_files;help_your_file;helpmeencedfiles;how to decrypt aes files.lnk;how to decrypt;how to get data.txt;how_decrypt.gif;how_recover;how_to_decrypt;how_to_recover;howrecover+ recoveryfile_;howrecover+;howto_recover_file;howto_restore;howtodecrypt;howtodecryptaesfiles.txt;inbox.ru;info@kraken.cc_worldcza@email.cz;install_tor;iran.ir;last_chance.txt;maestro@pizzacrypts.info;maxcrypt.bmp;only-we_can-help_you;openforyou@india.com;opensourcemail.org;padcrypt;paycrypt.bmp;popcorn_time.exe;powerfulldecrypt;protonmail.ch;qbmail.biz;randomname;readme_decrypt;readme_for_decrypt;readme_liesmich_encryptor_raas;recover_file;recover_file_;recover_instruction;recoverfile;recoverfile_;recovery+;recovery_file.txt;recovery_key.txt;recoveryfile;recover}-;restore_files.txt;restorefiles;restorefiles_;ryukreadme.html;tuta.io;tutanota.com;tutanota.de;unCrypte;vault.hta;vault.key;vault.txt;want your files back.;warning-!!;wie_zum_Wiederherstellen_von_Dateien.txt;wowreadfordecryp;wowwhereismyfiles;zXz.html;zycrypt.;zzzzzzzzzzzzzzzzzyyy</TargetFilename>
 				<TargetFilename condition="excludes all">C:\Users\;\Google\Chrome Beta\User Data\;\IndexedDB\</TargetFilename>
 				<TargetFilename condition="excludes any">C:\Program Files\WindowsApps\Microsoft.YourPhone_;C:\Program Files\dotnet\shared\Microsoft.NETCore.App\;\Microsoft.NET\assembly\GAC_MSIL</TargetFilename>
+				<TargetFilename condition="excludes any">\System.Security.Cryptography</TargetFilename>
+				<Image condition="excludes any">Microsoft.VisualStudio.Setup.Service\BackgroundDownload.exe</Image>
 			</Rule>
 			<Rule name="Attack=T1204.002,Technique=Malicious File,Tactic=Execution,DS=File: File Creation,Level=4,Alert=Common Files of CrackMapExec,Risk=100" groupRelation="and">
 				<TargetFilename condition="contains">crackmapexec</TargetFilename>
@@ -6871,7 +6887,7 @@
 				<TargetFilename condition="contains">Temp\Temp1_</TargetFilename>
 			</Rule>
 			<!--Uncategorized-->
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Desc=File Extension Monitoring" groupRelation="and">
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Desc=DotNet UsageLogs" groupRelation="and">
 				<TargetFilename condition="contains all">\Microsoft\;CLR_v;\UsageLogs\</TargetFilename>
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Desc=File Extension Monitoring" groupRelation="and">
@@ -7147,6 +7163,9 @@
 				<EventType condition="is">SetValue</EventType>
 				<TargetObject condition="contains">\CurrentVersion\Run\</TargetObject>
 				<Image condition="excludes any">C:\Program Files\Microsoft OneDrive\Update\OneDriveSetup.exe;\AppData\Local\Microsoft\Teams\current\Teams.exe;C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Image>
+				<Details condition="excludes all">C:\Program Files\Google\Drive File Stream;\GoogleDriveFS.exe;startup_mode</Details>
+				<Details condition="excludes all">C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe;no-startup-window;win-session-start;prefetch</Details>
+				<Details condition="excludes all">\Application\chrome.exe;no-startup-window;win-session-start;prefetch</Details>
 			</Rule>
 			<Rule name="Attack=T1060,Technique=Registry Autorun Keys,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Logon Logoff Shutdown Scripts" groupRelation="and">
 				<TargetObject condition="contains">\Microsoft\System\Scripts</TargetObject>
@@ -7439,7 +7458,8 @@
 				<TargetObject condition="is not">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Setup\SnapshotCleanupTask\SD</TargetObject>
 				<TargetObject condition="is not">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Office\Office ClickToRun Service Monitor\SD</TargetObject>
 				<TargetObject condition="is not">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Office\Office Automatic Updates 2.0\SD</TargetObject>
-				<TargetObject condition="excludes">Microsoft\Windows\UpdateOrchestrator</TargetObject>
+				<TargetObject condition="is not">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Office\Office Automatic Updates 2.0\SD</TargetObject>
+				<TargetObject condition="excludes any">Microsoft\Windows\UpdateOrchestrator;\AMDInstallLauncher\SD;\SD;ASUS Switch;\PowerToys\Autorun for </TargetObject>
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Scheduled Task Creation ID Key" groupRelation="and">
 				<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree</TargetObject>
@@ -7641,6 +7661,7 @@
 				<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\</TargetObject>
 				<TargetObject condition="end with">\Enabled</TargetObject>
 				<Details condition="contains">DWORD (0x00000000)</Details>
+				<Image condition="excludes">C:\WINDOWS\system32\DrvInst.exe</Image> <!--Common Driver Installs-->
 			</Rule>
 			<Rule name="Attack=T1562.002,Technique=Impair Defenses: Disable Windows Event Logging,Tactic=Defense Evasion,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Enabling of Windows Event Log Source" groupRelation="and">
 				<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\</TargetObject>
@@ -8523,6 +8544,9 @@
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=AmCache Office Information" groupRelation="and">
 				<TargetObject condition="contains any">Root\InventoryMiscellaneousOfficeAddIn;Root\InventoryMiscellaneousOfficeIdentifiers;Root\InventoryMiscellaneousOfficeIESettings;Root\InventoryMiscellaneousOfficeInsights;Root\InventoryMiscellaneousOfficeProducts;Root\InventoryMiscellaneousOfficeSettings;Root\InventoryMiscellaneousOfficeVBA;Root\InventoryMiscellaneousOfficeVBARuleViolations</TargetObject>
 			</Rule>
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=Registry Hive List" groupRelation="and">
+				<TargetObject condition="contains">\Control\hivelist</TargetObject>
+			</Rule>
 			<Rule name="Attack=T1200,Technique=Hardware Additions,Tactic=Initial Access,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=ISO Drive Mounted" groupRelation="and">
 				<TargetObject condition="contains">\Software\Microsoft\Windows\CurrentVersion\Explorer\CD Burning\Drives\Volume</TargetObject>
 				<TargetObject condition="end with">Drive Type</TargetObject>
@@ -8839,6 +8863,12 @@
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=PrintNightmare Coverage,Author=Florian Roth" groupRelation="and">
 				<TargetObject condition="contains">Control\Print\Environments\Windows x64\Drivers</TargetObject> <!-- PrinterNightmare coverage -->
+			</Rule>
+			<Rule name="Attack=T1629.003,Technique=Impair Defenses: Disable or Modify Tools,Tactic=Defense Evasion,DS=Windows Registry: Windows Registry Key Modification,Level=0,Alert=NGenAssemblyUsageLog Tampering Detected" groupRelation="and">
+				<TargetObject condition="contains all">\Microsoft\.NETFramework;NGenAssemblyUsageLog</TargetObject>
+			</Rule>
+			<Rule name="Attack=T1629.003,Technique=Impair Defenses: Disable or Modify Tools,Tactic=Defense Evasion,DS=Windows Registry: Windows Registry Key Modification,Level=0,Alert=Winget admin settings Tampering Detected" groupRelation="and">
+				<TargetObject condition="contains all">\REGISTRY\A\;LocalState\admin_settings</TargetObject>
 			</Rule>
 		</RegistryEvent>
 	</RuleGroup>
