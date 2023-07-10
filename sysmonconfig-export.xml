@@ -6753,10 +6753,10 @@
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Desc=CIA Vault7: https://wikileaks.org/ciav7p1/cms/page_16384212.html" groupRelation="and">
 				<TargetFilename condition="contains">.mht</TargetFilename>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Desc=Chrome Extensions" groupRelation="and">
+			<Rule name="Attack=T1176,Technique=Browser Extensions,Tactic=Persistence,DS=File: File Creation,Level=0,Desc=Chrome Extensions" groupRelation="and">
 				<TargetFilename condition="contains">\Chrome\User Data\Default\Extensions\</TargetFilename>
 			</Rule>
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Desc=Chrome extension" groupRelation="and">
+			<Rule name="Attack=T1176,Technique=Browser Extensions,Tactic=Persistence,DS=File: File Creation,Level=0,Desc=Chrome extension auditing" groupRelation="and">
 				<TargetFilename condition="end with">.crx</TargetFilename>
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=File: File Creation,Level=0,Desc=ClickOnce extension" groupRelation="and">
@@ -7123,9 +7123,14 @@
 			<!--MITRE ATT&CK TECHNIQUE: Windows Management Instrumentation-->
 
 			<!--MITRE ATT&CK TACTIC: Persistence-->
-			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=Chrome Extension auditing" groupRelation="and">
+			<Rule name="Attack=T1176,Technique=Browser Extensions,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=Old Chrome Extension auditing" groupRelation="and">
 				<TargetObject condition="contains">Google\Chrome\Extensions</TargetObject>
 				<TargetObject condition="end with">update_url</TargetObject>
+				<EventType condition="is">SetValue</EventType>
+			</Rule>
+			<Rule name="Attack=T1176,Technique=Browser Extensions,Tactic=Persistence,DS=Windows Registry: Windows Registry Key Modification,Level=0,Forensic=Chrome Extension auditing" groupRelation="and">
+				<TargetObject condition="contains">Google\Chrome</TargetObject>
+				<TargetObject condition="contains">extensions.settings</TargetObject>
 				<EventType condition="is">SetValue</EventType>
 			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: Account Manipulation-->
@@ -8111,7 +8116,6 @@
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=AutoStart on Disconnect" groupRelation="and">
 				<TargetObject condition="contains">Windows CE Services\AutoStartOnDisconnect</TargetObject>
 			</Rule>
-			<!-- <TargetObject name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=Chrome Extensions" condition="contains">PreferenceMACs\Default\extensions.settings</TargetObject> Nosiy and doesn't seem to provide helpful information. -->
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Windows Registry: Windows Registry Key Modification,Level=0,Desc=CurrentVersion URL Key" groupRelation="and">
 				<TargetObject condition="contains">CurrentVersion\URL</TargetObject>
 			</Rule>
