@@ -304,10 +304,7 @@
 			</Rule>
 			<Rule name="Attack=T1059,Technique=Scripting,Tactic=Execution,DS=Process: Process Creation,Level=2,Alert=Suspicious wscript commands,Risk=60" groupRelation="and">
 				<Image condition="image">wscript.exe</Image>
-				<CommandLine condition="contains">.jse</CommandLine>
-				<CommandLine condition="contains">.js</CommandLine>
-				<CommandLine condition="contains">.vba</CommandLine>
-				<CommandLine condition="contains">.vbe</CommandLine>
+				<CommandLine condition="contains any">.jse;.js;.vba;.vbe</CommandLine>
 			</Rule>
 			<Rule name="Attack=T1059,Technique=Scripting,Tactic=Execution,DS=Process: Process Creation,Level=3,Alert=Suspicious scripting to dll commands,Risk=70" groupRelation="and">
 				<ParentImage condition="contains any">\wscript.exe;\cscript.exe</ParentImage>
@@ -321,10 +318,7 @@
 			</Rule>
 			<Rule name="Attack=T1059,Technique=Scripting,Tactic=Execution,DS=Process: Process Creation,Level=2,Alert=cscript execution,Risk=60" groupRelation="and">
 				<Image condition="image">cscript.exe</Image>
-				<CommandLine condition="contains">.js</CommandLine>
-				<CommandLine condition="contains">.jse</CommandLine>
-				<CommandLine condition="contains">.vba</CommandLine>
-				<CommandLine condition="contains">.vbe</CommandLine>
+				<CommandLine condition="contains any">.jse;.js;.vba;.vbe</CommandLine>
 			</Rule>
 			<Rule name="Attack=T1059,Technique=Scripting,Tactic=Execution,DS=Process: Process Creation,Level=4,Alert=Suspicious or Malicious mshta exec,Risk=70" groupRelation="and">
 				<CommandLine condition="contains any">mshta vbscript:CreateObject("Wscript.Shell");mshta vbscript:Execute("Execute;mshta vbscript:CreateObject("Wscript.Shell").Run("mshta.exe;javascript:a=</CommandLine>
@@ -2484,10 +2478,10 @@
 				<CommandLine condition="image">start-bitstransfer</CommandLine>
 			</Rule>
 			<Rule name="Attack=T1105,Technique=Ingress Tool Transfer,Tactic=Command And Control,DS=Process: Process Creation,Level=4,Alert=Expand File copy,Risk=70" groupRelation="and">
-				<CommandLine condition="contains">expand \\</CommandLine>
+				<CommandLine condition="contains all">expand;\\</CommandLine>
 			</Rule>
 			<Rule name="Attack=T1105,Technique=Ingress Tool Transfer,Tactic=Command And Control,DS=Process: Process Creation,Level=4,Alert=Expand File copy,Risk=70" groupRelation="and">
-				<CommandLine condition="contains">expand.exe \\</CommandLine>
+				<CommandLine condition="contains all">expand.exe;\\</CommandLine>
 			</Rule>
 			<Rule name="Attack=T1105,Technique=Ingress Tool Transfer,Tactic=Command And Control,DS=Process: Process Creation,Level=4,Alert=Ingress Tool Transfer with ieexec,Risk=70" groupRelation="and">
 				<CommandLine condition="contains">ieexec http</CommandLine>
@@ -2505,10 +2499,10 @@
 				<CommandLine condition="contains any">esentutl.exe /y \\;esentutl.exe -y \\</CommandLine>
 			</Rule>
 			<Rule name="Attack=T1105,Technique=Ingress Tool Transfer,Tactic=Command And Control,DS=Process: Process Creation,Level=4,Alert=extrac32 Ingress Tool Transfer,Risk=70" groupRelation="and">
-				<CommandLine condition="contains">extrac32 \\</CommandLine>
+				<CommandLine condition="contains all">extrac32;\\</CommandLine>
 			</Rule>
 			<Rule name="Attack=T1105,Technique=Ingress Tool Transfer,Tactic=Command And Control,DS=Process: Process Creation,Level=4,Alert=extrac32 Ingress Tool Transfer,Risk=70" groupRelation="and">
-				<CommandLine condition="contains">extrac32.exe \\</CommandLine>
+				<CommandLine condition="contains all">extrac32.exe;\\</CommandLine>
 			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: Multi-Stage Channels-->
 			<!--MITRE ATT&CK TECHNIQUE: Non-Application Layer Protocol-->
@@ -2650,10 +2644,16 @@
 				<CommandLine condition="contains">erase</CommandLine>
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Process: Process Creation,Level=2,Alert=vShadow Commands" groupRelation="and">
-				<CommandLine condition="contains">-nw -exec=</CommandLine>
+				<CommandLine condition="contains all">-nw;-exec=</CommandLine>
+			</Rule>
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Process: Process Creation,Level=2,Alert=vShadow Commands" groupRelation="and">
+				<CommandLine condition="contains all">/nw;/exec=</CommandLine>
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Process: Process Creation,Level=0,Alert=vShadow Commands" groupRelation="and">
-				<CommandLine condition="contains">-p -nw</CommandLine>
+				<CommandLine condition="contains all">-p;-nw</CommandLine>
+			</Rule>
+			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Process: Process Creation,Level=0,Alert=vShadow Commands" groupRelation="and">
+				<CommandLine condition="contains all">/p;/nw</CommandLine>
 			</Rule>
 			<Rule name="Attack=T1485,Technique=Data Destruction,Tactic=Impact,DS=Process: Process Creation,Level=4,Alert=Data Destruction with shred Detected,Risk=100" groupRelation="and">
 				<Image condition="contains">shred</Image>
@@ -2678,8 +2678,7 @@
 			<!--MITRE ATT&CK TECHNIQUE: Disk Wipe-->
 			<Rule name="Attack=T1107,Technique=File Deletion,Tactic=Defense Evasion,DS=Process: Process Creation,Level=3,Alert=FSUtil USN Journal Deletion,Risk=60" groupRelation="and">
 				<Image condition="image">fsutil.exe</Image>
-				<CommandLine condition="contains">deletejournal</CommandLine>
-				<CommandLine condition="contains">usn</CommandLine>
+				<CommandLine condition="contains all">usn;deletejournal</CommandLine>
 			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: Endpoint Denial of Service-->
 			<!--MITRE ATT&CK TECHNIQUE: Firmware Corruption-->
@@ -2950,7 +2949,7 @@
 				<ParentImage condition="image">C:\Windows\System32\wbem\WmiPrvSE.exe</ParentImage>
 			</Rule>
 			<Rule name="exclude armoury Crate from cmdline file deletion rule" groupRelation="and">
-				<ParentImage condition="excludes">C:\Program Files\ASUS\ARMOURY CRATE Service\ArmouryCrate.Service.exe</ParentImage>
+				<ParentImage condition="image">C:\Program Files\ASUS\ARMOURY CRATE Service\ArmouryCrate.Service.exe</ParentImage>
 			</Rule>
 		</ProcessCreate>
 	</RuleGroup>
@@ -9680,7 +9679,7 @@
 				<Image condition="begin with">C:\Users\</Image>
 				<Image condition="contains">Content.Outlook</Image>
 			</Rule>
-			<Rule name="Attack=T1036.008,Technique=Masquerading: Masquerade File Type,Tactic=Defense Evasion,DS=File: File Creation,Level=4,Alert=Pe File Detected under Unusual File extension,Risk=10" groupRelation="or">
+			<Rule name="Attack=T1036.008,Technique=Masquerading: Masquerade File Type,Tactic=Defense Evasion,DS=File: File Creation,Level=4,Alert=Pe File Detected under Unusual File extension,Risk=10" groupRelation="and">
 				<TargetFilename condition="not end with">.exe</TargetFilename>
 				<TargetFilename condition="not end with">.dll</TargetFilename>
 				<TargetFilename condition="not end with">.sys</TargetFilename>
