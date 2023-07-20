@@ -6,7 +6,7 @@ The configuration uses exclusion-based filtering for ProcessCreate events.
 All process creations are monitored except for those defined within the `<ProcessCreate onmatch="exclude">` block.
 
 ---
-### [Event ID 2 - FileCreateTime](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon#event-id-2-a-process-changed-a-file-creation-time)
+### [Event ID 2 - FileCreateTime (A process changed a file creation time)](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon#event-id-2-a-process-changed-a-file-creation-time)
 The configuration uses both inclusion-based and exclusion-based filtering.
 
 Events that meet the criteria defined in the `<FileCreateTime onmatch="include">` block will be recorded unless the event also meets criteria defined in the `<FileCreateTime onmatch="exclude">` block.
@@ -378,3 +378,342 @@ The __include__ rules capture the following:
 - Registry changes where the TargetObject is `HKLM\Software\Microsoft\Windows\CurrentVersion\Installer\InProgress\(Default)`
 - Registry changes by process image ending with `regedit.exe`
 - Registry changes by process image beginning with `\`
+
+The __exclude__ rules define the following exclusions:
+- Registry changes where the TargetObject contains:
+    - `\{CAFEEFAC-`
+    - `\Control\WMI\Autologger\`
+    - `_Classes\AppX`
+    - `VirtualStore\MACHINE\SOFTWARE\Microsoft\Office\ClickToRun\`
+- Registry changes where the TargetObject begins with:
+    - `HKLM\COMPONENTS`
+    - `HKLM\Software\Microsoft\Windows\CurrentVersion\AppModel\StateRepository\Cache`
+    - `HKLM\Software\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\`
+    - `HKLM\Software\Microsoft\Windows\CurrentVersion\WINEVT\Publishers\`
+    - `HKLM\SOFTWARE\Microsoft\Office\ClickToRun\`
+    - `HKCR\VLC.`
+    - `HKCR\iTunes.`
+- Registry changes where the TargetObject ends with:
+    - `Toolbar\WebBrowser`
+    - `Browser\ITBar7Height`
+    - `Browser\ITBar7Layout`
+    - `Internet Explorer\Toolbar\Locked`
+    - `Toolbar\WebBrowser\{47833539-D0C5-4125-9FA8-0819E2EAAC93}`
+    - `}\PreviousPolicyAreas`
+    - `HKLM\SYSTEM\CurrentControlSet\Services\UsoSvc\Start`
+    - `\Lsa\OfflineJoin\CurrentValue`
+    - `HKLM\SYSTEM\CurrentControlSet\Control\Lsa\LsaPid`
+    - `HKLM\SYSTEM\CurrentControlSet\Control\Lsa\SspiCache`
+    - `HKLM\SYSTEM\CurrentControlSet\Control\Lsa\Kerberos\Domains`
+    - `\Services\BITS\Start`
+    - `\services\clr_optimization_v2.0.50727_32\Start`
+    - `\services\clr_optimization_v2.0.50727_64\Start`
+    - `\services\clr_optimization_v4.0.30319_32\Start`
+    - `\services\clr_optimization_v4.0.30319_64\Start`
+    - `\services\deviceAssociationService\Start`
+    - `\services\fhsvc\Start`
+    - `\services\nal\Start`
+    - `\services\trustedInstaller\Start`
+    - `\services\tunnel\Start`
+    - `\services\usoSvc\Start`
+    - `\UserChoice\ProgId`
+    - `\UserChoice\Hash`
+    - `\OpenWithList\MRUList`
+    - `HKLM\System\CurrentControlSet\Control\Lsa\Audit\SpecialGroups`
+    - `SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Startup\0\PSScriptOrder`
+    - `SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Startup\0\SOM-ID`
+    - `SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Startup\0\GPO-ID`
+    - `SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Startup\0\0\IsPowershell`
+    - `SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Startup\0\0\ExecTime`
+    - `SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Shutdown\0\PSScriptOrder`
+    - `SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Shutdown\0\SOM-ID`
+    - `SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Shutdown\0\GPO-ID`
+    - `SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Shutdown\0\0\IsPowershell`
+    - `SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\Scripts\Shutdown\0\0\ExecTime`
+- Registry changes where the TargetObject is `HKLM\Software\Microsoft\Windows\CurrentVersion\WINEVT\Publishers\{945a8954-c147-4acd-923f-40c45405a658}`
+- Registry changes where the EventType is `CreateKey`
+- Registry changes where the process image is `C:\Program Files\WIDCOMM\Bluetooth Software\btwdins.exe`
+
+---
+### [Event ID 15 - FileCreateStreamHash](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon#event-id-15-filecreatestreamhash)
+The configuration uses inclusion-based filtering.
+
+The __include__ rules capture the following:
+- File streams created where the TargetFileName contains:
+    - `Downloads`
+    - `Temp\7z`
+    - `Startup`
+- File streams created where the TargetFileName ends with:
+    - `.bat`
+    - `.cmd`
+    - `.doc`
+    - `.hta`
+    - `.jse`
+    - `.lnk`
+    - `.ppt`
+    - `.ps1`
+    - `.ps2`
+    - `.reg`
+    - `.sct`
+    - `.vb`
+    - `.vbe`
+    - `.vbs`
+    - `.wsc`
+    - `.wsf`
+
+---
+### [Event ID 17 - PipeEvent (Pipe Created)](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon#event-id-17-pipeevent-pipe-created)
+### [Event ID 18 - PipeEvent (Pipe Connected)](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon#event-id-18-pipeevent-pipe-connected)
+The `<PipeEvent>` blocks define the rules for the generation of event IDs 17 and 18.
+
+The configuration uses inclusion-based filtering.
+
+The __include__ rules capture the following:
+- Pipe events where the PipeName contains:
+    - `paexec`
+    - `remcom`
+    - `csexec`
+    - `\lsadump`
+    - `\cachedump`
+    - `\wceservicepipe`
+    - `\isapi_http`
+    - `\isapi_dg`
+    - `\isapi_dg2`
+    - `\sdlrpc`
+    - `\ahexec`
+    - `\winsession`
+    - `\lsassw`
+    - `\46a676ab7f179e511e30dd2dc41bd388`
+    - `\9f81f59bc58452127884ce513865ed20`
+    - `\e710f28d59aa529d6792ca6ff0ca1b34`
+    - `\rpchlp_3`
+    - `\NamePipe_MoreWindows`
+    - `\pcheap_reuse`
+    - `\gruntsvc`
+    - `\583da945-62af-10e8-4902-a8f205c72b2e`
+    - `\bizkaz`
+    - `\svcctl`
+    - `\Posh`
+    - `\jaccdpqnvbrrxlaf`
+    - `\csexecsvc`
+    - `MSSE-` and `-server`
+- Pipe events where the PipeName begins with:
+    - `\postex_`
+    - `\postex_ssh_`
+    - `\status_`
+    - `\msagent_`
+
+---
+### [Event ID 19 - WmiEvent (WmiEventFilter activity detected)](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon#event-id-19-wmievent-wmieventfilter-activity-detected)
+### [Event ID 20 - WmiEvent (WmiEventConsumer activity detected)](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon#event-id-20-wmievent-wmieventconsumer-activity-detected)
+### [Event ID 21 - WmiEvent (WmiEventConsumerToFilter activity detected)](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon#event-id-21-wmievent-wmieventconsumertofilter-activity-detected)
+The `<WmiEvent>` blocks define the rules for the generation of event IDs 19, 20, and 21.
+
+The configuration defines a `<WmiEvent onmatch="exclude">` block with no rules.
+
+Using exclude with no rules means everything will be logged.
+
+---
+### [Event ID 22 - DNSEvent (DNS query)](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon#event-id-22-dnsevent-dns-query)
+The configuration uses exclusion-based filtering.
+
+The __exclude__ rules define the following exclusions:
+- Queries by process image beginning with `C:\ProgramData\Microsoft\Windows Defender\Platform\`
+- Queries where the QueryName is:
+    - `..localmachine`
+    - `localhost`
+    - `login.windows.net`
+    - `acdc-direct.office.com`
+    - `atm-fp-direct.office.com`
+    - `loki.delve.office.com`
+    - `management.azure.com`
+    - `messaging.office.com`
+    - `outlook.office365.com`
+    - `portal.azure.com`
+    - `protection.outlook.com`
+    - `substrate.office.com`
+    - `clients1.google.com`
+    - `clients2.google.com`
+    - `clients3.google.com`
+    - `clients4.google.com`
+    - `clients5.google.com`
+    - `clients6.google.com`
+    - `safebrowsing.googleapis.com`
+    - `ajax.googleapis.com`
+    - `cdnjs.cloudflare.com`
+    - `play.google.com`
+    - `content-autofill.googleapis.com`
+    - `disqus.com`
+    - `1rx.io`
+    - `adservice.google.com`
+    - `ampcid.google.com`
+    - `clientservices.googleapis.com`
+    - `googleadapis.l.google.com`
+    - `imasdk.googleapis.com`
+    - `l.google.com`
+    - `ml314.com`
+    - `mtalk.google.com`
+    - `update.googleapis.com`
+    - `www.googletagservices.com`
+    - `msocsp.com`
+    - `ocsp.comodoca.com` (Duplicate entry on line 1134)
+    - `ocsp.entrust.net` (Duplicate entry on line 1136)
+    - `ocsp.godaddy.com` (Duplicate entry on line 1129)
+    - `ocsp.int-x3.letsencrypt.org` (Duplicate entry on line 1140)
+    - `ocsp.msocsp.com`
+    - `ocsp.sectigo.com`
+    - `pki-goog.l.google.com`
+    - `ocsp.verisign.com`
+    - `status.rapidssl.com`
+    - `status.thawte.com`
+- Queries where the QueryName ends with:
+    - `.arpa.`
+    - `.arpa`
+    - `.msftncsi.com`
+    - `-pushp.svc.ms`
+    - `.b-msedge.net`
+    - `.bing.com`
+    - `.hotmail.com`
+    - `.live.com`
+    - `.live.net`
+    - `.s-microsoft.com`
+    - `.microsoft.com`
+    - `.microsoftonline.com`
+    - `.microsoftstore.com`
+    - `.ms-acdc.office.com`
+    - `.msedge.net`
+    - `.msn.com`
+    - `.msocdn.com`
+    - `.skype.com`
+    - `.skype.net`
+    - `.windows.com`
+    - `.windows.net.nsatc.net`
+    - `.windowsupdate.com`
+    - `.xboxlive.com`
+    - `.activedirectory.windowsazure.com`
+    - `.aria.microsoft.com`
+    - `.msauth.net`
+    - `.msftauth.net`
+    - `.office.net`
+    - `.opinsights.azure.com`
+    - `.res.office365.com`
+    - `.adobe.com`
+    - `.adobe.io`
+    - `.mozaws.net`
+    - `.mozilla.com`
+    - `.mozilla.net`
+    - `.mozilla.org`
+    - `.spotify.com`
+    - `.spotify.map.fastly.net`
+    - `.wbx2.com`
+    - `.webex.com`
+    - `.akadns.net`
+    - `.netflix.com`
+    - `aspnetcdn.com`
+    - `.typekit.net`
+    - `.stackassets.com`
+    - `.steamcontent.com`
+    - `.disqus.com`
+    - `.fontawesome.com`
+    - `.1rx.io`
+    - `.2mdn.net`
+    - `.3lift.com`
+    - `.adadvisor.net`
+    - `.adap.tv`
+    - `.addthis.com`
+    - `.adform.net`
+    - `.adnxs.com`
+    - `.adroll.com`
+    - `.adrta.com`
+    - `.adsafeprotected.com`
+    - `.adsrvr.org`
+    - `.adsymptotic.com`
+    - `.advertising.com`
+    - `.agkn.com`
+    - `.amazon-adsystem.com` (Duplicate entry on line 1022)
+    - `.analytics.yahoo.com`
+    - `.aol.com`
+    - `.betrad.com`
+    - `.bidswitch.net`
+    - `.casalemedia.com`
+    - `.chartbeat.net`
+    - `.cnn.com`
+    - `.convertro.com`
+    - `.criteo.com`
+    - `.criteo.net`
+    - `.crwdcntrl.net`
+    - `.demdex.net`
+    - `.domdex.com`
+    - `.dotomi.com`
+    - `.doubleclick.net`
+    - `.doubleverify.com`
+    - `.emxdgt.com`
+    - `.everesttech.net`
+    - `.exelator.com`
+    - `.google-analytics.com`
+    - `.googleadservices.com`
+    - `.googlesyndication.com`
+    - `.googletagmanager.com`
+    - `.googlevideo.com`
+    - `.gstatic.com`
+    - `.gvt1.com`
+    - `.gvt2.com`
+    - `.ib-ibi.com`
+    - `.jivox.com`
+    - `.krxd.net`
+    - `.lijit.com`
+    - `.mathtag.com`
+    - `.moatads.com`
+    - `.moatpixel.com`
+    - `.mookie1.com`
+    - `.myvisualiq.net`
+    - `.netmng.com`
+    - `.nexac.com`
+    - `.openx.net`
+    - `.optimizely.com`
+    - `.outbrain.com`
+    - `.pardot.com`
+    - `.phx.gbl`
+    - `.pinterest.com`
+    - `.pubmatic.com`
+    - `.quantcount.com`
+    - `.quantserve.com`
+    - `.revsci.net`
+    - `.rfihub.net`
+    - `.rlcdn.com`
+    - `.rubiconproject.com`
+    - `.scdn.co`
+    - `.scorecardresearch.com`
+    - `.serving-sys.com`
+    - `.sharethrough.com`
+    - `.simpli.fi`
+    - `.sitescout.com`
+    - `.smartadserver.com`
+    - `.snapads.com`
+    - `.spotxchange.com`
+    - `.taboola.com`
+    - `.taboola.map.fastly.net`
+    - `.tapad.com`
+    - `.tidaltv.com`
+    - `.trafficmanager.net`
+    - `.tremorhub.com`
+    - `.tribalfusion.com`
+    - `.turn.com`
+    - `.twimg.com`
+    - `.tynt.com`
+    - `.w55c.net`
+    - `.ytimg.com`
+    - `.zorosrv.com`
+    - `.pscp.tv`
+    - `.amazontrust.com` (Duplicate entry on line 1130)
+    - `.digicert.com`
+    - `.globalsign.com`
+    - `.globalsign.net`
+    - `.intel.com`
+    - `.symcb.com`
+    - `.symcd.com`
+    - `.thawte.com`
+    - `.usertrust.com` (Duplicate entry on line 1133)
+    - `.verisign.com`
+    - `ocsp.identrust.com` (Duplicate entry on line 1137)
+    - `pki.goog` (Duplicate entry on line 1128)
