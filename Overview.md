@@ -1,5 +1,4 @@
 ## Configuration Overview
----
 ### [Event ID 1 - ProcessCreate](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon#event-id-1-process-creation)
 The configuration uses exclusion-based filtering for ProcessCreate events.
 
@@ -777,5 +776,3 @@ The configuration does not define any rules for this event; as a result, no even
 This event is generated when an error occurred within Sysmon. They can happen if the system is under heavy load and certain tasks could not be performed or a bug exists in the Sysmon service.
 
 This event cannot be filtered.
-
----
