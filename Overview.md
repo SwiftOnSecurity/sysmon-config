@@ -137,6 +137,12 @@ The __exclude__ rules for this event define the following exclusions:
 - Connections where the destination IP address begins with `fe80:0:0:0`
 
 ---
+### [Event ID 4 - Sysmon service state changed](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon#event-id-4-sysmon-service-state-changed)
+The service state change event reports the state of the Sysmon service (started or stopped).
+
+This event cannot be filtered.
+
+---
 ### [Event ID 5 - ProcessTerminate](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon#event-id-5-process-terminated)
 The configuration uses inclusion-based filtering.
 
@@ -156,6 +162,12 @@ The __exclude__ rules for this event define the following exclusions:
 - Signed binaries where the signature begins with `Intel `
 
 ---
+### [Event ID 7 - ImageLoad](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon#event-id-7-image-loaded)
+The configuration defines a `<ImageLoad onmatch="include">` block with no rules.
+
+Using "include" with no rules means nothing in this section will be logged.
+
+---
 ### [Event ID 8 - CreateRemoteThread](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon#event-id-8-createremotethread)
 The configuration uses exclusion-based filtering.
 
@@ -170,6 +182,12 @@ The __exclude__ rules define the following exclusions:
     - `C:\Windows\system32\audiodg.exe`
 - Remote thread creations where the StartModule is `C:\Windows\system32\kernel32.dll`
 - Remote thread creations where the target image is `C:\Program Files (x86)\Google\Chrome\Application\chrome.exe`
+
+---
+### [Event ID 9 - RawAccessRead](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon#event-id-9-rawaccessread)
+The configuration defines a `<RawAccessRead onmatch="include">` block with no rules.
+
+Using "include" with no rules means nothing in this section will be logged.
 
 ---
 ### [Event ID 10 - ProcessAccess](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon#event-id-10-processaccess)
@@ -462,6 +480,14 @@ The __include__ rules capture the following:
     - `.wsf`
 
 ---
+### [Event ID 16 - ServiceConfigurationChange](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon#event-id-16-serviceconfigurationchange)
+This event logs changes in the Sysmon configuration - for example when the filtering rules are updated.
+
+This ONLY logs if the hash of the configuration changes. Running "sysmon.exe -c" with the current configuration will not be logged with Event ID 16.
+
+This event cannot be filtered.
+
+---
 ### [Event ID 17 - PipeEvent (Pipe Created)](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon#event-id-17-pipeevent-pipe-created)
 ### [Event ID 18 - PipeEvent (Pipe Connected)](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon#event-id-18-pipeevent-pipe-connected)
 The `<PipeEvent>` blocks define the rules for the generation of event IDs 17 and 18.
@@ -717,3 +743,39 @@ The __exclude__ rules define the following exclusions:
     - `.verisign.com`
     - `ocsp.identrust.com` (Duplicate entry on line 1137)
     - `pki.goog` (Duplicate entry on line 1128)
+
+---
+### [Event ID 23 - FileDelete (File Delete archived)](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon#event-id-23-filedelete-file-delete-archived)
+The configuration does not define any rules for this event; as a result, no events will be generated.
+
+---
+### [Event ID 24 - ClipboardChange (New content in the clipboard)](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon#event-id-24-clipboardchange-new-content-in-the-clipboard)
+The configuration does not define any rules for this event; as a result, no events will be generated.
+
+---
+### [Event ID 25 - ProcessTampering (Process image change)](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon#event-id-25-processtampering-process-image-change)
+The configuration does not define any rules for this event; as a result, no events will be generated.
+
+---
+### [Event ID 26 - FileDeleteDetected (File Delete logged)](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon#event-id-26-filedeletedetected-file-delete-logged)
+The configuration does not define any rules for this event; as a result, no events will be generated.
+
+---
+### [Event ID 27 - FileBlockExecutable](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon#event-id-27-fileblockexecutable)
+The configuration does not define any rules for this event; as a result, no events will be generated.
+
+---
+### [Event ID 28 - FileBlockShredding](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon#event-id-28-fileblockshredding)
+The configuration does not define any rules for this event; as a result, no events will be generated.
+
+---
+### [Event ID 29 - FileExecutableDetected](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon#event-id-29-fileexecutabledetected)
+The configuration does not define any rules for this event; as a result, no events will be generated.
+
+---
+### [Event ID 255 - Error](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon#event-id-255-error)
+This event is generated when an error occurred within Sysmon. They can happen if the system is under heavy load and certain tasks could not be performed or a bug exists in the Sysmon service.
+
+This event cannot be filtered.
+
+---
