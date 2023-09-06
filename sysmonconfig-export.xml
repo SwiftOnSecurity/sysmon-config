@@ -4,8 +4,8 @@
 	 _\ \/ // (_-</  ' \/ _ \/ _ \  / __ |/ /   / /  > _/_ _/ /__/ ,<   
 	/___/\_, /___/_/_/_/\___/_//_/ /_/ |_/_/   /_/  |_____/ \___/_/|_|  
 		/___/                                                           
-	Author:	ionstorm
-	Contributors: NerbalOne
+	Author:	@ionstorm
+	Contributors: @NerbalOne, @cyberkryption
 	Project:	https://github.com/ion-storm/sysmon-config
 	License:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
 	Methodology: Detect the most Techniques per data source in MITRE ATT&CK.
@@ -52,13 +52,11 @@
 				 Critical Risk: 90-100
 				 
 				 Levels: (from Sigma)
-				 (0) informational: Rule is intended for enrichment of events, e.g. by tagging them. No case or alerting should be triggered 
-				 by such rules because it is expected that a huge amount of events will match these rules.
-				 (1) low: Notable event but rarely an incident. Low rated events can be relevant in high numbers or combination with others. 
-				 Immediate reaction shouldn't be necessary, but a regular review is recommended.
-				 (2) medium: Relevant event that should be reviewed manually on a more frequent basis.
-				 (3) high: Relevant event that should trigger an internal alert and requires a prompt review.
-				 (4) critical: Highly relevant event that indicates an incident. Critical events should be reviewed immediately.
+				 (0) Informational: Rule is intended for enrichment of events, e.g. by tagging them. No case or alerting should be triggered by such rules because it is expected that a huge amount of events will match these rules.
+				 (1) Low: Notable event but rarely an incident. Low rated events can be relevant in high numbers or combination with others. Immediate reaction shouldn't be necessary, but a regular review is recommended.
+				 (2) Medium: Relevant event that should be reviewed manually on a more frequent basis.
+				 (3) High: Relevant event that should trigger an internal alert and requires a prompt review.
+				 (4) Critical: Highly relevant event that indicates an incident. Critical events should be reviewed immediately.
 				 
 				 False Positive Rates: (FP=?)
 				 (0) Zero False Positives rate
@@ -75,11 +73,10 @@
 				 
 				 Other Notes:
 				 The Rulename field has a hard limit of 255 characters, make the best of the size available, shorten tags and descriptions as needed.
-				 Add exclusions in line enclosed within a Compound rule rather than a global exclusion list.
+				 Add exclusions in line enclosed within a compound rule rather than a global exclusion list.
 				 
 				 Contribution Guidelines:
-				 Always submit new rule requests/pull requests in this format where possible, if the rule is highly accurate and should fire off a SIEM Alert replace Desc= with Alert=, 
-				 See Risk ratings and levels above for guidance.  
+				 Always submit new rule requests/pull requests in this format where possible, if the rule is highly accurate and should fire off a SIEM Alert replace Desc= with Alert=. See Risk ratings and levels above for guidance.  
 				 Example Rule:
 				<Rule name="Attack=None,Technique=None,Tactic=None,DS=None,Level=0,Risk=10,Desc=Your Description Here,Author=YourTwitter/Github" groupRelation="and">
 					<Your Rule Here/>
@@ -265,7 +262,7 @@
 				<ParentImage condition="contains any">C:\Users\;$Recycle;\Temp\;\Downloads\</ParentImage>
 				<CommandLine condition="is">\??\C:\WINDOWS\system32\conhost.exe 0xffffffff -ForceV1</CommandLine>
 				<Image condition="image">conhost.exe</Image>
-				<ParentImage condition="excludes any">C:\Program Files (x86)\N-able Technologies\Windows Agent\Temp\Msp.Ecosystem.Discovery.exe;TCIntegratorCommHelper.exe</ParentImage>
+				<ParentImage condition="excludes any">C:\Program Files (x86)\N-able Technologies\Windows Agent\Temp\Msp.Ecosystem.Discovery.exe;TCIntegratorCommHelper.exe</ParentImage> <!--NCentral exclusions-->
 			</Rule>
 			<Rule name="Attack=T1059,Technique=Command and Scripting Interpreter,Tactic=Execution,DS=Process: Process Creation,Level=3,Alert=Suspicious Console Host Parents,Risk=30" groupRelation="and">
 				<ParentImage condition="contains any">svchost.exe;lsass.exe;services.exe;smss.exe;winlogon.exe;explorer.exe;dllhost.exe;rundll32.exe;regsvr32.exe;userinit.exe;winit.exe;spoolsv.exe;wermgr.exe;csrss.exe;ctfmon.exe;werfault.exe</ParentImage>
@@ -519,7 +516,7 @@
 				<CommandLine condition="contains any">/create;-create;/change;-change</CommandLine>
 				<CurrentDirectory condition="excludes">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\</CurrentDirectory>
 				<ParentImage condition="excludes">C:\Program Files\Common Files\microsoft shared\ClickToRun\officesvcmgr.exe</ParentImage>
-				<CommandLine condition="excludes">Sentinel\AutoRepair</CommandLine>
+				<CommandLine condition="excludes">Sentinel\AutoRepair</CommandLine> <!--SentinelOne exclusion-->
 				<CommandLine condition="excludes">Update_Sysmon_Rules</CommandLine>
 			</Rule>
 			<Rule name="Attack=T1053.005,Technique=Scheduled Task/Job: Scheduled Task,Tactic=Execution,DS=Process: Process Creation,Level=2,Alert=Scheduled Task Created,Risk=100" groupRelation="and">
@@ -529,7 +526,7 @@
 			<Rule name="Attack=T1053.005,Technique=Scheduled Task,Tactic=Execution,DS=Process: Process Creation,Level=0,Desc=Schtasks task Run,Risk=60" groupRelation="and">
 				<Image condition="image">schtasks.exe</Image>
 				<CommandLine condition="contains any">/Run;-run</CommandLine>
-				<CommandLine condition="excludes">Sentinel\AutoRepair</CommandLine>
+				<CommandLine condition="excludes">Sentinel\AutoRepair</CommandLine> <!--SentinelOne exclusion-->
 				<CurrentDirectory condition="excludes">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\</CurrentDirectory>
 			</Rule>
 			<Rule name="Attack=T1053.005,Technique=Scheduled Task/Job: Scheduled Task,Tactic=Persistence,DS=Process: Process Creation,Level=2,Alert=Child process from schtasks" groupRelation="and">
@@ -9633,7 +9630,7 @@
 				<TargetFilename condition="begin with">C:\Users\</TargetFilename>
 				<TargetFilename condition="contains">\Downloads</TargetFilename>
 			</Rule>
-			<Rule name="Attack=T1036.008,Technique=Masquerading: Masquerade File Type,Tactic=Defense Evasion,DS=File: File Creation,Level=4,Alert=Pe File Detected under Unusual File extension,Risk=10" groupRelation="or">
+			<Rule name="Attack=T1036.008,Technique=Masquerading: Masquerade File Type,Tactic=Defense Evasion,DS=File: File Creation,Level=4,Alert=PE File Detected under Unusual File extension,Risk=10" groupRelation="or">
 				<TargetFilename condition="not end with">.exe</TargetFilename>
 				<TargetFilename condition="not end with">.dll</TargetFilename>
 				<TargetFilename condition="not end with">.sys</TargetFilename>
@@ -9653,6 +9650,20 @@
 	</RuleGroup>
 	<RuleGroup name="RG=FileExecutable Excludes" groupRelation="or">
 		<FileExecutableDetected onmatch="exclude">
+			<Rule name="SmartGit Exclusion" groupRelation="and"> <!-- Noisy on install -->
+				<TargetFilename condition="begin with">C:\Users</TargetFilename>
+				<TargetFilename condition="contains">Appdata</TargetFilename>
+				<TargetFilename condition="contains">smartgit</TargetFilename>
+			</Rule>
+			<Rule name="NCentral Exclusion" groupRelation="or">
+				<Image condition="is">C:\Program Files (x86)\N-able Technologies\Windows Agent\bin\agent.exe</Image>
+				<Image condition="is">C:\Program Files (x86)\N-able Technologies\Windows Software Probe\bin\wsp.exe</Image>
+				<TargetFilename condition="end with">Msp.Ecosystem.Discovery.exe</TargetFilename>
+			</Rule>
+			<Rule name="Windows Defender Exclusion" groupRelation="and">
+				<Image condition="begin with">C:\ProgramData\Microsoft\Windows Defender\Platform</Image>
+				<Image condition="end with">MsMpEng.exe</Image>
+			</Rule>
 		</FileExecutableDetected>
 	</RuleGroup>
 	</EventFiltering>
