@@ -1,7 +1,7 @@
 ﻿# Sysmon ATT&CK Configuration #
 The file provided should function as a great starting point for system monitoring in a self-contained package. This configuration and results should give you a good idea of what's possible for Sysmon. Please beware that you may need to fine tune and add exclusions depending on your environment. High CPU usage may be seen if exclusions are not added and one or more rules are firing off multiple times every second. 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**[sysmonconfig-export.xml](https://github.com/NerbalOne/sysmon-config/blob/master/sysmonconfig-export.xml)**
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**[sysmonconfig-export.xml](https://github.com/ion-storm/sysmon-config/blob/master/sysmonconfig-export.xml)**
 
 Pull requests and issue tickets are welcomed. Any new additions will be credited in-line or on Git. Tag your name with Author=YourName within the rulename field.
 
