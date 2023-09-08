@@ -22,9 +22,6 @@ copying files, we want to know. We also want to leave an audit trail by monitori
 If you have forensic registry keys, file locations, artifacts, behavior detections, and anything that may be beneficial here, feel free to put in a pull request.  
 The goal here is as much visibility as possible with accurate alerts that are not noisy.  
 
-
-This now has an Auto Updater script to update to the latest Sysmon config hourly.  This is great for mass deployments without having to manually update thousands of systems.
-
 ## Use ##
 
 ### Auto-Install with Auto Update Script:###
