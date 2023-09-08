@@ -7446,7 +7446,7 @@
 				<Image condition="excludes all">C:\Program Files (x86)\Microsoft\EdgeUpdate\Install\{;}\EDGEMITMP_;.tmp\setup.exe</Image>
 				<Image condition="excludes">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeClickToRun.exe</Image>
 				<Image condition="excludes">C:\Program Files\Microsoft Office\root\integration\integrator.exe</Image>
-				<Image condition="excludes all">C:\Program Files\Google\Chrome Beta\Application\;\Installer\setup.exe</Image>
+				<Image condition="excludes all">\Installer\setup.exe;C:\Program Files\Google\Chrome Beta\Application\</Image>
 				<Image condition="excludes all">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\Updates\;\OfficeClickToRun.exe</Image>
 			</Rule>
 			<!--MITRE ATT&CK TECHNIQUE: Exploitation for Privilege Escalation-->
@@ -9084,6 +9084,8 @@
 			</Rule>
 			<Rule name="Attack=None,Technique=None,Tactic=None,DS=Named Pipe: Named Pipe Metadata,Level=0,Desc=Anonymous Named Pipe Detected" groupRelation="and">
 				<PipeName condition="contains">Anonymous Pipe</PipeName>
+				<Image condition="excludes any">C:\Program Files\Cavelo\Cavelo Agent\cavelo_windows_amd64.exe;C:\Program Files\Cavelo\Cavelo Agent\parser.exe</Image> <!-- Cavelo Agent Exclusions -->
+				<Image condition="excludes any">C:\Program Files (x86)\N-Able Technologies\AutomationManagerAgent\AutomationManager.AgentService.exe;\AutomationManager.ScriptRunner64.exe</Image> <!-- NCentral RMM Exclusions -->
 			</Rule>
 			<!--Include Everything else to mark above rules-->
 			<!-- Disabled for now
@@ -9145,7 +9147,7 @@
 			<PipeName condition="is">\scerpc</PipeName>
 			<PipeName condition="is">\wkssvc</PipeName>
 			<PipeName condition="is">\ntapvsrq</PipeName>
-			<PipeName condition="contains">Anonymous Pipe</PipeName>
+			<PipeName condition="is">\AutomationManagerAgent</PipeName> <!-- Related to NCentral RMM -->
 		</PipeEvent>
 	</RuleGroup>
 	<!--SYSMON EVENT ID 19 & 20 & 21 : WMI EVENT MONITORING [WmiEvent]-->
@@ -9383,6 +9385,7 @@
 			<Image condition="begin with">C:\Program Files (x86)\CheckPoint\</Image>
 			<Image condition="begin with">C:\Program Files (x86)\Fortinet\</Image>
 			<Image condition="begin with">C:\Program Files\SentinelOne\</Image>
+			<Image condition="end with">\Ranger\SentinelRanger.exe</Image>
 			<Image condition="begin with">C:\Program Files (x86)\OpenDNS\OpenDNS Connector</Image>
 			<Image condition="begin with">C:\Program Files (x86)\Razer\Razer Services\</Image>
 			<Image condition="begin with">C:\Program Files (x86)\Trend Micro\</Image>
@@ -9399,6 +9402,7 @@
 			<Image condition="image">C:\Program Files (x86)\Lenovo\System Update\Tvsukernel.exe</Image>
 			<Image condition="image">C:\Program Files\VMware\vCenter Server\jre\bin\java.exe</Image>
 			<Image condition="image">C:\Program Files\VMware\vCenter Server\python\python.exe</Image>
+			<Image condition="image">C:\Program Files\Veeam\Backup and Replication\Backup\Veeam.Backup.Manager.exe</Image>
 			<Image condition="image">C:\Windows\SysWOW64\SearchProtocolHost.exe</Image>
 			<Image condition="image">C:\Windows\System32\dsregcmd.exe</Image>
 			<Image condition="image">C:\Windows\sysmon64.exe</Image>
@@ -9675,7 +9679,7 @@
 		</FileDeleteDetected>
 	</RuleGroup>
 	<!-- SYSMON EVENT ID 29 : File Executable Detected -->
-	<!--Fields: ProcessGuid, ProcessId, User, Image, TargetFilename, Hashes -->
+	<!-- Fields: ProcessGuid, ProcessId, User, Image, TargetFilename, Hashes -->
 	<!-- Key Authors in this section are Florian Roth as a majority Contributer from: https://github.com/Neo23x0/sysmon-config/blob/master/sysmonconfig-export.xml -->
 	<RuleGroup name="RG=FileExecutable Includes" groupRelation="or">
 		<FileExecutableDetected onmatch="include">
@@ -9702,6 +9706,7 @@
 				<TargetFilename condition="not end with">.mui</TargetFilename>
 				<TargetFilename condition="not end with">.ime</TargetFilename>
 				<TargetFilename condition="not end with">.tsp</TargetFilename>
+				<TargetFilename condition="not end with">.ico</TargetFilename> <!-- Seen used by Fortinet Forticlient -->
 				<Image condition="excludes">C:\Windows\system32\MpSigStub.exe</Image> <!-- 	Related to Microsoft Windows Defender Virus Definition Module -->
 			</Rule>
 			<Rule name="Attack=T1059.001,Technique=Command and Scripting Interpreter: PowerShell,Tactic=Execution,DS=File: File Creation,Level=0,Desc=,Risk=10,Alert=Powershell Creating Executables" groupRelation="and">
