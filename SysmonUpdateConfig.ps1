@@ -6,7 +6,7 @@ $sysmonPath = "C:\ProgramData\Sysmon\sysmon.exe"
 $sysmonConfigPath = "C:\ProgramData\Sysmon\sysmonconfig-export.xml"
 
 # Define Sysmon Config URL
-$sysmonConfigURL = "https://raw.githubusercontent.com/NerbalOne/sysmon-config/master/sysmonconfig-export.xml"
+$sysmonConfigURL = "https://raw.githubusercontent.com/ion-storm/sysmon-config/master/sysmonconfig-export.xml"
 
 # Download the Latest Sysmon Config
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
