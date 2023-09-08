@@ -28,6 +28,7 @@ else {
 }
 
 # Download Sysmon, Config, and Update Script
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Invoke-WebRequest -Uri $sysmonURL -OutFile $sysmonPath
 Invoke-WebRequest -Uri $sysmonConfigURL -OutFile $sysmonConfigPath
 Invoke-WebRequest -Uri $sysmonUpdateConfig -OutFile $sysmonUpdatePath
