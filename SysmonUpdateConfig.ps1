@@ -9,6 +9,7 @@ $sysmonConfigPath = "C:\ProgramData\Sysmon\sysmonconfig-export.xml"
 $sysmonConfigURL = "https://raw.githubusercontent.com/NerbalOne/sysmon-config/master/sysmonconfig-export.xml"
 
 # Download the Latest Sysmon Config
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Invoke-WebRequest -Uri $sysmonConfigURL -OutFile $sysmonConfigPath
 
 # Run sysmon.exe with Config
