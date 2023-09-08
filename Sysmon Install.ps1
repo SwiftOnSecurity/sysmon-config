@@ -3,8 +3,8 @@
 
 # Define Sysmon URLs
 $sysmonURL = "https://live.sysinternals.com/sysmon.exe"
-$sysmonConfigURL = "https://raw.githubusercontent.com/NerbalOne/sysmon-config/master/sysmonconfig-export.xml"
-$sysmonUpdateConfig = "https://raw.githubusercontent.com/NerbalOne/sysmon-config/master/SysmonUpdateConfig.ps1"
+$sysmonConfigURL = "https://raw.githubusercontent.com/ion-storm/sysmon-config/master/sysmonconfig-export.xml"
+$sysmonUpdateConfig = "https://raw.githubusercontent.com/ion-storm/sysmon-config/master/SysmonUpdateConfig.ps1"
 
 # Define Local Path for Sysmon File and Sysmon Config
 $sysmonPath = "C:\Programdata\Sysmon\sysmon.exe"
