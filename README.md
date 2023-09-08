@@ -25,7 +25,7 @@ The goal here is as much visibility as possible with accurate alerts that are no
 
 ## Use ##
 
-### Auto-Install with Auto Update Script:###
+### Auto Install with Auto Update Script ###
 The two below PowerShell scripts that are contained in this repo will download and install Sysmon and the config along with creating a scheduled task to run hourly to update the config.
 ~~~~
 Sysmon Install.ps1
