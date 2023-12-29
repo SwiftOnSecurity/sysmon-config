@@ -1540,6 +1540,7 @@
 			<Hashes condition="contains">IMPHASH=5B76DA3ACDEDC8A5CDF23A798B5936B4</Hashes> <!-- EDRSandBlast -->
 			<Hashes condition="contains">IMPHASH=CB2B65BB77D995CC1C0E5DF1C860133C</Hashes> <!-- EDRSandBlast -->
 			<Hashes condition="contains">IMPHASH=40445337761D80CF465136FAFB1F63E6</Hashes> <!-- EDRSandBlast -->
+			<Hashes condition="contains">IMPHASH=8A790F401B29FA87BC1E56F7272B3AA6</Hashes> <!-- EDRSilencer -->
 			<Hashes condition="contains">MD5=7B17F15713FCF13C764535AA2BDF52AA</Hashes>													<!-- ShaprEvtMute -->
 			<Hashes condition="contains">SHA1=4E18320493042BCD7D21B53E258974BC460ACC78</Hashes>										<!-- ShaprEvtMute -->
 			<Hashes condition="contains">SHA256=477DFE485F5BD9540CC83E88FC04AAFB6DE49CF1ADC6BD857D5D6F4C1730A6D1</Hashes>	<!-- ShaprEvtMute -->
