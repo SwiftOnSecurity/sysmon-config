@@ -1,58 +1,15 @@
 <!--
 	sysmon-config | A Sysmon configuration focused on default high-quality event tracing and easy customization by the community
-	Source version:	74 | Date: 2021-07-08
 	Source project:	https://github.com/SwiftOnSecurity/sysmon-config
 	Source license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
 
-	REQUIRED: Sysmon version 13 or higher (due to changes in syntax and bug-fixes)
+	WARNING: THIS CONFIG INCLUDES BLOCKING RULES THAT MAY CAUSE ISSUES ENDSYSTEMS!
+	         Test this configuration intensively before using it on productive systems
+
+	LAST CHANGE: 04.12.2022
+
+	REQUIRED: Sysmon version 14 or higher (due to changes in syntax and bug-fixes)
 		https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon
-
-	NOTE: To collect Sysmon logs centrally for free, see https://aka.ms/WEF | Command to allow log access to the Network Service:
-		wevtutil.exe sl Microsoft-Windows-Sysmon/Operational /ca:O:BAG:SYD:(A;;0xf0005;;;SY)(A;;0x5;;;BA)(A;;0x1;;;S-1-5-32-573)(A;;0x1;;;NS)
-
-	NOTE: Do not let the size and complexity of this configuration discourage you from customizing it or building your own.
-		This configuration is based around known, high-signal event tracing, and thus appears complicated, but it is only very
-		detailed. Significant effort over years has been invested in front-loading as much filtering as possible onto the
-		client. This is to make analysis of intrusions possible by hand, and to try to surface anomalous activity as quickly
-		as possible to technicians armed only with Event Viewer. Its purpose is to democratize system monitoring for all organizations.
-
-	NOTE: Sysmon is NOT a whitelist solution or HIDS correlation engine, it is a computer change logging tool.
-		Do NOT ignore everything possible. Sysmon's purpose is providing context during a threat or problem investigation. Legitimate
-		processes are routinely used by threats - do not blindly exclude them. Additionally, be mindful of process-hollowing / imitation.
-
-	NOTE: By default this monitors DNS, which is extremely noisy. If you are starting out on your monitoring journey, just remove that section.
-		You can remove DNS events from Event Viewer screen by applying a 'Filter Current View' for event IDs of: -22
-		Additionally, if you want to monitor DNS, you should deploy client-side adblocking to reduce lookups. See the DNS section for info.
-
-	NOTE: This configuration is designed for PER-MACHINE installs of Chrome and OneDrive. That moves their binaries out of user-controlled folders.
-		Otherwise, attackers could imitate these common applications, and bypass your logging. Below are silent upgrades you can do, no user impact:
-		- https://docs.microsoft.com/en-us/onedrive/per-machine-installation
-		- https://cloud.google.com/chrome-enterprise/browser/download/
-		- As of 2021-02-16 there is no machine-level version of Microsoft Teams. The one provided copies itself to the user profile.
-
-	NOTE: Sysmon is not hardened against an attacker with admin rights. Additionally, this configuration offers an attacker, willing
-		to study it, limited ways to evade some of the logging. If you are in a very high-threat environment, you should consider a broader,
-		log-most approach. However, in the vast majority of cases, an attacker will bumble through multiple behavioral traps which
-		this configuration monitors, especially in the first minutes.
-
-	NOTE: If you encounter unexplainable event inclusion/exclusion, you may have a second Sysmon instance installed under a different exe filename.
-		To clear this, try downloading the latest version and uninstalling with -u force. If it hangs, kill the processes and run it again to cleanup.
-
-	TECHNICAL:
-	- Run sysmon.exe -? for a briefing on Sysmon configuration.
-	- Sysmon XML cannot use the AMPERSAND sign. Replace it with this: &amp;
-	- Sysmon 8+ can track which rule caused an event to be logged through the "RuleName" field.
-	- If you only specify exclude for a filtering subsection, everything in that subsection is logged by default.
-	- Some Sysmon monitoring abilities are not meant for widely deployed general-purpose use due to performance impact. Depends on environment.
-	- Duplicate or overlapping "Include" rules do not result in duplicate events being logged.
-	- All characters enclosed by XML tags are always interpreted literally. Sysmon does not support wildcards (*), alternate characters, or RegEx.
-	- In registry events, the value name is appended to the full key path with a "\" delimiter. Default key values are named "\(Default)"
-	- "Image" is a technical term for a compiled binary file like an EXE or DLL. Also, it can match just the filename, or entire path.
-	- "ProcessGuid" and "LoginGuid" are not random, they contain some embedded information. https://gist.github.com/mattifestation/0102042160c9a60b2b847378c0ef70b4
-
-	FILTERING: Filter conditions available for use are: is,is not,contains,contains any,contains all,excludes,excludes any,excludes all,begin with,end with,less than,more than,image
-	- The "image" filter is usable on any field. Same as "is" but can either match entire string, or only the text after last "\". Credit: @mattifestation
-
 -->
 
 <Sysmon schemaversion="4.90">
@@ -454,12 +411,12 @@
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, ImageLoaded, Hashes, Signed, Signature, SignatureStatus-->
 	<RuleGroup name="" groupRelation="or">
 		<ImageLoad onmatch="include">
-			<!--NOTE: Using "include" with no rules means nothing in this section will be logged-->
 			<ImageLoaded condition="begin with">C:\PerfLogs\</ImageLoaded>
 			<ImageLoaded condition="begin with">C:\Users\Public\</ImageLoaded>
 			<ImageLoaded condition="is">C:\Windows\System32\WLBSCTRL.dll</ImageLoaded> <!-- SCM DLL sideloading -->
 			<ImageLoaded condition="is">C:\Windows\System32\TSMSISrv.dll</ImageLoaded> <!-- SCM DLL sideloading -->
 			<ImageLoaded condition="is">C:\Windows\System32\TSVIPSrv.dll</ImageLoaded> <!-- SCM DLL sideloading -->
+			<!--NOTE: Using "include" with no rules means nothing in this section will be logged-->
 		</ImageLoad>
 	</RuleGroup>
 
@@ -927,7 +884,6 @@
 			<TargetFilename condition="contains">Startup</TargetFilename> <!--ADS startup | Example: [ https://www.hybrid-analysis.com/sample/a314f6106633fba4b70f9d6ddbee452e8f8f44a72117749c21243dc93c7ed3ac?environmentId=100 ] -->
 			<TargetFilename condition="end with">.bat</TargetFilename> <!--Batch scripting-->
 			<TargetFilename condition="end with">.cmd</TargetFilename> <!--Batch scripting | Credit @ion-storm -->
-			<TargetFilename condition="end with">.chm</TargetFilename> <!--Batch scripting | Credit @ion-storm -->
 			<TargetFilename condition="end with">.doc</TargetFilename> <!--Office doc potentially with macro -->
 			<TargetFilename condition="end with">.hta</TargetFilename> <!--Scripting-->
 			<TargetFilename condition="end with">.jse</TargetFilename> <!--Registry File-->
@@ -1074,7 +1030,7 @@
 		<!--OPERATIONS:	Most DNS traffic is web advertising. To significantly reduce DNS queries and malware ads, enable client-side advertising filtering via Group Policy. This is easy.
 				Internet Explorer: https://decentsecurity.com/adblocking-for-internet-explorer-deployment/
 				Chrome: https://support.google.com/chrome/a/answer/187202?hl=en#zippy=%2Cwindows
-						https://decentsecurity.com/ublockorigin-deployment-enterprise/
+					https://decentsecurity.com/ublockorigin-deployment-enterprise/
 				Firefox: https://github.com/mozilla/policy-templates/blob/master/windows/en-US/firefox.adml
 				Also note, this configuration is designed for United States computers. Your country's users will may need customization to reduce noise.
 			-->
@@ -1387,15 +1343,16 @@
 			Sysinternals forum or over Twitter (@markrussinovich)."-->
 		<!--Cannot be filtered.-->
 
-	<!--SYSMON EVENT ID 29 : FILE EXE DETECTED [FileExecutableDetected]-->
-		<!--EVENT 29: "File Executable Detected"-->
-		<!--COMMENT:	This event is generated when an executable gets written to disk
-			[ https://medium.com/@olafhartong/sysmon-15-0-file-executable-detected-40fd64349f36 ]
+
+	<!--SYSMON EVENT ID 27 : FILE BLOCK [FileBlockExecutable]-->
+		<!--EVENT 27: "File Block Executable"-->
+		<!--COMMENT:	This event is generated when an executable gets blocked
+			[ https://medium.com/@olafhartong/sysmon-14-0-fileblockexecutable-13d7ba3dff3e ]
 		-->
 
-	<RuleGroup name="Suspicious / Malicious Exe Download" groupRelation="or">
-		<FileExecutableDetected onmatch="include">
-			<!-- Executables dropped to suspicious folders : harder matches -->
+	<RuleGroup name="ImageBlock" groupRelation="or">
+		<FileBlockExecutable onmatch="include">
+			<!-- Executables dropped to suspicious folders -->
 			<TargetFilename condition="begin with">C:\Users\Public\</TargetFilename> <!-- often used staging directories; could cause false positives --> 
 			<TargetFilename condition="begin with">C:\Perflogs\</TargetFilename> <!-- often used staging directories --> 
 			<TargetFilename condition="begin with">C:\Windows\Fonts\</TargetFilename> <!-- often used staging directories --> 
@@ -1410,8 +1367,8 @@
 			<TargetFilename condition="contains all">C:\Users\;\Music\</TargetFilename> <!-- often used staging directories in User folders --> 
 			<TargetFilename condition="contains all">C:\Users\;\Pictures\</TargetFilename> <!-- often used staging directories in User folders --> 
 			<TargetFilename condition="contains all">C:\Users\;\Videos\</TargetFilename> <!-- often used staging directories in User folders --> 
-			<TargetFilename condition="contains all">C:\Users\;\Contacts\</TargetFilename> <!-- often used staging directories in User folders -->
-
+			<TargetFilename condition="contains all">C:\Users\;\Contacts\</TargetFilename> <!-- often used staging directories in User folders --> 
+			
 			<!-- Executables double extensions -->
 			<TargetFilename condition="end with">.pdf.exe</TargetFilename>
 			<TargetFilename condition="end with">.doc.exe</TargetFilename>
@@ -1438,7 +1395,7 @@
 			<TargetFilename condition="end with">\EvtMuteHook.dll</TargetFilename>
 			<TargetFilename condition="end with">\SysmonEOP.exe</TargetFilename>
 
-			<!-- Hacktools based on Imphashes -->
+			<!-- Hacktool Blocks based on Imphashes -->
 			<Hashes condition="contains">IMPHASH=BCCA3C247B619DCD13C8CDFF5F123932</Hashes> <!-- PetitPotam -->
 			<Hashes condition="contains">IMPHASH=3A19059BD7688CB88E70005F18EFC439</Hashes> <!-- PetitPotam -->
 			<Hashes condition="contains">IMPHASH=bf6223a49e45d99094406777eb6004ba</Hashes> <!-- PetitPotam -->
@@ -1582,8 +1539,9 @@
 			<Image condition="image">hh.exe</Image>
 			<Image condition="image">calc.exe</Image>
 			<Image condition="image">mspaint.exe</Image>
-		</FileExecutableDetected>
+		</FileBlockExecutable>
 	</RuleGroup>
+
 
 	<!-- LOL DRIVER Sysmon Rules -->
 		<!--COMMENT: The following rule groups were imported from the LOLDrivers project
@@ -1592,7 +1550,7 @@
 
 			What happens: 
 				- Malicious driver load > report only
-				- Malicious driver drop > report only (if you want to block things, check the *-block.xml config)
+				- Malicious driver drop > block
 				- Vulnerable driver load > report only
 				- Vulnerable driver drop > report only
 
@@ -1668,8 +1626,8 @@
 			</DriverLoad>
 		</RuleGroup>
 
-		<RuleGroup name="Malicious Driver Drop Detected" groupRelation="or">
-			<FileExecutableDetected onmatch="include">
+		<RuleGroup name="Malicious Driver Blocked" groupRelation="or">
+			<FileBlockExecutable onmatch="include">
                 <Hashes condition="contains">SHA256=56066ed07bad3b5c1474e8fae5ee2543d17d7977369b34450bd0775517e3b25c</Hashes>
                 <Hashes condition="contains">SHA256=06a0ec9a316eb89cb041b1907918e3ad3b03842ec65f004f6fa74d57955573a4</Hashes>
                 <Hashes condition="contains">SHA256=86047bb1969d1db455493955fd450d18c62a3f36294d0a6c3732c88dfbcc4f62</Hashes>
@@ -1733,7 +1691,7 @@
                 <Hashes condition="contains">SHA256=42b22faa489b5de936db33f12184f6233198bdf851a18264d31210207827ba25</Hashes>
                 <Hashes condition="contains">SHA256=f461414a2596555cece5cfee65a3c22648db0082ca211f6238af8230e41b3212</Hashes>
                 <Hashes condition="contains">SHA256=770f33259d6fb10f4a32d8a57d0d12953e8455c72bb7b60cb39ce505c507013a</Hashes>
-			</FileExecutableDetected>
+			</FileBlockExecutable>
 		</RuleGroup>
 
 		<RuleGroup name="Vulnerable Driver Load" groupRelation="or">
@@ -3171,6 +3129,7 @@
                 <Hashes condition="contains">SHA256=55963284bbd5a3297f39f12f0d8a01ed99fe59d008561e3537bcd4db4b4268fa</Hashes>
 			</FileExecutableDetected>
 		</RuleGroup>
+
 
 	</EventFiltering>
 </Sysmon>

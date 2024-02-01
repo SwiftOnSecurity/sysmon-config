@@ -4,3 +4,4 @@ sysmon.exe
 *.exe
 *.cfg
 *.zip
+.vscode/
