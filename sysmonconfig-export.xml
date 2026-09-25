@@ -597,6 +597,7 @@
 			<TargetObject name="T1060" condition="contains">CurrentVersion\Windows\Run</TargetObject> <!--Windows: [ https://msdn.microsoft.com/en-us/library/jj874148.aspx ] -->
 			<TargetObject name="T1060" condition="contains">CurrentVersion\Winlogon\Shell</TargetObject> <!--Windows: [ https://msdn.microsoft.com/en-us/library/ms838576(v=winembedded.5).aspx ] -->
 			<TargetObject name="T1060" condition="contains">CurrentVersion\Winlogon\System</TargetObject> <!--Windows [ https://www.exterminate-it.com/malpedia/regvals/zlob-dns-changer/118 ] -->
+			<TargetObject name="T1053" condition="contains">Schedule\TaskCache</TargetObject> <!--Windows [ https://www.microsoft.com/en-us/security/blog/2022/04/12/tarrask-malware-uses-scheduled-tasks-for-defense-evasion/ ] -->
 			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify</TargetObject> <!--Windows: Autorun location [ https://attack.mitre.org/wiki/Technique/T1004 ] [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
 			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\Shell</TargetObject> <!--Windows: [ https://technet.microsoft.com/en-us/library/ee851671.aspx ] -->
 			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\Userinit</TargetObject> <!--Windows: Autorun location [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
